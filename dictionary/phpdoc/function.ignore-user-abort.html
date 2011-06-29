@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クライアントの接続が切断された際にスクリプトの実行を終了するかどうかを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.highlight-string.html">highlight_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pack.html">pack</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ignore-user-abort" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ignore_user_abort</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ignore_user_abort</span> &mdash; <span class="dc-title">クライアントの接続が切断された際にスクリプトの実行を終了するかどうかを設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ignore-user-abort-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ignore_user_abort</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   クライアントの接続が切断された際にスクリプトの実行を終了するかどうかを設定します。
+  </p>
+  <p class="para">
+   PHP をコマンドラインスクリプトとして実行していて
+   スクリプトを終了させずに tty が消えた場合は、
+   次に何かを書こうとしたときにスクリプトが終了します。これは
+   <i><tt class="parameter">value</tt></i> が <b><tt>TRUE</tt></b> に設定されていても同じです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ignore-user-abort-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定すると、この関数は ini 項目 <a href="misc.configuration.html#ini.ignore-user-abort" class="link">ignore_user_abort</a>
+       に <i><tt class="parameter">value</tt></i> の値を設定します。
+       省略した場合、この関数は前の設定をそのまま返し、何も変更しません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ignore-user-abort-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   以前の設定を表す integer 値を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ignore-user-abort-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3116">
+    <p><b>例1 <span class="function"><b>ignore_user_abort()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ユーザによる中断を無視し、<br />//&nbsp;スクリプトを永遠に実行させます<br /></span><span style="color: #0000BB">ignore_user_abort</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">set_time_limit</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'PHP&nbsp;における接続ハンドリングのテスト'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;無意味なループを繰り返します。<br />//&nbsp;きっと誰かが他のページに移動したり<br />//&nbsp;"中止"&nbsp;ボタンを押したりしてくれるでしょう<br /></span><span style="color: #007700">while(</span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;接続失敗?<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if(</span><span style="color: #0000BB">connection_status</span><span style="color: #007700">()&nbsp;!=&nbsp;</span><span style="color: #0000BB">CONNECTION_NORMAL</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;10&nbsp;秒間お休み<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;ここに到達したということは、while&nbsp;ループ内で<br />//&nbsp;'break'&nbsp;が実行されたのでしょう<br /><br />//&nbsp;ここで、ログを記録したりなどの必要な処理を行います<br />//&nbsp;これは、ブラウザに依存せずに行えます<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.ignore-user-abort-notes">
+  <h3 class="title">注意</h3>
+  <p class="para">
+   PHP は、クライアントに情報を送信しない限り
+   ユーザが接続を切断したかどうかを検出できません。
+   単に echo 文を使っただけでは、情報が送信されたかどうかを保証できません。
+   <span class="function"><a href="function.flush.html" class="function">flush()</a></span> を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ignore-user-abort-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.connection-aborted.html" class="function" rel="rdfs-seeAlso">connection_aborted()</a> - クライアントとの接続が切断されているかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.connection-status.html" class="function" rel="rdfs-seeAlso">connection_status()</a> - 接続ステータスのビットフィールドを返す</span></li>
+    <li class="member">
+     PHP における接続処理についての説明は
+     <a href="features.connection-handling.html" class="link">接続処理</a>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.highlight-string.html">highlight_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pack.html">pack</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

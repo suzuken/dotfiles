@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>コネクションプールに memcached サーバを追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.add.html">Memcache::add</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.close.html">Memcache::close</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcache.addserver" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcache::addServer</h1>
+  <p class="verinfo">(PECL memcache &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">Memcache::addServer</span> &mdash; <span class="dc-title">コネクションプールに memcached サーバを追加する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-memcache.addserver-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>Memcache::addServer</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 11211</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$persistent</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$weight</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeout</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$retry_interval</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$status</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$failure_callback</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeoutms</tt></span>
+  ]]]]]]]] )</div>
+
+  
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcache::addServer()</b></span> は、コネクションプールに
+   サーバを追加します。
+   実際の接続は、最初に使用する際に確立されます。
+   <span class="function"><b>Memcache::addServer()</b></span> を使用してオープンされた
+   接続は、スクリプトの実行終了時に自動的に閉じられます。
+   <span class="function"><a href="memcache.close.html" class="function">Memcache::close()</a></span> を使用して閉じることも可能です。
+   <span class="function"><b>memcache_add_server()</b></span> 関数を使用することも可能です。
+  </p>
+  
+  <p class="para">
+   (<span class="function"><a href="memcache.connect.html" class="function">Memcache::connect()</a></span> および
+   <span class="function"><a href="memcache.pconnect.html" class="function">Memcache::pconnect()</a></span> ではなく)
+   このメソッドを使用すると、ネットワーク接続は
+   それが実際に必要となるときまで確立されません。
+   つまり、大量のサーバをプールに追加した場合に、
+   それらすべてが使用されることはないとしてもオーバーヘッドが発生しないということです。
+  </p>
+  
+  <p class="para">
+   他のサーバが使用可能である場合、あらゆるメソッドのあらゆる段階について
+   ユーザが意識しないままにフェイルオーバー処理が行われます。
+   ソケットあるいは Memcaches サーバレベルで発生したあらゆるエラー
+   (ただし out-of-memory は除く) に対してフェイルオーバーが動作します。
+   既存のキーを追加しようとしたなどの通常のクライアントエラーの場合は、
+   フェイルオーバー処理は起動しません。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、Memcache バージョン 2.0.0 で追加されました。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcache.addserver-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるホストを指定します。
+       このパラメータには別のトランスポート層を指定することもできます。たとえば
+       <i>unix:///path/to/memcached.sock</i>
+       のようにすると Unix ドメインソケットを使用できます。この場合、
+       <i><tt class="parameter">port</tt></i> は <i>0</i>
+       を指定しなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるポートを指定します。
+       Unix ドメインソケットを使用する場合は、このパラメータを <i>0</i>
+       とします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">persistent</tt></i></span>
+     <dd>
+
+      <p class="para">
+       持続的な接続を使用するかどうかを指定します。
+       デフォルトは <b><tt>TRUE</tt></b> です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">weight</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このサーバに対して割り当てる容器の数を指定します。これは、
+       このサーバが選択される可能性を左右します。選択される可能性は、
+       すべてのサーバの weight の合計に対するこのパラメータの割合で
+       決まります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デーモンへの接続の際に使用する値 (秒単位) です。
+       デフォルト値を 1 秒でも変更する前には十分注意してください。
+       接続が遅くなってしまうと、 キャッシュ処理のメリットが
+       なくなってしまいます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">retry_interval</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サーバとの接続が失敗した際に再試行を行う頻度を設定します。
+       デフォルト値は 15 秒です。このパラメータを -1 にすると、
+       自動的な再試行を行いません。
+       <span class="function"><a href="function.dl.html" class="function">dl()</a></span> を使用してこの拡張モジュールが動的に
+       読み込まれている場合は、このパラメータおよび
+       <i><tt class="parameter">persistent</tt></i> は何の効果も及ぼしません。
+      </p>
+      <p class="para">
+       失敗した接続構造体は、個々にタイムアウト値を持っており、
+       タイムアウト時間が経過するまでは、バックエンドから新たな要求が来ても
+       その構造体はスキップされます。時間が経過すると、
+       その接続が無事再接続されるか、あるいはさらに
+       <i><tt class="parameter">retry_interval</tt></i> 秒の間、接続失敗と記録されます。
+       典型的な効果は、ウェブサーバの各子プロセスがページを送り出す際に
+       <i><tt class="parameter">retry_interval</tt></i> 秒ごとに接続を再試行することです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">status</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サーバがオンライン状態であるかどうかを制御します。このパラメータを
+       <b><tt>FALSE</tt></b> にし、<i><tt class="parameter">retry_interval</tt></i> を -1
+       と設定すると、失敗したサーバもコネクションプールに残します。
+       これにより、キー配布アルゴリズムに影響を与えないようにします。
+       このサーバへのリクエストは、フェイルオーバーされるか失敗します。
+       どちらになるかは <i><tt class="parameter">memcache.allow_failover</tt></i>
+       の設定によって決まります。デフォルトは <b><tt>TRUE</tt></b> で、
+       サーバがオンライン状態であることを意味します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">failure_callback</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エラーが発生した際に実行されるコールバック関数を指定できるようにします。
+       コールバック関数は、フェイルオーバー処理の前に実行されます。
+       この関数は、ふたつの引数 (ホスト名、失敗したサーバのポート)
+       を受け取ります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeoutms</tt></i></span>
+     <dd>
+
+      <p class="para">
+       
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcache.addserver-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcache.addserver-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3559">
+    <p><b>例1 <span class="function"><b>Memcache::addServer()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;オブジェクト指向の&nbsp;API&nbsp;*/<br /><br /></span><span style="color: #0000BB">$memcache&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host2'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;手続き型の&nbsp;API&nbsp;*/<br /><br /></span><span style="color: #0000BB">$memcache_obj&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">memcache_add_server</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'memcache_host2'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcache.addserver-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="memcache.connect.html" class="function" rel="rdfs-seeAlso">Memcache::connect()</a> - memcached サーバへの接続をオープンする</span></li>
+    <li class="member"><span class="function"><a href="memcache.pconnect.html" class="function" rel="rdfs-seeAlso">Memcache::pconnect()</a> - memcached サーバへの持続的な接続をオープンする</span></li>
+    <li class="member"><span class="function"><a href="memcache.close.html" class="function" rel="rdfs-seeAlso">Memcache::close()</a> - memcached サーバとの接続を閉じる</span></li>
+    <li class="member"><span class="function"><a href="memcache.setserverparams.html" class="function" rel="rdfs-seeAlso">Memcache::setServerParams()</a> - サーバのパラメータおよび状態を、実行時に変更する</span></li>
+    <li class="member"><span class="function"><a href="memcache.getserverstatus.html" class="function" rel="rdfs-seeAlso">Memcache::getServerStatus()</a> - サーバの状態を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.add.html">Memcache::add</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.close.html">Memcache::close</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

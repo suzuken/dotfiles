@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ユーザが投稿したデータ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.globals.html">グローバル変数の登録機能の使用法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.magicquotes.html">マジッククオート</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="security.variables" class="chapter">
+ <h1>ユーザが投稿したデータ</h1>
+
+ <p class="para">
+  多くの <acronym title="PHP: Hypertext Preprocessor">PHP</acronym> のプログラムで最も脆弱な部分は、言語自体に起因するものではなく、
+  単にセキュリティを考慮して書かれていないコードの問題です。そのため、
+  指定したコードの部分の意味を常に時間をかけて吟味し、
+  予想外の変数が投稿された場合に有り得る損害を確かめる必要があります。
+  <div class="example" id="example-309">
+   <p><b>例12 危険な変数の使用</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ユーザのホームディレクトリからファイルを削除します...&nbsp;または他の誰<br />//&nbsp;かのディレクトリかも?<br /></span><span style="color: #0000BB">unlink&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$evil_var</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;彼らのアクセスのログを書き込む..&nbsp;または違うかも?<br /></span><span style="color: #0000BB">fputs&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$evil_var</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;何かちょっとしたことを実行..&nbsp;または&nbsp;rm&nbsp;-rf&nbsp;*?<br /></span><span style="color: #0000BB">system&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$evil_var</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">exec&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$evil_var</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    常に注意してコードをテストし、Webブラウザから投稿された全ての変数
+    について次のような点を確認してください。
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <span class="simpara">
+       このスクリプトは、意図したファイルのみを受け付けるか?
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       例外的なまたは意図したもの以外のデータにより実行することが可能
+       か?
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       このスクリプトは意図した以外の方法で使用することが可能か?
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       このスクリプトは、悪い意味で他のスクリプトと組み合わせて使用す
+       ることが可能か?
+      </span>
+     </li> 
+     <li class="listitem">
+      <span class="simpara">
+       トランザクションは適切に記録されているか?
+      </span>
+     </li>
+    </ul>
+    スクリプトを書いた後ではなく、書いている時にこれらの質問を適宜行う
+    ことにより、セキュリティ改善のために不幸にして書き直しが必要になる
+    ということを避けることができます。こうした考慮をまず行うことにより、
+    システムのセキュリティを保証できるわけではありませんが、改善の一助
+    にはなりえます。
+   </p>
+   <p class="para">
+    register_globals,magic_quotes, または他の便利な設定は、有効性、発
+    信元、指定した変数の値について混乱を生じる可能性があるため、設定を
+    オフにしたいと思うかもしれません。error_reporting(E_ALL) モードで
+    <acronym title="PHP: Hypertext Preprocessor">PHP</acronym>を動作させた場合、確認または初期化する前に使用された変数に関し
+    て警告を発生させることも可能です。(これにより、処理時に通常とは異
+    なるデータを防止することが可能です)
+   </p>
+  </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.globals.html">グローバル変数の登録機能の使用法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.magicquotes.html">マジッククオート</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

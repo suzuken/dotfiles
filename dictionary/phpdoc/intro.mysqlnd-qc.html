@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>導入</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.mysqlnd-qc.html">mysqlnd_qc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd-qc.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.mysqlnd-qc.html">mysqlnd_qc</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="intro.mysqlnd-qc" class="preface">
+  <h1 class="title">導入</h1>
+  <p class="para">
+   The mysqlnd query result cache plugin adds easy to use client-side query
+   caching to all PHP MySQL extensions using
+   <a href="book.mysqlnd.html" class="link">mysqlnd</a>.
+  </p>
+  <p class="para">
+   As of version PHP 5.3.3 the MySQL native driver for PHP (
+   <i>mysqlnd</i>)
+   features an internal plugin C API. C plugins, such as the query cache
+   plugin, can extend the functionality of
+   <a href="book.mysqlnd.html" class="link">mysqlnd</a>.
+  </p>
+  <p class="para">
+   The MySQL native driver for PHP is a C library which ships together with
+   PHP as of PHP 5.3.0. It serves as a drop-in replacement for the
+   MySQL Client Library (AKA libmysql/libmysqlclient). Using mysqlnd has
+   several advantages: no extra downloads because it comes with PHP,
+   PHP license, lower memory consumption in certain cases,
+   new functionality such as asynchronous queries.
+  </p>
+  <p class="para">
+   Mysqlnd plugins such as the query cache plugin operate transparent
+   from a user perspective. The cache plugin supports all PHP applications
+   and all PHP MySQL extensions (
+   <a href="ref.mysqli.html" class="link">mysqli</a>,
+   <a href="ref.mysql.html" class="link">mysql</a>,
+   <a href="ref.pdo-mysql.html" class="link">PDO_MYSQL</a>).
+   It does not change existing APIs.
+  </p>
+  <p class="para">
+   No significant application changes are required to cache a query.
+   The cache has two operation modes. It will either cache all
+   queries (not recommended) or only those queries marked with a
+   certain SQL hint (recommended).
+  </p>
+
+  <div class="section" id="mysqlnd-qc.key_features">
+   <h2 class="title">Key Features</h2>
+   <p class="para">
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <p class="para">
+       Transparent and therefore easy to use
+      </p>
+      <p class="para">
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          supports all PHP MySQL extensions
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          no API changes
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          very little application changes required
+         </p>
+        </li>
+       </ul>
+      </p>
+     </li>
+
+     <li class="listitem">
+      <p class="para">
+       Flexible invalidation strategy
+      </p>
+      <p class="para">
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          Time-to-Live (TTL)
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          user-defined
+         </p>
+        </li>
+       </ul>
+      </p>
+     </li>
+
+     <li class="listitem">
+      <p class="para">
+       Storage with different scope and life-span
+      </p>
+      <p class="para">
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          Default (Hash)
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="ref.apc.html" class="link">APC</a>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          MEMCACHE
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          sqlite
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          user-defined
+         </p>
+        </li>
+       </ul>
+      </p>
+     </li>
+    </ul>
+   </p>
+  </div>
+
+  <div class="section" id="mysqlnd-qc.limitations">
+   <h2 class="title">Limitations</h2>
+   <p class="para">
+    The query cache plugin prototype will not cache unbuffered
+    queries or results from prepared statements. This limitation
+    is likely to be lifted soon.
+   </p>
+   <p class="para">
+    The following popular user API calls use buffered queries which
+    can be cached:
+   </p>
+   <p class="para">
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <p class="para">
+       <a href="ref.mysqli.html" class="link">mysqli</a>
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <span class="function"><a href="mysqli.query.html" class="function">mysqli_query()</a></span>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <span class="function"><a href="mysqli.real-query.html" class="function">mysqli_real_query()</a></span> +
+          <span class="function"><a href="mysqli.store-result.html" class="function">mysqli_store_result()</a></span>
+         </p>
+        </li>
+       </ul>
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <a href="ref.pdo-mysql.html" class="link">PDO_MYSQL</a>
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <span class="function"><a href="pdo.query.html" class="function">PDO::query()</a></span> if
+          <i>PDO::ATTR_EMULATE_PREPARES = 1</i> (default setting)
+         </p>
+        </li>
+       </ul>
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <a href="ref.mysql.html" class="link">mysql</a>
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span>
+         </p>
+        </li>
+       </ul>
+      </p>
+
+     </li>
+    </ul>
+   </p>
+  </div>
+
+  <div class="section" id="mysqlnd-qc.architecture">
+   <h2 class="title">Architecture</h2>
+   <p class="para">
+    The query cache is implemented as a PHP extension.
+    It is written in C and operates under the hood of PHP. During the
+    startup of the PHP interpreter it gets registered as a
+    <a href="book.mysqlnd.html" class="link">mysqlnd</a> plugin to replace selected
+    mysqlnd C methods.
+   </p>
+   <p class="para">
+    At PHP run time it proxies queries send from
+    mysqlnd (PHP) to the MySQL server. If a query string starts with the SQL hint
+    (
+    <i>/*qc=on*/</i>) to enable caching of it and the query
+    is not cached (cache miss), the query cache plugin will record the
+    raw wire protocol data send from MySQL to PHP to answer the query.
+    The query cache records the wire protocol data in its cache
+    and replays it, if still valid, on a cache hit.
+   </p>
+   <p class="para">
+    Note that the query cache does not hold decoded result sets consisting
+    of
+    <i>zvals</i> (C struct representing a PHP variable).
+    It stores the raw wire data of the MySQL client server protocol.
+    In case of a cache hits,
+    <a href="book.mysqlnd.html" class="link">mysqlnd</a> still needs
+    to decode the cached raw wire data into PHP variables before passing
+    the result to the user space.
+    This approach has one major advantage: simplicity. Furthermore this
+    approach eliminates the need for serializing data for cache storage.
+   </p>
+  </div>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.mysqlnd-qc.html">mysqlnd_qc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd-qc.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.mysqlnd-qc.html">mysqlnd_qc</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

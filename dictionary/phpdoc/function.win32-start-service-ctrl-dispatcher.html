@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>スクリプトを SCM に登録し、指定した名前でサービスとして稼動させる
+   ようにする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.win32-set-service-status.html">win32_set_service_status</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.win32-start-service.html">win32_start_service</a></div>
+ <div class="up"><a href="ref.win32service.html">win32service 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.win32-start-service-ctrl-dispatcher" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">win32_start_service_ctrl_dispatcher</h1>
+  <p class="verinfo">(PECL win32service SVN)</p><p class="refpurpose"><span class="refname">win32_start_service_ctrl_dispatcher</span> &mdash; <span class="dc-title">
+   スクリプトを SCM に登録し、指定した名前でサービスとして稼動させる
+   ようにする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.win32-start-service-ctrl-dispatcher-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>win32_start_service_ctrl_dispatcher</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   サービスコントロールマネージャ経由で起動させる際、サービスプロセスは
+   「チェックイン」を要求され、これによってサービスのモニタリングや
+   通信の機能を確立します。この関数は、サービスコントロールマネージャとの
+   低レベル通信を処理するスレッドを生成し、チェックインを実行します。
+  </p>
+  <p class="para">
+   サービスが開始したら、サービスプロセスで行わなければならないことは次のふたつです。
+   まず最初は、サービスが実行中であることをサービスコントロールマネージャに通知することです。
+   これは、<span class="function"><a href="function.win32-set-service-status.html" class="function">win32_set_service_status()</a></span> に定数
+   <b><tt>WIN32_SERVICE_RUNNING</tt></b> を指定してコールすれば実現できます。
+   サービスが実際に動き出すまでに何らかの長い処理を要する場合は、定数
+   <b><tt>WIN32_SERVICE_START_PENDING</tt></b> を使うこともできます。
+   もうひとつは、常にサービスコントロールマネージャにチェックインし続け、
+   サービスをいつ終了させるべきかを確認することです。
+   これは、定期的に <span class="function"><a href="function.win32-get-last-control-message.html" class="function">win32_get_last_control_message()</a></span>
+   をコールして返り値を適切に処理することで実現できます。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.win32-start-service-ctrl-dispatcher-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サービスの短い名前。<span class="function"><a href="function.win32-create-service.html" class="function">win32_create_service()</a></span>
+       で登録されたもの。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.win32-start-service-ctrl-dispatcher-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を返します。パラメータに問題がある場合は <b><tt>FALSE</tt></b>、失敗した場合は <a href="win32service.constants.errors.html" class="link">Win32 エラーコード</a> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.win32-start-service-ctrl-dispatcher-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4419">
+    <p><b>例1 <span class="function"><b>win32_start_service_ctrl_dispatcher()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     サービスが SCM で実行されているかどうかを調べます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">win32_start_service_ctrl_dispatcher</span><span style="color: #007700">(</span><span style="color: #DD0000">'dummyphp'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;die(</span><span style="color: #DD0000">"I'm&nbsp;probably&nbsp;not&nbsp;running&nbsp;under&nbsp;the&nbsp;service&nbsp;control&nbsp;manager"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">win32_set_service_status</span><span style="color: #007700">(</span><span style="color: #0000BB">WIN32_SERVICE_START_PENDING</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;このサービスを処理するための、何らかの長い処理をします<br /><br /></span><span style="color: #0000BB">win32_set_service_status</span><span style="color: #007700">(</span><span style="color: #0000BB">WIN32_SERVICE_RUNNING</span><span style="color: #007700">);<br /><br />while&nbsp;(</span><span style="color: #0000BB">WIN32_SERVICE_CONTROL_STOP&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #0000BB">win32_get_last_control_message</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">#&nbsp;ここでなんらかの処理をします。1&nbsp;回のループに&nbsp;30&nbsp;秒以上かからない<br />&nbsp;&nbsp;#&nbsp;ように心がけてください。<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.win32-start-service-ctrl-dispatcher-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.win32-set-service-status.html" class="function" rel="rdfs-seeAlso">win32_set_service_status()</a> - サービスの状態を更新する</span></li>
+    <li class="member"><span class="function"><a href="function.win32-get-last-control-message.html" class="function" rel="rdfs-seeAlso">win32_get_last_control_message()</a> - サービスに送信された直近の制御メッセージを返す</span></li>
+    <li class="member"><a href="win32service.constants.errors.html" class="link">Win32 エラーコード</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.win32-set-service-status.html">win32_set_service_status</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.win32-start-service.html">win32_start_service</a></div>
+ <div class="up"><a href="ref.win32service.html">win32service 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

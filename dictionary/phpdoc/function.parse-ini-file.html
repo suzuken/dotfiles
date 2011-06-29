@@ -1,0 +1,326 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>設定ファイルをパースする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.move-uploaded-file.html">move_uploaded_file</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-ini-string.html">parse_ini_string</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.parse-ini-file" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">parse_ini_file</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">parse_ini_file</span> &mdash; <span class="dc-title">設定ファイルをパースする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.parse-ini-file-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>parse_ini_file</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$process_sections</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$scanner_mode</tt><span class="initializer"> = INI_SCANNER_NORMAL</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>parse_ini_file()</b></span> は、
+   <i><tt class="parameter">filename</tt></i> で指定した ini ファイルをロードし、
+   連想配列としてその設定値を返します。
+  </p>
+  <p class="para">
+   ini ファイルの構造は、<var class="filename">php.ini</var> の構造と同じです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.parse-ini-file-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パースしたい ini ファイルのファイル名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">process_sections</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">process_sections</tt></i> パラメータに <b><tt>TRUE</tt></b>
+       を設定すると、セクション名と設定が含まれた多次元の配列を得ることができます。
+       デフォルトでは、<i><tt class="parameter">process_sections</tt></i> は <b><tt>FALSE</tt></b> です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">scanner_mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>INI_SCANNER_NORMAL</tt></b> (デフォルト) あるいは
+       <b><tt>INI_SCANNER_RAW</tt></b>。<b><tt>INI_SCANNER_RAW</tt></b>
+       を指定すると、オプションの値はパースされません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.parse-ini-file-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に設定を連想配列形式で返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+ <div class="refsect1 changelog" id="refsect1-function.parse-ini-file-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        オプションのパラメータ <i><tt class="parameter">scanner_mode</tt></i> が追加されました。
+        シングルクォートも変数の代入に使うことができます。
+        ハッシュ記号 (<i>#</i>) はコメントとしては扱われなくなり、
+        もし使うと警告が発生します。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.7</td>
+       <td align="left">
+        構文エラーが発生した場合は、空の配列ではなく
+        <b><tt>FALSE</tt></b> を返すようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.4</td>
+       <td align="left">
+        数字から始まるキーおよびセクション名は、PHP では
+        <a href="language.types.integer.html" class="link">整数</a> として評価されます。
+        よって、0 で始まる数字は 8 進数として評価され、0x で始まる数字は
+        16 進数として評価されます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        値をダブルクォートで囲めばその中で改行を使用することもできます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.2.1</td>
+       <td align="left">
+        この関数は <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">セーフモード</a> と
+        <a href="ini.core.html#ini.open-basedir" class="link">open_basedir</a> の影響を受けます。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.parse-ini-file-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1943">
+    <p><b>例1 <var class="filename">sample.ini</var> の内容</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+; これは設定ファイルのサンプルです。
+; php.ini と同様、&#039;;&#039; で始まる行はコメントです。
+
+[first_section]
+one = 1
+five = 5
+animal = BIRD
+
+[second_section]
+path = &quot;/usr/local/bin&quot;
+URL = &quot;http://www.example.com/~username&quot;
+
+[third_section]
+phpversion[] = &quot;5.0&quot;
+phpversion[] = &quot;5.1&quot;
+phpversion[] = &quot;5.2&quot;
+phpversion[] = &quot;5.3&quot;
+</pre></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-1944">
+    <p><b>例2 <span class="function"><b>parse_ini_file()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     <a href="language.constants.html" class="link">定数</a>も ini ファイル上でパースされます。
+     そのため、<span class="function"><b>parse_ini_file()</b></span> をコールする前に
+     ini ファイル上の値として定数を定義した場合、返り値に統合されます。
+     ini ファイル上の値だけが評価されます。以下は例です：
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">'BIRD'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Dodo&nbsp;bird'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;セクションを無視してパースします。<br /></span><span style="color: #0000BB">$ini_array&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">parse_ini_file</span><span style="color: #007700">(</span><span style="color: #DD0000">"sample.ini"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$ini_array</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;セクションを意識してパースします。<br /></span><span style="color: #0000BB">$ini_array&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">parse_ini_file</span><span style="color: #007700">(</span><span style="color: #DD0000">"sample.ini"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$ini_array</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [one] =&gt; 1
+    [five] =&gt; 5
+    [animal] =&gt; Dodo bird
+    [path] =&gt; /usr/local/bin
+    [URL] =&gt; http://www.example.com/~username
+    [phpversion] =&gt; Array
+        (
+            [0] =&gt; 5.0
+            [1] =&gt; 5.1
+            [2] =&gt; 5.2
+            [3] =&gt; 5.3
+        )
+
+)
+Array
+(
+    [first_section] =&gt; Array
+        (
+            [one] =&gt; 1
+            [five] =&gt; 5
+            [animal] =&gt; Dodo bird
+        )
+
+    [second_section] =&gt; Array
+        (
+            [path] =&gt; /usr/local/bin
+            [URL] =&gt; http://www.example.com/~username
+        )
+
+    [third_section] =&gt; Array
+        (
+            [phpversion] =&gt; Array
+                (
+                    [0] =&gt; 5.0
+                    [1] =&gt; 5.1
+                    [2] =&gt; 5.2
+                    [3] =&gt; 5.3
+                )
+
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-1945">
+    <p><b>例3 <span class="function"><b>parse_ini_file()</b></span> による php.ini ファイルのパース</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;以下の結果を比較するための簡単な関数<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">yesno</span><span style="color: #007700">(</span><span style="color: #0000BB">$expression</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return(</span><span style="color: #0000BB">$expression&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">'Yes'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'No'</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;php.ini&nbsp;へのパスを&nbsp;the&nbsp;php_ini_loaded_file()&nbsp;関数で取得します<br />//&nbsp;この関数は&nbsp;PHP&nbsp;5.2.4&nbsp;以降で使用可能です<br /></span><span style="color: #0000BB">$ini_path&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">php_ini_loaded_file</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;php.ini&nbsp;をパースします<br /></span><span style="color: #0000BB">$ini&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">parse_ini_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$ini_path</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;結果を表示して比較します。get_cfg_var()&nbsp;を使用すると、<br />//&nbsp;ここでパースして読み込んだのと同じ結果が得られることに注意しましょう<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'(parsed)&nbsp;magic_quotes_gpc&nbsp;=&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">yesno</span><span style="color: #007700">(</span><span style="color: #0000BB">$ini</span><span style="color: #007700">[</span><span style="color: #DD0000">'magic_quotes_gpc'</span><span style="color: #007700">])&nbsp;.&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">'(loaded)&nbsp;magic_quotes_gpc&nbsp;=&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">yesno</span><span style="color: #007700">(</span><span style="color: #0000BB">get_cfg_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'magic_quotes_gpc'</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+(parsed) magic_quotes_gpc = Yes
+(loaded) magic_quotes_gpc = Yes
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.parse-ini-file-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、<var class="filename">php.ini</var> ファイルには何もしません。
+    このファイルはスクリプトを実行している時には既に処理されています。
+    この関数は、アプリケーション個有の設定ファイルを読み込む際に使用可能です。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    ini ファイル上の値に英数字ではないものがある場合、
+    ダブルクォート(&quot;)で囲う必要があります。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    ini ファイル上でキーとして使ってはいけない単語があります。
+    null, yes, no, true, false, on, off, none などです。
+    null, no および false は &quot;&quot; となり、yes および true は &quot;1&quot; となります。
+    次の文字 <i>?{}|&amp;~![()^&quot;</i> は、キーで使ってはいけません。
+    また、値の中で特別な意味を持ちます。
+   </span>
+  </p></blockquote>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.parse-ini-file-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.parse-ini-string.html" class="function" rel="rdfs-seeAlso">parse_ini_string()</a> - 設定文字列をパースする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.move-uploaded-file.html">move_uploaded_file</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-ini-string.html">parse_ini_string</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

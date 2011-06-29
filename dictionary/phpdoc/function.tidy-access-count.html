@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したドキュメントについて発生したTidyアクセシビリティ警告の数を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-tidyhandler.html">ob_tidyhandler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.tidy-config-count.html">tidy_config_count</a></div>
+ <div class="up"><a href="ref.tidy.html">Tidy 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.tidy-access-count" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">tidy_access_count</h1>
+  <p class="verinfo">(PHP 5, PECL tidy &gt;= 0.5.2)</p><p class="refpurpose"><span class="refname">tidy_access_count</span> &mdash; <span class="dc-title">指定したドキュメントについて発生したTidyアクセシビリティ警告の数を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.tidy-access-count-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>tidy_access_count</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.tidy.html" class="type tidy">tidy</a></span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>tidy_access_count()</b></span> は、
+   指定したドキュメントについて発生した Tidy
+   アクセシビリティ警告の数を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.tidy-access-count-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="class.tidy.html" class="classname">Tidy</a> オブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.tidy-access-count-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   警告の数を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.tidy-access-count-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3388">
+    <p><b>例1 <span class="function"><b>tidy_access_count()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$html&nbsp;</span><span style="color: #007700">=</span><span style="color: #DD0000">'&lt;!DOCTYPE&nbsp;html&nbsp;PUBLIC&nbsp;"-//W3C//DTD&nbsp;HTML&nbsp;3.2//EN"&gt;<br />&lt;html&gt;&lt;head&gt;&lt;title&gt;Title&lt;/title&gt;&lt;/head&gt;<br />&lt;body&gt;<br /><br />&lt;p&gt;&lt;img&nbsp;src="img.png"&gt;&lt;/p&gt;<br /><br />&lt;/body&gt;&lt;/html&gt;'</span><span style="color: #007700">;<br /><br /><br /></span><span style="color: #FF8000">//&nbsp;アクセシビリティチェックのレベルを選択する:&nbsp;1,&nbsp;2&nbsp;あるいは&nbsp;3<br /></span><span style="color: #0000BB">$config&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'accessibility-check'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$tidy&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">tidy</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$tidy</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">parseString</span><span style="color: #007700">(</span><span style="color: #0000BB">$html</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$config</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$tidy</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cleanRepair</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;これをコールすることを忘れないように!&nbsp;*/<br /></span><span style="color: #0000BB">$tidy</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">diagnose</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #0000BB">tidy_access_count</span><span style="color: #007700">(</span><span style="color: #0000BB">$tidy</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//5<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.tidy-access-count-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    TidyLib の設計のため、<span class="function"><b>tidy_access_count()</b></span> の前に
+    <span class="function"><a href="function.tidy-diagnose.html" class="function">tidy_diagnose()</a></span> をコールしなければなりません。
+    さもないと、常に <i>0</i> が返されます。
+    また、<i>accessibility-check</i>
+    オプションを有効にしなければなりません。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.tidy-access-count-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.tidy-error-count.html" class="function" rel="rdfs-seeAlso">tidy_error_count()</a> - 指定したドキュメントについて発生した Tidy エラーの数を返す</span></li>
+    <li class="member"><span class="function"><a href="function.tidy-warning-count.html" class="function" rel="rdfs-seeAlso">tidy_warning_count()</a> - 指定したドキュメントについて発生した Tidy 警告の数を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-tidyhandler.html">ob_tidyhandler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.tidy-config-count.html">tidy_config_count</a></div>
+ <div class="up"><a href="ref.tidy.html">Tidy 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

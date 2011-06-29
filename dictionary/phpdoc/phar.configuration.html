@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.resources.html">リソース型</a></div>
+ <div class="up"><a href="phar.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>ファイルシステムおよびストリームの設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更の可否</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><a href="phar.configuration.html#ini.phar.readonly" class="link">phar.readonly</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="phar.configuration.html#ini.phar.require-hash" class="link">phar.require_hash</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="phar.configuration.html#ini.phar.extract-list" class="link">phar.extract_list</a></td>
+      <td align="left">&quot;&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">phar 1.1.0 から 1.2.3 で使用可能、2.0.0 で削除</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="phar.configuration.html#ini.phar.cache-list" class="link">phar.cache_list</a></td>
+      <td align="left">&quot;&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">phar 2.0.0 以降で使用可能</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+ 
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+ 
+ <p class="para">
+  <dl>
+
+   <dt id="ini.phar.readonly">
+    <span class="term">
+     <i><tt class="parameter">phar.readonly</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションを使用すると、<i>phar</i>
+      ストリームや <a href="class.Phar.html" class="classname">Phar</a>
+      オブジェクトによる Phar アーカイブの作成や変更ができなくなります。
+      この設定は、実運用環境では常に有効にしておくべきです。
+      phar 拡張モジュールのこの機能は、
+      サーバ上に他のセキュリティ上の脆弱性があった場合に
+      php ベースのウィルスを直接作成されてしまうことにつながります。
+     </p>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       この設定は、セキュリティ上の理由により
+       php.ini でしか解除できません。
+       <i>phar.readonly</i> を php.ini で無効にした場合は、
+       ユーザがスクリプト内で <i>phar.readonly</i>
+       の有効/無効を切りかえることができます。
+       <i>phar.readonly</i> を php.ini で有効にした場合は、
+       スクリプト内でこれを &quot;再度有効にする&quot;
+       ことはできますが、無効にすることはできません。
+      </p>
+     </p></blockquote>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.phar.require-hash">
+    <span class="term">
+     <i><tt class="parameter">phar.require_hash</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションを使用すると、署名つき
+      (現在サポートしているのは MD5、SHA1、SHA256 および SHA512)
+      の Phar アーカイブのみをオープンするようになります。
+      署名を含まない Phar アーカイブの処理はできません。
+     </p>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       この設定は、セキュリティ上の理由により
+       php.ini でしか解除できません。
+       <i>phar.require_hash</i> を php.ini で無効にした場合は、
+       ユーザがスクリプト内で <i>phar.require_hash</i>
+       の有効/無効を切りかえることができます。
+       <i>phar.require_hash</i> を php.ini で有効にした場合は、
+       スクリプト内でこれを &quot;再度有効にする&quot;
+       ことはできますが、無効にすることはできません。
+      </p>
+      <p class="para">
+       この設定は、
+       <a href="class.PharData.html" class="classname">PharData</a> クラスで通常の
+       tar ファイルを読み込む際には影響を及ぼしません。
+      </p>
+     </p></blockquote>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.phar.extract-list">
+    <span class="term">
+     <i><tt class="parameter">phar.extract_list</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      この INI 設定は phar 2.0.0 で削除されました。
+     </p>
+     <p class="para">
+      phar アーカイブへのフルパスあるいはそのエイリアスと、
+      展開されたファイルの場所との関連付けを行います。
+      パラメータの書式は <i>name=archive,name2=archive2</i>
+      のようになります。
+      phar ファイルをディスクに展開して、
+      展開したファイル群へのマッパーとして phar を扱えるようになります。
+      これを行うのは、たとえばパフォーマンスを向上させたい場合や
+      phar のデバッグを行いたい場合などです。
+      <div class="example" id="example-670">
+       <p><b>例1 phar.extract_list の使用例</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+php.ini&nbsp;で、次のように記述します<br />phar.extract_list&nbsp;=&nbsp;archive=/full/path/to/archive/,arch2=/full/path/to/arch2<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">"phar://archive/content.php"</span><span style="color: #007700">;<br />include&nbsp;</span><span style="color: #DD0000">"phar://arch2/foo.php"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.phar.cache-list">
+    <span class="term">
+     <i><tt class="parameter">phar.cache_list</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      この INI 設定は phar 2.0.0 で追加されました。
+     </p>
+     <p class="para">
+      phar アーカイブをウェブサーバの起動時に事前にパースさせるようにします。
+      これによりパフォーマンスが向上し、
+      ディスク上に配置した伝統的なファイルに近い速度で実行することができます。
+      <div class="example" id="example-671">
+       <p><b>例2 phar.cache_list の使用例</b></p>
+       <div class="example-contents">
+<div class="cdata"><pre>
+php.ini (windows):
+phar.cache_list =C:\path\to\phar1.phar;C:\path\to\phar2.phar
+php.ini (unix):
+phar.cache_list =/path/to/phar1.phar:/path/to/phar2.phar
+</pre></div>
+       </div>
+
+      </div>
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.resources.html">リソース型</a></div>
+ <div class="up"><a href="phar.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

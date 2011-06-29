@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>基本的な事</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.html">変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.predefined.html">定義済みの変数</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.variables.basics" class="sect1">
+   <h2 class="title">基本的な事</h2>
+   
+   <p class="simpara">
+    PHP の変数はドル記号の後に変数名が続く形式で表されます。
+    変数名は大文字小文字を区別します。
+   </p>
+
+   <p class="para">
+    変数名は、PHPの他のラベルと同じルールに従います。
+    有効な変数名は文字またはアンダースコアから始まり、任意の数の文字、
+    数字、アンダースコアが続きます。正規表現によれば、これは次の
+    ように表現することができます。
+    &#039;<i>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*</i>&#039;
+   </p>
+   
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     ここで言うところの文字とはa-z、A-Z、127から255まで
+     (<i>0x7f-0xff</i>)のバイトを意味します。
+    </span>
+   </p></blockquote>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     <i>$this</i> は特別な変数であり、ここに代入することはできません。
+    </span>
+   </p></blockquote>
+
+   <div class="tip"><b class="tip">ヒント</b><p class="simpara">
+<a href="userlandnaming.html" class="xref">ユーザレベルでの命名の手引き</a> も参照ください。</p></div>
+
+   <p class="para">
+    変数関連の関数に関する情報については、
+    <a href="ref.var.html" class="link">変数関数リファレンス</a>
+    を参照ください。
+   </p>
+
+   <p class="para">
+    <div class="informalexample">
+     <div class="example-contents"> 
+<div class="phpcode"><code><span style="color: #000000">
+$var&nbsp;=&nbsp;'Bob';<br />$Var&nbsp;=&nbsp;'Joe';<br />echo&nbsp;"$var,&nbsp;$Var";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;"Bob,&nbsp;Joe"を出力します。<br /><br />$4site&nbsp;=&nbsp;'not&nbsp;yet';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;無効：数字で始まっている。<br />$_4site&nbsp;=&nbsp;'not&nbsp;yet';&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;有効：アンダースコアで始まっている。<br />$täyte&nbsp;=&nbsp;'mansikka';&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;有効：'ä'&nbsp;はアスキーコード228です。</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+
+   <p class="para">
+    デフォルトでは、変数に代入されるのは常にその値です。
+    これは、つまり、ある変数にある式を代入する際、元の式の
+    値全体がコピーされる側の変数にコピーされるということです。
+    これは、例えば、ある変数の値を他の変数に代入した後で、
+    これらの変数の1つを変更しても他の変数には影響を与えないという
+    ことを意味します。この種の代入に関するより詳細な情報については、
+    <a href="language.expressions.html" class="link">式</a> を参照ください。
+   </p>
+   <p class="para">
+    PHP には、変数に値の代入を行う別の方法も存在します。それは、
+    <em class="emphasis">参照による代入</em> です。
+    この場合、新規の変数は元の変数を参照するだけです。
+    (言いかえると、元の変数の&quot;エイリアスを作る&quot;または元の変数を&quot;指す&quot;)
+    新規の変数への代入は、元の変数に影響し、その逆も同様となります。
+   </p>
+   <p class="para">
+   参照により代入を行うには、代入する変数(ソース変数)の先頭に
+   アンパサンドを加えます。たとえば、次の簡単なコードは
+   &#039;<i>My name is Bob</i>&#039;を二度出力します。
+
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Bob'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値'Bob'を$fooに代入する。<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$fooを$barにより参照<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"My&nbsp;name&nbsp;is&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #DD0000">"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$barを変更...<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$fooも変更される。<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+
+   <p class="para">
+    注意すべき重要な点として、名前のある変数のみが参照により代入できる
+    ということがあります。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">25</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;これは有効な代入です。<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&amp;(</span><span style="color: #0000BB">24&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;無効です。名前のない式を参照しています。<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">25</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">test</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;無効。<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   
+   
+   <p class="para">
+    PHP では変数を初期化する必要はありませんが、そのようにするのはとてもよいことです。
+    初期化されていない変数の値は、状況に応じたその型のデフォルト値
+    - boolean なら <b><tt>FALSE</tt></b>、integer や float ならゼロ、
+    文字列 (<span class="function"><a href="function.echo.html" class="function">echo()</a></span> で使う場合など)
+    なら空の文字列、配列なら空の配列となります。
+   </p>
+   <p class="para">
+    <div class="example" id="example-88">
+     <p><b>例1 初期化されていない変数のデフォルト値</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;設定も参照もされていない&nbsp;(使用中のコンテキストではない)&nbsp;変数は&nbsp;NULL&nbsp;となります<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_var</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;boolean&nbsp;として使用すると、出力は&nbsp;'false'&nbsp;となります&nbsp;(この構文の詳細は三項演算子を参照ください)<br /></span><span style="color: #007700">echo(</span><span style="color: #0000BB">$unset_bool&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">"true\n"&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">"false\n"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;文字列として使用すると、出力は&nbsp;'string(3)&nbsp;"abc"'&nbsp;となります<br /></span><span style="color: #0000BB">$unset_str&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">'abc'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_str</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;integer&nbsp;として使用すると、出力は&nbsp;'int(25)'&nbsp;となります<br /></span><span style="color: #0000BB">$unset_int&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">25</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;0&nbsp;+&nbsp;25&nbsp;=&gt;&nbsp;25<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_int</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;float/double&nbsp;として使用すると、出力は&nbsp;'float(1.25)'&nbsp;となります<br /></span><span style="color: #0000BB">$unset_float&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">1.25</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_float</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;配列として使用すると、出力は&nbsp;array(1)&nbsp;{&nbsp;&nbsp;[3]=&gt;&nbsp;&nbsp;string(3)&nbsp;"def"&nbsp;}&nbsp;となります<br /></span><span style="color: #0000BB">$unset_arr</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"def"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;array()&nbsp;+&nbsp;array(3&nbsp;=&gt;&nbsp;"def")&nbsp;=&gt;&nbsp;array(3&nbsp;=&gt;&nbsp;"def")<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_arr</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;オブジェクトとして使用し、新しい&nbsp;stdClass&nbsp;オブジェクト&nbsp;(http://www.php.net/manual/ja/reserved.classes.php&nbsp;を参照ください)<br />//&nbsp;を作成すると、出力は&nbsp;object(stdClass)#1&nbsp;(1)&nbsp;{&nbsp;&nbsp;["foo"]=&gt;&nbsp;&nbsp;string(3)&nbsp;"bar"&nbsp;}&nbsp;となります<br /></span><span style="color: #0000BB">$unset_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$unset_obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    初期化されていない変数のデフォルト値に依存すると、そのファイルを
+    include している別のファイルで同名の変数が使用されていた場合などに
+    問題を起こします。また、<a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+    が on の場合には重大な<a href="security.globals.html" class="link">セキュリティリスク</a>
+    を抱えることになります。初期化されていない変数を使用すると、
+    <a href="errorfunc.constants.html#errorfunc.constants.errorlevels.e-notice" class="link">E_NOTICE</a> レベルのエラーが発生します。
+    しかし、初期化されていない配列に要素を追加する場合はエラーにはなりません。
+    変数が初期化されているかどうかの判断には、<span class="function"><a href="function.isset.html" class="function">isset()</a></span>
+    を使用します。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.html">変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.predefined.html">定義済みの変数</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

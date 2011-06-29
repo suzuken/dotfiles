@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>パフォーマンス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.recursive.html">再帰的パターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.performance" class="section">
+     <h2 class="title">パフォーマンス</h2>
+     <p class="para">
+     パターンに記述可能な要素のうち、幾つかの要素は、他の要素よりも
+     効率的に処理されます。 (a|e|i|o|u) のような選択肢の集合よりも 
+     [aeiou] のような文字クラスの方が効率的です。一般に、構文が
+     最も単純なものが、たいてい最も効率が良くなります。Jeffrey Friedl 
+     の本には、正規表現の性能を向上させる最適化について
+     様々な検討が行われています。
+    </p>
+    <p class="para">
+     パターンが .* で始まり、<a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOTALL</a> 
+     オプションを設定した場合、対象文字列の始端でしかマッチできないため、
+     PCRE は、暗黙のうちにそのパターンを固定パターンとみなします。しかし、
+     PCRE_DOTALL を設定しない場合、メタ文字 . が改行にマッチせず、
+     対象文字列が改行を含む場合、パターンは文字列の始端からではなく各改行の
+     直後の文字からマッチする可能性があるため、PCRE は
+     この最適化を行うことができません。
+     
+     例えば、パターン
+
+      <pre class="literallayout">
+      (.*) second
+      </pre>
+
+    を、対象文字列 &quot;first\nand second&quot;（ここで、\n は改行文字を意味します）に
+    マッチングさせます。 1 番目のキャプチャ文字列は、&quot;and&quot; になります。
+    このような動作をするには、 PCRE は対象文字列の各改行文字の後から
+    マッチングを繰り返し行う必要があります。
+    </p>
+    <p class="para">
+     このようなパターンを、改行を含まない対象文字列に適用する場合は、
+     <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOTALL</a> 
+     を設定するか、固定パターンであることを明示的に示すためにパターンを 
+     ^.* で開始すると最高の性能が得られます。そうすることで、PCRE 
+     が対象文字列の改行を探し、そこからマッチングが再び始められることを
+     防止します。
+    </p>
+    <p class="para">
+     制限のない繰り返しをネストするようなパターンについては注意が必要です。
+     そのようなパターンが、マッチが成功し得ない文字列に適用された場合には、
+     実行に長い時間を要します。
+     
+      <pre class="literallayout">
+      (a+)*
+      </pre>
+       
+     というパターンを考えてみましょう。
+    </p>
+    <p class="para">
+     このパターンが &quot;aaaa&quot; にマッチし得る方法は 33 通りもあります（つまり、
+     * による繰り返しは 0, 1, 2, 3 もしくは 4 回の繰り返しにマッチし、
+     0 回以外のそれぞれの場合について、 + による繰り返しは様々な回数分
+     マッチします)〔訳注：a 1文字の 4 回繰り返しとか、 a 1文字とa 3文字の
+     組合せとかを意味する〕。この数は、文字列が長くなるにつれて急激に
+     増大します。このパターンの後ろに、マッチが失敗するような別のパターンが
+     続いていて、パターン全体としてマッチが失敗してしまう場合、PCREは、基本的に
+     取り得るすべての選択肢を調べるため、非常に長い時間がかかります。
+    </p>
+    <p class="para">
+      <pre class="literallayout">
+      (a+)*b
+      </pre>
+       
+     のように単一の文字リテラルが最後にある場合には最適化が行われます。
+
+    標準のマッチング手順に着手する前に、PCRE は対象文字列の後方に &quot;b&quot; 
+    があるかどうかを調べます。無い場合には、直ちにマッチは失敗します。
+    文字リテラルが最後にない場合には、この最適化は行われません。
+
+      <pre class="literallayout">
+      (a+)*\d
+      </pre>
+
+     というパターンと上に挙げたパターンの動作を比較してみましょう。
+
+     &quot;a&quot; 文字だけが連続する行に適用した場合、前者のパターンでは、
+     ほぼ瞬間的に失敗と判定されます。一方、後者のパターンでは、
+     文字列の長さがおよそ 20 文字を超えると、かなりの時間がかかります。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.recursive.html">再帰的パターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

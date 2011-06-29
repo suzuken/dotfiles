@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MySQLデータベースを破棄(削除)する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-db-query.html">mysql_db_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysql-errno.html">mysql_errno</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mysql-drop-db" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysql_drop_db</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">mysql_drop_db</span> &mdash; <span class="dc-title">MySQLデータベースを破棄(削除)する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mysql-drop-db-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>mysql_drop_db</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$database_name</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>mysql_drop_db()</b></span> は、指定した link_identifier が指す
+   データベース全体をサーバから破棄(削除)しようとします。
+   この関数は非推奨です。かわりに、
+   <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span> を用いて
+   <i>DROP DATABASE</i> 文を発行する方法が推奨されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mysql-drop-db-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">database_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       削除するデータベースの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">MySQL 接続。
+指定されない場合、<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span> により直近にオープンされたリンクが
+指定されたと仮定されます。そのようなリンクがない場合、引数を指定せずに
+<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span> がコールした時と同様にリンクを確立します。
+リンクが見付からない、または、確立できない場合、
+<b><tt>E_WARNING</tt></b> レベルのエラーが生成されます。</p></dd>
+
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.mysql-drop-db-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+  
+ <div class="refsect1 examples" id="refsect1-function.mysql-drop-db-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1455">
+    <p><b>例1 <span class="function"><b>mysql_drop_db()</b></span> の別の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'mysql_user'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'mysql_password'</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Could&nbsp;not&nbsp;connect:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">());<br />}<br /><br /></span><span style="color: #0000BB">$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'DROP&nbsp;DATABASE&nbsp;my_db'</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Database&nbsp;my_db&nbsp;was&nbsp;successfully&nbsp;dropped\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Error&nbsp;dropping&nbsp;database:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mysql-drop-db-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    MySQL 4.x のクライアントライブラリを用いて MySQL 拡張モジュールを
+    ビルドした場合、この関数は利用できません。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    下位互換のために、次の非推奨別名を使用してもいいでしょう。
+    <span class="function"><b>mysql_dropdb()</b></span>
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mysql-drop-db-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mysql-query.html" class="function" rel="rdfs-seeAlso">mysql_query()</a> - MySQL クエリを送信する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-db-query.html">mysql_db_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysql-errno.html">mysql_errno</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

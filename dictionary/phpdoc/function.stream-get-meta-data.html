@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ヘッダーあるいはメタデータをストリームまたはファイルポインタから取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-get-line.html">stream_get_line</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-get-transports.html">stream_get_transports</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.stream-get-meta-data" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">stream_get_meta_data</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">stream_get_meta_data</span> &mdash; <span class="dc-title">ヘッダーあるいはメタデータをストリームまたはファイルポインタから取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.stream-get-meta-data-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>stream_get_meta_data</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stream</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   既存の <i><tt class="parameter">stream</tt></i> に関する情報を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.stream-get-meta-data-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ストリームは <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> か、
+       <span class="function"><a href="function.fsockopen.html" class="function">fsockopen()</a></span> か、<span class="function"><a href="function.pfsockopen.html" class="function">pfsockopen()</a></span> で
+       作成されたいずれのものも指定できます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.stream-get-meta-data-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果の配列は次のような項目を含みます。
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     <i>timed_out</i> (bool) - 最後に
+     <span class="function"><a href="function.fread.html" class="function">fread()</a></span> または <span class="function"><a href="function.fgets.html" class="function">fgets()</a></span>
+     でデータを待っている時にタイムアウトした場合 <b><tt>TRUE</tt></b> を返します。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>blocked</i> (bool) -
+     ストリームがブロック I/O モードの場合に <b><tt>TRUE</tt></b> となります。
+     <span class="function"><a href="function.stream-set-blocking.html" class="function">stream_set_blocking()</a></span> を参照ください。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>eof</i> (bool) - ストリームが EOF に
+     達した時 <b><tt>TRUE</tt></b> となります。
+     ストリームがソケットベースの場合、このメンバーは、
+     たとえ <i>unread_bytes</i> が 0 でなくても
+     <b><tt>TRUE</tt></b> になる場合があることに注意してください。
+     まだデータがあるかどうかを調べるには、このパラメータではなく、
+     <span class="function"><a href="function.feof.html" class="function">feof()</a></span> を使ってください。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>unread_bytes</i> (int) - PHP の
+     内部バッファにあるデータのバイト数。
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <span class="simpara">
+      スクリプト中でこの値を使用してはいけません。
+     </span>
+    </p></blockquote>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>stream_type</i> (string) -
+     ストリームの下層にある実装を表すラベル
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>wrapper_type</i> (string) -
+     ストリームを覆うプロトコルラッパを表すラベル。
+     ラッパについては <a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a> を参照ください。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>wrapper_data</i> (mixed) -
+     ストリームに付随しているラッパの固有のデータ。
+     ラッパとその固有の情報については、<a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a>
+     を参照ください。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>filters</i> (array) -
+     ストリームに付加されているフィルタの名称を格納した配列。
+     フィルタに関するドキュメントは
+     <a href="filters.html" class="link">利用できるフィルタのリスト</a> にあります。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>mode</i> (string) - このストリームに要求される
+     アクセスモード（<a href="function.fopen.html" class="link">fopen()</a>
+     リファレンスの表 1 を参照ください）。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>seekable</i> (bool) - 現在のストリーム内で
+     移動が可能かどうか。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>uri</i> (string) - このストリームに関連付けられた
+     URI / ファイル名。
+    </p>
+   </li>
+  </ul>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.stream-get-meta-data-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        次の項目が返り値の配列に追加されました。
+        <i>mode</i>、<i>seekable</i>
+        および <i>uri</i>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        次の項目が返り値の配列に追加されました。
+        <i>stream_type</i>、<i>wrapper_type</i>、
+        <i>wrapper_data</i> および <i>filters</i>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <span class="function"><a href="function.socket-get-status.html" class="function">socket_get_status()</a></span> がこの関数のエイリアスとなりました。
+        PHP 4.3.0 より前のバージョンでは、この関数は最初の 4 つの項目を取得する関数で
+        <em class="emphasis">ソケットベースのストリームでしか使えませんでした。</em>
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.stream-get-meta-data-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3341">
+    <p><b>例1 <span class="function"><b>stream_get_meta_data()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">;<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"Unable&nbsp;to&nbsp;open&nbsp;URL&nbsp;(</span><span style="color: #0000BB">$url</span><span style="color: #DD0000">)"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$meta&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$meta</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [wrapper_data] =&gt; Array
+        (
+            [0] =&gt; HTTP/1.1 200 OK
+            [1] =&gt; Server: Apache/2.2.3 (Red Hat)
+            [2] =&gt; Last-Modified: Tue, 15 Nov 2005 13:24:10 GMT
+            [3] =&gt; ETag: &quot;b300b4-1b6-4059a80bfd280&quot;
+            [4] =&gt; Accept-Ranges: bytes
+            [5] =&gt; Content-Type: text/html; charset=UTF-8
+            [6] =&gt; Set-Cookie: FOO=BAR; expires=Fri, 21-Dec-2012 12:00:00 GMT; path=/; domain=.example.com
+            [6] =&gt; Connection: close     
+            [7] =&gt; Date: Fri, 16 Oct 2009 12:00:00 GMT
+            [8] =&gt; Age: 1164   
+            [9] =&gt; Content-Length: 438
+        )
+
+    [wrapper_type] =&gt; http
+    [stream_type] =&gt; tcp_socket/ssl
+    [mode] =&gt; r
+    [unread_bytes] =&gt; 438
+    [seekable] =&gt; 
+    [uri] =&gt; http://www.example.com/
+    [timed_out] =&gt; 
+    [blocked] =&gt; 1
+    [eof] =&gt; 
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.stream-get-meta-data-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+     この関数は、<a href="ref.sockets.html" class="link">Socket 拡張モジュール</a> で作成したソケットでは動作しません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.stream-get-meta-data-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.get-headers.html" class="function" rel="rdfs-seeAlso">get_headers()</a> - HTTP リクエストに対するレスポンス内で
+   サーバによって送出された全てのヘッダを取得する</span></li>
+    <li class="member"><a href="reserved.variables.httpresponseheader.html" class="link">$http_response_header</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-get-line.html">stream_get_line</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-get-transports.html">stream_get_transports</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

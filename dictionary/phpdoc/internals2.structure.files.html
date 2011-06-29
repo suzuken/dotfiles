@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>拡張モジュールを構成するファイル群</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.structure.basics.html">基本構造</a></div>
+ <div class="up"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.structure.files" class="sect1">
+  <h2 class="title">拡張モジュールを構成するファイル群</h2>
+  <p class="para">
+   手作業で作ったか <strong class="command">ext_skel</strong> を使用したか、
+   あるいは <a href="http://codegenerators.php-baustelle.de/" class="link external">&raquo; CodeGen</a>
+   のようなツールを用いたのかにかかわらず、
+   すべての拡張モジュールには少なくとも次の 4 つのファイルが含まれます。
+  </p>
+
+  <dl>
+
+   <dt>
+
+    <span class="term"><var class="filename">config.m4</var></span>
+    <dd>
+
+     <p class="para">
+      UNIX ビルドシステムの設定ファイル
+      (<a href="internals2.buildsys.configunix.html" class="xref">UNIX 用のビルドシステム: config.m4</a> を参照ください)。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term"><var class="filename">config.w32</var></span>
+    <dd>
+
+     <p class="para">
+      Windows ビルドシステムの設定ファイル
+      (<a href="internals2.buildsys.configwin.html" class="xref">Windows 用のビルドシステム: config.w32</a> を参照ください)。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt>
+
+    <span class="term"><var class="filename">php_counter.h</var></span>
+    <dd>
+
+     <p class="para">
+      拡張モジュールを PHP バイナリに静的モジュールとして組み込む場合は、
+      <i>php_</i> の後に拡張モジュールの名前を続けたヘッダファイルに
+      その拡張モジュールの構造についての宣言があるものとします。
+      通常は、このファイルに記述するのは、
+      マクロやプロトタイプ宣言、グローバル変数といった他のヘッダと同じ内容です。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt>
+
+    <span class="term"><var class="filename">counter.c</var></span>
+    <dd>
+
+     <p class="para">
+      拡張モジュールのソースファイル。
+      規約上は拡張モジュールの名前と同じ名前にすることになっていますが、
+      これは必須ではありません。このファイルに含まれる内容は、
+      モジュールの構造体定義や INI エントリ、
+      管理用関数、ユーザに公開する関数、その他拡張モジュールに必要となるものです。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  
+  <p class="para">
+   ビルドシステム関連のファイルについては別の場所で説明することにして、
+   ここでは残りのファイルについて取り上げます。
+   これらの 4 つのファイルはあくまでも必要最小限のものであり、
+   実際にはこれら以外にもさまざまなヘッダファイルやソースファイル、
+   ユニットテストなどのファイルが含まれることになるでしょう。
+   counter 拡張モジュールのファイル一覧は、このようになります。
+  </p>
+  
+  <div class="example" id="internals2.structure.files.ex1">
+   <p><b>例1 counter 拡張モジュールのファイル一覧 (順不同)</b></p>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+ext/
+ counter/
+  .svnignore
+  config.m4
+  config.w32
+  counter_util.h
+  counter_util.c
+  php_counter.h
+  counter.c
+  package.xml
+  CREDITS
+  tests/
+   critical_function_001.phpt
+   critical_function_002.phpt
+   optional_function_001.phpt
+   optional_function_002.phpt
+</pre></div>
+   </div>
+  </div> 
+  
+  <div class="sect2" id="internals2.structure.files.misc-files">
+   <h3 class="title">ソース以外のファイル</h3>
+   <p class="para">
+    作成した拡張モジュールを PHP の <strong class="command">Subversion</strong>
+    リポジトリ (通常は <a href="http://pecl.php.net/" class="link external">&raquo; PECL</a>) にチェックインする際には、
+    <var class="filename">.svnignore</var> というファイルを使用します。
+    <strong class="command">ext_skel</strong> が作成するこのファイルの雛形は、
+    次のようになります。
+   </p>
+  
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="svnignorecode"><pre class="svnignorecode">.deps
+*.lo
+*.la</pre>
+</div>
+    </div>
+
+   </div>
+  
+   <p class="para">
+    これは、PHP のビルドシステムが作成する中間ファイルを無視するよう
+    <strong class="command">Subversion</strong> に指示するためのものです。
+    単に利便性のためだけに存在するものであり、
+    省略しても悪影響はありません。
+   </p>
+   
+   <p class="para">
+    <var class="filename">CREDITS</var> ファイルには、
+    その拡張モジュールの開発に協力してくれた人たちやメンテナの情報を
+    プレーンテキストで記述します。このファイルの主要な目的は、
+    バンドルされている拡張モジュールが <span class="function"><a href="function.phpcredits.html" class="function">phpcredits()</a></span>
+    で使用する情報を作成することにあります。
+    このファイルの最初の行には拡張モジュールの名前、
+    そしてその次の行には協力者をカンマ区切りで指定します。
+    協力者の一覧は、通常は開発に参加した順に並べます。
+    <a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> パッケージでは、これらの情報はすでに
+    <var class="filename">package.xml</var> などで管理されています。
+    ですので、このファイルを省略しても特に問題はありません。
+   </p>
+   
+   <p class="para">
+    <var class="filename">package.xml</var> ファイルは、<a href="http://pecl.php.net/" class="link external">&raquo; PECL</a>
+    拡張モジュールに特有のものです。これはメタ情報ファイルであり、
+    その拡張モジュールの依存性や作者、インストール要件などの情報を含みます。
+    拡張モジュールを <a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> で公開するつもりがないのであれば、
+    このファイルは不要です。
+   </p>
+  </div>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.structure.basics.html">基本構造</a></div>
+ <div class="up"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

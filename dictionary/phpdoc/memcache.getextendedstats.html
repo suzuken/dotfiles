@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プール内のすべてのサーバの統計情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.get.html">Memcache::get</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.getserverstatus.html">Memcache::getServerStatus</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcache.getextendedstats" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcache::getExtendedStats</h1>
+  <p class="verinfo">(PECL memcache &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">Memcache::getExtendedStats</span> &mdash; <span class="dc-title">プール内のすべてのサーバの統計情報を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcache.getextendedstats-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>Memcache::getExtendedStats</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$type</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$slabid</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$limit</tt><span class="initializer"> = 100</span></span>
+  ]]] )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcache::getExtendedStats()</b></span> は、サーバの
+   統計情報を含む二次元の配列を返します。配列のキーが各サーバの
+   host:port に対応し、その値として個々のサーバの統計情報を保持します。
+   取得に失敗したサーバは、値に <b><tt>FALSE</tt></b> が設定されます。
+   <span class="function"><b>memcache_get_extended_stats()</b></span> 関数を使用することも可能です。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、Memcache バージョン 2.0.0 で追加されました。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcache.getextendedstats-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       取得する統計情報の型。使用可能な値は {reset,
+       malloc, maps, cachedump, slabs, items, sizes} のいずれかです。
+       memcached プロトコルの仕様によると、これらの追加の引数は
+       「memcache の開発者の都合により、変更される可能性があります」
+       ということです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">slabid</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">type</tt></i> を cachedump
+       と設定した場合に使用し、ダンプを取得する slab を指定します。
+       cachedump コマンドはサーバと結びついており、デバッグ目的でのみ使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">limit</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">type</tt></i> を cachedump
+       と設定した場合に使用し、ダンプするエントリの数を制限します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+   <div class="warning"><b class="warning">警告</b>
+    <p class="simpara">
+     統計情報の型 cachedump は、セキュリティ上の理由により memcached
+     デーモンから削除されました。
+    </p>
+   </div>
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcache.getextendedstats-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   サーバの統計情報を含む二次元の配列を返します。失敗した場合は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcache.getextendedstats-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3566">
+    <p><b>例1 <span class="function"><b>Memcache::getExtendedStats()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$memcache_obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'failed_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stats&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getExtendedStats</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$stats</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [memcache_host:11211] =&gt; Array
+        (
+            [pid] =&gt; 3756
+            [uptime] =&gt; 603011
+            [time] =&gt; 1133810435
+            [version] =&gt; 1.1.12
+            [rusage_user] =&gt; 0.451931
+            [rusage_system] =&gt; 0.634903
+            [curr_items] =&gt; 2483
+            [total_items] =&gt; 3079
+            [bytes] =&gt; 2718136
+            [curr_connections] =&gt; 2
+            [total_connections] =&gt; 807
+            [connection_structures] =&gt; 13
+            [cmd_get] =&gt; 9748
+            [cmd_set] =&gt; 3096
+            [get_hits] =&gt; 5976
+            [get_misses] =&gt; 3772
+            [bytes_read] =&gt; 3448968
+            [bytes_written] =&gt; 2318883
+            [limit_maxbytes] =&gt; 33554432
+        )
+
+    [failed_host:11211] =&gt; false
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcache.getextendedstats-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="memcache.getversion.html" class="function" rel="rdfs-seeAlso">Memcache::getVersion()</a> - サーバのバージョンを返す</span></li>
+    <li class="member"><span class="function"><a href="memcache.getstats.html" class="function" rel="rdfs-seeAlso">Memcache::getStats()</a> - サーバの統計情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.get.html">Memcache::get</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.getserverstatus.html">Memcache::getServerStatus</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

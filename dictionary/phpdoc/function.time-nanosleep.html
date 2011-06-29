@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>秒およびナノ秒単位で実行を遅延する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sys-getloadavg.html">sys_getloadavg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.time-sleep-until.html">time_sleep_until</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.time-nanosleep" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">time_nanosleep</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">time_nanosleep</span> &mdash; <span class="dc-title">秒およびナノ秒単位で実行を遅延する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.time-nanosleep-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>time_nanosleep</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$seconds</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$nanoseconds</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した <i><tt class="parameter">seconds</tt></i> および
+   <i><tt class="parameter">nanoseconds</tt></i> の時間だけプログラムの実行を遅延させます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.time-nanosleep-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">seconds</tt></i></span>
+     <dd>
+
+      <p class="para">
+       非負の整数である必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">nanoseconds</tt></i></span>
+     <dd>
+
+      <p class="para">
+       十億よりも小さい非負の整数である必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.time-nanosleep-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   シグナルによって遅延処理が中断された場合、以下の要素からなる連想配列を返します。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      <i>seconds</i> - 残りの秒数
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>nanoseconds</i> - 残りのナノ秒数
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 changelog" id="refsect1-function.time-nanosleep-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数は Windows プラットフォームでも使用可能となりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.time-nanosleep-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3121">
+    <p><b>例1 <span class="function"><b>time_nanosleep()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;注意!&nbsp;もし配列が返された場合、これはうまく動作しません<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">500000000</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"0.5&nbsp;秒遅延しました。\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;こちらのほうがよいでしょう<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">500000000</span><span style="color: #007700">)&nbsp;===&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"0.5&nbsp;秒遅延しました。\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;そしてこれが最良の方法です<br /></span><span style="color: #0000BB">$nano&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">time_nanosleep</span><span style="color: #007700">(</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100000</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$nano&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"2&nbsp;秒と&nbsp;100&nbsp;マイクロ秒だけ遅延しました。\n"</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$nano&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"遅延に失敗しました。\n"</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$nano</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seconds&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'seconds'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$nanoseconds&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$nano</span><span style="color: #007700">[</span><span style="color: #DD0000">'nanoseconds'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"シグナルによって中断しました。\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"残りの秒数は&nbsp;</span><span style="color: #0000BB">$seconds</span><span style="color: #DD0000">&nbsp;秒と&nbsp;</span><span style="color: #0000BB">$nanoseconds</span><span style="color: #DD0000">&nbsp;ナノ秒です。"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.time-nanosleep-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sleep.html" class="function" rel="rdfs-seeAlso">sleep()</a> - 実行を遅延させる</span></li>
+    <li class="member"><span class="function"><a href="function.usleep.html" class="function" rel="rdfs-seeAlso">usleep()</a> - マイクロ秒単位で実行を遅延する</span></li>
+    <li class="member"><span class="function"><a href="function.time-sleep-until.html" class="function" rel="rdfs-seeAlso">time_sleep_until()</a> - 指定した時刻まで実行を遅延する</span></li>
+    <li class="member"><span class="function"><a href="function.set-time-limit.html" class="function" rel="rdfs-seeAlso">set_time_limit()</a> - 実行時間の最大値を制限する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sys-getloadavg.html">sys_getloadavg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.time-sleep-until.html">time_sleep_until</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Phar アーカイブの使用法: phar ストリームラッパー</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.using.intro.html">Phar アーカイブの使用法: 導入</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.using.object.html">Phar アーカイブの使用法: Phar クラスおよび PharData クラス</a></div>
+ <div class="up"><a href="phar.using.html">Phar アーカイブの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.using.stream" class="section">
+ <h2 class="title">Phar アーカイブの使用法: phar ストリームラッパー</h2>
+ <p class="para">
+  Phar ストリームラッパーは、<span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> による読み込みや
+  書き込み (追記は除く)、<span class="function"><a href="function.unlink.html" class="function">unlink()</a></span>、<span class="function"><a href="function.stat.html" class="function">stat()</a></span>、
+  <span class="function"><a href="function.fstat.html" class="function">fstat()</a></span>、<span class="function"><a href="function.fseek.html" class="function">fseek()</a></span>、<span class="function"><a href="function.rename.html" class="function">rename()</a></span>
+  そしてディレクトリに対する <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span>
+  といった機能に完全に対応しています。
+  バージョン 2.0.0 以降では <span class="function"><a href="function.rmdir.html" class="function">rmdir()</a></span>
+  や <span class="function"><a href="function.mkdir.html" class="function">mkdir()</a></span> にも対応します。
+ </p>
+ <p class="para">
+  Phar アーカイブ内の各ファイルの圧縮やファイル単位のメタデータの操作も、
+  ストリーム上で可能です。
+ </p>
+ <p class="para">
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_context_create</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'phar'&nbsp;</span><span style="color: #007700">=&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'compress'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">GZ</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'metadata'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'user'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'cellog'</span><span style="color: #007700">)));<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://my.phar/somefile.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <i>phar</i> ストリームラッパーは、
+  リモートファイルを操作することはできません。つまり、INI 設定
+  <a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">allow_url_fopen</a> および
+  <a href="filesystem.configuration.html#ini.allow-url-include" class="link">allow_url_include</a>
+  が無効になっている場合でも使用できます。
+ </p>
+ <p class="para">
+  ストリーム操作だけで新しい phar アーカイブをゼロから作成することも可能ですが、
+  そんな場合は Phar クラスの組み込み機能を使用するほうが便利です。
+  ストリームラッパーが有用なのは、読み込み専用の操作を行う場合です。
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.using.intro.html">Phar アーカイブの使用法: 導入</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.using.object.html">Phar アーカイブの使用法: Phar クラスおよび PharData クラス</a></div>
+ <div class="up"><a href="phar.using.html">Phar アーカイブの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

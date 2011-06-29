@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>OmniHTTPd サーバ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.sun.html">Sun, iPlanet, Netscape サーバ（Microsoft Windows 用）</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.sambar.html">Sambar サーバ（Microsoft Windows 用）</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.windows.omnihttpd" class="sect1">
+   <h2 class="title">OmniHTTPd サーバ</h2>
+   <p class="para">
+    このセクションでは、Windows 上の <a href="http://www.omnicron.ca/" class="link external">&raquo; OmniHTTPd</a> 
+    で PHP を使用する場合について説明します。
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     まず始めに、<a href="install.windows.manual.html" class="link">マニュアルインストールの手順</a> 
+     をお読みください。
+    </p>
+   </p></blockquote>
+   <div class="warning"><b class="warning">警告</b><p class="para">
+CGI モードで公開したサーバは、いくつかの脆弱性の標的となる可能性があります。
+これらの攻撃からサーバを守る方法については、
+<a href="security.cgi-bin.html" class="link">CGI セキュリティ</a>
+のセクションを参照してください。</p></div>
+   <p class="simpara">
+    PHP を OmniHTTPd で動作するように設定するには以下の手順を行う必要があります。
+    以下は CGI 版の設定です。OmniHTTPd では SAPI もサポートされていますが、
+    ISPAI モジュール版の PHP を使用すると不安定なことが
+    テストの結果明らかになっています。
+   </p>
+   
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>CGI 版 PHP を使用する場合</b><br />
+    <p class="para">
+     <a href="faq.installation.html#faq.installation.forceredirect" class="link">cgi.force_redirectに関するFAQ</a> 
+     に重要な情報がありますのでお読みください。このディレクティブが <i>0</i>
+     にセットされている必要があります。
+    </p>
+   </p></blockquote>
+
+   <p class="para">
+    <ol type="1">
+     <li class="listitem">
+      <p class="para">
+       OmniHTTPd サーバをインストールします。
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       システムトレイにある青い OmniHTTPd アイコンを
+       右クリックし、<i>Properties</i>を選択します。
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <i>Web Server Global Settings</i> をクリックします
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <i>virtual = .php | actual = c:\path-to-php-dir\php.exe</i> と
+       <i>External</i> タブに入力します。
+       入力したら、<i>Add</i> ボタンを押してください。 
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <i>virtual = wwwserver/stdcgi | actual = .php</i> と
+       <i>Mime</i> タブに入力します。
+       入力したら、<i>Add</i> ボタンを押してください。 
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <i>OK</i> をクリックします。
+      </p>
+     </li>
+    </ol>
+   </p>
+    
+   <p class="simpara">
+    PHP に関連付けたい拡張子すべてに対して手順 2～6 を繰り返してください。
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+      PHP サポートを有効にしてビルドされている OmniHTTPd パッケージがあります。
+      その場合、セットアップの時にカスタムセットアップを選択し
+      PHP コンポーネントのチェックをはずしてください。
+      PHP4 のベータ版を含んでいる OmniHTTPdパッケージもありますので、
+      PHP のビルトインサポートを選択すべきではありません。
+      自分で PHP を別途インストールすべきです。サーバが既にマシン上に
+      インストールされている場合には、手順 4,5 において
+      リプレースボタンを押して、正しい情報を新しくセットしてください。
+    </p>
+   </p></blockquote>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.sun.html">Sun, iPlanet, Netscape サーバ（Microsoft Windows 用）</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.sambar.html">Sambar サーバ（Microsoft Windows 用）</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

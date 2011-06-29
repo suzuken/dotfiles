@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>すべてのスコープで使用できる組み込みの変数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="reserved.variables.html">定義済の変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reserved.variables.globals.html">$GLOBALS</a></div>
+ <div class="up"><a href="reserved.variables.html">定義済の変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.variables.superglobals" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">スーパーグローバル</h1>
+  <p class="refpurpose"><span class="refname">スーパーグローバル</span> &mdash; <span class="dc-title">すべてのスコープで使用できる組み込みの変数</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-language.variables.superglobals-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   PHP の定義済み変数の中には &quot;スーパーグローバル&quot; というものがあります。
+   これは、スクリプト全体を通してすべてのスコープで使用可能な変数のことです。
+   関数やメソッドの内部からアクセスする際にも
+   <strong class="command">global $variable;</strong> などとする必要はありません。
+  </p>
+  <p class="para">
+   スーパーグローバルには次のようなものがあります。
+   <ul class="simplelist">
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.cookies.html" class="classname">$_COOKIE</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.request.html" class="classname">$_REQUEST</a></var></var></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.environment.html" class="classname">$_ENV</a></var></var></li>
+   </ul>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-language.variables.superglobals-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.1.0</td>
+       <td align="left">
+        スーパーグローバルが PHP に導入されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-language.variables.superglobals-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>使用できる変数</b><br />
+   <p class="para">
+    デフォルトでは、すべてのスーパーグローバルが使用可能です。
+    ただし、それに影響を与える設定項目もあります。詳細は
+    <a href="ini.core.html#ini.variables-order" class="link">variables_order</a>
+    のドキュメントを参照ください。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>register_globals の扱い</b><br />
+   <p class="para">
+    非推奨の <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+    ディレクティブが <i>on</i> に設定されている場合は、
+    内部の変数もスクリプトのグローバルスコープで使用できるようになります。
+    たとえば <var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST['foo']</a></var></var>
+    は <var class="varname"><var class="varname">$foo</var></var> という名前でも使えるようになるということです。
+   </p>
+   <p class="para">
+    関連情報については、FAQ の
+    &quot;<a href="faq.using.html#faq.register-globals" class="link">register_globals の影響は?</a>&quot;
+    を参照ください。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>可変変数</b><br />
+   <p class="para">
+    スーパーグローバルは、関数やクラスメソッドの中の
+    <a href="language.variables.variable.html" class="link">可変変数</a>
+    として使用することはできません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-language.variables.superglobals-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="language.variables.scope.html" class="link">変数のスコープ</a></li>
+    <li class="member"><a href="ini.core.html#ini.variables-order" class="link">variables_order</a> ディレクティブ</li>
+    <li class="member"><a href="book.filter.html" class="link">filter 拡張モジュール</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="reserved.variables.html">定義済の変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reserved.variables.globals.html">$GLOBALS</a></div>
+ <div class="up"><a href="reserved.variables.html">定義済の変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

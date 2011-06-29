@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ロケールの設定に基づいてローカルな日付・時間をフォーマットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mktime.html">mktime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strptime.html">strptime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strftime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strftime</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">strftime</span> &mdash; <span class="dc-title">
+   ロケールの設定に基づいてローカルな日付・時間をフォーマットする
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.strftime-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>strftime</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp</tt><span class="initializer"> = time()</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ローカルの時刻・日付を、ロケール設定にもとづいてフォーマットします。
+   月および曜日の名前、およびその他の言語依存の文字列は、
+   <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> で設定された現在のロケールを尊重して表示されます。
+  </p>
+  <p class="para">
+   使用する C ライブラリで、すべての変換指定子がサポートされているとは限りません。
+   そのような場合、該当する変換指定子は PHP の
+   <span class="function"><b>strftime()</b></span> ではサポートされません。
+   また、全てのプラットフォームが負のタイムスタンプをサポートしているわけではないため、
+   Unix Epoch (1970 年 1 月 1 日）以前の日付を扱えないかもしれません。
+   つまり、Windows や一部の Linux ディストリビューション、そしてその他のごく一部の
+   オペレーティングシステム上では
+   %e、%T、%R および %D (あるいはこれ以外も) が
+   <i>Jan 1, 1970</i> より前の日付について動作しないということです。
+   Windwos システム上でサポートされる変換指定子の概要については、
+   <a href="http://msdn.microsoft.com/en-us/library/fe06s4ak.aspx" class="link external">&raquo; <acronym title="Microsoft Developer Network">MSDN</acronym></a>
+   に掲載されています。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strftime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <table class="doctable table">
+        <caption><b>次の変換指定子が <i><tt class="parameter">format</tt></i> パラメータ用の文字列として認識されます</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th><i><tt class="parameter">format</tt></i></th>
+           <th>説明</th>
+           <th>返り値の例</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">日</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%a</i></td>
+           <td align="left">短縮された曜日の名前</td>
+           <td align="left"><i>Sun</i> から <i>Sat</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%A</i></td>
+           <td align="left">完全な曜日の名前</td>
+           <td align="left"><i>Sunday</i> から <i>Saturday</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%d</i></td>
+           <td align="left">10 進数で 2 桁の日付 (先頭のゼロつき)</td>
+           <td align="left"><i>01</i> から <i>31</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%e</i></td>
+           <td align="left">
+            1 桁の場合は先頭にスペースをいれた日付。
+            Windows ではそのようには実装されていません。詳細は以下を参照ください。
+           </td>
+           <td align="left"><i> 1</i> から <i>31</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%j</i></td>
+           <td align="left">3 桁で先頭にゼロを含む年間での日付</td>
+           <td align="left"><i>001</i> から <i>366</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%u</i></td>
+           <td align="left">ISO-8601 数値表現であらわした曜日</td>
+           <td align="left"><i>1</i> (月曜日) から <i>7</i> (土曜日)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%w</i></td>
+           <td align="left">数値表現であらわした曜日</td>
+           <td align="left"><i>0</i> (日曜日) から <i>6</i> (土曜日)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">週</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%U</i></td>
+           <td align="left">指定した年の週番号。最初の日曜日を第一週の開始日とする</td>
+           <td align="left"><i>13</i> (年間の第 13 週の場合)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%V</i></td>
+           <td align="left">ISO-8601:1988 で規定された、指定した年の週番号。
+           週の開始日は月曜日で、第 1 週は少なくとも 4 日はあることになる</td>
+           <td align="left"><i>01</i> から <i>53</i> (53
+           は年をまたがる週になります)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%W</i></td>
+           <td align="left">その年の週番号の数値表現。最初の月曜日を最初の週の初日とする</td>
+           <td align="left"><i>46</i> (46 番目の週の場合。開始日は月曜日)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">月</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%b</i></td>
+           <td align="left">現在のロケールに基づく短縮された月の名前</td>
+           <td align="left"><i>Jan</i> から <i>Dec</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%B</i></td>
+           <td align="left">現在のロケールに基づく完全な月の名前</td>
+           <td align="left"><i>January</i> から <i>December</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%h</i></td>
+           <td align="left">現在のロケールに基づく短縮された月の名前 (%b のエイリアス)</td>
+           <td align="left"><i>Jan</i> から <i>Dec</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%m</i></td>
+           <td align="left">2 桁であらわした月</td>
+           <td align="left"><i>01</i> (1 月) から <i>12</i> (12 月)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">年</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%C</i></td>
+           <td align="left">2 桁であらわした世紀 (年を 100 で割り、整数に丸めたもの)</td>
+           <td align="left">20 正規の場合は <i>19</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%g</i></td>
+           <td align="left">2 桁であらわした年。ISO-8601:1988 標準形式 (%V を参照)</td>
+           <td align="left">2009 年 1 月 6 日の場合は <i>09</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%G</i></td>
+           <td align="left">%g の 4 桁完全版</td>
+           <td align="left">2009 年 1 月 3 日の場合は <i>2009</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%y</i></td>
+           <td align="left">2 桁であらわした年</td>
+           <td align="left">2009 年の場合は <i>09</i>、1979 年の場合は <i>79</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%Y</i></td>
+           <td align="left">4 桁であらわした年</td>
+           <td align="left"><i>2038</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">時</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%H</i></td>
+           <td align="left">2 桁であらわした 24 時間制の時間</td>
+           <td align="left"><i>00</i> から <i>23</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%I</i></td>
+           <td align="left">2 桁であらわした 12 時間制の時間</td>
+           <td align="left"><i>01</i> から <i>12</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%l (lower-case &#039;L&#039;)</i></td>
+           <td align="left">12 時間制の時間で、1 桁の場合は先頭にスペースをつけたもの</td>
+           <td align="left"><i> 1</i> から <i>12</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%M</i></td>
+           <td align="left">2 桁であらわした分</td>
+           <td align="left"><i>00</i> から <i>59</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%p</i></td>
+           <td align="left">指定した時刻に応じた大文字の &#039;AM&#039; あるいは &#039;PM&#039;</td>
+           <td align="left">00:31 なら <i>AM</i>、22:23 なら <i>PM</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%P</i></td>
+           <td align="left">指定した時刻に応じた小文字の &#039;am&#039; あるいは &#039;pm&#039;</td>
+           <td align="left">00:31 なら <i>am</i>、22:23 なら <i>pm</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%r</i></td>
+           <td align="left">&quot;%I:%M:%S %p&quot; と同じ</td>
+           <td align="left">21:34:17 なら <i>09:34:17 PM</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%R</i></td>
+           <td align="left">&quot;%H:%M&quot; と同じ</td>
+           <td align="left">12:35 AM なら <i>00:35</i>、4:44 PM なら <i>16:44</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%S</i></td>
+           <td align="left">2 桁であらわした秒</td>
+           <td align="left"><i>00</i> から <i>59</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%T</i></td>
+           <td align="left">&quot;%H:%M:%S&quot; と同じ</td>
+           <td align="left">09:34:17 PM なら <i>21:34:17</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%X</i></td>
+           <td align="left">Preferred time representation based on locale, without the date</td>
+           <td align="left">Example: <i>03:59:16</i> or <i>15:59:16</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%z</i></td>
+           <td align="left">UTC からのオフセットあるいはタイムゾーン略称
+           (OS に依存)</td>
+           <td align="left">東海岸時刻なら <i>-0500</i> あるいは <i>EST</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%Z</i></td>
+           <td align="left">タイムゾーンオフセットあるいは略称のうち %z で返されないもの
+           (OS に依存)</td>
+           <td align="left">東海岸時刻なら <i>-0500</i> あるいは <i>EST</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">タイムスタンプ</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%c</i></td>
+           <td align="left">現在のロケールにもとづく日付と時間の表現</td>
+           <td align="left">2009 年 2 月 5 日 午前 12:45:10 なら <i>Tue Feb  5 00:45:10 2009</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%D</i></td>
+           <td align="left">&quot;%m/%d/%y&quot; と同じ</td>
+           <td align="left">2009 年 2 月 5 日なら <i>02/05/09</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%F</i></td>
+           <td align="left">&quot;%Y-%m-%d&quot; と同じ (データベースのタイムスタンプとして一般的)</td>
+           <td align="left">2009 年 2 月 5 日なら <i>2009-02-05</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%s</i></td>
+           <td align="left">Unix エポックからのタイムスタンプ (<span class="function"><a href="function.time.html" class="function">time()</a></span>
+           関数と同じ)</td>
+           <td align="left">1979 年 9 月 10 日午前 08:40:00 なら <i>305815200</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%x</i></td>
+           <td align="left">現在のロケールにもとづく日付の表現 (時間は除く)</td>
+           <td align="left">2009 年 2 月 5 日なら <i>02/05/09</i></td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="center"><em class="emphasis">その他</em></td>
+           <td align="left">---</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%n</i></td>
+           <td align="left">改行文字 (&quot;\n&quot;)</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%t</i></td>
+           <td align="left">タブ文字 (&quot;\t&quot;)</td>
+           <td align="left">---</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>%%</i></td>
+           <td align="left">パーセント文字 (&quot;%&quot;)</td>
+           <td align="left">---</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+      <p class="para">
+       このパラメータの最大長は 1023 文字です。
+      </p>
+      <div class="warning"><b class="warning">警告</b>
+       <p class="simpara">
+        ISO-9889:1999 に反して、Sun Solaris は日曜日を 1 としています。
+        そのため、%u はこのマニュアルの説明どおりに機能しないかもしれません。
+       </p>
+      </div>
+      <div class="warning"><b class="warning">警告</b>
+       <p class="simpara">
+        <em class="emphasis">Windows 限定:</em> <i>%e</i> 修飾子は
+        Windows 版の実装ではサポートされていません。この値を取得するにはかわりに
+        <i>%#d</i> 修飾子を使いましょう。以下の例で、
+        クロスプラットフォーム対応の関数を書く方法を示します。
+       </p>
+      </div>
+      <div class="warning"><b class="warning">警告</b>
+       <p class="simpara">
+        <em class="emphasis">Mac OS X 限定:</em> <i>%P</i> 修飾子は
+        Mac OS X 版の実装ではサポートされていません。
+       </p>
+      </div>
+     </dd>
+
+    </dt>
+
+
+    
+<dt>
+<span class="term"><i><tt class="parameter">timestamp</tt></i></span><dd>
+<p class="para">
+オプションのパラメータ <i><tt class="parameter">timestamp</tt></i> は、
+<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> 型の Unix タイムスタンプです。
+<i><tt class="parameter">timestamp</tt></i> が指定されなかった場合のデフォルト値は、
+現在の時刻です。言い換えると、デフォルトは
+<span class="function"><a href="function.time.html" class="function">time()</a></span> の返り値となります。
+</p></dd>
+</dt>
+
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strftime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定した <i><tt class="parameter">timestamp</tt></i> または timestamp
+   が指定されていない場合に現在のローカル時間を用いて、
+   指定したフォーマット文字列に基づき文字列をフォーマットして返します。
+   月および曜日の名前、およびその他の言語依存の文字列は、
+   <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> で設定された現在のロケールを尊重して表示されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.strftime-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+すべての日付/時刻関数は、
+有効なタイムゾーンが設定されていない場合に <b><tt>E_NOTICE</tt></b>
+を発生させます。また、システム設定のタイムゾーンあるいは環境変数
+<var class="varname"><var class="varname">TZ</var></var> を使用した場合には <b><tt>E_STRICT</tt></b>
+あるいは <b><tt>E_WARNING</tt></b> を発生させます。
+<span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span> も参照ください。</p>
+  <p class="para">
+   出力内容は元となった C ライブラリに依存するため、サポートしていない変換指定子もあります。
+   Windows では、対応していない変換指定子を渡すと
+   5 つの <b><tt>E_WARNING</tt></b> メッセージが出て <b><tt>FALSE</tt></b> を返します。
+   その他のオペレーティングシステムでは特に
+   <b><tt>E_WARNING</tt></b> メッセージは出ず、
+   変換指定子が (変換されずに) そのまま出力されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strftime-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+
+      <tr valign="middle"><td align="left">5.1.0</td><td align="left"><p class="para">
+タイムゾーンがおかしい場合に <b><tt>E_STRICT</tt></b> や
+<b><tt>E_NOTICE</tt></b> が発生するようになりました。</p></td></tr>
+
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strftime-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   この例は、それぞれのロケールがシステムにインストールされている場合にのみ動作します。
+   <div class="example" id="example-634">
+    <p><b>例1 <span class="function"><b>strftime()</b></span> のロケールの例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_TIME</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"C"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%A"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_TIME</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"fi_FI"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;in&nbsp;Finnish&nbsp;is&nbsp;%A,"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_TIME</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"fr_FR"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;in&nbsp;French&nbsp;%A&nbsp;and"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_TIME</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"de_DE"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;in&nbsp;German&nbsp;%A.\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-635">
+    <p><b>例2 ISO 8601:1988 の週番号の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;December&nbsp;2002&nbsp;/&nbsp;January&nbsp;2003<br />ISOWk&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;Tu&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;Thu&nbsp;F&nbsp;&nbsp;&nbsp;Sa&nbsp;&nbsp;Su<br />-----&nbsp;----------------------------<br />51&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;18&nbsp;&nbsp;19&nbsp;&nbsp;20&nbsp;&nbsp;21&nbsp;&nbsp;22<br />52&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;23&nbsp;&nbsp;24&nbsp;&nbsp;25&nbsp;&nbsp;26&nbsp;&nbsp;27&nbsp;&nbsp;28&nbsp;&nbsp;29<br />1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;30&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;5<br />2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;9&nbsp;&nbsp;10&nbsp;&nbsp;11&nbsp;&nbsp;12<br />3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13&nbsp;&nbsp;14&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;18&nbsp;&nbsp;19&nbsp;&nbsp;&nbsp;*/<br /><br />//&nbsp;Outputs:&nbsp;12/28/2002&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;52,2002,2002<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"12/28/2002&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"12/28/2002"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;12/30/2002&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;1,2003,2002<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"12/30/2002&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"12/30/2002"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;1/3/2003&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;1,2003,2003<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"1/3/2003&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"1/3/2003"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;1/10/2003&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;2,2003,2003<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"1/10/2003&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"1/10/2003"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /><br /><br /></span><span style="color: #FF8000">/*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;December&nbsp;2004&nbsp;/&nbsp;January&nbsp;2005<br />ISOWk&nbsp;&nbsp;M&nbsp;&nbsp;&nbsp;Tu&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;Thu&nbsp;F&nbsp;&nbsp;&nbsp;Sa&nbsp;&nbsp;Su<br />-----&nbsp;----------------------------<br />51&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;13&nbsp;&nbsp;14&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;17&nbsp;&nbsp;18&nbsp;&nbsp;19<br />52&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;21&nbsp;&nbsp;22&nbsp;&nbsp;23&nbsp;&nbsp;24&nbsp;&nbsp;25&nbsp;&nbsp;26<br />53&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;27&nbsp;&nbsp;28&nbsp;&nbsp;29&nbsp;&nbsp;30&nbsp;&nbsp;31&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;2<br />1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;9<br />2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10&nbsp;&nbsp;11&nbsp;&nbsp;12&nbsp;&nbsp;13&nbsp;&nbsp;14&nbsp;&nbsp;15&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;*/<br /><br />//&nbsp;Outputs:&nbsp;12/23/2004&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;52,2004,2004<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"12/23/2004&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"12/23/2004"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;12/31/2004&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;53,2004,2004<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"12/31/2004&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"12/31/2004"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;1/2/2005&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;53,2004,2005<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"1/2/2005&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"1/2/2005"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Outputs:&nbsp;1/3/2005&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;1,2005,2005<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"1/3/2005&nbsp;-&nbsp;%V,%G,%Y&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%V,%G,%Y"</span><span style="color: #007700">,</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"1/3/2005"</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-636">
+    <p><b>例3 <i>%e</i> 修飾子を使う、クロスプラットフォーム対応の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;Jan&nbsp;1:&nbsp;はこのようになります。'%e%1%'&nbsp;(%%,&nbsp;e,&nbsp;%%,&nbsp;%e,&nbsp;%%)<br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'%%e%%%e%%'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;Windows&nbsp;かどうかをチェックし、%e&nbsp;修飾子を<br />//&nbsp;適切に置換します<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">strtoupper</span><span style="color: #007700">(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_OS</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">))&nbsp;==&nbsp;</span><span style="color: #DD0000">'WIN'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'#(?&lt;!%)((?:%%)*)%e#'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'\1%#d'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #007700">);<br />}<br /><br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-637">
+    <p><b>例4 すべての書式の表示</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;書式についての説明<br /></span><span style="color: #0000BB">$strftimeFormats&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'A'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'A&nbsp;full&nbsp;textual&nbsp;representation&nbsp;of&nbsp;the&nbsp;day'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'B'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Full&nbsp;month&nbsp;name,&nbsp;based&nbsp;on&nbsp;the&nbsp;locale'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'C'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;century&nbsp;(year&nbsp;divided&nbsp;by&nbsp;100,&nbsp;truncated&nbsp;to&nbsp;an&nbsp;integer)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'D'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Same&nbsp;as&nbsp;"%m/%d/%y"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'E'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'F'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Same&nbsp;as&nbsp;"%Y-%m-%d"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'G'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;full&nbsp;four-digit&nbsp;version&nbsp;of&nbsp;%g'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'H'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;hour&nbsp;in&nbsp;24-hour&nbsp;format'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'I'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;hour&nbsp;in&nbsp;12-hour&nbsp;format'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'J'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'K'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'L'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'M'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;minute'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'N'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'O'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'P'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'lower-case&nbsp;"am"&nbsp;or&nbsp;"pm"&nbsp;based&nbsp;on&nbsp;the&nbsp;given&nbsp;time'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Q'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'R'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Same&nbsp;as&nbsp;"%H:%M"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'S'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;second'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'T'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Same&nbsp;as&nbsp;"%H:%M:%S"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'U'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Week&nbsp;number&nbsp;of&nbsp;the&nbsp;given&nbsp;year,&nbsp;starting&nbsp;with&nbsp;the&nbsp;first&nbsp;Sunday&nbsp;as&nbsp;the&nbsp;first&nbsp;week'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'V'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'ISO-8601:1988&nbsp;week&nbsp;number&nbsp;of&nbsp;the&nbsp;given&nbsp;year,&nbsp;starting&nbsp;with&nbsp;the&nbsp;first&nbsp;week&nbsp;of&nbsp;the&nbsp;year&nbsp;with&nbsp;at&nbsp;least&nbsp;4&nbsp;weekdays,&nbsp;with&nbsp;Monday&nbsp;being&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;week'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'W'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'A&nbsp;numeric&nbsp;representation&nbsp;of&nbsp;the&nbsp;week&nbsp;of&nbsp;the&nbsp;year,&nbsp;starting&nbsp;with&nbsp;the&nbsp;first&nbsp;Monday&nbsp;as&nbsp;the&nbsp;first&nbsp;week'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'X'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Preferred&nbsp;time&nbsp;representation&nbsp;based&nbsp;on&nbsp;locale,&nbsp;without&nbsp;the&nbsp;date'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Y'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Four&nbsp;digit&nbsp;representation&nbsp;for&nbsp;the&nbsp;year'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Z'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;time&nbsp;zone&nbsp;offset/abbreviation&nbsp;option&nbsp;NOT&nbsp;given&nbsp;by&nbsp;%z&nbsp;(depends&nbsp;on&nbsp;operating&nbsp;system)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'a'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'An&nbsp;abbreviated&nbsp;textual&nbsp;representation&nbsp;of&nbsp;the&nbsp;day'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'b'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Abbreviated&nbsp;month&nbsp;name,&nbsp;based&nbsp;on&nbsp;the&nbsp;locale'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'c'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Preferred&nbsp;date&nbsp;and&nbsp;time&nbsp;stamp&nbsp;based&nbsp;on&nbsp;local'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'d'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two-digit&nbsp;day&nbsp;of&nbsp;the&nbsp;month&nbsp;(with&nbsp;leading&nbsp;zeros)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'e'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Day&nbsp;of&nbsp;the&nbsp;month,&nbsp;with&nbsp;a&nbsp;space&nbsp;preceding&nbsp;single&nbsp;digits'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'f'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'g'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;year&nbsp;going&nbsp;by&nbsp;ISO-8601:1988&nbsp;standards&nbsp;(see&nbsp;%V)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'h'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Abbreviated&nbsp;month&nbsp;name,&nbsp;based&nbsp;on&nbsp;the&nbsp;locale&nbsp;(an&nbsp;alias&nbsp;of&nbsp;%b)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'i'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'j'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Day&nbsp;of&nbsp;the&nbsp;year,&nbsp;3&nbsp;digits&nbsp;with&nbsp;leading&nbsp;zeros'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'k'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'l'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Hour&nbsp;in&nbsp;12-hour&nbsp;format,&nbsp;with&nbsp;a&nbsp;space&nbsp;preceeding&nbsp;single&nbsp;digits'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'m'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;month'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'n'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'A&nbsp;newline&nbsp;character&nbsp;("\n")'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'o'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'p'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'UPPER-CASE&nbsp;"AM"&nbsp;or&nbsp;"PM"&nbsp;based&nbsp;on&nbsp;the&nbsp;given&nbsp;time'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'q'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'r'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Same&nbsp;as&nbsp;"%I:%M:%S&nbsp;%p"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'s'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Unix&nbsp;Epoch&nbsp;Time&nbsp;timestamp'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'t'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'A&nbsp;Tab&nbsp;character&nbsp;("\t")'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'u'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'ISO-8601&nbsp;numeric&nbsp;representation&nbsp;of&nbsp;the&nbsp;day&nbsp;of&nbsp;the&nbsp;week'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'v'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'w'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Numeric&nbsp;representation&nbsp;of&nbsp;the&nbsp;day&nbsp;of&nbsp;the&nbsp;week'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'x'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Preferred&nbsp;date&nbsp;representation&nbsp;based&nbsp;on&nbsp;locale,&nbsp;without&nbsp;the&nbsp;time'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'y'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Two&nbsp;digit&nbsp;representation&nbsp;of&nbsp;the&nbsp;year'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'z'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Either&nbsp;the&nbsp;time&nbsp;zone&nbsp;offset&nbsp;from&nbsp;UTC&nbsp;or&nbsp;the&nbsp;abbreviation&nbsp;(depends&nbsp;on&nbsp;operating&nbsp;system)'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'%'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'A&nbsp;literal&nbsp;percentage&nbsp;character&nbsp;("%")'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;結果<br /></span><span style="color: #0000BB">$strftimeValues&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /><br /></span><span style="color: #FF8000">//&nbsp;書式を評価してエラーを抑制します<br /></span><span style="color: #007700">foreach(</span><span style="color: #0000BB">$strftimeFormats&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$description</span><span style="color: #007700">){<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">False&nbsp;</span><span style="color: #007700">!==&nbsp;(</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;@</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"%</span><span style="color: #007700">{</span><span style="color: #0000BB">$format</span><span style="color: #007700">}</span><span style="color: #DD0000">"</span><span style="color: #007700">))){<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$strftimeValues</span><span style="color: #007700">[</span><span style="color: #0000BB">$format</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;最長の値を探します<br /></span><span style="color: #0000BB">$maxValueLength&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">max</span><span style="color: #007700">(</span><span style="color: #0000BB">array_map</span><span style="color: #007700">(</span><span style="color: #DD0000">'strlen'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$strftimeValues</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;既知の書式を表示します<br /></span><span style="color: #007700">foreach(</span><span style="color: #0000BB">$strftimeValues&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">){<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Known&nbsp;format&nbsp;&nbsp;&nbsp;:&nbsp;'</span><span style="color: #007700">{</span><span style="color: #0000BB">$format</span><span style="color: #007700">}</span><span style="color: #DD0000">'&nbsp;=&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">str_pad</span><span style="color: #007700">(</span><span style="color: #DD0000">"'</span><span style="color: #007700">{</span><span style="color: #0000BB">$value</span><span style="color: #007700">}</span><span style="color: #DD0000">'"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$maxValueLength</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"&nbsp;(&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$strftimeFormats</span><span style="color: #007700">[</span><span style="color: #0000BB">$format</span><span style="color: #007700">]}</span><span style="color: #DD0000">&nbsp;)\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;未知の書式を表示します<br /></span><span style="color: #007700">foreach(</span><span style="color: #0000BB">array_diff_key</span><span style="color: #007700">(</span><span style="color: #0000BB">$strftimeFormats</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$strftimeValues</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$description</span><span style="color: #007700">){<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Unknown&nbsp;format&nbsp;:&nbsp;'</span><span style="color: #007700">{</span><span style="color: #0000BB">$format</span><span style="color: #007700">}</span><span style="color: #DD0000">'&nbsp;&nbsp;&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">str_pad</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$maxValueLength</span><span style="color: #007700">),&nbsp;(</span><span style="color: #0000BB">$description&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #DD0000">"&nbsp;(&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$description</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;)"&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Known format   : &#039;A&#039; = &#039;Friday&#039;            ( A full textual representation of the day )
+Known format   : &#039;B&#039; = &#039;December&#039;          ( Full month name, based on the locale )
+Known format   : &#039;H&#039; = &#039;11&#039;                ( Two digit representation of the hour in 24-hour format )
+Known format   : &#039;I&#039; = &#039;11&#039;                ( Two digit representation of the hour in 12-hour format )
+Known format   : &#039;M&#039; = &#039;24&#039;                ( Two digit representation of the minute )
+Known format   : &#039;S&#039; = &#039;44&#039;                ( Two digit representation of the second )
+Known format   : &#039;U&#039; = &#039;48&#039;                ( Week number of the given year, starting with the first Sunday as the first week )
+Known format   : &#039;W&#039; = &#039;48&#039;                ( A numeric representation of the week of the year, starting with the first Monday as the first week )
+Known format   : &#039;X&#039; = &#039;11:24:44&#039;          ( Preferred time representation based on locale, without the date )
+Known format   : &#039;Y&#039; = &#039;2010&#039;              ( Four digit representation for the year )
+Known format   : &#039;Z&#039; = &#039;GMT Standard Time&#039; ( The time zone offset/abbreviation option NOT given by %z (depends on operating system) )
+Known format   : &#039;a&#039; = &#039;Fri&#039;               ( An abbreviated textual representation of the day )
+Known format   : &#039;b&#039; = &#039;Dec&#039;               ( Abbreviated month name, based on the locale )
+Known format   : &#039;c&#039; = &#039;12/03/10 11:24:44&#039; ( Preferred date and time stamp based on local )
+Known format   : &#039;d&#039; = &#039;03&#039;                ( Two-digit day of the month (with leading zeros) )
+Known format   : &#039;j&#039; = &#039;337&#039;               ( Day of the year, 3 digits with leading zeros )
+Known format   : &#039;m&#039; = &#039;12&#039;                ( Two digit representation of the month )
+Known format   : &#039;p&#039; = &#039;AM&#039;                ( UPPER-CASE &quot;AM&quot; or &quot;PM&quot; based on the given time )
+Known format   : &#039;w&#039; = &#039;5&#039;                 ( Numeric representation of the day of the week )
+Known format   : &#039;x&#039; = &#039;12/03/10&#039;          ( Preferred date representation based on locale, without the time )
+Known format   : &#039;y&#039; = &#039;10&#039;                ( Two digit representation of the year )
+Known format   : &#039;z&#039; = &#039;GMT Standard Time&#039; ( Either the time zone offset from UTC or the abbreviation (depends on operating system) )
+Known format   : &#039;%&#039; = &#039;%&#039;                 ( A literal percentage character (&quot;%&quot;) )
+Unknown format : &#039;C&#039;                       ( Two digit representation of the century (year divided by 100, truncated to an integer) )
+Unknown format : &#039;D&#039;                       ( Same as &quot;%m/%d/%y&quot; )
+Unknown format : &#039;E&#039;
+Unknown format : &#039;F&#039;                       ( Same as &quot;%Y-%m-%d&quot; )
+Unknown format : &#039;G&#039;                       ( The full four-digit version of %g )
+Unknown format : &#039;J&#039;
+Unknown format : &#039;K&#039;
+Unknown format : &#039;L&#039;
+Unknown format : &#039;N&#039;
+Unknown format : &#039;O&#039;
+Unknown format : &#039;P&#039;                       ( lower-case &quot;am&quot; or &quot;pm&quot; based on the given time )
+Unknown format : &#039;Q&#039;
+Unknown format : &#039;R&#039;                       ( Same as &quot;%H:%M&quot; )
+Unknown format : &#039;T&#039;                       ( Same as &quot;%H:%M:%S&quot; )
+Unknown format : &#039;V&#039;                       ( ISO-8601:1988 week number of the given year, starting with the first week of the year with at least 4 weekdays, with Monday being the start of the week )
+Unknown format : &#039;e&#039;                       ( Day of the month, with a space preceding single digits )
+Unknown format : &#039;f&#039;
+Unknown format : &#039;g&#039;                       ( Two digit representation of the year going by ISO-8601:1988 standards (see %V) )
+Unknown format : &#039;h&#039;                       ( Abbreviated month name, based on the locale (an alias of %b) )
+Unknown format : &#039;i&#039;
+Unknown format : &#039;k&#039;
+Unknown format : &#039;l&#039;                       ( Hour in 12-hour format, with a space preceeding single digits )
+Unknown format : &#039;n&#039;                       ( A newline character (&quot;\n&quot;) )
+Unknown format : &#039;o&#039;
+Unknown format : &#039;q&#039;
+Unknown format : &#039;r&#039;                       ( Same as &quot;%I:%M:%S %p&quot; )
+Unknown format : &#039;s&#039;                       ( Unix Epoch Time timestamp )
+Unknown format : &#039;t&#039;                       ( A Tab character (&quot;\t&quot;) )
+Unknown format : &#039;u&#039;                       ( ISO-8601 numeric representation of the day of the week )
+Unknown format : &#039;v&#039;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.strftime-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    ISO 8601:1988 week numbers に基づいている %G と %V は、
+    もしナンバリングシステムが完全に理解されていなければ
+    期待とは違う結果をもたらします。
+    このマニュアルの %V の例を参照ください。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strftime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.setlocale.html" class="function" rel="rdfs-seeAlso">setlocale()</a> - ロケール情報を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.mktime.html" class="function" rel="rdfs-seeAlso">mktime()</a> - 日付を Unix のタイムスタンプとして取得する</span></li>
+    <li class="member"><span class="function"><a href="function.strptime.html" class="function" rel="rdfs-seeAlso">strptime()</a> - strftime が生成した日付/時刻をパースする</span></li>
+    <li class="member"><span class="function"><a href="function.gmstrftime.html" class="function" rel="rdfs-seeAlso">gmstrftime()</a> - ロケールの設定に基づいて GMT/UTC 時刻/日付をフォーマットする</span></li>
+    <li class="member"><a href="http://www.opengroup.org/onlinepubs/007908799/xsh/strftime.html" class="link external">&raquo; Open Group による <span class="function"><b>strftime()</b></span> の定義</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mktime.html">mktime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strptime.html">strptime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

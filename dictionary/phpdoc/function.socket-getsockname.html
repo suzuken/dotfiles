@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したソケットのローカル側に問い合わせ、その型に応じてホスト/ポート、あるいは Unix ファイルシステムのパスを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-getpeername.html">socket_getpeername</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-last-error.html">socket_last_error</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-getsockname" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_getsockname</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_getsockname</span> &mdash; <span class="dc-title">指定したソケットのローカル側に問い合わせ、その型に応じてホスト/ポート、あるいは Unix ファイルシステムのパスを返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-getsockname-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>socket_getsockname</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$socket</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$addr</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$port</tt></span>
+  ] )</div>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    <span class="function"><b>socket_getsockname()</b></span> は、
+    <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> で作成した <b><tt>AF_UNIX</tt></b>
+    ソケットとともに使用することはできません。意味のある値が返されるのは、
+    <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> で作成したソケットか
+    <span class="function"><a href="function.socket-bind.html" class="function">socket_bind()</a></span> に続くプライマリサーバソケットのみです。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-getsockname-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> あるいは <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span>
+       で作成したソケットリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">addr</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定されたソケットの型が <b><tt>AF_INET</tt></b> あるいは
+       <b><tt>AF_INET6</tt></b> であった場合、<span class="function"><b>socket_getsockname()</b></span>
+       はローカルの <em class="emphasis">IP アドレス</em> を適切な書式（例:
+       <i>127.0.0.1</i> あるいは <i>fe80::1</i>）に
+       したものを <i><tt class="parameter">address</tt></i> パラメータに、そしてもし
+       オプションの <i><tt class="parameter">port</tt></i> パラメータが指定されていれば
+       そこにポートを格納します。
+      </p>
+      <p class="para">
+       指定されたソケットの型が <b><tt>AF_UNIX</tt></b> であった場合、
+       <span class="function"><a href="function.socket-getpeername.html" class="function">socket_getpeername()</a></span> は Unix ファイルシステムのパス
+       （例: <i>/var/run/daemon.sock</i>）を
+       <i><tt class="parameter">address</tt></i> パラメータに格納します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定した場合は、関連付けるポートを保持します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-getsockname-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。 <span class="function"><b>socket_getsockname()</b></span> は、
+   ソケットの型が <b><tt>AF_INET</tt></b>、
+   <b><tt>AF_INET6</tt></b> あるいは <b><tt>AF_UNIX</tt></b>
+   のいずれでもない場合にも <b><tt>FALSE</tt></b> を返します。この場合には、
+   直近のソケットエラーコードは更新<em class="emphasis">されません</em>。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-getsockname-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-getpeername.html" class="function" rel="rdfs-seeAlso">socket_getpeername()</a> - 指定したソケットのリモート側に問い合わせ、その型に応じてホスト/ポート、あるいは Unix ファイルシステムのパスを返す</span></li>
+    <li class="member"><span class="function"><a href="function.socket-last-error.html" class="function" rel="rdfs-seeAlso">socket_last_error()</a> - ソケットの直近のエラーを返す</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - ソケットエラーの内容を文字列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-getpeername.html">socket_getpeername</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-last-error.html">socket_last_error</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

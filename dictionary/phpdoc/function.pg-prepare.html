@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したパラメータでプリペアドステートメントを作成するリクエストを
+   送信し、その完了を待つ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-port.html">pg_port</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-put-line.html">pg_put_line</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-prepare" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_prepare</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">pg_prepare</span> &mdash; <span class="dc-title">
+   指定したパラメータでプリペアドステートメントを作成するリクエストを
+   送信し、その完了を待つ
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-prepare-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>pg_prepare</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   ], <span class="methodparam"><span class="type">string</span> <tt class="parameter">$stmtname</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+    <span class="function"><b>pg_prepare()</b></span> は、
+    <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span> あるいは <span class="function"><a href="function.pg-send-execute.html" class="function">pg_send_execute()</a></span>
+    で後に実行するためのプリペアドステートメントを作成します。これにより、
+    繰り返し使用されるコマンドについての構文解析や実行計画作成が最初の
+    一度だけですみます。<span class="function"><b>pg_prepare()</b></span> は PostgreSQL 7.4
+    以降の接続でのみ使用可能です。それ以前のバージョンでは失敗します。
+  </p>
+  <p class="para">
+    この関数は <i><tt class="parameter">stmtname</tt></i> という名前の
+    プリペアドステートメントを <i><tt class="parameter">query</tt></i> 文字列から作成します。
+    この文字列には 1 つの SQL コマンドが含まれている必要があります。
+    <i><tt class="parameter">stmtname</tt></i> を &quot;&quot; にすることで無名ステートメントを
+    作成することが可能で、既存の無名ステートメントは自動的に上書きされます。
+    それ以外の場合、もしカレントのセッションで既に定義済みのステートメント名を
+    使用した場合にはエラーとなります。パラメータを使用する際は、
+    <i><tt class="parameter">query</tt></i> 内で $1、$2 のような形式で参照されます。
+  </p>
+  <p class="para">
+    <span class="function"><b>pg_prepare()</b></span> で使用するプリペアドステートメントは、
+    SQLの <i>PREPARE</i> 文を実行することでも作成可能です
+    （しかし、パラメータの型を事前に指定する必要がないという点で
+    <span class="function"><b>pg_prepare()</b></span> のほうがより柔軟です）。
+    また、PHP にはプリペアドステートメントを削除する関数がありませんが、
+    この目的のためには SQLの <i>DEALLOCATE</i> 文が使用可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-prepare-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PostgreSQL データベース接続リソース。<i><tt class="parameter">connection</tt></i>
+       が指定されていない場合はデフォルトの接続が使用されます。
+       デフォルトの接続は、直近の <span class="function"><a href="function.pg-connect.html" class="function">pg_connect()</a></span>
+       あるいは <span class="function"><a href="function.pg-pconnect.html" class="function">pg_pconnect()</a></span> によって作成されたものです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmtname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プリペアドステートメントにつける名前。接続内で一意である必要があります。
+       &quot;&quot; が指定された場合は無名ステートメントが作成され、以前に定義された
+       無名ステートメントを上書きします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パラメータ化した SQL 文。ひとつの文のみである必要があります
+       （複数の文をセミコロンで区切る形式は使用できません）。パラメータを
+       使用する際は $1、$2 などの形式で参照されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-prepare-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にクエリ結果リソース、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-prepare-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1750">
+    <p><b>例1 <span class="function"><b>pg_prepare()</b></span> の使用法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;"mary"という名前のデータベースに接続<br /></span><span style="color: #0000BB">$dbconn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=mary"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;実行するクエリの準備<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_query"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;*&nbsp;FROM&nbsp;shops&nbsp;WHERE&nbsp;name&nbsp;=&nbsp;$1'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;プリペアドクエリを実行する。文字列&nbsp;"Joe's&nbsp;Widgets"&nbsp;は<br />//&nbsp;エスケープの必要がないことに注意<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_query"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"Joe's&nbsp;Widgets"</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;同一プリペアドクエリを別のパラメータで実行する<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_query"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"Clothes&nbsp;Clothes&nbsp;Clothes"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-prepare-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-execute.html" class="function" rel="rdfs-seeAlso">pg_execute()</a> - 指定したパラメータを用いてプリペアドステートメントを実行するリクエストを
+   送信し、その結果を待つ</span></li>
+    <li class="member"><span class="function"><a href="function.pg-send-execute.html" class="function" rel="rdfs-seeAlso">pg_send_execute()</a> - 指定したパラメータでプリペアドステートメントを実行するリクエストを
+   送信し、その結果を待たない</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-port.html">pg_port</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-put-line.html">pg_put_line</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

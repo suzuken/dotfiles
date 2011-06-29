@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>単語のスペルが正しいかどうかを調べ、修正候補を提供する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.enchant-dict-is-in-session.html">enchant_dict_is_in_session</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.enchant-dict-store-replacement.html">enchant_dict_store_replacement</a></div>
+ <div class="up"><a href="ref.enchant.html">Enchant 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.enchant-dict-quick-check" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">enchant_dict_quick_check</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL enchant:0.2.0-1.0.1)</p><p class="refpurpose"><span class="refname">enchant_dict_quick_check</span> &mdash; <span class="dc-title">単語のスペルが正しいかどうかを調べ、修正候補を提供する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.enchant-dict-quick-check-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>enchant_dict_quick_check</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dict</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$word</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$suggestions</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   単語のスペルが正しい場合は <b><tt>TRUE</tt></b>、そうでない場合は <b><tt>FALSE</tt></b>
+   を返します。変数 suggestions を指定している場合は、
+   そこに修正候補が格納されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.enchant-dict-quick-check-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dict</tt></i></span>
+     <dd>
+
+      <p class="para">
+       辞書リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">word</tt></i></span>
+     <dd>
+
+      <p class="para">
+       調べる単語。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">suggestions</tt></i></span>
+     <dd>
+
+      <p class="para">
+       単語のスペルが間違っている場合に、
+       この変数の中に修正候補の配列が格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.enchant-dict-quick-check-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   単語のスペルが正しい場合に <b><tt>TRUE</tt></b>、
+   そうでない場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.enchant-dict-quick-check-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1994">
+    <p><b>例1 <span class="function"><b>enchant_dict_quick_check()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$tag&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$r&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">enchant_broker_init</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">enchant_broker_dict_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$r</span><span style="color: #007700">,</span><span style="color: #0000BB">$tag</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$d&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">enchant_broker_request_dict</span><span style="color: #007700">(</span><span style="color: #0000BB">$r</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$tag</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">enchant_dict_quick_check</span><span style="color: #007700">(</span><span style="color: #0000BB">$d</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'soong'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$suggs</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$suggs</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; song
+    [1] =&gt; snog
+    [2] =&gt; soon
+    [3] =&gt; Sang
+    [4] =&gt; Sung
+    [5] =&gt; sang
+    [6] =&gt; sung
+    [7] =&gt; sponge
+    [8] =&gt; spongy
+    [9] =&gt; snag
+    [10] =&gt; snug
+    [11] =&gt; sonic
+    [12] =&gt; sing
+    [13] =&gt; songs
+    [14] =&gt; Son
+    [15] =&gt; Sonja
+    [16] =&gt; Synge
+    [17] =&gt; son
+    [18] =&gt; Sejong
+    [19] =&gt; sarong
+    [20] =&gt; sooner
+    [21] =&gt; Sony
+    [22] =&gt; sown
+    [23] =&gt; scone
+    [24] =&gt; song&#039;s
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.enchant-dict-quick-check-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.enchant-dict-check.html" class="function" rel="rdfs-seeAlso">enchant_dict_check()</a> - 単語のスペルが正しいかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.enchant-dict-suggest.html" class="function" rel="rdfs-seeAlso">enchant_dict_suggest()</a> - 修正候補となる値の一覧を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.enchant-dict-is-in-session.html">enchant_dict_is_in_session</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.enchant-dict-store-replacement.html">enchant_dict_store_replacement</a></div>
+ <div class="up"><a href="ref.enchant.html">Enchant 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

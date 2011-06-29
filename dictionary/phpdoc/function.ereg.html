@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>正規表現によるマッチングを行う</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ereg-replace.html">ereg_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.eregi-replace.html">eregi_replace</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ereg" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ereg</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ereg</span> &mdash; <span class="dc-title">正規表現によるマッチングを行う</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ereg-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ereg</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$regs</tt></span>
+  ] )</div>
+
+  <p class="simpara">
+   <i><tt class="parameter">pattern</tt></i> で指定した正規表現
+   により、大文字小文字を区別して <i><tt class="parameter">string</tt></i> を検索します。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ereg-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       大文字小文字を区別する正規表現。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">regs</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">pattern</tt></i> の括弧でくくられた部分文字列に
+       マッチし、かつこの関数が 3 番目の引数 <i><tt class="parameter">regs</tt></i> を
+       指定してコールされた場合、マッチした部分が配列 <i><tt class="parameter">regs</tt></i>
+       に格納されます。
+      </p>
+      <p class="para">
+       <var class="varname"><var class="varname">$regs[1]</var></var> は最初の左括弧が始まる部分文字列を保持、
+       <var class="varname"><var class="varname">$regs[2]</var></var> は二番目の左括弧が始まる部分文字列を保持、
+       といったようになっています。<var class="varname"><var class="varname">$regs[0]</var></var> は
+       マッチした文字列全体のコピーを保持しています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ereg-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">string</tt></i> の中で <i><tt class="parameter">pattern</tt></i>
+   がマッチした場合にはマッチした文字列の長さを返し、マッチしなかった場合
+   またはエラーとなった場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   オプションのパラメータ <i><tt class="parameter">regs</tt></i> が渡されなかったり
+   マッチした文字列の長さが 0 だったりした場合は、この関数は 1 を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.ereg-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.1.0</td>
+       <td align="left">
+        PHP 4.1.0 以前(4.1.0 を含む)のバージョンでは、<i>$regs</i>
+        にはちょうど 10 個の要素が代入されました。これは、実際にマッチした
+        括弧付きのサブ文字列が 10 より多くても少なくても同じでした。ただし、
+        <span class="function"><b>ereg()</b></span> にはより多くの部分文字列にマッチする
+        能力があります。マッチするものが見付からなかった場合、
+        <i>$regs</i> は、<span class="function"><b>ereg()</b></span> により
+        書き換えられません。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ereg-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3942">
+    <p><b>例1 <span class="function"><b>ereg()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     以下のサンプルコードは、ISO フォーマット(YYYY-MM-DD) で格納されている
+     日付を DD.MM.YYYY フォーマットで表示するものです。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">ereg&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$regs</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$regs</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]</span><span style="color: #DD0000">.</span><span style="color: #0000BB">$regs</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]</span><span style="color: #DD0000">.</span><span style="color: #0000BB">$regs</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Invalid&nbsp;date&nbsp;format:&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.ereg-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">PHP 5.3.0 以降、
+regex 拡張モジュールは非推奨となりました。かわりに
+<a href="book.pcre.html" class="link">PCRE 拡張モジュール</a> を使うことが推奨されています。
+この関数をコールすると <b><tt>E_DEPRECATED</tt></b> が発生します。
+PCRE への変換についてのヘルプは <a href="reference.pcre.pattern.posix.html" class="link">
+相違点の一覧</a> を参照ください。</p></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Perl 互換の正規表現構文を使用する <span class="function"><a href="function.preg-match.html" class="function">preg_match()</a></span>
+    のほうが、多くの場合 <span class="function"><b>ereg()</b></span> よりも速く動作します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ereg-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.eregi.html" class="function" rel="rdfs-seeAlso">eregi()</a> - 大文字小文字を区別せずに正規表現によるマッチングを行う</span></li>
+    <li class="member"><span class="function"><a href="function.ereg-replace.html" class="function" rel="rdfs-seeAlso">ereg_replace()</a> - 正規表現による置換を行う</span></li>
+    <li class="member"><span class="function"><a href="function.eregi-replace.html" class="function" rel="rdfs-seeAlso">eregi_replace()</a> - 大文字小文字を区別せずに正規表現による置換を行う</span></li>
+    <li class="member"><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 正規表現によるマッチングを行う</span></li>
+    <li class="member"><span class="function"><a href="function.strpos.html" class="function" rel="rdfs-seeAlso">strpos()</a> - 文字列が最初に現れる場所を見つける</span></li>
+    <li class="member"><span class="function"><a href="function.strstr.html" class="function" rel="rdfs-seeAlso">strstr()</a> - 文字列が最初に現れる位置を見つける</span></li>
+    <li class="member"><span class="function"><a href="function.quotemeta.html" class="function" rel="rdfs-seeAlso">quotemeta()</a> - メタ文字をクォートする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ereg-replace.html">ereg_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.eregi-replace.html">eregi_replace</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

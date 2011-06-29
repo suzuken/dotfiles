@@ -1,0 +1,438 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した書式でフォーマットした新しい DateTime オブジェクトを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.construct.html">DateTime::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.diff.html">DateTime::diff</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.createfromformat" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DateTime::createFromFormat</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">DateTime::createFromFormat</span> &mdash; <span class="dc-title">指定した書式でフォーマットした新しい DateTime オブジェクトを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-datetime.createfromformat-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="modifier">static</span> <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <span class="methodname"><b>DateTime::createFromFormat</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$time</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span> <tt class="parameter">$timezone</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <span class="methodname"><a href="function.date-create-from-format.html" class="methodname">date_create_from_format</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$time</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span> <tt class="parameter">$timezone</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   指定した書式でフォーマットした新しい DateTime オブジェクトを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-datetime.createfromformat-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">format</tt></i></span>
+    <dd>
+
+     <p class="para">
+      書式を文字列で渡します。以下の書式オプションを参照ください。
+      大半は、<span class="function"><a href="function.date.html" class="function">date()</a></span> で使える文字と同じです。
+     </p>
+     <p class="para">
+      <table class="doctable table">
+       <caption><b><i><tt class="parameter">format</tt></i> パラメータに渡せる文字</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th><i><tt class="parameter">format</tt></i> 文字</th>
+          <th>説明</th>
+          <th>取りうる値の例</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">日</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>d</i> および <i>j</i></td>
+          <td align="left">2桁の日付。先頭のゼロを含むものと含まないもの</td>
+          <td align="left">
+           <i>01</i> から <i>31</i> あるいは
+           <i>1</i> から <i>31</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>D</i> および <i>l</i></td>
+          <td align="left">曜日を表す文字列</td>
+          <td align="left">
+           <i>Mon</i> から <i>Sun</i> あるいは
+           <i>Sunday</i> から <i>Saturday</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>S</i></td>
+          <td align="left">日付の後につける英語の接尾辞。二文字。処理中には無視されます。</td>
+          <td align="left">
+           <i>st</i>、<i>nd</i>、<i>rd</i> あるいは
+           <i>th</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>z</i></td>
+          <td align="left">年始からの通算日数 (最初は 0)</td>
+          <td align="left"><i>0</i> から <i>365</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">月</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>F</i> および <i>M</i></td>
+          <td align="left">月を表す文字列。January あるいは Sept など</td>
+          <td align="left">
+           <i>January</i> から <i>December</i> あるいは
+           <i>Jan</i> から <i>Dec</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>m</i> および <i>n</i></td>
+          <td align="left">月を表す数値。先頭のゼロを含むものと含まないもの</td>
+          <td align="left">
+           <i>01</i> から <i>12</i> あるいは
+           <i>1</i> から <i>12</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">年</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>Y</i></td>
+          <td align="left">4 桁の数値で表した年</td>
+          <td align="left">例: <i>1999</i> あるいは <i>2003</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>y</i></td>
+          <td align="left">2 桁の数値で表した年</td>
+          <td align="left">例: <i>99</i> あるいは <i>03</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">時刻</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>a</i> および <i>A</i></td>
+          <td align="left">午前および午後</td>
+          <td align="left"><i>am</i> あるいは <i>pm</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>g</i> および <i>h</i></td>
+          <td align="left">12 時間制での時間。先頭のゼロを含むものと含まないもの</td>
+          <td align="left">
+           <i>1</i> から <i>12</i> あるいは
+           <i>01</i> から <i>12</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>G</i> and <i>H</i></td>
+          <td align="left">24 時間制での時間。先頭のゼロを含むものと含まないもの</td>
+          <td align="left">
+           <i>0</i> から <i>23</i> あるいは
+           <i>00</i> から <i>23</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>i</i></td>
+          <td align="left">分。先頭のゼロを含む</td>
+          <td align="left"><i>00</i> から <i>59</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>s</i></td>
+          <td align="left">秒。先頭のゼロを含む</td>
+          <td align="left"><i>00</i> から <i>59</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>u</i></td>
+          <td align="left">マイクロ秒 (最大 6 桁)</td>
+          <td align="left">例: <i>45</i>, <i>654321</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">タイムゾーン</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">
+           <i>e</i>、<i>O</i>、
+           <i>P</i> および <i>T</i>
+          </td>
+          <td align="left">タイムゾーン識別子、UTC からの時差 (時間単位)、
+          UTC からの時差 (コロン区切りでの時間と分)、そしてタイムゾーンの短縮形</td>
+          <td align="left">例: <i>UTC</i>、<i>GMT</i>、
+           <i>Atlantic/Azores</i> あるいは
+           <i>+0200</i> あるいは <i>+02:00</i> あるいは
+           <i>EST</i>、<i>MDT</i>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">完全な日付/時刻</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>U</i></td>
+          <td align="left">Unix エポック (January 1 1970 00:00:00 GMT) からの経過秒数</td>
+          <td align="left">例: <i>1292177455</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="center"><em class="emphasis">空白および区切り</em></td>
+          <td align="left">---</td>
+          <td align="left">---</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i> </i> (空白)</td>
+          <td align="left">空白 1 文字あるいはタブ 1 文字</td>
+          <td align="left">例: <i> </i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>#</i></td>
+          <td align="left">
+           次の区切り文字のいずれか: <i>;</i>,
+           <i>:</i>, <i>/</i>, <i>.</i>,
+           <i>,</i>, <i>-</i>, <i>(</i> あるいは
+           <i>)</i>
+          </td>
+          <td align="left">例: <i>/</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">
+           <i>;</i>,
+           <i>:</i>, <i>/</i>, <i>.</i>,
+           <i>,</i>, <i>-</i>, <i>(</i> あるいは
+           <i>)</i>
+          </td>
+          <td align="left">指定した文字</td>
+          <td align="left">例: <i>-</i></td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>?</i></td>
+          <td align="left">ランダムなバイト</td>
+          <td align="left">例: <i>^</i> (UTF-8 文字の場合は複数の
+          <i>?</i> が必要になるでしょう。この場合、おそらく
+          <i>*</i> を使うと要望が満たせるはずです)</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>*</i></td>
+          <td align="left">次の区切り文字あるいは数字までのランダムなバイト列</td>
+          <td align="left">例: <i>Y-*-d</i> の中の <i>*</i>
+          は、文字列 <i>2009-aWord-08</i> の中の
+          <i>aWord</i> にマッチします</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>!</i></td>
+          <td align="left">すべてのフィールド (年、月、日、時、分、秒、マイクロ秒およびタイムゾーン情報)
+          を Unix エポックにリセットする</td>
+          <td align="left"><i>!</i> がなければ、すべてのフィールドは現在の日時に設定されます。</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>|</i></td>
+          <td align="left">まだパースされていないすべてのフィールド (年、月、日、時、分、秒、マイクロ秒およびタイムゾーン情報)
+          を Unix エポックにリセットする</td>
+          <td align="left"><i>Y-m-d|</i> は、文字列をパースした結果から年月日を設定し
+          時分秒には 0 を設定します。</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>+</i></td>
+          <td align="left">この文字があると、文字列のそれ以降のデータではエラーが発生せず、
+          かわりに警告を発生させる</td>
+          <td align="left">それ以降のデータが存在したかどうかを調べるには  <span class="methodname"><a href="datetime.getlasterrors.html" class="methodname">DateTime::getLastErrors()</a></span>
+          を使います。</td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </p>
+     <p class="para">
+      書式文字列の中に解釈不能な文字が含まれていると処理は失敗し、
+      返り値にはエラーメッセージが付加されます。エラーメッセージを調べるには
+       <span class="methodname"><a href="datetime.getlasterrors.html" class="methodname">DateTime::getLastErrors()</a></span> を使います。
+     </p>
+     <p class="para">
+      <i><tt class="parameter">format</tt></i> に文字
+      <i>!</i> が含まれない場合は、作成した時刻値のうち
+      <i><tt class="parameter">format</tt></i> で指定されていない部分を
+      現在のシステム時刻で初期化します。
+     </p>
+     <p class="para">
+      <i><tt class="parameter">format</tt></i> に文字
+      <i>!</i> が含まれる場合は、作成した時刻値のうち
+      <i><tt class="parameter">format</tt></i> で指定されていない部分と
+      <i>!</i> の左側の部分を
+      Unix エポックの対応する箇所の値で初期化します。
+     </p>
+     <p class="para">
+      Unix エポックは 1970-01-01 00:00:00 です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">time</tt></i></span>
+    <dd>
+
+     <p class="para">
+      時刻を表す文字列。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">timezone</tt></i></span>
+    <dd>
+
+     <p class="para">
+      指定したいタイムゾーンを表す
+      <a href="class.datetimezone.html" class="classname">DateTimeZone</a> オブジェクト。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-datetime.createfromformat-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   新しい DateTime のインスタンス、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-datetime.createfromformat-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-575">
+   <p><b>例1 <span class="function"><b>DateTime::createFromFormat()</b></span> の例</b></p>
+   <div class="example-contents"><p>オブジェクト指向型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #DD0000">'j-M-Y'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'15-Feb-2009'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>手続き型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create_from_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'j-M-Y'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'15-Feb-2009'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">date_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+2009-02-15
+</pre></div>
+   </div>
+  </div>
+  <div class="example" id="example-576">
+   <p><b>例2 <span class="function"><b>DateTime::createFromFormat()</b></span> の複雑な例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Current&nbsp;time:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'2009-02-15'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Format:&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #DD0000">;&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'2009-02-15&nbsp;15:16:17'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Format:&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #DD0000">;&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Y-m-!d&nbsp;H:i:s'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'2009-02-15&nbsp;15:16:17'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Format:&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #DD0000">;&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'!d'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">::</span><span style="color: #0000BB">createFromFormat</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'15'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Format:&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #DD0000">;&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d&nbsp;H:i:s'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Current time: 2010-04-23 10:29:35
+Format: Y-m-d; 2009-02-15 10:29:35
+Format: Y-m-d H:i:s; 2009-02-15 15:16:17
+Format: Y-m-!d H:i:s; 1970-01-15 15:16:17
+Format: !d; 1970-01-15 00:00:00
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-datetime.createfromformat-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="datetime.construct.html" class="function" rel="rdfs-seeAlso">DateTime::__construct()</a> - 新しい DateTime オブジェクトを返す</span></li>
+   <li class="member"><span class="function"><a href="datetime.getlasterrors.html" class="function" rel="rdfs-seeAlso">DateTime::getLastErrors()</a> - 警告およびエラーを返す</span></li>
+   <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - グレゴリオ暦の日付/時刻の妥当性を確認します</span></li>
+  </ul>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.construct.html">DateTime::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.diff.html">DateTime::diff</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

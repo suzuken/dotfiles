@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>proc_open
+  で開かれたプロセスに関する情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.proc-close.html">proc_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-nice.html">proc_nice</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.proc-get-status" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">proc_get_status</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">proc_get_status</span> &mdash; <span class="dc-title"><span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span>
+  で開かれたプロセスに関する情報を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.proc-get-status-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>proc_get_status</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$process</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>proc_get_status()</b></span> は、<span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span>
+   で開かれたプロセスに関する情報を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.proc-get-status-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">process</tt></i></span>
+     <dd>
+
+      <p class="para">
+       評価される <span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> <span class="type"><span class="type リソース">リソース</span></span>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.proc-get-status-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功時は集められた情報の<span class="type"><span class="type 配列">配列</span></span>、失敗時は <b><tt>FALSE</tt></b> 。
+   返される配列は次のような要素を持ちます:
+  </p>
+  <p class="para">
+  <table class="doctable informaltable">
+   
+    <thead valign="middle">
+     <tr valign="middle"><th>要素</th><th>型</th><th>説明</th></tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">command</td>
+      <td align="left"><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+      <td align="left">
+       <span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> に指定されたコマンド文字列。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">pid</td>
+      <td align="left"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></td>
+      <td align="left">プロセス ID</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">running</td>
+      <td align="left"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></td>
+      <td align="left">
+       もしプロセスがまだ動いている場合は、<b><tt>TRUE</tt></b> 、すでに終了している場合は
+       <b><tt>FALSE</tt></b>。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">signaled</td>
+      <td align="left"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></td>
+      <td align="left">
+       子プロセスが、キャッチされていないシグナルにより終了した場合に
+       <b><tt>TRUE</tt></b> となります。Windows では常に <b><tt>FALSE</tt></b> にセットされます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">stopped</td>
+      <td align="left"><span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span></td>
+      <td align="left">
+       子プロセスが、シグナルにより停止した時に <b><tt>TRUE</tt></b> となります。
+       Windows では常に <b><tt>FALSE</tt></b> にセットされます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">exitcode</td>
+      <td align="left"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></td>
+      <td align="left">
+       プロセスが返した終了コード
+       (<i>running</i> が <b><tt>FALSE</tt></b> の時のみ意味を持ちます)。
+       正しい値を返すのは関数を最初にコールした時のみで、次に
+       コールした際には <i>-1</i> を返します。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">termsig</td>
+      <td align="left"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></td>
+      <td align="left">
+       プロセスを終了させたシグナルの番号です (<i>signaled</i> が
+       <b><tt>TRUE</tt></b> の時のみ意味を持ちます)。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">stopsig</td>
+      <td align="left"><span class="type"><a href="language.types.integer.html" class="type int">int</a></span></td>
+      <td align="left">
+       プロセスを停止させたシグナルの番号です (<i>stopped</i> が
+       <b><tt>TRUE</tt></b> の時のみ意味を持ちます)。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.proc-get-status-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.proc-open.html" class="function" rel="rdfs-seeAlso">proc_open()</a> - コマンドを実行し、入出力用にファイルポインタを開く</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.proc-close.html">proc_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-nice.html">proc_nice</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

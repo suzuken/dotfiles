@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL ステートメントで安全に使用できるように文字列をエスケープする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-error.html">dbx_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-fetch-row.html">dbx_fetch_row</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dbx-escape-string" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dbx_escape_string</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5 &lt;= 5.0.5, PECL dbx &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">dbx_escape_string</span> &mdash; <span class="dc-title">
+   SQL ステートメントで安全に使用できるように文字列をエスケープする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dbx-escape-string-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>dbx_escape_string</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$link_identifier</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$text</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した文字列をエスケープし、SQL ステートメントで安全に使用できるようにします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dbx-escape-string-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link_identifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.dbx-connect.html" class="function">dbx_connect()</a></span> が返す DBX リンクオブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">text</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エスケープする文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dbx-escape-string-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   テキストを返します。
+   必要なら（クォートやバックスラッシュなど）エスケープ処理を行います。
+   エラー時には <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dbx-escape-string-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-891">
+    <p><b>例1 <span class="function"><b>dbx_escape_string()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">DBX_MYSQL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できませんでした"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_escape_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"It\'s&nbsp;quoted&nbsp;and&nbsp;backslashed&nbsp;(\\)."</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"insert&nbsp;into&nbsp;tbl&nbsp;(txt)&nbsp;values&nbsp;('"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"')"</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">dbx_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">dbx_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dbx-escape-string-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dbx-query.html" class="function" rel="rdfs-seeAlso">dbx_query()</a> - クエリを送信し、(ある場合には)結果を全て取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-error.html">dbx_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-fetch-row.html">dbx_fetch_row</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

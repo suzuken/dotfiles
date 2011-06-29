@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソケットのオプションを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-create.html">socket_create</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-getpeername.html">socket_getpeername</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-get-option" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_get_option</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_get_option</span> &mdash; <span class="dc-title">ソケットのオプションを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-get-option-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>socket_get_option</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$socket</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$level</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$optname</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>socket_get_option()</b></span> 関数は、ソケット
+   <i><tt class="parameter">socket</tt></i> のオプション <i><tt class="parameter">optname</tt></i>
+   の値を取得します。<span class="function"><b>socket_get_option()</b></span> は、失敗した場合に
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-get-option-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> あるいは <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span>
+       で作成したソケットリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">level</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">level</tt></i> パラメータは、オプションのプロトコルレベルを指定します。
+       例えば、オプションをソケットレベルで取得するには
+       <i><tt class="parameter">level</tt></i> パラメータに <b><tt>SOL_SOCKET</tt></b> を指定します。
+       <b><tt>TCP</tt></b> のようなそれ以外のレベルの場合、そのレベルのプロトコル番号を指定します。
+       プロトコル番号は <span class="function"><a href="function.getprotobyname.html" class="function">getprotobyname()</a></span>
+       関数を使用して取得可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">optname</tt></i></span>
+     <dd>
+
+      <table class="doctable table">
+       <caption><b>使用可能なソケットオプション</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>オプション</th>
+          <th>説明</th>
+          <th>型</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_DEBUG</tt></b></td>
+          <td align="left">
+           デバッグ情報を記録するかどうかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_BROADCAST</tt></b></td>
+          <td align="left">
+           ブロードキャストメッセージの送信がサポートされているかどうかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_REUSEADDR</tt></b></td>
+          <td align="left">
+           ローカルアドレスが再使用可能するかどうかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_KEEPALIVE</tt></b></td>
+          <td align="left">
+           定期的なメッセージの送信によって接続がアクティブになっているかどうかを報告します。
+           もしソケットがこれらのメッセージに応答できなかった場合、
+           接続は崩壊し、ソケットへの書き込みを行うと SIGPIPE シグナルを受け取ります。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_LINGER</tt></b></td>
+          <td align="left">
+           <p class="para">
+            データがまだ残っているうちに <span class="function"><a href="function.socket-close.html" class="function">socket_close()</a></span>
+            をコールした場合に、<i><tt class="parameter">socket</tt></i> を残存させるかどうかを報告します。
+            デフォルトでは、ソケットが閉じられる際には未送信のデータをすべて送信しようとします。
+            接続ベースのソケットでは、
+            <span class="function"><a href="function.socket-close.html" class="function">socket_close()</a></span> は接続先がデータを認識するまで閉じるのを待ちます。
+           </p>
+           <p class="para">
+            <var class="varname"><var class="varname">l_onoff</var></var> が非ゼロで
+            <var class="varname"><var class="varname">l_linger</var></var> がゼロの場合は、
+            その時点で未送信のデータはすべて破棄されます。
+            接続ベースのソケットの場合、接続先には RST (リセット)
+            を送信します。
+           </p>
+           <p class="para">
+            一方 <var class="varname"><var class="varname">l_onoff</var></var> が非ゼロで
+            <var class="varname"><var class="varname">l_linger</var></var> も非ゼロの場合は、
+            <span class="function"><a href="function.socket-close.html" class="function">socket_close()</a></span> は
+            全データを送信し終えるか <var class="varname"><var class="varname">l_linger</var></var>
+            で指定した時間が経過するまで処理をブロックします。
+            ソケットが非ブロックモードの場合は、
+            <span class="function"><a href="function.socket-close.html" class="function">socket_close()</a></span> は失敗してエラーを返します。
+           </p>
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.array.html" class="type array">array</a></span>。配列に含まれるキーは
+           <var class="varname"><var class="varname">l_onoff</var></var> および
+           <var class="varname"><var class="varname">l_linger</var></var> のふたつ。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_OOBINLINE</tt></b></td>
+          <td align="left">
+           <i><tt class="parameter">socket</tt></i>
+           が帯域外のデータをインラインに残し続けるかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_SNDBUF</tt></b></td>
+          <td align="left">
+           送信バッファのサイズを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>          
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_RCVBUF</tt></b></td>
+          <td align="left">
+           受信バッファのサイズを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>         
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_ERROR</tt></b></td>
+          <td align="left">
+           エラーステータスに関する情報を報告し、それをクリアします。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> (<span class="function"><a href="function.socket-set-option.html" class="function">socket_set_option()</a></span> で設定することはできません)
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_TYPE</tt></b></td>
+          <td align="left">
+           <i><tt class="parameter">socket</tt></i> の型 (たとえば <b><tt>SOCK_STREAM</tt></b>) を報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span> (<span class="function"><a href="function.socket-set-option.html" class="function">socket_set_option()</a></span> で設定することはできません)
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_DONTROUTE</tt></b></td>
+          <td align="left">
+           送信メッセージがルータを越えるかどうかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_RCVLOWAT</tt></b></td>
+          <td align="left">
+           <i><tt class="parameter">socket</tt></i> の入力操作を行う際の最小バイト数を報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_RCVTIMEO</tt></b></td>
+          <td align="left">
+           入力操作のタイムアウト値を報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.array.html" class="type array">array</a></span>。配列に含まれるキーはふたつ。
+           <var class="varname"><var class="varname">sec</var></var> はタイムアウトの秒単位の部分で、
+           <var class="varname"><var class="varname">usec</var></var> はタイムアウトのマイクロ秒位の部分。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_SNDTIMEO</tt></b></td>
+          <td align="left">
+           出力関数がフロー制御のためにブロックするタイムアウト値を報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.array.html" class="type array">array</a></span>。配列に含まれるキーはふたつ。
+           <var class="varname"><var class="varname">sec</var></var> はタイムアウトの秒単位の部分で、
+           <var class="varname"><var class="varname">usec</var></var> はタイムアウトのマイクロ秒位の部分。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SO_SNDLOWAT</tt></b></td>
+          <td align="left">
+           <i><tt class="parameter">socket</tt></i>
+           の出力操作を行う際の最小バイト数を報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>TCP_NODELAY</tt></b></td>
+          <td align="left">
+           Nagle TCP アルゴリズムが無効になっているかどうかを報告します。
+          </td>
+          <td align="left">
+           <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-get-option-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したオプションの値、あるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.socket-get-option-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3746">
+    <p><b>例1 <span class="function"><a href="function.socket-set-option.html" class="function">socket_set_option()</a></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$socket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">socket_create_listen</span><span style="color: #007700">(</span><span style="color: #0000BB">1223</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$linger&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'l_linger'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'l_onoff'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">socket_set_option</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SOL_SOCKET</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SO_LINGER</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$linger</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">socket_get_option</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SOL_SOCKET</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SO_REUSEADDR</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.socket-get-option-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        関数の名前が変わりました。以前は
+        <i>socket_getopt()</i> という名前でした。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-create.html">socket_create</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-getpeername.html">socket_getpeername</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

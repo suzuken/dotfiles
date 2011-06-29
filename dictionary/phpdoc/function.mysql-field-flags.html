@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果において指定したフィールドのフラグを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-fetch-row.html">mysql_fetch_row</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysql-field-len.html">mysql_field_len</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mysql-field-flags" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysql_field_flags</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">mysql_field_flags</span> &mdash; <span class="dc-title">結果において指定したフィールドのフラグを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mysql-field-flags-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>mysql_field_flags</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$field_offset</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>mysql_field_flags()</b></span>は、指定したフィールドの
+   フィールドフラグを返します。個々のフラグは、空白一つで区切られた
+   形式で返されます。このため、返された値を
+   <span class="function"><a href="function.explode.html" class="function">explode()</a></span> で分割することができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mysql-field-flags-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+result</tt></i></span><dd>
+<p class="para">評価された結果 <span class="type"><span class="type リソース">リソース</span></span>。
+この結果は、<span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span> のコールにより得られたものです。</p>
+</dd>
+</dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+field_offset</tt></i></span><dd>
+<p class="para">数値フィールドオフセット。
+<i><tt class="parameter">field_offset</tt></i> は <i>0</i> から始まります。
+<i><tt class="parameter">field_offset</tt></i> が存在しない場合、
+<b><tt>E_WARNING</tt></b> レベルのエラーが発行されます。</p></dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mysql-field-flags-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果についてのフラグを文字列で返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   運用システム上のMySQLがサポートしている場合、次のフラグがレポート
+   されます。 <i>&quot;not_null&quot;</i>, 
+   <i>&quot;primary_key&quot;</i>, <i>&quot;unique_key&quot;</i>, 
+   <i>&quot;multiple_key&quot;</i>, <i>&quot;blob&quot;</i>, 
+   <i>&quot;unsigned&quot;</i>, <i>&quot;zerofill&quot;</i>,
+   <i>&quot;binary&quot;</i>, <i>&quot;enum&quot;</i>, 
+   <i>&quot;auto_increment&quot;</i> そして <i>&quot;timestamp&quot;</i>
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mysql-field-flags-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1469">
+    <p><b>例1 <span class="function"><b>mysql_field_flags()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;id,email&nbsp;FROM&nbsp;people&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;'42'"</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$result</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Could&nbsp;not&nbsp;run&nbsp;query:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysql_error</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></span><span style="color: #0000BB">$flags&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysql_field_flags</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">$flags</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$flags</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+not_null primary_key auto_increment
+Array
+(
+    [0] =&gt; not_null
+    [1] =&gt; primary_key
+    [2] =&gt; auto_increment
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mysql-field-flags-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    下位互換のために、次の非推奨別名を使用してもいいでしょう。
+    <span class="function"><b>mysql_fieldflags()</b></span>
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mysql-field-flags-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mysql-field-type.html" class="function" rel="rdfs-seeAlso">mysql_field_type()</a> - 結果において指定したフィールドの型を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.mysql-field-len.html" class="function" rel="rdfs-seeAlso">mysql_field_len()</a> - 指定したフィールドの長さを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-fetch-row.html">mysql_fetch_row</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysql-field-len.html">mysql_field_len</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

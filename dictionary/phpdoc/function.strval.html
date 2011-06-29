@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>変数の文字列としての値を得ます</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.settype.html">settype</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.unserialize.html">unserialize</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strval" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strval</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">strval</span> &mdash; <span class="dc-title">変数の文字列としての値を得ます</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.strval-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>strval</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$var</tt></span>
+   )</div>
+
+  <p class="simpara">
+   <i><tt class="parameter">var</tt></i> の <span class="type"><a href="language.types.string.html" class="type string">string</a></span> としての値を
+   返します。文字列への変換の詳細については、<span class="type"><a href="language.types.string.html" class="type string">string</a></span> の
+   ドキュメントを参照ください。
+  </p>
+  <p class="simpara">
+   この関数は、返り値の書式設定は行いません。数値を文字列形式で書式設定したい場合は
+   <span class="function"><a href="function.sprintf.html" class="function">sprintf()</a></span> あるいは <span class="function"><a href="function.number-format.html" class="function">number_format()</a></span> を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strval-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">var</tt></i></span>
+     <dd>
+
+      <p class="para">
+       文字列に変換したい変数。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">var</tt></i> には、任意のスカラー型を指定できます。
+       また、<a href="language.oop5.magic.html#language.oop5.magic.tostring" class="link">__toString</a>
+       メソッドを実装したオブジェクトを使うこともできます。
+       <span class="function"><b>strval()</b></span> は配列に対して使うことはできず、
+       <a href="language.oop5.magic.html#language.oop5.magic.tostring" class="link">__toString</a>
+       メソッドを実装していないオブジェクトに対しても使うことはできません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strval-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">var</tt></i> の文字列値を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strval-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4315">
+    <p><b>例1 
+     PHP5 のマジックメソッド <a href="language.oop5.magic.html#language.oop5.magic.tostring" class="link">__toString</a>
+     を使う <span class="function"><b>strval()</b></span> の例
+    </b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">StrValTest<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__toString</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">__CLASS__</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;'StrValTest'&nbsp;と表示します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strval</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">StrValTest</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strval-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.floatval.html" class="function" rel="rdfs-seeAlso">floatval()</a> - 変数の float 値を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.intval.html" class="function" rel="rdfs-seeAlso">intval()</a> - 変数の整数としての値を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.settype.html" class="function" rel="rdfs-seeAlso">settype()</a> - 変数の型をセットする</span></li>
+    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - フォーマットされた文字列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.number-format.html" class="function" rel="rdfs-seeAlso">number_format()</a> - 数字を千位毎にグループ化してフォーマットする</span></li>
+    <li class="member"><a href="language.types.type-juggling.html" class="link">型の相互変換</a></li>
+    <li class="member"><a href="language.oop5.magic.html#language.oop5.magic.tostring" class="link">__toString</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.settype.html">settype</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.unserialize.html">unserialize</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

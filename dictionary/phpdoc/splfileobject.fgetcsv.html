@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルから行を取り出し CSV フィールドとして処理する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgetc.html">SplFileObject::fgetc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fgets.html">SplFileObject::fgets</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splfileobject.fgetcsv" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplFileObject::fgetcsv</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplFileObject::fgetcsv</span> &mdash; <span class="dc-title">ファイルから行を取り出し CSV フィールドとして処理する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splfileobject.fgetcsv-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>SplFileObject::fgetcsv</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$delimiter</tt><span class="initializer"> = &quot;,&quot;</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$enclosure</tt><span class="initializer"> = &quot;\&quot;&quot;</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$escape</tt><span class="initializer"> = &quot;\\&quot;</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <acronym title="Comma Separated Value">CSV</acronym> フォーマットのファイルから行を取り出し読み込まれたフィールドを含む配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splfileobject.fgetcsv-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">delimiter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フィールドの区切り文字 (1 文字のみ)。デフォルトはカンマもしくは  <span class="methodname"><a href="splfileobject.setcsvcontrol.html" class="methodname">SplFileObject::setCsvControl()</a></span> を使ってセットされた値です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">enclosure</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フィールド囲み文字 (1 文字のみ)。デフォルトはダブルクォートもしくは  <span class="methodname"><a href="splfileobject.setcsvcontrol.html" class="methodname">SplFileObject::setCsvControl()</a></span> を使ってセットされた値です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">escape</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エスケープ文字 (1 文字のみ)。デフォルトはバックスラッシュ (<i>\</i>) もしくは  <span class="methodname"><a href="splfileobject.setcsvcontrol.html" class="methodname">SplFileObject::setCsvControl()</a></span> を使ってセットされた値です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splfileobject.fgetcsv-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   読み込まれたフィールドを含む数値添字配列もしくはエラーのときは <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    CSV ファイルの空白行は <b><tt>SplFileObject::SKIP_EMPTY | SplFileObject::DROP_NEW_LINE</tt></b> を使わない限り単独の <b><tt>NULL</tt></b> フィールドで構成される配列として返され、この場合空白行は読み飛ばされます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splfileobject.fgetcsv-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3273">
+    <p><b>例1  <span class="methodname"><b>SplFileObject::fgetcsv()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"data.csv"</span><span style="color: #007700">);<br />while&nbsp;(!</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">eof</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fgetcsv</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3274">
+    <p><b>例2 <b><tt>SplFileObject::READ_CSV</tt></b> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"animals.csv"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setFlags</span><span style="color: #007700">(</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">::</span><span style="color: #0000BB">READ_CSV</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;list(</span><span style="color: #0000BB">$animal</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$class</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$legs</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"A&nbsp;%s&nbsp;is&nbsp;a&nbsp;%s&nbsp;with&nbsp;%d&nbsp;legs\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$animal</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$class</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$legs</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>animals.csv の内容</p></div>
+    <div class="example-contents">
+<div class="txtcode"><pre class="txtcode">crocodile,reptile,4
+dolphin,mammal,0
+duck,bird,2
+koala,mammal,4
+salmon,fish,0</pre>
+</div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+A crocodile is a reptile with 4 legs
+A dolphin is a mammal with 0 legs
+A duck is a bird with 2 legs
+A koala is a mammal with 4 legs
+A salmon is a fish with 0 legs
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splfileobject.fgetcsv-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="splfileobject.setcsvcontrol.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::setCsvControl()</a> - CSV の区切り文字と囲み文字をセットする</span></li>
+    <li class="member"> <span class="methodname"><a href="splfileobject.setflags.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::setFlags()</a> - SplFileObject のフラグをセットする</span></li>
+    <li class="member"><a href="class.splfileobject.html#splfileobject.constants.read-csv" class="link">SplFileObject::READ_CSV</a></li>
+    <li class="member"> <span class="methodname"><a href="splfileobject.current.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::current()</a> - ファイルの現在の行を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgetc.html">SplFileObject::fgetc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fgets.html">SplFileObject::fgets</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

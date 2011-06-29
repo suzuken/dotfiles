@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>処理フラグを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="arrayobject.serialize.html">ArrayObject::serialize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="arrayobject.setiteratorclass.html">ArrayObject::setIteratorClass</a></div>
+ <div class="up"><a href="class.arrayobject.html">ArrayObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="arrayobject.setflags" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ArrayObject::setFlags</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">ArrayObject::setFlags</span> &mdash; <span class="dc-title">処理フラグを設定する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-arrayobject.setflags-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>ArrayObject::setFlags</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ArrayObject の振る舞いを変更するフラグを設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-arrayobject.setflags-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       新たな ArrayObject の振る舞い。
+       ビットマスクか、定数名で指定します。
+       将来のバージョンとの互換性のため、定数名での指定を強く推奨します。
+      </p>
+      <p class="para">
+       利用可能なフラグの一覧を以下に示します。
+       これらのフラグの実際の意味については
+       <a href="class.arrayobject.html#arrayobject.constants" class="link">定義済みの定数</a>
+       を参照ください。
+       <table class="doctable table">
+        <caption><b>ArrayObject のフラグ</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>値</th>
+           <th>定数</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">1</td>
+           <td align="left">
+            <a href="class.arrayobject.html#arrayobject.constants.std-prop-list" class="link">ArrayObject::STD_PROP_LIST</a>
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">2</td>
+           <td align="left">
+            <a href="class.arrayobject.html#arrayobject.constants.array-as-props" class="link">ArrayObject::ARRAY_AS_PROPS</a>
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-arrayobject.setflags-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-arrayobject.setflags-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3315">
+    <p><b>例1 <span class="function"><b>ArrayObject::setFlags()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;フルーツの配列<br /></span><span style="color: #0000BB">$fruits&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"lemons"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"oranges"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"bananas"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"apples"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$fruitsArrayObject&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruits</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;配列のキーをプロパティとして使用してみます<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruitsArrayObject</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lemons</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;フラグを設定して、配列のキーを&nbsp;ArrayObject&nbsp;のプロパティとして使えるようにします<br /></span><span style="color: #0000BB">$fruitsArrayObject</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setFlags</span><span style="color: #007700">(</span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">::</span><span style="color: #0000BB">ARRAY_AS_PROPS</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;改めて挑戦します<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruitsArrayObject</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lemons</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+NULL
+int(1)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="arrayobject.serialize.html">ArrayObject::serialize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="arrayobject.setiteratorclass.html">ArrayObject::setIteratorClass</a></div>
+ <div class="up"><a href="class.arrayobject.html">ArrayObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>関数の引数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="functions.user-defined.html">ユーザー定義関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="functions.returning-values.html">返り値</a></div>
+ <div class="up"><a href="language.functions.html">関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="functions.arguments" class="sect1">
+   <h2 class="title">関数の引数</h2>
+ 
+   <p class="simpara">
+    引数のリストにより関数へ情報を渡すことができます。
+    このリストは、カンマで区切られた式のリストです。
+   </p>
+   <p class="para">
+    PHP は、値渡し(デフォルト)、
+    <a href="functions.arguments.html#functions.arguments.by-reference" class="link">参照渡し</a>、
+    <a href="functions.arguments.html#functions.arguments.default" class="link">デフォルト引数値</a>
+    をサポートしています。また、
+    <a href="functions.arguments.html#functions.variable-arg-list" class="link">可変長引数リスト</a>
+    もサポートしてます。
+    <span class="function"><a href="function.func-num-args.html" class="function">func_num_args()</a></span>,
+    <span class="function"><a href="function.func-get-arg.html" class="function">func_get_arg()</a></span>, 
+    <span class="function"><a href="function.func-get-args.html" class="function">func_get_args()</a></span> に関する関数リファレンスを
+    参照ください。
+   </p>
+   <p class="para">
+    <div class="example" id="example-140">
+     <p><b>例1 Passing arrays to functions</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">takes_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$input</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">&nbsp;+&nbsp;</span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]</span><span style="color: #DD0000">&nbsp;=&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]+</span><span style="color: #0000BB">$input</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   
+   <div class="sect2" id="functions.arguments.by-reference">
+    <h3 class="title">参照渡しで引数を作成する</h3>
+ 
+    <p class="simpara">
+     デフォルトで、関数の引数は値で渡されます。(このため、関数の内部で
+     引数の値を変更しても関数の外側では値は変化しません。)関数がその引
+     数を修正できるようにするには、その引数を参照渡しとする必要があり
+     ます。
+    </p>
+    <p class="para">
+     関数の引数を常に参照渡しとしたい場合には、関数定義において
+     アンパサンド(&amp;) を引数名の前に付加することができます。    
+    </p>
+    <p class="para">
+     <div class="example" id="example-141">
+      <p><b>例2 Passing function parameters by reference</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">add_some_extra</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$string</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$string&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">'and&nbsp;something&nbsp;extra.'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'This&nbsp;is&nbsp;a&nbsp;string,&nbsp;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">add_some_extra</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;outputs&nbsp;'This&nbsp;is&nbsp;a&nbsp;string,&nbsp;and&nbsp;something&nbsp;extra.'<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+ 
+   </div>
+ 
+   <div class="sect2" id="functions.arguments.default">
+    <h3 class="title">デフォルト引数値</h3>
+    
+    <p class="para">
+     関数は、スカラー引数に関して次のように C++ スタイルのデフォルト値を
+     定義することができます。
+    </p>
+    <p class="para">
+     <div class="example" id="example-142">
+      <p><b>例3 関数におけるデフォルトパラメータの使用法</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">(</span><span style="color: #0000BB">$type&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"cappuccino"</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"Making&nbsp;a&nbsp;cup&nbsp;of&nbsp;</span><span style="color: #0000BB">$type</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />}<br />echo&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">(</span><span style="color: #DD0000">"espresso"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+      <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+Making a cup of cappuccino.
+Making a cup of .
+Making a cup of espresso.
+</pre></div>
+      </div>
+     </div>
+    </p>
+    <p class="para">
+     PHPでは、配列および特殊な型 <b><tt>NULL</tt></b> をデフォルト値とすることも可能です。
+     例えば、
+    </p>
+    <p class="para">
+     <div class="example" id="example-143">
+      <p><b>例4 スカラー型以外をデフォルト値として使用する</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">(</span><span style="color: #0000BB">$types&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"cappuccino"</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">$coffeeMaker&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$device&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">is_null</span><span style="color: #007700">(</span><span style="color: #0000BB">$coffeeMaker</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">"hands"&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #0000BB">$coffeeMaker</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"Making&nbsp;a&nbsp;cup&nbsp;of&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">join</span><span style="color: #007700">(</span><span style="color: #DD0000">",&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$types</span><span style="color: #007700">).</span><span style="color: #DD0000">"&nbsp;with&nbsp;</span><span style="color: #0000BB">$device</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />}<br />echo&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">makecoffee</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"cappuccino"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"lavazza"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"teapot"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    
+    </p>
+    <p class="simpara">
+     デフォルト値は、定数式である必要があり、
+     (例えば) 変数やクラスのメンバーであってはなりません。
+    </p>
+    <p class="para">
+     引数のデフォルト値を使用する際には、デフォルト値を有する引数はデ
+     フォルト値がない引数の右側に全てある必要があることに注意して下さ
+     い。そうでない場合、意図したような動作が行われません。次の簡単な
+     コードを見てみましょう。
+    </p>
+    <p class="para">
+     <div class="example" id="example-144">
+      <p><b>例5 関数の引数のデフォルト値の 間違った使用法</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #0000BB">$type&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"acidophilus"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$flavour</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"Making&nbsp;a&nbsp;bowl&nbsp;of&nbsp;</span><span style="color: #0000BB">$type</span><span style="color: #DD0000">&nbsp;</span><span style="color: #0000BB">$flavour</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />}<br />&nbsp;<br />echo&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #DD0000">"raspberry"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;期待通りには動作しません。<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+      <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+Warning: Missing argument 2 in call to makeyogurt() in 
+/usr/local/etc/httpd/htdocs/phptest/functest.html on line 41
+Making a bowl of raspberry .
+</pre></div>
+      </div>
+     </div>
+    </p>
+    <p class="para">
+     ここで、上の例を次のコードと比べてみましょう。
+    </p>
+    <p class="para">
+     <div class="example" id="example-145">
+      <p><b>例6 関数の引数のデフォルト値の 正しい使用法</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #0000BB">$flavour</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$type&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"acidophilus"</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"Making&nbsp;a&nbsp;bowl&nbsp;of&nbsp;</span><span style="color: #0000BB">$type</span><span style="color: #DD0000">&nbsp;</span><span style="color: #0000BB">$flavour</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />}<br />&nbsp;<br />echo&nbsp;</span><span style="color: #0000BB">makeyogurt</span><span style="color: #007700">(</span><span style="color: #DD0000">"raspberry"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;期待通り動作します<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+      <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+Making a bowl of acidophilus raspberry.
+</pre></div>
+      </div>
+     </div>
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <span class="simpara">
+      PHP 5以降、デフォルトで値はリファレンス渡しとなります。
+     </span>
+    </p></blockquote>
+   </div>
+
+   <div class="sect2" id="functions.variable-arg-list">
+    <h3 class="title">可変長引数リスト</h3>
+    
+    <p class="simpara">
+     PHP 4 以降は、可変長引数をユーザー定義関数でサポートしています。
+     可変長引数の使用法は非常に簡単で、
+     <span class="function"><a href="function.func-num-args.html" class="function">func_num_args()</a></span>,
+     <span class="function"><a href="function.func-get-arg.html" class="function">func_get_arg()</a></span>, 
+     <span class="function"><a href="function.func-get-args.html" class="function">func_get_args()</a></span> 関数を使用します。
+    </p>
+    
+    <p class="simpara">
+     可変長引数に関して特別な構文は必要としません。
+     引数リストは従来と同様に関数定義で明示的に指定することができ、
+     動作も従来と変わりません。
+    </p>
+    
+   </div>
+   
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="functions.user-defined.html">ユーザー定義関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="functions.returning-values.html">返り値</a></div>
+ <div class="up"><a href="language.functions.html">関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

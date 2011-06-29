@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqp.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.amqpconnection.html">AMQPConnection</a></div>
+ <div class="up"><a href="book.amqp.html">AMQP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="amqp.examples" class="chapter">
+ <h1>例</h1>
+
+ <div class="example" id="example-3418">
+  <p><b>例1 AMQP の例</b></p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;接続の作成<br /></span><span style="color: #0000BB">$cnn&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">AMQPConnection</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$cnn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;新しい&nbsp;exchange&nbsp;の宣言<br /></span><span style="color: #0000BB">$ex&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">AMQPExchange</span><span style="color: #007700">(</span><span style="color: #0000BB">$cnn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$ex</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">declare</span><span style="color: #007700">(</span><span style="color: #DD0000">'exchange1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">AMQP_EX_TYPE_FANOUT</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;新しいキューの作成<br /></span><span style="color: #0000BB">$q&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">AMQPQueue</span><span style="color: #007700">(</span><span style="color: #0000BB">$cnn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">declare</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue1'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;exchange&nbsp;上でキューを&nbsp;routing.key&nbsp;へバインド<br /></span><span style="color: #0000BB">$ex</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'routing.key'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ルーティングキーを指定して、メッセージを&nbsp;exchange&nbsp;に公開<br /></span><span style="color: #0000BB">$ex</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">publish</span><span style="color: #007700">(</span><span style="color: #DD0000">'message'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'routing.key'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;キューからの読み込み<br /></span><span style="color: #0000BB">$msg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$q</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consume</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+ </div>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqp.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.amqpconnection.html">AMQPConnection</a></div>
+ <div class="up"><a href="book.amqp.html">AMQP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

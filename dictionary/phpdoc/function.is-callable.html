@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>引数が、関数としてコール可能な構造であるかどうかを調べる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.is-bool.html">is_bool</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.is-double.html">is_double</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.is-callable" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">is_callable</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">is_callable</span> &mdash; <span class="dc-title">
+   引数が、関数としてコール可能な構造であるかどうかを調べる
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.is-callable-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>is_callable</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$syntax_only</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$callable_name</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   引数の内容が、関数としてコール可能かどうかを調べます。
+   変数が有効な関数名かどうかを調べたり、配列の中に適切に
+   エンコードされたオブジェクトと関数名が格納されているかどうかを
+   調べたりすることが可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.is-callable-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       関数名を格納した文字列か、あるいは
+       以下のようにオブジェクトとメソッド名を格納したオブジェクトとすることが可能です。
+       <div class="example-contents screen">array($SomeObject, &#039;MethodName&#039;)</div>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">syntax_only</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> の場合、この関数は単に <i><tt class="parameter">name</tt></i>
+       が関数またはメソッドであるかどうかだけを調べます。
+       文字列以外の型の変数や不正な形式の配列は、
+       引数として受け付けられません。有効な配列の形式は、
+       最初のエントリがオブジェクトあるいは文字列で、2 番目のエントリが文字列である
+       2 つのエントリからなるものです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">callable_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       &quot;呼び出し名&quot; を受け取ります。下の例では &quot;someClass::someMethod&quot;
+       です。これは someClass::SomeMethod() が static メソッドであるかのようにみえますが、
+       そうではないことに注意しましょう。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.is-callable-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">name</tt></i> がコール可能な場合に <b><tt>TRUE</tt></b>、
+   それ以外の場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.is-callable-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4301">
+    <p><b>例1 <span class="function"><b>is_callable()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;&nbsp;変数が、関数としてコール可能かどうかを確かめます。<br /><br />//<br />//&nbsp;&nbsp;関数名を含む単純な配列<br />//<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">someFunction</span><span style="color: #007700">()&nbsp;<br />{<br />}<br /><br /></span><span style="color: #0000BB">$functionVariable&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'someFunction'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_callable</span><span style="color: #007700">(</span><span style="color: #0000BB">$functionVariable</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$callable_name</span><span style="color: #007700">));&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$callable_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;someFunction<br /><br />//<br />//&nbsp;&nbsp;メソッドを含む配列<br />//<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">someClass&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">someMethod</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;}<br /><br />}<br /><br /></span><span style="color: #0000BB">$anObject&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">someClass</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$methodVariable&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">$anObject</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'someMethod'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">is_callable</span><span style="color: #007700">(</span><span style="color: #0000BB">$methodVariable</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$callable_name</span><span style="color: #007700">));&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;&nbsp;bool(true)<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$callable_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;&nbsp;someClass::someMethod<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>   
+  </p>   
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.is-callable-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.function-exists.html" class="function" rel="rdfs-seeAlso">function_exists()</a> - 指定した関数が定義されている場合に TRUE を返す</span></li>
+    <li class="member"><span class="function"><a href="function.method-exists.html" class="function" rel="rdfs-seeAlso">method_exists()</a> - クラスメソッドが存在するかどうかを確認する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.is-bool.html">is_bool</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.is-double.html">is_double</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

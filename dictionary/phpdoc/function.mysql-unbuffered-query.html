@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MySQL に SQL クエリを送信するが、結果に対してのフェッチやバッファリングは行わない</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-thread-id.html">mysql_thread_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.mysqli.html">Mysqli</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mysql-unbuffered-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysql_unbuffered_query</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">mysql_unbuffered_query</span> &mdash; <span class="dc-title">MySQL に SQL クエリを送信するが、結果に対してのフェッチやバッファリングは行わない</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mysql-unbuffered-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>mysql_unbuffered_query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>mysql_unbuffered_query()</b></span> は SQL クエリ
+   <i><tt class="parameter">query</tt></i> を MySQL に送信します。その際、
+   <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span> が行っているような自動バッファリングを
+   行いません。一方、この挙動により SQL クエリが消費するメモリの量を
+   おさえられます。また、最初の 1 行目が取得されたらすぐに処理を
+   はじめることができます。SQL の処理が完全に終わるまで待つ必要がありません。
+   複数の DB 接続を利用する場合には、オプションのパラメータ
+   <i><tt class="parameter">link_identifier</tt></i> を指定する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mysql-unbuffered-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行する SQL クエリ。
+      </p>
+      <p class="para">
+       クエリ内のデータは <a href="function.mysql-real-escape-string.html" class="link">適切にエスケープ</a>
+       する必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">MySQL 接続。
+指定されない場合、<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span> により直近にオープンされたリンクが
+指定されたと仮定されます。そのようなリンクがない場合、引数を指定せずに
+<span class="function"><a href="function.mysql-connect.html" class="function">mysql_connect()</a></span> がコールした時と同様にリンクを確立します。
+リンクが見付からない、または、確立できない場合、
+<b><tt>E_WARNING</tt></b> レベルのエラーが生成されます。</p></dd>
+
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mysql-unbuffered-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   SELECT, SHOW, DESCRIBE あるいは EXPLAIN では、
+   <span class="function"><b>mysql_unbuffered_query()</b></span> は
+   成功した場合に <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> 、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   UPDATE, DELETE, DROP, などその他の SQL 文では、
+   <span class="function"><b>mysql_unbuffered_query()</b></span> は
+   成功した場合に <b><tt>TRUE</tt></b> 、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mysql-unbuffered-query-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>mysql_unbuffered_query()</b></span> の利点には、以下のような
+    代償があります:
+    <span class="function"><b>mysql_unbuffered_query()</b></span> から返される結果セットには
+    <span class="function"><a href="function.mysql-num-rows.html" class="function">mysql_num_rows()</a></span> や <span class="function"><a href="function.mysql-data-seek.html" class="function">mysql_data_seek()</a></span>
+    が使用できません。また、結果の行をすべてフェッチするまで、MySQL に
+    新しいクエリを送信することができません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mysql-unbuffered-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mysql-query.html" class="function" rel="rdfs-seeAlso">mysql_query()</a> - MySQL クエリを送信する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysql-thread-id.html">mysql_thread_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.mysqli.html">Mysqli</a></div>
+ <div class="up"><a href="ref.mysql.html">MySQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PostgreSQL サーバからの直近の通知メッセージを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-last-error.html">pg_last_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-last-oid.html">pg_last_oid</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-last-notice" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_last_notice</h1> 
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">pg_last_notice</span> &mdash; <span class="dc-title">
+   PostgreSQL サーバからの直近の通知メッセージを返す
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-last-notice-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>pg_last_notice</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_last_notice()</b></span> は、<i><tt class="parameter">connection</tt></i>
+   で指定した PostgreSQL サーバからの直近の通知メッセージを返します。
+   たとえば、テーブルに <i>SERIAL</i> カラムを作成する場合などに
+   PostgreSQL サーバは通知メッセージを送信します。
+  </p>
+  <p class="para">
+   <span class="function"><b>pg_last_notice()</b></span> でトランザクションに関連する通知
+   メッセージがあるかないかをチェックすることで、無意味なクエリの発行を
+   避けることが可能です。
+  </p>
+  <p class="para">
+   <var class="filename">php.ini</var> で <i>pgsql.ignore_notice</i>
+   に 1 を指定することで、通知メッセージの追跡をしないようにすることが可能です。
+  </p>
+  <p class="para">
+   <var class="filename">php.ini</var> で <i>pgsql.log_notice</i>
+   に 0 を指定することで、通知メッセージをログに記録しないようにすることが可能です。
+   <i>pgsql.ignore_notice</i> が 0 に設定されていない限り、
+   通知メッセージをログに記録することはできません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-last-notice-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PostgreSQL データベースの接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-last-notice-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定された <i><tt class="parameter">connection</tt></i> の直近の通知を文字列で
+   返します。エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-last-notice-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        この関数の実装が完成しました。
+        以前のバージョンではデータベースの接続パラメータを無視していました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <var class="filename">php.ini</var> の設定 <i>pgsql.ignore_notice</i> および
+        <i>pgsql.log_notice</i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.6</td>
+       <td align="left">
+        PHP 4.0.6 には通知メッセージ処理の問題があります。
+        <span class="function"><b>pg_last_notice()</b></span> を使用しない場合でも
+        PHP 4.0.6 で PostgreSQL モジュールを使用することは推奨されません。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pg-last-notice-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1729">
+    <p><b>例1 <span class="function"><b>pg_last_notice()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$pgsql_conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=mark&nbsp;host=localhost"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;test&nbsp;(id&nbsp;SERIAL)"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$notice&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_last_notice</span><span style="color: #007700">(</span><span style="color: #0000BB">$pgsql_conn</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$notice</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+CREATE TABLE will create implicit sequence &quot;test_id_seq&quot; for &quot;serial&quot; column &quot;test.id&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-last-notice-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-query.html" class="function" rel="rdfs-seeAlso">pg_query()</a> - クエリを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-last-error.html" class="function" rel="rdfs-seeAlso">pg_last_error()</a> - 特定の接続から直近のエラーメッセージ文字列を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-last-error.html">pg_last_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-last-oid.html">pg_last_oid</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

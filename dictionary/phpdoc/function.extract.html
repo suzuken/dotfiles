@@ -1,0 +1,416 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列からシンボルテーブルに変数をインポートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.end.html">end</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.in-array.html">in_array</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.extract" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">extract</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">extract</span> &mdash; <span class="dc-title">配列からシンボルテーブルに変数をインポートする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.extract-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>extract</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$var_array</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$extract_type</tt><span class="initializer"> = EXTR_OVERWRITE</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$prefix</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   配列からシンボルテーブルに変数をインポートします。
+  </p>
+  <p class="para">
+   各キーについて変数名として有効であるかどうか、
+   そして、シンボルテーブルの既存の変数と衝突しないかどうかを確認します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.extract-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">var_array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       この関数は連想配列 <i><tt class="parameter">var_array</tt></i>
+       を引数とし、そのキーを変数名、値を変数の値として処理します。
+       各キー/値の組に関して、<i><tt class="parameter">extract_type</tt></i> および
+       <i><tt class="parameter">prefix</tt></i> パラメータに基づき、
+       現在のシンボルテーブルに変数を一つ作成します。
+      </p>
+      <p class="para">
+       連想配列を使用する必要があります。<b><tt>EXTR_PREFIX_ALL</tt></b>
+       または <b><tt>EXTR_PREFIX_INVALID</tt></b> を使用しない限り、
+       数値添字の配列には結果は出力されません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extract_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       無効または数値キーおよび衝突に関する対処法は、
+       <i><tt class="parameter">extract_type</tt></i> で定義されます。
+       これは以下の値のどれかとなります。
+       <dl>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_OVERWRITE</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           衝突があった場合、存在する変数が上書きされます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_SKIP</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           衝突があった場合、存在する変数は上書きされません。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_PREFIX_SAME</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           衝突があった場合、<i><tt class="parameter">prefix</tt></i>
+           を前につけた新しい変数となります。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_PREFIX_ALL</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           全ての変数の前に <i><tt class="parameter">prefix</tt></i> を付けます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_PREFIX_INVALID</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           無効または数値の変数名のみに接頭辞
+           <i><tt class="parameter">prefix</tt></i> を付けます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_IF_EXISTS</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           現在のシンボルテーブルに既に存在する場合にのみ上書きします。
+           例えば <var class="varname"><var class="varname"><a href="reserved.variables.request.html" class="classname">$_REQUEST</a></var></var> 以外にあなたが定義した変数のみを展開し
+           有効な変数としたいような場合に有用です。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_PREFIX_IF_EXISTS</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           同じ変数だが接頭辞をつけていないバージョンの変数が
+           現在のシンボルテーブルに存在する場合にのみ
+           変数を生成します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>EXTR_REFS</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           変数を参照として展開します。
+           これはインポート済みの変数が、
+           <i><tt class="parameter">var_array</tt></i>
+           パラメータの値に常に参照付けられることを意味します。
+           このフラグを単独で使用するか、
+           あるいは<i><tt class="parameter">extract_type</tt></i>と和算することにより、
+           他のフラグとそれを組み合わせることができます。
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+      <p class="para">
+       <i><tt class="parameter">extract_type</tt></i> が指定されない場合、
+       <b><tt>EXTR_OVERWRITE</tt></b> とみなされます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">prefix</tt></i> は、
+       <i><tt class="parameter">extract_type</tt></i> が
+       <b><tt>EXTR_PREFIX_SAME</tt></b>、<b><tt>EXTR_PREFIX_ALL</tt></b>、
+       <b><tt>EXTR_PREFIX_INVALID</tt></b> あるいは
+       <b><tt>EXTR_PREFIX_IF_EXISTS</tt></b> の場合にのみ必要であることに注意してください。
+       接頭辞を付けた変数名が有効な変数名でない場合、
+       この変数はシンボルテーブルにインポートされません。接頭辞は、
+       アンダースコア文字で配列のキーから自動的に分割されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.extract-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   シンボルテーブルにインポートした変数の数を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.extract-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <b><tt>EXTR_REFS</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        <b><tt>EXTR_IF_EXISTS</tt></b> と <b><tt>EXTR_PREFIX_IF_EXISTS</tt></b>
+        が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        この関数は、取り込んだ変数の数を返すようになりました。
+        <b><tt>EXTR_PREFIX_INVALID</tt></b> が追加されました。
+        <b><tt>EXTR_PREFIX_ALL</tt></b> が数値変数も扱ううようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.extract-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4137">
+    <p><b>例1 <span class="function"><b>extract()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     extract の使用例としては、シンボルテーブルに
+     <span class="function"><a href="function.wddx-deserialize.html" class="function">wddx_deserialize()</a></span> から返された連想配列を
+    インポートすることが考えられます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;$var_array&nbsp;はwddx_deserializeから返された配列と仮定します&nbsp;*/<br /><br /></span><span style="color: #0000BB">$size&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"large"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$var_array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"color"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"blue"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"size"&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"medium"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"shape"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"sphere"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">extract</span><span style="color: #007700">(</span><span style="color: #0000BB">$var_array</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">EXTR_PREFIX_SAME</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"wddx"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$color</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$size</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$shape</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$wddx_size</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+blue, large, sphere, medium
+</pre></div>
+    </div>
+    <div class="example-contents"><p>
+     <b><tt>EXTR_PREFIX_SAME</tt></b> を指定したため、<var class="varname"><var class="varname">$size</var></var>
+     は上書きされず、<var class="varname"><var class="varname">$wddx_size</var></var> が作成されます。
+     <b><tt>EXTR_SKIP</tt></b> が指定された場合、<var class="varname"><var class="varname">$wddx_size</var></var> は作成されません。
+     <b><tt>EXTR_OVERWRITE</tt></b>
+     の場合は、<var class="varname"><var class="varname">$size</var></var> の値は &quot;medium&quot; となります。
+     <b><tt>EXTR_PREFIX_ALL</tt></b> の場合は新規の変数
+     <var class="varname"><var class="varname">$wddx_color</var></var>,
+     <var class="varname"><var class="varname">$wddx_size</var></var>, <var class="varname"><var class="varname">$wddx_shape</var></var>
+     が作成されます。
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.extract-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    <span class="function"><b>extract()</b></span> をユーザー入力
+    (<var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var> や <var class="varname"><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></var> など)
+    のような信頼できないデータについて使用しないでください。
+    もし行う場合、例えば
+    <a href="security.globals.html" class="link">register_globals</a>
+    を信頼しているような古いコードを一時的に実行したい場合、
+    <b><tt>EXTR_SKIP</tt></b> のような
+    <i><tt class="parameter">extract_type</tt></i>
+    の値が上書きされていないことを確認してください。そして
+    <a href="ini.html" class="link"><var class="filename">php.ini</var></a> の
+    <a href="ini.core.html#ini.variables-order" class="link">variables_order</a>
+    で定義されたものと同じ順で展開すべきであることに留意してください。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="security.globals.html" class="link">register_globals</a> が on の状態で
+    <var class="varname"><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></var> に対して
+    <span class="function"><b>extract()</b></span> を実行して
+    <b><tt>EXTR_SKIP</tt></b> を指定すると、
+    その結果に驚くことでしょう。
+   </p>
+   <div class="warning"><b class="warning">警告</b>
+    <p class="para">
+     これは決しておすすめする方法ではなく、
+     単にドキュメントとしての完全性を求めてここに書いているだけです。
+     <a href="security.globals.html" class="link">register_globals</a>
+     を使ったり、<var class="varname"><var class="varname"><a href="reserved.variables.files.html" class="classname">$_FILES</a></var></var> のような信頼できないデータに対して
+     <span class="function"><b>extract()</b></span> を使ったりすることは非推奨となっています。
+     先に説明したようにセキュリティ上のリスクがあるからです。
+     もしこの問題に遭遇したならば、
+     まずいコーディング作法を少なくともふたつ使っているということになります。
+    </p>
+   </div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;$testfile&nbsp;にはアップロードされたファイルの名前が入っており、<br />&nbsp;&nbsp;&nbsp;register_globals&nbsp;が&nbsp;on&nbsp;であるものとします&nbsp;*/<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$testfile</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">extract</span><span style="color: #007700">(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">EXTR_SKIP</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$testfile</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$testfile</span><span style="color: #007700">[</span><span style="color: #DD0000">'tmp_name'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <span class="simpara">
+    おそらくこんな結果になることを期待しているでしょう。
+   </span>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+string(14) &quot;/tmp/phpgCCPX8&quot;
+array(5) {
+  [&quot;name&quot;]=&gt;
+  string(10) &quot;somefile.txt&quot;
+  [&quot;type&quot;]=&gt;
+  string(24) &quot;application/octet-stream&quot;
+  [&quot;tmp_name&quot;]=&gt;
+  string(14) &quot;/tmp/phpgCCPX8&quot;
+  [&quot;error&quot;]=&gt;
+  int(0)
+  [&quot;size&quot;]=&gt;
+  int(4208)
+}
+string(14) &quot;/tmp/phpgCCPX8&quot;
+</pre></div>
+   </div>
+   <span class="simpara">
+    しかし、実際にはこのようになります。
+   </span>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+string(14) &quot;/tmp/phpgCCPX8&quot;
+string(14) &quot;/tmp/phpgCCPX8&quot;
+string(1) &quot;/&quot;
+</pre></div>
+   </div>
+   <p class="para">
+    これは、<a href="security.globals.html" class="link">register_globals</a>
+    が on の場合は <span class="function"><b>extract()</b></span>
+    がコールされた時点で既にグローバルスコープに
+    <var class="varname"><var class="varname">$testfile</var></var> が存在するからです。
+    そして <b><tt>EXTR_SKIP</tt></b> が指定されているので、
+    <var class="varname"><var class="varname">$testfile</var></var> が
+    <b><tt>$_FILES</tt></b> 配列の内容で上書きされることはありません。
+    <var class="varname"><var class="varname">$testfile</var></var> はそのまま文字列として残るわけです。
+    <a href="language.types.string.html#language.types.string.substr" class="link">
+    文字列は配列構文を使ってもアクセスでき</a>、
+    非数値の文字列 <i>tmp_name</i> は
+    <i>0</i> と解釈されるので、PHP は
+    <var class="varname"><var class="varname">$testfile['tmp_name']</var></var> を
+    <var class="varname"><var class="varname">$testfile[0]</var></var> とみなします。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.extract-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.compact.html" class="function" rel="rdfs-seeAlso">compact()</a> - 変数名とその値から配列を作成する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.end.html">end</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.in-array.html">in_array</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルタイプを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.filesize.html">filesize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.flock.html">flock</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.filetype" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">filetype</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">filetype</span> &mdash; <span class="dc-title">ファイルタイプを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.filetype-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>filetype</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定したファイルのタイプを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.filetype-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.filetype-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルのタイプを返します。返される値は fifo、char、dir、
+   block、link、file、socket および unknown のいずれかです。
+  </p>
+  <p class="para">
+   エラーが発生すると <b><tt>FALSE</tt></b> を返します。
+   また <span class="function"><b>filetype()</b></span> は stat コールに失敗したり、
+   未知のファイルタイプであったりした場合に
+   <b><tt>E_NOTICE</tt></b> メッセージを発行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.filetype-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1910">
+    <p><b>例1 <span class="function"><b>filetype()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">filetype</span><span style="color: #007700">(</span><span style="color: #DD0000">'/etc/passwd'</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ファイル<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">filetype</span><span style="color: #007700">(</span><span style="color: #DD0000">'/etc/'</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ディレクトリ<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.filetype-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+失敗したときは <b><tt>E_WARNING</tt></b> が発生します。
+</p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.filetype-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数の結果は
+キャッシュされます。詳細は、<span class="function"><a href="function.clearstatcache.html" class="function">clearstatcache()</a></span>
+を参照してください。</span></p></blockquote>
+  <div class="tip"><b class="tip">ヒント</b><p class="simpara">
+<i>PHP 5.0.0</i> 以降、この関数は、
+<em class="emphasis">何らかの</em> URL ラッパーと組合せて使用することができます。
+どのラッパーが <span class="function"><a href="function.stat.html" class="function">stat()</a></span> ファミリーをサポートしているか
+のリストについては、<a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a> を参照してください。</p></div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.filetype-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.is-dir.html" class="function" rel="rdfs-seeAlso">is_dir()</a> - ファイルがディレクトリかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.is-file.html" class="function" rel="rdfs-seeAlso">is_file()</a> - 通常ファイルかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.is-link.html" class="function" rel="rdfs-seeAlso">is_link()</a> - ファイルがシンボリックリンクかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.file-exists.html" class="function" rel="rdfs-seeAlso">file_exists()</a> - ファイルまたはディレクトリが存在するかどうか調べる</span></li>
+    <li class="member"><span class="function"><a href="function.stat.html" class="function" rel="rdfs-seeAlso">stat()</a> - ファイルに関する情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.mime-content-type.html" class="function" rel="rdfs-seeAlso">mime_content_type()</a> - ファイルの MIME Content-type を検出する (非推奨)</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.filesize.html">filesize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.flock.html">flock</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

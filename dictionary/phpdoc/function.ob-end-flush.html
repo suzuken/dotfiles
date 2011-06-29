@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>出力用バッファをフラッシュ(送信)し、出力のバッファリングをオフにする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-end-clean.html">ob_end_clean</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-flush.html">ob_flush</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ob-end-flush" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ob_end_flush</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ob_end_flush</span> &mdash; <span class="dc-title">出力用バッファをフラッシュ(送信)し、出力のバッファリングをオフにする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ob-end-flush-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ob_end_flush</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、出力用バッファの内容を出力し、出力のバッファリングをオフにします。
+   出力用バッファの内容を更に処理したい場合には、
+   バッファの内容は <span class="function"><b>ob_end_flush()</b></span> がコールされた後に消去されるため、
+   <span class="function"><b>ob_end_flush()</b></span> の前に
+   <span class="function"><a href="function.ob-get-contents.html" class="function">ob_get_contents()</a></span> をコールする必要があります。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    この関数は <span class="function"><a href="function.ob-get-flush.html" class="function">ob_get_flush()</a></span> に似ていますが、
+    <span class="function"><a href="function.ob-get-flush.html" class="function">ob_get_flush()</a></span> はバッファを文字列として返すという点が違います。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ob-end-flush-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   失敗する原因は、まず、アクティブなバッファ以外に対してこの
+   関数をコールしたか、あるいは何らかの理由により
+   バッファを消去することができなかった場合です（特殊なバッファ等）。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.ob-end-flush-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   この関数は失敗すると <b><tt>E_NOTICE</tt></b> レベルのエラーを発行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.ob-end-flush-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        boolean 型の戻り値が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ob-end-flush-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-466">
+    <p><b>例1 <span class="function"><b>ob_end_flush()</b></span> example</b></p>
+    <div class="example-contents"><p>
+     以下は全ての出力バッファをフラッシュし終了する簡単な方法の例です。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;</span><span style="color: #007700">while&nbsp;(@</span><span style="color: #0000BB">ob_end_flush</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ob-end-flush-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ob-start.html" class="function" rel="rdfs-seeAlso">ob_start()</a> - 出力のバッファリングを有効にする</span></li>
+    <li class="member"><span class="function"><a href="function.ob-get-contents.html" class="function" rel="rdfs-seeAlso">ob_get_contents()</a> - 出力用バッファの内容を返す</span></li>
+    <li class="member"><span class="function"><a href="function.ob-get-flush.html" class="function" rel="rdfs-seeAlso">ob_get_flush()</a> - 出力バッファをフラッシュし、その内容を文字列として返した後で出力バッファリングを終了する</span></li>
+    <li class="member"><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 出力バッファをフラッシュ(送信)する</span></li>
+    <li class="member"><span class="function"><a href="function.ob-end-clean.html" class="function" rel="rdfs-seeAlso">ob_end_clean()</a> - 出力用バッファをクリア(消去)し、出力のバッファリングをオフにする</span></li>
+   </ul>
+  </p>
+ </div>
+ 
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-end-clean.html">ob_end_clean</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-flush.html">ob_flush</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>子要素群から子要素を削除する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domnode.normalize.html">DOMNode::normalize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domnode.replacechild.html">DOMNode::replaceChild</a></div>
+ <div class="up"><a href="class.domnode.html">DOMNode</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="domnode.removechild" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DOMNode::removeChild</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">DOMNode::removeChild</span> &mdash; <span class="dc-title">
+   子要素群から子要素を削除する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-domnode.removechild-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span> <span class="methodname"><b>DOMNode::removeChild</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span> <tt class="parameter">$oldnode</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、子要素群から子要素を削除します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-domnode.removechild-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">oldnode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       削除する子要素。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-domnode.removechild-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   子要素の削除に成功した場合に、削除した要素を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-domnode.removechild-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><b><tt>DOM_NO_MODIFICATION_ALLOWED_ERR</tt></b></span>
+     <dd>
+
+      <p class="para">
+       ノードが読み込み専用の場合に発生します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><b><tt>DOM_NOT_FOUND</tt></b></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">oldnode</tt></i> がこのノードの子要素でない場合に発生します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-domnode.removechild-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   以下の例は、XML ドキュメントから chapter 要素を削除します。
+   <div class="example" id="example-4452">
+    <p><b>例1 子要素の削除</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'book.xml'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$book&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">documentElement</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;chapter&nbsp;を取得し、それを&nbsp;book&nbsp;から削除します<br /></span><span style="color: #0000BB">$chapter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getElementsByTagName</span><span style="color: #007700">(</span><span style="color: #DD0000">'chapter'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">item</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$oldchapter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">removeChild</span><span style="color: #007700">(</span><span style="color: #0000BB">$chapter</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveXML</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-1&quot;?&gt;
+&lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook XML V4.1.2//EN&quot; 
+          &quot;http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd&quot;&gt;
+&lt;book id=&quot;listing&quot;&gt;
+ &lt;title&gt;My lists&lt;/title&gt;
+ 
+&lt;/book&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4453">
+    <p><b>例2 親ノードの名前空間 URI の保持</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'book.xml'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$book&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">documentElement</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;chapter&nbsp;を取得し、それを&nbsp;book&nbsp;から削除します<br /></span><span style="color: #0000BB">$chapter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getElementsByTagName</span><span style="color: #007700">(</span><span style="color: #DD0000">'chapter'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">item</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;URI&nbsp;をコピーします<br /></span><span style="color: #0000BB">$nsuri&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">namespaceURI</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;子ノードを削除します<br /></span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">removeChild</span><span style="color: #007700">(</span><span style="color: #0000BB">$chapter</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;URI&nbsp;を、親ノードにペーストします<br /></span><span style="color: #0000BB">$book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">namespaceURI&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$nsuri</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-domnode.removechild-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    このメソッドをコールすると、親ノードの <i>DOMNode::$namespaceURI</i>
+    プロパティが <b><tt>NULL</tt></b> にリセットされます。上の例は、この問題の回避策を示すものです。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-domnode.removechild-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="domnode.appendchild.html" class="methodname" rel="rdfs-seeAlso">DOMNode::appendChild()</a> - 子要素群の最後に新しい子要素を追加する</span></li>
+    <li class="member"> <span class="methodname"><a href="domnode.replacechild.html" class="methodname" rel="rdfs-seeAlso">DOMNode::replaceChild()</a> - 子を置き換える</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domnode.normalize.html">DOMNode::normalize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domnode.replacechild.html">DOMNode::replaceChild</a></div>
+ <div class="up"><a href="class.domnode.html">DOMNode</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

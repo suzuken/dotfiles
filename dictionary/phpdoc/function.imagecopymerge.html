@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>イメージの一部をコピー、マージする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecopy.html">imagecopy</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecopymergegray.html">imagecopymergegray</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagecopymerge" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagecopymerge</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PHP 5)</p><p class="refpurpose"><span class="refname">imagecopymerge</span> &mdash; <span class="dc-title">イメージの一部をコピー、マージする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagecopymerge-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>imagecopymerge</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dst_im</tt></span>
+   , <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$src_im</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$dst_x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$dst_y</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$src_x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$src_y</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$src_w</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$src_h</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$pct</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">src_im</tt></i>の<i><tt class="parameter">src_x</tt></i>,
+   <i><tt class="parameter">src_y </tt></i> で始まる幅
+   <i><tt class="parameter">src_w</tt></i>、高さ<i><tt class="parameter">src_h</tt></i>の領域を
+   x,y座標で指定した <i><tt class="parameter">dst_im</tt></i>にコピーします。
+   定義された部分は、x,y座標、<i><tt class="parameter">dst_x</tt></i>、
+   <i><tt class="parameter">dst_y</tt></i>にコピーされます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagecopymerge-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dst_im</tt></i></span>
+     <dd>
+
+      <p class="para">コピー先の画像リンクリソース。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">src_im</tt></i></span>
+     <dd>
+
+      <p class="para">コピー元の画像リンクリソース。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dst_x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー先の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dst_y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー先の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">src_x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー元の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">src_y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー元の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">src_w</tt></i></span>
+     <dd>
+
+      <p class="para">コピー元の幅。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">src_h</tt></i></span>
+     <dd>
+
+      <p class="para">コピー元の高さ。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pct</tt></i></span>
+     <dd>
+
+      <p class="para">
+       二つの画像は、
+       0から100の範囲で指定した <i><tt class="parameter">pct</tt></i>に基づきマージされます。
+       <i><tt class="parameter">pct</tt></i> = 0 の時は、何も行われません。
+       100の場合、この関数の動作は、パレットイメージに対する
+       <span class="function"><a href="function.imagecopy.html" class="function">imagecopy()</a></span> と同じとなります。その上、
+       True カラーイメージに対するアルファ透過性を実装しています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagecopymerge-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagecopymerge-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2263">
+    <p><b>例1 2 つの PHP.net ロゴを 75% の透過度でマージ</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;画像のインスタンスを作成します<br /></span><span style="color: #0000BB">$dest&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #DD0000">'php.gif'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$src&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #DD0000">'php.gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;コピー・マージします<br /></span><span style="color: #0000BB">imagecopymerge</span><span style="color: #007700">(</span><span style="color: #0000BB">$dest</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$src</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">47</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">75</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力してメモリから解放します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/gif'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagegif</span><span style="color: #007700">(</span><span style="color: #0000BB">$dest</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$dest</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$src</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecopy.html">imagecopy</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecopymergegray.html">imagecopymergegray</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

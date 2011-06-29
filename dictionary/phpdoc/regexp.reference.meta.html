@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メタ文字</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.delimiters.html">デリミタ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.escape.html">エスケープシーケンス</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.meta" class="section">
+     <h2 class="title">メタ文字</h2>
+     <p class="para">
+      正規表現の強力さは、パターン中に選択肢や繰り返しを記述できることに
+      あります。選択肢や繰り返しは、<em class="emphasis">メタ文字</em>
+       (meta-character) を使ってパターン中に記述します。メタ文字は、
+       その文字自体を表わさず、代わって特別な解釈が行われます。
+     </p>
+     <p class="para">
+      メタ文字には、2 種類あります。ひとつは、角カッコ内を除き、
+      パターン中のどこででも使用できる文字です。もうひとつは、
+      角カッコで括られた中でだけ使用できる文字です。
+     </p>
+     <p class="para">
+      前者の角カッコ外で使用できるメタ文字には、次のものがあります。
+      <dl>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">\</em></span>
+        <dd>
+
+         <span class="simpara">
+          多目的に使う一般的なエスケープ文字 
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">^</em></span>
+        <dd>
+
+         <span class="simpara">
+          検索対象（複数行モードでは行）の始まりを言明
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">$</em></span>
+        <dd>
+
+         <span class="simpara">          
+          検索対象（複数行モードでは行）の終わりを言明 
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">.</em></span>
+        <dd>
+
+         <span class="simpara">
+           改行を除くすべての文字にマッチ（デフォルト時）
+        </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">[</em></span>
+        <dd>
+
+         <span class="simpara">
+          文字クラス定義の開始
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">]</em></span>
+        <dd>
+
+         <span class="simpara">
+          文字クラス定義の終了
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">|</em></span>
+        <dd>
+
+         <span class="simpara">
+          選択枝の開始
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">(</em></span>
+        <dd>
+
+         <span class="simpara">
+          サブパターンの開始
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">)</em></span>
+        <dd>
+
+         <span class="simpara">
+          サブパターンの終了
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">?</em></span>
+        <dd>
+
+         <span class="simpara">
+           ( の意味を拡張／0 または 1 回マッチ／なるべく少ない回数だけマッチ
+           (<a href="regexp.reference.repetition.html" class="link">繰り返し</a> を参照)
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">*</em></span>
+        <dd>
+
+         <span class="simpara">
+          0 回以上の繰り返し
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">+</em></span>
+        <dd>
+
+         <span class="simpara">
+          1 回以上の繰り返し
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">{</em></span>
+        <dd>
+
+         <span class="simpara">
+          最小／最大を指定する量指定子の開始
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">}</em></span>
+        <dd>
+
+         <span class="simpara">
+          量指定子の終了
+         </span>
+        </dd>
+
+       </dt>
+
+      </dl>
+
+
+     パターン中の角カッコで括まれた部分を「文字クラス」と言います。
+     文字クラスで使えるメタ文字は、次のものだけです。
+
+      <dl>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">\</em></span>
+           <dd>
+
+         <span class="simpara">
+          一般的なエスケープ文字
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">^</em></span>
+           <dd>
+
+         <span class="simpara">
+          クラスの否定。ただし、文字クラスの最初の文字に用いた場合のみ
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">-</em></span>
+        <dd>
+
+         <span class="simpara">
+          文字の範囲の指定
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">]</em></span>
+        <dd>
+
+         <span class="simpara">
+          文字クラスの終了
+         </span>
+        </dd>
+
+       </dt>
+
+      </dl>
+
+      以降のセクションで、各メタ文字の使用法の説明を行います。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.delimiters.html">デリミタ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.escape.html">エスケープシーケンス</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

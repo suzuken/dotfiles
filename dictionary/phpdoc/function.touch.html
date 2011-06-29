@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルの最終アクセス時刻および最終更新日をセットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.tmpfile.html">tmpfile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.umask.html">umask</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.touch" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">touch</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">touch</span> &mdash; <span class="dc-title">ファイルの最終アクセス時刻および最終更新日をセットする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.touch-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>touch</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$time</tt><span class="initializer"> = time()</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$atime</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">filename</tt></i> で指定されたファイルの最終更新日を、
+   <i><tt class="parameter">time</tt></i> で指定された値に
+   セットしようと試みます。
+   パラメータの数にかかわらず、アクセス時刻は
+   常に変更されることに注意しましょう。
+  </p>
+  <p class="para">
+   ファイルが存在しない場合、ファイルが生成されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.touch-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       処理したいファイルの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">time</tt></i></span>
+     <dd>
+
+      <p class="para">
+       設定する時刻。
+       <i><tt class="parameter">time</tt></i> を省略した場合は、
+       現在時刻を使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">atime</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定されたファイルの最終アクセス時刻が存在する場合は、
+       その値が <i><tt class="parameter">atime</tt></i> にセットされます。
+       存在しない場合は <i><tt class="parameter">time</tt></i> が設定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.touch-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.touch-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        Windows 環境でディレクトリの最終更新日が変更できるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.touch-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1964">
+    <p><b>例1 <span class="function"><b>touch()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">touch</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$filename&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'&nbsp;modification&nbsp;time&nbsp;has&nbsp;been&nbsp;changed&nbsp;to&nbsp;present&nbsp;time'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Sorry,&nbsp;could&nbsp;not&nbsp;change&nbsp;modification&nbsp;time&nbsp;of&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-1965">
+    <p><b>例2 <span class="function"><b>touch()</b></span> で <i><tt class="parameter">time</tt></i> パラメータを使用する例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;作成時刻を、ここでは&nbsp;1&nbsp;時間前に設定します<br /></span><span style="color: #0000BB">$time&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()&nbsp;-&nbsp;</span><span style="color: #0000BB">3600</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイルを作成します<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">touch</span><span style="color: #007700">(</span><span style="color: #DD0000">'some_file.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$time</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'おっと、何かがおかしいようです...'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'ファイルの作成に成功しました'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.touch-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">時刻の精度は、
+ファイルシステムによって異なることがあります。</p></p></blockquote>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    PHP 5.3.0 より前のバージョンでは、Windows 環境のもとでは
+    この関数によってディレクトリの最終更新日を変更することはできませんでした。
+   </p>
+  </div>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.tmpfile.html">tmpfile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.umask.html">umask</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

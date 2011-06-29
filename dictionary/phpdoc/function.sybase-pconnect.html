@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Sybase の持続的な接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sybase-num-rows.html">sybase_num_rows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sybase-query.html">sybase_query</a></div>
+ <div class="up"><a href="ref.sybase.html">Sybase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sybase-pconnect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sybase_pconnect</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">sybase_pconnect</span> &mdash; <span class="dc-title">Sybase の持続的な接続をオープンする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.sybase-pconnect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>sybase_pconnect</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$servername</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$username</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$password</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$charset</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$appname</tt></span>
+  ]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>sybase_pconnect()</b></span> は、2 つの違いを除いて
+   <span class="function"><a href="function.sybase-connect.html" class="function">sybase_connect()</a></span> と全く同様に動作します。
+  </p>
+  <p class="para">
+   まず、接続時にこの関数は最初同じホスト、ユーザ名、パスワードで
+   オープンされた（持続的）リンクを見つけようとします。
+   見つかった場合、新しい接続をオープンする代わりにこれに関する
+   ID が返されます。
+  </p>
+  <p class="para">
+   第二に、SQL サーバーへの接続はスクリプト実行終了時にクローズされません。
+   代わりに、このリンクは将来的に使用するためにオープンされたままに
+   なります（<span class="function"><a href="function.sybase-close.html" class="function">sybase_close()</a></span> は、
+   <span class="function"><b>sybase_pconnect()</b></span> により確立されたリンクを
+   閉じません）。
+  </p>
+  <p class="para">
+   このため、この型のリンクは&#039;持続的&#039;と呼ばれます。 
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sybase-pconnect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">servername</tt></i></span>
+     <dd>
+
+      <p class="para">
+       引数 servername は、&#039;interfaces&#039; ファイル中で定義された
+       有効なサーバ名である必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">username</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Sybase のユーザ名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">password</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">username</tt></i> のパスワード。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">charset</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続に使用する文字セットを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">appname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Sybase 接続用の <i>appname</i> を指定します。
+       これにより、ひとつのスクリプトから同じデータベースに複数の接続を行えるようになります。
+       現在の接続でトランザクションを開始し、
+       トランザクション内では実行できない別のクエリを実行したい場合などに便利です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sybase-pconnect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功時に正の Sybase 持続リンク ID を、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.sybase-pconnect-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        <i><tt class="parameter">appname</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.2</td>
+       <td align="left">
+        <i><tt class="parameter">charset</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sybase-pconnect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sybase-connect.html" class="function" rel="rdfs-seeAlso">sybase_connect()</a> - Sybase サーバ接続をオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sybase-num-rows.html">sybase_num_rows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sybase-query.html">sybase_query</a></div>
+ <div class="up"><a href="ref.sybase.html">Sybase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

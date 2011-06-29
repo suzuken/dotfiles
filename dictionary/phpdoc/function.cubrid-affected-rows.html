@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Return the number of rows affected by the last SQL statement</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-bind.html">cubrid_bind</a></div>
+ <div class="up"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.cubrid-affected-rows" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">cubrid_affected_rows</h1>
+  <p class="verinfo">(PECL CUBRID &gt;= 8.3.0)</p><p class="refpurpose"><span class="refname">cubrid_affected_rows</span> &mdash; <span class="dc-title">Return the number of rows affected by the last SQL statement</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.cubrid-affected-rows-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>cubrid_affected_rows</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$req_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+    The <span class="function"><b>cubrid_affected_rows()</b></span> function is used to get the
+    number of rows affected by the SQL sentence (INSERT, DELETE, UPDATE).
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.cubrid-affected-rows-parameters">
+ <h3 class="title">パラメータ</h3>
+ <p class="para">
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">req_identifier</tt></i></span>
+    <dd>
+<p class="para">Request identifier. If the request identifier is not
+      specified, the last request is assumed.</p></dd>
+
+   </dt>
+
+  </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.cubrid-affected-rows-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+    Number of rows affected by the SQL sentence, when process is successful.
+  </p>
+   <p class="para">
+    -1, when SQL sentence is not INSERT, DELETE or UPDATE.
+  </p>
+  <p class="para">
+   <b><tt>FALSE</tt></b>, when the request identifier is not specified, and there is no last
+   request.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.cubrid-affected-rows-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-995">
+   <p><b>例1 <span class="function"><b>cubrid_affected_rows()</b></span> example</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">33000</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"demodb"</span><span style="color: #007700">);<br /><br />@</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;cubrid_test"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;cubrid_test&nbsp;(t&nbsp;varchar)"</span><span style="color: #007700">);<br /><br />for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;cubrid_test(t)&nbsp;VALUES('cubrid_test')"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;cubrid_test"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$affected_num&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_affected_rows</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$affected_num</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(5)
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.cubrid-affected-rows-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.cubrid-execute.html" class="function" rel="rdfs-seeAlso">cubrid_execute()</a> - Execute a prepared SQL statement</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-bind.html">cubrid_bind</a></div>
+ <div class="up"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

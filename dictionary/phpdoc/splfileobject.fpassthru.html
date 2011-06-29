@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルポインタに残っているデータをすべて出力する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.flock.html">SplFileObject::flock</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fscanf.html">SplFileObject::fscanf</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splfileobject.fpassthru" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplFileObject::fpassthru</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplFileObject::fpassthru</span> &mdash; <span class="dc-title">ファイルポインタに残っているデータをすべて出力する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splfileobject.fpassthru-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>SplFileObject::fpassthru</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   与えられたファイルポインタの現在位置から終端までを読み込み結果を出力バッファに書き出します。
+  </p>
+  <p class="para">
+   既にデータをファイルに書き込んでいる場合、ファイルポインタをファイルの始めにリセットするために  <span class="methodname"><a href="splfileobject.rewind.html" class="methodname">SplFileObject::rewind()</a></span> を呼び出すことが必要になる場合があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splfileobject.fpassthru-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splfileobject.fpassthru-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">handle</tt></i> から読み込まれ出力を通して渡された文字数を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splfileobject.fpassthru-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3278">
+    <p><b>例1  <span class="methodname"><b>SplFileObject::fpassthru()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイルをバイナリモードでオープンする<br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"./img/ok.png"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;正しいヘッダを送出する<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-Type:&nbsp;image/png"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-Length:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSize</span><span style="color: #007700">());<br /><br /></span><span style="color: #FF8000">//&nbsp;画像をダンプしてスクリプトを終了させる<br /></span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fpassthru</span><span style="color: #007700">();<br />exit;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splfileobject.fpassthru-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fpassthru.html" class="function" rel="rdfs-seeAlso">fpassthru()</a> - ファイルポインタ上に残っているすべてのデータを出力する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.flock.html">SplFileObject::flock</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fscanf.html">SplFileObject::fscanf</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

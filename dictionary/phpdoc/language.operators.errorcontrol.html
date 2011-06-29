@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>エラー制御演算子</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.comparison.html">比較演算子</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.execution.html">実行演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.operators.errorcontrol" class="sect1">
+   <h2 class="title">エラー制御演算子</h2>
+   <p class="simpara">
+    PHP はエラー制御演算子(@)をサポートしています。PHP の式の前に付けた場合、
+    その式により生成されたエラーメッセージは無視されます。
+   </p>
+   <p class="simpara">
+    <a href="errorfunc.configuration.html#ini.track-errors" class="link"><strong class="option unknown">track_errors</strong>
+</a> 機能が
+    有効な場合、式により生成されたエラーメッセージはグローバル変数
+    <var class="varname"><var class="varname"><a href="reserved.variables.phperrormsg.html" class="classname">$php_errormsg</a></var></var>
+    に保存されます。この変数はエラーが発生するたびに上書きされます。
+    そのため、この変数を使用したい場合には速やかに確認する必要があります。
+   </p>
+   <p class="para">
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;意図的なエラー&nbsp;*/<br /></span><span style="color: #0000BB">$my_file&nbsp;</span><span style="color: #007700">=&nbsp;@</span><span style="color: #0000BB">file&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">'non_existent_file'</span><span style="color: #007700">)&nbsp;or<br />&nbsp;&nbsp;&nbsp;&nbsp;die&nbsp;(</span><span style="color: #DD0000">"Failed&nbsp;opening&nbsp;file:&nbsp;error&nbsp;was&nbsp;'</span><span style="color: #0000BB">$php_errormsg</span><span style="color: #DD0000">'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;この演算子は関数だけでなく、全ての式で動作します。<br /></span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;@</span><span style="color: #0000BB">$cache</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">];&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;インデックス&nbsp;$key&nbsp;が存在しない場合でも、警告を発生しません。<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     @演算子は、<a href="language.expressions.html" class="link">式</a>
+     でのみ動作します。基本的なルールは次のようになります。
+     値を得ることができるものの場合、@ 演算子を前に付けることが可能です。
+     例えば、変数、関数、<span class="function"><a href="function.include.html" class="function">include()</a></span>コール、定数等の
+     前にこの演算子をつけることが可能です。関数またはクラスの定義や
+     <i>if</i> や <a href="control-structures.foreach.html" class="link">foreach</a> 等のような
+     条件構造の前にこの演算子を付けることはできません。
+    </span>
+   </p></blockquote>
+   <p class="simpara">
+    <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> と、
+    <a href="ref.errorfunc.html" class="link">エラー処理とログ出力関数</a>
+    も参照してください。
+   </p>
+   <div class="warning"><b class="warning">警告</b>
+    <p class="para">
+     現在、エラー制御演算子プレフィックス&quot;@&quot;は、スクリプトの実行を
+     終了するような致命的なエラーの出力さえ抑圧します。このため、ある関数の
+     エラー出力を抑制するために &quot;@&quot; を使用した場合、その関数が
+     利用できなかったり、ミスタイプがあった場合でも、原因を示すことなく
+     その場所でスクリプトは終了してしまいます。
+    </p>
+   </div>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.comparison.html">比較演算子</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.execution.html">実行演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>個人の単語リストを有する新規辞書をロードする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pspell-new-config.html">pspell_new_config</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pspell-new.html">pspell_new</a></div>
+ <div class="up"><a href="ref.pspell.html">Pspell 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pspell-new-personal" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pspell_new_personal</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5)</p><p class="refpurpose"><span class="refname">pspell_new_personal</span> &mdash; <span class="dc-title">個人の単語リストを有する新規辞書をロードする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.pspell-new-personal-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>pspell_new_personal</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$personal</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$language</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$spelling</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$jargon</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$encoding</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt><span class="initializer"> = 0</span></span>
+  ]]]] )</div>
+
+  <p class="simpara">
+   <span class="function"><b>pspell_new_personal()</b></span> は、個人の単語リストと共に
+   新規辞書をオープンし、辞書リンクIDを返します。この ID は他の
+   pspell 関数で使用されます。単語リストは修正可能で、必要に応じて
+   <span class="function"><a href="function.pspell-save-wordlist.html" class="function">pspell_save_wordlist()</a></span> で保存することも可能です。
+   しかし、置換の組は保存されません。置換の組を保存するには、
+   <span class="function"><a href="function.pspell-config-create.html" class="function">pspell_config_create()</a></span> を用いて設定を作成し、
+   <span class="function"><a href="function.pspell-config-personal.html" class="function">pspell_config_personal()</a></span> で個人の単語リストを
+   設定し、<span class="function"><a href="function.pspell-config-repl.html" class="function">pspell_config_repl()</a></span> で置換のファイルを
+   設定し、<span class="function"><a href="function.pspell-new-config.html" class="function">pspell_new_config()</a></span> で新規の辞書を
+   オープンします。
+  </p>
+  <p class="para">
+   詳細な情報および例については、pspell の Web サイト
+   :<a href="http://aspell.net/" class="link external">&raquo; http://aspell.net/</a>
+   にあるインラインマニュアルを参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pspell-new-personal-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">personal</tt></i></span>
+     <dd>
+
+      <p class="para">
+       個人リストに追加された単語が保存される場所を指定します。
+       この場所には &#039;/&#039; で始まる絶対パスのファイル名を指定する必要があります。
+       そうでない場合は $HOME からの相対パスになりますが、
+       これは多くのシステムでは、&quot;/root&quot; であり、
+       おそらく望ましい結果とはならないためです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">language</tt></i></span>
+     <dd>
+
+      <p class="para">
+       2 文字の ISO 639 言語コードと
+       オプションでダッシュまたはアンダースコアの後に 2 文字の ISO 3166
+       国コードからなる言語コードです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">spelling</tt></i></span>
+     <dd>
+
+      <p class="para">
+       英語のように複数のスペルがある言語に関して
+       スペルの指定を行うものです。指定可能な値は、
+       &#039;american&#039;, &#039;british&#039;, &#039;canadian&#039;です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">jargon</tt></i></span>
+     <dd>
+
+      <p class="para">
+       同じ language および
+       spelling パラメータを有する 2 つの異なる単語リストを区別するための
+       追加情報を有しています。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">encoding</tt></i></span>
+     <dd>
+
+      <p class="para">
+       単語のエンコーディングとして予想されるもの。有効な値は、
+       <i>utf-8</i>, <i>iso8859-*</i>, 
+       <i>koi8-r</i>, <i>viscii</i>, 
+       <i>cp1252</i>, <i>machine unsigned 16</i>, 
+       <i>machine unsigned 32</i> です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       スペルチェッカの動作モードです。
+       使用可能なモードを以下に示します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>PSPELL_FAST</tt></b> - 高速モード (修正候補の数は最小)
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>PSPELL_NORMAL</tt></b> - 通常モード (修正候補はより多い)
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>PSPELL_BAD_SPELLERS</tt></b> - 低速モード (修正候補は多い)
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>PSPELL_RUN_TOGETHER</tt></b> - つながった単語を複合語
+          （legal compound）として考慮します。この場合、&quot;thecat&quot; には二つの
+          単語の間に空白はありませんが複合語となります。この設定の変更は
+          <span class="function"><a href="function.pspell-check.html" class="function">pspell_check()</a></span> から返される結果にのみ影響します。
+          設定変更後も <span class="function"><a href="function.pspell-suggest.html" class="function">pspell_suggest()</a></span> は修正候補を返します。
+         </span>
+        </li>
+       </ul>
+       mode は、これらのさまざまな定数を用いたビットマスクです。
+       しかし <b><tt>PSPELL_FAST</tt></b>、
+       <b><tt>PSPELL_NORMAL</tt></b> および
+       <b><tt>PSPELL_BAD_SPELLERS</tt></b> は相反するため、
+       この中のひとつを選択する必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pspell-new-personal-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   その他の pspell 関数で使用する辞書リンク ID を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pspell-new-personal-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2216">
+    <p><b>例1 <span class="function"><b>pspell_new_personal()</b></span></b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$pspell_link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pspell_new_personal&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"/var/dictionaries/custom.pws"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"en"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PSPELL_FAST</span><span style="color: #007700">|</span><span style="color: #0000BB">PSPELL_RUN_TOGETHER</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pspell-new-config.html">pspell_new_config</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pspell-new.html">pspell_new</a></div>
+ <div class="up"><a href="ref.pspell.html">Pspell 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

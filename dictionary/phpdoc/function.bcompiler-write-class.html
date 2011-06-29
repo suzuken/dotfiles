@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>定義したクラスをバイトコードとして書き込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.bcompiler-read.html">bcompiler_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.bcompiler-write-constant.html">bcompiler_write_constant</a></div>
+ <div class="up"><a href="ref.bcompiler.html">bcompiler 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.bcompiler-write-class" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">bcompiler_write_class</h1>
+  <p class="verinfo">(PECL bcompiler &gt;= 0.4)</p><p class="refpurpose"><span class="refname">bcompiler_write_class</span> &mdash; <span class="dc-title">定義したクラスをバイトコードとして書き込む</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.bcompiler-write-class-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>bcompiler_write_class</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$filehandle</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$className</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$extends</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、PHP から既存のクラスをバイトコードとして読み込み、
+   開かれているファイルハンドルに書き込みます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.bcompiler-write-class-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filehandle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> が返すファイルハンドル。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">className</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クラス名を表す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extends</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.bcompiler-write-class-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.bcompiler-write-class-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-393">
+    <p><b>例1 <span class="function"><b>bcompiler_write_class()</b></span> example</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/example"</span><span style="color: #007700">,</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">bcompiler_write_header</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">bcompiler_write_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">,</span><span style="color: #DD0000">"DB"</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;DB_mysql&nbsp;が&nbsp;DB_common&nbsp;を継承しているのなら、<br />//&nbsp;DB_mysql&nbsp;より前に&nbsp;DB_common&nbsp;を書き込む必要があります。<br /></span><span style="color: #0000BB">bcompiler_write_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">,</span><span style="color: #DD0000">"DB_common"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">bcompiler_write_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">,</span><span style="color: #DD0000">"DB_mysql"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">bcompiler_write_footer</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fh</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.bcompiler-write-class-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は依存性のチェックを行わないので、
+    読み込んだ際に <i>undefined class</i>
+    とならないように、書き込む順序に注意が必要です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.bcompiler-write-class-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.bcompiler-write-header.html" class="function" rel="rdfs-seeAlso">bcompiler_write_header()</a> - bcompiler のヘッダを書き込む</span></li>
+    <li class="member"><span class="function"><a href="function.bcompiler-write-footer.html" class="function" rel="rdfs-seeAlso">bcompiler_write_footer()</a> - コンパイルされたデータの終了を示す文字 \x00 を書き込む</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.bcompiler-read.html">bcompiler_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.bcompiler-write-constant.html">bcompiler_write_constant</a></div>
+ <div class="up"><a href="ref.bcompiler.html">bcompiler 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

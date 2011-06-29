@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MySQL Native Driver Plugin API</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.notes.html">メモ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.mysql-proxy.html">A comparison of mysqlnd plugins with MySQL Proxy</a></div>
+ <div class="up"><a href="book.mysqlnd.html">Mysqlnd</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqlnd.plugin" class="chapter">
+ <h1>MySQL Native Driver Plugin API</h1>
+<h2>目次</h2><ul class="chunklist chunklist_chapter"><li><a href="mysqlnd.plugin.mysql-proxy.html">A comparison of mysqlnd plugins with MySQL Proxy</a></li><li><a href="mysqlnd.plugin.obtaining.html">Obtaining the mysqlnd plugin API</a></li><li><a href="mysqlnd.plugin.architecture.html">MySQL Native Driver Plugin Architecture</a></li><li><a href="mysqlnd.plugin.api.html">The mysqlnd plugin API</a></li><li><a href="mysqlnd.plugin.developing.html">Getting started building a mysqlnd plugin</a></li></ul>
+
+ <p class="para">
+  The MySQL Native Driver Plugin API is a feature of MySQL Native
+  Driver, or <i>mysqlnd</i>. <i>Mysqlnd</i>
+  plugins operate in the layer between PHP applications and the MySQL
+  server. This is comparable to MySQL Proxy. MySQL Proxy operates on a
+  layer between any MySQL client application, for example, a PHP
+  application and, the MySQL server. <i>Mysqlnd</i> plugins
+  can undertake typical MySQL Proxy tasks such as load balancing,
+  monitoring and performance optimizations. Due to the different
+  architecture and location, <i>mysqlnd</i> plugins do not
+  have some of MySQL Proxy&#039;s disadvantages. For example, with plugins,
+  there is no single point of failure, no dedicated proxy server to
+  deploy, and no new programming language to learn (Lua).
+ </p>
+ <p class="para">
+  A <i>mysqlnd</i> plugin can be thought of as an extension
+  to <i>mysqlnd</i>. Plugins can intercept the majority of
+  <i>mysqlnd</i> functions. The <i>mysqlnd</i>
+  functions are called by the PHP MySQL extensions such as
+  <i>ext/mysql</i>, <i>ext/mysqli</i>, and
+  <i>PDO_MYSQL</i>. As a result, it is possible for a
+  <i>mysqlnd</i> plugin to intercept all calls made to these
+  extensions from the client application.
+ </p>
+ <p class="para">
+  Internal <i>mysqlnd</i> function calls can also be
+  intercepted, or replaced. There are no restrictions on manipulating
+  <i>mysqlnd</i> internal function tables. It is possible to
+  set things up so that when certain <i>mysqlnd</i>
+  functions are called by the extensions that use
+  <i>mysqlnd</i>, the call is directed to the appropriate
+  function in the <i>mysqlnd</i> plugin. The ability to
+  manipulate <i>mysqlnd</i> internal function tables in this
+  way allows maximum flexibility for plugins.
+ </p>
+ <p class="para">
+  <i>Mysqlnd</i> plugins are in fact PHP Extensions, written
+  in C, that use the <i>mysqlnd</i> plugin API (which is
+  built into MySQL Native Driver, <i>mysqlnd</i>). Plugins
+  can be made 100% transparent to PHP applications. No application
+  changes are needed because plugins operate on a different layer. The
+  <i>mysqlnd</i> plugin can be thought of as operating in a
+  layer below <i>mysqlnd</i>.
+ </p>
+ <p class="para">
+  The following list represents some possible applications of
+  <i>mysqlnd</i> plugins.
+ </p>
+ <ul class="itemizedlist">
+  <li class="listitem">
+   <p class="para">
+    Load Balancing
+   </p>
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      Read/Write Splitting. An example of this is the PECL/mysqlnd_ms
+      (Master Slave) extension. This extension splits read/write queries
+      for a replication setup.
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Failover
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Round-Robin, least loaded
+     </p>
+    </li>
+   </ul>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    Monitoring
+   </p>
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      Query Logging
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Query Analysis
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Query Auditing. An example of this is the PECL/mysqlnd_sip (SQL
+      Injection Protection) extension. This extension inspects queries
+      and executes only those that are allowed according to a ruleset.
+     </p>
+    </li>
+   </ul>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    Performance
+   </p>
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      Caching. An example of this is the PECL/mysqlnd_qc (Query Cache)
+      extension.
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Throttling
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      Sharding. An example of this is the PECL/mysqlnd_mc (Multi
+      Connect) extension. This extension will attempt to split a SELECT
+      statement into n-parts, using SELECT ... LIMIT part_1, SELECT
+      LIMIT part_n. It sends the queries to distinct MySQL servers and
+      merges the result at the client.
+     </p>
+    </li>
+   </ul>
+  </li>
+ </ul>
+ <p class="para">
+  <em class="emphasis">MySQL Native Driver Plugins Available</em>
+ </p>
+ <p class="para">
+  There are a number of mysqlnd plugins already available. These
+  include:
+ </p>
+ <ul class="itemizedlist">
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_mc</em> - Multi Connect
+    plugin.
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_ms</em> - Master Slave
+    plugin.
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_qc</em> - Query Cache
+    plugin.
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_pscache</em> - Prepared
+    Statement Handle Cache plugin.
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_sip</em> - SQL Injection
+    Protection plugin.
+   </p>
+  </li>
+  <li class="listitem">
+   <p class="para">
+    <em class="emphasis">PECL/mysqlnd_uh</em> - User Handler
+    plugin.
+   </p>
+  </li>
+ </ul>
+ 
+ 
+ 
+ 
+ 
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.notes.html">メモ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.mysql-proxy.html">A comparison of mysqlnd plugins with MySQL Proxy</a></div>
+ <div class="up"><a href="book.mysqlnd.html">Mysqlnd</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

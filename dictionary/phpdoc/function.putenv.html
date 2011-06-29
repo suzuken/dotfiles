@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>環境変数の値を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpversion.html">phpversion</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.restore-include-path.html">restore_include_path</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.putenv" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">putenv</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">putenv</span> &mdash; <span class="dc-title">環境変数の値を設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.putenv-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>putenv</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$setting</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   サーバの環境変数に <i><tt class="parameter">setting</tt></i> を追加します。
+   この環境変数は、カレントのリクエストを実行している間のみ存在します。
+   リクエスト終了時、環境変数は元の状態に戻されます。
+  </p>
+  <p class="para">
+   ある種の環境変数が変更されることは潜在的なセキュリティリスクとなる
+   可能性があります。<i>safe_mode_allowed_env_vars</i> 
+   ディレクティブには接頭辞のカンマ区切りのリストが含まれます。セーフ
+   モードでは、ユーザはこのディレクティブで指定された接頭辞で始まる名前
+   を有する環境変数のみを変更可能となります。
+   デフォルトでは、ユーザは<i>PHP_</i> で始まる環境変数
+   (例えば<i>PHP_FOO=BAR</i>)のみを変更可能です。注意:この
+   ディレクティブが空の場合、PHPはユーザに全ての環境変数を修正できる許可
+   を与えてしまいます!
+  </p>
+  <p class="para">
+   <i>safe_mode_protected_env_vars</i> ディレクティブには、
+   カンマ区切りの環境変数のリストが含まれます。ユーザは、この環境変数
+   を<span class="function"><b>putenv()</b></span>により変更することができません。これら
+   の変数は、<i>safe_mode_allowed_env_vars</i>が変更するこ
+   とを許可している場合でも保護されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.putenv-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">setting</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>&quot;FOO=BAR&quot;</i> 形式の設定。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.putenv-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.putenv-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-452">
+    <p><b>例1 環境変数の設定</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">"UNIQID=</span><span style="color: #0000BB">$uniqid</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.putenv-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    <i>safe_mode_allowed_env_vars</i> ディレクティブおよび
+    <i>safe_mode_protected_env_vars</i> ディレクティブは、
+    <a href="features.safe-mode.html" class="link">セーフモード</a>
+    が有効な場合にのみ効果があります!
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.putenv-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.getenv.html" class="function" rel="rdfs-seeAlso">getenv()</a> - 環境変数の値を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpversion.html">phpversion</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.restore-include-path.html">restore_include_path</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

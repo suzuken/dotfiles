@@ -1,0 +1,616 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PHP の使いかた</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="faq.build.html">構築時の問題</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="faq.html.html">PHP と HTML</a></div>
+ <div class="up"><a href="faq.html">FAQ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="faq.using" class="chapter">
+  <h1>PHP の使いかた</h1>
+
+  
+
+  <p class="para">
+   このセクションにはPHPスクリプトを書くにあたってよく問題となる事柄が
+   集められています。
+  </p>
+
+  <div class="qandaset"><ol class="qandaset_questions"><li><a href="#faq.using.parameterorder">
+     
+      PHP の関数のパラメータの順番を覚えられません。だって関数によってばらばらなんだもん。
+     
+    </a></li><li><a href="#faq.using.anyform">
+     
+      あらゆるフォームから送信されたデータを扱うことができる汎用的な
+      PHPスクリプトを書きたいのですが、POSTメソッドでどのようなデータ
+      が送信されたかを知るにはどうするのですか？
+     
+    </a></li><li><a href="#faq.using.singlequotes">
+     
+      シングルクオート(&#039;)をバックスラッシュでエスケープされた
+      シングルクオート(\&#039;)に変換しなければならないのですが、
+      正規表現を用いてこれを行うにはどの様にするのですか？
+      同様に &quot; を \&quot; に、\ を \\ に変換したいのです。
+     
+    </a></li><li><a href="#faq.using.stripslashes">
+     
+      &quot; は \&quot; に、また &#039; は \&#039; に全て変換されているのですが、
+      これら無用なバックスラッシュを除去するにはどうしたらよいですか？
+      どうやって、そしてなぜ、こんなことになっているのでしょう？
+     
+    </a></li><li><a href="#faq.register-globals">
+     
+      PHP の設定項目 register_globals はどんな影響があるの?
+     
+    </a></li><li><a href="#faq.using.wrong-order">
+     
+      次のようなコードを実行すると、思った通りの順番で出力が表示されません。
+     
+
+function myfunc($argument)
+{
+    echo $argument + 10;
+}
+$variable = 10;
+echo &quot;myfunc($variable) = &quot; . myfunc($variable);
+
+    
+      なぜですか？
+     
+    </a></li><li><a href="#faq.using.newlines">
+     
+      改行されないのですが？
+      
+
+&lt;pre&gt;
+&lt;?php echo &quot;これは1行目&quot;; ?&gt;
+&lt;?php echo &quot;この行は改行に続いて出力されるはず&quot;; ?&gt;
+&lt;/pre&gt;
+
+      
+     
+    </a></li><li><a href="#faq.using.headers-sent">
+     
+      &#039;Warning: Cannot send session cookie - headers already sent...&#039;や
+      &#039;Cannot add header information - headers already set...&#039;といった
+      メッセージが出力されるのですが。
+      sent...&#039;.
+     
+    </a></li><li><a href="#faq.using.header">
+     
+      リクエストヘッダに直接アクセスしたいのですが、どうすればよいですか？
+     
+    </a></li><li><a href="#faq.using.authentication">
+     
+      IISで認証を行おうとすると&#039;No Input file specified&#039;というエラーが
+      発生します。
+     
+    </a></li><li><a href="#faq.using.iis.sharing">
+     
+      Windows: 他のコンピュータと共有しているファイルに、IIS
+      でアクセスできません。
+     
+    </a></li><li><a href="#faq.using.mixml">
+     
+     どうすればXMLとPHPは共存することが出来るのですか？XMLの
+     &lt;?xml&gt;タグがPHPでエラーになります。
+     
+    </a></li><li><a href="#faq.using.variables">
+     
+      あらかじめ設定されている変数を全て網羅したリストはどこにあるので
+      すか？なぜPHPのドキュメントにはその一覧がないのですか？
+     
+    </a></li><li><a href="#faq.using.freepdf">
+     
+      フリーではない商用ライブラリである
+      PDFLibを使わずに
+      PDFファイルを生成するにはどうしたらよいでしょうか？
+      フリーのもので、外部のPDFライブラリを必要としない
+      ものがいいのです。
+     
+    </a></li><li><a href="#faq.using.cgi-vars">
+     
+      ユーザ定義関数の中で、標準的な
+      ($DOCUMENT_ROOT や $HTTP_REFERER のような)
+      CGI変数にアクセスしたいのですが、PHPはそれらの変数を見つけること
+      ができていないようです。何がおかしいのですか？
+     
+    </a></li><li><a href="#faq.using.shorthandbytes">
+     
+      いくつかの PHP ディレクティブでは、バイト値を integer 
+      ではなく省略形で設定できます。この省略形で使えるオプションを教えてください。
+      また、これは php.ini 以外でも使えるのですか ?
+     
+    </a></li><li><a href="#faq.using.windowslocalhostissue">
+     
+      Windows で、
+      &quot;127.0.0.1&quot; だと動作するのに
+      localhost
+      を使うと接続がタイムアウトします。
+     
+    </a></li></ol></div>
+
+   <dl class="qandaentry" id="faq.using.parameterorder">
+    <dt><strong>
+     
+      PHP の関数のパラメータの順番を覚えられません。だって関数によってばらばらなんだもん。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHP は、さまざまな外部ライブラリの間を取り持つ糊のような存在です。
+      そのため、時にはちょっとごちゃごちゃすることもあります。
+      しかし、経験上、以下のような規則があるようです。
+     </p>
+     <p class="para">
+      <a href="book.array.html" class="link">配列関数</a> のパラメータは
+      &quot;<em class="emphasis">needle, haystack</em>&quot; の順だけれども、
+      <a href="book.strings.html" class="link">文字列関数</a> はその逆で
+      &quot;<em class="emphasis">haystack, needle</em>&quot; の順となります。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.anyform">
+    <dt><strong>
+     
+      あらゆるフォームから送信されたデータを扱うことができる汎用的な
+      PHPスクリプトを書きたいのですが、POSTメソッドでどのようなデータ
+      が送信されたかを知るにはどうするのですか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHPは<var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var>のような
+      <a href="language.variables.predefined.html" class="link">定義済みの変数</a>
+      を沢山提供しています。<var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var>を連想配列として
+      ループすることでPOSTされた全ての値にアクセスできます。例えば、
+      <a href="control-structures.foreach.html" class="link">foreach</a> で単純にループして <span class="function"><a href="function.empty.html" class="function">empty()</a></span> で値をチェックし、
+      結果を出力します。
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$empty&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$post&nbsp;</span><span style="color: #007700">=&nbsp;array();<br />foreach&nbsp;(</span><span style="color: #0000BB">$_POST&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$varname&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$varvalue</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(empty(</span><span style="color: #0000BB">$varvalue</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$empty</span><span style="color: #007700">[</span><span style="color: #0000BB">$varname</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$varvalue</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$post</span><span style="color: #007700">[</span><span style="color: #0000BB">$varname</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$varvalue</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />print&nbsp;</span><span style="color: #DD0000">"&lt;pre&gt;"</span><span style="color: #007700">;<br />if&nbsp;(empty(</span><span style="color: #0000BB">$empty</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"None&nbsp;of&nbsp;the&nbsp;POSTed&nbsp;values&nbsp;are&nbsp;empty,&nbsp;posted:\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$post</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"We&nbsp;have&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$empty</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;empty&nbsp;values\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Posted:\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$post</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Empty:\n"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$empty</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </p>
+
+     <blockquote class="note"><p><b class="note">注意</b>: <b>スーパーグローバル:
+使用可能なバージョンに関する注意</b><br /><p class="para">PHP 4.1.0 以降、
+<var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var>, <var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var>,
+<var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var>
+等のスーパーグローバル配列が使用可能となっています。
+詳細な情報については、マニュアルの <a href="language.variables.predefined.html" class="link">superglobals</a>
+のセクションを参照してください。</p></p></blockquote>
+
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.singlequotes">
+    <dt><strong>
+     
+      シングルクオート(&#039;)をバックスラッシュでエスケープされた
+      シングルクオート(\&#039;)に変換しなければならないのですが、
+      正規表現を用いてこれを行うにはどの様にするのですか？
+      同様に &quot; を \&quot; に、\ を \\ に変換したいのです。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      もしデータベースに格納するためにそんなことをしようとしているのなら、
+      データベース自身が持つエスケープの仕組みを使うようにしましょう。
+      MySQL なら <span class="function"><a href="function.mysql-real-escape-string.html" class="function">mysql_real_escape_string()</a></span>、
+      PostgreSQL なら <span class="function"><a href="function.pg-escape-string.html" class="function">pg_escape_string()</a></span> などです。
+      汎用的な関数 <span class="function"><a href="function.addslashes.html" class="function">addslashes()</a></span> や
+      <span class="function"><a href="function.stripslashes.html" class="function">stripslashes()</a></span> もありますが、
+      これはさらに古い時代の PHP コードで使われていたものです。
+     </p>
+
+     <blockquote class="note"><p><b class="note">注意</b>: <b>ディレクティブに関する注意:
+magic_quotes_gpc</b><br /><p class="para">PHP ディレクティブ<a href="info.configuration.html#ini.magic-quotes-gpc" class="link">magic_quotes_gpc</a> のデフォルトは
+<i>on</i> です。この場合、すべての GET, POST, COOKIE データに
+ついて <span class="function"><a href="function.addslashes.html" class="function">addslashes()</a></span> が実行されます。
+これらを取り除くため <span class="function"><a href="function.stripslashes.html" class="function">stripslashes()</a></span> を使用することが
+できます。</p></p></blockquote>
+
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.stripslashes">
+    <dt><strong>
+     
+      &quot; は \&quot; に、また &#039; は \&#039; に全て変換されているのですが、
+      これら無用なバックスラッシュを除去するにはどうしたらよいですか？
+      どうやって、そしてなぜ、こんなことになっているのでしょう？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      なぜかバックスラッシュがついてしまう、という現象の原因のほとんどは、PHP の
+      <a href="info.configuration.html#ini.magic-quotes-gpc" class="link">magic_quotes_gpc</a>
+      ディレクティブが On になっていることです。これは古い時代の PHP
+      の機能であり、現在は無効にしておくべきものです。この仕組みに頼ってはいけません。
+      文字列からバックスラッシュを取り除くために、PHP の
+      <span class="function"><a href="function.stripslashes.html" class="function">stripslashes()</a></span> を使うことができます。
+     </p>
+     
+     <blockquote class="note"><p><b class="note">注意</b>: <b>ディレクティブに関する注意:
+magic_quotes_gpc</b><br /><p class="para">PHP ディレクティブ<a href="info.configuration.html#ini.magic-quotes-gpc" class="link">magic_quotes_gpc</a> のデフォルトは
+<i>on</i> です。この場合、すべての GET, POST, COOKIE データに
+ついて <span class="function"><a href="function.addslashes.html" class="function">addslashes()</a></span> が実行されます。
+これらを取り除くため <span class="function"><a href="function.stripslashes.html" class="function">stripslashes()</a></span> を使用することが
+できます。</p></p></blockquote>
+     
+    </dd>
+   </dl>   
+
+   <dl class="qandaentry" id="faq.register-globals">
+    <dt><strong>
+     
+      PHP の設定項目 register_globals はどんな影響があるの?
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      まずはじめに、この ini 設定がどういうはたらきをするのかを説明します。
+      例として、次のような URL を使用します。
+      <i>http://example.com/foo.php?animal=cat</i>
+      そして <var class="filename">foo.php</var> の中身は次のようなコードが書かれているものとします。
+     </p>
+     <p class="para">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ここでは&nbsp;$_GET&nbsp;を使うことを推奨します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'animal'</span><span style="color: #007700">];<br /><br /></span><span style="color: #FF8000">//&nbsp;$animal&nbsp;を使用するには&nbsp;register_globals&nbsp;が&nbsp;on&nbsp;でなければなりませんが<br />//&nbsp;こんなことはしないでください<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$animal</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;これはすべての変数について当てはまります。たとえば&nbsp;$_SERVER&nbsp;についても同じで、<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'PHP_SELF'</span><span style="color: #007700">];<br /><br /></span><span style="color: #FF8000">//&nbsp;$PHP_SELF&nbsp;を使用するには&nbsp;register_globals&nbsp;が&nbsp;on&nbsp;でなければなりません<br />//&nbsp;改めて言いますが、こんなことはしないでください<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$PHP_SELF</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </p>
+    
+    <p class="para">
+     上のコードでおわかりのように、register_globals を使用すると数多くの変数が作成されます。
+     長年にわたってこの手のコーディングは問題視されており、
+     ここ数年 register_globals のデフォルト設定は無効になっています。
+     いつかは、この機能自体が削除されてしまうことに注意しましょう。
+     大半のウェブサーバは register_globals を無効にしていますが、
+     いまだに register_globals が on であることを前提とした記事や書籍が存在します。
+     注意しましょう。
+    </p>
+    <p class="para">
+     詳しい情報は、以下のリソースを参照ください。
+     <ul class="simplelist">
+      <li class="member"><a href="ini.core.html#ini.register-globals" class="link">register_globals</a> ディレクティブ</li>
+      <li class="member"><a href="security.globals.html" class="link">セキュリティに関する章での register_globals の説明</a></li>
+      <li class="member"><a href="language.variables.external.html" class="link">外部からくる変数の処理</a></li>
+      <li class="member"><a href="language.variables.superglobals.html" class="link">スーパーグローバル</a></li>
+     </ul>
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      上の例では、クエリ文字列を含む <acronym title="Uniform Resource Locator">URL</acronym> を使用しています。
+      このように情報を渡す場合には GET HTTP リクエストを使用するので、
+      この場合はスーパーグローバル <var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var> を使用します。
+     </p>
+    </p></blockquote>
+   </dd>
+  </dl>
+
+   <dl class="qandaentry" id="faq.using.wrong-order">
+    <dt><strong>
+     
+      次のようなコードを実行すると、思った通りの順番で出力が表示されません。
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+function&nbsp;myfunc($argument)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;$argument&nbsp;+&nbsp;10;<br />}<br />$variable&nbsp;=&nbsp;10;<br />echo&nbsp;"myfunc($variable)&nbsp;=&nbsp;"&nbsp;.&nbsp;myfunc($variable);</span>
+</code></div>
+    </div>
+
+      なぜですか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      式の中で関数の実行結果を使用する(例えば上の例の様に他の文字列と
+      連結する)ためには、<span class="function"><a href="function.echo.html" class="function">echo()</a></span>するのではなく、その
+      値を<em class="emphasis">return</em>しなければいけません。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.newlines">
+    <dt><strong>
+     
+      改行されないのですが？
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;pre&gt;<br /><span style="color: #0000BB">&lt;?php&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"これは1行目"</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;<br />&lt;?php&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"この行は改行に続いて出力されるはず"</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&lt;/pre&gt;</span>
+</code></div>
+      </div>
+
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHPでは、&quot;?&gt;&quot;か&quot;?&gt;\n&quot;(\nは改行を表します)をPHPのコードブロッ
+      クの終端と見なします。このため、コードブロック終端の改行記号は省
+      略され、表示される文は1行になります。つまり、改行をさせるために
+      は、PHPのコードブロックの終端の後にもう1つ改行を挿入する必要があ
+      るということです。
+     </p>
+     <p class="para">
+     なぜPHPはこのようなことをするのでしょうか？なぜならHTMLを出力する
+     場合にはこの方が都合のよいことが多いからです。もしとても長い1行を
+     出力しなければならない場合に、改行が解釈されてしまうとしたらどう
+     でしょう。ソースコードの1行もとても読めないくらい長いものになって
+     しまいます。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.headers-sent">
+    <dt><strong>
+     
+      &#039;Warning: Cannot send session cookie - headers already sent...&#039;や
+      &#039;Cannot add header information - headers already set...&#039;といった
+      メッセージが出力されるのですが。
+      sent...&#039;.
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      <span class="function"><a href="function.header.html" class="function">header()</a></span>, <span class="function"><b>set_cookie()</b></span>や
+      <a href="ref.session.html" class="link">セッション関数</a>は出力ストリームに
+      ヘッダを付加する関数で、ヘッダを送信できるのは本文の出力を
+      開始する前のみです。<span class="function"><a href="function.headers-sent.html" class="function">headers_sent()</a></span>を使って
+      既にヘッダが送信済みでないかチェックすることができます。
+      <a href="ref.outcontrol.html" class="link">出力制御関数</a>もご覧ください。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.header">
+    <dt><strong>
+     
+      リクエストヘッダに直接アクセスしたいのですが、どうすればよいですか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+     もしPHPがApacheモジュールとして動作しているなら、
+     <span class="function"><a href="function.getallheaders.html" class="function">getallheaders()</a></span>を使えば全てのヘッダを取得する
+     ことができます。下のちょっとしたコードで全てのリクエストヘッダを
+     表示することができます。
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+$headers&nbsp;=&nbsp;getallheaders();<br />foreach&nbsp;($headers&nbsp;as&nbsp;$name&nbsp;=&gt;&nbsp;$content)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;"headers[$name]&nbsp;=&nbsp;$content&lt;br&nbsp;/&gt;\n";<br />}</span>
+</code></div>
+      </div>
+
+     </p>
+      <p class="para">
+      <span class="function"><a href="function.apache-lookup-uri.html" class="function">apache_lookup_uri()</a></span>,
+      <span class="function"><a href="function.apache-response-headers.html" class="function">apache_response_headers()</a></span>,
+      <span class="function"><a href="function.fsockopen.html" class="function">fsockopen()</a></span>も参照してください。
+     </p>
+   </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.authentication">
+    <dt><strong>
+     
+      IISで認証を行おうとすると&#039;No Input file specified&#039;というエラーが
+      発生します。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      これはIISのセキュリティモデルの欠点で、IISで動作するCGIに共通する
+      問題です。これを回避策するには、認証のかかったディレクトリに(PHP
+      が解釈しない)HTMLファイルを作成します。そしてMETAタグを使ってPHP
+      を使用したページにリダイレクトするか、リンクを張ります。こうすれ
+      ばPHPは認証済みかどうかを正しく認識することが出来ます。ISAPIモジュー
+      ルの場合はこの問題は起きません。また、これは他のNTウェブサーバに
+      は影響ありません。詳しくは<a href="http://support.microsoft.com/kb/q160422/" class="link external">&raquo; http://support.microsoft.com/kb/q160422/</a>
+      と<a href="features.http-auth.html" class="link">HTTP 認証</a>を
+      参照してください。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.iis.sharing">
+    <dt><strong>
+     
+      Windows: 他のコンピュータと共有しているファイルに、IIS
+      でアクセスできません。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      <i>Go to Internet Information
+      Services</i> を変更する必要があります。PHP ファイルを選択して
+      プロパティを開き、<i>セキュリティ</i> タブに移動し、
+      <i>Edit -&lt; Anonymous access and authentication control</i> 。
+     </p>
+     <p class="para">
+      この問題を解決するには <i>Anonymous
+      Access</i> のチェックをはずして <i>Integrated Window
+      Authentication</i> をチェックしたままにしておきか、
+      あるいは <i>Anonymous
+      Access</i> をチェックしてアクセスできないユーザを別途指定します。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.mixml">
+    <dt><strong>
+     
+     どうすればXMLとPHPは共存することが出来るのですか？XMLの
+     &lt;?xml&gt;タグがPHPでエラーになります。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      &lt;?xml を直接PHPコードに埋め込むには、
+      PHPディレクティブの<a href="ini.core.html#ini.short-open-tag" class="link">short_tags</a>
+      を <i>0</i> に設定しなければなりません。
+      このディレクティブは<span class="function"><a href="function.ini-set.html" class="function">ini_set()</a></span>でセットすることは
+      できません。<a href="ini.core.html#ini.short-open-tag" class="link">short_open_tags</a>
+      のオン/オフに関わらず、次のようにもできます: 
+      <i>&lt;?php echo &#039;&lt;?xml&#039;; ?&gt;</i>
+      このディレクティブはデフォルトでオンです。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.variables">
+    <dt><strong>
+     
+      あらかじめ設定されている変数を全て網羅したリストはどこにあるので
+      すか？なぜPHPのドキュメントにはその一覧がないのですか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      マニュアルの
+      <a href="language.variables.predefined.html" class="link">定義済みの変数</a>
+      のページを読んでください。スクリプト上で有効な定義済み変数のリストの
+      一部があります。有効な変数の完全なリスト（とその詳しい情報）は
+      <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>をコールすることで見ることができます。
+      マニュアルの
+      <a href="language.variables.external.html" class="link">PHPの外部から来る変数</a>
+      のセクションも読んでください。HTMLフォームやCookie、URL等から
+      来る外部変数に関するシナリオが説明されています。
+     </p>
+     
+     <blockquote class="note"><p><b class="note">注意</b>: <b>register_globals:
+重要な注意</b><br /><p class="para">PHP 4.2.0 以降、PHP ディレクティブ
+<a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+のデフォルト値は <em class="emphasis">off</em> となっています。
+PHP コミュニティは、ユーザがこのディレクティブの設定に依存せず、
+<a href="language.variables.predefined.html" class="link">superglobals</a> のような他の手段を使用することを推奨します。
+</p></p></blockquote>
+
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.freepdf">
+    <dt><strong>
+     
+      フリーではない商用ライブラリである
+      <a href="ref.pdf.html" class="link">PDFLib</a>を使わずに
+      PDFファイルを生成するにはどうしたらよいでしょうか？
+      フリーのもので、外部のPDFライブラリを必要としない
+      ものがいいのです。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHPで書かれている代替手段がいくつかあります。
+      <a href="http://www.fpdf.org/" class="link external">&raquo; FPDF</a> や
+      <a href="http://www.tcpdf.org/" class="link external">&raquo; TCPDF</a> などです。
+     </p>
+     <p class="para">
+      また、<a href="book.haru.html" class="link">Haru</a> 拡張モジュールもあります。
+      これは、フリーな外部ライブラリ libHaru を使用しています。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.cgi-vars">
+    <dt><strong>
+     
+      ユーザ定義関数の中で、標準的な
+      (<var class="varname"><var class="varname">$DOCUMENT_ROOT</var></var> や <var class="varname"><var class="varname">$HTTP_REFERER</var></var> のような)
+      CGI変数にアクセスしたいのですが、PHPはそれらの変数を見つけること
+      ができていないようです。何がおかしいのですか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHPディレクティブの
+      <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+      がサーバと環境変数に与える影響を認識することは重要なことです。
+      register_globals = off (PHP4.2.0以降デフォルトでoff)の場合、
+      <var class="varname"><var class="varname">$DOCUMENT_ROOT</var></var>は存在しません。代わりに
+      <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER['DOCUMENT_ROOT']</a></var></var>を使用してください。
+      register_globals = on の場合は <var class="varname"><var class="varname">$DOCUMENT_ROOT</var></var>も
+      <var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS['DOCUMENT_ROOT']</a></var></var>も存在します。
+     </p>
+     
+     <blockquote class="note"><p><b class="note">注意</b>: <b>スーパーグローバル:
+使用可能なバージョンに関する注意</b><br /><p class="para">PHP 4.1.0 以降、
+<var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var>, <var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var>,
+<var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var>
+等のスーパーグローバル配列が使用可能となっています。
+詳細な情報については、マニュアルの <a href="language.variables.predefined.html" class="link">superglobals</a>
+のセクションを参照してください。</p></p></blockquote>
+
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.shorthandbytes">
+    <dt><strong>
+     
+      いくつかの PHP ディレクティブでは、バイト値を <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> 
+      ではなく省略形で設定できます。この省略形で使えるオプションを教えてください。
+      また、これは <var class="filename">php.ini</var> 以外でも使えるのですか ?
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      有効なオプションは K（キロバイト）、M（メガバイト）および G（ギガバイト:
+      PHP 5.1.0 以降で有効）です。大文字小文字は区別しません。これ以外の文字は
+      バイト値と判断されます。
+      <i>1M</i> は、1 メガバイトあるいは <i>1048576</i>
+      バイトと等しくなります。<i>1K</i> は、1 キロバイトあるいは
+      <i>1024</i> バイトです。この表記法を <var class="filename">php.ini</var> 以外では使用
+      しないでください。かわりに <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> のバイト値を設定します。
+      これらの値を数値に変換する例は <span class="function"><a href="function.ini-get.html" class="function">ini_get()</a></span> のドキュメントを
+      参照ください。
+     </p>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <b>キロバイト? キビバイト?</b><br />
+      <p class="para">
+       PHP の記法では 1 キロバイト = 1024 バイトとしていますが、
+       <acronym>IEC</acronym> の標準規格では 1024 バイトのことを
+       1 キビバイト (kibibyte) と呼ぶことになっています。
+       まとめ: PHP での k および K = 1024 バイト。
+      </p>
+     </p></blockquote>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.using.windowslocalhostissue">
+    <dt><strong>
+     
+      Windows で、
+      <i>&quot;127.0.0.1&quot;</i> だと動作するのに
+      <i>localhost</i>
+      を使うと接続がタイムアウトします。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHP 5.3.4 を使っている場合、その原因は PHP のネットワーク解決に関するコードのバグです。
+      IPv6 が有効になっている環境では、ストリーム関連のすべての場面で
+      <i>localhost</i> への接続に失敗していました。
+      回避策は、 <i>&quot;127.0.0.1&quot;</i> を使うようにするか
+      IPv6 の名前解決を <var class="filename">hosts</var> ファイルで無効にするかのいずれかです。
+     </p>
+    </dd>
+   </dl>
+
+  
+ </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="faq.build.html">構築時の問題</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="faq.html.html">PHP と HTML</a></div>
+ <div class="up"><a href="faq.html">FAQ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

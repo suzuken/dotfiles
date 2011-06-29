@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アドレス文字列を解釈します</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-reopen.html">imap_reopen</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-rfc822-parse-headers.html">imap_rfc822_parse_headers</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imap-rfc822-parse-adrlist" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imap_rfc822_parse_adrlist</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imap_rfc822_parse_adrlist</span> &mdash; <span class="dc-title">アドレス文字列を解釈します</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imap-rfc822-parse-adrlist-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>imap_rfc822_parse_adrlist</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$address</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$default_host</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <a href="http://www.faqs.org/rfcs/rfc2822" class="link external">&raquo; RFC2822</a>
+   の定義に基づき、アドレス文字列をパースします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imap-rfc822-parse-adrlist-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">address</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アドレスを含む文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">default_host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デフォルトのホスト名。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imap-rfc822-parse-adrlist-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   オブジェクトの配列を返します。オブジェクトのプロパティは以下のとおりです。
+  </p>
+  <p class="para">
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      mailbox  - メールボックス名（ユーザ名）。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      host - ホスト名。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      personal - 個人名。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      adl - ドメインソースルート。
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imap-rfc822-parse-adrlist-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2832">
+    <p><b>例1 <span class="function"><b>imap_rfc822_parse_adrlist()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$address_string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Joe&nbsp;Doe&nbsp;&lt;doe@example.com&gt;,&nbsp;postmaster@example.com,&nbsp;root"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$address_array&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imap_rfc822_parse_adrlist</span><span style="color: #007700">(</span><span style="color: #0000BB">$address_string</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"example.com"</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$address_array</span><span style="color: #007700">)&nbsp;||&nbsp;</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$address_array</span><span style="color: #007700">)&nbsp;&lt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">"something&nbsp;is&nbsp;wrong\n"</span><span style="color: #007700">);<br />}<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$address_array&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"#&nbsp;</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;&nbsp;mailbox&nbsp;:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">mailbox&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;&nbsp;host&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;&nbsp;personal:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">personal&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;&nbsp;adl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">adl&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+# 0
+  mailbox : doe
+  host    : example.com
+  personal: Joe Doe
+  adl     : 
+# 1
+  mailbox : postmaster
+  host    : example.com
+  personal: 
+  adl     : 
+# 2
+  mailbox : root
+  host    : example.com
+  personal: 
+  adl     :
+
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imap-rfc822-parse-adrlist-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imap-rfc822-parse-headers.html" class="function" rel="rdfs-seeAlso">imap_rfc822_parse_headers()</a> - 文字列からメールヘッダを解釈する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-reopen.html">imap_reopen</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-rfc822-parse-headers.html">imap_rfc822_parse_headers</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

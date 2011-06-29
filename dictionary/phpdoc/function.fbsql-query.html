@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>FrontBase クエリを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-pconnect.html">fbsql_pconnect</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-read-blob.html">fbsql_read_blob</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fbsql-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fbsql_query</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">fbsql_query</span> &mdash; <span class="dc-title">FrontBase クエリを送信する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fbsql-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>fbsql_query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$batch_size</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   クエリ <i><tt class="parameter">query</tt></i> を、
+   サーバ上の現在アクティブなデータベースに送信します。
+  </p>
+  <p class="para">
+   クエリが成功したと仮定すると、
+   <span class="function"><a href="function.fbsql-num-rows.html" class="function">fbsql_num_rows()</a></span> を使用して SELECT 文から
+   返された行数を取得したり
+   <span class="function"><a href="function.fbsql-affected-rows.html" class="function">fbsql_affected_rows()</a></span> を使用して
+   DELETE、INSERT、REPLACE あるいは UPDATE 文で変更された行数を
+   取得したりすることが可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fbsql-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行する SQL クエリ。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        クエリ文字列の最後はセミコロンで終わらなければなりません。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> あるいは
+<span class="function"><a href="function.fbsql-pconnect.html" class="function">fbsql_pconnect()</a></span> が返す FrontBase リンク ID。</p>
+<p class="para">指定しなかった場合は、この関数は FrontBase
+サーバでオープンしているリンクを探します。見つからないときは
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> に引数を指定せずにコールしたときと同様にして作成します。</p>
+</dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">batch_size</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fbsql-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>fbsql_query()</b></span> は、クエリが成功したかどうかを
+   示すために <b><tt>TRUE</tt></b> (非ゼロ) あるいは <b><tt>FALSE</tt></b> を返します。
+   返り値が <b><tt>TRUE</tt></b> の場合、クエリは正しい形式であってサーバで実行された
+   ことを示します。変更された行数や返された行数については何も示しません。
+   クエリが成功しても 1 行も変更しなかったり 1 行も返さなかったりすることは
+   十分にありえることです。
+  </p>
+  <p class="para">
+   SELECT 文の場合は <span class="function"><b>fbsql_query()</b></span> は新しい結果 ID
+   を返し、これを <span class="function"><a href="function.fbsql-result.html" class="function">fbsql_result()</a></span> に渡すことができます。
+  </p>
+  <p class="para">
+   クエリが参照しているテーブルへのアクセス権がない場合にも
+   <span class="function"><b>fbsql_query()</b></span> は失敗し、<b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fbsql-query-examples">
+  <h3 class="title">例</h3>
+   <p class="para">
+   以下のクエリは文法的に間違っています。そのため
+   <span class="function"><b>fbsql_query()</b></span> は失敗して <b><tt>FALSE</tt></b> を返します。
+   <div class="example" id="example-1104">
+    <p><b>例1 <span class="function"><b>fbsql_query()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;*&nbsp;WHERE&nbsp;1=1"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die&nbsp;(</span><span style="color: #DD0000">"不正なクエリ"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   テーブル <i>my_tbl</i> に <i>my_col</i>
+   というカラムが存在しない場合、以下のクエリは意味的に間違ったものと
+   なります。そのため <span class="function"><b>fbsql_query()</b></span> は失敗して
+   <b><tt>FALSE</tt></b> を返します。
+   <div class="example" id="example-1105">
+    <p><b>例2 <span class="function"><b>fbsql_query()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_query&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;my_col&nbsp;FROM&nbsp;my_tbl;"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die&nbsp;(</span><span style="color: #DD0000">"不正なクエリ"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fbsql-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fbsql-affected-rows.html" class="function" rel="rdfs-seeAlso">fbsql_affected_rows()</a> - 直近の FrontBase 操作により変更されたレコードの数を得る</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-db-query.html" class="function" rel="rdfs-seeAlso">fbsql_db_query()</a> - FrontBase クエリを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-free-result.html" class="function" rel="rdfs-seeAlso">fbsql_free_result()</a> - 結果メモリを開放する</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-result.html" class="function" rel="rdfs-seeAlso">fbsql_result()</a> - 結果データを得る</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-select-db.html" class="function" rel="rdfs-seeAlso">fbsql_select_db()</a> - FrontBase データベースを選択する</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-connect.html" class="function" rel="rdfs-seeAlso">fbsql_connect()</a> - FrontBase サーバへの接続をオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-pconnect.html">fbsql_pconnect</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-read-blob.html">fbsql_read_blob</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

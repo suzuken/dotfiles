@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>拡張サービスのリクエストを準備する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-es-result.html">yaz_es_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-get-option.html">yaz_get_option</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.yaz-es" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">yaz_es</h1>
+  <p class="verinfo">(PECL yaz &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">yaz_es</span> &mdash; <span class="dc-title">
+   拡張サービスのリクエストを準備する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.yaz-es-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>yaz_es</b></span>
+    ( <span class="methodparam">
+    <span class="type">resource</span> <tt class="parameter">$id</tt>
+   </span>
+   , <span class="methodparam">
+    <span class="type">string</span> <tt class="parameter">$type</tt>
+   </span>
+   , <span class="methodparam">
+    <span class="type">array</span> <tt class="parameter">$args</tt>
+   </span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、拡張サービスのリクエストを準備します。
+   拡張サービスとは、レコードの更新や蔵書の注文、データベースの管理などの
+   Z39.50 のさまざまな機能のことです。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Z39.50 サーバの多くは、拡張サービスをサポートしていません。
+   </p>
+  </p></blockquote>
+  <p class="para">
+   <span class="function"><b>yaz_es()</b></span> は、拡張サービスリクエストのパッケージを作成し、
+   それを操作キューに配置します。リクエストをサーバに送信するには
+   <span class="function"><a href="function.yaz-wait.html" class="function">yaz_wait()</a></span> を使用します。
+   <span class="function"><a href="function.yaz-wait.html" class="function">yaz_wait()</a></span> の処理が完了すると、拡張サービス操作の結果が
+   <span class="function"><a href="function.yaz-es-result.html" class="function">yaz_es_result()</a></span> で取得できるようになります。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.yaz-es-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.yaz-connect.html" class="function">yaz_connect()</a></span> が返す接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       拡張サービスの形式を表す文字列。
+       <i>itemorder</i> (蔵書の注文)、
+       <i>create</i> (データベースの作成)、
+       <i>drop</i> (データベースの削除)、
+       <i>commit</i> (操作のコミット)、
+       <i>update</i> (レコードの更新)、
+       <i>xmlupdate</i> (XMLの更新) のいずれかです。
+       個々の形式については、以下の節で指定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">args</tt></i></span>
+     <dd>
+
+      <p class="para">
+       拡張サービスのオプションに加えてパッケージ固有のオプションを指定する配列。
+       オプションの形式は、ZOOM C の C API で提供されているものと同じです。
+       ZOOM <a href="http://www.indexdata.dk/yaz/doc/zoom.tkl" class="link external">&raquo; Extended Services</a>
+       を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.yaz-es-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.yaz-es-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-3826">
+   <p><b>例1 レコードの更新</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$con&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">yaz_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"myhost/database"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$args&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"record"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"&lt;gils&gt;&lt;title&gt;some&nbsp;title&lt;/title&gt;&lt;/gils&gt;"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"syntax"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"xml"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"action"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"specialUpdate"<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">yaz_es</span><span style="color: #007700">(</span><span style="color: #0000BB">$con</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"update"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$args</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">yaz_wait</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">yaz_es_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$id</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.yaz-es-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.yaz-es-result.html" class="function" rel="rdfs-seeAlso">yaz_es_result()</a> - 拡張サービスの結果を調査する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-es-result.html">yaz_es_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-get-option.html">yaz_get_option</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

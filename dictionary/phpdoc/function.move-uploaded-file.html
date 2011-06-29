@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アップロードされたファイルを新しい位置に移動する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mkdir.html">mkdir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-ini-file.html">parse_ini_file</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.move-uploaded-file" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">move_uploaded_file</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.3, PHP 5)</p><p class="refpurpose"><span class="refname">move_uploaded_file</span> &mdash; <span class="dc-title">アップロードされたファイルを新しい位置に移動する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.move-uploaded-file-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>move_uploaded_file</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$destination</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、<i><tt class="parameter">filename</tt></i>
+   で指定されたファイルが
+   (PHP の HTTP POST アップロード機構によりアップロードされたという意味で)
+   有効なアップロードファイルであるかどうかを確認します。
+   そのファイルが有効な場合、<i><tt class="parameter">destination</tt></i>
+   で指定したファイル名に移動されます。
+  </p>
+  <p class="para">
+   この種の確認は、アップロードされたファイルに関して何でもできる場
+   合には、その内容をユーザ、または同じシステム上の他のユーザにさえ
+   暴かれる可能性があるため、特に重要です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.move-uploaded-file-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アップロードしたファイルのファイル名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">destination</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルの移動先。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.move-uploaded-file-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">filename</tt></i> が有効なアップロードファイルでない場合、
+   処理は行われず、<span class="function"><b>move_uploaded_file()</b></span> は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">filename</tt></i> が有効なアップロードファイルであるが、
+   何らかの理由により、移動できない場合、処理は行われず、
+   <span class="function"><b>move_uploaded_file()</b></span> は
+   <b><tt>FALSE</tt></b> を返します。加えて、警告が出力されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.move-uploaded-file-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1942">
+    <p><b>例1 複数のファイルのアップロード</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$uploads_dir&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'/uploads'</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">"pictures"</span><span style="color: #007700">][</span><span style="color: #DD0000">"error"</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$error</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$error&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">UPLOAD_ERR_OK</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tmp_name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">"pictures"</span><span style="color: #007700">][</span><span style="color: #DD0000">"tmp_name"</span><span style="color: #007700">][</span><span style="color: #0000BB">$key</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_FILES</span><span style="color: #007700">[</span><span style="color: #DD0000">"pictures"</span><span style="color: #007700">][</span><span style="color: #DD0000">"name"</span><span style="color: #007700">][</span><span style="color: #0000BB">$key</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">move_uploaded_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$tmp_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$uploads_dir</span><span style="color: #DD0000">/</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.move-uploaded-file-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>move_uploaded_file()</b></span> は <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">セーフモード</a> と
+    <a href="ini.core.html#ini.open-basedir" class="link">open_basedir</a>
+    の両者を考慮しています。
+    しかしながら、アップロードされたファイルを移動する
+    <i><tt class="parameter">destination</tt></i> パスのみ制限が設けられます。
+    そこでは <i><tt class="parameter">filename</tt></i>
+    がそれらの制限に抵触する可能性があるためです。
+    <span class="function"><b>move_uploaded_file()</b></span> は PHP
+    を通じてアップロードされたファイルのみを移動できるようにすることで
+    この操作の安全性を保証しています。
+   </p>
+  </p></blockquote>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    コピー先のファイルが既に存在する場合、上書きされます。
+   </p>
+  </div>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.move-uploaded-file-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.is-uploaded-file.html" class="function" rel="rdfs-seeAlso">is_uploaded_file()</a> - HTTP POST でアップロードされたファイルかどうかを調べる</span></li>
+    <li class="member">簡単な使用例については <a href="features.file-upload.html" class="link">ファイルアップロードの処理</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mkdir.html">mkdir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-ini-file.html">parse_ini_file</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

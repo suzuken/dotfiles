@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ハードリンクを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.lchown.html">lchown</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.linkinfo.html">linkinfo</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.link" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">link</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">link</span> &mdash; <span class="dc-title">ハードリンクを作成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.link-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>link</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$target</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$link</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>link()</b></span> はハードリンクを作成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.link-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">target</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リンクの対象。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リンクの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.link-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.link-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    Windows のみ: この関数を使用するには、
+    権限を昇格させたモード、あるいは UAC を無効にした状態で PHP を実行しなければなりません。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.link-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数は、Windows プラットフォーム
+        (Vista 以降、あるいは Server 2008 以降) でも動作するようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.link-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1937">
+    <p><b>例1 シンプルなハードリンクの作成</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$target&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'source.ext'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;これは、既存のファイル名です<br /></span><span style="color: #0000BB">$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'newfile.ext'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;これは、リンク先としたいファイル名です<br /><br /></span><span style="color: #0000BB">link</span><span style="color: #007700">(</span><span style="color: #0000BB">$target</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.link-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数では、
+<a href="features.remote-files.html" class="link">リモートファイル</a> を
+使用することはできません。これは、処理されるファイルがサーバの
+ファイルシステムによりアクセスできる必要があるためです。</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.link-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.symlink.html" class="function" rel="rdfs-seeAlso">symlink()</a> - シンボリックリンクを作成する</span></li>
+    <li class="member"><span class="function"><a href="function.readlink.html" class="function" rel="rdfs-seeAlso">readlink()</a> - シンボリックリンク先を返す</span></li>
+    <li class="member"><span class="function"><a href="function.linkinfo.html" class="function" rel="rdfs-seeAlso">linkinfo()</a> - リンクに関する情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.lchown.html">lchown</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.linkinfo.html">linkinfo</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

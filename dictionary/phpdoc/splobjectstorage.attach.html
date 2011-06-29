@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトをストレージに追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splobjectstorage.addall.html">SplObjectStorage::addAll</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splobjectstorage.contains.html">SplObjectStorage::contains</a></div>
+ <div class="up"><a href="class.splobjectstorage.html">SplObjectStorage</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splobjectstorage.attach" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplObjectStorage::attach</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplObjectStorage::attach</span> &mdash; <span class="dc-title">オブジェクトをストレージに追加する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splobjectstorage.attach-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>SplObjectStorage::attach</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$object</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$data</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   オブジェクトをストレージに追加し、
+   オプションでそれを何らかのデータに関連づけます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splobjectstorage.attach-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       追加したいオブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="type"><a href="language.types.object.html" class="type object">object</a></span> に関連づけるデータ。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splobjectstorage.attach-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splobjectstorage.attach-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3144">
+    <p><b>例1 <span class="function"><b>SplObjectStorage::attach()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$o1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$o2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplObjectStorage</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$s</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">attach</span><span style="color: #007700">(</span><span style="color: #0000BB">$o1</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$s[$o1]&nbsp;=&nbsp;NULL;&nbsp;と同等<br /></span><span style="color: #0000BB">$s</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">attach</span><span style="color: #007700">(</span><span style="color: #0000BB">$o2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$s[$o2]&nbsp;=&nbsp;"hello";&nbsp;と同等<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">[</span><span style="color: #0000BB">$o1</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">[</span><span style="color: #0000BB">$o2</span><span style="color: #007700">]);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+NULL
+string(5) &quot;hello&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+  <div class="refsect1 changelog" id="refsect1-splobjectstorage.attach-changelog">
+   <h3 class="title">変更履歴</h3>
+   <p class="para">
+    <table class="doctable informaltable">
+     
+      <thead valign="middle">
+       <tr valign="middle">
+        <th>バージョン</th>
+        <th>説明</th>
+       </tr>
+
+      </thead>
+
+      <tbody valign="middle" class="tbody">
+       <tr valign="middle">
+        <td align="left">5.3.0</td>
+        <td align="left">
+         <i><tt class="parameter">data</tt></i> パラメータが追加されました。
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+  </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splobjectstorage.attach-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="splobjectstorage.detach.html" class="methodname" rel="rdfs-seeAlso">SplObjectStorage::detach()</a> - オブジェクトをストレージから取り除く</span></li>
+    <li class="member"> <span class="methodname"><a href="splobjectstorage.offsetset.html" class="methodname" rel="rdfs-seeAlso">SplObjectStorage::offsetSet()</a> - ストレージ内のオブジェクトにデータを関連づける</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splobjectstorage.addall.html">SplObjectStorage::addAll</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splobjectstorage.contains.html">SplObjectStorage::contains</a></div>
+ <div class="up"><a href="class.splobjectstorage.html">SplObjectStorage</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>拡張モジュール開発用に PHP をビルドする方法</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.buildsys.skeleton.html">ext_skel スクリプト</a></div>
+ <div class="up"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.buildsys.environment" class="sect1">
+  <h2 class="title">拡張モジュール開発用に PHP をビルドする方法</h2>
+  <p class="para">
+   PHP を普通にインストールすると、
+   デバッグ機能よりもパフォーマンスの向上に主眼を置いて最適化された設定になります。
+   実際に運用することを考えると、これは妥当な選択でしょう。
+   しかし、拡張モジュールを開発する環境としてはあまりよくありません。
+   何か問題がおこったときに、どこが悪いのかを調べやすくするように
+   PHP をビルドする必要があります。
+  </p>
+  
+  <p class="para">
+   Zend Engine ではメモリマネージャが提供されており、
+   拡張モジュール内で発生したメモリリークを追跡することができます。
+   また、詳細なデバッグ情報を取得することもできます。
+   しかし、この機能はデフォルトでは無効になっており、
+   スレッドセーフであることを優先しています。
+   この機能を使うには、<var class="filename">configure</var> のオプションに
+   <strong class="option configure">--enable-debug</strong>
+ と
+   <i>--enable-maintainer-zts</i> を追加します。
+   PHP をソースからビルドする方法については
+   <a href="install.general.html" class="xref">インストールにあたっての一般的な注意事項</a>
+   の説明を参照ください。典型的な
+   <var class="filename">configure</var> の設定は次のようになります。
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">$ ./configure --prefix=/where/to/install/php --enable-debug --enable-maintainer-zts --enable-cgi --enable-cli --with-mysql=/path/to/mysql</pre>
+</div>
+   </div>
+
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.buildsys.skeleton.html">ext_skel スクリプト</a></div>
+ <div class="up"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>HTML からの脱出</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.basic-syntax.html">基本的な構文</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.basic-syntax.instruction-separation.html">命令の分離</a></div>
+ <div class="up"><a href="language.basic-syntax.html">基本的な構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.basic-syntax.phpmode" class="sect1">
+   <h2 class="title">HTML からの脱出</h2>
+   <p class="para">
+    PHP はファイルを解析して開始タグと終了タグを探します。タグが
+    見つかると、PHP はコードの実行を開始したり終了したりします。
+    このような仕組みにより、PHP を他のあらゆる形式のドキュメント中に
+    埋め込むことができるのです。つまり、開始タグと終了タグで囲まれている
+    箇所以外のすべての部分は、PHP パーサに無視されます。
+    たいていの場合、PHP は HTML ドキュメントの中に埋め込まれます。
+    たとえば以下のようにです。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;p&gt;この部分は無視されます。&lt;/p&gt;<br /><span style="color: #0000BB">&lt;?php&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'一方、この部分はパースされます。'</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&lt;p&gt;この部分も無視されます。&lt;/p&gt;</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    もっと複雑な構造を用いることもできます:
+    <div class="example" id="example-64">
+     <p><b>例1 高度なエスケープ処理</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$expression</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;真です。&lt;/strong&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong&gt;偽です。&lt;/strong&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    これは期待通りに動作します。なぜなら、PHP は ?&gt; 終了タグを見つけると
+    それ以降新たに開始タグを見つけるまでの内容を何でも出力するからです
+    (終了タグの直後の改行は別です。
+    <a href="language.basic-syntax.instruction-separation.html" class="link">命令の分離</a>
+    を参照ください)。
+    確かにこの例には少し無理があります。しかし、大量のテキストを出力する際に
+    <span class="function"><a href="function.echo.html" class="function">echo()</a></span> や <span class="function"><a href="function.print.html" class="function">print()</a></span> を用いることを
+    考えると、このように一度 PHP のパースモードを抜けるほうが効率的です。
+   </p>
+   <p class="para">
+    PHP で用いられるタグは 4 種類あります。
+    これらのうちの 2 つ、&lt;?php ?&gt; と
+    &lt;script language=&quot;php&quot;&gt; &lt;/script&gt; は常に使用することができます。
+    残りの 2 つは短縮型のタグと <span class="productname">ASP</span> スタイルの
+    タグで、これらは <var class="filename">php.ini</var> ファイルによって有効か無効かを切り替えられます。
+    中には短縮型のタグや <span class="productname">ASP</span> スタイルのタグを
+    便利に感じる人がいるかも知れませんが、長いタグに比べると移植性に欠けます。
+    また一般的には推奨されていません。
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      さらに注意しなければならないことがあります。PHP コードを XML や XHTML に
+      埋め込む場合には、標準規格に従うために &lt;?php ?&gt; タグを使用する
+      必要があるでしょう。
+     </p>
+    </p></blockquote>
+   </p>
+   <p class="para">
+    <div class="example" id="example-65">
+     <p><b>例2 PHP の開始タグと終了タグ</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+1.&nbsp;&nbsp;<span style="color: #0000BB">&lt;?php&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'XHTMLまたはXMLドキュメントを処理したい場合は、この方法が良いでしょう'</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span><br />2.&nbsp;&nbsp;<span style="color: #0000BB">&lt;script&nbsp;language="php"&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'(FrontPageのような)&nbsp;いくつかのエディタ&nbsp;は処理命令を好み<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ません'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">&lt;/script&gt;<br /></span><br />3.&nbsp;&nbsp;<span style="color: #0000BB">&lt;?&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'これは、SGML&nbsp;を処理する最もシンプルな方法です'</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000BB">&lt;?=&nbsp;expression&nbsp;?&gt;</span>&nbsp;This&nbsp;is&nbsp;a&nbsp;shortcut&nbsp;for&nbsp;"<span style="color: #0000BB">&lt;?&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">expression&nbsp;?&gt;</span>"<br /><br />4.&nbsp;&nbsp;&lt;%&nbsp;echo&nbsp;'オプションでASP形式のタグを使用可能です';&nbsp;%&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;%=&nbsp;$variable;&nbsp;#&nbsp;これは、"&lt;%echo&nbsp;.."&nbsp;のショートカットです。%&gt;</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    例の 1. と 2. のタグは常に利用可能です。中でも 1. のタグは最も一般的で
+    推奨される方法です。
+   </p>
+   <p class="para">
+    短縮型のタグ（例 3.）が有効なのは、<var class="filename">php.ini</var> 設定ファイルのディレクティブ
+    <a href="ini.core.html#ini.short-open-tag" class="link">short_open_tag</a> が
+    有効になっている場合か PHP が <strong class="option unknown">--enable-short-tags</strong>
+
+    オプションつきで configure されている場合のみです。
+   </p>
+   <p class="para">
+    <span class="productname">ASP</span> 型のタグ（例 4.）が有効なのは、
+    <var class="filename">php.ini</var> 設定ファイルのディレクティブ
+    <a href="ini.core.html#ini.asp-tags" class="link">asp_tags</a> が有効になっている場合のみです。
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     再利用されるか、または、自分の制御下にないPHPサーバで運用される
+     アプリケーションまたはライブラリを開発する場合、短縮型のタグの
+     使用は避けるべきです。これは、短縮型のタグがターゲットサーバー
+     でサポートされていない可能性があるためです。
+     可搬性のある、再配布可能なコードでは、短縮型のタグを使用しない
+     ようにしてください。
+    </p>
+   </p></blockquote>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      PHP 5.2 以前では、開始タグ <i>&lt;?php</i>
+      だけを書いてそれ以外に何も書いていないファイルは
+      パーサが処理することができませんでした。PHP 5.3
+      以降では、そのようなファイルもパースできます。
+     </p>
+    </p></blockquote>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.basic-syntax.html">基本的な構文</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.basic-syntax.instruction-separation.html">命令の分離</a></div>
+ <div class="up"><a href="language.basic-syntax.html">基本的な構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

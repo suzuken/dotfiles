@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリで変更された行の数を得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ifx-blobinfile-mode.html">ifx_blobinfile_mode</a></div>
+ <div class="up"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ifx-affected-rows" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ifx_affected_rows</h1>
+  <p class="verinfo">(PHP 4, PHP &lt;=5.2.0)</p><p class="refpurpose"><span class="refname">ifx_affected_rows</span> &mdash; <span class="dc-title">クエリで変更された行の数を得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ifx-affected-rows-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ifx_affected_rows</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result_id</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">result_id</tt></i> に関連するクエリにより変更された
+   行の数を返します。
+  </p>
+  <p class="para">
+   insert, update ,delete の場合、その数は、実際に作用された行の数
+   (sqlerrd[2]) です。select の場合、これは推定値 (sqlerrd[0]) です。
+   この値を信用してはいけません。データベースサーバは、SELECT により
+   実際に返される行の数を返すことはありません。これは、この段階
+   (オプティマイザがクエリ手順を定義している場合には、&quot;PREPARE&quot; を
+   行った直後) では、行の取得を始めてさえもいないためです。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.ifx-prepare.html" class="function">ifx_prepare()</a></span> の実行後に、クエリ結果を適当な量に
+   制限するために使用すると便利です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ifx-affected-rows-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ifx-query.html" class="function">ifx_query()</a></span> または
+       <span class="function"><a href="function.ifx-prepare.html" class="function">ifx_prepare()</a></span> により返される有効な結果 ID です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ifx-affected-rows-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   行の数を整数値で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ifx-affected-rows-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1120">
+    <p><b>例1 Informix で変更された行</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$rid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ifx_prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">"select&nbsp;*&nbsp;from&nbsp;emp<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;name&nbsp;like&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$connid</span><span style="color: #007700">);<br />if&nbsp;(!&nbsp;</span><span style="color: #0000BB">$rid</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;error&nbsp;...&nbsp;*/<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">$rowcount&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ifx_affected_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$rid</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$rowcount&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">1000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"Too&nbsp;many&nbsp;rows&nbsp;in&nbsp;result&nbsp;set&nbsp;(%d)\n&lt;br&nbsp;/&gt;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rowcount</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;die&nbsp;(</span><span style="color: #DD0000">"Please&nbsp;restrict&nbsp;your&nbsp;query&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ifx-affected-rows-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ifx-num-rows.html" class="function" rel="rdfs-seeAlso">ifx_num_rows()</a> - クエリから既に取得された行の数を数える</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ifx-blobinfile-mode.html">ifx_blobinfile_mode</a></div>
+ <div class="up"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

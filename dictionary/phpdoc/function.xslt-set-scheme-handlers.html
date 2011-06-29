@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>XSLT プロセッサに関するスキーマハンドラを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-scheme-handler.html">xslt_set_scheme_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xslt-setopt.html">xslt_setopt</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xslt-set-scheme-handlers" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xslt_set_scheme_handlers</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6)</p><p class="refpurpose"><span class="refname">xslt_set_scheme_handlers</span> &mdash; <span class="dc-title"><acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサに関するスキーマハンドラを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.xslt-set-scheme-handlers-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>xslt_set_scheme_handlers</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$xh</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$handlers</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ドキュメントのスキーマハンドラ (XPath ハンドラ) を登録します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xslt-set-scheme-handlers-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">xh</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.xslt-create.html" class="function">xslt_create()</a></span> で作成した
+       <acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサリンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handlers</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>&quot;get_all&quot;</i>、<i>&quot;open&quot;</i>、<i>&quot;get&quot;</i>、<i>&quot;put&quot;</i>
+       および <i>&quot;close&quot;</i> というキーを持つ配列。
+      </p>
+      <p class="para">
+       すべてのエントリは、関数名を表す文字列あるいは
+       <i>array($obj, &quot;method&quot;)</i> 形式の配列である必要があります。
+      </p>
+      <p class="para">
+       この配列には、すべてのスキームハンドラの要素を含める必要はありません
+       (もちろん含めることもできます) が、
+       少なくとも <i>&quot;handler&quot; =&gt; &quot;function&quot;</i> 形式を満たさなければなりません。
+      </p>
+      <p class="para">
+       各スキームハンドラ関数は、以下のフォーマットでコールされます。
+       <div class="example-contents screen">
+<div class="cdata"><pre>
+string   get_all(resource processor, string scheme, string rest)
+resource open(resource processor, string scheme, string rest)
+int      get(resource processor, resource fp, string &amp;data)
+int      put(resource processor, resource fp, string data)
+void     close(resource processor, resource fp)
+</pre></div>
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xslt-set-scheme-handlers-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.xslt-set-scheme-handlers-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4608">
+    <p><b>例1 <span class="function"><b>xslt_set_scheme_handlers()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     たとえば、これは PHP の関数 &quot;file_exists()&quot; を実装したものです。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;ハンドラの定義<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">mySchemeHandler</span><span style="color: #007700">(</span><span style="color: #0000BB">$processor</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$scheme</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rest</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rest&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$rest</span><span style="color: #007700">,</span><span style="color: #0000BB">1</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;to&nbsp;remove&nbsp;the&nbsp;first&nbsp;/&nbsp;automatically&nbsp;added&nbsp;by&nbsp;the&nbsp;engine<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$scheme&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #DD0000">'file_exists'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;result&nbsp;is&nbsp;embedded&nbsp;in&nbsp;a&nbsp;small&nbsp;xml&nbsp;string<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">return&nbsp;</span><span style="color: #DD0000">'&lt;?xml&nbsp;version="1.0"&nbsp;encoding="UTF-8"?&gt;&lt;root&gt;'&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$rest</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'true'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;/root&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$SchemeHandlerArray&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'get_all'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'mySchemeHandler'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;エンジンを開始します<br /></span><span style="color: #0000BB">$params&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /></span><span style="color: #0000BB">$xh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">xslt_create</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">xslt_set_scheme_handlers</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$SchemeHandlerArray</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">xslt_process</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"myFile.xml"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"myFile.xsl"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;array(),&nbsp;</span><span style="color: #0000BB">$params</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">xslt_free</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     これで、スタイルシート側で特定のファイルが存在するかどうかを調べることができます。
+    </p></div>
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xsl:if test=&quot;document(&#039;file_exists:anotherXMLfile.xml&#039;)/root=&#039;true&#039;&quot;&gt;
+ &lt;!-- ファイルが存在する --&gt;
+&lt;/xsl:if&gt;</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.xslt-set-scheme-handlers-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.xslt-set-scheme-handler.html" class="function" rel="rdfs-seeAlso">xslt_set_scheme_handler()</a> - XSLT プロセッサ用にスキーマハンドラを設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-scheme-handler.html">xslt_set_scheme_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xslt-setopt.html">xslt_setopt</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

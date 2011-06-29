@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>行を CSV 形式にフォーマットし、ファイルポインタに書き込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fpassthru.html">fpassthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fputs.html">fputs</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fputcsv" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fputcsv</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">fputcsv</span> &mdash; <span class="dc-title">行を CSV 形式にフォーマットし、ファイルポインタに書き込む</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fputcsv-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>fputcsv</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$handle</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$fields</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$delimiter</tt><span class="initializer"> = &#039;,&#039;</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$enclosure</tt><span class="initializer"> = &#039;&quot;&#039;</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>fputcsv()</b></span> は、行（<i><tt class="parameter">fields</tt></i>
+   配列として渡されたもの）を CSV としてフォーマットし、それを
+   <i><tt class="parameter">handle</tt></i> で指定したファイルに書き込みます
+   (いちばん最後に改行を追加します)。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fputcsv-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handle</tt></i></span>
+     <dd>
+
+      <p class="para">ファイルポインタは、有効なファイルポインタである必要があり、
+<span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> または <span class="function"><a href="function.fsockopen.html" class="function">fsockopen()</a></span> で正常にオープンされた
+（そしてまだ <span class="function"><a href="function.fclose.html" class="function">fclose()</a></span> でクローズされていない）
+ファイルを指している必要があります。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fields</tt></i></span>
+     <dd>
+
+      <p class="para">
+       値の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">delimiter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの <i><tt class="parameter">delimiter</tt></i> はフィールド区切り文字
+       (一文字だけ) を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">enclosure</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの <i><tt class="parameter">enclosure</tt></i> はフィールドを囲む文字
+       (一文字だけ) を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fputcsv-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   書き込んだ文字列の長さを返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fputcsv-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1916">
+    <p><b>例1 <span class="function"><b>fputcsv()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$list&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'aaa'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bbb'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ccc'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dddd'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'123'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'456'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'789'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'"aaa"'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'"bbb"'</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'file.csv'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$list&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$fields</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fputcsv</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$fields</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例が書き出す <i>file.csv</i> の内容は、このようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+aaa,bbb,ccc,dddd
+123,456,789
+&quot;&quot;&quot;aaa&quot;&quot;&quot;,&quot;&quot;&quot;bbb&quot;&quot;&quot;
+
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.fputcsv-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+マッキントッシュコンピュータ上で作成されたファイルを読み込む際に、
+<i>PHP</i> が行末を認識できないという問題が発生した場合、
+実行時の設定オプション<a href="filesystem.configuration.html#ini.auto-detect-line-endings" class="link">auto_detect_line_endings</a> を有効にする必要が生じるかもしれません。</span>
+</p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fputcsv-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fgetcsv.html" class="function" rel="rdfs-seeAlso">fgetcsv()</a> - ファイルポインタから行を取得し、CSVフィールドを処理する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fpassthru.html">fpassthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fputs.html">fputs</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

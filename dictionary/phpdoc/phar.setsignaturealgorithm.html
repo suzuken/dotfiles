@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>phar のシグネチャのアルゴリズムを設定して適用する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.setmetadata.html">Phar::setMetadata</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.setstub.html">Phar::setStub</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.setsignaturealgorithm" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Phar::setSignatureAlgorithm</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">Phar::setSignatureAlgorithm</span> &mdash; <span class="dc-title">phar のシグネチャのアルゴリズムを設定して適用する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-phar.setsignaturealgorithm-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><a href="phardata.setsignaturealgorithm.html" class="methodname">Phar::setSignatureAlgorithm</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$sigtype</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$privatekey</tt></span>
+  ] )</div>
+
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">
+このメソッドは、<var class="filename">php.ini</var> の <i>phar.readonly</i>
+が <i>0</i> でないと <a href="class.Phar.html" class="classname">Phar</a>
+オブジェクトで動作しません。それ以外の場合は
+<a href="class.PharException.html" class="classname">PharException</a> がスローされます。</p></p></blockquote>
+
+  <p class="para">
+   phar のシグネチャのアルゴリズムを設定します。
+   シグネチャのアルゴリズムは <i>Phar::MD5</i>、
+   <i>Phar::SHA1</i>、<i>Phar::SHA256</i>、
+   <i>Phar::SHA512</i> あるいは <i>Phar::OPENSSL</i>
+   のいずれかでなければなりません。
+  </p>
+  <p class="para">
+   実行可能な phar アーカイブについては、
+   <i>SHA1</i> 形式のシグネチャが
+   デフォルトで自動的に作成されることに注意しましょう。
+   データ tar 形式あるいは zip 形式のアーカイブ
+   (<a href="class.PharData.html" class="classname">PharData</a> クラスで作成したアーカイブ)
+   の場合は、
+   <span class="function"><a href="phardata.setsignaturealgorithm.html" class="function">Phar::setSignatureAlgorithm()</a></span>
+   で明示的にシグネチャを作成して設定する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-phar.setsignaturealgorithm-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">sigtype</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>Phar::MD5</i>、
+   <i>Phar::SHA1</i>、<i>Phar::SHA256</i>、
+   <i>Phar::SHA512</i> あるいは <i>Phar::OPENSSL</i>
+       のいずれか。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">privatekey</tt></i></span>
+     <dd>
+
+      <p class="para">
+       OpenSSL 秘密鍵の中身。証明書あるいは OpenSSL 鍵ファイルから取り出したもの。
+       <div class="example-contents">
+        <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$private&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">openssl_get_privatekey</span><span style="color: #007700">(</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'private.pem'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$pkey&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">openssl_pkey_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$private</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$p</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setSignatureAlgorithm</span><span style="color: #007700">(</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">OPENSSL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+       公開鍵ファイルの名前や置き場所については
+       <a href="phar.using.html" class="link">phar の導入</a> を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-phar.setsignaturealgorithm-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 errors" id="refsect1-phar.setsignaturealgorithm-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   さまざまなエラーが発生した場合に
+   <a href="class.unexpectedvalueexception.html" class="classname">UnexpectedValueException</a> をスローします。
+   変更内容をディスクに書き込むときにエラーが発生した場合は
+   <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-phar.setsignaturealgorithm-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="phar.getsupportedsignatures.html" class="function" rel="rdfs-seeAlso">Phar::getSupportedSignatures()</a> - サポートするシグネチャ型の配列を返す</span></li>
+    <li class="member"><span class="function"><a href="phar.getsignature.html" class="function" rel="rdfs-seeAlso">Phar::getSignature()</a> - Phar アーカイブの MD5/SHA1/SHA256/SHA512/OpenSSL シグネチャを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.setmetadata.html">Phar::setMetadata</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.setstub.html">Phar::setStub</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

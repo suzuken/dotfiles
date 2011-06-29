@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ランダムなトークンを生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauthprovider.consumerhandler.html">OAuthProvider::consumerHandler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauthprovider.is2leggedendpoint.html">OAuthProvider::is2LeggedEndpoint</a></div>
+ <div class="up"><a href="class.oauthprovider.html">OAuthProvider</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oauthprovider.generatetoken" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">OAuthProvider::generateToken</h1>
+  <p class="verinfo">(PECL OAuth &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">OAuthProvider::generateToken</span> &mdash; <span class="dc-title">ランダムなトークンを生成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-oauthprovider.generatetoken-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">final</span> <span class="modifier">public</span> <span class="modifier">static</span> <span class="type">string</span> <span class="methodname"><b>OAuthProvider::generateToken</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$size</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$strong</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   擬似乱数を使ってランダムなバイトの文字列を生成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-oauthprovider.generatetoken-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">size</tt></i></span>
+    <dd>
+
+     <p class="para">
+      トークンの長さ。バイト単位で指定します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">strong</tt></i></span>
+    <dd>
+
+     <p class="para">
+      <b><tt>TRUE</tt></b> に設定すると、エントロピーとして <i>/dev/random</i> を使います。
+      それ以外の場合は、ブロックされることのない <i>/dev/urandom</i> を使います。
+      このパラメータは、Windows では無視されます。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-oauthprovider.generatetoken-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   生成されたトークンをバイト文字列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-oauthprovider.generatetoken-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <i><tt class="parameter">strong</tt></i> パラメータが <b><tt>TRUE</tt></b> のときは、
+   (十分な量の初期ランダムデータがなかったなどの理由で)
+   代替 <span class="function"><a href="function.rand.html" class="function">rand()</a></span> 実装を使うことになった場合に
+   <b><tt>E_WARNING</tt></b> レベルのエラーが発生します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-oauthprovider.generatetoken-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-4333">
+   <p><b>例1 <span class="function"><b>OAuthProvider::generateToken()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$p&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">OAuthProvider</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$t&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">generateToken</span><span style="color: #007700">(</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$t</span><span style="color: #007700">),&nbsp;&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">bin2hex</span><span style="color: #007700">(</span><span style="color: #0000BB">$t</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+4
+b6a82c27
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-oauthprovider.generatetoken-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    十分な量のランダムデータがシステムから得られなかった場合、この関数は
+    PHP の <span class="function"><a href="function.rand.html" class="function">rand()</a></span> 関数の実装を使って残りのバイトを埋めます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-oauthprovider.generatetoken-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.openssl-random-pseudo-bytes.html" class="function" rel="rdfs-seeAlso">openssl_random_pseudo_bytes()</a> - 疑似乱数のバイト文字列を生成する</span></li>
+   <li class="member"><span class="function"><a href="function.mcrypt-create-iv.html" class="function" rel="rdfs-seeAlso">mcrypt_create_iv()</a> - 乱数ソースから初期化ベクトル(IV)を生成する</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauthprovider.consumerhandler.html">OAuthProvider::consumerHandler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauthprovider.is2leggedendpoint.html">OAuthProvider::is2LeggedEndpoint</a></div>
+ <div class="up"><a href="class.oauthprovider.html">OAuthProvider</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

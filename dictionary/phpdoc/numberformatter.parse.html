@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>数値をパースする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="numberformatter.parsecurrency.html">NumberFormatter::parseCurrency</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="numberformatter.setattribute.html">NumberFormatter::setAttribute</a></div>
+ <div class="up"><a href="class.numberformatter.html">NumberFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="numberformatter.parse" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">NumberFormatter::parse</h1>
+  <h1 class="refname">numfmt_parse</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">NumberFormatter::parse</span> -- <span class="refname">numfmt_parse</span> &mdash; <span class="dc-title">数値をパースする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-numberformatter.parse-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   オブジェクト指向型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span>
+    <span class="methodname"><b>NumberFormatter::parse</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   手続き型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span>
+    <span class="methodname"><b>numfmt_parse</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.numberformatter.html" class="type NumberFormatter">NumberFormatter</a></span> <tt class="parameter">$fmt</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   現在のフォーマット規則を使用して、文字列を数値にパースします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-numberformatter.parse-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="class.numberformatter.html" class="classname">NumberFormatter</a> オブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用する
+       <a href="class.numberformatter.html#intl.numberformatter-constants.types" class="link">
+        フォーマット形式</a>。デフォルトでは
+       <b><tt>NumberFormatter::TYPE_DOUBLE</tt></b> を使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">position</tt></i></span>
+     <dd>
+
+      <p class="para">
+       文字列中でパースを開始する位置のオフセット。
+       結果を返す際に、この値はパース終了時のオフセットを保持します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 returnvalues" id="refsect1-numberformatter.parse-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   パースした数値、あるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-numberformatter.parse-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2047">
+   <p><b>例1 <span class="function"><b>numfmt_parse()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">numfmt_create</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NumberFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">DECIMAL&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$num&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"1.234.567,891"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">numfmt_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">numfmt_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NumberFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">TYPE_INT32</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-2048">
+   <p><b>例2 オブジェクト指向の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">NumberFormatter</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NumberFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">DECIMAL&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$num&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"1.234.567,891"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$num</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$num</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NumberFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">TYPE_INT32</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+1234567.891
+1234567
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-numberformatter.parse-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="numberformatter.geterrorcode.html" class="function" rel="rdfs-seeAlso">numfmt_get_error_code()</a> - フォーマッタの直近のエラーコードを取得する</span></li>
+    <li class="member"><span class="function"><a href="numberformatter.format.html" class="function" rel="rdfs-seeAlso">numfmt_format()</a> - 数値をフォーマットする</span></li>
+    <li class="member"><span class="function"><a href="numberformatter.parsecurrency.html" class="function" rel="rdfs-seeAlso">numfmt_parse_currency()</a> - 通貨をパースする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="numberformatter.parsecurrency.html">NumberFormatter::parseCurrency</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="numberformatter.setattribute.html">NumberFormatter::setAttribute</a></div>
+ <div class="up"><a href="class.numberformatter.html">NumberFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

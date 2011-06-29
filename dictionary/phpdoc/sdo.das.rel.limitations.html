@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>制限事項</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.examples.three-table.html">三つのテーブルの例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.sdo.das.rel.html">SDO-DAS-Relational 関数</a></div>
+ <div class="up"><a href="book.sdodasrel.html">SDO-DAS-Relational</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo.das.rel.limitations" class="chapter">
+ <h1>制限事項</h1>
+
+ <p class="para">
+  現在のリレーショナル DAS のリリースには、以下の制限があります。
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     null をサポートしていません。SQL の NULL 型をサポートしていません。
+     データオブジェクトのプロパティに PHP の NULL を代入することは
+     できず、リレーショナル DAS はそれをデータベースに NULL としては
+     書き込みません。クエリの結果に null が見つかった場合、対応する
+     プロパティには何も設定されません。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     SDO のリレーションシップのうち、2 つの形式にしか対応していません。
+     以下で説明するリレーショナル DAS のメタデータは、
+     「複数の値をとる包含関係」「単一の値をとる (包含関係ではない) 参照」
+     の 2 つの SDO リレーションシップにしか対応していません。
+     SDO では、値が単一であるか複数であるかと包含関係の有無は
+     それぞれ独立して指定可能です。つまり、SDO で定義されている
+     すべてのリレーションには対応していないということです。
+     これらのリレーションを使用できれば有用でしょうが、現在の実装では
+     管理することができないということです。
+     例えば、「単一の値をとる包含関係」は使用できません。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     SDO のデータ型のすべてに対応しているわけではありません。
+     リレーショナル DAS では、SDO モデルのすべてのプリミティブ型
+     プロパティを文字列型として扱います。
+     SDO では integer、float、boolean そして日付や時刻などの
+     さまざまな型が定義されています。リレーショナル DAS
+     では、文字列だけでこれらのデータを十分に扱うことができます。
+     なぜなら PHP、PDO とデータベースの間で、
+     データベースに保存する際に適切な型変換を行ってくれるからです。
+     他の DAS との間でデータグラフのやりとりをする際に、
+     これが何がしかの問題を起こすことがあります。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     ひとつのテーブルに対して複数の外部キーを定義することはできません。
+     メタデータでは、テーブルごとにひとつの外部キーしか指定できません。
+     この外部キーは、サポートしている 2 つの SDO リレーションシップのうちの
+     どちらかひとつに関連付けられます。この制限のもとでは
+     表すことのできない状況があるのは明らかです。例えば、
+     ひとつのテーブルから他のテーブルに対して、(包含関係でない)
+     参照をふたつ以上を設定することができません。
+    </p>
+   </li>
+  </ul>
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.examples.three-table.html">三つのテーブルの例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.sdo.das.rel.html">SDO-DAS-Relational 関数</a></div>
+ <div class="up"><a href="book.sdodasrel.html">SDO-DAS-Relational</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

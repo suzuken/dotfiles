@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列から HTML および PHP タグを取り除く</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strcspn.html">strcspn</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stripcslashes.html">stripcslashes</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strip-tags" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strip_tags</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">strip_tags</span> &mdash; <span class="dc-title">文字列から HTML および PHP タグを取り除く</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.strip-tags-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>strip_tags</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$str</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$allowable_tags</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、指定した文字列 (<i><tt class="parameter">str</tt></i>)
+   から全ての NUL バイトと HTML および PHP タグを取り除きます。
+   この関数は、<span class="function"><a href="function.fgetss.html" class="function">fgetss()</a></span> 関数と同じタグ除去アルゴリズムを使用します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strip-tags-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">str</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">allowable_tags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの2番目の引数により、取り除かないタグを指定できます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        HTML コメントや PHP タグも削除されるようになりました。この機能はハードコードされており、
+        <i><tt class="parameter">allowable_tags</tt></i> で変更することはできません。
+       </p>
+      </p></blockquote>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        このパラメータには空白文字を含めてはいけません。
+        <span class="function"><b>strip_tags()</b></span> はタグの大文字小文字を区別せず、
+        <i>&lt;</i> から始まって最初に空白文字か
+        <i>&gt;</i> があらわれるまでをタグとみなします。
+        つまり、<i>strip_tags(&quot;&lt;br/&gt;&quot;, &quot;&lt;br&gt;&quot;)</i>
+        は空文字列を返すということです。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strip-tags-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   タグを除去した文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strip-tags-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <span class="function"><b>strip_tags()</b></span> がバイナリセーフとなりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        HTML のコメントも除去するようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strip-tags-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4015">
+    <p><b>例1 <span class="function"><b>strip_tags()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'&lt;p&gt;Test&nbsp;paragraph.&lt;/p&gt;&lt;!--&nbsp;Comment&nbsp;--&gt;&nbsp;&lt;a&nbsp;href="#fragment"&gt;Other&nbsp;text&lt;/a&gt;'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;&lt;p&gt;&nbsp;と&nbsp;&lt;a&gt;&nbsp;は許可します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strip_tags</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;p&gt;&lt;a&gt;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Test paragraph. Other text
+&lt;p&gt;Test paragraph.&lt;/p&gt; &lt;a href=&quot;#fragment&quot;&gt;Other text&lt;/a&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.strip-tags-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    <span class="function"><b>strip_tags()</b></span> は HTML の検証を行わないため、
+    不完全または壊れたタグにより予想以上に多くのテキスト/データが削除される可能性があります。
+   </p>
+  </div>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    この関数は、<i><tt class="parameter">allowable_tags</tt></i> で許可した全てのタグの属性を修正しません。
+    これには、<i>style</i>
+    および <i>onmouseover</i>属性が含まれており、
+    悪意のあるユーザが他のユーザに見せるようなテキストを投稿する際に危険な行為を行う可能性があります。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strip-tags-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.htmlspecialchars.html" class="function" rel="rdfs-seeAlso">htmlspecialchars()</a> - 特殊文字を HTML エンティティに変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strcspn.html">strcspn</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stripcslashes.html">stripcslashes</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

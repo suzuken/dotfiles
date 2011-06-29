@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>与えられたクラスの親クラスを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.class-implements.html">class_implements</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.iterator-apply.html">iterator_apply</a></div>
+ <div class="up"><a href="ref.spl.html">SPL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.class-parents" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">class_parents</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">class_parents</span> &mdash; <span class="dc-title">
+   与えられたクラスの親クラスを返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.class-parents-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>class_parents</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$class</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$autoload</tt><span class="initializer"> = true</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、与えられたクラス <i><tt class="parameter">class</tt></i> の親クラス名を
+   配列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.class-parents-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">class</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オブジェクトもしくはクラスの文字列を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">autoload</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="language.oop5.autoload.html" class="link">__autoload</a>
+       マジックメソッドを通じて、
+       この関数にクラスを自動的にロードさせるかどうかを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.class-parents-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に配列、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.class-parents-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        文字列として <i><tt class="parameter">class</tt></i>
+        パラメータを渡すオプションが追加されました。
+        <i><tt class="parameter">autoload</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.class-parents-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3238">
+    <p><b>例1 <span class="function"><b>class_parents()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{&nbsp;}<br />class&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{}<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">class_parents</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.1.0&nbsp;以降、パラメータを文字列として指定しても良い<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">class_parents</span><span style="color: #007700">(</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">));<br /><br /><br />function&nbsp;</span><span style="color: #0000BB">__autoload</span><span style="color: #007700">(</span><span style="color: #0000BB">$class_name</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;require_once&nbsp;</span><span style="color: #0000BB">$class_name&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;'not_loaded'&nbsp;クラスをロードするために&nbsp;__autoload&nbsp;を使用する<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">class_parents</span><span style="color: #007700">(</span><span style="color: #DD0000">'not_loaded'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [foo] =&gt; foo
+)
+
+Array
+(
+    [parent_of_not_loaded] =&gt; parent_of_not_loaded
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.class-parents-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.class-implements.html" class="function" rel="rdfs-seeAlso">class_implements()</a> - 与えられたクラスが実装しているインターフェースを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.class-implements.html">class_implements</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.iterator-apply.html">iterator_apply</a></div>
+ <div class="up"><a href="ref.spl.html">SPL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

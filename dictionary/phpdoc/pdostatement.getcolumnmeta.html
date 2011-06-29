@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果セットのカラムに対するメタデータを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.getattribute.html">PDOStatement-&gt;getAttribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdostatement.nextrowset.html">PDOStatement-&gt;nextRowset</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdostatement.getcolumnmeta" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDOStatement->getColumnMeta</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">PDOStatement-&gt;getColumnMeta</span> &mdash; <span class="dc-title">
+   結果セットのカラムに対するメタデータを返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdostatement.getcolumnmeta-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>PDOStatement::getColumnMeta</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$column</tt></span>
+   )</div>
+
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+  <p class="para">
+   結果セットの 0 から始まるカラムに対するメタデータを連想配列で取得します。
+  </p>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="simpara">
+    PDO ドライバの全てが <span class="function"><b>PDOStatement::getColumnMeta()</b></span>.
+    をサポートしているわけではありません。
+   </p>
+  </div>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pdostatement.getcolumnmeta-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">column</tt></i></span>
+      <dd>
+
+       <p class="para">
+        結果セットの 0 から始まるカラムを指定します。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdostatement.getcolumnmeta-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   1つのカラムについてのメタデータに相当する次の値を含んだ連想配列を返します。
+  </p>
+   <table class="doctable table">
+    <caption><b>カラムのメタデータ</b></caption>
+    
+     <col align="left" /> 
+     <col align="left" /> 
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>名前</th>
+       <th>値</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><i>native_type</i></td>
+       <td align="left">カラム値を表現するために使用される PHP のネイティブ型</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>driver:decl_type</i></td>
+       <td align="left">データベースにおけるカラム値を表現するために使用される SQL 型。
+       もし、結果セットのカラムが関数から返される場合、
+       この値は <span class="function"><b>PDOStatement::getColumnMeta()</b></span>.
+       よって返されません。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>flags</i></td>
+       <td align="left">このカラムにセットされているあらゆるフラグ</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>name</i></td>
+       <td align="left">データベースによって返されるこのカラムの名前</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>table</i></td>
+       <td align="left">データベースによって返されるこのカラムのテーブル名</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>len</i></td>
+       <td align="left">カラム長。浮動小数点数以外の型については通常
+       <i>-1</i> となる。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>precision</i></td>
+       <td align="left">カラムの数値精度。浮動小数点数以外の型については通常
+       <i>0</i> となる。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>pdo_type</i></td>
+       <td align="left"><i>PDO::PARAM_*</i>
+       定数によって表現されるカラムの型</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  <p class="para">
+   要求されたカラムが結果セットに存在しない、
+   もしくは結果セットが存在しない場合、<b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+
+ <div class="refsect1 changelog" id="refsect1-pdostatement.getcolumnmeta-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.3</td>
+       <td align="left"><i>table</i> フィールド</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdostatement.getcolumnmeta-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-961">
+    <p><b>例1 カラムのメタデータを取得する</b></p>
+    <div class="example-contents"><p>
+     以下の例は、PDO_SQLITE ドライバでの関数 (COUNT)
+     によって生成された単一のカラムに対するメタデータの
+     取得結果を表示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$select&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$DB</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;COUNT(*)&nbsp;FROM&nbsp;fruit'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$meta&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$select</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getColumnMeta</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$meta</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(6) {
+  [&quot;native_type&quot;]=&gt;
+  string(7) &quot;integer&quot;
+  [&quot;flags&quot;]=&gt;
+  array(0) {
+  }
+  [&quot;name&quot;]=&gt;
+  string(8) &quot;COUNT(*)&quot;
+  [&quot;len&quot;]=&gt;
+  int(-1)
+  [&quot;precision&quot;]=&gt;
+  int(0)
+  [&quot;pdo_type&quot;]=&gt;
+  int(2)
+}
+
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdostatement.getcolumnmeta-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdostatement.columncount.html" class="function" rel="rdfs-seeAlso">PDOStatement::columnCount()</a> - 結果セット中のカラム数を返す</span></li>
+    <li class="member"><span class="function"><a href="pdostatement.rowcount.html" class="function" rel="rdfs-seeAlso">PDOStatement::rowCount()</a> - 直近の SQL ステートメントによって作用した行数を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.getattribute.html">PDOStatement-&gt;getAttribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdostatement.nextrowset.html">PDOStatement-&gt;nextRowset</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

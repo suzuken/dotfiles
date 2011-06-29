@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>楕円弧を描画し、塗りつぶす</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagefill.html">imagefill</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagefilledellipse.html">imagefilledellipse</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagefilledarc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagefilledarc</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">imagefilledarc</span> &mdash; <span class="dc-title">楕円弧を描画し、塗りつぶす</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagefilledarc-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>imagefilledarc</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$cx</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$cy</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$width</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$height</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$start</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$end</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$color</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$style</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した <i><tt class="parameter">image</tt></i> の指定した座標を中心とする、
+   楕円弧を描画します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagefilledarc-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cx</tt></i></span>
+     <dd>
+
+      <p class="para">
+       中心の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cy</tt></i></span>
+     <dd>
+
+      <p class="para">
+       中心の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width</tt></i></span>
+     <dd>
+
+      <p class="para">
+       弧の幅。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">height</tt></i></span>
+     <dd>
+
+      <p class="para">
+       弧の高さ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">start</tt></i></span>
+     <dd>
+
+      <p class="para">
+       弧の開始角度。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">end</tt></i></span>
+     <dd>
+
+      <p class="para">
+       弧の終了角度。
+       0° は三時の方向で、そこから時計回りに数えます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">color</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.imagecolorallocate.html" class="function">imagecolorallocate()</a></span>
+       で作成した色 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">style</tt></i></span>
+     <dd>
+
+      <p class="para">
+       次の選択肢のビット和。
+       <ol type="1">
+        <li class="listitem"><span class="simpara"><b><tt>IMG_ARC_PIE</tt></b></span></li>
+        <li class="listitem"><span class="simpara"><b><tt>IMG_ARC_CHORD</tt></b></span></li>
+        <li class="listitem"><span class="simpara"><b><tt>IMG_ARC_NOFILL</tt></b></span></li>
+        <li class="listitem"><span class="simpara"><b><tt>IMG_ARC_EDGED</tt></b></span></li>
+       </ol>
+       <b><tt>IMG_ARC_PIE</tt></b> および
+       <b><tt>IMG_ARC_CHORD</tt></b> は相反します。
+       <b><tt>IMG_ARC_CHORD</tt></b> は、
+       開始角と終了角を直線で結ぶだけですが、<b><tt>IMG_ARC_PIE</tt></b>
+       は、角を丸めます。<b><tt>IMG_ARC_NOFILL</tt></b>
+       は、弧と弦が縁どられ塗りつぶされないことを指定します。
+       <b><tt>IMG_ARC_EDGED</tt></b> は、
+       <b><tt>IMG_ARC_NOFILL</tt></b> と共に指定することにより、
+       開始角と終端角は中心と結ばれます。これは、(塗りつぶすよりも)
+       「パイの切れ端」を縁どる良い方法です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagefilledarc-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagefilledarc-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2285">
+    <p><b>例1 3D 風のパイを作成する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;画像を作成します<br /></span><span style="color: #0000BB">$image&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;色を割り当てます<br /></span><span style="color: #0000BB">$white&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$gray&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xC0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xC0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xC0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$darkgray&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x90</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x90</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x90</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$navy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x80</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$darknavy&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x50</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$darkred&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x90</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;3D&nbsp;効果を作成します<br /></span><span style="color: #007700">for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">60</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">--)&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">45</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$darknavy</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">45</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">75&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$darkgray</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">75</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">360&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$darkred</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">45</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$navy</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">45</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">75&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$gray</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagefilledarc</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">75</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">360&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$red</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_ARC_PIE</span><span style="color: #007700">);<br /><br /><br /></span><span style="color: #FF8000">//&nbsp;画像を出力します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;image/png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$image</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagefilledarc.png" alt="出力例 : 3D 風のパイを作成する" width="100" height="100" />
+     </div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagefilledarc-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、GD 2.0.1 以降を必要とします (2.0.28 以降を推奨します)。</span></p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagefill.html">imagefill</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagefilledellipse.html">imagefilledellipse</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>このカーソルの query、fields、limit そして skip を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.immortal.html">MongoCursor::immortal</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.key.html">MongoCursor::key</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocursor.info" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCursor::info</h1>
+  <p class="verinfo">(PECL mongo &gt;=1.0.5)</p><p class="refpurpose"><span class="refname">MongoCursor::info</span> &mdash; <span class="dc-title">このカーソルの query、fields、limit そして skip を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongocursor.info-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>MongoCursor::info</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   これは、クエリの前でも後でもコールすることができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongocursor.info-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongocursor.info-returnvalues">
+  <h3 class="title">返り値</h3>  
+  <p class="para">
+   このカーソルの namespace、limit、skip、query そして fields を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mongocursor.info-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">1.0.10</td>
+       <td align="left">
+        <i>started_iterating</i> フィールドが追加されました。boolean で、
+        このカーソルがクエリ実行前か実行後かを返します。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1.1.0</td>
+       <td align="left">
+        多くのフィールドが追加されました。<i>id</i> (カーソル ID)、
+        <i>at</i> (現在のドキュメントを表すドライバのカウンタ)、
+        <i>numReturned</i> (サーバが現在のバッチで返した件数)、そして
+        <i>server</i> (クエリの送信先のサーバ。
+        <span class="function"><a href="mongocursor.slaveokay.html" class="function">MongoCursor::slaveOkay()</a></span> と組み合わせると便利)
+        などです。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongocursor.info-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1387">
+   <p><b>例1 <span class="function"><b>MongoCursor::info()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"x"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">),&nbsp;array(</span><span style="color: #DD0000">"y"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">info</span><span style="color: #007700">());<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(5) {
+  [&quot;ns&quot;]=&gt;
+  string(7) &quot;foo.bar&quot;
+  [&quot;limit&quot;]=&gt;
+  int(0)
+  [&quot;skip&quot;]=&gt;
+  int(0)
+  [&quot;query&quot;]=&gt;
+  array(1) {
+    [&quot;x&quot;]=&gt;
+    int(4)
+  }
+  [&quot;fields&quot;]=&gt;
+  array(1) {
+    [&quot;y&quot;]=&gt;
+    int(0)
+  }
+}
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.immortal.html">MongoCursor::immortal</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.key.html">MongoCursor::key</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

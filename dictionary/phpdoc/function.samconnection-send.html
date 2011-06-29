@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メッセージをキューに送信、あるいは項目をトピックに投稿する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.samconnection-rollback.html">SAMConnection-&gt;rollback</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.samconnection-setDebug.html">SAMConnection::setDebug</a></div>
+ <div class="up"><a href="ref.sam.html">SAM 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.samconnection-send" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SAMConnection->send</h1>
+  <p class="verinfo">(PECL sam &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">SAMConnection-&gt;send</span> &mdash; <span class="dc-title">
+   メッセージをキューに送信、あるいは項目をトピックに投稿する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.samconnection-send-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">string</span> <span class="methodname"><b>SAMConnection::send</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$target</tt></span>
+    , <span class="methodparam"><span class="type"><span class="type SAMMessage">SAMMessage</span></span> <tt class="parameter">$msg</tt></span>
+    [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$properties</tt></span>
+   ] )</div>
+
+  </div>
+  <p class="para">
+   &quot;send&quot; メソッドを使用して、メッセージを指定したキューに送信したり
+   指定したトピックに投稿したりします。このメソッドは、
+   メッセージに返信したり応答したりする際に使用する ID を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.samconnection-send-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">target</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージを送信する場合はキューの ID (<i>queue://queuename</i>)、
+       トピックを投稿する場合はトピックの ID (<i>topic://topicname</i>)
+       で、メッセージの配送先を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">msg</tt></i></span>
+     <dd>
+
+      <p class="para">
+        送信あるいは投稿するメッセージ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">properties</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの連想配列で、受信時の動作を制御するプロパティを指定します。
+       <table class="doctable informaltable">
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>プロパティ名</th>
+           <th>とりうる値</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">SAM_DELIVERYMODE</td>
+           <td align="left">
+            メッセージングサーバが配送を保障するかどうか、
+            システム障害時にメッセージが失われることを許可するかどうかを指定します。
+            SAM_PERSISTENT の場合はメッセージを失うことを許可しません。
+            SAM_NON_PERSISTENT の場合はメッセージを失うことを許可します。
+            送信結果の挙動は、PHP スクリプトが接続しているメッセージングサーバの機能によって変わります。
+            メッセージの永続化をサポートしていないサーバで SAM_PERSISTENT
+            を指定した場合は、その機能が存在しないというエラーを発生させて処理が失敗します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_PRIORITY</td>
+           <td align="left">
+            0 から 9 までの数値で、メッセージの配送の優先度を指定します。
+            0 は優先度が最低であること、9 は優先度が最高であることを表します。
+            優先度を指定しなかった場合はデフォルト値が割り当てられます。
+            デフォルト値は、使用するメッセージングサーバによって異なります。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_CORRELID</td>
+           <td align="left">
+            このメッセージの相関 ID として割り当てる文字列。
+            指定しなかった場合は、メッセージングサーバが値を自動的に割り当てます。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_TIMETOLIVE</td>
+           <td align="left">
+            メッセージングサーバがキューにメッセージを残し続ける期間をミリ秒で指定します。
+            デフォルト値は 0 で、これはメッセージをずっと残し続けることを意味します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_WMQ_TARGET_CLIENT</td>
+           <td align="left">
+            このプロパティは WebSphere MQ を使用する場合にのみ有効で、
+            RFH2 ヘッダをメッセージに含めるかどうかを指定します。
+            設定できる値は &#039;jms&#039; あるいは &#039;mq&#039; のいずれかです。
+            デフォルトは &#039;jms&#039; で、これは RFH2 ヘッダを含めることを意味します。
+            &#039;mq&#039; を指定すると、メッセージに RFH2 が含まれないようになります。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.samconnection-send-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ID を文字列で返します。返信や応答を取得する際にこの文字列を使用します。
+   エラーが発生した場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    ID が返されるのは、メッセージが送信先キュー (<i>queue://xxxx</i>)
+    に正常に送信できた場合のみで、キュー上のメッセージの ID となります。
+    トピックにメッセージを投稿するために send を使用した場合の返り値は
+    <b><tt>TRUE</tt></b> となり、ID は返されません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.samconnection-send-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3704">
+    <p><b>例1 キューへのメッセージの送信</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SAMMessage</span><span style="color: #007700">(</span><span style="color: #DD0000">'This&nbsp;is&nbsp;a&nbsp;simple&nbsp;text&nbsp;message'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$correlId&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue://send/test'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$msg</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$correlId</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;送信に失敗しました!<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Send&nbsp;failed&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno</span><span style="color: #DD0000">)&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3705">
+    <p><b>例2 トピックへのメッセージの投稿</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SAMMessage</span><span style="color: #007700">(</span><span style="color: #DD0000">'This&nbsp;is&nbsp;a&nbsp;simple&nbsp;text&nbsp;item'</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send</span><span style="color: #007700">(</span><span style="color: #DD0000">'topic://test'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$msg</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;送信に失敗しました!<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Send&nbsp;failed&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno</span><span style="color: #DD0000">)&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-3706">
+    <p><b>例3 リクエストの送信と応答の受信</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SAMMessage</span><span style="color: #007700">(</span><span style="color: #DD0000">'This&nbsp;is&nbsp;a&nbsp;simple&nbsp;text&nbsp;message'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$msg</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">header</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">SAM_REPLY_TO&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'queue://receive/test'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$correlid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue://send/test'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$msg</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$correlid</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;送信に失敗しました!<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Send&nbsp;failed&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno</span><span style="color: #DD0000">)&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$resp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">receive</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue://receive/test'</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">SAM_CORRELID&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$correlid</span><span style="color: #007700">));<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.samconnection-send-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="function.samconnection-receive.html" class="xref">SAMConnection-&gt;receive</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.samconnection-rollback.html">SAMConnection-&gt;rollback</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.samconnection-setDebug.html">SAMConnection::setDebug</a></div>
+ <div class="up"><a href="ref.sam.html">SAM 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

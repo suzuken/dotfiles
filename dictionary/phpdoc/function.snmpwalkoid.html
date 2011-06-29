@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ネットワークエンティティに関する情報ツリーを検索する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.snmpwalk.html">snmpwalk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.sockets.html">ソケット</a></div>
+ <div class="up"><a href="ref.snmp.html">SNMP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.snmpwalkoid" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">snmpwalkoid</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">snmpwalkoid</span> &mdash; <span class="dc-title">ネットワークエンティティに関する情報ツリーを検索する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.snmpwalkoid-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>snmpwalkoid</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$hostname</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$community</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$object_id</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeout</tt><span class="initializer"> = 1000000</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$retries</tt><span class="initializer"> = 5</span></span>
+  ]] )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>snmpwalkoid()</b></span> 関数は、<i><tt class="parameter">hostname</tt></i>
+   で指定した SNMP エージェントから
+   すべてのオブジェクト ID とその値を読みこむために使用します。
+  </p>
+
+  <p class="para">
+   <span class="function"><b>snmpwalkoid()</b></span> および
+   <span class="function"><a href="function.snmpwalk.html" class="function">snmpwalk()</a></span> は、歴史的経緯により残されているものです。
+   どちらも、下位互換のために提供されています。
+   代わりに <span class="function"><a href="function.snmprealwalk.html" class="function">snmprealwalk()</a></span> を使用してください。
+  </p> 
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.snmpwalkoid-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hostname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SNMP エージェント。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">community</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リードコミュニティ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object_id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>NULL</tt></b> の場合は、<i><tt class="parameter">object_id</tt></i>
+       が SNMP オブジェクトツリーのルートとして解釈され、
+       ツリーの配下のすべてのオブジェクトを配列として返します。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">object_id</tt></i> を指定した場合は、
+       その <i><tt class="parameter">object_id</tt></i> の配下のすべての
+       SNMP オブジェクトを返します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最初のタイムアウトまでのマイクロ秒数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">retries</tt></i></span>
+     <dd>
+
+      <p class="para">
+       タイムアウト発生時の再試行回数。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.snmpwalkoid-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>object_id()</b></span> からの
+   SNMP オブジェクトの値の配列をルートとして返します。
+   エラーの場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.snmpwalkoid-examples">
+  <h3 class="title">例</h3>
+  <p class="para"> 
+   <div class="example" id="example-3740">
+    <p><b>例1 <span class="function"><b>snmpwalkoid()</b></span> の例</b></p>
+    <div class="example-contents"> 
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">snmpwalkoid</span><span style="color: #007700">(</span><span style="color: #DD0000">"127.0.0.1"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"public"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">);&nbsp;<br />for&nbsp;(</span><span style="color: #0000BB">reset</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">key</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);&nbsp;</span><span style="color: #0000BB">next</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$i</span><span style="color: #DD0000">:&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">$i</span><span style="color: #007700">]</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p> 
+  <p class="para">
+   上記の関数コールは、ローカルホスト上で稼働する SNMP
+   エージェントからすべての SNMP オブジェクトを返します。
+   ループ処理により値を一つずつとりだすことができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.snmpwalkoid-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.snmpwalk.html" class="function" rel="rdfs-seeAlso">snmpwalk()</a> - エージェントから全ての SNMP オブジェクトを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.snmpwalk.html">snmpwalk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.sockets.html">ソケット</a></div>
+ <div class="up"><a href="ref.snmp.html">SNMP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL ステートメントを実行し、結果セットを PDOStatement オブジェクトとして返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.prepare.html">PDO::prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.quote.html">PDO::quote</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdo.query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::query</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">PDO::query</span> &mdash; <span class="dc-title">
+   SQL ステートメントを実行し、結果セットを PDOStatement オブジェクトとして返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdo.query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span> <span class="methodname"><b>PDO::query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$statement</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span> <span class="methodname"><b>PDO::query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$statement</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_COLUMN</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$colno</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span> <span class="methodname"><b>PDO::query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$statement</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_CLASS</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$classname</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$ctorargs</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.pdostatement.html" class="type PDOStatement">PDOStatement</a></span> <span class="methodname"><b>PDO::query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$statement</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_INTO</tt></span>
+   , <span class="methodparam"><span class="type">object</span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>PDO::query()</b></span> は、一回の関数コールの中で
+   SQL ステートメントを実行し、このステートメントにより返された
+   結果セット (ある場合) を PDOStatement オブジェクトとして返します。
+  </p>
+  <p class="para">
+   複数回発行する必要があるステートメントの場合、
+   <span class="function"><a href="pdo.prepare.html" class="function">PDO::prepare()</a></span> で PDOStatement ステートメントを準備し、
+   <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> でそのステートメントを
+   複数回発行する方がより良いパフォーマンスを得られると実感するでしょう。
+  </p>
+  <p class="para">
+   <span class="function"><b>PDO::query()</b></span> を次にコールする前に
+   結果セット内の全てのデータを取得しない場合、そのコールは失敗します。
+   <span class="function"><a href="pdostatement.closecursor.html" class="function">PDOStatement::closeCursor()</a></span> をコールし、
+   次に <span class="function"><b>PDO::query()</b></span> をコールする前に
+   PDOStatement オブジェクトに関連付けられたリソースを解放してください。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数はパラメータをひとつだけしかとらないと記述されていますが、
+    追加のパラメータを渡すことも可能です。これらのパラメータは、
+    返される結果のオブジェクトに対して
+    <span class="function"><a href="pdostatement.setfetchmode.html" class="function">PDOStatement::setFetchMode()</a></span>
+    をコールするのと同じような扱いになります。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pdo.query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">statement</tt></i></span>
+      <dd>
+
+       <p class="para">
+        準備、発行する SQL ステートメント。
+       </p>
+       <p class="para">
+        クエリ内のデータは <a href="pdo.quote.html" class="link">適切にエスケープ</a>
+        する必要があります。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+    <span class="function"><b>PDO::query()</b></span> は、PDOStatement オブジェクトを返します。
+    失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdo.query-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-932">
+    <p><b>例1 PDO::query の例</b></p>
+    <div class="example-contents"><p>
+     <span class="function"><b>PDO::query()</b></span> の優れた機能は、
+     実行に成功したSELECTステートメントにより返されたレコードセットで
+     反復処理が可能であることです。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">getFruit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;color,&nbsp;calories&nbsp;FROM&nbsp;fruit&nbsp;ORDER&nbsp;BY&nbsp;name'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\t"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'color'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\t"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'calories'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+apple   red     150
+banana  yellow  250
+kiwi    brown   75
+lemon   yellow  25
+orange  orange  300
+pear    green   150
+watermelon      pink    90
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdo.exec.html" class="function" rel="rdfs-seeAlso">PDO::exec()</a> - SQL ステートメントを実行し、作用した行数を返す</span></li>
+    <li class="member"><span class="function"><a href="pdo.prepare.html" class="function" rel="rdfs-seeAlso">PDO::prepare()</a> - 文を実行する準備を行い、文オブジェクトを返す</span></li>
+    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - プリペアドステートメントを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.prepare.html">PDO::prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.quote.html">PDO::quote</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

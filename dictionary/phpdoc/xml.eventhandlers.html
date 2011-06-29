@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>イベントハンドラ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xml.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xml.case-folding.html">大文字変換(Case Folding)</a></div>
+ <div class="up"><a href="book.xml.html">XML パーサ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="xml.eventhandlers" class="article">
+ <h1>イベントハンドラ</h1>
+
+ <p class="para">
+  XML イベントハンドラは次のように定義されます。
+  <table class="doctable table">
+   <caption><b>サポートされる XML ハンドラ</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>ハンドラ設定用の PHP 関数</th>
+      <th>イベントの説明</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.xml-set-element-handler.html" class="function">xml_set_element_handler()</a></span></td>
+      <td align="left">
+       要素イベントは、XML パーサーが開始または終了タグに出会うたび
+       に発行されます。開始タグと終了タグについて別のハンドラがあり
+       ます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-character-data-handler.html" class="function">xml_set_character_data_handler()</a></span>
+      </td>
+      <td align="left">
+       文字データは、タグの間の空白を含めて XML ドキュメントにおけ
+       るほぼ全ての非マークアップ部分の内容です。XML パーサーは、
+       空白を加えたり削除したりしないことに注意してください。空白が
+       意味を有するかどうかを決めるのは、アプリケーション側の責任
+       です。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-processing-instruction-handler.html" class="function">xml_set_processing_instruction_handler()</a></span>
+      </td>
+      <td align="left">
+       PHP プログラマは、既に処理用命令 (PI) に既に慣れているに違
+       いありません。&lt;?php ?&gt; は処理用命令であり、この場合、
+       <span class="replaceable">php</span> は &quot;PI ターゲット&quot;と呼ばれます。
+       これらの処理はアプリケーション依存ですが、全ての PI ターゲッ
+       トが &quot;XML&quot; から始まることだけは、規定されています。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.xml-set-default-handler.html" class="function">xml_set_default_handler()</a></span></td>
+      <td align="left">
+       別のハンドラでしないことをデフォルトのハンドラで行います。
+       XML およびドキュメント型の宣言のようなことをデフォルトハンドラで
+       行います。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-unparsed-entity-decl-handler.html" class="function">xml_set_unparsed_entity_decl_handler()</a></span>
+      </td>
+      <td align="left">
+       このハンドラは、処理されない (NDATA) エンティティの宣言用に
+       コールされます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-notation-decl-handler.html" class="function">xml_set_notation_decl_handler()</a></span>
+      </td>
+      <td align="left">
+       このハンドラは、表記の宣言用にコールされます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-external-entity-ref-handler.html" class="function">xml_set_external_entity_ref_handler()</a></span>
+      </td>
+      <td align="left">
+       このハンドラは、XML パーサーが外部処理された通常のエンティティ
+       への参照を見つけた際にコールされます。これは、例えば、ファ
+       イルまたは URL への参照とすることが可能です。例としては、
+       <a href="example.xml-external-entity.html" class="link">外部エンティティ
+       の例</a> を参照ください。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-start-namespace-decl-handler.html" class="function">xml_set_start_namespace_decl_handler()</a></span>
+      </td>
+      <td align="left">
+       このハンドラは、名前空間宣言の開始時にコールされます。
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <span class="function"><a href="function.xml-set-end-namespace-decl-handler.html" class="function">xml_set_end_namespace_decl_handler()</a></span>
+      </td>
+      <td align="left">
+       このハンドラは、名前空間宣言の終了時にコールされます。このイベントは
+       LibXML では発生 <em class="emphasis">しない</em> ことに注意しましょう。
+      </td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xml.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xml.case-folding.html">大文字変換(Case Folding)</a></div>
+ <div class="up"><a href="book.xml.html">XML パーサ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

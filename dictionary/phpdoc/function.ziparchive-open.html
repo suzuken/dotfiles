@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ZIP ファイルアーカイブをオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-locatename.html">ZipArchive::locateName</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-renameindex.html">ZipArchive::renameIndex</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ziparchive-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ZipArchive::open</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ZipArchive::open</span> &mdash; <span class="dc-title">ZIP ファイルアーカイブをオープンする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ziparchive-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>ZipArchive::open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   新しい zip アーカイブを、読み込み/書き込み/変更用にオープンします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ziparchive-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オープンする ZIP アーカイブのファイル名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アーカイブのオープンに使用するモード。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::OVERWRITE</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::CREATE</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::EXCL</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::CHECKCONS</tt></b>
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ziparchive-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">エラーコード</tt></i></span>
+      <dd>
+
+      <p class="para">
+       成功した場合に <b><tt>TRUE</tt></b>、それ以外の場合にエラーコードを返します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_EXISTS</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_INCONS</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_INVAL</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_MEMORY</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_NOENT</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_NOZIP</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_OPEN</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_READ</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::ER_SEEK</tt></b>
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ziparchive-open-examples">
+  <h3 class="title">例</h3>
+    <div class="example" id="example-814">
+     <p><b>例1 オープンおよび展開</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$zip&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">TRUE</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'成功'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">extractTo</span><span style="color: #007700">(</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'失敗、コード:'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$res</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    <div class="example" id="example-815">
+     <p><b>例2 アーカイブの作成</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$zip&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">::</span><span style="color: #0000BB">CREATE</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">TRUE</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFromString</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ここにファイルの内容を書きます'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'data.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'entryname.txt'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'成功'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'失敗'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-locatename.html">ZipArchive::locateName</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-renameindex.html">ZipArchive::renameIndex</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

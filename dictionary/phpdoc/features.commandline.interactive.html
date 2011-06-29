@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>対話シェル</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.commandline.io-streams.html">I/O ストリーム</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.gc.html">ガベージコレクション</a></div>
+ <div class="up"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="features.commandline.interactive" class="section">
+  <h2 class="title">対話シェル</h2>
+
+  <p class="para">
+   PHP 5.1.0 以降では、<strong class="option configure">--with-readline</strong>
+ オプションつきで
+   PHP をコンパイルした場合に <acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> で対話シェルが使えるようになりました。
+   対話シェルは、<strong class="option unknown">-a</strong>
+ オプションで使うことができます。
+  </p>
+
+  <p class="para">
+   対話シェルを使うと、PHP のコードを打ち込んで直接実行できるようになります。
+  </p>
+
+  <div class="example" id="example-342">
+   <p><b>例1 対話シェル上でのコードの実行</b></p> 
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">$ php -a
+Interactive shell
+
+php &gt; echo 5+8;
+13
+php &gt; function addTwo($n)
+php &gt; {
+php { return $n + 2;
+php { }
+php &gt; var_dump(addtwo(2));
+int(4)
+php &gt;</pre>
+</div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   対話シェル上では、タブ補完機能を使って
+   関数や定数、クラス名、変数名、静的なメソッドコール、そしてクラス定数を補完することができます。
+  </p>
+
+  <div class="example" id="example-343">
+   <p><b>例2 タブ補完</b></p>
+   <div class="example-contents"><p>
+    補完候補が複数あるときにタブキーを二度押すと、
+    補完候補の一覧が表示されます。
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; strp[TAB][TAB]
+strpbrk   strpos    strptime  
+php &gt; strp</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    候補がひとつしかないときは、タブキーを一度押せば残りを補完してくれます。
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; strpt[TAB]ime(</pre>
+</div>
+   </div>
+
+   <div class="example-contents"><p>
+    対話シェルのセッション上で定義したものについても補完することができます。
+   </p></div>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">php &gt; $fooThisIsAReallyLongVariableName = 42;
+php &gt; $foo[TAB]ThisIsAReallyLongVariableName</pre>
+</div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   対話シェル上では操作履歴が保存され、上矢印キーと下矢印キーで履歴にアクセスすることができます。
+   履歴の保存先は <var class="filename">~/.php_history</var> ファイルです。
+  </p>
+
+  
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="ini.core.html#ini.auto-prepend-file" class="link">auto_prepend_file</a> および <a href="ini.core.html#ini.auto-append-file" class="link">auto_append_file</a> で
+    インクルードされたファイルはこのモードでもパースされますが、
+    いくつかの制限があります。例えば、関数はそれがコールされる前に
+    定義されていなければなりません。
+   </p>
+  </p></blockquote>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="language.oop5.autoload.html" class="link">オートローディング</a>
+    は、PHP を <acronym title="Command Line Interpreter/Interface">CLI</acronym> の対話モードで実行している場合は使用できません。
+   </p>
+  </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.commandline.io-streams.html">I/O ストリーム</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.gc.html">ガベージコレクション</a></div>
+ <div class="up"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

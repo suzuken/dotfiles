@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ディレクトリハンドルをオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.getcwd.html">getcwd</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.readdir.html">readdir</a></div>
+ <div class="up"><a href="ref.dir.html">ディレクトリ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.opendir" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">opendir</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">opendir</span> &mdash; <span class="dc-title">ディレクトリハンドルをオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.opendir-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>opendir</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$context</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ディレクトリハンドルをオープンします。このハンドルは、この後
+   <span class="function"><a href="function.closedir.html" class="function">closedir()</a></span>, <span class="function"><a href="function.readdir.html" class="function">readdir()</a></span>, 
+   <span class="function"><a href="function.rewinddir.html" class="function">rewinddir()</a></span> 関数コールで使用されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.opendir-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オープンするディレクトリのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">context</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">context</tt></i> パラメータの詳細については
+       マニュアルの<a href="ref.stream.html" class="link">ストリーム</a>
+       を参照ください。
+      </p> 
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.opendir-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にディレクトリハンドルの <span class="type"><a href="language.types.resource.html" class="type resource">resource</a></span> 、
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p> 
+  <p class="para">
+   <i><tt class="parameter">path</tt></i> が有効なディレクトリでないかまたは権限が
+   制限されているかファイルシステムのエラーによりディレクトリが
+   オープンできない場合、<span class="function"><b>opendir()</b></span> は <b><tt>FALSE</tt></b> を返し、
+   <a href="errorfunc.constants.html" class="link">E_WARNING</a> エラーが発行されます。
+   <span class="function"><b>opendir()</b></span> のこのエラー出力は、
+   関数名の前に &#039;<a href="language.operators.errorcontrol.html" class="link">@</a>&#039;
+   を付けることにより抑制できます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.opendir-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <i><tt class="parameter">path</tt></i> が <i>ftp://</i> 
+        URL ラッパをサポートします。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">path</tt></i> に、ディレクトリの一覧表示をサポートする
+        URL を指定することが可能です。しかし、PHP 4 では <i>file://</i>
+        URL ラッパのみをサポートしています。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.opendir-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1867">
+    <p><b>例1 <span class="function"><b>opendir()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$dir&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"/etc/php5/"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;既知のディレクトリをオープンし、その内容を読み込みます。<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">is_dir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dir</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$dh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">opendir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dir</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;((</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">readdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dh</span><span style="color: #007700">))&nbsp;!==&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"filename:&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">&nbsp;:&nbsp;filetype:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filetype</span><span style="color: #007700">(</span><span style="color: #0000BB">$dir&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">closedir</span><span style="color: #007700">(</span><span style="color: #0000BB">$dh</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+filename: . : filetype: dir
+filename: .. : filetype: dir
+filename: apache : filetype: dir
+filename: cgi : filetype: dir
+filename: cli : filetype: dir
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.opendir-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.is-dir.html" class="function" rel="rdfs-seeAlso">is_dir()</a> - ファイルがディレクトリかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.readdir.html" class="function" rel="rdfs-seeAlso">readdir()</a> - ディレクトリハンドルからエントリを読み込む</span></li>
+    <li class="member"><a href="class.dir.html" class="link">Dir</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.getcwd.html">getcwd</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.readdir.html">readdir</a></div>
+ <div class="up"><a href="ref.dir.html">ディレクトリ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

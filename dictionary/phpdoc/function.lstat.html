@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルあるいはシンボリックリンクの情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.linkinfo.html">linkinfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mkdir.html">mkdir</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.lstat" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">lstat</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">lstat</span> &mdash; <span class="dc-title">ファイルあるいはシンボリックリンクの情報を取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.lstat-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>lstat</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">filename</tt></i> という名前のファイル、
+   またはシンボリックリンクの情報を得ます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.lstat-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルあるいはシンボリックリンクへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.lstat-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>lstat()</b></span> が返す配列の内容については
+   <span class="function"><a href="function.stat.html" class="function">stat()</a></span> のマニュアルをご覧ください。
+   この関数の動作は <span class="function"><a href="function.stat.html" class="function">stat()</a></span> 関数と同じですが、
+   パラメータ <i><tt class="parameter">filename</tt></i>
+   がシンボリックリンクであった場合に、
+   シンボリック先のファイルのステータスではなく、
+   シンボリックリンクのステータスが返されるところが異なります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.lstat-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1939">
+    <p><b>例1 <span class="function"><a href="function.stat.html" class="function">stat()</a></span> と <span class="function"><b>lstat()</b></span> の比較</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />symlink</span><span style="color: #007700">(</span><span style="color: #DD0000">'uploads.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'uploads'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;uploads.php&nbsp;と&nbsp;uploads&nbsp;の情報の比較<br /></span><span style="color: #0000BB">array_diff</span><span style="color: #007700">(</span><span style="color: #0000BB">stat</span><span style="color: #007700">(</span><span style="color: #DD0000">'uploads'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">lstat</span><span style="color: #007700">(</span><span style="color: #DD0000">'uploads'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents"><p>
+     ふたつのファイルの相違点が表示されます。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [ino] =&gt; 97236376
+    [mode] =&gt; 33188
+    [size] =&gt; 34
+    [atime] =&gt; 1223580003
+    [mtime] =&gt; 1223581848
+    [ctime] =&gt; 1223581848
+    [blocks] =&gt; 8
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.lstat-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+失敗したときは <b><tt>E_WARNING</tt></b> が発生します。
+</p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.lstat-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数の結果は
+キャッシュされます。詳細は、<span class="function"><a href="function.clearstatcache.html" class="function">clearstatcache()</a></span>
+を参照してください。</span></p></blockquote>
+  <div class="tip"><b class="tip">ヒント</b><p class="simpara">
+<i>PHP 5.0.0</i> 以降、この関数は、
+<em class="emphasis">何らかの</em> URL ラッパーと組合せて使用することができます。
+どのラッパーが <span class="function"><a href="function.stat.html" class="function">stat()</a></span> ファミリーをサポートしているか
+のリストについては、<a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a> を参照してください。</p></div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.lstat-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.stat.html" class="function" rel="rdfs-seeAlso">stat()</a> - ファイルに関する情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.linkinfo.html">linkinfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mkdir.html">mkdir</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

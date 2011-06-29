@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Unicode 文字プロパティ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.escape.html">エスケープシーケンス</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.anchors.html">アンカー</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.unicode" class="section">
+     <h2 class="title">Unicode 文字プロパティ</h2>
+     <p class="para">
+      PHP 5.1.0 以降、<em class="emphasis">UTF-8 モード</em> を設定した場合に、
+      一般的な文字タイプにマッチする新たなエスケープシーケンスが 3 つ追加されました。
+     </p>
+     <dl>
+
+      <dt>
+
+       <span class="term"><em class="emphasis">\p{xx}</em></span>
+       <dd>
+<span class="simpara">xx プロパティを持つ文字</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term"><em class="emphasis">\P{xx}</em></span>
+       <dd>
+<span class="simpara">xx プロパティを持たない文字</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term"><em class="emphasis">\X</em></span>
+       <dd>
+<span class="simpara">拡張 Unicode シーケンス</span></dd>
+
+      </dt>
+
+     </dl>
+
+     <p class="para">
+      ここで <i>xx</i> で表されているプロパティ名は、Unicode で
+      一般カテゴリプロパティ (general category properties) として規定されているものに
+      なります。すべての文字は、いずれかひとつのプロパティを持ちます。
+      プロパティは、2 文字の略語で表されます。Perl と同じく、
+      開き波カッコとプロパティ名との間にハット文字を記述することで否定を指定できます。
+      たとえば、<i>\p{^Lu}</i> は <i>\P{Lu}</i> と同じです。
+     </p>
+     <p class="para">
+      <i>\p</i> もしくは <i>\P</i> の後に、一文字だけを記述すると
+      その文字で始まるすべてのプロパティが指定されたことになります。
+      この場合、否定の指定をしていない場合、波カッコを使用しなくても構いません。
+      以下の 2 つの例は等価になります。
+     </p>
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="cdata"><pre>
+\p{L}
+\pL
+</pre></div>
+   </div>
+
+  </div>
+     <table class="doctable table">
+      <caption><b>使用可能なプロパティコード</b></caption>
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>プロパティ</th>
+         <th>マッチ</th>
+         <th>備考</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left"><i>C</i></td>
+         <td align="left">その他 (Other)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Cc</i></td>
+         <td align="left">コントロール文字 (Control)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Cf</i></td>
+         <td align="left">非可視整形用文字 (Format)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Cn</i></td>
+         <td align="left">未定義コードポイント (Unassigned)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Co</i></td>
+         <td align="left">私的利用領域 (Private use)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Cs</i></td>
+         <td align="left">サロゲート (Surrogate)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>L</i></td>
+         <td align="left">アルファベット (Letter)</td>
+         <td align="left">
+          <i>Ll</i>、
+          <i>Lm</i>、<i>Lo</i>、<i>Lt</i> および
+          <i>Lu</i> を含む
+         </td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Ll</i></td>
+         <td align="left">小文字アルファベット (Lower case letter)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Lm</i></td>
+         <td align="left">擬似文字 (Modifier letter)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Lo</i></td>
+         <td align="left">その他の文字 (Other letter)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Lt</i></td>
+         <td align="left">タイトル文字 (Title case letter)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Lu</i></td>
+         <td align="left">大文字アルファベット (Upper case letter)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>M</i></td>
+         <td align="left">記号 (Mark)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Mc</i></td>
+         <td align="left">修飾文字 (Spacing mark)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Me</i></td>
+         <td align="left">他の文字を囲むための文字 (Enclosing mark)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Mn</i></td>
+         <td align="left">他の文字を修飾するための文字 (Non-spacing mark)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>N</i></td>
+         <td align="left">数字 (Number)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Nd</i></td>
+         <td align="left">10 進数字 (Decimal number)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Nl</i></td>
+         <td align="left">数値を表す文字 (Letter number)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>No</i></td>
+         <td align="left">その他の数字 (Other number)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>P</i></td>
+         <td align="left">句読記号 (Punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Pc</i></td>
+         <td align="left">連結用句読記号 (Connector punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Pd</i></td>
+         <td align="left">ダッシュ (Dash punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Pe</i></td>
+         <td align="left">閉じ句読記号 (Close punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Pf</i></td>
+         <td align="left">末尾句読記号 (Final punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Pi</i></td>
+         <td align="left">先頭句読記号 (Initial punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Po</i></td>
+         <td align="left">その他の句読記号 (Other punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Ps</i></td>
+         <td align="left">開き句読記号 (Open punctuation)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>S</i></td>
+         <td align="left">記号 (Symbol)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Sc</i></td>
+         <td align="left">通貨記号 (Currency symbol)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Sk</i></td>
+         <td align="left">合わせ文字 (Modifier symbol)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Sm</i></td>
+         <td align="left">数学記号 (Mathematical symbol)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>So</i></td>
+         <td align="left">その他の記号 (Other symbol)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Z</i></td>
+         <td align="left">区切り文字 (Separator)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Zl</i></td>
+         <td align="left">行区切り文字 (Line separator)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Zp</i></td>
+         <td align="left">段落区切り文字 (Paragraph separator)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>Zs</i></td>
+         <td align="left">空白文字 (Space separator)</td>
+         <td class="empty">&nbsp;</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+     <p class="para">
+      &quot;Greek&quot; や &quot;InMusicalSymbols&quot; といった拡張プロパティ (extended properties)
+      は PCRE によりサポートされていません。
+     </p>
+     <p class="para">
+      大小文字を区別しないマッチングを設定していても、これらのエスケープ
+      シーケンスには影響しません。たとえば、<i>\p{Lu}</i> は
+      常に大文字にのみマッチします。
+     </p>
+     <p class="para">
+      <i>\X</i> は、拡張 Unicode シーケンスを構成する Unicode 文字群に
+      マッチします。<i>\X</i> は、<i>(?&gt;\PM\pM*)</i>
+      と等価です。
+     </p>
+     <p class="para">
+      つまり、記号 (mark) プロパティの付いていない文字と、その後に続く 0 以上の
+      記号プロパティ付きの文字にマッチし、その並びをアトミック (atomic) な
+      まとまりとして取り扱います。記号プロパティ付きの文字とは、アクセント記号などの
+      直前の文字に対して影響するようなもののことです。
+     </p>
+     <p class="para">
+      Unicode プロパティを使った文字列マッチングは速くありません。PCRE は
+      15,000 以上のデータからなるストラクチャを検索する必要が有るためです。
+      そのため、PCRE では、<i>\d</i> や <i>\w</i> といった
+      以前から有るエスケープシーケンスは Unicode プロパティを使用しないように
+      なっています。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.escape.html">エスケープシーケンス</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.anchors.html">アンカー</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

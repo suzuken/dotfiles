@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>型の相互変換</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.pseudo-types.html">本ドキュメントにおける疑似的な型および変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.html">変数</a></div>
+ <div class="up"><a href="language.types.html">型</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.types.type-juggling" class="sect1">
+ <h2 class="title">型の相互変換</h2>
+
+ <p class="simpara">
+  PHP は、変数定義時に明示的な型定義を必要と(または、サポート)
+  しません。ある変数の型は、その変数が使用される文により定義されます。
+  これは、ある文字列を変数 <i><tt class="parameter">var</tt></i> に代入した場合には、
+  <i><tt class="parameter">var</tt></i> は文字列になることを意味しています。
+  ある整数値を <i><tt class="parameter">var</tt></i> に代入した場合には、
+  その変数は整数になります。
+ </p>
+
+ <p class="para">
+  PHP の自動型変換の例の一つは、加算演算子 &#039;+&#039; です。
+  オペランドのどれかが float の場合、全てのオペランドは float
+  として評価され、結果は float になります。
+  その他の場合、オペランドは整数として解釈され、結果も整数になります。
+  この自動型変換は、
+  オペランド自体の型を変更するものではないということに注意してください。
+  変わるのは、オペランドがどのように評価されるかだけです。
+ </p>
+
+ <div class="informalexample">
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"0"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$foo&nbsp;は文字列です&nbsp;(ASCII&nbsp;48)<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ここでは、$foo&nbsp;は整数です&nbsp;(2)<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">1.3</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ここでは、$foo&nbsp;はfloatです&nbsp;(3.3)<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #DD0000">"10&nbsp;Little&nbsp;Piggies"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$foo&nbsp;は整数です&nbsp;(15)<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #DD0000">"10&nbsp;Small&nbsp;Pigs"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$foo&nbsp;は整数です&nbsp;(15)<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+
+  </div>
+
+ </div>
+
+ <p class="simpara">
+  最後の二つの例が奇妙に思える場合には、
+  <a href="language.types.string.html#language.types.string.conversion" class="link">文字列変換</a>
+  を参照ください。
+ </p>
+
+ <p class="simpara">
+  ある変数を強制的にある特定の型として評価させたい場合には、
+  <a href="language.types.type-juggling.html#language.types.typecasting" class="link">型キャスト</a>
+  のセクションを参照ください。ある変数の型を変更したい場合には、
+  <span class="function"><a href="function.settype.html" class="function">settype()</a></span> を参照してください。
+ </p>
+ <p class="para">
+  本節の例をテストしたい場合には、
+  <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> を使用することが可能です。
+ </p>
+
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <p class="para">
+   配列への自動変換の動作は現時点で定義されていません。
+  </p>
+
+  <p class="para">
+   また、PHP では配列の添字と同じ構文を使用した文字列へのアクセスをサポートしているので、
+   次の例はあらゆるバージョンの PHP で成立します。
+  </p>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'car'</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$a&nbsp;は文字列です<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$a&nbsp;はここでも文字列です<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;bar<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   詳細は、<a href="language.types.string.html#language.types.string.substr" class="link">
+   文字として文字列をアクセスする</a>というセクションを参照してください。
+  </p>
+ </p></blockquote>
+
+ <div class="sect2" id="language.types.typecasting">
+  <h3 class="title">型キャスト</h3>
+
+  <p class="para">
+   PHP の型キャストは、C 言語と同様に動作します。つまり、
+   変換しようとする型を括弧で括り、キャストする変数の前に置きます。
+  </p>
+
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$foo&nbsp;は整数です<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;(boolean)&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$bar&nbsp;はbooleanです<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <p class="para">
+   使用可能なキャストを以下に示します。
+  </p>
+
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">(int), (integer) - 整数へのキャスト</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">(bool), (boolean) - 論理値へのキャスト</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">(float), (double), (real) - float へのキャスト</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">(string) - 文字列へのキャスト</span>
+   </li>
+   
+   <li class="listitem">
+    <span class="simpara">(array) - 配列へのキャスト</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">(object) - オブジェクトへのキャスト</span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">(unset) - <span class="type"><a href="language.types.null.html" class="type NULL">NULL</a></span> へのキャスト (PHP 5)</span>
+   </li>
+  </ul>
+
+  <p class="para">
+   (binary) によるキャストや b プレフィックスのサポートは、PHP 5.2.1 で追加されました。
+  </p>
+
+  <p class="para">
+   括弧の中でタブとスペースを使用することができることに注意してください。
+   したがって、次の文は機能的に等価です。
+  </p>
+   
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;(int)&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;(&nbsp;int&nbsp;)&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   <p class="para">
+    リテラル文字列や変数を、バイナリ文字列にキャストします。
+   </p>
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$binary&nbsp;</span><span style="color: #007700">=&nbsp;(binary)&nbsp;</span><span style="color: #0000BB">$string</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$binary&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">b"binary&nbsp;string"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    ある変数を文字列にキャストする代わりに、
+    二重引用符で括ることもできます。
+   </p>
+
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$foo&nbsp;は整数です<br /></span><span style="color: #0000BB">$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$foo</span><span style="color: #DD0000">"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$str&nbsp;は文字列です<br /></span><span style="color: #0000BB">$fst&nbsp;</span><span style="color: #007700">=&nbsp;(string)&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$fst&nbsp;も文字列です<br /><br />//&nbsp;これは、"they&nbsp;are&nbsp;the&nbsp;same"を出力します<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$fst&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"they&nbsp;are&nbsp;the&nbsp;same"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p></blockquote>
+   
+  <p class="para">
+   型の間でキャストを行う際の動作は、必ずしも明確ではありません。
+   詳細については、以下の節を参照ください。
+  </p>
+  
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.boolean.html#language.types.boolean.casting" class="link">論理値への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.integer.html#language.types.integer.casting" class="link">整数への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.float.html#language.types.float.casting" class="link">浮動小数点数への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.string.html#language.types.string.casting" class="link">文字列への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.array.html#language.types.array.casting" class="link">配列への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.object.html#language.types.object.casting" class="link">オブジェクトへの変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.resource.html#language.types.resource.casting" class="link">リソース型への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="language.types.null.html#language.types.null.casting" class="link">NULL への変換</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="types.comparisons.html" class="link">型の比較表</a>
+    </span>
+   </li>
+  </ul>
+
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.pseudo-types.html">本ドキュメントにおける疑似的な型および変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.html">変数</a></div>
+ <div class="up"><a href="language.types.html">型</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

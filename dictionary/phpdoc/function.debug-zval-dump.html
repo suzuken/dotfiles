@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>内部的な Zend の値を表す文字列をダンプする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.doubleval.html">doubleval</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.debug-zval-dump" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">debug_zval_dump</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">debug_zval_dump</span> &mdash; <span class="dc-title">内部的な Zend の値を表す文字列をダンプする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.debug-zval-dump-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>debug_zval_dump</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$variable</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   内部的な Zend の値を表す文字列をダンプします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.debug-zval-dump-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">variable</tt></i></span>
+     <dd>
+
+      <p class="para">
+       評価される変数
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.debug-zval-dump-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.debug-zval-dump-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4289">
+    <p><b>例1 <span class="function"><b>debug_zval_dump()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;World'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">debug_zval_dump</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&amp;string(11) &quot;Hello World&quot; refcount(3)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b><i>refcount</i> に注意</b><br />
+   <p class="para">
+    この関数によって返される <i>refcount</i> の値は、
+    特定の状況下では自明ではありません。例えば、とある開発者は上記の例で
+    <i>refcount</i> は <i>2</i>
+    を示すと予想したかも知れません。
+    実際に <span class="function"><b>debug_zval_dump()</b></span> がコールされるとき、
+    3 番目の参照が生成されます。
+   </p>
+   <p class="para">
+    この動作は、変数が <span class="function"><b>debug_zval_dump()</b></span>
+    に参照渡しされない場合、よりその度合いを増します。
+    例えば、上記の例を僅かに修正したバージョンを考えてみます。
+   </p>
+   <p class="para">
+    <div class="example" id="example-4290">
+     
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;World'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">debug_zval_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$var1</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;この時、参照で渡されない<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+string(11) &quot;Hello World&quot; refcount(1)
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <p class="para">
+    なぜ <i>refcount(1)</i> でしょうか?
+    なぜなら関数がコールされるとき、 <i>$var1</i>
+    のコピーが作成されるためです。
+   </p>
+   <p class="para">
+    この関数は、<i>refcount</i> が <i>1</i>
+    の変数が渡される (コピーもしくは値渡し) とき、<em class="emphasis">より</em>
+    混乱させます。
+   </p>
+   <p class="para">
+    <div class="example" id="example-4291">
+     
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Hello&nbsp;World'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">debug_zval_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$var1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+string(11) &quot;Hello World&quot; refcount(2)
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <p class="para">
+    ここで <i>refcount</i> の <i>2</i>
+    は自明ではありません。特に上記の例を考える場合はそうです。
+    では、何が起こっているのでしょうか ?
+   </p>
+   <p class="para">
+    変数が単一の参照 (<span class="function"><b>debug_zval_dump()</b></span>
+    の引数として使用される前の <i>$var1</i>) を持つ場合、PHP
+    のエンジンは関数に渡される様式を最適化します。内部的に PHP は参照
+    (<i>refcount</i> がこの関数のスコープのために増加されます)
+    のように <i>$var1</i> を扱い、参照渡しされた変数に
+    書き込みが発生するかどうかの警告を伴ってコピーが作成されます。
+    ただし、書き込みの瞬間だけです。これは &quot;copy on write&quot; として知られます。
+   </p>
+   <p class="para">
+    そのため、もし <span class="function"><b>debug_zval_dump()</b></span> がただ一つのパラメータ
+    (もしくはない) に書き込みが発生した場合、コピーが作成されます。
+    その時までパラメータは参照を保持し、関数呼び出しのスコープに対して
+    <i>refcount</i> が <i>2</i>
+    にインクリメントされる原因になります。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.debug-zval-dump-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.var-dump.html" class="function" rel="rdfs-seeAlso">var_dump()</a> - 変数に関する情報をダンプする</span></li>
+    <li class="member"><span class="function"><a href="function.debug-backtrace.html" class="function" rel="rdfs-seeAlso">debug_backtrace()</a> - バックトレースを生成する</span></li>
+    <li class="member"><a href="language.references.html" class="link">リファレンスの説明</a></li>
+    <li class="member"><a href="http://derickrethans.nl/php_references_article.php" class="link external">&raquo; リファレンスの説明 (Derick Rethans による)</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.doubleval.html">doubleval</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

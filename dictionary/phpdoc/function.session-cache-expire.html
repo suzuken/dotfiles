@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在のキャッシュの有効期限を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.session.html">セッション関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-cache-limiter.html">session_cache_limiter</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.session-cache-expire" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">session_cache_expire</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">session_cache_expire</span> &mdash; <span class="dc-title">現在のキャッシュの有効期限を返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.session-cache-expire-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>session_cache_expire</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$new_cache_expire</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>session_cache_expire()</b></span> は現在の
+   <i>session.cache_expire</i> の設定を返します。
+  </p>
+  <p class="para">
+   リクエストがあった時点で、キャッシュの有効期限は
+   <a href="session.configuration.html#ini.session.cache-expire" class="link">session.cache_expire</a>
+   で設定されたデフォルト値にリセットされます。
+   そのため、すべてのリクエストにおいて
+   (そして<span class="function"><a href="function.session-start.html" class="function">session_start()</a></span> をコールする前に)
+   <span class="function"><b>session_cache_expire()</b></span> をコールする必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.session-cache-expire-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">new_cache_expire</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">new_cache_expire</tt></i> が指定された場合、
+       現在のキャッシュの有効期限は、
+       <i><tt class="parameter">new_cache_expire</tt></i> で置換されます。
+      </p>
+      <p class="para">
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <span class="simpara">
+         <i>session.cache_limiter</i>が
+         <i>nocache</i><em class="emphasis">以外の</em>値にセットされている場合にのみ
+         <i><tt class="parameter">new_cache_expire</tt></i>が有効となります。
+        </span>
+       </p></blockquote>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.session-cache-expire-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i>session.cache_expire</i> の現在の設定を返します。
+   返り値は分単位で、デフォルトは 180 です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.session-cache-expire-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3900">
+    <p><b>例1 <span class="function"><b>session_cache_expire()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;set&nbsp;the&nbsp;cache&nbsp;limiter&nbsp;to&nbsp;'private'&nbsp;*/<br /><br /></span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">(</span><span style="color: #DD0000">'private'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cache_limiter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">session_cache_limiter</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;set&nbsp;the&nbsp;cache&nbsp;expire&nbsp;to&nbsp;30&nbsp;minutes&nbsp;*/<br /></span><span style="color: #0000BB">session_cache_expire</span><span style="color: #007700">(</span><span style="color: #0000BB">30</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cache_expire&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">session_cache_expire</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;start&nbsp;the&nbsp;session&nbsp;*/<br /><br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #DD0000">"The&nbsp;cache&nbsp;limiter&nbsp;is&nbsp;now&nbsp;set&nbsp;to&nbsp;</span><span style="color: #0000BB">$cache_limiter</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"The&nbsp;cached&nbsp;session&nbsp;pages&nbsp;expire&nbsp;after&nbsp;</span><span style="color: #0000BB">$cache_expire</span><span style="color: #DD0000">&nbsp;minutes"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.session-cache-expire-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="session.configuration.html#ini.session.cache-expire" class="link">session.cache_expire</a></li>
+    <li class="member"><a href="session.configuration.html#ini.session.cache-limiter" class="link">session.cache_limiter</a></li>
+    <li class="member"><span class="function"><a href="function.session-cache-limiter.html" class="function" rel="rdfs-seeAlso">session_cache_limiter()</a> - 現在のキャッシュリミッタを取得または設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.session.html">セッション関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-cache-limiter.html">session_cache_limiter</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

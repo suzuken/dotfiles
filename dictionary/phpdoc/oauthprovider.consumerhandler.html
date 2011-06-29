@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>consumerHandler コールバックを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauthprovider.construct.html">OAuthProvider::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauthprovider.generatetoken.html">OAuthProvider::generateToken</a></div>
+ <div class="up"><a href="class.oauthprovider.html">OAuthProvider</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oauthprovider.consumerhandler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">OAuthProvider::consumerHandler</h1>
+  <p class="verinfo">(PECL OAuth &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">OAuthProvider::consumerHandler</span> &mdash; <span class="dc-title">consumerHandler コールバックを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-oauthprovider.consumerhandler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>OAuthProvider::consumerHandler</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$callback_function</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   コンシューマハンドラコールバックを設定します。これは
+    <span class="methodname"><a href="oauthprovider.callconsumerhandler.html" class="methodname">OAuthProvider::callConsumerHandler()</a></span>
+   でコールされる関数です。
+  </p>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+現在のところ詳細な情報はありません。引数のリストのみが
+記述されています。</p></div>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-oauthprovider.consumerhandler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">callback_function</tt></i></span>
+    <dd>
+
+     <p class="para">
+      コールバック関数名。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-oauthprovider.consumerhandler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-oauthprovider.consumerhandler-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-4332">
+   <p><b>例1  <span class="methodname"><b>OAuthProvider::consumerHandler()</b></span> コールバックの例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">lookupConsumer</span><span style="color: #007700">(</span><span style="color: #0000BB">$provider</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$provider</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consumer_key&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #DD0000">'unknown'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">OAUTH_CONSUMER_KEY_UNKNOWN</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;if(</span><span style="color: #0000BB">$provider</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consumer_key&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #DD0000">'blacklisted'&nbsp;</span><span style="color: #007700">||&nbsp;</span><span style="color: #0000BB">$provider</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consumer_key&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #DD0000">'throttled'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">OAUTH_CONSUMER_KEY_REFUSED</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$provider</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consumer_secret&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"the_consumers_secret"</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">OAUTH_OK</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-oauthprovider.consumerhandler-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"> <span class="methodname"><a href="oauthprovider.callconsumerhandler.html" class="methodname" rel="rdfs-seeAlso">OAuthProvider::callConsumerHandler()</a> - consumerNonceHandler コールバックをコールする</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauthprovider.construct.html">OAuthProvider::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauthprovider.generatetoken.html">OAuthProvider::generateToken</a></div>
+ <div class="up"><a href="class.oauthprovider.html">OAuthProvider</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

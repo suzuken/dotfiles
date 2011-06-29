@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>前方一致でマッチするキーを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyrant.ext.html">TokyoTyrant::ext</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyrant.get.html">TokyoTyrant::get</a></div>
+ <div class="up"><a href="class.tokyotyrant.html">TokyoTyrant</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tokyotyrant.fwmkeys" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">TokyoTyrant::fwmKeys</h1>
+  <p class="verinfo">(PECL tokyo_tyrant &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">TokyoTyrant::fwmKeys</span> &mdash; <span class="dc-title">前方一致でマッチするキーを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-tokyotyrant.fwmkeys-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>TokyoTyrant::fwmKeys</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$prefix</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$max_recs</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   前方一致でマッチするキーをデータベースから返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-tokyotyrant.fwmkeys-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+       キーのプレフィックス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">max_recs</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返すレコードの最大数。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-tokyotyrant.fwmkeys-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   マッチしたキーの配列を返します。値は返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-tokyotyrant.fwmkeys-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1823">
+    <p><b>例1  <span class="methodname"><b>TokyoTyrant::fwmKeys()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$tt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;マッチするキーを&nbsp;20&nbsp;件作成します&nbsp;*/<br /></span><span style="color: #007700">for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">"key_"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"value_"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;マッチしないキーを&nbsp;20&nbsp;件作成します&nbsp;*/<br /></span><span style="color: #007700">for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">"something_"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"data_"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;マッチするキーを&nbsp;5&nbsp;件取得します&nbsp;*/<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fwmKeys</span><span style="color: #007700">(</span><span style="color: #DD0000">"key_"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(5) {
+  [0]=&gt;
+  string(5) &quot;key_5&quot;
+  [1]=&gt;
+  string(6) &quot;key_14&quot;
+  [2]=&gt;
+  string(5) &quot;key_6&quot;
+  [3]=&gt;
+  string(6) &quot;key_15&quot;
+  [4]=&gt;
+  string(5) &quot;key_7&quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyrant.ext.html">TokyoTyrant::ext</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyrant.get.html">TokyoTyrant::get</a></div>
+ <div class="up"><a href="class.tokyotyrant.html">TokyoTyrant</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

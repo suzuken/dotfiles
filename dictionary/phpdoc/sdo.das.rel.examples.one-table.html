@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ひとつのテーブルによる例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.metadata.html">メタデータを指定する</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.das.rel.examples.two-table.html">二つのテーブルの例</a></div>
+ <div class="up"><a href="sdo.das.rel.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo.das.rel.examples.one-table" class="section">
+  <h2 class="title">ひとつのテーブルによる例</h2>
+  <p class="para">
+   これ以降の例でのリレーショナル DAS のデータグラフの構成は次のようになります。
+   アプリケーションデータオブジェクトがひとつだけ、ひとつの会社に関する情報が
+   company テーブルに格納されています。これらの例は SDO
+   の機能を活用するものではありませんし、
+   直接 SQL 文を発行したほうがずっと効率的でしょう。
+   これらの例は、リレーショナル DAS をどのように使用するのかを説明するためのものです。
+  </p>
+
+  <p class="para">
+   そのため、データベースのメタデータは極力シンプルになるようにしました。
+   company テーブルだけしか含まないようにしています。
+   コンストラクタで使用している二番目、三番目の引数や、
+   クエリの例で使用しているカラム指定子は、オプションとなります。
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4524">
+    <p><b>例1 データオブジェクトの作成</b></p>
+    <div class="example-contents"><p>
+     もっとも単純な例として、データオブジェクトをひとつ作成して
+     それをデータベースに書き込むことを考えます。この例では、
+     company オブジェクトがひとつ作成されます。その名前を &#039;Acme&#039;
+     と指定したうえで、リレーショナル DAS をコールして
+     変更内容をデータベースに書き込みます。会社名を設定する際には、
+     プロパティ名を使用します。オブジェクトのプロパティにアクセスする
+     その他の方法については、SDO の
+     <a href="sdo.examples.html" class="link">例</a>
+     を参照ください。
+    </p></div>
+
+    <div class="example-contents"><p>
+     データオブジェクトを作成できるのは、
+     あらかじめ先立つデータオブジェクトがある場合のみです。そのため、
+     リレーショナル DAS への最初のコールは、
+     まずルートオブジェクトを取得するためのものとなります。
+     これは、空のデータグラフの作成をすることで行います。
+     特別なルートオブジェクトは、木構造の真のルートとなるものです。
+     company データオブジェクトは、その後ルートオブジェクトに対して
+     <span class="function"><b>createDataObject()</b></span> をコールすることで作成します。
+     これは、company データオブジェクトを作成して、
+     データグラフのルートオブジェクトの &#039;company&#039;
+     という名前のプロパティにそれを挿入します。
+    </p></div>
+    <div class="example-contents"><p>
+     リレーショナル DAS が変更を適用する際には、シンプルな insert 文
+     &#039;INSERT INTO company (name) VALUES (&quot;Acme&quot;);&#039; が実行されます。
+     自動生成された主キーがデータオブジェクトに設定され、
+     変更概要がリセットされます。そのため、同じデータオブジェクトを
+     そのまま使い続け、さらに変更した内容をもう一度適用することもできます。
+    </p></div>
+                      
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require_once&nbsp;</span><span style="color: #DD0000">'SDO/DAS/Relational.php'</span><span style="color: #007700">;<br />require_once&nbsp;</span><span style="color: #DD0000">'company_metadata.inc.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;メタデータから、DAS&nbsp;を作成します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SDO_DAS_Relational&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$database_metadata</span><span style="color: #007700">,</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,</span><span style="color: #0000BB">$SDO_containment_metadata</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;ルートオブジェクトを取得し、その下に&nbsp;company&nbsp;オブジェクトを<br />*&nbsp;作成します。そしてデータオブジェクトに対して変更を加えます。<br />***************************************************************/<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$das&nbsp;&nbsp;</span><span style="color: #007700">-&gt;&nbsp;</span><span style="color: #0000BB">createRootDataObject</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$acme&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">-&gt;&nbsp;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'company'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$acme</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Acme"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;データベースに接続し、オブジェクトをデータベースに書き込みます。<br />***************************************************************/<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO_DSN</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_USER</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_PASSWORD</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$das&nbsp;</span><span style="color: #007700">-&gt;&nbsp;</span><span style="color: #0000BB">applyChanges</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$root</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4525">
+    <p><b>例2 データオブジェクトの取得</b></p>
+    <div class="example-contents"><p>
+     この例では、データベースから取得されるデータオブジェクトはひとつです。
+     あるいは、もし &#039;Acme&#039; という名前の会社を複数登録していたのなら、
+     複数返される可能性もあります。返された会社データのそれぞれについて、
+     プロパティ <var class="varname"><var class="varname">name</var></var> および
+     <var class="varname"><var class="varname">id</var></var> の値を出力します。
+    </p></div>
+    <div class="example-contents"><p>
+     この例における <span class="function"><b>executeQuery()</b></span>
+     の 3 番目の引数では、カラム名に修飾子が必要です。
+     というのも、メタデータ内の他のテーブルで
+     <var class="varname"><var class="varname">name</var></var>
+     および
+     <var class="varname"><var class="varname">id</var></var>
+     という名前のカラムが用いられているからです。
+     もし名前が重複するような心配がないのなら、これは省略できます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require_once&nbsp;</span><span style="color: #DD0000">'SDO/DAS/Relational.php'</span><span style="color: #007700">;<br />require_once&nbsp;</span><span style="color: #DD0000">'company_metadata.inc.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;メタデータから、DAS&nbsp;を作成します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SDO_DAS_Relational&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$database_metadata</span><span style="color: #007700">,</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,</span><span style="color: #0000BB">$SDO_containment_metadata</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;データベース接続を取得します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO_DSN</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_USER</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_PASSWORD</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;クエリを発行し、company&nbsp;オブジェクトを取得します。<br />*&nbsp;複数存在するかもしれません。<br />***************************************************************/<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$das</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeQuery</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'select&nbsp;name,&nbsp;id&nbsp;from&nbsp;company&nbsp;where&nbsp;name="Acme"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'company.name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'company.id'</span><span style="color: #007700">)&nbsp;);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;name&nbsp;および&nbsp;id&nbsp;を出力します。<br />***************************************************************/<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">$root</span><span style="color: #007700">[</span><span style="color: #DD0000">'company'</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$company</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"データベースから取得した会社の名前は&nbsp;"&nbsp;</span><span style="color: #007700">.<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$company</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;で、その&nbsp;id&nbsp;は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$company</span><span style="color: #007700">[</span><span style="color: #DD0000">'id'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;です\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4526">
+    <p><b>例3 データオブジェクトの更新</b></p>
+    <div class="example-contents"><p>
+     この例は、これまでのふたつを組み合わせたものです。というのも、
+     オブジェクトを更新するには、まずそれを取得しなければならないからです。
+     この例のコードは、会社名を逆さにし (つまり &#039;Acme&#039; が &#039;emcA&#039; となります)、
+     オブジェクトを作成したときと同じ方法でそれをデータベースに書き戻します。
+     この例のクエリではその両方の会社名で検索しているので、
+     プログラムを繰り返し実行すると、そのたびに会社名が反転します。
+    </p></div>
+    <div class="example-contents"><p>
+     この例では、同じリレーショナル DAS のインスタンスが
+     <span class="function"><b>applyChanges()</b></span> で再利用されます。
+     ちょうど PDO データベースハンドルと同じような扱いです。
+     このように使用しても問題ありません。また、既存のインスタンスを破棄して
+     新しいインスタンスを作り直すこともできます。
+     データグラフをアプリケーションに返した後は、
+     その状態に関する情報はリレーショナル DAS から削除されます。
+     必要なデータはすべてデータグラフ自身が保持しており、
+     もしそれが存在しない場合はメタデータから再作成されます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require_once&nbsp;</span><span style="color: #DD0000">'SDO/DAS/Relational.php'</span><span style="color: #007700">;<br />require_once&nbsp;</span><span style="color: #DD0000">'company_metadata.inc.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;メタデータから、DAS&nbsp;を作成します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SDO_DAS_Relational&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$database_metadata</span><span style="color: #007700">,</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,</span><span style="color: #0000BB">$SDO_containment_metadata</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;データベース接続を取得します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO_DSN</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_USER</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_PASSWORD</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;クエリを発行し、company&nbsp;オブジェクトを取得します。<br />*&nbsp;複数存在するかもしれません。<br />***************************************************************/<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$das</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeQuery</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'select&nbsp;name,&nbsp;id&nbsp;from&nbsp;company&nbsp;where&nbsp;name="Acme"&nbsp;or&nbsp;name="emcA"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;array(</span><span style="color: #DD0000">'company.name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'company.id'</span><span style="color: #007700">)&nbsp;);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;最初の会社の名前を変更します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$company&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$root</span><span style="color: #007700">[</span><span style="color: #DD0000">'company'</span><span style="color: #007700">][</span><span style="color: #0000BB">0</span><span style="color: #007700">];<br />echo&nbsp;</span><span style="color: #DD0000">"取得した会社の名前は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$company</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$company</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strrev</span><span style="color: #007700">(</span><span style="color: #0000BB">$company</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;変更内容を書き戻します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">applyChanges</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,</span><span style="color: #0000BB">$root</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4527">
+    <p><b>例4 データオブジェクトの削除</b></p>
+    <div class="example-contents"><p>
+     &#039;Acme&#039;、あるいはその逆の &#039;emcA&#039; という名前の会社をすべて取得することができました。
+     次に、これらをすべてグラフから削除するために unset を使用します。
+    </p></div>
+
+    <div class="example-contents"><p>
+     この例では、ひとつの動作ですべてが削除されます。つまり、該当する
+     (包含関係を定義する) プロパティを解放します。
+     これらを個別に削除していくことも可能です。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">require_once&nbsp;</span><span style="color: #DD0000">'SDO/DAS/Relational.php'</span><span style="color: #007700">;<br />require_once&nbsp;</span><span style="color: #DD0000">'company_metadata.inc.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;メタデータから、DAS&nbsp;を作成します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SDO_DAS_Relational&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$database_metadata</span><span style="color: #007700">,</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,</span><span style="color: #0000BB">$SDO_containment_metadata</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;データベース接続を取得します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO_DSN</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_USER</span><span style="color: #007700">,</span><span style="color: #0000BB">DATABASE_PASSWORD</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;クエリを発行し、company&nbsp;オブジェクトを取得します。<br />*&nbsp;複数存在するかもしれません。<br />***************************************************************/<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$das</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">executeQuery</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'select&nbsp;name,&nbsp;id&nbsp;from&nbsp;company&nbsp;where&nbsp;name="Acme"&nbsp;or&nbsp;name="emcA"'</span><span style="color: #007700">,<br />&nbsp;&nbsp;array(</span><span style="color: #DD0000">'company.name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'company.id'</span><span style="color: #007700">)&nbsp;);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;データグラフのすべての会社を削除します。<br />***************************************************************/<br /></span><span style="color: #007700">unset(</span><span style="color: #0000BB">$root</span><span style="color: #007700">[</span><span style="color: #DD0000">'company'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">/**************************************************************<br />*&nbsp;変更内容を書き戻します。<br />***************************************************************/<br /></span><span style="color: #0000BB">$das</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">applyChanges</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,</span><span style="color: #0000BB">$root</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.metadata.html">メタデータを指定する</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.das.rel.examples.two-table.html">二つのテーブルの例</a></div>
+ <div class="up"><a href="sdo.das.rel.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

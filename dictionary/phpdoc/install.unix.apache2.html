@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Apache 2.x (Unixシステム用)</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.unix.apache.html">Apache 1.3.x (Unix システム用)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.unix.lighttpd-14.html">Lighttpd 1.4 (Unix システム用)</a></div>
+ <div class="up"><a href="install.unix.html">Unix システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.unix.apache2" class="sect1">
+ <h2 class="title">Apache 2.x (Unixシステム用)</h2>
+ <p class="para">
+  このセクションでは、PHPを Unix システム上の Apache 2.x にインストールする際の
+  手引きと注意事項について説明します。
+ </p>
+ 
+ <div class="warning"><b class="warning">警告</b><p class="para">
+Apache2 の MPM マルチスレッドモードを実運用環境で使用することは推奨されません。
+代わりに prefork MPM を使ってください。これは Apache 2.0 および 2.2
+におけるデフォルトの MPM です。prefork MPM を使う理由については、
+<a href="faq.installation.html#faq.installation.apache2" class="link">マルチスレッド版 MPM の Apache2</a>の
+FAQ エントリを参照してください。</p></div>
+ 
+ <p class="para">
+  <a href="http://httpd.apache.org/docs/current/" class="link external">&raquo; Apache ドキュメンテーション</a>
+  を参照し、Apache 2.x の基本的な事項について理解しておくことを強く推奨します。
+  Apache のインストールオプションについてのより詳しい情報が得られます。
+ </p>
+ 
+ <p class="para">
+  最新バージョンの Apache HTTP Server を
+  <a href="http://httpd.apache.org/" class="link external">&raquo; Apache ダウンロードサイト</a>
+  からダウンロードし、上述のいずれかのバージョンの PHP を用意してください。
+  この手引きでは Apache 2.x で PHP を動作させるための
+  基本的な部分しかカバーしていません。さらに詳しい情報については、<a href="http://httpd.apache.org/docs/current/" class="link external">&raquo; Apache ドキュメンテーション</a> を参照してください。
+  情報が古く不正確になってしまうため、以下では詳細なバージョン番号は
+  記述されていません。&#039;NN&#039; という文字列をご使用のバージョンに適宜置き換えて
+  ください。
+ </p>
+
+    <p class="para">
+     現在、Apache 2.x には 2.0 と 2.2 の二種類があります。
+     どちらを選ぶにしてもそれなりの理由があるでしょうが、
+     2.2 が現在の最新版です。もし選択の余地があるのなら
+     2.2 を使うことを推奨します。しかし、この例では 2.0 と 2.2
+     のどちらでも使えるようにしています。
+    </p>
+
+     <ol type="1">
+     <li class="listitem">
+     <p class="para">Apache HTTP server を上のサイトから取得して展開します。</p>
+
+     <div class="example" id="example-12">
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+gzip -d httpd-2_x_NN.tar.gz
+tar -xf httpd-2_x_NN.tar
+</pre></div>
+     </div>
+     </div>
+     </li>
+
+     <li class="listitem">
+     <p class="para">同じく、PHP のソースを取得して展開します。</p>
+
+     <div class="example" id="example-13">
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+gunzip php-NN.tar.gz
+tar -xf php-NN.tar
+</pre></div>
+     </div>
+     </div>
+     </li>
+   
+     <li class="listitem">
+     <p class="para">
+     Apache をビルドしてインストールします。Apache のビルドに関する詳細は
+     Apache のドキュメントを参照ください。
+     </p>
+
+     <div class="example" id="example-14">
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+cd httpd-2_x_NN
+./configure --enable-so
+make
+make install
+</pre></div>
+     </div>
+     </div>
+     </li>
+
+     <li class="listitem">
+ <p class="para">
+    以上で Apache 2.x.NN が、モジュールの動的ロードとデフォルトの
+    MPM（マルチプロセッシングモジュール）である prefork が有効になった
+    状態で、/usr/local/apache2 にインストールされます。
+    インストールが正常か調べるには、以下のようにして Apache サーバを立ち上げます。
+
+    <div class="example" id="example-15">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+/usr/local/apache2/bin/apachectl start
+</pre></div>
+    </div>
+    </div>
+
+    サーバを止めて、PHP 用の設定を進めましょう。
+
+    <div class="example" id="example-16">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+/usr/local/apache2/bin/apachectl stop
+</pre></div>
+    </div>
+    </div>
+ </p>
+ </li>
+
+ <li class="listitem">
+
+<p class="para">
+PHP の configure を行います。ここでは、様々なオプションを指定し、
+特定の拡張モジュールを有効にするといったカスタマイズを行います。
+指定可能なオプションの一覧は、./configure --help を実行すると得られます。
+以下に、Apache 2 と MySQL のサポートを有効にする、簡単な設定例を示します。
+</p>
+
+<p class="para">
+上で説明したように Apache をソースからビルドした場合は、
+apxs のパスも下の例のとおりになっているでしょう。しかし、
+もし別の方法で Apache をインストールした場合は apxs
+のパスを適切に変更しなければなりません。
+ディストリビューションによっては、apxs の名前が
+apxs2 と変更されていることもあるので注意しましょう。
+ </p>
+     <div class="example" id="example-17">
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+cd ../php-NN
+./configure --with-apxs2=/usr/local/apache2/bin/apxs --with-mysql
+make
+make install
+</pre></div>
+      </div>
+     </div>
+
+     <p class="para">
+    configure オプションを変更して再インストールする場合は、
+    configure, make, make install の手順を繰り返さなければなりません。
+    共有モジュールとしてコンパイルされた PHP を有効にするには
+    Apache を再起動するだけです。Apache の再コンパイルは不要です。
+    </p>
+         
+    <p class="para">
+    特に断りがない限り、&#039;make install&#039; は、PEAR、phpize のような様々な 
+    関連ツール、CLI 版 PHP などもインストールすることに注意してください。
+    </p>
+
+    </li>
+
+  <li class="listitem">
+  <p class="para">
+  php.ini ファイルを設定する
+  </p>
+    
+     <div class="example" id="example-18">
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+cp php.ini-development /usr/local/lib/php.ini
+</pre></div>
+      </div>
+     </div>
+
+    <p class="para">
+    PHP の実行時設定を変更するには、.ini ファイルを編集します。
+    このファイルを他の場所に置きたい場合は、手順 5 で、
+    オプション --with-config-file-path=/path を使用します。
+    </p>
+   
+    <p class="para">
+    php.ini-development ではなく、php.ini-production を使用する場合は、PHP の
+    動作が変化しますので、ファイル中に記載されている変更点の一覧を確認する
+    ようにしてください。
+    </p>
+
+    </li>
+
+    <li class="listitem">
+
+ <p class="para">
+    httpd.conf を編集し、PHP の共有モジュールをロードするよう設定します。
+    LoadModule 命令の右側に記述するパスは、システムの PHP 共有モジュール
+    を指している必要があります。上記の make install により既にこの設定は
+    追加されている場合もありますが、確認が必要です。
+</p>
+
+      <div class="example" id="example-19">
+        <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">LoadModule php5_module modules/libphp5.so</pre>
+</div>
+       </div>
+
+      </div>
+
+      </li>
+
+      <li class="listitem">
+
+    <p class="para">
+    Apache が特定の拡張子のファイルを PHP としてパースするよう設定します。
+    たとえば、Apache が拡張子 .php のファイルを PHP としてパースするようにします。
+    単に Apache の AddType ディレクティブを使うだけではなく、
+    悪意を持ってアップロード (あるいは作成) された exploit.php.jpg
+    のようなファイルが PHP として実行されてしまわないようにしたいものです。
+    この例では、PHP としてパースさせたい任意の拡張子を追加していくだけです。
+    ためしに .phtml を追加してみましょう。
+    </p>
+
+
+      <div class="example" id="example-20">
+        <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">&lt;FilesMatch \.php$&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;</pre>
+</div>
+       </div>
+
+      </div>
+
+    <p class="para">
+    あるいは、拡張子 .php, .php2, .php3, .php4, .php5, .php6, そして
+    .phtml のファイルだけを PHP として実行したいは、このようにします。
+    </p>
+
+      <div class="example" id="example-21">
+        <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">&lt;FilesMatch &quot;\.ph(p[2-6]?|tml)$&quot;&gt;
+    SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;</pre>
+</div>
+       </div>
+
+      </div>
+
+    <p class="para">
+    拡張子 .phps のファイルを php ソースフィルタに処理させて
+    構文ハイライトつきのソースコードとして表示させるには、このようにします。
+    </p>
+
+      <div class="example" id="example-22">
+        <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">&lt;FilesMatch &quot;\.phps$&quot;&gt;
+    SetHandler application/x-httpd-php-source
+&lt;/FilesMatch&gt;</pre>
+</div>
+       </div>
+
+      </div>
+
+    <p class="para">
+    mod_rewrite を使うと、.phps ファイルに名前を変えたりコピーしたりしなくても
+    任意の .php ファイルを構文ハイライトつきのソースコードとして表示させることができます。
+   </p>
+
+      <div class="example" id="example-23">
+        <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">RewriteEngine On
+RewriteRule (.*\.php)s$ $1 [H=application/x-httpd-php-source]</pre>
+</div>
+       </div>
+
+      </div>
+
+    <p class="para">
+    php ソースフィルタは、実運用環境では無効にしておかなければなりません。
+    有効にしてしまうと、ソースコードに埋め込まれた機密情報や重要情報が漏れてしまう危険があります。
+    </p>
+
+    </li>
+
+    <li class="listitem">
+   <p class="para">
+    Apache サーバを、通常の手順通り、起動させます。
+   </p>
+  
+   <div class="example" id="example-24">
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+/usr/local/apache2/bin/apachectl start
+</pre></div>
+       </div>
+      </div>
+
+          <p class="para">OR</p>
+
+   <div class="example" id="example-25">
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+service httpd restart
+</pre></div>
+       </div>
+      </div>
+
+   </li>
+     </ol>
+
+    <p class="para">
+    上記の手順で、Apache2 ウェブサーバ上で
+    <i>SAPI</i> モジュールとして PHP を動作させることができます。もちろん、Apacheと<i>
+    PHP</i> の双方とも、もっと多くの configure オプションを指定することが出来ます。
+    詳しい情報を得るには、ソースツリーディレクトリで <strong class="command">./configure
+    --help</strong> を実行してください。
+ </p>
+    <p class="para">
+     マルチスレッド版の Apache をビルドするには、Apache のビルド時に標準の
+     <var class="filename">prefork</var> MPM ではなく <var class="filename">worker</var> MPM を選択します。
+     そのためには、先ほどの手順 3 のところで ./configure の引数に次のオプションを追加します。
+    </p>
+    <div class="example" id="example-26">
+    <div class="example-contents screen"><br />
+     --with-mpm=worker<br />
+    </div>
+    </div>
+    <p class="para">
+     そうすることで何がどのようになるのかをきちんと認識したうえで、これを行わなければなりません。
+     詳細については Apacheドキュメントの
+     <a href="http://httpd.apache.org/docs/current/mpm.html" class="link external">&raquo; マルチプロセッシングモジュール (MPM)</a>
+     を参照してください。
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      <a href="faq.installation.html#faq.installation.apache.multiviews" class="link">Apache MultiViews 
+      FAQ</a> では、PHP でマルチビューを使う方法について解説しています。
+     </p>
+    </p></blockquote>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      マルチスレッド版の Apache をビルドするには、ターゲットシステムがスレッドに対応していなければなりません。
+      その場合は、PHP についても実験的な Zend Thread Safety (ZTS) でビルドしなければなりません。
+      この構成では使用できない拡張モジュールもあります。推奨される方法は、Apache をデフォルトの
+      <var class="filename">prefork</var> MPM モジュールでビルドすることです。
+     </p>
+    </p></blockquote>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.unix.apache.html">Apache 1.3.x (Unix システム用)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.unix.lighttpd-14.html">Lighttpd 1.4 (Unix システム用)</a></div>
+ <div class="up"><a href="install.unix.html">Unix システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

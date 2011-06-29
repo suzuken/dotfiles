@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ユーザレベルのエラー/警告/通知メッセージを生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-exception-handler.html">set_exception_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.user-error.html">user_error</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.trigger-error" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">trigger_error</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PHP 5)</p><p class="refpurpose"><span class="refname">trigger_error</span> &mdash; <span class="dc-title">ユーザレベルのエラー/警告/通知メッセージを生成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.trigger-error-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>trigger_error</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$error_msg</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$error_type</tt><span class="initializer"> = E_USER_NOTICE</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ユーザエラーを発生するために使用され、
+   組み込みのエラーハンドラまたは新しいエラーハンドラ
+   (<span class="function"><a href="function.set-error-handler.html" class="function">set_error_handler()</a></span>)
+   として設定済みのユーザ定義関数と組み合わせて使用されます。
+  </p>
+  <p class="para">
+   この関数は、実行時の例外に特定の応答を生成する必要がある場合に便利です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.trigger-error-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_msg</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このエラーに割り当てられたメッセージ。長さは最大 1024 文字までです。
+       1024 文字を超える部分は切り捨てられます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このエラーに割り当てられたエラー型。E_USER 関連の定数のみが指定可能で、
+       デフォルトは <b><tt>E_USER_NOTICE</tt></b> です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.trigger-error-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は、間違った <i><tt class="parameter">error_type</tt></i> が指定された場合に
+   <b><tt>FALSE</tt></b> を、それ以外の場合に <b><tt>TRUE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.trigger-error-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-411">
+    <p><b>例1 <span class="function"><b>trigger_error()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     より拡張した例については <span class="function"><a href="function.set-error-handler.html" class="function">set_error_handler()</a></span>
+     を参照ください。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$divisor&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"ゼロで割ることはできません"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.trigger-error-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+     <i><tt class="parameter">error_msg</tt></i> の HTML エンティティはエスケープされません。
+     エラーをブラウザに表示するのなら、メッセージに対して
+     <span class="function"><a href="function.htmlentities.html" class="function">htmlentities()</a></span> を使ってください。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.trigger-error-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.error-reporting.html" class="function" rel="rdfs-seeAlso">error_reporting()</a> - 出力する PHP エラーの種類を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.set-error-handler.html" class="function" rel="rdfs-seeAlso">set_error_handler()</a> - ユーザ定義のエラーハンドラ関数を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.restore-error-handler.html" class="function" rel="rdfs-seeAlso">restore_error_handler()</a> - 以前のエラーハンドラ関数を回復する</span></li>
+    <li class="member"><a href="errorfunc.constants.html" class="link">エラーレベル定数</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-exception-handler.html">set_exception_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.user-error.html">user_error</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

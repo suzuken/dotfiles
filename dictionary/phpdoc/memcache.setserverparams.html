@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>サーバのパラメータおよび状態を、実行時に変更する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.setcompressthreshold.html">Memcache::setCompressThreshold</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.memcache.html">Memcache 関数</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcache.setserverparams" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcache::setServerParams</h1>
+  <p class="verinfo">(PECL memcache &gt;= 2.1.0)</p><p class="refpurpose"><span class="refname">Memcache::setServerParams</span> &mdash; <span class="dc-title">サーバのパラメータおよび状態を、実行時に変更する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-memcache.setserverparams-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>Memcache::setServerParams</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 11211</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeout</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$retry_interval</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$status</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$failure_callback</tt></span>
+  ]]]]] )</div>
+
+  
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcache::setServerParams()</b></span> は、
+   サーバのパラメータを実行時に変更します。
+   <span class="function"><b>memcache_set_server_params()</b></span> 関数を使用することも可能です。
+  </p>
+  
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、Memcache バージョン 2.1.0 で追加されました。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcache.setserverparams-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるホストを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるポートを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デーモンへの接続の際に使用する値 (秒単位) です。
+       デフォルト値を 1 秒でも変更する前には十分注意してください。
+       接続が遅くなってしまうと、 キャッシュ処理のメリットが
+       なくなってしまいます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">retry_interval</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サーバとの接続が失敗した際に再試行を行う頻度を設定します。
+       デフォルト値は 15 秒です。このパラメータを -1 にすると、
+       自動的な再試行を行いません。
+       <span class="function"><a href="function.dl.html" class="function">dl()</a></span> を使用してこの拡張モジュールが動的に
+       読み込まれている場合は、このパラメータおよび
+       <i><tt class="parameter">persistent</tt></i> は何の効果も及ぼしません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">status</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サーバがオンライン状態であるかどうかを制御します。このパラメータを
+       <b><tt>FALSE</tt></b> にし、<i><tt class="parameter">retry_interval</tt></i> を -1
+       と設定すると、失敗したサーバもコネクションプールに残します。
+       これにより、キー配布アルゴリズムに影響を与えないようにします。
+       このサーバへのリクエストは、フェイルオーバーされるか失敗します。
+       どちらになるかは <i><tt class="parameter">memcache.allow_failover</tt></i>
+       の設定によって決まります。デフォルトは <b><tt>TRUE</tt></b> で、
+       サーバがオンライン状態であることを意味します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">failure_callback</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エラーが発生した際に実行されるコールバック関数を指定できるようにします。
+       コールバック関数は、フェイルオーバー処理の前に実行されます。
+       この関数は、ふたつの引数 (ホスト名、失敗したサーバのポート)
+       を受け取ります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcache.setserverparams-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcache.setserverparams-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3575">
+    <p><b>例1 <span class="function"><b>Memcache::setServerParams()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">_callback_memcache_failure</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$port</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"memcache&nbsp;'</span><span style="color: #0000BB">$host</span><span style="color: #DD0000">:</span><span style="color: #0000BB">$port</span><span style="color: #DD0000">'&nbsp;failed"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;オブジェクト指向の&nbsp;API&nbsp;*/<br /><br /></span><span style="color: #0000BB">$memcache&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;サーバをオフラインモードで追加します<br /></span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;サーバをオンラインに変更します<br /></span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setServerParams</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">15</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'_callback_memcache_failure'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;手続き型の&nbsp;API&nbsp;*/<br /><br /></span><span style="color: #0000BB">$memcache_obj&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">memcache_set_server_params</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">15</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'_callback_memcache_failure'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcache.setserverparams-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="memcache.addserver.html" class="function" rel="rdfs-seeAlso">Memcache::addServer()</a> - コネクションプールに memcached サーバを追加する</span></li>
+    <li class="member"><span class="function"><a href="memcache.getserverstatus.html" class="function" rel="rdfs-seeAlso">Memcache::getServerStatus()</a> - サーバの状態を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.setcompressthreshold.html">Memcache::setCompressThreshold</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.memcache.html">Memcache 関数</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>proc_open で開かれたプロセスを閉じ、
+  そのプロセスの終了コードを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.passthru.html">passthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-get-status.html">proc_get_status</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.proc-close" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">proc_close</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">proc_close</span> &mdash; <span class="dc-title"><span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> で開かれたプロセスを閉じ、
+  そのプロセスの終了コードを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.proc-close-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>proc_close</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$process</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>proc_close()</b></span> は <span class="function"><a href="function.pclose.html" class="function">pclose()</a></span>
+   と似ていますが、<span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span>
+   で開かれたプロセスに対してのみ機能するという点で異なります。
+   <span class="function"><b>proc_close()</b></span> は、プロセスが終了するまで待った後で、
+   終了コードを返します。もし、そのプロセスに対してパイプが開かれていた場合は、
+   デッドロックを避けるため、<span class="function"><a href="function.fclose.html" class="function">fclose()</a></span> 関数で、
+   この関数を呼び出す前にそれらを閉じておかなくてはなりません -
+   パイプが開いている間、子プロセスは終了できないからです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.proc-close-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">process</tt></i></span>
+     <dd>
+
+      <p class="para">
+       閉じられる <span class="function"><a href="function.proc-open.html" class="function">proc_open()</a></span> <span class="type"><span class="type リソース">リソース</span></span>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.proc-close-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   実行していたプロセスの終了状態を返します。
+   エラーが発生した場合は <i>-1</i> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.proc-close-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>Unix のみ</b><br />
+   <p class="para">
+    <span class="function"><b>proc_close()</b></span> の内部的な実装は、
+    <i>waitpid(3)</i> システムコールを使っています。
+    実際の終了ステータスを知るには、<span class="function"><a href="function.pcntl-wexitstatus.html" class="function">pcntl_wexitstatus()</a></span>
+    関数を使わなければなりません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.passthru.html">passthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-get-status.html">proc_get_status</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

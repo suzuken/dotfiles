@@ -1,0 +1,394 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mbstring.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mbstring.resources.html">リソース型</a></div>
+ <div class="up"><a href="mbstring.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mbstring.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+ <table class="doctable table">
+  <caption><b>mbstring 設定オプション</b></caption>
+  
+   <thead valign="middle">
+    <tr valign="middle">
+     <th>名前</th>
+     <th>デフォルト</th>
+     <th>変更可能な範囲</th>
+     <th>変更履歴</th>
+    </tr>
+
+   </thead>
+
+   <tbody valign="middle" class="tbody">
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.language" class="link">mbstring.language</a></td>
+     <td align="left">&quot;neutral&quot;</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.3.0 から利用可能です。PHP 5.2.6以前では PHP_INI_PERDIR でした。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.detect-order" class="link">mbstring.detect_order</a></td>
+     <td align="left">NULL</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.0.6 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.http-input" class="link">mbstring.http_input</a></td>
+     <td align="left">&quot;pass&quot;</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.0.6 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.http-output" class="link">mbstring.http_output</a></td>
+     <td align="left">&quot;pass&quot;</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.0.6 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.internal-encoding" class="link">mbstring.internal_encoding</a></td>
+     <td align="left">NULL</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.0.6 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">mbstring.script_encoding</td>
+     <td align="left">NULL</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.3.0 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.substitute-character" class="link">mbstring.substitute_character</a></td>
+     <td align="left">NULL</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 4.0.6 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.func-overload" class="link">mbstring.func_overload</a></td>
+     <td align="left">&quot;0&quot;</td>
+     <td align="left">PHP_INI_SYSTEM</td>
+     <td align="left">PHP &lt;= 4.2.3 では PHP_INI_SYSTEM。
+     PHP 4.3 から  PHP 5.2.6 では PHP_INI_SYSTEM | PHP_INI_PERDIR。
+     PHP 4.2.0 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.encoding-translation" class="link">mbstring.encoding_translation</a></td>
+     <td align="left">&quot;0&quot;</td>
+     <td align="left">PHP_INI_PERDIR</td>
+     <td align="left">PHP 4.3.0 から利用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+      <td align="left"><a href="mbstring.configuration.html#ini.mbstring.strict-detection" class="link">mbstring.strict_detection</a></td>
+     <td align="left">&quot;0&quot;</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP 5.1.2 から利用可能です。</td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+  PHP_INI_* モードの詳細および定義については
+<a href="configuration.changes.modes.html" class="xref">どこで設定を行うのか</a> を参照してください。
+ </p>
+
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+
+ <p class="para">
+  <dl>
+
+   <dt id="ini.mbstring.language">
+    <span class="term">
+     <i><tt class="parameter">mbstring.language</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      mbstring で使用される言語設定(NLS)のデフォルト値。
+      この設定は <i>mbstring.internal_encoding</i> を定義するため、
+      <var class="filename">php.ini</var> の中で <i>mbstring.internal_encoding</i> は、
+      <i>mbstring.language</i> の後に置く必要があることに注意してください。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.encoding-translation">
+    <span class="term">
+     <i><tt class="parameter">mbstring.encoding_translation</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      入力される HTTP クエリに関して、
+      文字エンコーディング検出および内部文字エンコーディングへの変換を行う
+      透過的な文字エンコーディングフィルタを有効にします。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.internal-encoding">
+    <span class="term">
+     <i><tt class="parameter">mbstring.internal_encoding</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      内部文字エンコーディングのデフォルト値を定義します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.http-input">
+    <span class="term">
+     <i><tt class="parameter">mbstring.http_input</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      HTTP 入力文字エンコーディングのデフォルト値を定義します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.http-output">
+    <span class="term">
+     <i><tt class="parameter">mbstring.http_output</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      HTTP 出力文字エンコーディングのデフォルト値を定義します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.detect-order">
+    <span class="term">
+     <i><tt class="parameter">mbstring.detect_order</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      文字コード検出のデフォルト値を定義します。
+      <span class="function"><a href="function.mb-detect-order.html" class="function">mb_detect_order()</a></span>も参照ください。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.substitute-character">
+    <span class="term">
+     <i><tt class="parameter">mbstring.substitute_character</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      無効な文字を代替する文字を定義します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.func-overload">
+    <span class="term">
+     <i><tt class="parameter">mbstring.func_overload</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      シングルバイト対応の関数を mbstring 関数の対応する関数でオーバーロード
+      (置換)します。詳細は、
+      <a href="mbstring.overload.html" class="link">関数のオーバーロード</a>
+      を参照してください。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.mbstring.strict-detection">
+    <span class="term">
+     <i><tt class="parameter">mbstring.strict_detection</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      厳密なエンコーディング検出を行います。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+
+ <p class="para">
+  <a href="http://www.w3.org/TR/REC-html40/interact/forms.html#adef-accept-charset" class="link external">&raquo; HTML 4.01 の仕様</a>
+  によると、Web ブラウザは、
+  フォームのデータを投稿する際にページで使用される文字エンコーディングと
+  異なるエンコーディングを使用することができます。
+  ブラウザで使用される文字エンコーディングを検出するには、
+  <span class="function"><a href="function.mb-http-input.html" class="function">mb_http_input()</a></span>
+  を参照ください。
+ </p>
+ <p class="para">
+  一般的に使用されるブラウザでは、
+  指定したHTML文書の文字エンコーディングをかなり正確に推定することができますが、
+  <span class="function"><a href="function.header.html" class="function">header()</a></span> または設定パラメータ
+  <a href="ini.core.html#ini.sect.data-handling" class="link">default_charset</a> により、
+  <i>Content-Type</i> HTTP ヘッダで <i>charset</i>
+  を設定する方がより良いでしょう。
+ </p>
+ <p class="para">
+  <div class="example" id="example-2176">
+  <p><b>例1 <var class="filename">php.ini</var> 設定の例</b></p>
+   <div class="example-contents">
+<div class="cdata"><pre>
+; デフォルトの言語を設定
+mbstring.language        = neutral; デフォルト言語を中立(UTF-8)に設定 (デフォルト)
+mbstring.language        = English; デフォルト言語を英語に設定
+mbstring.language        = Japanese; デフォルト言語を日本語に設定
+
+;; デフォルトの内部エンコーディングを設定
+;; 注意: PHPで動作する文字エンコーディングを使用すること
+mbstring.internal_encoding    = UTF-8  ; 内部エンコーディングを UTF-8 に設定
+
+;; HTTP入力エンコーディング変換を有効にする
+mbstring.encoding_translation = On
+
+;; デフォルトのHTTP入力文字エンコーディングを設定
+;; 注意: スクリプトではhttp_inputの設定は変更できません。
+mbstring.http_input           = pass    ; 変換しない。
+mbstring.http_input           = auto    ; HTTP 入力を auto に設定
+                                ; &quot;auto&quot; は mbstring.language の設定を使って展開されます
+mbstring.http_input           = SJIS    ; HTTP入力をSJISに設定
+mbstring.http_input           = UTF-8,SJIS,EUC-JP ; 順番を指定
+
+;; デフォルトのHTTP出力文字エンコーディングを設定
+mbstring.http_output          = pass    ; 変換しない
+mbstring.http_output          = UTF-8   ; HTTP出力エンコーディングを
+                                        ;  UTF-8 に指定
+
+;; デフォルトの文字エンコーディング検出順序を設定
+mbstring.detect_order         = auto    ; デフォルトの順番を auto に設定
+mbstring.detect_order         = ASCII,JIS,UTF-8,SJIS,EUC-JP ; 順番を指定
+
+;; 代替文字のデフォルト値を設定
+mbstring.substitute_character = 12307   ; Unicode 値を指定
+mbstring.substitute_character = none    ; 文字を出力しない
+mbstring.substitute_character = long    ; long の例: U+3000,JIS+7E7E
+</pre></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <div class="example" id="example-2177">
+   <p><b>例2 <i>EUC-JP</i> ユーザ用の <var class="filename">php.ini</var> の設定</b></p>
+   <div class="example-contents">
+<div class="cdata"><pre>
+;; 出力バッファリングを無効にする
+output_buffering      = Off
+
+;; HTTP charsetヘッダを設定
+default_charset       = EUC-JP    
+
+;; デフォルトの言語を日本語にする
+mbstring.language = Japanese
+
+;; HTTP 入力変換を有効にする
+mbstring.encoding_translation = On
+
+;; HTTP 入力エンコーディング変換を auto に設定
+mbstring.http_input   = auto 
+
+;; HTTP 出力を EUC-JP に設定
+mbstring.http_output  = EUC-JP    
+
+;; 内部エンコーディングを EUC-JP に設定
+mbstring.internal_encoding = EUC-JP    
+
+;; 無効な文字を出力しない
+mbstring.substitute_character = none
+</pre></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <div class="example" id="example-2178">
+   <p><b>例3 <i>SJIS</i> ユーザ用の <var class="filename">php.ini</var>の 設定</b></p>
+   <div class="example-contents">
+<div class="cdata"><pre>
+;; 出力のバッファリングを有効に
+output_buffering     = On
+
+;; 出力の変換を有効にするために mb_output_handler を設定
+output_handler       = mb_output_handler
+
+;; HTTPヘッダ charset を設定
+default_charset      = Shift_JIS
+
+;; デフォルトの言語を日本語に設定
+mbstring.language = Japanese
+
+;; HTTP 入力変換を有効にする
+mbstring.encoding_translation = On
+
+;; HTTP 入力エンコーディング変換を auto に設定
+mbstring.http_input  = auto 
+
+;; SJIS に変換
+mbstring.http_output = SJIS    
+
+;; 内部エンコーディングを EUC-JP に設定
+mbstring.internal_encoding = EUC-JP    
+
+;; 無効な文字を出力しない
+mbstring.substitute_character = none
+
+</pre></div>
+   </div>
+
+  </div>
+ </p>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mbstring.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mbstring.resources.html">リソース型</a></div>
+ <div class="up"><a href="mbstring.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したデータベースに対してクエリを実行し、結果ハンドル
+  を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-prev.html">sqlite_prev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-rewind.html">sqlite_rewind</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sqlite-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sqlite_query</h1>
+  <p class="verinfo">(PHP 5, PECL sqlite &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">sqlite_query</span> &mdash; <span class="dc-title">指定したデータベースに対してクエリを実行し、結果ハンドル
+  を返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.sqlite-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>sqlite_query</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dbhandle</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$error_msg</tt></span>
+  ]] )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>sqlite_query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   , <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dbhandle</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$error_msg</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">オブジェクト指向言語型スタイル (メソッド):</p>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">SQLiteResult</span> <span class="methodname"><b>SQLiteDatabase::query</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+    [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$error_msg</tt></span>
+   ]] )</div>
+
+  </div>
+  <p class="para">
+   指定したデータベースにより <i><tt class="parameter">query</tt></i> で指定した
+   SQL ステートメントを実行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sqlite-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dbhandle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite データベースリソース。手続きに従って、
+       <span class="function"><a href="function.sqlite-open.html" class="function">sqlite_open()</a></span> から返されます。
+       このパラメータは、
+       オブジェクト指向言語型メソッドを使用する場合は不要です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行するクエリ
+      </p>
+      <p class="para">
+       クエリ内のデータは <a href="function.sqlite-escape-string.html" class="link">適切にエスケープ</a>
+       する必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_type</tt></i></span>
+     <dd>
+
+      <p class="para">オプションの <i><tt class="parameter">result_type</tt></i>
+パラメータには定数を指定でき、返される配列の添字を定義します。
+<b><tt>SQLITE_ASSOC</tt></b> を用いると、連想配列の添字(名前フィールド)のみが
+返されます。一方、<b><tt>SQLITE_NUM</tt></b> は、
+数値の添字(フィールド番号)のみを返します。<b><tt>SQLITE_BOTH</tt></b> は、
+連想配列の添字と数値の添字の両方を返します。
+<b><tt>SQLITE_BOTH</tt></b> がこの関数のデフォルトです。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_msg</tt></i></span>
+     <dd>
+
+      <p class="para">
+       もしエラーが発生した場合、ここに保存されます。SQL 構文のエラーは
+       <span class="function"><a href="function.sqlite-last-error.html" class="function">sqlite_last_error()</a></span> 関数で取得することが
+       できないため、このパラメータが特に重要となります。
+      </p>
+     </dd>
+
+    </dt>
+
+
+   </dl>
+
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+(MySQL のような)他のデータベースエクステンションとの互換性のため、
+2 種類の構文がサポートされています。
+推奨されるのは最初の構文で、<i><tt class="parameter">dbhandle</tt></i> パラメータを
+関数の最初のパラメータとするものです。</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sqlite-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は結果ハンドルを返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   レコードを返すクエリの場合、結果ハンドルは
+   <span class="function"><a href="function.sqlite-fetch-array.html" class="function">sqlite_fetch_array()</a></span> や
+   <span class="function"><a href="function.sqlite-seek.html" class="function">sqlite_seek()</a></span> のような関数で使用することができます。
+  </p>
+  <p class="para">
+   クエリの型によらず、この関数はクエリが失敗した場合に<b><tt>FALSE</tt></b> を返し
+   ます。
+  </p>
+  <p class="para">
+   <span class="function"><b>sqlite_query()</b></span> は、バッファリングされ、シーク可
+   能な結果ハンドルを返します。これは、レコードにランダムにアクセスす
+   る必要がある小さなクエリの場合に有用です。バッファリングされた結果
+   ハンドルは、結果全体を保持するためのメモリを確保し、結果が取得され
+   るまでは値を返しません。
+   データに連続的にアクセスしたい場合、かわりにより高性能な
+   <span class="function"><a href="function.sqlite-unbuffered-query.html" class="function">sqlite_unbuffered_query()</a></span> を使用することが
+   推奨されます。
+  </p>
+ </div>
+
+
+<div class="refsect1 changelog" id="refsect1-function.sqlite-query-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        <i><tt class="parameter">error_msg</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.sqlite-query-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="simpara">
+    SQLiteは、セミコロンで区切られた複数のクエリを実行します。
+    これにより、ファイルからロードするかスクリプトに埋め込んだ SQL
+    をバッチ実行することができます。
+    しかしながら、これは関数の結果が使用されない場合のみ動作します。
+    使用されない場合、最初の SQL ステートメントのみ実行されます。
+    関数 <span class="function"><a href="function.sqlite-exec.html" class="function">sqlite_exec()</a></span> は常に複数の SQL
+    ステートメントを実行します。
+   </p>
+   <p class="simpara">
+    複数のクエリを実行する際、この関数の返り値は、エラーの場合に
+    <b><tt>FALSE</tt></b>となります。しかし、それ以外の場合は不定となります。
+    (成功した場合に<b><tt>TRUE</tt></b>となるか、結果ハンドルを返す可能性があります)
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sqlite-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sqlite-unbuffered-query.html" class="function" rel="rdfs-seeAlso">sqlite_unbuffered_query()</a> - 事前取得していないクエリを実行し、全てのデータをバッファリングする</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-array-query.html" class="function" rel="rdfs-seeAlso">sqlite_array_query()</a> - 指定したデータベースに対してクエリを実行し、配列を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-prev.html">sqlite_prev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-rewind.html">sqlite_rewind</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

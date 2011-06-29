@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>直近の行のオブジェクト ID を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-last-notice.html">pg_last_notice</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-lo-close.html">pg_lo_close</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-last-oid" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_last_oid</h1> 
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_last_oid</span> &mdash; <span class="dc-title">直近の行のオブジェクト ID を返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-last-oid-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>pg_last_oid</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_last_oid()</b></span> は、挿入された行に割り当てられた
+   <var class="varname"><var class="varname">OID</var></var> を取得します。
+  </p>
+  <p class="para">
+   OID フィールドは PostgreSQL 7.2 からはオプションとなり、
+   PostgreSQL 8.1 ではデフォルトで存在しません。OID フィールドが
+   テーブルに存在しない場合、プログラマは
+   <span class="function"><a href="function.pg-result-status.html" class="function">pg_result_status()</a></span> を使用して挿入が成功したことを
+   確かめる必要があります。
+  </p>
+  <p class="para">
+   挿入された行の <i>SERIAL</i> フィールドの値を取得するには、
+   PostgreSQL の <i>CURRVAL</i> 関数を使用してシーケンス内で
+   直近に要求された値を取得する必要があります。シーケンス名がわからない
+   場合は、PostgreSQL 8.0 の関数 <i>pg_get_serial_sequence</i>
+   が必要になります。
+  </p>
+  <p class="para">
+   PostgreSQL 8.1 には <i>LASTVAL</i> 関数が存在し、セッション内で
+   直近に使用されたシーケンスの値を返します。これを用いれば、シーケンスや
+   テーブルやカラムの名前を指定する必要がなくなります。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、以前は <span class="function"><b>pg_getlastoid()</b></span> と呼ばれていました。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-last-oid-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>, <span class="function"><a href="function.pg-query-params.html" class="function">pg_query_params()</a></span>
+       あるいは <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span> から返される PostgreSQL の
+       クエリ結果リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-last-oid-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定された <i><tt class="parameter">connection</tt></i> で、直近に挿入された行に
+   割り当てられた OID を文字列で返します。エラー時や有効な OID のない場合に
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pg-last-oid-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1730">
+    <p><b>例1 <span class="function"><b>pg_last_oid()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$pgsql_conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=mark&nbsp;host=localhost"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;test&nbsp;(a&nbsp;INTEGER)&nbsp;WITH&nbsp;OIDS"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;test&nbsp;VALUES&nbsp;(1)"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$oid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_last_oid</span><span style="color: #007700">(</span><span style="color: #0000BB">$res2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pg-last-oid-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-query.html" class="function" rel="rdfs-seeAlso">pg_query()</a> - クエリを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-result-status.html" class="function" rel="rdfs-seeAlso">pg_result_status()</a> - クエリ結果のステータスを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-last-notice.html">pg_last_notice</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-lo-close.html">pg_lo_close</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

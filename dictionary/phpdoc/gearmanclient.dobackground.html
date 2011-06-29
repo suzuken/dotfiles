@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Run a task in the background</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="gearmanclient.do.html">GearmanClient::do</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="gearmanclient.dohigh.html">GearmanClient::doHigh</a></div>
+ <div class="up"><a href="class.gearmanclient.html">GearmanClient</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="gearmanclient.dobackground" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">GearmanClient::doBackground</h1>
+  <p class="verinfo">(PECL gearman &gt;= 0.5.0)</p><p class="refpurpose"><span class="refname">GearmanClient::doBackground</span> &mdash; <span class="dc-title">Run a task in the background</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-gearmanclient.dobackground-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><b>GearmanClient::doBackground</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$function_name</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$workload</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$unique</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   Runs a task in the background, returning a job handle which can be used
+   to get the status of the running task.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-gearmanclient.dobackground-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">function_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ワーカーが実行するために登録した関数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">workload</tt></i></span>
+     <dd>
+
+      <p class="para">
+       シリアライズしたデータ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">unique</tt></i></span>
+     <dd>
+
+      <p class="para">
+       タスクを特定するために用いる一意な ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-gearmanclient.dobackground-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   The job handle for the submitted task.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-gearmanclient.dobackground-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3619">
+    <p><b>例1 Submit and monitor a background job</b></p>
+    <div class="example-contents"><p>
+     The worker in this example has an artificial delay introduced to mimic
+     a long running job.  The client script periodically checks the status
+     of the running job.
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;create&nbsp;our&nbsp;object&nbsp;*/<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">GearmanClient</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;add&nbsp;the&nbsp;default&nbsp;server&nbsp;*/<br /></span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;run&nbsp;reverse&nbsp;client&nbsp;*/<br /></span><span style="color: #0000BB">$job_handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">doBackground</span><span style="color: #007700">(</span><span style="color: #DD0000">"reverse"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"this&nbsp;is&nbsp;a&nbsp;test"</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">returnCode</span><span style="color: #007700">()&nbsp;!=&nbsp;</span><span style="color: #0000BB">GEARMAN_SUCCESS</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"bad&nbsp;return&nbsp;code\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;exit;<br />}<br /><br /></span><span style="color: #0000BB">$done&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />do<br />{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stat&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$gmclient</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">jobStatus</span><span style="color: #007700">(</span><span style="color: #0000BB">$job_handle</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">])&nbsp;</span><span style="color: #FF8000">//&nbsp;the&nbsp;job&nbsp;is&nbsp;known&nbsp;so&nbsp;it&nbsp;is&nbsp;not&nbsp;done<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$done&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Running:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;?&nbsp;</span><span style="color: #DD0000">"true"&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">"false"</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">",&nbsp;numerator:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">",&nbsp;denomintor:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$stat</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br />while(!</span><span style="color: #0000BB">$done</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"done!\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Running: true, numerator: 3, denomintor: 14
+Running: true, numerator: 6, denomintor: 14
+Running: true, numerator: 9, denomintor: 14
+Running: true, numerator: 12, denomintor: 14
+Running: false, numerator: 0, denomintor: 0
+done!
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-gearmanclient.dobackground-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="gearmanclient.do.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::do()</a> - Run a single task and return a result</span></li>
+    <li class="member"> <span class="methodname"><a href="gearmanclient.dohigh.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doHigh()</a> - Run a single high priority task</span></li>
+    <li class="member"> <span class="methodname"><a href="gearmanclient.dolow.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doLow()</a> - Run a single low priority task</span></li>
+    <li class="member"> <span class="methodname"><a href="gearmanclient.dohighbackground.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doHighBackground()</a> - Run a high priority task in the background</span></li>
+    <li class="member"> <span class="methodname"><a href="gearmanclient.dolowbackground.html" class="methodname" rel="rdfs-seeAlso">GearmanClient::doLowBackground()</a> - Run a low priority task in the background</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="gearmanclient.do.html">GearmanClient::do</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="gearmanclient.dohigh.html">GearmanClient::doHigh</a></div>
+ <div class="up"><a href="class.gearmanclient.html">GearmanClient</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

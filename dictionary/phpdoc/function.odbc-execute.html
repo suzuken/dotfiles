@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プリペアドステートメントを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-exec.html">odbc_exec</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-fetch-array.html">odbc_fetch_array</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.odbc-execute" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">odbc_execute</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">odbc_execute</span> &mdash; <span class="dc-title">プリペアドステートメントを実行する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.odbc-execute-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>odbc_execute</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result_id</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$parameters_array</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.odbc-prepare.html" class="function">odbc_prepare()</a></span> で準備された命令を実行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.odbc-execute-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.odbc-prepare.html" class="function">odbc_prepare()</a></span> で取得した結果 ID リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parameters_array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プリペアドステートメントの中のプレースホルダが、
+       <i><tt class="parameter">parameter_array</tt></i> 内のパラメータで順に置き換えられます。
+       この関数をコールした際に、配列の要素は文字列に変換されます。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">parameter_array</tt></i> の中でシングルクォートで括られたデータがある場合、
+       それはファイル名と解釈されます。そのファイルの内容が、
+       該当するプレースホルダのデータとしてデータベースサーバに送信されます。
+      </p>
+      <span class="simpara">
+       シングルクォートで括られたデータを純粋に文字列として使用したい場合は、
+       空白などの別の文字を前後に付加する必要があります。
+       それにより、パラメータがファイル名とみなされることがなくなります
+       (もしこのオプションが不要なら、別の仕組み、たとえば
+       <span class="function"><a href="function.odbc-exec.html" class="function">odbc_exec()</a></span>
+       で直接クエリを実行するなどを使用する必要があります)。
+      </span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.odbc-execute-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.odbc-execute-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-899">
+    <p><b>例1 <span class="function"><b>odbc_execute()</b></span> および <span class="function"><a href="function.odbc-prepare.html" class="function">odbc_prepare()</a></span> の例</b></p>
+    <div class="example-contents"><p>
+     次のコードは、myproc の 3 つのパラメータがすべて IN
+     パラメータである場合にのみ <var class="varname"><var class="varname">$success</var></var>
+     が <b><tt>TRUE</tt></b> となります。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">odbc_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'CALL&nbsp;myproc(?,?,?)'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$success&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">odbc_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$c</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   INOUT や OUT パラメータを用いるストアドプロシージャをコールしたい場合は、
+   各データベース専用の拡張モジュール
+   (たとえば MS SQL Server なら <a href="ref.mssql.html" class="link">mssql</a>、
+   Oracle なら <a href="ref.mssql.html" class="link">oci8</a>)
+   を使うようにしましょう。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.odbc-execute-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        <i><tt class="parameter">parameters_array</tt></i> でのファイルの読み込み機能が
+        <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">セーフモード</a> や <a href="ini.core.html#ini.open-basedir" class="link">open-basedir</a>
+        の制限に対応するようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.1.1</td>
+       <td align="left">
+        <a href="features.remote-files.html" class="link">リモートファイル</a>
+        が <i><tt class="parameter">parameters_array</tt></i> でサポートされなくなりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.odbc-execute-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.odbc-prepare.html" class="function" rel="rdfs-seeAlso">odbc_prepare()</a> - 実行用に文を準備する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-exec.html">odbc_exec</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-fetch-array.html">odbc_fetch_array</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

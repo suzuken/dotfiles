@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>受ける可能性がある攻撃</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.cgi-bin.html">CGI バイナリとしてインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.cgi-bin.default.html">ケース 1: 配布制限がないファイルのみを配布</a></div>
+ <div class="up"><a href="security.cgi-bin.html">CGI バイナリとしてインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="security.cgi-bin.attacks" class="sect1">
+    <h2 class="title">受ける可能性がある攻撃</h2>
+
+    <p class="simpara">
+     PHP を <acronym title="Common Gateway Interface">CGI</acronym> バイナリとして使用するのは、PHP を
+     モジュールとして(Apache のような)サーバーソフトウエアに組み込み
+      たくない何らかの理由がある場合や安全な chroot と setuid 環境をス
+     クリプトに提供する他の <acronym title="Common Gateway Interface">CGI</acronym> ラッパーと組み合わせて PHP を使用する
+     場合の設定オプションです。セットアップ時には、通常、PHP 実行バイ
+     ナリを Web サーバーの cgi-bin ディレクトリにインストールします。
+     CERT 勧告 <a href="http://www.cert.org/advisories/CA-1996-11.html" class="link external">&raquo; CA-96.11</a>は、いかなるイ
+     ンタプリタを cgi-bin に置くことにも反対しています。
+     PHP バイナリをスタンドアロンのインタプリタとして使用することが
+     できる場合でも、PHP は、セットアップにより生じる可能性がある
+     次のような攻撃を防ぐように設計されています。
+    </p>
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <span class="simpara">
+       システムファイルへのアクセス: <var class="filename">http://my.host/cgi-bin/php?/etc/passwd</var>
+      </span>
+      <span class="simpara">
+       URL において疑問符 (?) の後のクエリー情報は、CGI インターフェー
+       スにより、インタプリタにコマンドライン引数として渡されます。通
+       常、インタプリタは、コマンドライン上の最初の引数に指定されたファ
+       イルを開き、実行します。
+      </span>
+      <span class="simpara">
+       CGI バイナリとして実行された場合、PHP は、コマンドライン引数の
+       解釈を拒否します。
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       サーバー上の Web ドキュメントへのアクセス: <var class="filename">http://my.host/cgi-bin/php/secret/doc.html</var>
+      </span>
+      <span class="simpara">
+       URL の PHP バイナリ名の後のパス情報の部分、つまり<var class="filename">/secret/doc.html</var> は、
+       <acronym title="Common Gateway Interface">CGI</acronym> プログラムによりオープンされて実行される
+       ファイルの名前を指定するために従来より使用されています。
+       <var class="filename">http://my.host/secret/script.php</var>
+       のようなドキュメントへの要求を PHP インタプリタにリダイレクト
+       するために、通常、何らかの Web サーバー設定用命令(Apache では Action)
+       が使用されます。この設定により、Web サーバーは、まずディレクトリ 
+       <var class="filename">/secret</var> へのアクセス権をチェックし、
+       リダイレクト要求 <var class="filename">http://my.host/cgi-bin/php/secret/script.php</var>
+       を生成します。残念なことに、リクエストが最初からこの形式で与え
+       られた場合、Web サーバーによるアクセスチェックは、
+       <var class="filename">/secret/script.php</var> ファイル
+       ではなく、<var class="filename">/cgi-bin/php</var> ファイル
+       に対して行われます。この手法により、<var class="filename">/cgi-bin/php</var> にアクセス可能なユーザーは、
+       Web サーバー上の全ての保護されたドキュメントにアクセスできてし
+       まいます。
+      </span>
+      <span class="simpara">
+       PHP では、サーバードキュメントツリーにアクセス制限付きのディレ
+       クトリがある場合、設定ディレクティブ <a href="ini.core.html#ini.cgi.force-redirect" class="link">cgi.force_redirect</a>、
+       <a href="ini.core.html#ini.doc-root" class="link">doc_root</a> および
+       <a href="ini.core.html#ini.user-dir" class="link">user_dir</a> をこの攻撃を防止す
+       るために使用することができます。  これらを組み合わせたいくつか
+       の手法について以下に詳細な説明を示します。
+      </span>
+     </li>
+    </ul>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.cgi-bin.html">CGI バイナリとしてインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.cgi-bin.default.html">ケース 1: 配布制限がないファイルのみを配布</a></div>
+ <div class="up"><a href="security.cgi-bin.html">CGI バイナリとしてインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

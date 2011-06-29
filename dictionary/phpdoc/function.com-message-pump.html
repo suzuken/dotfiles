@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>COM メッセージを処理し、timeoutms ミリ秒の間待つ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.com-load.html">com_load</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.com-print-typeinfo.html">com_print_typeinfo</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.com-message-pump" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">com_message_pump</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">com_message_pump</span> &mdash; <span class="dc-title">COM メッセージを処理し、timeoutms ミリ秒の間待つ</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.com-message-pump-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>com_message_pump</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeoutms</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、<i><tt class="parameter">timeoutms</tt></i> ミリ秒が経過するか
+   キューにメッセージが到着するまで待機します。
+  </p>
+  <p class="para">
+   この関数の目的は、別々の場所にある COM のコールを振り分け、同期の
+   問題をうまく処理することです。これにより、発生するイベントを
+   効率的にスクリプトで待ち受けられるようになり、バックグラウンドで
+   動作している他のコードやイベントも処理できるようになります。
+   COM オブジェクトのイベントを使用している間は、
+   <span class="function"><a href="function.com-event-sink.html" class="function">com_event_sink()</a></span> 関数の例で示したように
+   この関数をループ内で使用すべきです。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.com-message-pump-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeoutms</tt></i></span>
+     <dd>
+
+      <p class="para">
+       タイムアウト。ミリ秒単位で指定します。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">timeoutms</tt></i> の値を指定しなかった場合は
+       0 であるとみなされます。0 という値は、一切待機しないことを
+       意味します。処理待ち状態のメッセージがあればそれを処理し、
+       なければこの関数はすぐに <b><tt>FALSE</tt></b> を返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.com-message-pump-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   タイムアウトの前に
+   メッセージが到着した場合は、そのメッセージが処理されて
+   関数は <b><tt>TRUE</tt></b> を返します。メッセージを処理することなく
+   タイムアウトが発生した場合は、この関数は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.com-load.html">com_load</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.com-print-typeinfo.html">com_print_typeinfo</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

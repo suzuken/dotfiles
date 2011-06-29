@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>言明</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.back-references.html">後方参照</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.onlyonce.html">再試行無しのサブパターン</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.assertions" class="section">
+     <h2 class="title">言明</h2>
+     <p class="para">
+     言明 (assertion) とは、カレントのマッチング位置の直前・直後の文字に対する
+     テストであり、文字を消費 (consume)〔つまり文字自体にマッチ〕しません。
+     単純な言明コード \b, \B, \A, \Z, \z, ^ および $ については、
+     前述しました。より複雑な言明は、サブパターンを用いて記述します
+     〔言明サブパターン (assertion subpattern) と呼ばれる〕。
+     言明サブパターンには、2 種類あります。対象文字列において
+     カレントの位置の<em class="emphasis">先を読む</em>ものと、<em class="emphasis">後ろを読む</em>ものです。
+    </p>
+    <p class="para">
+     言明サブパターンは、カレントのマッチング位置を変更しないことを除き、
+     通常と同じようにマッチングが行われます。<em class="emphasis">先読み</em>言明 (lookahead assertion) は、
+     肯定の言明 (positive assertion) の場合 (?= で始まり、
+     否定の言明 (negative assertion) の場合 (?! で始まります。例えば、
+     
+      <pre class="literallayout">
+      \w+(?=;)
+      </pre>
+
+     は、セミコロンが後に続く単語にマッチしますが、
+     マッチ対象それ自体にはセミコロンは含まれません。また、
+
+      <pre class="literallayout">
+      foo(?!bar)
+      </pre>
+
+     は、&quot;bar&quot; が後ろに続かない &quot;foo&quot; にマッチします。
+     なお、一見、良く似たパターンですが
+
+      <pre class="literallayout">
+      (?!foo)bar
+      </pre>
+
+     は、&quot;foo&quot; 以外のものの後にある &quot;bar&quot; を見つけるものではないことに
+     注意してください。これは、どこにある &quot;bar&quot; とでもマッチしてしまいます。
+     続く 3 文字が &quot;bar&quot; である場合、 (?!foo) は常に真となってしまうからです。
+     このような探索を実現するためには、戻り読み言明 (lookbehind assertion) 
+     が必要です。
+    </p>
+    <p class="para">
+     <em class="emphasis">戻り読み</em>言明は、肯定の言明の場合 (?&lt;= で始まり、
+     否定の言明の場合 (?&lt;! で始まります。例えば、
+
+      <pre class="literallayout">
+      (?&lt;!foo)bar
+      </pre>
+
+     は、&quot;foo&quot; 以外の後にある &quot;bar&quot; の存在を見つけるものです。
+     戻り読み言明内のパターンは、それがマッチし得る文字列の長さが
+     固定でなければなりません〔繰り返しを指定できません〕。ただし、
+     選択肢を用いた場合、各選択肢は〔固定長でなければいけませんが〕
+     すべて同じ長さである必要はありません。つまり、
+
+      <pre class="literallayout">
+      (?&lt;=bullock|donkey)
+      </pre>
+
+     とはできますが、
+
+      <pre class="literallayout">
+      (?&lt;!dogs?|cats?)
+      </pre>
+
+     は、コンパイル時にエラーになります。
+     戻り読み言明の最上位においてのみ、異なる長さの文字列にマッチするような
+     選択肢が使用可能です。Perl 5.005 においては、すべての選択肢が
+     同じ長さの文字列にマッチする必要があります。つまり、この機能は 
+     PCRE の拡張機能です。
+
+      <pre class="literallayout">
+      (?&lt;=ab(c|de))
+      </pre>
+
+     という戻り読み言明は、最上位にひとつの選択肢しかなく、
+     その選択肢は異なる長さの文字列にマッチしうるので、不正です。
+     しかし、
+
+      <pre class="literallayout">
+      (?&lt;=abc|abde)
+      </pre>
+       
+     のように、最上位において選択肢を 2 つ用いるように
+     書き換えると使用可能です。
+    </p>
+    <p class="para">
+     後方言明の実装においては、選択肢ことに一時的に固定の幅だけ
+     カレントの位置を後退させ、マッチを試みます。カレントの位置の前に
+     十分な文字がない場合は、マッチは失敗とみなされます。
+     再試行無しのサブパターンと組み合わせた戻り読み言明は、
+     文字列の終端でのマッチングに特に有用です。
+     再試行無しのサブパターンについてのセクションの最後にて例を示します。
+    </p>
+    <p class="para">
+     （任意の種類の）複数の言明を連続して指定することも可能です。例えば、
+
+      <pre class="literallayout">
+      (?&lt;=\d{3})(?&lt;!999)foo
+      </pre>
+
+    は、&quot;999&quot; でない 3 桁の数字の後にある &quot;foo&quot; にマッチします。
+    それぞれの言明は、対象文字列の同じ場所に独立して適用されることに
+    注意して下さい。まず、前の 3 文字がすべて数字であることがチェックされ、
+    続いて、同じ 3 文字が &quot;999&quot; でないことが確認されます。このパターンは、
+    &quot;foo&quot; の前に 6 個の文字があり、その前半が数字で後半の 3 文字が &quot;999&quot; 
+    でないというパターンにマッチするものではありません。例えば、&quot;123abcfoo&quot; 
+    にはマッチしません。これを行うパターンは次のようになります。
+
+      <pre class="literallayout">
+      (?&lt;=\d{3}...)(?&lt;!999)foo
+      </pre>
+    </p>
+    <p class="para">
+     この時、最初の言明は、先行する 6 つの文字を探し、
+     最初の 3 文字が数字であることを確認します。続いて、2 番目の言明は、
+     先行する 3 文字が &quot;999&quot; でないことを確認します。
+    </p>
+    <p class="para">
+     言明は、自由に組み合わせてネスト可能です。例えば、
+
+      <pre class="literallayout">
+      (?&lt;=(?&lt;!foo)bar)baz
+      </pre>
+
+     は、&quot;foo&quot; 以外の後にある &quot;bar&quot; の後に有る &quot;bar&quot; があればマッチします。
+     一方、
+
+      <pre class="literallayout">
+      (?&lt;=\d{3}...(?&lt;!999))foo
+      </pre>
+
+     は、999 でない 3 桁の数字とさらに 3 文字の後に続く &quot;foo&quot; 
+     にマッチするパターンです。
+    </p>
+    <p class="para">
+     言明サブパターンは、キャプチャ用サブパターンではありません
+     〔値のキャプチャは行われません〕。繰り返しもできません。
+     同じことを複数回言明しても意味がないからです。
+     キャプチャ用サブパターンが言明の内部に含まれている場合、
+     言明の種類に関係なく、キャプチャ用サブパターンの番号付けにあたって
+     カウントされます。しかし、文字列のキャプチャは、肯定の言明に対してのみ
+     行われます。否定の言明の中で行っても無意味だからです。
+    </p>
+    <p class="para">
+     カッコ付サブパターンによる言明は、最大 200 まで用いることができます。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.back-references.html">後方参照</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.onlyonce.html">再試行無しのサブパターン</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

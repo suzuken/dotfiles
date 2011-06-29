@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>個人の単語リストをファイルに保存する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pspell-new.html">pspell_new</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pspell-store-replacement.html">pspell_store_replacement</a></div>
+ <div class="up"><a href="ref.pspell.html">Pspell 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pspell-save-wordlist" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pspell_save_wordlist</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5)</p><p class="refpurpose"><span class="refname">pspell_save_wordlist</span> &mdash; <span class="dc-title">個人の単語リストをファイルに保存する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.pspell-save-wordlist-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>pspell_save_wordlist</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$dictionary_link</tt></span>
+   )</div>
+
+  <p class="simpara">
+   <span class="function"><b>pspell_save_wordlist()</b></span> は、
+   現在のセッションから個人の単語リストを保存します。
+   ファイルの位置は
+   <span class="function"><a href="function.pspell-config-personal.html" class="function">pspell_config_personal()</a></span> および(オプションで)
+   <span class="function"><a href="function.pspell-config-repl.html" class="function">pspell_config_repl()</a></span> で指定されている必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pspell-save-wordlist-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dictionary_link</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.pspell-new-personal.html" class="function">pspell_new_personal()</a></span>
+       でオープンした辞書リンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pspell-save-wordlist-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pspell-save-wordlist-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2218">
+    <p><b>例1 <span class="function"><a href="function.pspell-add-to-personal.html" class="function">pspell_add_to_personal()</a></span></b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$pspell_config&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pspell_config_create</span><span style="color: #007700">(</span><span style="color: #DD0000">"en"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">pspell_config_personal</span><span style="color: #007700">(</span><span style="color: #0000BB">$pspell_config</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/tmp/dicts/newdict"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pspell_link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pspell_new_config</span><span style="color: #007700">(</span><span style="color: #0000BB">$pspell_config</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">pspell_add_to_personal</span><span style="color: #007700">(</span><span style="color: #0000BB">$pspell_link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Vlad"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">pspell_save_wordlist</span><span style="color: #007700">(</span><span style="color: #0000BB">$pspell_link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.pspell-save-wordlist-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、pspell .11.2 および aspell .32.5
+    以降がない限り動作しないことに注意してください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pspell-new.html">pspell_new</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pspell-store-replacement.html">pspell_store_replacement</a></div>
+ <div class="up"><a href="ref.pspell.html">Pspell 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

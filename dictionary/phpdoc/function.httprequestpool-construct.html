@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>HttpRequestPool のコンストラクタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.httprequestpool-attach.html">HttpRequestPool::attach</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.httprequestpool-destruct.html">HttpRequestPool::__destruct</a></div>
+ <div class="up"><a href="class.httprequestpool.html">HttpRequestPool クラス</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.httprequestpool-construct" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">HttpRequestPool::__construct</h1>
+  <p class="verinfo">(PECL pecl_http &gt;= 0.10.0)</p><p class="refpurpose"><span class="refname">HttpRequestPool::__construct</span> &mdash; <span class="dc-title">HttpRequestPool のコンストラクタ</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.httprequestpool-construct-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>HttpRequestPool::__construct</b></span>
+    ([ <span class="methodparam"><span class="type"><a href="class.httprequest.html" class="type HttpRequest">HttpRequest</a></span> <tt class="parameter">$request</tt></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   新しい HttpRequestPool オブジェクトのインスタンスを作成します。
+   HttpRequestPool は、複数の HttpRequest を平行して送信することができます。
+  </p>
+  <p class="para">
+   事実上無限にオプションのパラメータを指定することができます。
+   各パラメータは HttpRequest オブジェクトへの参照です。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.httprequestpool-construct-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">request</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アタッチする HttpRequest オブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.httprequestpool-construct-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   HttpRequestPoolException (HttpRequestException、HttpInvalidParamException)
+   をスローします。
+  </p>
+ </div>
+
+
+
+ 
+
+
+ <div class="refsect1 examples" id="refsect1-function.httprequestpool-construct-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3514">
+    <p><b>例1 <b class="classname">HttpRequestPool</b> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$pool&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">HttpRequestPool</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">HttpRequest</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.google.com/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">HttpRequest</span><span style="color: #007700">::</span><span style="color: #0000BB">METH_HEAD</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">HttpRequest</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.php.net/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">HttpRequest</span><span style="color: #007700">::</span><span style="color: #0000BB">METH_HEAD</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$pool</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">send</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach(</span><span style="color: #0000BB">$pool&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$request</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;is&nbsp;%s&nbsp;(%d)\n"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$request</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getUrl</span><span style="color: #007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$request</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResponseCode</span><span style="color: #007700">()&nbsp;?&nbsp;</span><span style="color: #DD0000">'alive'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'not&nbsp;alive'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$request</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResponseCode</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">HttpException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+
+ 
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.httprequestpool-attach.html">HttpRequestPool::attach</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.httprequestpool-destruct.html">HttpRequestPool::__destruct</a></div>
+ <div class="up"><a href="class.httprequestpool.html">HttpRequestPool クラス</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

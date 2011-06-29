@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した検索条件にマッチするメッセージを配列として返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-scanmailbox.html">imap_scanmailbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-set-quota.html">imap_set_quota</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imap-search" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imap_search</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imap_search</span> &mdash; <span class="dc-title">指定した検索条件にマッチするメッセージを配列として返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imap-search-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>imap_search</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$imap_stream</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$criteria</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = SE_FREE</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$charset</tt><span class="initializer"> = NIL</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、指定した <acronym title="Internet Message Access Protocol">IMAP</acronym> ストリームの現在オープンしているメールボックス
+   において検索を行います。
+  </p>
+  <p class="para">
+   例えば、Mom から送られた全ての未回答のメッセージにマッチさせるには、
+   &quot;UNANSWERED FROM mom&quot; を使用します。
+   検索は、大文字小文字が区別されずに行われます。
+   検索条件のリストは、UW C クライアントのソースコードからのものであり、
+   不完全または不正確である可能性があります
+   (<a href="http://www.faqs.org/rfcs/rfc2060" class="link external">&raquo; RFC2060</a>, section 6.4.4
+   も参照ください)。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imap-search-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+imap_stream</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imap-open.html" class="function">imap_open()</a></span>
+が返す IMAP ストリーム。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">criteria</tt></i></span>
+     <dd>
+
+      <p class="para">
+       空白で区切られた文字列で、以下のキーワードが使用可能です。
+       複数の単語からなるキーワード（例 <i>FROM &quot;joey smith&quot;</i>）
+       は全て引用符で括る必要があります。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          ALL - 他の検索条件にマッチする全メッセージを返す
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          ANSWERED - \\ANSWERED フラグが設定されているメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          BCC &quot;string&quot; - Bcc: フィールドに &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          BEFORE &quot;date&quot; - &quot;date&quot; より前の Date: を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          BODY &quot;string&quot; - メッセージ本体に &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          CC &quot;string&quot; - Cc: フィールドに &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          DELETED - 削除されたメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          FLAGGED - \\FLAGGED フラグ（重要または緊急を表すものとして
+          使用されることがあります）が設定されているメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          FROM &quot;string&quot; - From: フィールドに &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          KEYWORD &quot;string&quot; - キーワードとして &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          NEW - 新規メッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          OLD - 古いメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          ON &quot;date&quot; - Date: が &quot;date&quot; であるメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          RECENT - \\RECENT フラグが設定されているメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          SEEN - 既読の（\\SEEN フラグが設定されている）メッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          SINCE &quot;date&quot; - Date: が &quot;date&quot; 以降であるメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          SUBJECT &quot;string&quot; - Subject: に &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          TEXT &quot;string&quot; - テキスト &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          TO &quot;string&quot; - To: に &quot;string&quot; を有するメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          UNANSWERED - 未回答のメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          UNDELETED - 削除されていないメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          UNFLAGGED - フラグが設定されていないメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          UNKEYWORD &quot;string&quot; - キーワード &quot;string&quot; を有さないメッセージにマッチ
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          UNSEEN - 未読のメッセージにマッチ
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">options</tt></i> に指定できる値は
+       <b><tt>SE_UID</tt></b> です。これを指定すると、
+       メッセージ番号ではなく UID を含む配列を返します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">charset</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imap-search-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   メッセージ番号あるいは UID の配列を返します。
+  </p>
+  <p class="para">
+   検索条件 <i><tt class="parameter">criteria</tt></i> を処理できなかった場合や
+   結果が見つからなかった場合は、<b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.imap-search-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.3</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">charset</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imap-search-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imap-listscan.html" class="function" rel="rdfs-seeAlso">imap_listscan()</a> - 指定したテキストにマッチするメールボックスの一覧を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-scanmailbox.html">imap_scanmailbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-set-quota.html">imap_set_quota</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,309 @@
+" vim: setl ft=vim:
+"======================================================================
+"キーマップ
+"上下左右
+"上下移動は半ページ 5jとかにしている人はどうしてだろう？何か理由があるのかな
+nnoremap j <C-d>
+nnoremap k <C-u>
+"タブ移動
+nnoremap h <C-p>
+nnoremap l <C-n>
+"LDRizeとかが効いてるときのために
+noremap <C-j> <C-d>
+noremap <C-k> <C-u>
+"行先頭・末尾へ
+inoremap <C-h> ^
+vnoremap <C-h> ^
+inoremap <C-l> $
+vnoremap <C-l> $
+
+"リンク関係はf(find)
+"新しいタブをデフォルトに
+nnoremap f F
+nnoremap F f
+"連続オープン
+nnoremap <C-f> ;F
+
+"補完候補選択の上下移動を<C-n><C-p>で→やめた
+"cnoremap <C-n> <TAB>
+"cnoremap <C-p> <S-TAB>
+"inoremap <C-n> <Down>
+"inoremap <C-p> <Up>
+"nnoremap <C-n> <Down>
+"nnoremap <C-p> <Up>
+"オレオレですが<C-p>はどこでもペーストに割り当てることにした
+inoremap <C-p> <S-Insert>
+cnoremap <C-p> <S-Insert>
+"<C-n>はとりあえず無効化(いつか何かに割り当てるかも)
+inoremap <C-n> <Nop>
+cnoremap <C-n> <Nop>
+"<C-n><C-p>代わりとして<C-j><C-k>を割り当て(※normalモードではpagedown/pageup)
+cnoremap <C-j> <TAB>
+cnoremap <C-k> <S-TAB>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+
+"検索関連はs(search)にした
+"google検索
+nnoremap s :tabopen<Space>google<Space>
+"ヴィジュアルモード時に選択中の語句で検索する
+"<S-Insert>がなぜかうまく機能しない
+"vnoremap s y<Esc><Esc>:tabopen<Space>google<Space><S-Insert>
+"これもうまくいかない
+"vnoremap s y<Esc><Esc>:tabopen<Space>google<Space><C-v><C-v>
+"仕方なしに上で設定した<C-p>貼り付けを使う
+vmap s y<Esc><Esc>:tabopen<Space>google<Space><C-p><CR>
+
+"タブの複製
+"<C-t>が「新しいタブ」なのにあわせて
+"ツリー型タブを使っているので兄弟ツリーとして開くようにしたい(いつか)
+nnoremap <C-S-t> :tabduplicate<CR>
+
+"Bookmarkはbを使う
+"Google bookmarkを使っているため、Gmarksがまだ便利(タグ補完が出来る)。仕方なしに使う
+"Gmarksを呼び出す
+nnoremap <C-b> <C-v><C-d>
+"Tombloo
+"nnoremap <C-b> <C-v><C-b>
+
+".vimperatorrcを再読み込み(Windowsなので.vimperatorrcではなく_vimperatorrc)
+" nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/_vimperatorrc<CR>
+nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
+
+"======================================================================
+""設定
+"色設定
+"snakaさんの改造版sweets. とても見やすい！ http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/colors/sweets_snaka.vimp
+colorscheme sweets_snaka
+
+"メニューバー等は消し、スクロールバーのみ表示(r=right,b=bottom)
+set guioptions=rb
+"補完設定
+set wildoptions=auto
+set complete=sh
+"検索エンジン設定
+"set defsearch=g
+"set suggestengines=g
+"音を鳴らさない
+set visualbell
+highlight Bell display:none
+"リンクのURIをステータスラインに表示
+set showstatuslinks=1
+"ページのアクセスキーを無効化
+set! ui.key.generalAccessKey=0
+"検索欄などにフォーカスするのを防ぐ
+set focuscontent
+
+"ポップアップの設定 参考：http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc 
+"Google Readerで問題発生するので設定が必要
+set! dom.popup_maximum=1000
+set popups=2
+"キャレットブラウズモードでキャレットの位置を見失わないように太めにする http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
+set! ui.caretWidth=8
+
+"noinsertmode設定でtextarea内もvi風に操作できる(textareaモード)。hjklで移動とか。
+"inputには適用されないという中途半端仕様なので外した、必要なときは<C-t>でtextareaモードに入れる
+"set noinsertmode
+
+"外部エディタの設定(<C-i>で使えるIts all text相当機能,inputやtextareaを外部エディタで編集)
+"※Windows ではパスを\ではなく/で指定しないとクラッシュすることに注意  http://vimperator.g.hatena.ne.jp/nokturnalmortum/20090305/1236244161
+"エディタにはVimを指定。タブで開きたい...
+"set editor="C:/path/to/vim/gvim.exe -f --remote-tab-silent"
+"...ところだが、タブで開くと他のファイルも全て終了するまで変更を反映できないので、タブで開かない
+" set editor="D:/path/to/vim/gvim.exe -f"
+" for mac
+set editor='/usr/bin/mvim -f'
+
+"======================================================================
+""コマンド
+"サイト内検索 (:ss)
+"参考: http://vimperator.g.hatena.ne.jp/snaka72/20090102/1230901273
+javascript <<EOM
+commands.addUserCommand(
+        ['sitesearch','ss'],'Search in this site',
+        function(word) {
+        liberator.open("http://www.google.co.jp/search?hl=ja&q="+encodeURIComponent(word)+"+site%3A"+window.content.location.hostname);
+        }
+        );
+EOM
+
+
+"======================================================================
+""qmarks
+" mail
+qmark m https://mail.google.com/
+" reader/rss
+qmark r http://www.google.com/reader/view/
+
+
+"======================================================================
+""pluginsの設定
+
+
+"======================================================================
+"LDRize_cooperator.js
+let g:ldrc_captureMappings = "['j','k','p','o','?']"
+"http://unsigned.g.hatena.ne.jp/Trapezoid/20080530/1212074680
+"いろいろ試したがどうもうまく機能しない..
+"let g:ldrc_intelligence_bind = "true"
+"let g:ldrc_skip = "0.25"
+
+
+"======================================================================
+"migrate_statusbar.js 
+"上からブックマーク星ボタン、フィードボタン、ファビコンをステータスラインに移動 
+javascript <<EOM
+liberator.globalVariables.migrate_elements = [
+{
+    // star button of awesome bar
+id:    'star-button',
+       dest:  'security-button',
+       after: true,
+},
+{
+    // icon that show the existence of RSS and Atom on current page
+id:    'feed-button',
+       dest:  'security-button',
+       after: true,
+},
+{
+    // favicon of awesome bar
+id:    'page-proxy-stack',
+       dest:  'liberator-statusline',
+       after: false,
+},
+    ];
+EOM
+
+
+"======================================================================
+"ime_controller.js
+"let g:ex_ime_mode = "inactive"
+"let g:textarea_ime_mode = "inactive"
+"このプラグインを使わなくても以下で代替できるそうだ http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
+style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+
+"======================================================================
+"clock.js
+"maine_coon.jsと同居できないもよう。残念
+"let clock_format='[%t %d]'
+
+
+"======================================================================
+"char-hint-mod2.js
+"小文字で開くように
+let g:hintsio="io"
+"押しやすいボタンから並べてみた
+let g:hintchars="JKLASDFUIOPQWERGHTNMCV"
+
+
+"======================================================================
+"migemo_hint.js
+"char-hint-mod2を小文字で使うようにしたため、外した
+"set hintmatching=custom
+
+
+"======================================================================
+"feedSomeKeys_2.js
+autocmd LocationChange .* :fmapc
+
+" Gmail設定
+autocmd LocationChange mail\.google\.com/mail :fmap! -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+
+" Google Reader設定 
+"参考:http://fifnel.com/2009/10/06/2947/
+""autocmd LocationChange www\.google\.co\.jp/reader :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu u / ?
+autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey m A v r X O gh ga gs gt gu / ? <C-j>,<Pagedown> <C-k>,<Pageup>
+autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey c,1 C,2 j,n k,p n,j p,l s,NO S,s a,PO o,O J,N K,P q,t w,t p,s b u
+
+"======================================================================
+"appendAnchor.js
+"let g:auto_append_anchor = "true"
+
+
+"======================================================================
+"viewSBMComments.js
+""let g:def_sbm_format = "id,tagsAndComment,timestamp"
+let g:def_sbm_format = "id,timestamp,comment"
+let g:def_sbms = 'h'
+"コメントがあるものだけ表示する
+let g:sbm_comments_viewer_filter_nocomments="true"
+nnoremap ,c :viewSBMComments<CR>
+
+
+"======================================================================
+" caret_hint.js
+"Hint モードのキー
+"選択した要素の先頭にキャレットを移動する (;cと打ち込めばOK)
+let g:caret_hint_key = 'c'
+"Hint モードのキー
+"選択した要素の後尾にキャレットを移動する (;Cと打ち込めばOK)
+let g:caret_hint_tail_key = 'C'
+"Hint モードのキー
+"選択した要素の先頭にキャレットを移動し、要素を選択する
+let g:caret_hint_select_key = ''
+"Hint モードのキー
+"選択した要素の後尾にキャレットを移動し、要素を選択する
+let g:caret_hint_select_tail_key = ''
+"VISUAL モード用のキーマッピング
+"キャレットの位置を交換する(先頭 <=> 後尾) 
+let g:caret_hint_swap_key = 'c'
+"これらの値に空文字列を与えれば、マッピングやモードは有効にされません。
+
+"マッピングはInsertモードのiにひっかけて<C-i>に設定。ただしInsertモード中の<C-i>はエディタ起動であることに注意。
+nnoremap <C-i> ;c
+
+
+"======================================================================
+"direct_bookmark.js
+"Google Bookmarkを使っているため、無念だが当面はタグが補完できるGmarksを使うことに
+"let g:direct_sbm_use_services_by_post='g'
+"let g:direct_sbm_use_services_by_tag = "hdl" 
+"let g:direct_sbm_use_services_by_tag = "" 
+
+"======================================================================
+" lookupDictionary.js
+"なぜかうまくサジェストされない...
+"let g:lookupDictionary_beginningWith='1'
+
+"======================================================================
+"auto_word_select_mode.js
+"INSERTモード中にI(<S-i>)を押して使うと吉。マップは以下で変更化
+"let g:auto_word_select_key='I'
+
+"======================================================================
+" sbmincsearch.js
+" delicious, hatebu, livedoorclip, googlebookmarksのどれか
+let sbmincsearch_service_name = "hatebu"
+" あんまり大きくすると遅くなるかも...しれないらしいです
+let sbmincsearch_max = 20
+autocmd VimperatorEnter .* :set complete=Ish
+"Gmarksで <HOME><HOME>を押してもインクリメンタルサーチはできるけど...
+
+
+"======================================================================
+"copy.js
+"copy関係はyを割り当て。
+javascript <<EOM
+liberator.globalVariables.copy_templates = [
+{ label: 'titleAndURL',    value: '%TITLE%\n%URL%' },                                                                                
+{ label: 'title',          value: '%TITLE%', map: ',y' },                                                                            
+{ label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },                                                                   
+{ label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },                                                     
+{ label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },                                
+{ label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} }, 
+    ];
+EOM
+"a:anchor p:plaintext t:title s:select q:blockquote
+"何も設定しなければyyでurlが取得できた
+"nnremap yy y
+nnoremap ya :copy anchor<CR>
+nnoremap yp :copy titleAndURL<CR>
+nnoremap yt :copy title<CR>
+nnoremap ys :copy selanchor<CR>
+nnoremap yq :copy htmlblockquote<CR>
+
+"======================================================================
+" 読み込みおわったらメッセージ
+echo "vimperator: Welcome back."

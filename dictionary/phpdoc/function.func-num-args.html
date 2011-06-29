@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>関数に渡された引数の数を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.func-get-args.html">func_get_args</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.function-exists.html">function_exists</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.func-num-args" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">func_num_args</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">func_num_args</span> &mdash; <span class="dc-title">関数に渡された引数の数を返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.func-num-args-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>func_num_args</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   関数に渡された引数の数を取得します。
+  </p>
+  <p class="para">
+   この関数は <span class="function"><a href="function.func-get-arg.html" class="function">func_get_arg()</a></span>
+   および <span class="function"><a href="function.func-get-args.html" class="function">func_get_args()</a></span> と組み合わせて使用され、
+   ユーザ定義関数において可変長の引数リストを使用することができるようになります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.func-num-args-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   現在のユーザ定義関数に渡された引数の数を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.func-num-args-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数はパラメータリスト内で使用できるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        ある関数内で <span class="function"><a href="function.include.html" class="function">include()</a></span> や
+        <span class="function"><a href="function.require.html" class="function">require()</a></span> を使って別のファイルを読み込んでいるときに
+        別のファイル側からこの関数をコールすると、警告を発生して
+        -1 を返すようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.func-num-args-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   ユーザ定義関数の外部からコールされた場合に警告を発生します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.func-num-args-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4231">
+    <p><b>例1 <span class="function"><b>func_num_args()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$numargs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">func_num_args</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"引数の数:&nbsp;</span><span style="color: #0000BB">$numargs</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+引数の数: 3
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4232">
+    <p><b>例2 <span class="function"><b>func_num_args()</b></span> の PHP 5.3 前後の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+test.php<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">'./fna.php'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #DD0000">'First&nbsp;arg'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Second&nbsp;arg'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;<br /></span><br />fna.php<br /><span style="color: #0000BB">&lt;?php<br /><br />$num_args&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">func_num_args</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_export</span><span style="color: #007700">(</span><span style="color: #0000BB">$num_args</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     PHP 5.3 より前のバージョンでの出力は、このようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+2
+</pre></div>
+    </div>
+    <div class="example-contents"><p>
+     PHP 5.3 以降のバージョンでの出力は、このようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Warning: func_num_args():  Called from the global scope - no function
+context in /home/torben/Desktop/code/ml/fna.php on line 3
+-1
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.func-num-args-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">この関数は、
+カレントスコープに依存してパラメータの詳細を決定しますので、
+5.3.0 より前のバージョンでは関数パラメータとして使用することができません。
+もし、この値を渡さなければならない場合、戻り値を変数に割り当て、
+その変数を渡してください。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.func-num-args-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.func-get-arg.html" class="function" rel="rdfs-seeAlso">func_get_arg()</a> - 引数のリストから要素をひとつ返す</span></li>
+    <li class="member"><span class="function"><a href="function.func-get-args.html" class="function" rel="rdfs-seeAlso">func_get_args()</a> - 関数の引数リストを配列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.func-get-args.html">func_get_args</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.function-exists.html">function_exists</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

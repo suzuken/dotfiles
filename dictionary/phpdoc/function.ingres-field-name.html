@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリ結果においてフィールド名を得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-field-length.html">ingres_field_length</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-field-nullable.html">ingres_field_nullable</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ingres-field-name" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ingres_field_name</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5 &lt;= 5.0.5, PECL ingres &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">ingres_field_name</span> &mdash; <span class="dc-title">クエリ結果においてフィールド名を得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ingres-field-name-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>ingres_field_name</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$index</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>ingres_field_name()</b></span> は、クエリ結果のフィールド名を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>関連する設定</b><br />
+   <p class="para">
+    <a href="ingres.configuration.html" class="link">実行時設定</a> の
+    <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+    を参照ください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ingres-field-name-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クエリ結果 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">index</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">index</tt></i> は、名前を取得したいフィールドです。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">index</tt></i> の取りうる値は
+       <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+       の値に依存します。
+       <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+       が <i>1</i> (デフォルト) の場合は、<i><tt class="parameter">index</tt></i>
+       は <i>1</i> 以上
+       <span class="function"><a href="function.ingres-num-fields.html" class="function">ingres_num_fields()</a></span> 以下でなければなりません。
+       <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+       が <i>0</i> の場合は、<i><tt class="parameter">index</tt></i>
+       は <i>0</i> 以上
+       <span class="function"><a href="function.ingres-num-fields.html" class="function">ingres_num_fields()</a></span> 未満でなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ingres-field-name-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   クエリ結果のフィールド名を返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ingres-field-name-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ingres-query.html" class="function" rel="rdfs-seeAlso">ingres_query()</a> - Ingres に SQL クエリを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-array.html" class="function" rel="rdfs-seeAlso">ingres_fetch_array()</a> - 1 行分の結果を配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-assoc.html" class="function" rel="rdfs-seeAlso">ingres_fetch_assoc()</a> - 1 行分の結果を連想配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-object.html" class="function" rel="rdfs-seeAlso">ingres_fetch_object()</a> - 1 行分の結果をオブジェクトとして取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-row.html" class="function" rel="rdfs-seeAlso">ingres_fetch_row()</a> - 1 行分の結果を数値添字配列として取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-field-length.html">ingres_field_length</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-field-nullable.html">ingres_field_nullable</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルとともに保存されている、ファイル固有のメタデータを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pharfileinfo.getcompressedsize.html">PharFileInfo::getCompressedSize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pharfileinfo.getpharflags.html">PharFileInfo::getPharFlags</a></div>
+ <div class="up"><a href="class.PharFileInfo.html">PharFileInfo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pharfileinfo.getmetadata" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PharFileInfo::getMetaData</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">PharFileInfo::getMetaData</span> &mdash; <span class="dc-title">ファイルとともに保存されている、ファイル固有のメタデータを返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pharfileinfo.getmetadata-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>PharFileInfo::getMetaData</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   Phar アーカイブ内で、このファイル用のマニフェストに保存されたメタデータを返します。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pharfileinfo.getmetadata-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-pharfileinfo.getmetadata-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルのメタデータとして保存されている、シリアライズ可能な任意の PHP 変数を返します。
+   メタデータが保存されていない場合は <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pharfileinfo.getmetadata-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-748">
+    <p><b>例1 <span class="function"><b>PharFileInfo::getMetaData()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;確実に消しておきます<br /></span><span style="color: #007700">@</span><span style="color: #0000BB">unlink</span><span style="color: #007700">(</span><span style="color: #DD0000">'brandnewphar.phar'</span><span style="color: #007700">);<br />try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$p&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'/brandnewphar.phar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'brandnewphar.phar'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'file.txt'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'hello'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'file.txt'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">setMetaData</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'user'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'bill'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'mime-type'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'text/plain'</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'file.txt'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">getMetaData</span><span style="color: #007700">());<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'brandnewphar.phar&nbsp;を作成/変更できません:&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;user&quot;]=&gt;
+  string(4) &quot;bill&quot;
+  [&quot;mime-type&quot;]=&gt;
+  string(10) &quot;text/plain&quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pharfileinfo.getmetadata-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pharfileinfo.setmetadata.html" class="function" rel="rdfs-seeAlso">PharFileInfo::setMetadata()</a> - ファイルとともに保存する、ファイル固有のメタデータを設定する</span></li>
+    <li class="member"><span class="function"><a href="pharfileinfo.hasmetadata.html" class="function" rel="rdfs-seeAlso">PharFileInfo::hasMetadata()</a> - エントリのメタデータを返す</span></li>
+    <li class="member"><span class="function"><a href="pharfileinfo.delmetadata.html" class="function" rel="rdfs-seeAlso">PharFileInfo::delMetadata()</a> - エントリのメタデータを削除する</span></li>
+    <li class="member"><span class="function"><a href="phardata.setmetadata.html" class="function" rel="rdfs-seeAlso">Phar::setMetadata()</a> - phar アーカイブのメタデータを設定する</span></li>
+    <li class="member"><span class="function"><a href="phar.hasmetadata.html" class="function" rel="rdfs-seeAlso">Phar::hasMetadata()</a> - ファイルがグローバルなメタデータを持つかどうかを返す</span></li>
+    <li class="member"><span class="function"><a href="phar.getmetadata.html" class="function" rel="rdfs-seeAlso">Phar::getMetadata()</a> - phar アーカイブのメタデータを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pharfileinfo.getcompressedsize.html">PharFileInfo::getCompressedSize</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pharfileinfo.getpharflags.html">PharFileInfo::getPharFlags</a></div>
+ <div class="up"><a href="class.PharFileInfo.html">PharFileInfo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>接続に関するひとつあるいは複数のオプションを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-search.html">yaz_search</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-sort.html">yaz_sort</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.yaz-set-option" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">yaz_set_option</h1>
+  <p class="verinfo">(PECL yaz &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">yaz_set_option</span> &mdash; <span class="dc-title">接続に関するひとつあるいは複数のオプションを設定する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.yaz-set-option-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>yaz_set_option</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$id</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>yaz_set_option</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$id</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$options</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した接続について、ひとつあるいは複数のオプションを設定します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.yaz-set-option-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.yaz-connect.html" class="function">yaz_connect()</a></span> が返す接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i> あるいは <i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       文字列あるいは配列です。
+      </p>
+      <p class="para">
+       文字列を指定すると、指定するオプションの名前として扱われます。
+       その <i><tt class="parameter">value</tt></i> を指定する必要があります。
+      </p>
+      <p class="para">
+       配列を指定すると、連想配列（オプション名 -&gt; オプションの値）として
+       扱われます。
+      </p>
+      <table class="doctable table">
+       <caption><b>PHP/YAZ 接続オプション</b></caption>
+       
+        <col align="left" width="2" />
+        <col align="left" width="5" />
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>名前</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left">implementationName</td>
+          <td align="left">サーバの実装名。</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">implementationVersion</td>
+          <td align="left">サーバの実装バージョン。</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">implementationId</td>
+          <td align="left">サーバの実装 ID 。</td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">schema</td>
+          <td align="left">
+           取得するスキーマ。デフォルトではスキーマを使用しません。   
+           このオプションを設定することは、<span class="function"><a href="function.yaz-schema.html" class="function">yaz_schema()</a></span>
+           を使用することと等価です。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">preferredRecordSyntax</td>
+          <td align="left">
+           取得するレコードの構文。 デフォルトでは構文を
+           使用しません。このオプションを設定することは、
+           <span class="function"><a href="function.yaz-syntax.html" class="function">yaz_syntax()</a></span> を使用することと等価です。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">start</td>
+          <td align="left">
+           <span class="function"><a href="function.yaz-search.html" class="function">yaz_search()</a></span> あるいは <span class="function"><a href="function.yaz-present.html" class="function">yaz_present()</a></span>
+           で取得する最初のレコードのオフセット。最初のレコードの
+           番号は 0 で、2 番目のレコードは 1 です。
+           このオプションを <i>count</i> とともに設定する
+           ことは、<span class="function"><a href="function.yaz-range.html" class="function">yaz_range()</a></span> をコールすることと
+           同じですが、<span class="function"><a href="function.yaz-range.html" class="function">yaz_range()</a></span> ではレコードの
+           番号が 1 から始まる点が違います。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">count</td>
+          <td align="left">
+           <span class="function"><a href="function.yaz-search.html" class="function">yaz_search()</a></span> あるいは <span class="function"><a href="function.yaz-present.html" class="function">yaz_present()</a></span>
+           で取得するレコードの最大数。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">elementSetName</td>
+          <td align="left">
+           取得するエレメントセットの名前。このオプションを設定することは、
+           <span class="function"><a href="function.yaz-element.html" class="function">yaz_element()</a></span> を使用することと等価です。
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの新しい値。変更前の値が文字列である場合にのみ
+       これを使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.yaz-set-option-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-search.html">yaz_search</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-sort.html">yaz_sort</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バージョン管理されていないパスをリポジトリにインポートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-fs-youngest-rev.html">svn_fs_youngest_rev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-log.html">svn_log</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.svn-import" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">svn_import</h1>
+  <p class="verinfo">(PECL svn &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">svn_import</span> &mdash; <span class="dc-title">バージョン管理されていないパスをリポジトリにインポートする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.svn-import-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>svn_import</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$url</tt></span>
+   , <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$nonrecursive</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   バージョン管理されていないパス <i><tt class="parameter">path</tt></i> を、
+   <i><tt class="parameter">url</tt></i> で指定したリポジトリにコミットします。
+   <i><tt class="parameter">path</tt></i> がディレクトリで
+   <i><tt class="parameter">nonrecursive</tt></i> が <b><tt>FALSE</tt></b> の場合は、
+   再帰的にインポートします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.svn-import-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       インポートするファイルあるいはディレクトリのパス。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">相対パスは、PHP バイナリが存在するディレクトリを基準として解決されます。呼び出しもとのスクリプトの作業ディレクトリを基準とするには、<span class="function"><a href="function.realpath.html" class="function">realpath()</a></span> あるいは dirname(__FILE__) を使用してください。</span></p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">url</tt></i></span>
+     <dd>
+
+      <p class="para">
+       インポート先のリポジトリの URL。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">nonrecursive</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ディレクトリを再帰処理するかどうか。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.svn-import-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.svn-import-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+ </div>
+
+
+ 
+
+ 
+
+ <div class="refsect1 examples" id="refsect1-function.svn-import-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3817">
+    <p><b>例1 基本的な例</b></p>
+    <div class="example-contents"><p>
+     この例は、関数の基本的な使用法を示すものです。
+     new-files というディレクトリを
+     http://www.example.com/svnroot/incoming/abc
+     にインポートするには、次のようにします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />svn_import</span><span style="color: #007700">(</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'new-files'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'http://www.example.com/svnroot/incoming/abc'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.svn-import-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.svn-add.html" class="function" rel="rdfs-seeAlso">svn_add()</a> - 作業ディレクトリ内のアイテムの追加を予約する</span></li>
+    <li class="member"><a href="http://svnbook.red-bean.com/en/1.2/svn.ref.svn.c.import.html" class="link external">&raquo; SVN ドキュメントの svn import</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-fs-youngest-rev.html">svn_fs_youngest_rev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-log.html">svn_log</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

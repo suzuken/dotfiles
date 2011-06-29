@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>キャッシュされたファイルのキャッシュエントリをリフレッシュする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-ocache-meminfo.html">wincache_ocache_meminfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-rplist-fileinfo.html">wincache_rplist_fileinfo</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.wincache-refresh-if-changed" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">wincache_refresh_if_changed</h1>
+  <p class="verinfo">(PECL wincache &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">wincache_refresh_if_changed</span> &mdash; <span class="dc-title">
+   キャッシュされたファイルのキャッシュエントリをリフレッシュする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.wincache-refresh-if-changed-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>wincache_refresh_if_changed</b></span>
+    ([ <span class="methodparam"><span class="type">array</span> <tt class="parameter">$files</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ファイルのキャッシュエントリをリフレッシュします。ファイル名は引数で渡します。 
+   引数を指定しなかった場合は、キャッシュ内のすべてのエントリをリフレッシュします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.wincache-refresh-if-changed-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">files</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リフレッシュしたいファイル名の配列。
+       絶対パスあるいは相対パスのどちらでもかまいません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.wincache-refresh-if-changed-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.wincache-refresh-if-changed-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   WinCache はキャッシュされたファイルを定期的にチェックし、
+   もしファイルが変更されていれば、キャッシュ内の対応するエントリを更新します。
+   デフォルトでは、このチェックは 30 秒おきに行います。
+   たとえば、ある PHP スクリプトが
+   アプリケーションの設定が書かれている別の PHP スクリプトを更新するような場合、
+   設定はファイルに保存されているのに
+   アプリケーション側ではキャッシュにある以前の設定を利用するという状況も発生し得ます。 
+   そのような場合は、ファイルが変更されたらすぐにキャッシュをリフレッシュすることを推奨します。 
+   次の例は、これをどのように行うかを示すものです。
+   <div class="example" id="example-506">
+    <p><b>例1 <span class="function"><b>wincache_refresh_if_changed()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;<br />$filename&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'C:\inetpub\wwwroot\config.php'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w+'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$handle&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">)&nbsp;die(</span><span style="color: #DD0000">'Failed&nbsp;to&nbsp;open&nbsp;file&nbsp;'</span><span style="color: #007700">.</span><span style="color: #0000BB">$filename</span><span style="color: #007700">.</span><span style="color: #DD0000">'&nbsp;for&nbsp;writing'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;?php&nbsp;$setting=something;&nbsp;?&gt;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">wincache_refresh_if_changed</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+  <div class="refsect1 seealso" id="refsect1-function.wincache-refresh-if-changed-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.wincache-fcache-fileinfo.html" class="function" rel="rdfs-seeAlso">wincache_fcache_fileinfo()</a> - ファイルキャッシュにキャッシュされたファイルについての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-fcache-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_fcache_meminfo()</a> - ファイルキャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ocache-fileinfo.html" class="function" rel="rdfs-seeAlso">wincache_ocache_fileinfo()</a> - opcode キャッシュにキャッシュされたファイルについての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ocache-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_ocache_meminfo()</a> - opcode キャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-rplist-fileinfo.html" class="function" rel="rdfs-seeAlso">wincache_rplist_fileinfo()</a> - ファイルパス解決キャッシュについての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-rplist-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_rplist_meminfo()</a> - ファイルパス解決キャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_ucache_meminfo()</a> - ユーザキャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-info.html" class="function" rel="rdfs-seeAlso">wincache_ucache_info()</a> - ユーザキャッシュにキャッシュされたファイルについての情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-ocache-meminfo.html">wincache_ocache_meminfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-rplist-fileinfo.html">wincache_rplist_fileinfo</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

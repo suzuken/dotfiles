@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>このデータベースのプロファイリングレベルを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodb.selectcollection.html">MongoDB::selectCollection</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongodb.setslaveokay.html">MongoDB::setSlaveOkay</a></div>
+ <div class="up"><a href="class.mongodb.html">MongoDB</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongodb.setprofilinglevel" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoDB::setProfilingLevel</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.0)</p><p class="refpurpose"><span class="refname">MongoDB::setProfilingLevel</span> &mdash; <span class="dc-title">このデータベースのプロファイリングレベルを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongodb.setprofilinglevel-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>MongoDB::setProfilingLevel</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$level</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   現在のデータベースのプロファイリングレベルを変更します。
+  </p>
+  <p class="para">
+   この関数は、次のコードと同じ意味です。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">public&nbsp;function&nbsp;</span><span style="color: #0000BB">setProfilingLevel</span><span style="color: #007700">(</span><span style="color: #0000BB">$level</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">command</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'profile'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$level</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+  <p class="para">
+   level に指定できる値は 0 (off)、1 (100ms を超えるクエリ) および 2 (すべてのクエリ) です。
+   別の時間を指定してそれを超える所要時間のクエリを調べるには、データベースのコマンドを使って
+   二番目のオプションにミリ秒数を指定します。
+   たとえば、所要時間が 1 秒より長いクエリをすべて調べるには次のようにします。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">command</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'profile'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'slowms'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1000</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+  <p class="para">
+   プロファイルされたクエリは、このデータベースの
+   <i>system.profile</i> コレクションに入ります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongodb.setprofilinglevel-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">level</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       プロファイリングレベル。
+      </p>
+     </dd>
+
+    </dt>
+   
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongodb.setprofilinglevel-returnvalues">
+  <h3 class="title">返り値</h3>  
+  <p class="para">
+   前に設定されていたプロファイリングレベルを返します。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodb.selectcollection.html">MongoDB::selectCollection</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongodb.setslaveokay.html">MongoDB::setSlaveOkay</a></div>
+ <div class="up"><a href="class.mongodb.html">MongoDB</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

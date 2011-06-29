@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>bytea フィールドに挿入するために文字列をエスケープする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-end-copy.html">pg_end_copy</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-escape-string.html">pg_escape_string</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-escape-bytea" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_escape_bytea</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_escape_bytea</span> &mdash; <span class="dc-title">
+   bytea フィールドに挿入するために文字列をエスケープする
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-escape-bytea-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>pg_escape_bytea</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   ], <span class="methodparam"><span class="type">string</span> <tt class="parameter">$data</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_escape_bytea()</b></span> は、bytea 型のために文字列を
+   エスケープし、エスケープした文字列を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    bytea 型を <i>SELECT</i> した場合、PostgreSQL は &#039;\&#039; で
+    始まる 8 進数のバイト値（例: \032）を返します。これをユーザが手動で
+    コンバートすることを期待されています。
+   </p>
+   <p class="para">
+    この関数は PostgreSQL 7.2 以降のバージョンを必要とします。PostgreSQL
+    7.2.0 および 7.2.1 では、マルチバイトのサポートを有効にした場合は
+    bytea の値をキャストする必要があります。例:
+    <i>INSERT INTO test_table (image) VALUES (&#039;$image_escaped&#039;::bytea);
+    </i> PostgreSQL 7.2.2 以降ではキャストする必要はありません。
+    クライアントとバックエンドの文字エンコーディングが一致しない場合は
+    例外で、この場合はマルチバイトストリームエラーが発生します。この
+    エラーを避けるためには bytea 型へのキャストが必要になります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+<div class="refsect1 parameters" id="refsect1-function.pg-escape-bytea-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PostgreSQL データベース接続リソース。
+       <i><tt class="parameter">connection</tt></i> が存在しない場合は、
+       デフォルトの接続を使用します。デフォルトの接続は、
+       <span class="function"><a href="function.pg-connect.html" class="function">pg_connect()</a></span> あるいは <span class="function"><a href="function.pg-pconnect.html" class="function">pg_pconnect()</a></span>
+       で直近に作成されたものとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       bytea 型のカラムに挿入するテキストまたはバイナリデータを含む
+       文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-escape-bytea-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エスケープされたデータを文字列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.pg-escape-bytea-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left"><i><tt class="parameter">connection</tt></i> が追加されました。</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pg-escape-bytea-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1704">
+    <p><b>例1 <span class="function"><b>pg_escape_bytea()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;データベースに接続する<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$dbconn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'dbname=foo'</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;バイナリファイルを読み込む<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'image1.jpg'</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;バイナリデータをエスケープする<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$escaped&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_escape_bytea</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;それをデータベースに挿入する<br />&nbsp;&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;gallery&nbsp;(name,&nbsp;data)&nbsp;VALUES&nbsp;('Pine&nbsp;trees',&nbsp;'</span><span style="color: #007700">{</span><span style="color: #0000BB">$escaped</span><span style="color: #007700">}</span><span style="color: #DD0000">')"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-escape-bytea-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-unescape-bytea.html" class="function" rel="rdfs-seeAlso">pg_unescape_bytea()</a> - bytea 型のバイナリをアンエスケープする</span></li>
+    <li class="member"><span class="function"><a href="function.pg-escape-string.html" class="function" rel="rdfs-seeAlso">pg_escape_string()</a> - テキスト型フィールドに挿入するために、文字列をエスケープする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-end-copy.html">pg_end_copy</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-escape-string.html">pg_escape_string</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

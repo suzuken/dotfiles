@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>直近の接続エラーについての説明を文字列で返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-connect-errno.html">maxdb_connect_errno</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-connect.html">maxdb_connect</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.maxdb-connect-error" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">maxdb_connect_error</h1>
+  <p class="verinfo">(PECL maxdb &gt;= 1.0)</p><p class="refpurpose"><span class="refname">maxdb_connect_error</span> &mdash; <span class="dc-title">直近の接続エラーについての説明を文字列で返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.maxdb-connect-error-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>maxdb_connect_error</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>maxdb_connect_error()</b></span> 関数は、対応する
+   <span class="function"><a href="function.maxdb-connect-errno.html" class="function">maxdb_connect_errno()</a></span> 関数とほぼ同じですが、
+   直近の <span class="function"><a href="function.maxdb-connect.html" class="function">maxdb_connect()</a></span> call で発生したエラーについて、
+   エラーコードの代わりに文字列を返します。エラーが発生しなかった場合は、
+   この関数は空の文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.maxdb-connect-error-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エラーについての文字列を返します。
+   エラーが発生しなかった場合は空の文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.maxdb-connect-error-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1225">
+    <p><b>例1 maxdb_connect_error の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">maxdb_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"nonexisting_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost&nbsp;に接続できません。エラー:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">maxdb_connect_error</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">上の例の出力は、
+たとえば以下のようになります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+PHP Warning:  maxdb_connect(): -4008 POS(1) Unknown user name/password combination &lt;...&gt;
+localhost に接続できません。エラー: POS(1) Unknown user name/password combination
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.maxdb-connect-error-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.maxdb-connect.html" class="function" rel="rdfs-seeAlso">maxdb_connect()</a> - MaxDB サーバへの新しい接続をオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.maxdb-connect-errno.html" class="function" rel="rdfs-seeAlso">maxdb_connect_errno()</a> - 直近の接続コールのエラーコードを返す</span></li>
+    <li class="member"><span class="function"><a href="function.maxdb-errno.html" class="function" rel="rdfs-seeAlso">maxdb_errno()</a> - 直近の関数コールのエラーコードを返す</span></li>
+    <li class="member"><span class="function"><a href="function.maxdb-error.html" class="function" rel="rdfs-seeAlso">maxdb_error()</a> - 直近のエラーについて説明する文字列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.maxdb-sqlstate.html" class="function" rel="rdfs-seeAlso">maxdb_sqlstate()</a> - 直近の MaxDB 操作の SQLSTATE エラーを返します</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-connect-errno.html">maxdb_connect_errno</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-connect.html">maxdb_connect</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

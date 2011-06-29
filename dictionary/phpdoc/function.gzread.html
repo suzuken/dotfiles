@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バイナリ対応のgzファイル読み込み</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gzputs.html">gzputs</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gzrewind.html">gzrewind</a></div>
+ <div class="up"><a href="ref.zlib.html">Zlib 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.gzread" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">gzread</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">gzread</span> &mdash; <span class="dc-title">バイナリ対応のgzファイル読み込み</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.gzread-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>gzread</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$zp</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$length</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>gzread()</b></span> は、最大 <i><tt class="parameter">length</tt></i>
+   バイトのデータを <i><tt class="parameter">zp</tt></i> が指す gz ファイルポインタ
+   から読み込みます。(伸長された)
+   <i><tt class="parameter">length</tt></i> バイトのデータが読み込まれたか、
+   <acronym title="End Of File">EOF</acronym> に達したとき、読み込みは終了します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.gzread-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">zp</tt></i></span>
+     <dd>
+
+      <p class="para">
+       gz ファイルポインタを指定します。これは有効なファイルポインタであり、
+       かつ、<span class="function"><a href="function.gzopen.html" class="function">gzopen()</a></span>
+       によりオープンできたファイルを指している必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">length</tt></i></span>
+     <dd>
+
+      <p class="para">
+       読み込むバイト数を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.gzread-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   読み込まれたデータ
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.gzread-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-836">
+    <p><b>例1 <span class="function"><b>gzread()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;gz&nbsp;ファイルの内容を文字列に読み込む<br /></span><span style="color: #0000BB">$filename&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"/usr/local/something.txt.gz"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$zd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gzopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$contents&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gzread</span><span style="color: #007700">(</span><span style="color: #0000BB">$zd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10000</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">gzclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$zd</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.gzread-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.gzwrite.html" class="function" rel="rdfs-seeAlso">gzwrite()</a> - バイナリセーフな gz ファイル書き込み</span></li>
+    <li class="member"><span class="function"><a href="function.gzopen.html" class="function" rel="rdfs-seeAlso">gzopen()</a> - gz ファイルを開く</span></li>
+    <li class="member"><span class="function"><a href="function.gzgets.html" class="function" rel="rdfs-seeAlso">gzgets()</a> - ファイルポインタから 1 行を得る</span></li>
+    <li class="member"><span class="function"><a href="function.gzgetss.html" class="function" rel="rdfs-seeAlso">gzgetss()</a> - gzファイルへのポインタから1行を得て、HTMLタグを取り除く</span></li>
+    <li class="member"><span class="function"><a href="function.gzfile.html" class="function" rel="rdfs-seeAlso">gzfile()</a> - gzファイル全体を配列に読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.gzpassthru.html" class="function" rel="rdfs-seeAlso">gzpassthru()</a> - gzファイルへのポインタから残りのデータ全部を出力する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gzputs.html">gzputs</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gzrewind.html">gzrewind</a></div>
+ <div class="up"><a href="ref.zlib.html">Zlib 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

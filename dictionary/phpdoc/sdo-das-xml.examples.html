@@ -1,0 +1,516 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo-das-xml.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.sdo-das-xml.html">SDO DAS XML 関数</a></div>
+ <div class="up"><a href="book.sdo-das-xml.html">SDO DAS XML</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo-das-xml.examples" class="chapter">
+ <h1>例</h1>
+
+   <p class="para">
+    以下の例のいくつかは、
+    <a href="ref.sdo.html" class="link">SDO のドキュメント</a>で説明した
+    <a href="sdo.sample.sequence.html" class="link">letter の例</a>を使用しています。
+    この例では、litter の XML スキーマが
+    <var class="filename">letter.xsd</var> に、そしてインスタンスが
+    <var class="filename">letter.xml</var> に保存されていることを想定しています。
+    これらの 2 つのファイルは次のようになります。
+   </p>
+   <p class="para">
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+  xmlns:letter=&quot;http://letterSchema&quot;
+  targetNamespace=&quot;http://letterSchema&quot;&gt;
+  &lt;xsd:element name=&quot;letters&quot; type=&quot;letter:FormLetter&quot;/&gt;
+  &lt;xsd:complexType name=&quot;FormLetter&quot; mixed=&quot;true&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element name=&quot;date&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element name=&quot;firstName&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element name=&quot;lastName&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</pre>
+</div>
+    </div>
+
+   </p>
+ 
+   <p class="para">
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;letter:letters xmlns:letter=&quot;http://letterSchema&quot;&gt;
+  &lt;date&gt;March 1, 2005&lt;/date&gt;
+  Mutual of Omaha
+  Wild Kingdom, USA
+  Dear
+  &lt;firstName&gt;Casy&lt;/firstName&gt;
+  &lt;lastName&gt;Crocodile&lt;/lastName&gt;
+  Please buy more shark repellent.
+  Your premium is past due.
+&lt;/letter:letters&gt;</pre>
+</div>
+    </div>
+
+   </p>
+    
+   <div class="example" id="example-4535">
+    <p><b>例1 XML ドキュメントの読み込み・変更そして保存</b></p>
+    
+    <div class="example-contents"><p>
+     次の例では、XML ドキュメントをファイルから読み込んでその内容を変更し、
+     もう一度書き戻す方法を示します。
+    </p></div>
+
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;XML&nbsp;ドキュメントの読み込み・更新そして保存<br />&nbsp;*/<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xsd"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$document&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadFile</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xml"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$root_data_object&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootDataObject</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$root_data_object</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"September&nbsp;03,&nbsp;2004"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$root_data_object</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">firstName&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Anantoju"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$root_data_object</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastName&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Madhu"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveFile</span><span style="color: #007700">(</span><span style="color: #0000BB">$document</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"letter-out.xml"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"New&nbsp;file&nbsp;has&nbsp;been&nbsp;written:\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter-out.xml"</span><span style="color: #007700">);<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">SDO_Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+
+    <div class="example-contents"><p>
+     まず最初に、<span class="function"><a href="function.sdo-das-xml-create.html" class="function">SDO_DAS_XML::create()</a></span>
+     メソッドで XML DAS のインスタンスを取得します。
+     このメソッドは、<b class="classname">SDO_DAS_XML</b>
+     クラスの静的メソッドです。パラメータとして xsd の場所を渡します。
+     スキーマを指定して XML DAS のインスタンスを初期化したら、
+     <span class="function"><b>loadFile()</b></span>
+     メソッドを使用してインスタンスドキュメントを読み込むことができます。
+     もし文字列から XML インスタンスドキュメントを読み込みたいのなら、
+     <span class="function"><b>loadString()</b></span> メソッドを使用することも可能です。
+     インスタンスドキュメントの読み込みに成功したら
+     <b class="classname">SDO_DAS_XML_Document</b> 型のオブジェクトが返されます。
+     このオブジェクトに対して <span class="function"><b>getRootDataObject()</b></span>
+     メソッドをコールすると、SDO データグラフのルートとなる
+     SDO データオブジェクトが取得できます。
+     その後、SDO に対する操作によってグラフを変更します。
+     この例では <var class="varname"><var class="varname">date</var></var>、
+     <var class="varname"><var class="varname">firstName</var></var> そして
+     <var class="varname"><var class="varname">lastName</var></var> のプロパティを変更しています。
+     その後で <span class="function"><b>saveFile()</b></span> メソッドを使用して、
+     ドキュメントをファイルシステムに書き戻します。
+     saveFile メソッドにはオプションで整数型の引数を指定することができ、
+     これが設定されていると、XML DAS が結果の XML の書式を整形します。
+     指定された整数値のぶんだけ、ドキュメントの字下げが行われます。
+    </p></div>
+
+    <div class="example-contents"><p>
+     この例の結果、以下のような内容が <var class="filename">letter-out.xml</var>
+     に書き出されます。
+    </p></div>
+
+    <div class="example-contents">
+     <div class="xmlcode"><pre class="xmlcode">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;FormLetter xmlns=&quot;http://letterSchema&quot; xsi:type=&quot;FormLetter&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;date&gt;September 03, 2004&lt;/date&gt;
+  Mutual of Omaha
+  Wild Kingdom, USA
+  Dear
+  &lt;firstName&gt;Anantoju&lt;/firstName&gt;
+  &lt;lastName&gt;Madhu&lt;/lastName&gt;
+  Please buy more shark repellent.
+  Your premium is past due.
+&lt;/FormLetter&gt;</pre>
+</div>
+   </div>
+
+    
+   </div>
+
+   <div class="example" id="example-4536">
+
+    <p><b>例2 新しい XML ドキュメントの作成</b></p>
+
+    <div class="example-contents"><p>
+     さきほどの例ではファイルからドキュメントを読み込みました。
+     この例では、メモリ上で SDO データグラフを作成する方法を示します。
+     この例では、データグラフが XML 文字列として保存されます。
+     さらに、letter の中に構造化されたデータとされていないデータの両方が含まれていることから、
+     <a href="sdo.sample.sequence.html" class="link">シーケンス API</a>
+     を使用してプロパティを割り当て、データグラフを作成します。
+    </p></div>
+
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;スクラッチからの&nbsp;XML&nbsp;ドキュメントの作成<br />&nbsp;*/<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xsd"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$doc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDocument</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rdo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootDataObject</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$rdo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSequence</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"April&nbsp;09,&nbsp;2005"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'date'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"Acme&nbsp;Inc.&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"United&nbsp;Kingdom.&nbsp;"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"Dear"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"Tarun"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"firstName"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"Nayaraaa"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"lastName"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rdo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastName&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Nayar"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"Please&nbsp;note&nbsp;that&nbsp;your&nbsp;order&nbsp;number&nbsp;"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #0000BB">12345</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;has&nbsp;been&nbsp;dispatched&nbsp;today.&nbsp;Thanks&nbsp;for&nbsp;your&nbsp;business&nbsp;with&nbsp;us."</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveString</span><span style="color: #007700">(</span><span style="color: #0000BB">$doc</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">SDO_Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$e</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;}<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">SDO_Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;print(</span><span style="color: #DD0000">"Problem&nbsp;creating&nbsp;an&nbsp;XML&nbsp;document:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">());<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+
+   </div>
+
+   <p class="para">
+    XML DAS の <span class="function"><b>createDocument()</b></span>
+    メソッドは、空のドキュメント要素に対応するルートデータオブジェクトを
+    ひとつだけ含むドキュメントオブジェクトを返します。
+    ドキュメント要素の要素名はスキーマファイルから取得します。
+    ドキュメント要素をはっきり特定できない場合
+    (例えば同一の XML DAS に対して複数のスキーマを読み込むことも可能です) は、
+    要素名に加えて名前空間 URI を <span class="function"><b>createDocument()</b></span>
+    メソッドに渡します。
+   </p>
+
+   <p class="para">
+    この例は、次のような内容を出力します (読みやすくするために適宜改行を挿入しています)。
+   </p>
+
+   <div class="example-contents">
+     <div class="xmlcode"><pre class="xmlcode">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;FormLetter xmlns=&quot;http://letterSchema&quot; xsi:type=&quot;FormLetter&quot; 
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+&lt;date&gt;April 09, 2005&lt;/date&gt;
+Acme Inc. United Kingdom. 
+Dear
+&lt;firstName&gt;Tarun&lt;/firstName&gt;
+&lt;lastName&gt;Nayar&lt;/lastName&gt;
+Please note that your order number 12345 has been 
+dispatched today. Thanks for your business with us.
+&lt;/FormLetter&gt;</pre>
+</div>
+   </div>
+
+
+
+   <div class="example" id="example-4537">
+
+    <p><b>例3 XML ドキュメントのプロパティの設定</b></p>
+
+    <div class="example-contents"><p>
+     3 番目のこの例では、ドキュメントに対して XML
+     のバージョンとエンコーディングを設定する方法を示します。
+     これらは、XML を書き出す際に使用されます。
+     XML 宣言が不要な場合
+     (XML を文字列として作成してどこかに埋め込むなどの場合がそうでしょう) は、
+     <span class="function"><b>setXMLDeclaration()</b></span>
+     メソッドを使用して宣言を抑制することができます。
+    </p></div>
+
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;XML&nbsp;宣言を制御するためのコール方法<br />&nbsp;*/<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xsd"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$document&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadFile</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xml"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setXMLVersion</span><span style="color: #007700">(</span><span style="color: #DD0000">"1.1"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setEncoding</span><span style="color: #007700">(</span><span style="color: #DD0000">"ISO-8859-1"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveString</span><span style="color: #007700">(</span><span style="color: #0000BB">$document</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+
+    <div class="example-contents"><p>
+     XML のバージョンおよびエンコーディングは、
+     XML ドキュメントの先頭にあたる XML 宣言で設定されます。
+    </p></div>
+
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;?xml version=&quot;1.1&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+.../...</pre>
+</div>
+   </div>
+
+    
+   </div>
+   
+   
+   <div class="example" id="example-4538">
+    <p><b>例4 オープン型の使用</b></p>
+    <div class="example-contents"><p>
+     4 番目の例では、SDO オープン型および
+     <span class="function"><b>createDataObject()</b></span>
+     メソッドの使用法を説明します。
+     この例では、次のふたつのスキーマを使用します。
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;schema
+  xmlns=&quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+  
+  &lt;element name=&quot;jungle&quot;&gt;
+    &lt;complexType&gt;
+      &lt;sequence&gt;
+        &lt;any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;/&gt;
+      &lt;/sequence&gt;
+    &lt;/complexType&gt;
+  &lt;/element&gt;
+  
+&lt;/schema&gt;</pre>
+</div>
+    </div>
+
+   </p></div>
+
+   <div class="example-contents"><p>
+     定義の中に <var class="varname"><var class="varname">any</var></var>
+     要素が存在することに注目しましょう。
+     この最初のスキーマでは、複合型 <var class="varname"><var class="varname">jungle</var></var>
+     を定義しています。その内容は、その他の任意の型のシーケンスです。
+     この例で使用している方は、2 番目のスキーマファイルで定義されています。
+    </p></div>
+     
+   <div class="example-contents"><p>
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;schema xmlns= &quot;http://www.w3.org/2001/XMLSchema&quot;&gt;
+
+   &lt;complexType name=&quot;snakeType&quot;&gt;
+     &lt;sequence&gt;
+       &lt;element name= &quot;name&quot; type=&quot;string&quot;/&gt;
+       &lt;element name= &quot;length&quot; type=&quot;positiveInteger&quot; /&gt;
+     &lt;/sequence&gt;
+   &lt;/complexType&gt;
+
+   &lt;complexType name=&quot;bearType&quot;&gt;
+     &lt;sequence&gt;
+       &lt;element name= &quot;name&quot; type=&quot;string&quot;/&gt;
+       &lt;element name= &quot;weight&quot; type=&quot;positiveInteger&quot; /&gt;
+     &lt;/sequence&gt;
+   &lt;/complexType&gt;
+
+   &lt;complexType name=&quot;pantherType&quot;&gt;
+     &lt;sequence&gt;
+       &lt;element name= &quot;name&quot; type=&quot;string&quot;/&gt;
+       &lt;element name= &quot;colour&quot; type=&quot;string&quot; /&gt;
+     &lt;/sequence&gt;
+   &lt;/complexType&gt;
+
+&lt;/schema&gt;</pre>
+</div>
+    </div>
+
+   </p></div>
+     
+   <div class="example-contents"><p>
+    これらのふたつのスキーマファイルを使用する PHP コードの例は、次のようになります。
+   </p></div>
+   <div class="example-contents"><p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;オープン型および&nbsp;addTypes()&nbsp;メソッドの使用法<br />&nbsp;*/<br /><br /></span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addTypes</span><span style="color: #007700">(</span><span style="color: #DD0000">"jungle.xsd"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;これはオープン型です。つまり、<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;"any"&nbsp;型を使用できることが<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;xsd&nbsp;ファイルで指定されています<br /></span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addTypes</span><span style="color: #007700">(</span><span style="color: #DD0000">'animalTypes.xsd'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$baloo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">''</span><span style="color: #007700">,</span><span style="color: #DD0000">'bearType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$baloo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Baloo"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$baloo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">weight&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">800</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$bagheera&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">''</span><span style="color: #007700">,</span><span style="color: #DD0000">'pantherType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$bagheera</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Bagheera"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bagheera</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">colour&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'inky&nbsp;black'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$kaa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">''</span><span style="color: #007700">,</span><span style="color: #DD0000">'snakeType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$kaa</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Kaa"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$kaa</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">length&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">25</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$document&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDocument</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$do&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootDataObject</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$baloo</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">panther&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$bagheera</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">snake&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$kaa</span><span style="color: #007700">;<br /><br />print(</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveString</span><span style="color: #007700">(</span><span style="color: #0000BB">$document</span><span style="color: #007700">,</span><span style="color: #0000BB">2</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p></div>
+   <div class="example-contents"><p>
+    これらのふたつのスキーマファイルは、
+    最初の <span class="function"><b>create()</b></span> および
+    <span class="function"><b>addTypes()</b></span> メソッドで XML DAS に読み込まれます。
+    <span class="function"><b>createDataObject()</b></span> メソッドを使用して、
+    3 つに分かれたデータオブジェクトを作成します。それぞれについて、
+    名前空間 URI および型名が <span class="function"><b>createDataObject()</b></span>
+    メソッドに渡されます。この例では、スキーマで名前空間が使用されていないため、
+    名前空間 URI は空の文字列です。bear (クマ)、panther (ヒョウ)、snake (ヘビ)
+    を表す 3 つのデータオブジェクトが作成された後で、
+    <span class="function"><b>createDocument()</b></span> メソッドでドキュメントオブジェクトが作成されます。
+    この例の場合、ドキュメントの要素が何になるかは明確です。
+    2 番目のスキーマに含まれているのは複合型の定義のみであり、
+    ドキュメント要素は最初のスキーマに含まれているグローバルな
+    <var class="varname"><var class="varname">jungle</var></var> 要素だけだからです。
+    このドキュメントは 1 つのルートデータオブジェクトを保持しており、
+    これが空のドキュメント要素 <var class="varname"><var class="varname">jungle</var></var>
+    に対応しています。
+    この要素はオープン型なので、お好みのプロパティを追加することができます。
+    最初に代入が行われている部分が <var class="varname"><var class="varname">$do->bear</var></var> で、
+    ここではルートデータオブジェクトにプロパティ <var class="varname"><var class="varname">bear</var></var>
+    が追加されています。それ以降の 2 つの代入についても同様です。
+    <span class="function"><b>saveString()</b></span> メソッドでドキュメントを書き出した結果は、
+    以下のようになります。
+   </p></div>
+   
+   <div class="example-contents"><p>
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;jungle xsi:type=&quot;jungle&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+  &lt;bear xsi:type=&quot;bearType&quot;&gt;
+    &lt;name&gt;Baloo&lt;/name&gt;
+    &lt;weight&gt;800&lt;/weight&gt;
+  &lt;/bear&gt;
+  &lt;panther xsi:type=&quot;pantherType&quot;&gt;
+    &lt;name&gt;Bagheera&lt;/name&gt;
+    &lt;colour&gt;inky black&lt;/colour&gt;
+  &lt;/panther&gt;
+  &lt;snake xsi:type=&quot;snakeType&quot;&gt;
+    &lt;name&gt;Kaa&lt;/name&gt;
+    &lt;length&gt;25&lt;/length&gt;
+  &lt;/snake&gt;
+&lt;/jungle&gt;</pre>
+</div>
+    </div>
+
+   </p></div>
+       
+   </div>
+
+   <div class="example" id="example-4539">
+
+    <p><b>例5 ドキュメントから何が得られるのかを知る</b></p>
+
+    <div class="example-contents"><p>
+     この例で説明しているのは、
+     XML Document オブジェクトから要素名および要素の名前空間を知る方法、
+     XML データオブジェクトのルートデータオブジェクトから
+     SDO 型および名前空間を知る方法、
+     そしてそれらがお互いどのように関連しているかといった内容です。
+     これを理解するのは少し難しいかもしれません。というのも、ここでは
+     4 つのメソッドがコールされているからです。それらのうちの 2 つは
+     Document オブジェクトに対するコールで、
+     残りの 2 つはルートデータオブジェクトを含む任意のデータオブジェクトに対するコールです。
+     XML モデルから SDO モデルを構築する際に定義されている規則のため、
+     もし今扱っているデータオブジェクトが
+     ドキュメントのルートオブジェクトに対応するものならば、
+     これらの 4 つのメソッドコールから返される可能性のある値は 3 つだけです。
+     
+    </p></div>
+
+    <div class="example-contents"><p>
+     ドキュメントに対してコールされる 2 つのメソッドは、
+     <span class="function"><b>getRootElementName()</b></span> および
+     <span class="function"><b>getRootEelementURI()</b></span> です。
+     これらはそれぞれ、要素名およびドキュメント要素の名前空間を返します。
+    </p></div>
+    
+    <div class="example-contents"><p>
+     任意のデータオブジェクトに対してコールされる 2 つのメソッドは、
+     <span class="function"><b>getTypeName()</b></span> および
+     <span class="function"><b>getTypeNamespaceURI()</b></span> です。
+     これらはそれぞれ、SDO の型名およびデータオブジェクトの型の名前空間を返します。
+    </p></div>
+    
+    <div class="example-contents"><p>
+     ドキュメントオブジェクトに対して <span class="function"><b>getRootElementURI()</b></span>
+     をコールした際の返り値は、ルートデータオブジェクトに対して
+     <span class="function"><b>getNamespaceURI()</b></span> をコールした際の返り値と常に同じです。
+     本質的に、この情報はすべてスキーマファイルの最初の数行から得られるものです。
+     そこには 3 種類の情報が含まれています。
+     詳しく説明するために、もう一度ここで letter.xsd の最初の数行を示します。
+    </p></div>
+    
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+            xmlns:letter=&quot;http://letterSchema&quot;
+            targetNamespace=&quot;http://letterSchema&quot;&gt;
+            
+  &lt;xsd:element name=&quot;letters&quot; type=&quot;letter:FormLetter&quot;/&gt;
+  
+  &lt;xsd:complexType name=&quot;FormLetter&quot; mixed=&quot;true&quot;&gt;
+    .../...</pre>
+</div>
+    </div>
+
+ 
+   <div class="example-contents"><p>
+    重要な 3 つの値は以下のとおりです。
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <p class="para">
+       <var class="varname"><var class="varname">letters</var></var> がドキュメント要素の名前です。
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <var class="varname"><var class="varname">FormLetter</var></var> がドキュメント要素の複合型の名前です。
+       これはまた、ルートデータオブジェクトの SDO 型の名前でもあります。
+      </p>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       <var class="varname"><var class="varname">http://letterSchema</var></var> がドキュメント要素の属する名前空間です。
+       これはまた、ルートデータオブジェクトの SDO 型の名前空間 URI でもあります。
+      </p>
+     </li>
+    </ul>
+    XML-SDO 間の対応の規則により、
+    SDO モデルがスキーマファイルから作成される場合には
+    ルート要素の型名および SDO 型の名前空間 URI は
+    それが存在するドキュメント要素の複合型から取得されます。
+    したがって、この例ではルートデータオブジェクトの型名は FormLetter となります。
+    ドキュメント要素の複合型の定義が別に分かれておらずインラインで定義されており、
+    名前がつけられていない場合は、SDO の型名は要素名と同じになります。
+   </p></div>
+   
+   <div class="example-contents"><p>
+    次のプログラムは、letter ドキュメントを読み込んでから
+    4 つのコールの返り値を調べます。
+   </p></div> 
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;ドキュメントおよびドキュメント要素から得られる情報を調べます。<br />&nbsp;*&nbsp;4&nbsp;種類のコールがあるため、理解するのは少し難しいでしょう。<br />&nbsp;*&nbsp;ドキュメントに対するコールが&nbsp;2&nbsp;種類、<br />&nbsp;*&nbsp;ルートデータオブジェクトおよびそのモデルに対するコールが&nbsp;2&nbsp;種類となります。<br />&nbsp;*&nbsp;SDO-XML&nbsp;の対応規則および&nbsp;SDO&nbsp;モデルが&nbsp;XML&nbsp;モデルから作成されている<br />&nbsp;*&nbsp;ということから、これらの&nbsp;4&nbsp;つのコールから得られる値は&nbsp;3&nbsp;つだけです。<br />&nbsp;*&nbsp;常に&nbsp;$document-&gt;getRootElementURI()&nbsp;==&nbsp;(ルートデータオブジェクトの型)-&gt;namespaceURI<br />&nbsp;*&nbsp;となります。<br />&nbsp;*&nbsp;本質的に、これらはすべて&nbsp;xsd&nbsp;の最初の数行から得られるものです。<br />&nbsp;*&nbsp;&lt;xsd:schema&nbsp;xmlns:xsd="http://www.w3.org/2001/XMLSchema"<br />&nbsp;*&nbsp;&nbsp;&nbsp;xmlns:letter="http://letterSchema"<br />&nbsp;*&nbsp;&nbsp;&nbsp;targetNamespace="http://letterSchema"&gt;<br />&nbsp;*&nbsp;&nbsp;&nbsp;&lt;xsd:element&nbsp;name="letters"&nbsp;type="letter:FormLetter"/&gt;<br />&nbsp;*/<br /><br /></span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xsd"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$document&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadFile</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xml"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$root_do&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootDataObject</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;"root&nbsp;element&nbsp;name"&nbsp;は、ドキュメント要素の要素名です。<br />&nbsp;*&nbsp;この場合は&nbsp;'letters'&nbsp;となります。<br />&nbsp;*&nbsp;これは&nbsp;xsd&nbsp;のドキュメント要素の&nbsp;'name'&nbsp;属性と一致し、<br />&nbsp;*&nbsp;xml&nbsp;の要素名とも一致します。<br />&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"ドキュメント要素の名前は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootElementName</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">assert</span><span style="color: #007700">(</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootElementName</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #DD0000">'letters'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ドキュメントのプロパティ<br /><br />/**<br />&nbsp;*&nbsp;"root&nbsp;element&nbsp;URI"&nbsp;は、ドキュメント要素の要素名の名前空間です。<br />&nbsp;*&nbsp;この場合は&nbsp;'http://letterSchema'&nbsp;となります。<br />&nbsp;*&nbsp;というのも&nbsp;'letters'&nbsp;がこの名前空間にあるからです。<br />&nbsp;*&nbsp;これは&nbsp;xsd&nbsp;から得られ、xml&nbsp;から取得した名前空間と一致します。<br />&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"ドキュメント要素の名前空間は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootElementURI</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">assert</span><span style="color: #007700">(</span><span style="color: #0000BB">$document</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRootElementURI</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #DD0000">'http://letterSchema'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ドキュメントのプロパティ<br /><br />/**<br />&nbsp;*&nbsp;型名は&nbsp;SDO&nbsp;モデルから取得します。<br />&nbsp;*&nbsp;XML-SDO&nbsp;の対応規則では、これは下のいずれかです。<br />&nbsp;*&nbsp;&nbsp;&nbsp;complexType&nbsp;が存在する場合は、その名前&nbsp;(今回はこちらです)<br />&nbsp;*&nbsp;&nbsp;&nbsp;complexType&nbsp;がない場合は、ドキュメント要素の名前<br />&nbsp;*&nbsp;これは&nbsp;xsd&nbsp;から得られます。<br />&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"ルートデータオブジェクトの型名は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$root_do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTypeName</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">assert</span><span style="color: #007700">(</span><span style="color: #0000BB">$root_do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTypeName</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #DD0000">'FormLetter'</span><span style="color: #007700">);&nbsp;&nbsp;<br /><br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;型の&nbsp;namespaceURI&nbsp;は&nbsp;SDO&nbsp;モデルから取得します。<br />&nbsp;*&nbsp;XML-SDO&nbsp;の対応規則では、これは常にドキュメント要素の名前空間&nbsp;URI&nbsp;と同じ<br />&nbsp;*&nbsp;であることが保証されています。<br />&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"ルートデータオブジェクトの&nbsp;namespaceURI&nbsp;は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$root_do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTypeNamespaceURI</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">assert</span><span style="color: #007700">(</span><span style="color: #0000BB">$root_do</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTypeNamespaceURI</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #DD0000">'http://letterSchema'</span><span style="color: #007700">);&nbsp;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     このプログラムの出力は次のようになります。
+   </p></div>
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">ドキュメント要素の名前は letters です。
+ドキュメント要素の名前空間は http://letterSchema です。
+ルートデータオブジェクトの型名は FormLetter です。
+ルートデータオブジェクトの namespaceURI は http://letterSchema です。</pre>
+</div>
+   </div>
+
+    
+   </div>
+   
+   <div class="example" id="example-4540">
+
+    <p><b>例6 SDO モデルの表示</b></p>
+
+    <div class="example-contents"><p>
+     XML DAS に読み込まれた型やプロパティの情報を見るための簡単な手段が提供されています。
+     php の &quot;print&quot; あるいは &quot;echo&quot; を使用すると、型およびプロパティの情報が出力されます。
+    </p></div>
+
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;モデルの情報の出力<br />&nbsp;*/<br /><br /></span><span style="color: #0000BB">$xmldas&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SDO_DAS_XML</span><span style="color: #007700">::</span><span style="color: #0000BB">create</span><span style="color: #007700">(</span><span style="color: #DD0000">"letter.xsd"</span><span style="color: #007700">);<br />print&nbsp;</span><span style="color: #0000BB">$xmldas</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+
+    <div class="example-contents"><p>
+     このプログラムの出力は次のようになります。
+   </p></div>
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">object(SDO_XML_DAS)#1 {
+18 types have been defined. The types and their properties are::
+1. commonj.sdo:BigDecimal
+2. commonj.sdo:BigInteger
+3. commonj.sdo:Boolean
+4. commonj.sdo:Byte
+5. commonj.sdo:Bytes
+6. commonj.sdo:ChangeSummary
+7. commonj.sdo:Character
+8. commonj.sdo:DataObject
+9. commonj.sdo:Date
+10. commonj.sdo:Double
+11. commonj.sdo:Float
+12. commonj.sdo:Integer
+13. commonj.sdo:Long
+14. commonj.sdo:Short
+15. commonj.sdo:String
+16. commonj.sdo:URI
+17. http://letterSchema:FormLetter
+    - date (commonj.sdo:String)
+    - firstName (commonj.sdo:String)
+    - lastName (commonj.sdo:String)
+18. http://letterSchema:RootType
+    - letters (http://letterSchema:FormLetter)</pre>
+</div>
+   </div>
+
+
+   </div>
+
+   
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo-das-xml.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.sdo-das-xml.html">SDO DAS XML 関数</a></div>
+ <div class="up"><a href="book.sdo-das-xml.html">SDO DAS XML</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

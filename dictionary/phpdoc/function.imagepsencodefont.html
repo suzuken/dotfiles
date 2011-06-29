@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>フォントの文字エンコードベクトルを変更する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagepsbbox.html">imagepsbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagepsextendfont.html">imagepsextendfont</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagepsencodefont" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagepsencodefont</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imagepsencodefont</span> &mdash; <span class="dc-title">フォントの文字エンコードベクトルを変更する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagepsencodefont-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>imagepsencodefont</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$font_index</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$encodingfile</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ファイルから文字エンコードベクトルをロードし、変更します。
+   PostScript フォントのデフォルトベクトルは、127以上の位置には文字
+   がほとんどないので、英語以外の言語を使用する場合には
+   恐らくこの部分を変更したいと思うことでしょう。
+  </p>
+  <p class="para">
+   この関数を頻繁に用いている場合には、ずっと優れた方法として
+   <a href="configuration.file.html" class="link">設定ファイル</a> で
+   ps.default_encoding が正しいエンコードファイルを指すようにして
+   エンコード法を定義する方法があります。この場合、
+   自動的にロードされる全てのフォントは、正しいエンコードとなります。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagepsencodefont-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">font_index</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.imagepsloadfont.html" class="function">imagepsloadfont()</a></span> が返すフォントリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">encodingfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このファイルの正しいフォーマットは、T1libs のドキュメントに記述されています。
+       T1libs には、すぐに使用できるファイルとして
+       <var class="filename">IsoLatin1.enc</var> および
+       <var class="filename">IsoLatin2.enc</var> が含まれています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagepsencodefont-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagepsencodefont-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2321">
+    <p><b>例1 <span class="function"><b>imagepsencodefont()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;.pfb&nbsp;フォントファイルを読み込みます<br /></span><span style="color: #0000BB">$font&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagepsloadfont</span><span style="color: #007700">(</span><span style="color: #DD0000">'./px3l.pfb'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;T1lib&nbsp;に、ISO&nbsp;Latin&nbsp;1&nbsp;エンコーディングを使うよう指示します<br /></span><span style="color: #0000BB">imagepsencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$font</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'./IsoLatin1.enc'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ここでフォントに対する操作をします<br /><br />//&nbsp;フォントをメモリから開放します<br /></span><span style="color: #0000BB">imagepsfreefont</span><span style="color: #007700">(</span><span style="color: #0000BB">$font</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagepsencodefont-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara"> この関数は、PHP が
+<strong class="option configure">--with-t1lib</strong>
+
+を指定してコンパイルされている場合のみ使用可能です。</span></p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagepsbbox.html">imagepsbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagepsextendfont.html">imagepsextendfont</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

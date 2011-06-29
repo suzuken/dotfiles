@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バイナリ対応の bzip2 ファイルへの書き込み</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.bzread.html">bzread</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.lzf.html">LZF</a></div>
+ <div class="up"><a href="ref.bzip2.html">Bzip2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.bzwrite" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">bzwrite</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5)</p><p class="refpurpose"><span class="refname">bzwrite</span> &mdash; <span class="dc-title">バイナリ対応の bzip2 ファイルへの書き込み</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.bzwrite-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>bzwrite</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$bz</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$data</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$length</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>bzwrite()</b></span> は、文字列を与えられた bzip2
+   ファイルストリームに書き込みます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.bzwrite-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">bz</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルポインタ。これは有効である必要があり、
+       <span class="function"><a href="function.bzopen.html" class="function">bzopen()</a></span> によりオープンされたファイルを指してい
+       る必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       書き込むデータ
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">length</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定した場合、
+       (圧縮前の) <i><tt class="parameter">length</tt></i> バイト分の書き込みが終ったか、
+       <i><tt class="parameter">data</tt></i> の終端に達したかで書き込みは終了します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.bzwrite-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   書き込んだバイト数、もしくはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.bzwrite-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-666">
+    <p><b>例1 <span class="function"><b>bzwrite()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"uncompressed&nbsp;data"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">bzopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/foo.bz2"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">bzwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$bz</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">bzclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$bz</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.bzwrite-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.bzread.html" class="function" rel="rdfs-seeAlso">bzread()</a> - バイナリ対応の bzip2 ファイル読み込み</span></li>
+    <li class="member"><span class="function"><a href="function.bzopen.html" class="function" rel="rdfs-seeAlso">bzopen()</a> - bzip2 圧縮されたファイルをオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.bzread.html">bzread</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.lzf.html">LZF</a></div>
+ <div class="up"><a href="ref.bzip2.html">Bzip2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

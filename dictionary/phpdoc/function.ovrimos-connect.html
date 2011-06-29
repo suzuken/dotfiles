@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したデータベースに接続する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ovrimos-commit.html">ovrimos_commit</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ovrimos-cursor.html">ovrimos_cursor</a></div>
+ <div class="up"><a href="ref.ovrimos.html">Ovrimos SQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ovrimos-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ovrimos_connect</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.3, PHP 5 &lt;= 5.0.5)</p><p class="refpurpose"><span class="refname">ovrimos_connect</span> &mdash; <span class="dc-title">指定したデータベースに接続する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ovrimos-connect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ovrimos_connect</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dborport</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$user</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$password</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定したデータベースに接続します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ovrimos-connect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ホスト名あるいは IP アドレス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dborport</tt></i></span>
+     <dd>
+
+      <p class="para">
+       データベース名、あるいは接続するポート番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">user</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">password</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">user</tt></i> のパスワード。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ovrimos-connect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に接続 ID (0 より大きい値)、
+   失敗した場合に 0 を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ovrimos-connect-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1677">
+    <p><b>例1 <span class="function"><b>ovrimos_connect()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ovrimos_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"server.example.com"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"8001"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"admin"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$conn&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Connection&nbsp;ok!"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ovrimos_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"select&nbsp;table_id,&nbsp;table_name&nbsp;from&nbsp;sys.tables"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Statement&nbsp;ok!"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ovrimos_result_all</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ovrimos_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ovrimos_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ovrimos-connect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ovrimos-close.html" class="function" rel="rdfs-seeAlso">ovrimos_close()</a> - ovrimos への接続を閉じる</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ovrimos-commit.html">ovrimos_commit</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ovrimos-cursor.html">ovrimos_cursor</a></div>
+ <div class="up"><a href="ref.ovrimos.html">Ovrimos SQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

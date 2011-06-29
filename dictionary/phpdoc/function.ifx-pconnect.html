@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>持続的 Informix 接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ifx-num-rows.html">ifx_num_rows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ifx-prepare.html">ifx_prepare</a></div>
+ <div class="up"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ifx-pconnect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ifx_pconnect</h1>
+  <p class="verinfo">(PHP 4, PHP &lt;=5.2.0)</p><p class="refpurpose"><span class="refname">ifx_pconnect</span> &mdash; <span class="dc-title">持続的 Informix 接続をオープンする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ifx-pconnect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>ifx_pconnect</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$database</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$userid</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$password</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>ifx_pconnect()</b></span> は、二つの大きな違いはあるものの、
+   <span class="function"><a href="function.ifx-connect.html" class="function">ifx_connect()</a></span> と非常に似た動作をします。
+  </p>
+  <p class="para">
+   まず、接続時に、関数は、既にオープンされている同じホスト、ユーザ名、
+   パスワードの (持続的) リンクを探します。
+   そのリンクが見つかった場合、新規に接続をオープンする代わりに
+   その ID が返されます。
+  </p>
+  <p class="para">
+   第二に、SQL サーバーへの接続は、スクリプトの実行終了時に閉じられません。
+   代わりにリンクは、後の使用のためにオープンされたままとなります。
+   (<span class="function"><a href="function.ifx-close.html" class="function">ifx_close()</a></span> は <span class="function"><b>ifx_pconnect()</b></span>
+   により確立されたリンクを閉じません。)
+  </p>
+  <p class="para">
+   この型のリンクは、このため、&#039;持続的&#039; であると呼ばれます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ifx-pconnect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   全ての引数はオプションであり、指定されない場合には、
+   <a href="configuration.file.html" class="link">設定ファイル</a>にて指定された値
+   がデフォルト値として設定されます。
+   (ホストに関して ifx.default_host (定義されていない場合、Informix 
+   ライブラリは、環境変数<span class="envar">INFORMIXSERVER</span>を参照します)
+   , ユーザーに関して ifx.default_user, 
+   パスワードに関して ifx.default_password (定義されていない場合は無し)
+   となります。
+  </p>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">database</tt></i></span>
+     <dd>
+
+      <p class="para">
+       データベース名を表す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">userid</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ名を表す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">password</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パスワードを表す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ifx-pconnect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   返り値: 成功時に有効な Informix 持続的リンク ID 、エラー時に <b><tt>FALSE</tt></b>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ifx-pconnect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ifx-connect.html" class="function" rel="rdfs-seeAlso">ifx_connect()</a> - Informix サーバへの接続をオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ifx-num-rows.html">ifx_num_rows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ifx-prepare.html">ifx_prepare</a></div>
+ <div class="up"><a href="ref.ifx.html">Informix 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

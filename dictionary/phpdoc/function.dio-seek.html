@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>fd 上で whence から pos に移動する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dio-read.html">dio_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dio-stat.html">dio_stat</a></div>
+ <div class="up"><a href="ref.dio.html">ダイレクト IO 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dio-seek" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dio_seek</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5 &lt;= 5.0.5)</p><p class="refpurpose"><span class="refname">dio_seek</span> &mdash; <span class="dc-title">fd 上で whence から pos に移動する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dio-seek-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>dio_seek</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$fd</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$pos</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$whence</tt><span class="initializer"> = SEEK_SET</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   関数 <span class="function"><b>dio_seek()</b></span> は、指定されたファイル記述子の
+   ファイル内の位置を変更する際に使用されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dio-seek-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fd</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.dio-open.html" class="function">dio_open()</a></span> が返すファイル記述子。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pos</tt></i></span>
+     <dd>
+
+      <p class="para">
+       新しい位置。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">whence</tt></i></span>
+     <dd>
+
+      <p class="para">
+       位置 <i><tt class="parameter">pos</tt></i> をどのように解釈するかを指示します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>SEEK_SET</tt></b>（デフォルト）-
+          <i><tt class="parameter">pos</tt></i> がファイル先頭からの位置であることを
+          指定します。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>SEEK_CUR</tt></b> -
+          <i><tt class="parameter">pos</tt></i> が現在のファイル位置からの文字数である
+          ことを指定します。このカウントは正にも負にもなりえます。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>SEEK_END</tt></b> -
+          <i><tt class="parameter">pos</tt></i> がファイル終端からの文字数であることを
+          指定します。負の値は、現在のファイルの範囲内の位置を指定します。
+          正の値は、現在のファイル終端を越えた位置を指定します。ファイル終端を
+          超える位置を指定して実際にデータを書き込んだ場合、ファイルは
+          その位置までゼロバイトで埋めて拡張されます。
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dio-seek-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dio-seek-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1860">
+    <p><b>例1 ファイル内の位置の指定</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$fd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dio_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'/dev/ttyS0'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">O_RDWR</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SEEK_SET</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ファイル先頭から&nbsp;10&nbsp;文字目<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SEEK_CUR</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ファイル先頭から&nbsp;8&nbsp;文字目<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ファイル終端から&nbsp;5&nbsp;文字戻ったところ<br /><br /></span><span style="color: #0000BB">dio_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SEEK_END</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ファイル終端からさらに&nbsp;10&nbsp;文字進んだところ。<br />//&nbsp;ファイル終端と現在の位置の間は&nbsp;ゼロ&nbsp;で埋められる。<br /><br /></span><span style="color: #0000BB">dio_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>     
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dio-read.html">dio_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dio-stat.html">dio_stat</a></div>
+ <div class="up"><a href="ref.dio.html">ダイレクト IO 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

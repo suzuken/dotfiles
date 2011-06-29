@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>問い合わせ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.writes.html">書き込み</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.updates.html">更新</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.queries" class="section">
+ <h2 class="title">問い合わせ</h2>
+
+ <div class="section">
+  <h2 class="title">問い合わせのスレーブへの分散</h2>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>1.1.0+</b><br />
+   <p class="para">
+    <a href="http://www.mongodb.org/display/DOCS/Replication" class="link external">&raquo; レプリカセット</a>
+    とバージョン 1.1.0 以降のドライバを使っている場合、
+    ドライバは読み込みを自動的にスレーブにまわします。
+    これは以前のバージョンのドライバにはなかった挙動で、&quot;通常の&quot;
+    マスタ-スレーブでは <em class="emphasis">使えません</em>。
+   </p>
+  </p></blockquote>
+
+  <p class="para">
+   デフォルトでは、ドライバはすべての問い合わせをマスタに送信します。
+   &quot;slaveOkay&quot; オプションを設定すると、ドライバはすべての問い合わせを
+   (もし可能なら) プライマリ以外のサーバに送信します。
+   &quot;slaveOkay&quot; オプションは、
+   <a href="mongo.setslaveokay.html" class="link">接続</a>、
+   <a href="mongodb.setslaveokay.html" class="link">データベース</a>、
+   <a href="mongocollection.setslaveokay.html" class="link">コレクション</a> および
+   <a href="mongocursor.slaveokay.html" class="link">カーソル</a>
+   のすべてのレベルで設定できます。各クラスは上位の &quot;slaveOkay&quot; 設定を継承するので、たとえば
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setSlaveOkay</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">myCollection</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   のようにすると、この問い合わせはスレーブに対して実行されます (コレクションがデータベースから
+   &quot;slaveOkay&quot; の設定を継承し、カーソルはコレクションからその設定を継承します)。
+  </p>
+
+  <div class="section">
+   <h2 class="title">スレーブはどのように選ばれるか</h2>
+
+   <p class="para">
+    各 <a href="class.mongo.html" class="classname">Mongo</a> インスタンスはそれぞれ自身のスレーブを持ち、
+    それは読み込み可能なスレーブの中からランダムに選ばれます。
+    持続的接続を使っている場合でもこれは保持されます。つまり、次のようなコード
+   </p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;メンバー&nbsp;ip0、ip1&nbsp;および&nbsp;ip2&nbsp;からなるレプリカセットに接続します<br />//&nbsp;ip0&nbsp;がプライマリ、ip1&nbsp;と&nbsp;ip2&nbsp;がセカンダリです<br /></span><span style="color: #0000BB">$m1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://ip0"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"replicaSet"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"x"</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">"m1's&nbsp;slave&nbsp;is&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$m1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSlave</span><span style="color: #007700">().</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;$m1&nbsp;と同じ接続を使います<br /></span><span style="color: #0000BB">$m2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://ip0"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"replicaSet"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"x"</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">"m2's&nbsp;slave&nbsp;is&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$m2</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSlave</span><span style="color: #007700">().</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <p class="para">
+    を試すと、おそらくこのような結果となります。
+   </p>
+   <div class="example-contents screen"><br />
+m1&#039;s slave is: ip2<br />
+m2&#039;s slave is: ip1<br />
+   </div>
+
+   <p class="para">
+    新しい <a href="class.mongo.html" class="classname">Mongo</a> を作り続けると、
+    ip1 と ip2 が同程度に分散した結果を得られることになります。
+    コマンドが取り上げたすべてのセカンダリが
+    (たとえ優先度が 0 であったり slaveDelay が設定されていたりしたとしても)
+    読み込み可能なサーバとなることに注意しましょう。
+    読み込みしたくないサーバがある場合は、読み込みのルーティングを手動でするか、
+    サーバのレプリカセットの設定で hidden オプションを追加します。
+   </p>
+
+   <p class="para">
+    スレーブはインスタンス単位で選ばれ、
+    (レプリカセットに何か問題が発生して強制的に変更される場合を除いて)
+    変わることはありません。
+   </p>
+
+   <p class="para">
+    セットのメンバーの現在の状態がどうなっているかを知るには、
+    <span class="function"><a href="mongo.getHosts.html" class="function">Mongo::getHosts()</a></span> を実行します。
+   </p>
+
+   <p class="para">
+    読み込み可能な非プライマリサーバがない場合は、
+    (たとえ &quot;slaveOkay&quot; が設定されていても)
+    ドライバはプライマリから読み込みを行います。
+    あるサーバが読み込み可能であると判定される条件は、その state が
+    2 (SECONDARY) かつ health が 1 であることです。
+    これらをチェックするには <span class="function"><a href="mongo.getHosts.html" class="function">Mongo::getHosts()</a></span>
+    を使います (いくつかのフィールドは省略しています)。
+   </p>
+   <div class="example-contents">
+<div class="cdata"><pre>
+Array
+(
+    [ubuntu:27017] =&gt; Array
+        (
+            [_id] =&gt; 0
+            [name] =&gt; ip0
+            [health] =&gt; 1
+            [state] =&gt; 1
+            [stateStr] =&gt; PRIMARY
+        )
+
+    [ubuntu:27019] =&gt; Array
+        (
+            [_id] =&gt; 2
+            [name] =&gt; ip1
+            [health] =&gt; 1
+            [state] =&gt; 2
+            [stateStr] =&gt; SECONDARY
+        )
+
+    [ubuntu:27018] =&gt; Array
+        (
+            [_id] =&gt; 1
+            [name] =&gt; ip2
+            [health] =&gt; 1
+            [state] =&gt; 2
+            [stateStr] =&gt; SECONDARY
+        )
+
+)
+</pre></div>
+   </div>
+
+   <p class="para">
+    上のセットには、読み込み可能なサーバが &quot;ip1&quot; と &quot;ip2&quot; のふたつあります。
+    これらの両方がダウンしたり古くなったりすると、読み込みは &quot;ip0&quot; に向けられるようになります。
+   </p>
+
+   <p class="para">
+    あまり関わるべきではないところに首を突っ込んで楽しみたいのなら、
+    <span class="function"><a href="mongo.switchslave.html" class="function">Mongo::switchSlave()</a></span>
+    をコールして別のスレーブを使わせることもできます。
+    これは、ランダムに新しいスレーブを選んでそれを使います。
+    自分が何をしているのかをしっかり把握しているのでない限り、これを使ってはいけません。
+   </p>
+
+  </div>
+  <div class="section">
+   <h2 class="title">その他の注意点</h2>
+
+   <p class="para">
+    書き込みは、常にプライマリに送られます。データベースコマンドについても、
+    たとえ読み込み専用のコマンドであっても常にプライマリに送られます。
+   </p>
+
+   <p class="para">
+    スレーブの health と state は、5 秒おき
+    あるいは次の操作の 5 秒前にチェックされます。
+    ドライバがサーバに到達できずに何か問題が発生したときは、同時に設定の再チェックも行います。
+    これらの情報の更新を手動で強制的に行うには 
+    <span class="function"><a href="mongo.getHosts.html" class="function">Mongo::getHosts()</a></span> をコールします。
+   </p>
+   
+   <p class="para">
+    非プライマリサーバは、操作時はプライマリの背後に隠れています。
+    そのため、最新でないデータを受け取っても大丈夫なようにアプリケーション側で対応しなければなりません
+    (あるいは、すべての書き込みで w を使わなければなりません)。
+   </p>
+  </div>
+
+ </div>
+
+ <div class="section">
+  <h2 class="title">_id による問い合わせ</h2>
+  <p class="para">
+   追加されたすべてのオブジェクトには、一意な _id フィールドが自動的に付加されます。
+   これは、問い合わせで使うフィールドとして便利です。
+  </p>
+  <p class="para">
+   今追加したばかりのドキュメントを探すことを考えてみましょう。
+   追加するとドキュメントに _id フィールドができるので、それを問い合わせればいいのです。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$person&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"joe"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$people</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #0000BB">$person</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;$joe&nbsp;には&nbsp;_id&nbsp;フィールドがあります<br /></span><span style="color: #0000BB">$joe&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$people</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">findOne</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"_id"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$person</span><span style="color: #007700">[</span><span style="color: #DD0000">'_id'</span><span style="color: #007700">]));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+  <p class="para">
+   ユーザが別途指定しない限り、_id フィールドは
+   <a href="class.mongoid.html" class="classname">MongoId</a> となります。ありがちな間違いは、
+   文字列を <a href="class.mongoid.html" class="classname">MongoId</a> とマッチさせようとすることです。
+   文字列とは別の型であり、そのままではマッチしないことを覚えておきましょう。
+   これは、文字列 &quot;array()&quot; と空の配列が別のものであるというのと同じことです。
+   次の例を参照ください。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$person&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"joe"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$people</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #0000BB">$person</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;_id&nbsp;を文字列に変換します<br /></span><span style="color: #0000BB">$pid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$person</span><span style="color: #007700">[</span><span style="color: #DD0000">'_id'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;失敗&nbsp;-&nbsp;$pid&nbsp;は文字列であり、MongoId&nbsp;ではありません<br /></span><span style="color: #0000BB">$joe&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$people</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">findOne</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"_id"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$pid</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">配列</h2>
+
+  <p class="para">
+   配列には特殊な点がいくつかあります。
+   まず、MongoDB が扱う配列には二種類あります。
+   &quot;普通の&quot; 配列と連想配列です。連想配列には、任意の型のキーと値を組み合わせることができます。
+   &quot;普通の&quot; 配列は、0 から始まってひとつずつ増えていく数値のインデックスに
+   それぞれ要素を関連づけます。
+   これらは、ほぼ PHP の配列や連想配列と同じようなものです。
+  </p>
+
+  <p class="para">
+   たとえば、受賞の一覧をドキュメントに保存するときには次のようにできます。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">save</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"awards"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"gold"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"silver"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"bronze"</span><span style="color: #007700">)));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   問い合わせでは、配列の要素も探すことができます。
+   指定した値が配列の要素に含まれるすべてのドキュメントを探すことを考えましょう。
+   たとえば、受賞 (awards) に金賞 (gold) が含まれる次のようなドキュメントです。
+  </p>
+
+  <div class="example-contents">
+<div class="cdata"><pre>
+{ &quot;_id&quot; : ObjectId(&quot;4b06c282edb87a281e09dad9&quot;), &quot;awards&quot; : [&quot;gold&quot;, &quot;silver&quot;, &quot;bronze&quot;]}
+</pre></div>
+  </div>
+
+  
+  <p class="para">
+   これは、単純なクエリで問い合わせることができます。&quot;awards&quot;
+   が配列であるということを気にせず、次のようにすればいいのです。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />&nbsp;&nbsp;$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"awards"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"gold"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   もう少し複雑なオブジェクトを考えてみましょう。
+   配列の各要素のオブジェクトになっている、次のような例だとどうでしょう。
+  </p>
+
+  <div class="example-contents">
+<div class="cdata"><pre>
+{ 
+     &quot;_id&quot; : ObjectId(&quot;4b06c282edb87a281e09dad9&quot;), 
+     &quot;awards&quot; : 
+     [
+        {
+            &quot;first place&quot; : &quot;gold&quot;
+        },
+        {
+            &quot;second place&quot; : &quot;silver&quot; 
+        },
+        {
+            &quot;third place&quot; :  &quot;bronze&quot;
+        }
+     ]
+}
+</pre></div>
+  </div>
+
+
+  <p class="para">
+   このような場合でも、配列であることを特別視する必要はありません。
+   内部のオブジェクトへの問い合わせには、ドット記法が使えます。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"awards.first&nbsp;place"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"gold"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   フィールド名にスペースが含まれていてもかまわないことに注目しましょう
+   (スペースを使わないにこしたことはありませんが、可読性を考慮しました)。
+  </p>
+
+  <p class="para">
+   配列を使って、取り得る値を複数指定した問い合わせを行うこともできます。
+   &quot;gold&quot; あるいは &quot;copper&quot; を含むドキュメントを探すには、このようにします。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"awards"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'$in'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"gold"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"copper"</span><span style="color: #007700">))));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.writes.html">書き込み</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.updates.html">更新</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

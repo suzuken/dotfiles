@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列で使用されている文字に関する情報を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.convert-uuencode.html">convert_uuencode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.crc32.html">crc32</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.count-chars" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">count_chars</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">count_chars</span> &mdash; <span class="dc-title">文字列で使用されている文字に関する情報を返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.count-chars-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>count_chars</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">string</tt></i> において各バイト値 (0..255)
+   が存在する数をかぞえ、様々な手法で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.count-chars-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       調べたい文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返り値を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.count-chars-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">mode</tt></i> の値により、
+   <span class="function"><b>count_chars()</b></span> は以下の値のどれかを返します。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      0 - 各バイト値をキー、各バイトの出現回数を値とする配列。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      1 - 0と同じですが、各バイト値の出現回数がゼロより大きいものの一覧となります。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      2 - 0と同じですが、各バイト値の出現回数がゼロであるものの一覧となります。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      3 - すべての一意な文字を含む文字列を返します。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      4 - 使用されていない全ての文字を含む文字列を返します。
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.count-chars-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3955">
+    <p><b>例1 <span class="function"><b>count_chars()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Two&nbsp;Ts&nbsp;and&nbsp;one&nbsp;F."</span><span style="color: #007700">;<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">count_chars</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"There&nbsp;were&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #DD0000">&nbsp;instance(s)&nbsp;of&nbsp;\""&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">chr</span><span style="color: #007700">(</span><span style="color: #0000BB">$i</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\"&nbsp;in&nbsp;the&nbsp;string.\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+There were 4 instance(s) of &quot; &quot; in the string.
+There were 1 instance(s) of &quot;.&quot; in the string.
+There were 1 instance(s) of &quot;F&quot; in the string.
+There were 2 instance(s) of &quot;T&quot; in the string.
+There were 1 instance(s) of &quot;a&quot; in the string.
+There were 1 instance(s) of &quot;d&quot; in the string.
+There were 1 instance(s) of &quot;e&quot; in the string.
+There were 2 instance(s) of &quot;n&quot; in the string.
+There were 2 instance(s) of &quot;o&quot; in the string.
+There were 1 instance(s) of &quot;s&quot; in the string.
+There were 1 instance(s) of &quot;w&quot; in the string.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.count-chars-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.strpos.html" class="function" rel="rdfs-seeAlso">strpos()</a> - 文字列が最初に現れる場所を見つける</span></li>
+    <li class="member"><span class="function"><a href="function.substr-count.html" class="function" rel="rdfs-seeAlso">substr_count()</a> - 副文字列の出現回数を数える</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.convert-uuencode.html">convert_uuencode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.crc32.html">crc32</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

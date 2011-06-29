@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Normalizer クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="locale.setdefault.html">Locale::setDefault</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="normalizer.isnormalized.html">Normalizer::isNormalized</a></div>
+ <div class="up"><a href="book.intl.html">intl</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.normalizer" class="reference">
+ <h1 class="title">Normalizer クラス</h1>
+ 
+
+ <div class="partintro">
+
+  
+  <div class="section" id="normalizer.intro">
+   <h2 class="title">導入</h2>
+   <p class="simpara">
+    正規化とは、文字や文字列を正式に決められた表現に変換する処理のことです。
+    これは、検索や並べ替えなどの際に比較をするときに特に重要となります。
+    ただ、それだけではなく、テキストを保存する際に表記を統一するために用いることもあります。
+   </p>
+   <p class="para">
+    Unicode Consortium では、
+    アプリケーション側でのさまざまなニーズにあわせていくつかの正規化方式を定義しています。
+    <ul class="simplelist">
+     <li class="member">Normalization Form D (NFD) - Canonical Decomposition</li>
+     <li class="member">
+      Normalization Form C (NFC) - Canonical Decomposition followed by
+      Canonical Composition
+     </li>
+     <li class="member">
+      Normalization Form KD (NFKD) - Compatibility Decomposition
+     </li>
+     <li class="member">
+      Normalization Form KC (NFKC) - Compatibility Decomposition followed by
+      Canonical Composition
+     </li>
+    </ul>
+    これらの方式は、テキストに対する変換 (transformation)
+    のセットとして定義されます。変換 (transformation)
+    は、アルゴリズムとデータファイルの両方で表現します。
+   </p>
+  </div>
+  
+
+  <div class="section" id="normalizer.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+   
+   <div class="classsynopsis">
+    <div class="ooclass">
+     
+    </div>
+
+    
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <b class="classname">Normalizer</b>
+     </span>
+     {</div>
+    
+
+    
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* メソッド */</div>
+    <div class="methodsynopsis dc-description">
+    <span class="modifier">static</span>
+    <span class="type">bool</span>
+     <span class="methodname"><a href="normalizer.isnormalized.html" class="methodname">isNormalized</a></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$input</tt></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$form</tt><span class="initializer"> = Normalizer::FORM_C</span></span>
+   ] )</div>
+<div class="methodsynopsis dc-description">
+    <span class="modifier">static</span>
+    <span class="type">string</span>
+     <span class="methodname"><a href="normalizer.normalize.html" class="methodname">normalize</a></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$input</tt></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$form</tt><span class="initializer"> = Normalizer::FORM_C</span></span>
+   ] )</div>
+
+   }</div>
+   
+
+  </div>
+
+  
+
+  
+
+
+<div class="section" id="intl.normalizer-constants">
+ <h2 class="title">定義済み定数</h2>
+
+ <p class="para">
+  以下の定数は、使用する正規化方式を定義するものです。
+  <dl>
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::FORM_C</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      Normalization Form C (NFC) - Canonical Decomposition followed by
+      Canonical Composition
+     </span>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::FORM_D</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">Normalization Form D (NFD) - Canonical Decomposition</span>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::FORM_KC</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      Normalization Form KC (NFKC) - Compatibility Decomposition, followed by
+      Canonical Composition
+     </span>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::FORM_KD</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      Normalization Form KD (NFKD) - Compatibility Decomposition
+     </span>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::NONE</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">分解/合成を行わない</span>
+    </dd>
+
+   </dt>
+
+
+   <dt>
+
+    <span class="term">
+     <b><tt>Normalizer::OPTION_DEFAULT</tt></b>
+     (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">デフォルトの正規化オプション</span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div>
+
+
+
+
+
+  <div class="section" id="normalizer.seealso">
+   <h2 class="title">参考</h2>
+   <p class="para">
+    <ul class="simplelist">
+     <li class="member">
+      <a href="http://unicode.org/reports/tr15/" class="link external">&raquo; 
+       Unicode Normalization
+      </a>
+     </li>
+     <li class="member">
+      <a href="http://unicode.org/faq/normalization.html" class="link external">&raquo; 
+       Unicode Normalization FAQ
+      </a>
+     </li>
+     <li class="member">
+      <a href="http://www.icu-project.org/userguide/normalization.html" class="link external">&raquo; 
+       ICU User Guide - Normalization
+      </a>
+     </li>
+     <li class="member">
+      <a href="http://www.icu-project.org/apiref/icu4c/unorm_8h.html" class="link external">&raquo; 
+       ICU API Reference - Normalization
+      </a>
+     </li>
+    </ul>
+   </p>
+  </div>
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="normalizer.isnormalized.html">Normalizer::isNormalized</a> — 渡された文字列が、指定した正規化を適用済みかどうかを調べる</li><li><a href="normalizer.normalize.html">Normalizer::normalize</a> — 渡された入力を正規化し、正規化後の文字列を返す</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="locale.setdefault.html">Locale::setDefault</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="normalizer.isnormalized.html">Normalizer::isNormalized</a></div>
+ <div class="up"><a href="book.intl.html">intl</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

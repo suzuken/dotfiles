@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>基本的な使用法</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.sample.getset.html">プロパティの値の設定および取得</a></div>
+ <div class="up"><a href="sdo.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo.examples-basic" class="section">
+  <h2 class="title">基本的な使用法</h2>
+  <p class="para">
+   以下の例では、XML データアクセスサービスを使用して、
+   下のスキーマおよびインスタンスをもとに作成した SDO の使用を想定しています。
+  </p>
+  <p class="para">
+   以下で説明しているインスタンスドキュメントは、
+   &#039;MegaCorp&#039; という会社を扱っています。この会社には
+   &#039;Advanced Technologies&#039; という名前の部署がひとつあります。
+   Advanced Technologies 部門には 3 人の従業員がいます。
+   この会社の employeeOfTheMonth (今月の従業員) は、
+   2 人目の従業員である &#039;Jane Doe&#039; を指しています。
+  </p>
+  <p class="para">
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt; 
+&lt;company xmlns=&quot;companyNS&quot; name=&quot;MegaCorp&quot; 
+  employeeOfTheMonth=&quot;E0003&quot;&gt;
+  &lt;departments name=&quot;Advanced Technologies&quot; location=&quot;NY&quot; number=&quot;123&quot;&gt;
+    &lt;employees name=&quot;John Jones&quot; SN=&quot;E0001&quot;/&gt;
+    &lt;employees name=&quot;Jane Doe&quot; SN=&quot;E0003&quot;/&gt;
+    &lt;employees name=&quot;Al Smith&quot; SN=&quot;E0004&quot; manager=&quot;true&quot;/&gt;
+  &lt;/departments&gt;
+&lt;/company&gt;</pre>
+</div>
+   </div>
+
+  </p>
+  <p class="para">
+   このスキーマのルート要素は company です。company は departments
+   を含んでおり、個々の department は employees を含んでいます。
+   各要素はいくつかの属性を保持しており、ここに名前やシリアル番号などを保存します。
+   最後に、company は IDREF 属性を保持しており、
+   特定の従業員を &#039;employeeOfTheMonth&#039; として参照しています。
+  </p>
+  <p class="para">
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xsd:schema  
+  xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+  xmlns:sdo=&quot;commonj.sdo&quot;
+  xmlns:sdoxml=&quot;commonj.sdo/xml&quot;
+  xmlns:company=&quot;companyNS&quot;
+  targetNamespace=&quot;companyNS&quot;&gt;
+  &lt;xsd:element name=&quot;company&quot; type=&quot;company:CompanyType&quot;/&gt;
+  &lt;xsd:complexType name=&quot;CompanyType&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element name=&quot;departments&quot; type=&quot;company:DepartmentType&quot; 
+        maxOccurs=&quot;unbounded&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+    &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;xsd:attribute name=&quot;employeeOfTheMonth&quot; type=&quot;xsd:IDREF&quot; 
+      sdoxml:propertyType=&quot;company:EmployeeType&quot;/&gt; 
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:complexType name=&quot;DepartmentType&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element name=&quot;employees&quot; type=&quot;company:EmployeeType&quot;  
+        maxOccurs=&quot;unbounded&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+    &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;xsd:attribute name=&quot;location&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;xsd:attribute name=&quot;number&quot; type=&quot;xsd:int&quot;/&gt;
+  &lt;/xsd:complexType&gt;
+  &lt;xsd:complexType name=&quot;EmployeeType&quot;&gt;
+    &lt;xsd:attribute name=&quot;name&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;xsd:attribute name=&quot;SN&quot; type=&quot;xsd:ID&quot;/&gt;
+    &lt;xsd:attribute name=&quot;manager&quot; type=&quot;xsd:boolean&quot;/&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</pre>
+</div>
+   </div>
+
+  </p>
+  <p class="para">
+   XML データアクセスサービスは、スキーマを SDO に関連付けます。
+   &quot;name&quot; のような属性はプリミティブプロパティに、
+   一連の employees は複数の値をとる包含関係に、といったようになります。
+   包含関係は、複合型の中に別の複合型を含めることで表され、
+   非包含関係は ID や IDREF に特別な属性
+   <strong class="command">sdoxml:propertyType</strong> を指定して表されることに注意しましょう。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.sample.getset.html">プロパティの値の設定および取得</a></div>
+ <div class="up"><a href="sdo.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>TIFF あるいは JPEG 形式の画像に埋め込まれたサムネイルを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.exif-tagname.html">exif_tagname</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.read-exif-data.html">read_exif_data</a></div>
+ <div class="up"><a href="ref.exif.html">Exif 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.exif-thumbnail" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">exif_thumbnail</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">exif_thumbnail</span> &mdash; <span class="dc-title">TIFF あるいは JPEG 形式の画像に埋め込まれたサムネイルを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.exif-thumbnail-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>exif_thumbnail</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$width</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$height</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$imagetype</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>exif_thumbnail()</b></span> は、
+   <acronym title="Tagged Image File Format">TIFF</acronym> あるいは <acronym title="Joint Photographic Experts Group">JPEG</acronym> 画像に
+   埋め込まれたサムネイルを読み込みます。
+  </p>
+  <p class="para">
+   この関数を使用してサムネイルを出力したい場合は、
+   <span class="function"><a href="function.header.html" class="function">header()</a></span> 関数を使用して mimetype 情報を送信する
+   必要があります。
+  </p>
+  <p class="para">
+   <span class="function"><b>exif_thumbnail()</b></span> が画像を作成することはできないが、
+   そのサイズだけはわかるという可能性があります。そのような場合、返り値は
+   <b><tt>FALSE</tt></b> となりますが <i><tt class="parameter">width</tt></i> および
+   <i><tt class="parameter">height</tt></i> を設定されています。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.exif-thumbnail-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       読み込む画像ファイルの名前。サムネイルが埋め込まれています。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返されるサムネイルの幅が格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">height</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返されるサムネイルの高さが格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">imagetype</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返されるサムネイルの画像タイプが格納されます。
+       <acronym title="Tagged Image File Format">TIFF</acronym> あるいは <acronym title="Joint Photographic Experts Group">JPEG</acronym>
+       のどちらかです。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.exif-thumbnail-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   埋め込まれたサムネイルを返します。画像がサムネイルを含まない場合は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.exif-thumbnail-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        オプションで <i><tt class="parameter">width</tt></i>、
+        <i><tt class="parameter">height</tt></i> および <i><tt class="parameter">imagetype</tt></i> 
+        が使用可能になりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        サムネイルを <acronym title="Tagged Image File Format">TIFF</acronym> フォーマットで返すことがあります。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.exif-thumbnail-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2226">
+    <p><b>例1 <span class="function"><b>exif_thumbnail()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'file'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$_REQUEST</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$image&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">exif_thumbnail</span><span style="color: #007700">(</span><span style="color: #0000BB">$_REQUEST</span><span style="color: #007700">[</span><span style="color: #DD0000">'file'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$width</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$height</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$type</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$image&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />}<br />if&nbsp;(</span><span style="color: #0000BB">$image</span><span style="color: #007700">!==</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;'&nbsp;</span><span style="color: #007700">.</span><span style="color: #0000BB">image_type_to_mime_type</span><span style="color: #007700">(</span><span style="color: #0000BB">$type</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$image</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;no&nbsp;thumbnail&nbsp;available,&nbsp;handle&nbsp;the&nbsp;error&nbsp;here<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'No&nbsp;thumbnail&nbsp;available'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.exif-thumbnail-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.exif-read-data.html" class="function" rel="rdfs-seeAlso">exif_read_data()</a> - JPEG あるいは TIFF から
+   EXIF ヘッダを読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.image-type-to-mime-type.html" class="function" rel="rdfs-seeAlso">image_type_to_mime_type()</a> - getimagesize, exif_read_data, exif_thumbnail, exif_imagetypeから返される
+   画像形式のMIMEタイプを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.exif-tagname.html">exif_tagname</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.read-exif-data.html">read_exif_data</a></div>
+ <div class="up"><a href="ref.exif.html">Exif 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

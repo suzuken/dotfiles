@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アップロードされるファイルのためのスペースを確保する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-cdup.html">ftp_cdup</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ftp-alloc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ftp_alloc</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">ftp_alloc</span> &mdash; <span class="dc-title">アップロードされるファイルのためのスペースを確保する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ftp-alloc-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ftp_alloc</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$ftp_stream</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$filesize</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$result</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i>ALLO</i> コマンドを FTP サーバに送信し、
+   アップロードされるファイルのためのスペースを確保します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    多くの FTP サーバはこのコマンドをサポートしていません。これらのサーバの中には、
+    「そのコマンドをサポートしていない」という意味で失敗コード（<b><tt>FALSE</tt></b>）
+    を返すものもあれば 「事前に確保する必要はない」という意味で成功コード（<b><tt>TRUE</tt></b>）
+    を返すものもあります。このような理由から、事前のスペース確保が明示的に
+    要求されているサーバに対してのみこの関数を使用するようにするとよいでしょう。
+   </p>
+  </p></blockquote>
+  <p class="para">
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ftp-alloc-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ftp_stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       FTP 接続のリンク ID 。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filesize</tt></i></span>
+     <dd>
+
+      <p class="para">
+       確保したいバイト数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       もし変数が指定されていた場合、サーバからの応答テキストの内容の
+       参照が格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ftp-alloc-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ftp-alloc-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3455">
+    <p><b>例1 <span class="function"><b>ftp_alloc()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"/home/user/myfile"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;サーバに接続する<br /></span><span style="color: #0000BB">$conn_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'ftp.example.com'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$login_result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_login</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'anonymous'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'user@example.com'</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">ftp_alloc</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Space&nbsp;successfully&nbsp;allocated&nbsp;on&nbsp;server.&nbsp;&nbsp;Sending&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">ftp_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/incomming/myfile'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FTP_BINARY</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Unable&nbsp;to&nbsp;allocate&nbsp;space&nbsp;on&nbsp;server.&nbsp;&nbsp;Server&nbsp;said:&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">ftp_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ftp-alloc-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ftp-put.html" class="function" rel="rdfs-seeAlso">ftp_put()</a> - FTP サーバにファイルをアップロードする</span></li>
+    <li class="member"><span class="function"><a href="function.ftp-fput.html" class="function" rel="rdfs-seeAlso">ftp_fput()</a> - オープン中のファイルを FTP サーバにアップロードする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-cdup.html">ftp_cdup</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

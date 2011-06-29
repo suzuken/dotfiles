@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ドキュメントの情報を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-set-border-style.html">ps_set_border_style</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-set-parameter.html">ps_set_parameter</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ps-set-info" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ps_set_info</h1>
+  <p class="verinfo">(PECL ps &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ps_set_info</span> &mdash; <span class="dc-title">ドキュメントの情報を設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ps-set-info-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ps_set_info</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$p</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$val</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ドキュメントの情報フィールドを設定します。この情報は、PostScript
+   ファイルのヘッダにコメントとして表示されます。
+   ドキュメントが pdf に変換された場合にも、
+   このフィールドはドキュメントの情報として使用されます。
+  </p>
+  <p class="para">
+   通常 <i>BoundingBox</i> は最初のページの設定と同じ値を
+   設定しておきます。 <span class="function"><a href="function.ps-findfont.html" class="function">ps_findfont()</a></span>
+   が事前に呼ばれていなかった場合のみ、この設定が利用されます。そのような場合、
+   もしこの関数で明示的に設定していなければ BoundingBox は空白のままとなります。
+  </p>
+  <p class="para">
+   postscript ファイルのヘッダが既に書き込まれている場合には、
+   この関数は何の意味も持ちません。この関数は、最初のページの前、
+   あるいは <span class="function"><a href="function.ps-findfont.html" class="function">ps_findfont()</a></span>
+   が最初にコールされる前にコールされる必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ps-set-info-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">psdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ps-new.html" class="function">ps_new()</a></span> が返す、postscript
+       ファイルのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       設定する情報フィールドの名前。設定できる値は
+       <i>Keywords</i>、<i>Subject</i>、
+       <i>Title</i>、<i>Creator</i>、
+       <i>Author</i>、<i>BoundingBox</i> および
+       <i>Orientation</i> です。
+       このうちのいくつかは、PostScript
+       ビューアに対して意味を持つものであることに注意しましょう。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       情報フィールドの値。
+       <i>Orientation</i> フィールドには
+       <i>Portrait</i> あるいは <i>Landscape</i>
+       が設定できます。<i>BoundingBox</i>
+       は 4 つの数値からなる文字列で、最初の 2 つがページの左下角の座標を表します。
+       残りの 2 つが右上角の座標です。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        pslib のバージョン 0.2.6 まででは、
+        <span class="function"><a href="function.ps-findfont.html" class="function">ps_findfont()</a></span> が事前にコールされていない限り、
+        この関数は常に BoundingBox および Orientation を上書きします。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ps-set-info-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ps-set-info-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ps-findfont.html" class="function" rel="rdfs-seeAlso">ps_findfont()</a> - フォントを読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.ps-begin-page.html" class="function" rel="rdfs-seeAlso">ps_begin_page()</a> - 新しいページを開始する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-set-border-style.html">ps_set_border_style</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-set-parameter.html">ps_set_parameter</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

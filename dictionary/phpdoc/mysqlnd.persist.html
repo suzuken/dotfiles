@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>持続的接続</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.config.html">実行時設定</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.stats.html">Statistics</a></div>
+ <div class="up"><a href="book.mysqlnd.html">Mysqlnd</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqlnd.persist" class="chapter">
+ <h1>持続的接続</h1>
+
+ <p class="para">
+  <em class="emphasis">持続的接続の使用</em>
+ </p>
+ <p class="para">
+  持続的接続が作成される際に、もし <i>mysqli</i>
+  が <i>mysqlnd</i> と一緒に使用されていれば、サーバ上に
+  <i>COM_CHANGE_USER</i> (<i>mysql_change_user()</i>)
+  の呼び出しを生成します。これは、接続の認証が再び行われることを確実にします。
+ </p>
+ <p class="para">
+  <i>COM_CHANGE_USER</i> の呼び出しと関連するオーバーヘッドが若干あるので、
+  コンパイル時にこれをオフにすることができます。
+  持続的接続を再利用すると、接続が再利用できるかどうか簡単にテストするために、
+  <i>COM_PING</i> (<i>mysql_ping</i>)
+  の呼び出しが生成されます。
+ </p>
+ <p class="para">
+  <i>COM_CHANGE_USER</i> を生成すると、コンパイル・フラグ
+  <i>MYSQLI_NO_CHANGE_USER_ON_PCONNECT</i> でオフにすることができます。
+  例えば、
+ </p>
+<div class="example-contents">
+<div class="cdata"><pre>
+shell# CFLAGS=&quot;-DMYSQLI_NO_CHANGE_USER_ON_PCONNECT&quot; ./configure --with-mysql=/usr/local/mysql/ --with-mysqli=/usr/local/mysql/bin/mysql_config --with-pdo-mysql=/usr/local/mysql/bin/mysql_config --enable-debug &amp;&amp; make clean &amp;&amp; make -j6
+</pre></div>
+</div>
+
+ <p class="para">
+  またはその代わりに、
+ </p>
+<div class="example-contents"><div class="cdata"><pre>
+shell# export CFLAGS=&quot;-DMYSQLI_NO_CHANGE_USER_ON_PCONNECT&quot;
+shell# configure --whatever-option
+shell# make clean
+shell# make
+</pre></div></div>
+
+ <p class="para">
+  <i>mysqlnd</i> 上の <i>mysqli</i> だけが
+  <i>COM_CHANGE_USER</i> を使用することに注意してください。
+  他のエクステンションとドライバーの組み合わせでは、持続的な接続を最初に使用する際に、
+  <i>COM_PING</i> を使用します。
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.config.html">実行時設定</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.stats.html">Statistics</a></div>
+ <div class="up"><a href="book.mysqlnd.html">Mysqlnd</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

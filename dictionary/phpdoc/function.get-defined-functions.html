@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>定義済みの全ての関数を配列で返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.function-exists.html">function_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.register-shutdown-function.html">register_shutdown_function</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.get-defined-functions" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">get_defined_functions</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5)</p><p class="refpurpose"><span class="refname">get_defined_functions</span> &mdash; <span class="dc-title">定義済みの全ての関数を配列で返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.get-defined-functions-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>get_defined_functions</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   すべての定義済み関数を配列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.get-defined-functions-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は、組込 (内部) 関数およびユーザ定義関数を共に含む定義済み
+   の全ての関数のリストを有する多次元配列を返します。内部関数は、
+   <var class="varname"><var class="varname">$arr["internal"]</var></var>、ユーザ定義関数は
+   <var class="varname"><var class="varname">$arr["user"]</var></var> によりアクセス可能となります
+   (以下の例を参照ください)。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.get-defined-functions-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4234">
+    <p><b>例1 <span class="function"><b>get_defined_functions()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">myrow</span><span style="color: #007700">(</span><span style="color: #0000BB">$id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"&lt;tr&gt;&lt;th&gt;</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">&lt;/th&gt;&lt;td&gt;</span><span style="color: #0000BB">$data</span><span style="color: #DD0000">&lt;/td&gt;&lt;/tr&gt;\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_defined_functions</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [internal] =&gt; Array
+        (
+            [0] =&gt; zend_version
+            [1] =&gt; func_num_args
+            [2] =&gt; func_get_arg
+            [3] =&gt; func_get_args
+            [4] =&gt; strlen
+            [5] =&gt; strcmp
+            [6] =&gt; strncmp
+            ...
+            [750] =&gt; bcscale
+            [751] =&gt; bccomp
+        )
+
+    [user] =&gt; Array
+        (
+            [0] =&gt; myrow
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.get-defined-functions-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.function-exists.html" class="function" rel="rdfs-seeAlso">function_exists()</a> - 指定した関数が定義されている場合に TRUE を返す</span></li>
+    <li class="member"><span class="function"><a href="function.get-defined-vars.html" class="function" rel="rdfs-seeAlso">get_defined_vars()</a> - 全ての定義済の変数を配列で返す</span></li>
+    <li class="member"><span class="function"><a href="function.get-defined-constants.html" class="function" rel="rdfs-seeAlso">get_defined_constants()</a> - すべての定数の名前とその値を連想配列として返す</span></li>
+    <li class="member"><span class="function"><a href="function.get-declared-classes.html" class="function" rel="rdfs-seeAlso">get_declared_classes()</a> - 定義済のクラスの名前を配列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.function-exists.html">function_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.register-shutdown-function.html">register_shutdown_function</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

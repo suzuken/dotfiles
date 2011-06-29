@@ -1,0 +1,1017 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SDO 関数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.sample.reflection.html">サービスデータオブジェクトへのリフレクション</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sdo-das-changesummary-beginlogging.html">SDO_DAS_ChangeSummary::beginLogging</a></div>
+ <div class="up"><a href="book.sdo.html">SDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="ref.sdo" class="reference">
+ <h1 class="title">SDO 関数</h1>
+
+ <div class="partintro">
+  <div class="section" id="sdo.das.table">
+   <h2 class="title">データアクセスサービス</h2>
+   <p class="para">
+    以下の表で、現在提供されている SDO データアクセスサービスの
+    一覧を示します。
+    <table class="doctable informaltable">
+     
+      <thead valign="middle">
+       <tr valign="middle">
+        <th>DAS 名</th>
+        <th>説明</th>
+       </tr>
+
+      </thead>
+
+      <tbody valign="middle" class="tbody">
+       <tr valign="middle">
+        <td align="left">
+         <a href="ref.sdo-das-xml.html" class="link">SDO_DAS_XML</a>
+        </td>
+        <td align="left">
+         XML データアクセスサービスは、SDO を XML ドキュメントとして
+         読み書きします。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">
+         <a href="ref.sdo.das.rel.html" class="link">SDO_DAS_Relational</a>
+        </td>
+        <td align="left">
+         PDO を基にしたデータアクセスサービスで、SDO をリレーショナル
+         データベースとして読み書きします。同時更新に対しては
+         楽観的な実装となっています。
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+  </div>
+
+  
+
+  
+  <div class="section" id="sdo.classes">
+   <h2 class="title">定義済みクラス</h2>
+   <p class="para">
+    SDO は、3 つの系統のインターフェイスから構成されています。ひとつめは
+    典型的な SDO アプリケーションで使用されるインターフェイスをカバーする
+    もので、これらには &#039;SDO_&#039; という名前がつけられています。2 番目は
+    データオブジェクトのモデルを扱うためのもので、これらには
+    &#039;SDO_Model_&#039; という名前がつけられています。最後はデータアクセスサービスで
+    使用されるもので、これらには &#039;SDO_DAS_&#039; という名前がつけられています。
+    SDO を使用するほとんどの人は、&#039;SDO_Model_&#039; や &#039;SDO_DAS_&#039;
+    を使用したり理解したりする必要はないでしょう。
+   </p>
+
+   <div class="section" id="sdo.class.sdo-apis">
+    <h2 class="title">SDO API</h2>
+
+    <div class="section" id="sdo.class.sdo-dataobject">
+     <h2 class="title">
+      <b class="classname">SDO_DataObject</b>
+     </h2>
+     <p class="para">
+      データオブジェクトを操作する際のメインとなるインターフェイスです。
+      以下で説明するメソッドに加え、SDO_DataObject は
+      ArrayAccess、SDO_PropertyAccess (プロパティへのアクセスのために
+      <span class="function"><b>__get()</b></span> /
+      <span class="function"><b>__set()</b></span> メソッドをオーバーロードします)、
+      Iterator および Countable インターフェイスを継承します。
+     </p>
+     <div class="section" id="sdo.class.SDO-DataObject.methods"> <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-getsequence.html" class="link">getSequence</a>
+         - データオブジェクトのシーケンスを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-createdataobject.html" class="link">createDataObject</a>
+         - 子データオブジェクトを作成する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-clear.html" class="link">clear</a>
+         - データオブジェクトのプロパティの設定を解除する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-getcontainer.html" class="link">getContainer</a>
+         - このオブジェクトのコンテナ (あるいは「親」) を取得する
+        </p>
+       </li>      
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-gettypename.html" class="link">getTypeName</a>
+         - このデータオブジェクトの型の名前を取得する
+        </p>
+       </li>     
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-dataobject-gettypenamespaceuri.html" class="link">getTypeNamespaceURI</a>
+         - このデータオブジェクトの型の名前空間 URI を取得する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdo-sequence">
+     <h2 class="title">
+      <b class="classname">SDO_Sequence</b>
+     </h2>
+     <p class="para">
+      シーケンスデータオブジェクトが、データオブジェクトのプロパティの
+      並び順を保持したままアクセスをおこなったり
+      非構造化テキストを許可したりする際に使用するインターフェイスです。
+      SDO_Sequence は、インデックスが常に連続した数となるようにします。
+      そのため、要素を挿入したり削除したりすると、その他の要素のインデックスが
+      増減します。以下で説明するメソッドに加え、SDO_Sequence は
+      ArrayAccess、Iterator および Countable インターフェイスを
+      継承しています。
+     </p>
+     <div class="section" id="sdo.class.SDO-Sequence.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-sequence-getproperty.html" class="link">getProperty</a>
+         - シーケンスのインデックスからプロパティを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-sequence-move.html" class="link">move</a>
+         - 指定した要素を、現在のプロパティインデックスから別の位置に移動する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-sequence-insert.html" class="link">insert</a>
+         - シーケンスに新しい値を挿入する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdo-list">
+     <h2 class="title">
+      <b class="classname">SDO_List</b>
+     </h2>
+     <p class="para">
+      複数の値を保持するプロパティを操作するためのインターフェイスです。
+      以下に挙げるメソッドに加え、SDO_List は ArrayAccess、
+      Iterator および Countable を継承しています。
+      SDO_List は、常にインデックスが連続した数となるようにします。
+      そのため、要素を挿入したり削除したりすると
+      他の要素のインデックスが変化します。
+     </p>
+     <div class="section" id="sdo.class.SDO-List.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-list-insert.html" class="link">insert</a>
+         - 新しい値をリストに挿入する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdo-datafactory">
+     <h2 class="title">
+      <b class="classname">SDO_DataFactory</b>
+     </h2>
+     <p class="para">
+      データオブジェクトを作成するためのインターフェイスです。
+      ファクトリのモデルに値を設定する (すなわち、作成可能なデータ
+      オブジェクトの型および構造情報をもとにデータファクトリを設定する)
+      のはデータアクセスサービスの役目です。また、オプションとして
+      SDO_DataFactory インターフェイスのインスタンスを返すか、
+      それを実装します。
+     </p>
+     <div class="section" id="sdo.class.SDO-DataFactory.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-datafactory-create.html" class="link">create</a>
+         - 新しいデータオブジェクトを作成する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+        
+    <div class="section" id="sdo.class.sdo-exception">
+     <h2 class="title">
+      <b class="classname">SDO_Exception</b>
+     </h2>
+     <p class="para">
+      SDO_Exception は、呼び出し元の要求を完了させられなかった際にスローされます。
+      SDO_Exception のサブクラスには以下のようなものがあります。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">SDO_PropertyNotSetException -
+        指定されたプロパティは存在するが、まだ値が設定されていません。
+        あるいはデフォルト値が設定されていません。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">SDO_PropertyNotFoundException -
+        指定されたプロパティはデータオブジェクトの型の一部ではありません。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">SDO_TypeNotFoundException -
+        指定された名前空間 URI あるいは型名が見つかりません。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">SDO_InvalidConversionException -
+        代入時に、型の変換を行うことができません。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">SDO_IndexOutOfBoundsException -
+        データオブジェクトやシーケンス、リストにおける数値インデックスが
+        有効な範囲にありません。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">SDO_UnsupportedOperationException -
+        その操作が許可されていないため、要求を完了できませんでした。
+        例えば読み込み専用のプロパティに値を設定しようとした場合などです。
+        </p>
+       </li>
+      </ul>
+     </p>
+     <div class="section" id="sdo.class.SDO-Exception.methods"> <h2 class="title">メソッド</h2>
+     <p class="para">
+      組み込みの
+      <a href="language.exceptions.extending.html" class="link">Exception</a>
+      クラスから継承したものに加え、次のメソッドが追加されています。
+     </p>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-exception-getcause.html" class="link">getCause</a>
+         - この SDO_Exception の原因を取得する
+        </p>
+       </li>
+
+      </ul>
+     </div>
+    </div>
+    
+   </div>
+
+
+
+   <div class="section" id="sdo.class.sdo-model-apis">
+    <h2 class="title">SDO リフレクション API</h2>
+
+    <div class="section" id="sdo.class.sdo-reflectiondataobject">
+     <h2 class="title">
+      <b class="classname">SDO_Model_ReflectionDataObject</b>
+     </h2>
+     <p class="para">
+      データオブジェクトのインスタンス自身について、モデルの型や
+      プロパティの情報を取得するためのインターフェイスです。
+      PHP 5 で使用可能となったリフレクションパターンに従うように
+      設計されています。
+     </p>
+     <div class="section" id="sdo.class.SDO-Model-ReflectionDataObject.constructor"> 
+       <h2 class="title">コンストラクタ</h2>     
+       <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-reflectiondataobject-construct.html" class="link">__construct</a>
+         - 新しい SDO_Model_ReflectionDataObject を作成する
+        </p>
+       </li>     
+      </ul>
+     </div>
+     <div class="section" id="sdo.class.SDO-Model-ReflectionDataObject.methods"> 
+       <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-reflectiondataobject-export.html" class="link">export</a>
+         - データオブジェクトを表す文字列を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-reflectiondataobject-gettype.html" class="link">getType</a>
+         - データオブジェクトの SDO_Model_Type を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-reflectiondataobject-getinstanceproperties.html" class="link">getInstanceProperties</a>
+         - データオブジェクトのインスタンスのプロパティを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-reflectiondataobject-getcontainmentproperty.html" class="link">getContainmentProperty</a>
+         - データオブジェクトとの包含関係を定義しているプロパティを取得する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdo-type">
+     <h2 class="title">
+      <b class="classname">SDO_Model_Type</b>
+     </h2>
+     <p class="para">
+      データオブジェクトの型に関する情報を取得するための
+      インターフェイスです。このインターフェイスは、型の名前および
+      名前空間 URI・オープン型のデータを許可するかどうかなどを
+      調べるために使用します。
+     </p>
+     <div class="section" id="sdo.class.SDO-Model-Type.methods"> <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-getname.html" class="link">getName</a>
+          - 型の名前を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-getnamespaceuri.html" class="link">getNamespaceURI</a>
+         - 型の名前空間 URI を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-isinstance.html" class="link">isInstance</a>
+         - データオブジェクトが特定の型のインスタンスであるかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-getproperties.html" class="link">getProperties</a>
+         - 型のプロパティを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-getproperty.html" class="link">getProperty</a>
+         - 型のプロパティを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-isdatatype.html" class="link">isDataType</a>
+         - この型が基本的なスカラー型であるかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-issequencedtype.html" class="link">isSequencedType</a>
+         - この型がシーケンス型であるかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-isopentype.html" class="link">isOpenType</a>
+         - この型がオープン型であるかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-isabstracttype.html" class="link">isAbstractType</a>
+         - この型が抽象型であるかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-model-type-getbasetype.html" class="link">getBaseType</a>
+         - この型の基底型を (もし存在すれば) 取得する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdo-property">
+     <h2 class="title">
+      <b class="classname">SDO_Model_Property</b>
+     </h2>
+     <p class="para">
+      データオブジェクトのプロパティに関する情報を取得するための
+      インターフェイスです。このインターフェイスは、プロパティの型・
+      デフォルト値の存在・包含関係の有無・カーディナリティなどを
+      調べるために使用します。
+     </p>
+     <div class="section" id="sdo.class.SDO-Model-Property.methods"> <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-getname.html" class="link">getName</a>
+          - プロパティの名前を取得する
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-gettype.html" class="link">getType</a>
+          - プロパティの型を取得する
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-ismany.html" class="link">isMany</a>
+          - プロパティが複数の値を保持するかどうかを調べる
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-iscontainment.html" class="link">isContainment</a>
+          - プロパティが包含関係を保持するかどうかを調べる
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-getcontainingtype.html" class="link">getContainingType</a>
+          - このプロパティを含んでいる型を取得する
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <a href="function.sdo-model-property-getdefault.html" class="link">getDefault</a>
+          - プロパティのデフォルト値を取得する
+         </p>
+        </li>
+      </ul>
+     </div>
+    </div>
+
+
+
+   </div>
+
+   <div class="section" id="sdo.class.sdo-das-spis">
+    <h2 class="title">
+     SDO データアクセスサービス
+     開発者用インターフェイス
+    </h2>
+
+    <div class="section" id="sdo.class.sdodas-dataobject">
+     <h2 class="title">
+      <b class="classname">SDO_DAS_DataObject</b>
+     </h2>
+     <p class="para">
+      データアクセスサービスが、データオブジェクトの
+      <a href="ref.sdo.html#sdo.class.sdodas-changesummary" class="link">SDO_DAS_ChangeSummary</a>
+      にアクセスするためのインターフェイスです。これは、変更した内容を
+      データベースに書き戻す際に、データアクセスサービスがデータの
+      衝突を調べるために使用されます。
+     </p>
+     <div class="section" id="sdo.class.SDO-DAS-DataObject.methods"> <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-dataobject-getchangesummary.html" class="link">getChangeSummary</a>
+         - データオブジェクトの変更内容を取得する
+        </p>
+       </li>
+
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdodas-changesummary">
+     <h2 class="title">
+      <b class="classname">SDO_DAS_ChangeSummary</b>
+     </h2>
+     <p class="para">
+      データオブジェクトの変更履歴にアクセスするためのインターフェイスです。
+      ログ取得が有効になってからデータオブジェクトに発生したあらゆる変更が、
+      変更内容に含まれます。削除あるいは修正の場合は、変更前の情報も保持されます。
+     </p>
+     <p class="para">
+      ログ取得が有効になっていない場合、ログ取得が無効にされた時点までの
+      変更内容が保存されます。ログ取得を再開すると、過去の変更内容は消去されます。
+      これは、変更内容を DAS で書き出した後にデータオブジェクトを
+      再利用する場合に有用です。
+     </p>
+     <div class="section" id="sdo.class.SDO-DAS-ChangeSummary.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-beginlogging.html" class="link">beginLogging</a>
+         - データオブジェクトの変更履歴のログ取得を開始する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-endlogging.html" class="link">endLogging</a>
+         - データオブジェクトの変更履歴のログ取得を終了する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-islogging.html" class="link">isLogging</a>
+         - ログ取得が有効になっているかどうかを調べる
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-getchangeddataobjects.html" class="link">getChangedDataObjects</a>
+         - 変更されたデータオブジェクトの一覧を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-getchangetype.html" class="link">getChangeType</a>
+         - データオブジェクトの変更の型を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-getoldvalues.html" class="link">getOldValues</a>
+         - データオブジェクトの変更前の値を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-changesummary-getoldcontainer.html" class="link">getOldContainer</a>
+         - 削除されたデータオブジェクトの削除前のコンテナを取得する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdodas-setting">
+     <h2 class="title">
+      <b class="classname">SDO_DAS_Setting</b>
+     </h2>
+     <p class="para">
+      プロパティの古い値にアクセスするためのインターフェイスです。
+      設定の一覧は、
+      <a href="function.sdo-das-changesummary-getoldvalues.html" class="link">
+       <span class="function"><b>getOldValues()</b></span>
+      </a>
+      で返されます。
+     </p>
+     <div class="section" id="sdo.class.SDO-DAS-Setting.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-setting-getpropertyindex.html" class="link">getPropertyIndex</a>
+         - 変更されたプロパティのプロパティインデックスを取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-setting-getpropertyname.html" class="link">getPropertyName</a>
+         - 変更されたプロパティのプロパティ名を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-setting-getvalue.html" class="link">getValue</a>
+         - 変更されたプロパティの古い値を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-setting-getlistindex.html" class="link">getListIndex</a>
+         - 複数の値を持つプロパティだった場合に、古い値のインデックスの
+         一覧を取得する
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-setting-isset.html" class="link">isSet</a>
+         - 変更前に、プロパティが設定されていたかどうかを調べる
+         </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+
+    <div class="section" id="sdo.class.sdodas-datafactory">
+     <h2 class="title">
+      <b class="classname">SDO_DAS_DataFactory</b>
+     </h2>
+     <p class="para">
+      SDO_DataObject のモデルを作成するインターフェイスです。
+      SDO_DAS_DataFactory は抽象クラスで、それを実装した具象データファクトリを
+      返すスタティックメソッドを提供します。この実装クラスを使用して、
+      データアクセスサービスが SDO モデルを作成します。
+      例えばリレーショナルデータアクセスサービスは、リレーショナル
+      データベースのスキーマをもとにして SDO_DAS_DataFactory モデルを
+      作成し、そこに値を設定します。
+     </p>
+     <div class="section" id="sdo.class.SDO-DAS-DataFactory.methods">
+      <h2 class="title">メソッド</h2>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-datafactory-getdatafactory.html" class="link">getDataFactory</a>
+         - 具象データファクトリのインスタンスを取得するためのスタティックメソッド
+        </p>
+       </li>
+      </ul>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-datafactory-addtype.html" class="link">addType</a>
+         - SDO モデルに新しい型を追加する
+        </p>
+       </li>
+      </ul>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <a href="function.sdo-das-datafactory-addpropertytotype.html" class="link">addPropertyToType</a>
+         - SDO モデルの型定義に新しいプロパティを追加する
+        </p>
+       </li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="function.sdo-das-changesummary-beginlogging.html">SDO_DAS_ChangeSummary::beginLogging</a> — 変更内容の記録を開始する</li><li><a href="function.sdo-das-changesummary-endlogging.html">SDO_DAS_ChangeSummary::endLogging</a> — 変更内容の記録を終了する</li><li><a href="function.sdo-das-changesummary-getchangetype.html">SDO_DAS_ChangeSummary::getChangeType</a> — SDO_DataObject への変更の型を取得する</li><li><a href="function.sdo-das-changesummary-getchangeddataobjects.html">SDO_DAS_ChangeSummary::getChangedDataObjects</a> — 変更内容から、変更されたデータオブジェクトを取得する</li><li><a href="function.sdo-das-changesummary-getoldcontainer.html">SDO_DAS_ChangeSummary::getOldContainer</a> — 削除された SDO_DataObject の削除前のコンテナを取得する</li><li><a href="function.sdo-das-changesummary-getoldvalues.html">SDO_DAS_ChangeSummary::getOldValues</a> — 変更された SDO_DataObject の変更前の値を取得する</li><li><a href="function.sdo-das-changesummary-islogging.html">SDO_DAS_ChangeSummary::isLogging</a> — 変更内容が記録されるようになっているかどうかを調べる</li><li><a href="function.sdo-das-datafactory-addpropertytotype.html">SDO_DAS_DataFactory::addPropertyToType</a> — 型にプロパティを追加する</li><li><a href="function.sdo-das-datafactory-addtype.html">SDO_DAS_DataFactory::addType</a> — モデルに新しい型を追加する</li><li><a href="function.sdo-das-datafactory-getdatafactory.html">SDO_DAS_DataFactory::getDataFactory</a> — データファクトリのインスタンスを取得する</li><li><a href="function.sdo-das-dataobject-getchangesummary.html">SDO_DAS_DataObject::getChangeSummary</a> — データオブジェクトの変更内容を取得する</li><li><a href="function.sdo-das-setting-getlistindex.html">SDO_DAS_Setting::getListIndex</a> — 複数の値を持つプロパティのインデックスを取得する</li><li><a href="function.sdo-das-setting-getpropertyindex.html">SDO_DAS_Setting::getPropertyIndex</a> — 変更されたプロパティのプロパティインデックスを取得する</li><li><a href="function.sdo-das-setting-getpropertyname.html">SDO_DAS_Setting::getPropertyName</a> — 変更されたプロパティのプロパティ名を取得する</li><li><a href="function.sdo-das-setting-getvalue.html">SDO_DAS_Setting::getValue</a> — 変更されたプロパティの変更前の値を取得する</li><li><a href="function.sdo-das-setting-isset.html">SDO_DAS_Setting::isSet</a> — 変更前にプロパティが設定されていたかどうかを調べる</li><li><a href="function.sdo-datafactory-create.html">SDO_DataFactory::create</a> — SDO_DataObject を作成する</li><li><a href="function.sdo-dataobject-clear.html">SDO_DataObject::clear</a> — SDO_DataObject のプロパティを消去する</li><li><a href="function.sdo-dataobject-createdataobject.html">SDO_DataObject::createDataObject</a> — 新しい子 SDO_DataObject を作成する</li><li><a href="function.sdo-dataobject-getcontainer.html">SDO_DataObject::getContainer</a> — データオブジェクトのコンテナを取得する</li><li><a href="function.sdo-dataobject-getsequence.html">SDO_DataObject::getSequence</a> — データオブジェクトのシーケンスを取得する</li><li><a href="function.sdo-dataobject-gettypename.html">SDO_DataObject::getTypeName</a> — データオブジェクトの型の名前を取得する</li><li><a href="function.sdo-dataobject-gettypenamespaceuri.html">SDO_DataObject::getTypeNamespaceURI</a> — このデータオブジェクトの型の名前空間 URI を取得する</li><li><a href="function.sdo-exception-getcause.html">SDO_Exception::getCause</a> — 例外の原因を取得する</li><li><a href="function.sdo-list-insert.html">SDO_List::insert</a> — リストに挿入する</li><li><a href="function.sdo-model-property-getcontainingtype.html">SDO_Model_Property::getContainingType</a> — このプロパティを含む SDO_Model_Type を取得する</li><li><a href="function.sdo-model-property-getdefault.html">SDO_Model_Property::getDefault</a> — プロパティのデフォルト値を取得する</li><li><a href="function.sdo-model-property-getname.html">SDO_Model_Property::getName</a> — SDO_Model_Property の名前を取得する</li><li><a href="function.sdo-model-property-gettype.html">SDO_Model_Property::getType</a> — プロパティの SDO_Model_Type を取得する</li><li><a href="function.sdo-model-property-iscontainment.html">SDO_Model_Property::isContainment</a> — プロパティが包含関係を定義しているかどうかを調べる</li><li><a href="function.sdo-model-property-ismany.html">SDO_Model_Property::isMany</a> — プロパティが複数の値を持つかどうかを調べる</li><li><a href="function.sdo-model-reflectiondataobject-construct.html">SDO_Model_ReflectionDataObject::__construct</a> — SDO_Model_ReflectionDataObject を作成する</li><li><a href="function.sdo-model-reflectiondataobject-export.html">SDO_Model_ReflectionDataObject::export</a> — SDO_DataObject を表す文字列を取得する</li><li><a href="function.sdo-model-reflectiondataobject-getcontainmentproperty.html">SDO_Model_ReflectionDataObject::getContainmentProperty</a> — データオブジェクトとの包含関係を定義しているプロパティを取得する</li><li><a href="function.sdo-model-reflectiondataobject-getinstanceproperties.html">SDO_Model_ReflectionDataObject::getInstanceProperties</a> — SDO_DataObject のインスタンスプロパティを取得する</li><li><a href="function.sdo-model-reflectiondataobject-gettype.html">SDO_Model_ReflectionDataObject::getType</a> — SDO_DataObject の SDO_Model_Type を取得する</li><li><a href="function.sdo-model-type-getbasetype.html">SDO_Model_Type::getBaseType</a> — この型の基底型を取得する</li><li><a href="function.sdo-model-type-getname.html">SDO_Model_Type::getName</a> — 型の名前を取得する</li><li><a href="function.sdo-model-type-getnamespaceuri.html">SDO_Model_Type::getNamespaceURI</a> — 型の名前空間 URI を取得する</li><li><a href="function.sdo-model-type-getproperties.html">SDO_Model_Type::getProperties</a> — 型で定義されている SDO_Model_Property オブジェクトを取得する</li><li><a href="function.sdo-model-type-getproperty.html">SDO_Model_Type::getProperty</a> — 型の SDO_Model_Property を取得する</li><li><a href="function.sdo-model-type-isabstracttype.html">SDO_Model_Type::isAbstractType</a> — この SDO_Model_Type が抽象データ型であるかどうかを調べる</li><li><a href="function.sdo-model-type-isdatatype.html">SDO_Model_Type::isDataType</a> — この SDO_Model_Type がプリミティブなデータ型であるかどうかを調べる</li><li><a href="function.sdo-model-type-isinstance.html">SDO_Model_Type::isInstance</a> — SDO_DataObject が、この SDO_Model_Type のインスタンスであるかどうかを調べる</li><li><a href="function.sdo-model-type-isopentype.html">SDO_Model_Type::isOpenType</a> — この型がオープン型であるかどうかを調べる</li><li><a href="function.sdo-model-type-issequencedtype.html">SDO_Model_Type::isSequencedType</a> — この型がシーケンス型であるかどうかを調べる</li><li><a href="function.sdo-sequence-getproperty.html">SDO_Sequence::getProperty</a> — 指定したシーケンスインデックスに対応するプロパティを返す</li><li><a href="function.sdo-sequence-insert.html">SDO_Sequence::insert</a> — シーケンスに挿入する</li><li><a href="function.sdo-sequence-move.html">SDO_Sequence::move</a> — シーケンス上の指定した位置に項目を移動する</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.sample.reflection.html">サービスデータオブジェクトへのリフレクション</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sdo-das-changesummary-beginlogging.html">SDO_DAS_ChangeSummary::beginLogging</a></div>
+ <div class="up"><a href="book.sdo.html">SDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

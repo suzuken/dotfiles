@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>サーバの状態を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.getextendedstats.html">Memcache::getExtendedStats</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.getstats.html">Memcache::getStats</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcache.getserverstatus" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcache::getServerStatus</h1>
+  <p class="verinfo">(PECL memcache &gt;= 2.1.0)</p><p class="refpurpose"><span class="refname">Memcache::getServerStatus</span> &mdash; <span class="dc-title">サーバの状態を返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcache.getserverstatus-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>Memcache::getServerStatus</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 11211</span></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcache::getServerStatus()</b></span>
+   は、サーバがオンライン/オフラインのどちらであるかを返します。
+   <span class="function"><b>memcache_get_server_status()</b></span> 関数を使用することも可能です。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、Memcache バージョン 2.1.0 で追加されました。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcache.getserverstatus-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるホストを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるポートを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcache.getserverstatus-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   サーバの状態を返します。サーバに接続できなかった場合に 0、
+   それ以外の場合にはゼロ以外の値を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcache.getserverstatus-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3567">
+    <p><b>例1 <span class="function"><b>Memcache::getServerStatus()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;オブジェクト指向の&nbsp;API&nbsp;*/<br /></span><span style="color: #0000BB">$memcache&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$memcache</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getServerStatus</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;手続き型の&nbsp;API&nbsp;*/<br /></span><span style="color: #0000BB">$memcache&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">memcache_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">memcache_get_server_status</span><span style="color: #007700">(</span><span style="color: #0000BB">$memcache</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcache.getserverstatus-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="memcache.addserver.html" class="function" rel="rdfs-seeAlso">Memcache::addServer()</a> - コネクションプールに memcached サーバを追加する</span></li>
+    <li class="member"><span class="function"><a href="memcache.setserverparams.html" class="function" rel="rdfs-seeAlso">Memcache::setServerParams()</a> - サーバのパラメータおよび状態を、実行時に変更する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.getextendedstats.html">Memcache::getExtendedStats</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.getstats.html">Memcache::getStats</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

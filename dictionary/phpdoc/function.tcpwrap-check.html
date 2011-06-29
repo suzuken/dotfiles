@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>tcpwrap のチェックを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.tcpwrap.html">TCP 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.yaz.html">YAZ</a></div>
+ <div class="up"><a href="ref.tcpwrap.html">TCP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.tcpwrap-check" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">tcpwrap_check</h1>
+  <p class="verinfo">(PECL tcpwrap &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">tcpwrap_check</span> &mdash; <span class="dc-title">tcpwrap のチェックを実行する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.tcpwrap-check-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>tcpwrap_check</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$daemon</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$address</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$user</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$nodns</tt><span class="initializer"> = false</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は <var class="filename">/etc/hosts.allow</var> および
+   <var class="filename">/etc/hosts.deny</var> の内容をもとに、あるクライアントが
+   <i><tt class="parameter">daemon</tt></i> サービスへのアクセスを許可されているか
+   否かを調べます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.tcpwrap-check-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">daemon</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サービスの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">address</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クライアントのリモートアドレス。IP アドレスあるいはドメイン名の
+       どちらでも指定可能。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">user</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ名（オプション）。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">nodns</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">address</tt></i> がドメイン名の場合、それを IP
+       アドレスに名前解決するために DNS が使用されます。
+       <i><tt class="parameter">nodns</tt></i> を <b><tt>TRUE</tt></b> に指定すると、この処理を
+       禁止します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.tcpwrap-check-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   アクセスが許可されている場合に <b><tt>TRUE</tt></b> 、それ以外の場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.tcpwrap-check-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-3822">
+   <p><b>例1 ローカルホストからの全接続を拒否する</b></p>
+   <div class="example-contents"><p>
+    <var class="filename">/etc/hosts.deny</var> ファイルに以下の行が含まれており、
+   </p></div>
+   <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">php: 127.0.0.1</pre>
+</div>
+   </div>
+   <div class="example-contents"><p>
+    以下のようなコードを実行する
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">tcpwrap_check</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;die(</span><span style="color: #DD0000">'You&nbsp;are&nbsp;not&nbsp;welcome&nbsp;here'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.tcpwrap-check-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   詳細な情報は、hosts_access(3) の man ページを参照ください。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.tcpwrap.html">TCP 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.yaz.html">YAZ</a></div>
+ <div class="up"><a href="ref.tcpwrap.html">TCP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

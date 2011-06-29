@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイル上のすべてのメタタグ情報を配列に展開する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-headers.html">get_headers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.http-build-query.html">http_build_query</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.get-meta-tags" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">get_meta_tags</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">get_meta_tags</span> &mdash; <span class="dc-title">ファイル上のすべてのメタタグ情報を配列に展開する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.get-meta-tags-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>get_meta_tags</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$use_include_path</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">filename</tt></i> 内の各行をパースし &lt;meta&gt;
+   タグ内の情報を配列として返します。
+   <i>&lt;/head&gt;</i> でパースを終了します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.get-meta-tags-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       HTML ファイルへのパスを表す文字列。
+       ローカルファイルのほか <acronym title="Uniform Resource Locator">URL</acronym> も指定できます。
+      </p>
+      <p class="para">
+       <div class="example" id="example-3401">
+        <p><b>例1 <span class="function"><b>get_meta_tags()</b></span> が何をパースするのか</b></p>
+        <div class="example-contents">
+<div class="htmlcode"><pre class="htmlcode">&lt;meta name=&quot;author&quot; content=&quot;name&quot;&gt;
+&lt;meta name=&quot;keywords&quot; content=&quot;php documentation&quot;&gt;
+&lt;meta name=&quot;DESCRIPTION&quot; content=&quot;a php manual&quot;&gt;
+&lt;meta name=&quot;geo.position&quot; content=&quot;49.33;-86.59&quot;&gt;
+&lt;/head&gt; &lt;!-- ここでパースを終了します --&gt;</pre>
+</div>
+        </div>
+
+       </div>
+       (改行コードに注意してください。PHP は入力をパースするためにネイティブ関数を使用するため、
+       Macintosh のファイルは Unix 上では動作しません)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">use_include_path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">use_include_path</tt></i> を <b><tt>TRUE</tt></b> に指定すると、
+       <a href="ini.core.html#ini.include-path" class="link">include_path</a>
+       ディレクティブの内容にしたがってファイルを探します。
+       これはローカルファイルにのみ有効で、URL の場合は使用できません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.get-meta-tags-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   パースされたメタタグを含む配列を返します。
+  </p>
+  <p class="para">
+   name 属性の値が配列のキーとなります。content 属性の値が配列の要素となります。
+   標準の配列関数を利用することでこれらの値に簡単にアクセスすることができます。
+   name 属性で特別な文字が使われている場合は &#039;_&#039; で代用されます。
+   それ以外は小文字に変換されます。もしも同じ名前のメタタグがある場合には
+   最後のもののみが返されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.get-meta-tags-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        クォートされていない HTML 属性もサポートするようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.get-meta-tags-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3402">
+    <p><b>例2 <span class="function"><b>get_meta_tags()</b></span> が何を返すのか</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;上のタグは&nbsp;www.example.com&nbsp;上のものだと仮定します<br /></span><span style="color: #0000BB">$tags&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_meta_tags</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;すべてのキーが小文字であり、.&nbsp;(ピリオド)&nbsp;が&nbsp;_&nbsp;に<br />//&nbsp;置換されていることに注目してください。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$tags</span><span style="color: #007700">[</span><span style="color: #DD0000">'author'</span><span style="color: #007700">];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;name<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$tags</span><span style="color: #007700">[</span><span style="color: #DD0000">'keywords'</span><span style="color: #007700">];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;php&nbsp;documentation<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$tags</span><span style="color: #007700">[</span><span style="color: #DD0000">'description'</span><span style="color: #007700">];&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;a&nbsp;php&nbsp;manual<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$tags</span><span style="color: #007700">[</span><span style="color: #DD0000">'geo_position'</span><span style="color: #007700">];&nbsp;</span><span style="color: #FF8000">//&nbsp;49.33;-86.59<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.get-meta-tags-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    name 属性がついているメタタグのみがパースの対象となります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.get-meta-tags-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.htmlentities.html" class="function" rel="rdfs-seeAlso">htmlentities()</a> - 適用可能な文字を全て HTML エンティティに変換する</span></li>
+    <li class="member"><span class="function"><a href="function.urlencode.html" class="function" rel="rdfs-seeAlso">urlencode()</a> - 文字列を URL エンコードする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-headers.html">get_headers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.http-build-query.html">http_build_query</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

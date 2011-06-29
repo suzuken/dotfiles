@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>内部 XML ツリーをファイルにダンプする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.domdocument-document-element.html">DomDocument-&gt;document_element</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.domdocument-dump-mem.html">DomDocument-&gt;dump_mem</a></div>
+ <div class="up"><a href="ref.domxml.html">DOM XML (PHP 4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.domdocument-dump-file" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">DomDocument->dump_file</h1>
+    <p class="verinfo">(PHP 4 &gt;= 4.1.0)</p><p class="refpurpose"><span class="refname">DomDocument-&gt;dump_file</span> &mdash; <span class="dc-title">
+     内部 XML ツリーをファイルにダンプする
+    </span></p>
+
+   </div>
+   <div class="refsect1 unknown" id="refsect1-function.domdocument-dump-file-unknown">
+    <h3 class="title">説明</h3>
+    <div class="methodsynopsis dc-description">
+     <span class="type">string</span> <span class="methodname"><b>DomDocument-&gt;dump_file</b></span>
+      ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+     [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$compressionmode</tt></span>
+     [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$format</tt></span>
+    ]] )</div>
+
+    <p class="para rdfs-comment">
+     DOM 表現から XML 文章を生成します。この関数は以下の例のように、
+     通常スクラッチから新規 DOM 文章を生成した後にコールされます。
+     <i><tt class="parameter">format</tt></i> により、
+     きちんと整形するかどうかを指定します。
+     第 1 パラメータはファイル名、第 2
+     パラメータは圧縮するかどうかを指定します。
+    </p>
+    <p class="para">
+     <div class="example" id="example-4467">
+      <p><b>例1 簡単な HTML 文章のヘッダを生成する</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">domxml_new_doc</span><span style="color: #007700">(</span><span style="color: #DD0000">"1.0"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">create_element</span><span style="color: #007700">(</span><span style="color: #DD0000">"HTML"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">append_child</span><span style="color: #007700">(</span><span style="color: #0000BB">$root</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$head&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">create_element</span><span style="color: #007700">(</span><span style="color: #DD0000">"HEAD"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$head&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">append_child</span><span style="color: #007700">(</span><span style="color: #0000BB">$head</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$title&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">create_element</span><span style="color: #007700">(</span><span style="color: #DD0000">"TITLE"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$title&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$head</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">append_child</span><span style="color: #007700">(</span><span style="color: #0000BB">$title</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">create_text_node</span><span style="color: #007700">(</span><span style="color: #DD0000">"This&nbsp;is&nbsp;the&nbsp;title"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$title</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">append_child</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dump_file</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/test.xml"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    <p class="para">
+     <span class="function"><a href="function.domdocument-dump-mem.html" class="function">domdocument_dump_mem()</a></span>,
+     <span class="function"><a href="function.domdocument-html-dump-mem.html" class="function">domdocument_html_dump_mem()</a></span>
+     も参照ください。
+    </p>
+   </div>
+
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.domdocument-document-element.html">DomDocument-&gt;document_element</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.domdocument-dump-mem.html">DomDocument-&gt;dump_mem</a></div>
+ <div class="up"><a href="ref.domxml.html">DOM XML (PHP 4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

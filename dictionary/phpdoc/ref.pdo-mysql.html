@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MySQL 関数 (PDO_MYSQL)</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-informix.connection.html">PDO_INFORMIX DSN</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-mysql.connection.html">PDO_MYSQL DSN</a></div>
+ <div class="up"><a href="pdo.drivers.html">PDO ドライバ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="ref.pdo-mysql" class="reference">
+  <h1 class="title">MySQL 関数 (PDO_MYSQL)</h1>
+  
+  <div class="partintro">
+
+   <div class="section" id="pdo-mysql.intro">
+   <h2 class="title">導入</h2>
+    <p class="para">
+     PDO_MYSQL は、PHP から MySQL 3.x、4.x および 5.x
+     データベースへのアクセスを可能にするための
+     <a href="intro.pdo.html" class="link">PHP Data
+     Objects (PDO) インターフェース</a> を実装したドライバです。
+    </p>
+    <p class="para">
+     PDO_MYSQL は、MySQL 4.1 以降に存在するプリペアドステートメントを
+     ネイティブにサポートしているという利点があります。
+     古いバージョンの mysql クライアントライブラリを使用している場合は、
+     PDO がこの機能をエミュレートします。
+    </p>
+    <div class="warning"><b class="warning">警告</b>
+     <p class="para">
+      注意: MySQL のテーブル型 (ストレージエンジン) の中には、
+      トランザクションをサポートしていないものがあります。
+      トランザクションをサポートしていないテーブル型を使用して
+      トランザクションを使用するコードを書くと、
+      MySQL はトランザクションが正常に使用できたかのように振舞います。
+      さらに、DDL クエリを実行する際には、
+      実行中のトランザクションが暗黙的にコミットされます。
+     </p>
+    </div>
+   </div>
+   
+
+
+<div class="section" id="ref.pdo-mysql.installation">
+ <h2 class="title">インストール手順</h2>
+ <p class="para">
+  <strong class="option configure">--with-pdo-mysql[=DIR]</strong>
+ で
+  PDO MySQL 拡張モジュールをインストールします。オプションの <i>[=DIR]</i>
+  には、MySQL の基底インストールディレクトリを指定することができます。
+  <i>[=DIR]</i> に <a href="book.mysqlnd.html" class="link">mysqlnd</a>
+  を指定すると、MySQL ネイティブドライバを使用します。
+ </p>
+ <p class="para">
+  オプションの <strong class="option configure">--with-mysql-sock[=DIR]</strong>
+ で
+  MySQL unix ソケットの場所を指定することができます。これは PDO_MYSQL を含むすべての
+  MySQL 拡張モジュールで利用します。省略した場合はデフォルトの場所を検索します。
+ </p>
+ <p class="para">
+  オプションの <strong class="option configure">--with-zlib-dir[=DIR]</strong>
+ で、
+  libz のインストールプレフィックスを指定することができます。
+ </p>
+ <p class="para">
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+$ ./configure --with-pdo-mysql --with-mysql-sock=/var/mysql/mysql.sock
+</pre></div>
+  </div>
+ </p>
+</div>
+
+
+
+   
+
+
+<div class="section" id="pdo-mysql.constants">
+ <h2 class="title">定義済み定数</h2>
+ <p class="simpara">このドライバでは以下の定数が定義されて
+います。これは拡張モジュールが PHP に組み込まれているか、実行時に動的にロード
+されている場合のみ使用可能です。さらに、これらのドライバ固有の定数は
+そのドライバを使用している場合にのみ使用されます。
+あるドライバ固有の属性を別のドライバで使うと、予期せぬ結果を引き起こします。
+もし複数のドライバを使用しているコードを実行している場合、
+<span class="function"><a href="pdo.getattribute.html" class="function">PDO::getAttribute()</a></span> で <b><tt>PDO_ATTR_DRIVER_NAME</tt></b>
+属性を使用することで、使用中のドライバ名を調べることが可能です。</p>
+ <dl>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_USE_BUFFERED_QUERY</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <span class="simpara">
+     <a href="class.pdostatement.html" class="classname">PDOStatement</a> でこの属性を <b><tt>TRUE</tt></b> に設定すると、
+     MySQL ドライバはバッファ版の MySQL API を使用します。
+     移植性の高いコードを書くには、代わりに
+     <span class="function"><a href="pdostatement.fetchall.html" class="function">PDOStatement::fetchAll()</a></span> を使用すべきです。
+    </span>
+    <p class="para">
+     <div class="example" id="example-976"><p><b>例3 mysql でクエリのバッファリングを強制する</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getAttribute</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">ATTR_DRIVER_NAME</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #DD0000">'mysql'</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'select&nbsp;*&nbsp;from&nbsp;foo'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">MYSQL_ATTR_USE_BUFFERED_QUERY&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">"このアプリケーションは&nbsp;mysql&nbsp;でしか動作しません。代わりに&nbsp;\$stmt-&gt;fetchAll()&nbsp;を使用すべきです"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_LOCAL_INFILE</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     <i>LOAD LOCAL INFILE</i> を有効にします。
+    </p>
+    <p class="para">
+     この定数を使うのは、新しいデータベースハンドルを作るときの
+     <i><tt class="parameter">driver_options</tt></i> 配列内だけであることに注意しましょう。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_INIT_COMMAND</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     MySQL サーバへの接続時に実行するコマンドを指定します。
+     再接続の際には自動的に再実行されます。
+    </p>
+    <p class="para">
+     この定数を使うのは、新しいデータベースハンドルを作るときの
+     <i><tt class="parameter">driver_options</tt></i> 配列内だけであることに注意しましょう。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_READ_DEFAULT_FILE</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     <var class="filename">my.cnf</var> ではなく、
+     指定した名前のファイルからオプションを読み込みます。
+     このオプションは、mysqlnd を使っている場合は利用できません。
+     mysqlnd は mysql の設定ファイルを読んでいないからです。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_READ_DEFAULT_GROUP</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     <var class="filename">my.cnf</var> あるいは
+     別のファイル (<b><tt>MYSQL_READ_DEFAULT_FILE</tt></b>
+     で指定したもの) の中の、指定した名前のグループからオプションを読み込みます。
+     このオプションは、mysqlnd を使っている場合は利用できません。
+     mysqlnd は mysql の設定ファイルを読んでいないからです。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_MAX_BUFFER_SIZE</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     バッファの最大サイズ。デフォルトは 1 MiB です。
+     mysqlnd を指定してコンパイルした場合は、この定数はサポートされていません。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_DIRECT_QUERY</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     プリペアドステートメントではなく、直接クエリを実行します。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_FOUND_ROWS</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     変更された行数ではなく、見つかった (マッチした) 行数を返します。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_IGNORE_SPACE</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     関数名の後に続く空白を許可します。
+     すべての関数名を予約語にします。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt>
+
+   <span class="term">
+    <b><tt>PDO::MYSQL_ATTR_COMPRESS</tt></b>
+     (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+   </span>
+   <dd>
+
+    <p class="para">
+     ネットワーク通信の圧縮を有効にします。これは、
+     mysqlnd を使ってコンパイルした場合はサポートされていません。
+    </p>
+   </dd>
+
+  </dt>
+
+ </dl>
+
+</div>
+
+
+
+   
+
+
+<div class="section" id="pdo-mysql.configuration">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>PDO_MYSQL 設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更の可否</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><a href="ref.pdo-mysql.html#ini.pdo-mysql.default-socket" class="link">pdo_mysql.default_socket</a></td>
+      <td align="left">&quot;/tmp/mysql.sock&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="ref.pdo-mysql.html#ini.pdo-mysql.debug" class="link">pdo_mysql.debug</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  PHP_INI_* モードの詳細および定義については
+<a href="configuration.changes.modes.html" class="xref">どこで設定を行うのか</a> を参照してください。
+ </p>
+
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+
+ <p class="para">
+  <dl>
+
+   <dt id="ini.pdo-mysql.default-socket">
+    <span class="term">
+     <i><tt class="parameter">pdo_mysql.default_socket</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      Unix ドメインソケットを設定します。
+      configure の際にドメインソケットが見つかれば、
+      この値はコンパイル時にも設定されます。この ini 設定は Unix でのみ使えます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.pdo-mysql.debug">
+    <span class="term">
+     <i><tt class="parameter">pdo_mysql.debug</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      PDO_MYSQL のデバッグ機能を有効にします。
+      この設定が有効になるのは、mysqlnd を使って PDO_MYSQL をでコンパイルし、
+      かつ PDO がデバッグモードであるときだけです。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div>
+
+
+
+  </div>
+
+  
+
+ <h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="ref.pdo-mysql.connection.html">PDO_MYSQL DSN</a> — MySQL データベースに接続する</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-informix.connection.html">PDO_INFORMIX DSN</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-mysql.connection.html">PDO_MYSQL DSN</a></div>
+ <div class="up"><a href="pdo.drivers.html">PDO ドライバ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

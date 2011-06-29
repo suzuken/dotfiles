@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した色+アルファ値に最も近い色のインデックスを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecolorclosest.html">imagecolorclosest</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecolorclosesthwb.html">imagecolorclosesthwb</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagecolorclosestalpha" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagecolorclosestalpha</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">imagecolorclosestalpha</span> &mdash; <span class="dc-title">指定した色+アルファ値に最も近い色のインデックスを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagecolorclosestalpha-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>imagecolorclosestalpha</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$red</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$green</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$blue</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$alpha</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した <acronym title="Red-Green-Blue">RGB</acronym> 値と <i><tt class="parameter">alpha</tt></i> レベルに
+   「近い」画像パレット中の色のインデックスを返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagecolorclosestalpha-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">red</tt></i></span>
+     <dd>
+
+      <p class="para">赤コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">green</tt></i></span>
+     <dd>
+
+      <p class="para">緑コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">blue</tt></i></span>
+     <dd>
+
+      <p class="para">青コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">alpha</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>0</i> から <i>127</i> までの値。
+       <i>0</i> は完全に不透明な状態。
+       <i>127</i> は完全に透明な状態を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+   色のパラメータは、0 から 255 までの整数値か
+   0x00 から 0xFF までの十六進値を指定します。
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagecolorclosestalpha-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   画像パレット内で、指定した色にいちばん近い色のインデックスを返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagecolorclosestalpha-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2248">
+    <p><b>例1 画像内での色セットの検索</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;画像を作成し、パレット画像に変換します<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'figures/imagecolorclosest.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagetruecolortopalette</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;探したい色&nbsp;(RGB)<br /></span><span style="color: #0000BB">$colors&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #0000BB">254</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">145</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">154</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #0000BB">153</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">145</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">188</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">127</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #0000BB">153</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">90</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">145</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">137</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">92</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">84</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;それぞれを検索し、パレット内でもっとも近い色を見つけます<br />//&nbsp;検索番号、検索した&nbsp;RGB、そして見つかった&nbsp;RGB&nbsp;を返します<br /></span><span style="color: #007700">foreach(</span><span style="color: #0000BB">$colors&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorclosestalpha</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorsforindex</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"(</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">[</span><span style="color: #DD0000">'red'</span><span style="color: #007700">]}</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">[</span><span style="color: #DD0000">'green'</span><span style="color: #007700">]}</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">[</span><span style="color: #DD0000">'blue'</span><span style="color: #007700">]}</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$result</span><span style="color: #007700">[</span><span style="color: #DD0000">'alpha'</span><span style="color: #007700">]}</span><span style="color: #DD0000">)"</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"#</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">:&nbsp;Search&nbsp;(</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]</span><span style="color: #DD0000">,&nbsp;</span><span style="color: #0000BB">$rgb</span><span style="color: #007700">[</span><span style="color: #0000BB">3</span><span style="color: #007700">]</span><span style="color: #DD0000">);&nbsp;Closest&nbsp;match:&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #DD0000">.\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+#0: Search (254, 145, 154, 50); Closest match: (252, 150, 148, 0).
+#1: Search (153, 145, 188, 127); Closest match: (148, 150, 196, 0).
+#2: Search (153, 90, 145, 0); Closest match: (148, 90, 156, 0).
+#3: Search (255, 137, 92, 84); Closest match: (252, 150, 92, 0).
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagecolorclosestalpha-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、GD 2.0.1 以降を必要とします (2.0.28 以降を推奨します)。</span></p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imagecolorclosestalpha-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imagecolorexactalpha.html" class="function" rel="rdfs-seeAlso">imagecolorexactalpha()</a> - 指定した色+アルファ値のインデックスを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.imagecolorclosest.html" class="function" rel="rdfs-seeAlso">imagecolorclosest()</a> - 指定した色に最も近い色のインデックスを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.imagecolorclosesthwb.html" class="function" rel="rdfs-seeAlso">imagecolorclosesthwb()</a> - 色合い、白、黒を有する色のインデックスを得る</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecolorclosest.html">imagecolorclosest</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecolorclosesthwb.html">imagecolorclosesthwb</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

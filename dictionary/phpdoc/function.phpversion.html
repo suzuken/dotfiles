@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在の PHP バージョンを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpinfo.html">phpinfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.putenv.html">putenv</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.phpversion" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">phpversion</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">phpversion</span> &mdash; <span class="dc-title">現在の PHP バージョンを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.phpversion-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>phpversion</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$extension</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   現在動作中の PHP パーサあるいは拡張モジュールのバージョンを表す文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.phpversion-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extension</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションで指定する拡張モジュール名。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.phpversion-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   オプションの <i><tt class="parameter">extension</tt></i>
+   パラメータが指定されている場合、<span class="function"><b>phpversion()</b></span>
+   はその拡張モジュールのバージョンを返します。
+   関連するバージョン情報が存在しない場合、
+   あるいは拡張モジュールが有効でない場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.phpversion-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-450">
+    <p><b>例1 <span class="function"><b>phpversion()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;たとえば&nbsp;'Current&nbsp;PHP&nbsp;version:&nbsp;4.1.1'&nbsp;などと表示します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'Current&nbsp;PHP&nbsp;version:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">phpversion</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;たとえば&nbsp;'2.0'&nbsp;などと表示します。拡張モジュールが有効でない場合は何も表示しません<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">phpversion</span><span style="color: #007700">(</span><span style="color: #DD0000">'tidy'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-451">
+    <p><b>例2 <b><tt>PHP_VERSION_ID</tt></b> の例および使用法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;PHP_VERSION_ID&nbsp;は&nbsp;PHP&nbsp;5.2.7&nbsp;以降で使用可能です。<br />//&nbsp;それより古いバージョンでは、このようにエミュレートします<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">defined</span><span style="color: #007700">(</span><span style="color: #DD0000">'PHP_VERSION_ID'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">explode</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">define</span><span style="color: #007700">(</span><span style="color: #DD0000">'PHP_VERSION_ID'</span><span style="color: #007700">,&nbsp;(</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;*&nbsp;</span><span style="color: #0000BB">10000&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;*&nbsp;</span><span style="color: #0000BB">100&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]));<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;PHP_VERSION_ID&nbsp;は数値として定義されており、数字が大きいほど&nbsp;PHP&nbsp;の<br />//&nbsp;バージョンが新しいことになります。その定義は、上で使用しているような<br />//&nbsp;式となります。<br />//<br />//&nbsp;$version_id&nbsp;=&nbsp;$major_version&nbsp;*&nbsp;10000&nbsp;+&nbsp;$minor_version&nbsp;*&nbsp;100&nbsp;+&nbsp;$release_version;<br />//<br />//&nbsp;PHP_VERSION_ID&nbsp;を使えば、その&nbsp;PHP&nbsp;のバージョンで使える機能を調べる<br />//&nbsp;ことができます。ある機能に対応しているかどうかを調べるために、毎回<br />//&nbsp;version_compare()&nbsp;を使う必要がなくなります。<br />//<br />//&nbsp;たとえば、PHP&nbsp;5.2.7&nbsp;より前のバージョンには存在しない定数<br />//&nbsp;PHP_VERSION_*&nbsp;を、次のように定義することができます。<br /><br /></span><span style="color: #007700">if(</span><span style="color: #0000BB">PHP_VERSION_ID&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">50207</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">define</span><span style="color: #007700">(</span><span style="color: #DD0000">'PHP_MAJOR_VERSION'</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">define</span><span style="color: #007700">(</span><span style="color: #DD0000">'PHP_MINOR_VERSION'</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">define</span><span style="color: #007700">(</span><span style="color: #DD0000">'PHP_RELEASE_VERSION'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;などなど<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.phpversion-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この情報は、定義済みの定数 <b><tt>PHP_VERSION</tt></b>
+    でも取得可能です。その他のバージョン関連の情報は、定数
+    <b><tt>PHP_VERSION_*</tt></b> で取得可能です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.phpversion-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="reserved.constants.html#reserved.constants.core" class="link">PHP_VERSION 定数</a></li>
+    <li class="member"><span class="function"><a href="function.version-compare.html" class="function" rel="rdfs-seeAlso">version_compare()</a> - ふたつの &quot;PHP 標準&quot; バージョン番号文字列を比較する</span></li>
+    <li class="member"><span class="function"><a href="function.phpinfo.html" class="function" rel="rdfs-seeAlso">phpinfo()</a> - PHP の設定情報を出力する</span></li>
+    <li class="member"><span class="function"><a href="function.phpcredits.html" class="function" rel="rdfs-seeAlso">phpcredits()</a> - PHP に関するクレジットを出力する</span></li>
+    <li class="member"><span class="function"><a href="function.php-logo-guid.html" class="function" rel="rdfs-seeAlso">php_logo_guid()</a> - ロゴの guid を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.zend-version.html" class="function" rel="rdfs-seeAlso">zend_version()</a> - 現在の Zend Engine のバージョンを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpinfo.html">phpinfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.putenv.html">putenv</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

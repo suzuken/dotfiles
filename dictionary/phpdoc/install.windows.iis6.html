@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Microsoft IIS 5.1 および IIS 6.0</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.iis.html">Microsoft IIS</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.iis7.html">Microsoft IIS 7.0 以降</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.windows.iis6" class="sect1">
+ <h2 class="title">Microsoft IIS 5.1 および IIS 6.0</h2>
+ <p class="para">
+  この節では、Internet Information
+  Services (IIS) 5.1 および IIS 6.0 を手動で設定して、PHP を
+  Microsoft Windows XP および Windows Server 2003 で動かす方法を説明します。
+  IIS 7.0 以降のバージョンを Windows
+  Vista, Windows Server 2008, Windows 7 そして Windows Server 2008 R2
+  で動かす方法については
+  <a href="install.windows.iis7.html" class="link">Microsoft IIS 7.0 以降</a>
+  を参照ください。
+ </p>
+ <div class="sect2" id="install.windows.iis6.fastcgi">
+  <h3 class="title">IIS で PHP リクエストを処理するための設定</h3>
+  <p class="para">
+    <a href="install.windows.manual.html" class="link">手動インストールの手順</a>
+    での説明にしたがって、PHP をダウンロードしてインストールします。
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      IIS を使う場合は、非スレッドセーフ版の PHP を推奨します。非スレッドセーフ版は
+      <a href="http://windows.php.net/download/" class="link external">&raquo; PHP for Windows: 
+      Binaries and Sources Releases.</a> で取得できます。
+     </p>
+    </p></blockquote>
+  </p>
+  <p class="para">
+   CGI や FastCGI 固有の設定を、<var class="filename">php.ini</var> で以下のように行います。
+   <div class="example" id="example-36">
+    <p><b>例1 <var class="filename">php.ini</var> での CGI および FastCGI 用の設定</b></p>
+    <div class="example-contents">
+<div class="inicode"><pre class="inicode">fastcgi.impersonate = 1
+fastcgi.logging = 0
+cgi.fix_pathinfo=1
+cgi.force_redirect = 0</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <a href="http://www.iis.net/extensions/fastcgi" class="link external">&raquo; Microsoft FastCGI Extension for IIS 5.1 and 6.0</a>
+   をダウンロードしてインストールします。32 ビット版と 64 ビット版があるので、
+   環境にあわせて適切なパッケージを選びましょう。
+  </p>
+  <p class="para">
+   FastCGI エクステンションを設定し、PHP のリクエストを処理できるようにするには
+   以下のコマンドを実行します。&quot;-path&quot; パラメータの値は、
+   <var class="filename">php-cgi.exe</var> の絶対パスに置き換えましょう。
+   <div class="example" id="example-37">
+    <p><b>例2 FastCGI エクステンションで PHP リクエストを処理するための設定</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+cscript %windir%\system32\inetsrv\fcgiconfig.js -add -section:&quot;PHP&quot; ^
+-extension:php -path:&quot;C:\PHP\php-cgi.exe&quot;
+</pre></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   このコマンドは、拡張子 *.php 用の IIS スクリプトマッピングを作成します。
+   .php で終わるすべての URL を FastCGI エクステンションで処理するようになります。
+   また、FastCGI エクステンションでの PHP リクエストの処理に
+   <var class="filename">php-cgi.exe</var> を使うよう設定しています。
+   <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      この時点で、最低限必要なインストールと設定は完了しました。
+      これ以降の手順は必須ではありませんが、IIS 上で PHP
+      を効果的に動かすために強く推奨するものです。
+     </p>
+   </p></blockquote>
+  </p>
+ </div>
+ <div class="sect2" id="install.windows.iis6.impersonation">
+  <h3 class="title">匿名化およびファイルシステムへのアクセス</h3>
+  <p class="para">
+   PHP を IIS で使う場合は、FastCGI の匿名化を有効にしておくことを推奨します。
+   これは、<var class="filename">php.ini</var> ファイルの
+   <var class="varname"><var class="varname">fastcgi.impersonate</var></var> ディレクティブで設定します。
+   匿名化を有効にすると、PHP はすべてのファイルシステム操作を
+   IIS 認証で定義したユーザアカウントで行います。
+   こうしておけば、同じ PHP プロセスを異なる IIS ウェブサイトで共有している場合でも
+   (各サイトで IIS 認証のユーザアカウントを分けておけば)
+   一方の PHP スクリプトからもう一方のファイルはアクセスできなくなります。
+  </p>
+  <p class="para">
+   IIS 5.1 や IIS 6.0 のデフォルト設定では組み込みのユーザアカウント
+   IUSR_&lt;MACHINE_NAME&gt; による匿名認証が有効になっています。
+   つまり、IIS で PHP スクリプトを実行する場合は IUSR_&lt;MACHINE_NAME&gt;
+   アカウントにスクリプトの読み込み権限を付与しなければならないということです。
+   PHP のアプリケーションからファイルへの書き込みやフォルダ内でのファイルの作成などをする場合は、
+   IUSR_&lt;MACHINE_NAME&gt; アカウントに書き込み権限が必要となります。
+  </p>
+  <p class="para">
+   IIS 匿名認証で使うユーザアカウントを設定するには、次のようにします。
+   <div class="procedure">
+    <ol type="1"><li>
+     <p class="simpara">Windows のスタートメニューで &quot;ファイル名を指定して実行&quot; を選び、&quot;inetmgr&quot;
+     と入力して &quot;Ok&quot; をクリックする</p>
+    </li>
+    <li>
+     <p class="simpara">ツリービューの &quot;Web Sites&quot; ノードにあるウェブサイトの一覧を展開し、
+      使うウェブサイトの上で右クリックして &quot;プロパティ&quot; を選択する
+     </p>    
+    </li>
+    <li>
+     <p class="simpara">&quot;ディレクトリセキュリティ&quot; タブを選択する</p>    
+    </li>
+    <li>
+     <p class="simpara">&quot;Authentication Methods&quot; ダイアログの &quot;User name:&quot; フィールドで設定</p>
+    </li>
+   </ol></div>
+   <div class="mediaobject">
+    
+    <div class="imageobject">
+     <img src="images/b4cf2bb34e3c20eebcf8f9e8e7949efd-iis6anonauth.png" alt="IIS 5.1 および IIS 6.0 の匿名認証" width="654" height="461" />
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   ファイルやフォルダのパーミッションを変更するには、エクスプローラあるいは
+   <var class="varname"><var class="varname">icacls</var></var> コマンドを使います。
+   <div class="example" id="example-38">
+    <p><b>例3 ファイルのアクセス権の設定</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+icacls C:\inetpub\wwwroot\upload /grant IUSR:(OI)(CI)(M)
+</pre></div>     
+    </div>
+
+   </div>
+  </p>
+ </div>
+ <div class="sect2" id="install.windows.iis6.defaultdoc">
+  <h3 class="title">IIS のデフォルトドキュメントを <var class="filename">index.php</var> にする</h3>
+  <p class="para">
+   ドキュメント名を指定しない HTTP リクエストを受け取ったときには、
+   IIS のデフォルトドキュメントが使われます。PHP アプリケーションでは、通常は
+   <var class="filename">index.php</var> をデフォルトドキュメントとします。
+   <var class="filename">index.php</var> を IIS のデフォルトドキュメントに追加するには、
+   次のようにします。
+   <div class="procedure">
+    <ol type="1"><li>
+     <p class="simpara">Windows のスタートメニューで &quot;ファイル名を指定して実行&quot; を選び、&quot;inetmgr&quot;
+     と入力して &quot;Ok&quot; をクリックする</p>
+    </li>
+    <li>
+     <p class="simpara">ツリービューの &quot;Web Sites&quot; ノードを右クリックして &quot;プロパティ&quot; を選択する</p>
+    </li>
+    <li>
+     <p class="simpara">&quot;Documents&quot; タブをクリックする</p>
+    </li>
+    <li>
+     <p class="simpara">&quot;Add...&quot; ボタンをクリックし、&quot;Default content page:&quot; に &quot;index.php&quot; を入力する</p>
+    </li>
+   </ol></div>
+   <div class="mediaobject">
+    
+    <div class="imageobject">
+     <img src="images/b4cf2bb34e3c20eebcf8f9e8e7949efd-iis6defaultdoc.png" alt="index.php を IIS のデフォルトドキュメントにする" width="659" height="465" />
+    </div>
+   </div>
+  </p>
+ </div>
+ <div class="sect2" id="install.windows.iis6.recycling">
+  <h3 class="title">FastCGI および PHP の再利用設定</h3>
+  <p class="para">
+   IIS FastCGI エクステンションで PHP プロセスの再利用を設定するには以下のコマンドを使います。
+   FastCGI の設定項目 <var class="varname"><var class="varname">instanceMaxRequests</var></var> は、
+   ひとつの <var class="filename">php-cgi.exe</var> が何回リクエストを処理すると
+   FastCGI エクステンションがシャットダウンさせるかを表します。
+   PHP の環境変数 <var class="varname"><var class="varname">PHP_FCGI_MAX_REQUESTS</var></var> は、
+   ひとつの <var class="filename">php-cgi.exe</var> プロセスが何回リクエストを処理すると
+   自分をリサイクルするかを表します。
+   FastCGI の <var class="varname"><var class="varname">InstanceMaxRequests</var></var>
+   で設定した値が <var class="varname"><var class="varname">PHP_FCGI_MAX_REQUESTS</var></var>
+   以下になるようにしましょう。
+   <div class="example" id="example-39">
+    <p><b>例4 FastCGI と PHP の再利用設定</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+cscript %windir%\system32\inetsrv\fcgiconfig.js -set -section:&quot;PHP&quot; ^
+-InstanceMaxRequests:10000
+
+cscript %windir%\system32\inetsrv\fcgiconfig.js -set -section:&quot;PHP&quot; ^
+-EnvironmentVars:PHP_FCGI_MAX_REQUESTS:10000
+</pre></div>     
+    </div>
+
+   </div>
+  </p>
+ </div>
+ <div class="sect2" id="install.windows.iis6.timeouts">
+  <h3 class="title">FastCGI のタイムアウト設定</h3>
+  <p class="para">
+   実行時間が長くなる PHP スクリプトがある場合は、FastCGI
+   エクステンションのタイムアウト設定を増やします。タイムアウトに関連する設定項目は
+   <var class="varname"><var class="varname">ActivityTimeout</var></var> と <var class="varname"><var class="varname">RequestTimeout</var></var> です。
+   これらの設定に関する詳細は
+   <a href="http://learn.iis.net/page.aspx/248/configuring-fastcgi-extension-for-iis-60/" class="link external">&raquo; Configuring FastCGI Extension for IIS 6.0</a>
+   を参照ください。
+   <div class="example" id="example-40">
+    <p><b>例5 FastCGI のタイムアウト設定</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+cscript %windir%\system32\inetsrv\fcgiconfig.js -set -section:&quot;PHP&quot; ^
+-ActivityTimeout:90
+
+cscript %windir%\system32\inetsrv\fcgiconfig.js -set -section:&quot;PHP&quot; ^
+-RequestTimeout:90
+</pre></div>     
+    </div>
+
+   </div>
+   </p>
+ </div>
+ <div class="sect2" id="install.windows.iis6.phpinilocation">
+  <h3 class="title"><var class="filename">php.ini</var> ファイルの場所の変更</h3>
+  <p class="para">
+   PHP が <var class="filename">php.ini</var> ファイルを探す場所は
+   <a href="configuration.file.html" class="link">いくつかあり</a>、
+   <var class="filename">php.ini</var> ファイルのデフォルトの場所を
+   環境変数 <var class="varname"><var class="varname">PHPRC</var></var> で変更することができます。
+   特定の場所においた設定ファイルを PHP に読み込ませたい場合は、
+   以下のコマンドを実行します。環境変数 <var class="varname"><var class="varname">PHPRC</var></var>
+   には、<var class="filename">php.ini</var>
+   ファイルがあるディレクトリへの絶対パスを指定しなければなりません。
+   <div class="example" id="example-41">
+    <p><b>例6 <var class="filename">php.ini</var> ファイルの場所の変更</b></p>
+    <div class="example-contents">
+<div class="cdata"><pre>
+cscript %windir%\system32\inetsrv\fcgiconfig.js -set -section:&quot;PHP&quot; ^
+-EnvironmentVars:PHPRC:&quot;C:\Some\Directory\&quot;
+</pre></div>         
+    </div>
+
+   </div>
+  </p>
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.iis.html">Microsoft IIS</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.iis7.html">Microsoft IIS 7.0 以降</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

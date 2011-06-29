@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ODBC あるいは DB2 データベースに接続する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-odbc.html">ODBC and DB2 (PDO)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-pgsql.html">PostgreSQL (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-odbc.html">ODBC and DB2 (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="ref.pdo-odbc.connection" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">PDO_ODBC DSN</h1>
+    <p class="verinfo">(PECL PDO_ODBC &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO_ODBC DSN</span> &mdash; <span class="dc-title">ODBC あるいは DB2 データベースに接続する</span></p>
+
+   </div>
+
+   <div class="refsect1 description" id="refsect1-ref.pdo-odbc.connection-description">
+    <h3 class="title">説明</h3>
+    <p class="para">
+     PDO_ODBC データソース名 (DSN) は以下の要素で構成されます。
+     <dl>
+
+      <dt>
+
+       <span class="term">DSN 接頭辞</span>
+       <dd>
+
+        <p class="para">
+        DSN 接頭辞は <strong class="userinput"><code>odbc:</code></strong> です。
+        ODBC ドライバマネージャや DB2 カタログに登録されている
+        データベースに接続する際には、登録されている名前を
+        DSN に追加することができます。
+        </p>
+       </dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term"><b><tt>DSN</tt></b></span>
+       <dd>
+
+        <p class="para">
+         ODBC ドライバマネージャあるいは DB2 カタログに登録されている
+         データベース名を指定します。それ以外の方法として、
+         <a href="http://www.connectionstrings.com/" class="link external">&raquo; http://www.connectionstrings.com/</a>
+         で説明されている完全な ODBC 接続文字列を使用して
+         データベースに接続することもできます。
+        </p>
+       </dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term"><b><tt>UID</tt></b></span>
+       <dd>
+
+        <p class="para">
+         接続に使用するユーザの名前を指定します。DSN
+         と同じユーザ名を指定した場合は、PDO はコンストラクタの引数で指定された
+         ユーザ名を無視します。
+        </p>
+       </dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term"><b><tt>PWD</tt></b></span>
+       <dd>
+
+        <p class="para">
+         接続するユーザのパスワードを指定します。DSN
+         と同じパスワードを指定した場合は、PDO はコンストラクタの引数で指定された
+         パスワードを無視します。
+        </p>
+       </dd>
+
+      </dt>
+
+     </dl>
+
+    </p>
+   </div>
+
+   <div class="refsect1 examples" id="refsect1-ref.pdo-odbc.connection-examples">
+    <h3 class="title">例</h3>
+    <p class="para">
+     <div class="example" id="example-979">
+      <p><b>例1 PDO_ODBC DSN の例 (ODBC ドライバマネージャ)</b></p>
+      <div class="example-contents"><p>
+       以下の例は、ODBC ドライバマネージャで testdb
+       として登録されている ODBC データベースに接続するための
+       PDO_ODBC DSN を表します。
+      </p></div>
+      <div class="example-contents"><div class="cdata"><pre>
+odbc:testdb
+</pre></div>
+      </div>
+
+     </div>
+     <div class="example" id="example-980">
+      <p><b>例2 PDO_ODBC DSN の例 (IBM DB2 非カタログ接続)</b></p>
+      <div class="example-contents"><p>
+       以下の例は、完全な ODBC DSN 構文を使用して
+       <strong class="userinput"><code>SAMPLE</code></strong> という名前の
+       IBM DB2 データベースに接続するための
+       PDO_ODBC DSN を表します。
+      </p></div>
+      <div class="example-contents"><div class="cdata"><pre>
+odbc:DRIVER={IBM DB2 ODBC DRIVER};HOSTNAME=localhost;PORT=50000;DATABASE=SAMPLE;PROTOCOL=TCPIP;UID=db2inst1;PWD=ibmdb2;
+</pre></div>
+      </div>
+
+     </div>
+     <div class="example" id="example-981">
+      <p><b>例3 PDO_ODBC DSN の例 (Microsoft Access 非カタログ接続)</b></p>
+      <div class="example-contents"><p>
+       以下の例は、完全な ODBC DSN 構文を使用して
+       <strong class="userinput"><code>C:\db.mdb</code></strong> にある
+       Microsoft Access データベースに接続するための
+       PDO_ODBC DSN を表します。
+      </p></div>
+      <div class="example-contents"><div class="cdata"><pre>
+odbc:Driver={Microsoft Access Driver (*.mdb)};Dbq=C:\\db.mdb;Uid=Admin
+</pre></div>
+      </div>
+
+     </div>
+     
+    </p>
+   </div>
+
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-odbc.html">ODBC and DB2 (PDO)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-pgsql.html">PostgreSQL (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-odbc.html">ODBC and DB2 (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プリペアドステートメントを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-exec.html">db2_exec</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-fetch-array.html">db2_fetch_array</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-execute" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_execute</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_execute</span> &mdash; <span class="dc-title">
+   プリペアドステートメントを実行する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-execute-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>db2_execute</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stmt</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$parameters</tt></span>
+  ] )</div>
+
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>db2_execute()</b></span> は、
+   <span class="function"><a href="function.db2-prepare.html" class="function">db2_prepare()</a></span> で準備された SQL 文を実行します。
+  </p>
+  <p class="para">
+   SQL 文が結果セットを返す場合、例えば SELECT 文であったり
+   結果セットを返すストアドプロシージャの CALL であったりした場合には、
+   <i>stmt</i> から結果の行を配列として取得することができます。
+   取得には <span class="function"><a href="function.db2-fetch-assoc.html" class="function">db2_fetch_assoc()</a></span>、
+   <span class="function"><a href="function.db2-fetch-both.html" class="function">db2_fetch_both()</a></span> あるいは
+   <span class="function"><a href="function.db2-fetch-array.html" class="function">db2_fetch_array()</a></span> を使用します。
+   あるいは、<span class="function"><a href="function.db2-fetch-row.html" class="function">db2_fetch_row()</a></span> を使用して
+   結果セットポインタを次の行に移動させ、
+   <span class="function"><a href="function.db2-result.html" class="function">db2_result()</a></span> で行の内容をその都度取得することも可能です。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.db2-exec.html" class="function">db2_exec()</a></span> の代わりに
+   <span class="function"><a href="function.db2-prepare.html" class="function">db2_prepare()</a></span> および
+   <span class="function"><b>db2_execute()</b></span> を使用することの利点については、
+   <span class="function"><a href="function.db2-prepare.html" class="function">db2_prepare()</a></span> での簡単な説明を参照ください。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-execute-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.db2-prepare.html" class="function">db2_prepare()</a></span> が返すプリペアドステートメント。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parameters</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プリペアドステートメント内に含まれるパラメータマーカに対応する、
+       入力パラメータの配列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-execute-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-execute-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1153">
+    <p><b>例1 パラメータマーカを使用した SQL 文の準備と実行</b></p>
+    <div class="example-contents"><p>
+     以下の例では、4 つのパラメータマーカを含む INSERT 文を準備し、
+     入力値の配列を含む配列を順に処理しながら
+     <span class="function"><b>db2_execute()</b></span> に値を渡します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$pet&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cat'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Pook'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3.2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$insert&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'INSERT&nbsp;INTO&nbsp;animals&nbsp;(id,&nbsp;breed,&nbsp;name,&nbsp;weight)<br />&nbsp;&nbsp;&nbsp;&nbsp;VALUES&nbsp;(?,&nbsp;?,&nbsp;?,&nbsp;?)'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$insert</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pet</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"新しいペットの追加に成功しました。"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+新しいペットの追加に成功しました。
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-1154">
+    <p><b>例2 OUT パラメータを使用したストアドプロシージャのコール</b></p>
+    <div class="example-contents"><p>
+     以下の例では、まずひとつの OUT パラメータをパラメータマーカで受け取る
+     CALL 文を準備し、<span class="function"><a href="function.db2-bind-param.html" class="function">db2_bind_param()</a></span> を使用して
+     PHP 変数 <i>$my_pets</i> をそのパラメータにバインドし、
+     <span class="function"><b>db2_execute()</b></span> で CALL 文を実行します。
+     ストアドプロシージャの CALL 終了後は、<i>$num_pets</i>
+     にはストアドプロシージャの OUT パラメータに返された値が反映されています。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$num_pets&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"CALL&nbsp;count_my_pets(?)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"num_pets"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DB2_PARAM_OUT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br />print&nbsp;</span><span style="color: #DD0000">"私の飼っているペットの数は&nbsp;</span><span style="color: #0000BB">$num_pets</span><span style="color: #DD0000">&nbsp;です!"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+私の飼っているペットの数は 7 です!
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-1155">
+    <p><b>例3 XML データを SQL の結果セットとして返す</b></p>
+    <div class="example-contents"><p>
+     次の例は、XML カラムに格納されたデータの扱い方を、SAMPLE
+     データベースを用いて説明するものです。ごく単純な SQL/XML
+     を使用して、この例では XML ドキュメントのいくつかのノードを
+     みなさんおなじみの SQL 結果セット形式で返します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;*&nbsp;FROM&nbsp;XMLTABLE(<br />&nbsp;&nbsp;&nbsp;&nbsp;XMLNAMESPACES&nbsp;(DEFAULT&nbsp;\'http://posample.org\'),<br />&nbsp;&nbsp;&nbsp;&nbsp;\'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />&nbsp;&nbsp;&nbsp;&nbsp;COLUMNS<br />&nbsp;&nbsp;&nbsp;&nbsp;"CID"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'@Cid\',<br />&nbsp;&nbsp;&nbsp;&nbsp;"NAME"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'name\',<br />&nbsp;&nbsp;&nbsp;&nbsp;"PHONE"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'phone&nbsp;[&nbsp;@type&nbsp;=&nbsp;"work"]\'<br />&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;AS&nbsp;T<br />&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;NAME&nbsp;=&nbsp;?<br />&nbsp;&nbsp;&nbsp;&nbsp;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Kathy&nbsp;Smith'</span><span style="color: #007700">;<br /><br />if&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DB2_PARAM_IN</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+1000     Kathy Smith     416-555-1358
+1001     Kathy Smith     905-555-7258
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-1156">
+    <p><b>例4 XML データの &quot;JOIN&quot;</b></p>
+    <div class="example-contents"><p>
+     次の例は、SAMPLE データベースの 2 つの異なる
+     XML カラムに格納されたドキュメントを使用します。
+     まず、2 つの異なるカラムの XML ドキュメントをもとにして
+     2 つのテンポラリテーブルを作成します。
+     そして特定の顧客の配送情報を SQL 結果セットで返します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'<br />SELECT&nbsp;A.CID,&nbsp;A.NAME,&nbsp;A.PHONE,&nbsp;C.PONUM,&nbsp;C.STATUS<br />FROM<br />XMLTABLE(<br />XMLNAMESPACES&nbsp;(DEFAULT&nbsp;\'http://posample.org\'),<br />\'db2-fn:xmlcolumn("CUSTOMER.INFO")/customerinfo\'<br />COLUMNS<br />"CID"&nbsp;BIGINT&nbsp;PATH&nbsp;\'@Cid\',<br />"NAME"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'name\',<br />"PHONE"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'phone&nbsp;[&nbsp;@type&nbsp;=&nbsp;"work"]\'<br />)&nbsp;as&nbsp;A,<br />PURCHASEORDER&nbsp;AS&nbsp;B,<br />XMLTABLE&nbsp;(<br />XMLNAMESPACES&nbsp;(DEFAULT&nbsp;\'http://posample.org\'),<br />\'db2-fn:xmlcolumn("PURCHASEORDER.PORDER")/PurchaseOrder\'<br />COLUMNS<br />"PONUM"&nbsp;&nbsp;BIGINT&nbsp;PATH&nbsp;\'@PoNum\',<br />"STATUS"&nbsp;VARCHAR&nbsp;(50)&nbsp;PATH&nbsp;\'@Status\'<br />)&nbsp;as&nbsp;C<br />WHERE&nbsp;A.CID&nbsp;=&nbsp;B.CUSTID&nbsp;AND<br />&nbsp;&nbsp;&nbsp;&nbsp;B.POID&nbsp;=&nbsp;C.PONUM&nbsp;AND<br />&nbsp;&nbsp;&nbsp;&nbsp;A.NAME&nbsp;=&nbsp;?<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Kathy&nbsp;Smith'</span><span style="color: #007700">;<br /><br />if&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DB2_PARAM_IN</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">CID</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NAME</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PHONE</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PONUM</span><span style="color: #DD0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">STATUS</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+1001     Kathy Smith     905-555-7258     5002     Shipped
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-1157">
+    <p><b>例5 大きな XML ドキュメントの一部を SQL データとして返す</b></p>
+    <div class="example-contents"><p>
+     次の例は、SAMPLE データベースのドキュメント PRODUCT.DESCRIPTION
+     の一部を使用します。これは、商品の説明 (XML データ) および価格情報
+     (SQL データ) を含む XML ドキュメントを返します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"SAMPLE"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db2inst1"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ibmdb2"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'<br />SELECT<br />XMLSERIALIZE(<br />XMLQUERY(\'<br />&nbsp;&nbsp;&nbsp;&nbsp;declare&nbsp;boundary-space&nbsp;strip;<br />&nbsp;&nbsp;&nbsp;&nbsp;declare&nbsp;default&nbsp;element&nbsp;namespace&nbsp;"http://posample.org";<br />&nbsp;&nbsp;&nbsp;&nbsp;&lt;promoList&gt;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;$prod&nbsp;in&nbsp;$doc/product<br />&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;$prod/description/price&nbsp;&lt;&nbsp;10.00<br />&nbsp;&nbsp;&nbsp;&nbsp;order&nbsp;by&nbsp;$prod/description/price&nbsp;ascending<br />&nbsp;&nbsp;&nbsp;&nbsp;return(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;promoitem&gt;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$prod,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;startdate&gt;&nbsp;{$start}&nbsp;&lt;/startdate&gt;,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;enddate&gt;&nbsp;{$end}&nbsp;&lt;/enddate&gt;,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;promoprice&gt;&nbsp;{$promo}&nbsp;&lt;/promoprice&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&lt;/promoitem&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&lt;/promoList&gt;<br />\'&nbsp;passing&nbsp;by&nbsp;ref&nbsp;DESCRIPTION&nbsp;AS&nbsp;"doc",<br />PROMOSTART&nbsp;as&nbsp;"start",<br />PROMOEND&nbsp;as&nbsp;"end",<br />PROMOPRICE&nbsp;as&nbsp;"promo"<br />RETURNING&nbsp;SEQUENCE)<br />AS&nbsp;CLOB&nbsp;(32000))<br />AS&nbsp;NEW_PRODUCT_INFO<br />FROM&nbsp;PRODUCT<br />WHERE&nbsp;PID&nbsp;=&nbsp;?<br />'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$pid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"100-100-01"</span><span style="color: #007700">;<br /><br />if&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"pid"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DB2_PARAM_IN</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;while(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)){<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;promoList xmlns=&quot;http://posample.org&quot;&gt;
+    &lt;promoitem&gt;
+    &lt;product pid=&quot;100-100-01&quot;&gt;
+        &lt;description&gt;
+            &lt;name&gt;Snow Shovel, Basic 22 inch&lt;/name&gt;
+            &lt;details&gt;Basic Snow Shovel, 22 inches wide, straight handle with D-Grip&lt;/details&gt;
+            &lt;price&gt;9.99&lt;/price&gt;
+            &lt;weight&gt;1 kg&lt;/weight&gt;
+        &lt;/description&gt;
+    &lt;/product&gt;
+    &lt;startdate&gt;2004-11-19&lt;/startdate&gt;
+    &lt;enddate&gt;2004-12-19&lt;/enddate&gt;
+    &lt;promoprice&gt;7.25&lt;/promoprice&gt;
+    &lt;/promoitem&gt;
+&lt;/promoList&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-execute-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-exec.html" class="function" rel="rdfs-seeAlso">db2_exec()</a> - SQL 文を直接実行する</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-array.html" class="function" rel="rdfs-seeAlso">db2_fetch_array()</a> - 結果セット内の行を表す、カラム位置をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-assoc.html" class="function" rel="rdfs-seeAlso">db2_fetch_assoc()</a> - 結果セット内の行を表す、カラム名をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-both.html" class="function" rel="rdfs-seeAlso">db2_fetch_both()</a> - 結果セット内の行を表す、
+   カラム位置およびカラム名の両方をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-row.html" class="function" rel="rdfs-seeAlso">db2_fetch_row()</a> - 結果セットポインタを次の行あるいは要求された行に設定する</span></li>
+    <li class="member"><span class="function"><a href="function.db2-prepare.html" class="function" rel="rdfs-seeAlso">db2_prepare()</a> - 実行する SQL 文を準備する</span></li>
+    <li class="member"><span class="function"><a href="function.db2-result.html" class="function" rel="rdfs-seeAlso">db2_result()</a> - 結果セットの行からひとつのカラムを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-exec.html">db2_exec</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-fetch-array.html">db2_fetch_array</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

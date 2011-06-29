@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>双方向リンクリストを使用して実装した新しい空のキューを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.splqueue.html">SplQueue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splqueue.dequeue.html">SplQueue::dequeue</a></div>
+ <div class="up"><a href="class.splqueue.html">SplQueue</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splqueue.construct" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplQueue::__construct</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">SplQueue::__construct</span> &mdash; <span class="dc-title">双方向リンクリストを使用して実装した新しい空のキューを作成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splqueue.construct-description">
+  <h3 class="title">説明</h3>
+  <div class="constructorsynopsis dc-description">
+    <span class="methodname"><b>SplQueue::__construct()</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   これは、新しい空のキューを作成します。
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     このメソッドは、イテレータのモードを自動的に
+     SplDoublyLinkedList::IT_MODE_FIFO とします。
+    </p>
+   </p></blockquote>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splqueue.construct-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splqueue.construct-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splqueue.construct-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3133">
+    <p><b>例1 <span class="function"><b>SplQueue::__construct()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$q&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$q&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$elem</span><span style="color: #007700">)&nbsp;&nbsp;{<br />&nbsp;echo&nbsp;</span><span style="color: #0000BB">$elem</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+1
+2
+3
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-3134">
+    <p><b>例2 <a href="class.splqueue.html" class="classname">SplQueue</a> による効率的なタスクの処理</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$q&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$q</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setIteratorMode</span><span style="color: #007700">(</span><span style="color: #0000BB">SplQueue</span><span style="color: #007700">::</span><span style="color: #0000BB">IT_MODE_DELETE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;...&nbsp;タスクをキューに放り込みます&nbsp;...<br /><br />//&nbsp;それを処理します<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">$q&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$task</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...&nbsp;$task&nbsp;の処理&nbsp;...<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;新たなタスクをキューに追加します<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$q</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">$newTask</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.splqueue.html">SplQueue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splqueue.dequeue.html">SplQueue::dequeue</a></div>
+ <div class="up"><a href="class.splqueue.html">SplQueue</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

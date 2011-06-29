@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトレコードを修正する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hw-mapid.html">hw_mapid</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hw-mv.html">hw_mv</a></div>
+ <div class="up"><a href="ref.hw.html">Hyperwave 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.hw-modifyobject" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">hw_Modifyobject</h1>
+  <p class="verinfo">(PHP 4)</p><p class="refpurpose"><span class="refname">hw_Modifyobject</span> &mdash; <span class="dc-title">オブジェクトレコードを修正する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.hw-modifyobject-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>hw_modifyobject</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$connection</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$object_to_change</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$remove</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$add</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   このコマンドによりオブジェクトレコードの個々の属性を削除、追加、
+   修正することが可能となります。オブジェクトはオブジェクト ID
+   <i><tt class="parameter">object_to_change</tt></i>により指定します。
+   ある属性を修正するためには、古い属性を削除し、新規に追加する
+   必要があります。<span class="function"><b>hw_modifyobject()</b></span> は、
+   削除する属性の値が文字列または配列でない限り、つねに属性を追加する前に
+   属性の削除を行います。
+  </p>
+  <p class="para">
+   二つの配列のキーは属性の名前です。各配列要素の値は、配列または文字列
+   またはその他のものとすることができます。配列の場合、各属性の
+   値は、各要素のキーにコロンと各要素の値を加えたものから構成されます。
+   文字列の場合、属性の値として指定します。空文字列を指定すると
+   その属性は完全に削除されます。値が文字列でも配列でもなく、整数の
+   ような他のものである場合、その属性に関して処理は全く行われません。
+   このような動作は、既存の属性に新規の値を追加するのではなく、
+   完全に新規の属性を追加したい場合に必要です。remove 配列がその属性に
+   関する空の文字列を含む場合、値が存在しないため、その属性の削除は
+   失敗します。続いてその属性に新規の値を追加する処理も同じく失敗します。
+   属性の値を例えば 0 に設定すると削除することさえできませんが、
+   加算は実行可能です。
+  </p>
+  <p class="para">
+   値 &#039;books&#039; を有する属性 &#039;Name&#039; を &#039;articles&#039; に変更したい場合、
+   二つの配列を作成し、<span class="function"><b>hw_modifyobject()</b></span> をコールする
+   必要があります。
+   <div class="example" id="example-3503">
+    <p><b>例1 属性を修正する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$connect&nbsp;は、Hyperwave&nbsp;サーバへの既存の接続です。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;$objid&nbsp;は、修正するオブジェクトの&nbsp;ID&nbsp;です。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$remarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"books"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$addarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"articles"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$hw_modifyobject</span><span style="color: #007700">(</span><span style="color: #0000BB">$connect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$objid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remarr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$addarr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   名前=値の組を削除/追加するためには、オブジェクトレコードをremove/add 
+   配列にて渡し、最後/3番目のパラメータは空の配列にします。
+   新規に属性を追加する場合には、
+   remove 配列におけるその属性の値を整数に設定してください。
+   <div class="example" id="example-3504">
+    <p><b>例2 完全に新規の属性を追加する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$connect&nbsp;は、Hyperwave&nbsp;サーバへの既存の接続です。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;$objid&nbsp;は、修正するオブジェクトの&nbsp;ID&nbsp;です。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$remarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$addarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"articles"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$hw_modifyobject</span><span style="color: #007700">(</span><span style="color: #0000BB">$connect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$objid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remarr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$addarr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     &#039;Title&#039; のような多言語属性は、2つの方法で修正可能です。
+     この場合、
+     &#039;language&#039;:&#039;title&#039; という基本形式で属性の値を与えるか、
+      下記のように各言語毎に配列の要素を与えることにより指定します。
+      まずは、以下の例を見てみましょう。
+    </span>
+   </p></blockquote>
+   <div class="example" id="example-3505">
+    <p><b>例3 Title 属性を修正する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$remarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"en:Books"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$addarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"en:Articles"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$hw_modifyobject</span><span style="color: #007700">(</span><span style="color: #0000BB">$connect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$objid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remarr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$addarr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+    または
+   <div class="example" id="example-3506">
+   <p><b>例4 Title 属性を修正する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$remarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"en"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Books"</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$addarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"en"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Articles"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"ge"</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">"Artikel"</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$hw_modifyobject</span><span style="color: #007700">(</span><span style="color: #0000BB">$connect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$objid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remarr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$addarr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   この例では、英語のタイトル &#039;Books&#039; を削除し、
+   英語のタイトル &#039;Articles&#039; およびドイツ語のタイトル
+   &#039;Artikel&#039; を追加しています。
+   <div class="example" id="example-3507">
+    <p><b>例5 属性を削除する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$remarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$addarr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"en:Articles"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$hw_modifyobject</span><span style="color: #007700">(</span><span style="color: #0000BB">$connect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$objid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remarr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$addarr</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     この例では、 &#039;Title&#039; という名前の属性を全て削除し、
+     属性 &#039;Title&#039; を新規に追加しています。
+     全ての属性を再帰的に削除したい場合には、これは簡便な方法です。
+    </span>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     ある名前を有する全ての属性を削除する必要がある場合には、
+     属性の値として空の文字列を渡してください。
+    </span>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     属性 &#039;Title&#039;, &#039;Description&#039; , &#039;Keyword&#039; のみが
+     言語指定用の接頭辞を正しく処理します。
+     これらの属性において言語指定用接頭辞が指定されていない場合、
+     接頭辞 &#039;xx&#039; が割りつけられます。
+    </span>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     &#039;Name&#039; 属性もやや特殊です。いくつかの場合には、完全に削除することは
+     できません。
+     &#039;Change of base attribute&#039; というエラーメッセージが発生する可能性が
+     あります(いつこのエラーが発生するかは明らかではありません) 。
+     このため、新しい Name をまず追加してから、古いものを削除する
+     必要があります。
+    </span>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     この関数のコールの前後に <span class="function"><a href="function.hw-getandlock.html" class="function">hw_getandlock()</a></span> および 
+     <span class="function"><a href="function.hw-unlock.html" class="function">hw_unlock()</a></span> をコールする必要はありません。
+     <span class="function"><b>hw_modifyobject()</b></span> は内部的にこの処理を
+     行います。
+    </span>
+   </p></blockquote>
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.hw-modifyobject-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object_to_change</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変更したいオブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">remove</tt></i></span>
+     <dd>
+
+      <p class="para">
+       削除したい属性の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">add</tt></i></span>
+     <dd>
+
+      <p class="para">
+       追加したい属性の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最後のパラメータは、修正を再帰的に行うかどうかを指定します。
+       1 は、再帰的な修正を意味します。オブジェクトのいくつかを修正できない
+       場合、通知されることなくスキップされます。
+       <span class="function"><a href="function.hw-error.html" class="function">hw_error()</a></span> は、いくつかのオブジェクトが
+       修正されなかったことからエラーを発生しない可能性があります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.hw-modifyobject-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hw-mapid.html">hw_mapid</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hw-mv.html">hw_mv</a></div>
+ <div class="up"><a href="ref.hw.html">Hyperwave 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

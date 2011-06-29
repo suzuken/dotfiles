@@ -1,0 +1,1015 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>The RarEntry class</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rararchive.tostring.html">RarArchive::__toString</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.extract.html">RarEntry::extract</a></div>
+ <div class="up"><a href="book.rar.html">Rar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.rarentry" class="reference">
+
+ <h1 class="title">The <a href="class.rarentry.html" class="classname">RarEntry</a> class</h1>
+ 
+
+ <div class="partintro">
+
+
+  <div class="section" id="rarentry.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    A RAR entry, representing a directory or a compressed file inside a RAR archive.
+   </p>
+  </div>
+
+
+  <div class="section" id="rarentry.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <span class="modifier">final</span>
+      <b class="classname">RarEntry</b>
+     </span>
+     {</div>
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* 定数 */</div>
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-msdos">RarEntry::HOST_MSDOS</a></var>
+     <span class="initializer"> = 0</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-os2">RarEntry::HOST_OS2</a></var>
+     <span class="initializer"> = 1</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-win32">RarEntry::HOST_WIN32</a></var>
+     <span class="initializer"> = 2</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-unix">RarEntry::HOST_UNIX</a></var>
+     <span class="initializer"> = 3</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-macos">RarEntry::HOST_MACOS</a></var>
+     <span class="initializer"> = 4</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.host-beos">RarEntry::HOST_BEOS</a></var>
+     <span class="initializer"> = 5</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-readonly">RarEntry::ATTRIBUTE_WIN_READONLY</a></var>
+     <span class="initializer"> = 1</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-hidden">RarEntry::ATTRIBUTE_WIN_HIDDEN</a></var>
+     <span class="initializer"> = 2</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-system">RarEntry::ATTRIBUTE_WIN_SYSTEM</a></var>
+     <span class="initializer"> = 4</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-directory">RarEntry::ATTRIBUTE_WIN_DIRECTORY</a></var>
+     <span class="initializer"> = 16</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-archive">RarEntry::ATTRIBUTE_WIN_ARCHIVE</a></var>
+     <span class="initializer"> = 32</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-device">RarEntry::ATTRIBUTE_WIN_DEVICE</a></var>
+     <span class="initializer"> = 64</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-normal">RarEntry::ATTRIBUTE_WIN_NORMAL</a></var>
+     <span class="initializer"> = 128</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-temporary">RarEntry::ATTRIBUTE_WIN_TEMPORARY</a></var>
+     <span class="initializer"> = 256</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-sparse-file">RarEntry::ATTRIBUTE_WIN_SPARSE_FILE</a></var>
+     <span class="initializer"> = 512</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-reparse-point">RarEntry::ATTRIBUTE_WIN_REPARSE_POINT</a></var>
+     <span class="initializer"> = 1024</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-compressed">RarEntry::ATTRIBUTE_WIN_COMPRESSED</a></var>
+     <span class="initializer"> = 2048</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-offline">RarEntry::ATTRIBUTE_WIN_OFFLINE</a></var>
+     <span class="initializer"> = 4096</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-not-content-indexed">RarEntry::ATTRIBUTE_WIN_NOT_CONTENT_INDEXED</a></var>
+     <span class="initializer"> = 8192</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-encrypted">RarEntry::ATTRIBUTE_WIN_ENCRYPTED</a></var>
+     <span class="initializer"> = 16384</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-win-virtual">RarEntry::ATTRIBUTE_WIN_VIRTUAL</a></var>
+     <span class="initializer"> = 65536</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-world-execute">RarEntry::ATTRIBUTE_UNIX_WORLD_EXECUTE</a></var>
+     <span class="initializer"> = 1</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-world-write">RarEntry::ATTRIBUTE_UNIX_WORLD_WRITE</a></var>
+     <span class="initializer"> = 2</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-world-read">RarEntry::ATTRIBUTE_UNIX_WORLD_READ</a></var>
+     <span class="initializer"> = 4</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-group-execute">RarEntry::ATTRIBUTE_UNIX_GROUP_EXECUTE</a></var>
+     <span class="initializer"> = 8</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-group-write">RarEntry::ATTRIBUTE_UNIX_GROUP_WRITE</a></var>
+     <span class="initializer"> = 16</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-group-read">RarEntry::ATTRIBUTE_UNIX_GROUP_READ</a></var>
+     <span class="initializer"> = 32</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-owner-execute">RarEntry::ATTRIBUTE_UNIX_OWNER_EXECUTE</a></var>
+     <span class="initializer"> = 64</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-owner-write">RarEntry::ATTRIBUTE_UNIX_OWNER_WRITE</a></var>
+     <span class="initializer"> = 128</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-owner-read">RarEntry::ATTRIBUTE_UNIX_OWNER_READ</a></var>
+     <span class="initializer"> = 256</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-sticky">RarEntry::ATTRIBUTE_UNIX_STICKY</a></var>
+     <span class="initializer"> = 512</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-setgid">RarEntry::ATTRIBUTE_UNIX_SETGID</a></var>
+     <span class="initializer"> = 1024</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-setuid">RarEntry::ATTRIBUTE_UNIX_SETUID</a></var>
+     <span class="initializer"> = 2048</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet">RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</a></var>
+     <span class="initializer"> = 61440</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-fifo">RarEntry::ATTRIBUTE_UNIX_FIFO</a></var>
+     <span class="initializer"> = 4096</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-char-dev">RarEntry::ATTRIBUTE_UNIX_CHAR_DEV</a></var>
+     <span class="initializer"> = 8192</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-directory">RarEntry::ATTRIBUTE_UNIX_DIRECTORY</a></var>
+     <span class="initializer"> = 16384</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-block-dev">RarEntry::ATTRIBUTE_UNIX_BLOCK_DEV</a></var>
+     <span class="initializer"> = 24576</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-regular-file">RarEntry::ATTRIBUTE_UNIX_REGULAR_FILE</a></var>
+     <span class="initializer"> = 32768</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-sym-link">RarEntry::ATTRIBUTE_UNIX_SYM_LINK</a></var>
+     <span class="initializer"> = 40960</span>
+    ;</div>
+
+    <div class="fieldsynopsis">
+     <span class="modifier">const</span>
+     <span class="type">integer</span>
+      <var class="fieldsynopsis_varname"><a href="class.rarentry.html#rarentry.constants.attribute-unix-socket">RarEntry::ATTRIBUTE_UNIX_SOCKET</a></var>
+     <span class="initializer"> = 49152</span>
+    ;</div>
+
+    
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* メソッド */</div>
+    <div class="methodsynopsis dc-description">
+    <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="rarentry.extract.html" class="methodname">extract</a></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dir</tt></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filepath</tt><span class="initializer"> = &#039;&#039;</span></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$password</tt><span class="initializer"> = NULL</span></span>
+    [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$extended_data</tt><span class="initializer"> = false</span></span>
+   ]]] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.getattr.html" class="methodname">getAttr</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a href="rarentry.getcrc.html" class="methodname">getCrc</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a href="rarentry.getfiletime.html" class="methodname">getFileTime</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">getHostOs</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.getmethod.html" class="methodname">getMethod</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a href="rarentry.getname.html" class="methodname">getName</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.getpackedsize.html" class="methodname">getPackedSize</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">resource</span> <span class="methodname"><a href="rarentry.getstream.html" class="methodname">getStream</a></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$password</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.getunpackedsize.html" class="methodname">getUnpackedSize</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><a href="rarentry.getversion.html" class="methodname">getVersion</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="rarentry.isdirectory.html" class="methodname">isDirectory</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><a href="rarentry.isencrypted.html" class="methodname">isEncrypted</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><a href="rarentry.tostring.html" class="methodname">__toString</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+   }</div>
+
+
+  </div>
+
+
+  <div class="section" id="rarentry.constants">
+   <h2 class="title">定義済み定数</h2>
+   <div class="section" id="rarentry.constants.types">
+    <h2 class="title">RarEntry Node Types</h2>
+    <dl>
+
+
+     <dt id="rarentry.constants.host-msdos">
+      <span class="term"><b><tt>RarEntry::HOST_MSDOS</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, MS-DOS was used to
+       add this entry. Use instead of <b><tt>RAR_HOST_MSDOS</tt></b>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.host-os2">
+      <span class="term"><b><tt>RarEntry::HOST_OS2</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, OS/2 was used to
+       add this entry. Intended to replace <b><tt>RAR_HOST_OS2</tt></b>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.host-win32">
+      <span class="term"><b><tt>RarEntry::HOST_WIN32</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, Microsoft Windows was used to
+       add this entry. Intended to replace <b><tt>RAR_HOST_WIN32</tt></b>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.host-unix">
+      <span class="term"><b><tt>RarEntry::HOST_UNIX</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, an unspecified UNIX OS was used to
+       add this entry. Intended to replace <b><tt>RAR_HOST_UNIX</tt></b>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.host-macos">
+      <span class="term"><b><tt>RarEntry::HOST_MACOS</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, Mac OS was used to
+       add this entry.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.host-beos">
+      <span class="term"><b><tt>RarEntry::HOST_BEOS</tt></b></span>
+      <dd>
+
+       <p class="para">If the return value of  <span class="methodname"><a href="rarentry.gethostos.html" class="methodname">RarEntry::getHostOs()</a></span> equals this constant, BeOS was used to
+       add this entry. Intended to replace <b><tt>RAR_HOST_BEOS</tt></b>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-readonly">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_READONLY</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a read-only attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-hidden">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_HIDDEN</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a hidden attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-system">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_SYSTEM</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a system attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-directory">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_DIRECTORY</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a directory attribute (entry is a directory). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows. See also
+        <span class="methodname"><a href="rarentry.isdirectory.html" class="methodname">RarEntry::isDirectory()</a></span>, which also works with entries that were not added in WinRAR.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-archive">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_ARCHIVE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with an archive attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-device">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_DEVICE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a device attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-normal">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_NORMAL</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a normal file attribute (entry is NOT a directory). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows. See also
+        <span class="methodname"><a href="rarentry.isdirectory.html" class="methodname">RarEntry::isDirectory()</a></span>, which also works with entries that were not added in WinRAR.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-temporary">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_TEMPORARY</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a temporary attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-sparse-file">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_SPARSE_FILE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a sparse file attribute (file is an NTFS sparse file). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-reparse-point">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_REPARSE_POINT</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a reparse point attribute (entry is an NTFS reparse point, e.g. a
+       directory junction or a mount file system). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-compressed">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_COMPRESSED</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a compressed attribute (NTFS only). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-offline">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_OFFLINE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with an offline attribute (entry is offline and not accessible). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-not-content-indexed">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_NOT_CONTENT_INDEXED</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a not content indexed attribute (entry is to be indexed). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-encrypted">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_ENCRYPTED</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with an encrypted attribute (NTFS only). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-win-virtual">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_WIN_VIRTUAL</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a Windows entry with a virtual attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is Microsoft Windows.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-world-execute">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_WORLD_EXECUTE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is world executable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-world-write">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_WORLD_WRITE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is world writable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-world-read">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_WORLD_READ</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is world readable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-group-execute">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_GROUP_EXECUTE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is group executable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-group-write">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_GROUP_WRITE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is group writable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-group-read">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_GROUP_READ</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is group readable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-owner-execute">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_OWNER_EXECUTE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is owner executable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-owner-write">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_OWNER_WRITE</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is owner writable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-owner-read">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_OWNER_READ</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents a UNIX entry that is owner readable. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-sticky">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_STICKY</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents the UNIX sticky bit. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-setgid">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_SETGID</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents the UNIX setgid attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-setuid">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_SETUID</tt></b></span>
+      <dd>
+
+       <p class="para">Bit that represents the UNIX setuid attribute. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-final-quartet">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></span>
+      <dd>
+
+       <p class="para">Mask to isolate the last four bits (nibble) of UNIX attributes
+       (_S_IFMT, the type of file mask). To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constants <a href="class.rarentry.html#rarentry.constants.attribute-unix-fifo" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_FIFO</tt></b></a>,
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-char-dev" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_CHAR_DEV</tt></b></a>,
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-directory" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_DIRECTORY</tt></b></a>,
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-block-dev" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_BLOCK_DEV</tt></b></a>,
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-regular-file" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_REGULAR_FILE</tt></b></a>,
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-sym-link" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_SYM_LINK</tt></b></a> and
+       <a href="class.rarentry.html#rarentry.constants.attribute-unix-socket" class="link"><b><tt>RarEntry::ATTRIBUTE_UNIX_SOCKET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-fifo">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_FIFO</tt></b></span>
+      <dd>
+
+       <p class="para">Unix FIFOs will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-char-dev">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_CHAR_DEV</tt></b></span>
+      <dd>
+
+       <p class="para">Unix character devices will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-directory">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_DIRECTORY</tt></b></span>
+      <dd>
+
+       <p class="para">Unix directories will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>. See also
+        <span class="methodname"><a href="rarentry.isdirectory.html" class="methodname">RarEntry::isDirectory()</a></span>, which also works with entries that
+       were added in other operating systems.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-block-dev">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_BLOCK_DEV</tt></b></span>
+      <dd>
+
+       <p class="para">Unix block devices will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-regular-file">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_REGULAR_FILE</tt></b></span>
+      <dd>
+
+       <p class="para">Unix regular files (not directories) will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>. See also
+        <span class="methodname"><a href="rarentry.isdirectory.html" class="methodname">RarEntry::isDirectory()</a></span>, which also works with entries that
+       were added in other operating systems.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-sym-link">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_SYM_LINK</tt></b></span>
+      <dd>
+
+       <p class="para">Unix symbolic links will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="rarentry.constants.attribute-unix-socket">
+      <span class="term"><b><tt>RarEntry::ATTRIBUTE_UNIX_SOCKET</tt></b></span>
+      <dd>
+
+       <p class="para">Unix sockets will have attributes whose last four bits have this value. To be used with
+        <span class="methodname"><a href="rarentry.getattr.html" class="methodname">RarEntry::getAttr()</a></span> on entries whose host OS is UNIX and with the
+       constant <a href="class.rarentry.html#rarentry.constants.attribute-unix-final-quartet" class="link">
+       <b><tt>RarEntry::ATTRIBUTE_UNIX_FINAL_QUARTET</tt></b></a>.</p>
+      </dd>
+
+     </dt>
+
+
+    </dl>
+
+   </div>
+  </div>
+
+
+
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="rarentry.extract.html">RarEntry::extract</a> — アーカイブのエントリを展開する</li><li><a href="rarentry.getattr.html">RarEntry::getAttr</a> — エントリの属性を取得する</li><li><a href="rarentry.getcrc.html">RarEntry::getCrc</a> — エントリの CRC を取得する</li><li><a href="rarentry.getfiletime.html">RarEntry::getFileTime</a> — エントリの最終更新時刻を取得する</li><li><a href="rarentry.gethostos.html">RarEntry::getHostOs</a> — エントリのホスト OS を取得する</li><li><a href="rarentry.getmethod.html">RarEntry::getMethod</a> — エントリの圧縮方法を取得する</li><li><a href="rarentry.getname.html">RarEntry::getName</a> — エントリの名前を取得する</li><li><a href="rarentry.getpackedsize.html">RarEntry::getPackedSize</a> — 圧縮後のエントリのサイズを取得する</li><li><a href="rarentry.getstream.html">RarEntry::getStream</a> — このエントリのファイルハンドラを取得する</li><li><a href="rarentry.getunpackedsize.html">RarEntry::getUnpackedSize</a> — 展開後のエントリのサイズを取得する</li><li><a href="rarentry.getversion.html">RarEntry::getVersion</a> — このエントリを展開するのに必要な RAR プログラムの最低バージョンを取得する</li><li><a href="rarentry.isdirectory.html">RarEntry::isDirectory</a> — このエントリがディレクトリであるかどうかを調べる</li><li><a href="rarentry.isencrypted.html">RarEntry::isEncrypted</a> — このエントリが暗号化されているかどうかを調べる</li><li><a href="rarentry.tostring.html">RarEntry::__toString</a> — エントリのテキスト表現を取得する</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rararchive.tostring.html">RarArchive::__toString</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.extract.html">RarEntry::extract</a></div>
+ <div class="up"><a href="book.rar.html">Rar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

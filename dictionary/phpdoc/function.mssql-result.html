@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果データを得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mssql-query.html">mssql_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mssql-rows-affected.html">mssql_rows_affected</a></div>
+ <div class="up"><a href="ref.mssql.html">Mssql 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mssql-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mssql_result</h1>
+  <p class="verinfo">(PHP 4, PHP 5, PECL odbtp &gt;= 1.1.1)</p><p class="refpurpose"><span class="refname">mssql_result</span> &mdash; <span class="dc-title">結果データを得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.mssql-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>mssql_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$row</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$field</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>mssql_result()</b></span>は、MS SQL 結果行からセルの内容を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mssql-result-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       処理対象となる結果リソース。これは
+       <span class="function"><a href="function.mssql-query.html" class="function">mssql_query()</a></span> のコールによって取得します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">row</tt></i></span>
+     <dd>
+
+      <p class="para">
+       行番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">field</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フィールドオフセット、フィールド名または
+       テーブル名.フィールド名の形式で指定することができます。
+       カラム名がエイリアス定義されている場合
+       (&#039;select foo as bar from...&#039;)、そのカラム名の代わりにエイリアスが使用されます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <i><tt class="parameter">field</tt></i>
+        引数でオフセット番号を指定する方が、フィールド名または
+        テーブル名.フィールド名で引数で指定するよりもかなり高速です。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mssql-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したセルの内容を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mssql-result-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1438">
+    <p><b>例1 <span class="function"><b>mssql_result()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;select&nbsp;クエリを&nbsp;MSSQL&nbsp;に送信します<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mssql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;[username]&nbsp;FROM&nbsp;[php].[dbo].[userlist]'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;レコードが存在するかどうかを調べます<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">mssql_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'No&nbsp;records&nbsp;found'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">mssql_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);&nbsp;++</span><span style="color: #0000BB">$i</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">mssql_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'username'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;結果を開放します<br /></span><span style="color: #0000BB">mssql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Kalle
+Felipe
+Emil
+Ross
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-1439">
+    <p><b>例2 上の例をより高速化したもの</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;select&nbsp;クエリを&nbsp;MSSQL&nbsp;に送信します<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mssql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;[username]&nbsp;FROM&nbsp;[php].[dbo].[userlist]'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;レコードが存在するかどうかを調べます<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">mssql_num_rows</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'No&nbsp;records&nbsp;found'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mssql_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">'username'</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;結果を開放します<br /></span><span style="color: #0000BB">mssql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mssql-result-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    大量の結果を処理する場合、(以下に示す)行全体を取得する関数のどれかを
+    使用することを考える必要があります。これらの関数は一回の関数
+    コールで複数のセルの内容を返すので、
+    <span class="function"><b>mssql_result()</b></span> よりもかなり高速です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mssql-result-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   推奨される高性能な代替関数:
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mssql-fetch-row.html" class="function" rel="rdfs-seeAlso">mssql_fetch_row()</a> - 配列として行を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.mssql-fetch-array.html" class="function" rel="rdfs-seeAlso">mssql_fetch_array()</a> - 連想配列・数値添字配列・あるいはその両方で結果の行を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.mssql-fetch-assoc.html" class="function" rel="rdfs-seeAlso">mssql_fetch_assoc()</a> - 結果の現在行を連想配列として返す</span></li>
+    <li class="member"><span class="function"><a href="function.mssql-fetch-object.html" class="function" rel="rdfs-seeAlso">mssql_fetch_object()</a> - オブジェクトとして行を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mssql-query.html">mssql_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mssql-rows-affected.html">mssql_rows_affected</a></div>
+ <div class="up"><a href="ref.mssql.html">Mssql 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

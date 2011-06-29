@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したインターネットホスト名に対応する MX レコードを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gethostname.html">gethostname</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getprotobyname.html">getprotobyname</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.getmxrr" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">getmxrr</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">getmxrr</span> &mdash; <span class="dc-title">指定したインターネットホスト名に対応する MX レコードを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.getmxrr-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>getmxrr</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$hostname</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$mxhosts</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$weight</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">hostname</tt></i>
+   に対応する MX レコードを DNS から探します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.getmxrr-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hostname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       インターネットホスト名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mxhosts</tt></i></span>
+     <dd>
+
+      <p class="para">
+       見つかった MX レコードのリストが、配列
+       <i><tt class="parameter">mxhosts</tt></i> に格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">weight</tt></i></span>
+     <dd>
+
+      <p class="para">
+       配列 <i><tt class="parameter">weight</tt></i> を指定すると、
+       そこに重み情報が格納されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.getmxrr-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   何かレコードが見つかった場合に <b><tt>TRUE</tt></b>、
+   何も見つからないかエラーが発生した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.getmxrr-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+         この関数は、Windows プラットフォームでも動作するようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.getmxrr-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数をメールアドレスの確認の目的で使用すべきではありません。
+    DNS が検出したメールエクスチェンジャーを返すだけです。
+    しかし、<a href="http://www.faqs.org/rfcs/rfc2821" class="link external">&raquo; RFC 2821</a> によれば、
+    メールエクスチェンジャーがひとつも見つからなければ、
+    <i><tt class="parameter">hostname</tt></i> 自体が唯一のメールエクスチェンジャー
+    であるとみなされ、その優先度は <i>0</i>（最高）となります。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数が実装される前の Windows での互換性を保つには、
+    <a href="http://pear.php.net/" class="link external">&raquo; PEAR</a> の
+    <a href="http://pear.php.net/package/Net_DNS" class="link external">&raquo; Net_DNS</a> クラスを試してみてください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.getmxrr-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.checkdnsrr.html" class="function" rel="rdfs-seeAlso">checkdnsrr()</a> - 指定したインターネットホスト名もしくは IP アドレスに対応する DNS レコードを検索する</span></li>
+    <li class="member"><span class="function"><a href="function.dns-get-record.html" class="function" rel="rdfs-seeAlso">dns_get_record()</a> - ホスト名に関連する DNS リソースレコードを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.gethostbyname.html" class="function" rel="rdfs-seeAlso">gethostbyname()</a> - インターネットホスト名に対応するIPv4アドレスを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.gethostbynamel.html" class="function" rel="rdfs-seeAlso">gethostbynamel()</a> - 指定したインターネットホスト名に対応するIPv4アドレスのリストを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.gethostbyaddr.html" class="function" rel="rdfs-seeAlso">gethostbyaddr()</a> - 指定した IP アドレスに対応するインターネットホスト名を取得する</span></li>
+    <li class="member"><i>named(8)</i> のマニュアルページ</li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gethostname.html">gethostname</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getprotobyname.html">getprotobyname</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="outcontrol.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="outcontrol.resources.html">リソース型</a></div>
+ <div class="up"><a href="outcontrol.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="outcontrol.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>出力制御設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更の可否</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+    <tr valign="middle">
+     <td align="left"><a href="outcontrol.configuration.html#ini.output-buffering" class="link">output_buffering</a></td>
+     <td align="left">&quot;0&quot;</td>
+     <td align="left">PHP_INI_PERDIR</td>
+     <td class="empty">&nbsp;</td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left"><a href="outcontrol.configuration.html#ini.output-handler" class="link">output_handler</a></td>
+     <td align="left">NULL</td>
+     <td align="left">PHP_INI_PERDIR</td>
+     <td align="left">PHP 4.0.4 以降で使用可能です。</td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left"><a href="outcontrol.configuration.html#ini.implicit-flush" class="link">implicit_flush</a></td>
+     <td align="left">&quot;0&quot;</td>
+     <td align="left">PHP_INI_ALL</td>
+     <td align="left">PHP &lt;= 4.2.3 では PHP_INI_PERDIR です。</td>
+    </tr>
+
+    </tbody>
+   
+  </table>
+
+   PHP_INI_* モードの詳細および定義については
+<a href="configuration.changes.modes.html" class="xref">どこで設定を行うのか</a> を参照してください。
+ </p>
+ 
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+ 
+ <p class="para">
+  <dl>
+
+   <dt id="ini.output-buffering">
+    <span class="term">
+     <i><tt class="parameter">output_buffering</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>/<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このディレクティブを &#039;On&#039; と設定することにより、全てのファイルに
+      関して出力バッファリングを有効にすることができます。
+      特定の大きさにバッファの大きさを制限したい場合、このディレクティブの
+      値として &#039;On&#039; の代わりに最大バイト数(例:output_buffering=4096)
+      を使用することができます。
+      PHP 4.3.5 以降、PHP-CLI ではこのディレクティブが常に Off となります。
+    </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.output-handler">
+    <span class="term">
+     <i><tt class="parameter">output_handler</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      スクリプトの全ての出力を関数にリダイレクトすることができます。
+      例えば、output_handler に <span class="function"><a href="function.mb-output-handler.html" class="function">mb_output_handler()</a></span>
+      を指定した場合、文字エンコーディングは透過的に指定したエンコーディングに
+      変換されます。出力ハンドラを指定することにより自動的に出力
+      バッファリングを on にします。
+     </p>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       <span class="function"><a href="function.ob-iconv-handler.html" class="function">ob_iconv_handler()</a></span> と
+       <span class="function"><a href="function.mb-output-handler.html" class="function">mb_output_handler()</a></span> の両方で使用することは
+       できません。また、
+       <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> と
+       <a href="zlib.configuration.html#ini.zlib.output-compression" class="link">zlib.output_compression</a>
+       の両方を使用することはできません。
+      </p>
+     </p></blockquote>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      このディレクティブには、組み込み関数のみが使用可能です。ユーザ定義の
+      関数については、<span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> を使用してください。
+     </p>
+    </p></blockquote>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.implicit-flush">
+    <span class="term">
+     <i><tt class="parameter">implicit_flush</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+    <p class="para">
+      デフォルトは <b><tt>FALSE</tt></b> です。これを <b><tt>TRUE</tt></b> に変更すると、PHP が
+      各出力ブロックの後で自動的に出力レイヤをフラッシュするよう
+      指定します。これは、各 <span class="function"><a href="function.print.html" class="function">print()</a></span> および
+      <i>HTML</i> ブロックの後で
+      <span class="function"><a href="function.flush.html" class="function">flush()</a></span> 関数をコールすることと等価です。
+    </p>
+     <p class="para">
+      Web 環境の中で PHP を使用している時に
+      このオプションを on に変更すると、著しい性能低下が生じるため、
+      通常はデバッグ目的のみにすることが推奨されます。<i>CLI
+      SAPI</i> のもとで実行される時、この値はデフォルトで <b><tt>TRUE</tt></b>
+      になっています。
+     </p>
+     <p class="para">
+      <span class="function"><a href="function.ob-implicit-flush.html" class="function">ob_implicit_flush()</a></span> も参照ください。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="outcontrol.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="outcontrol.resources.html">リソース型</a></div>
+ <div class="up"><a href="outcontrol.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

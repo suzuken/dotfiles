@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>コマンドを実行し、入出力用にファイルポインタを開く</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.proc-nice.html">proc_nice</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-terminate.html">proc_terminate</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.proc-open" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">proc_open</h1>
+    <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">proc_open</span> &mdash; <span class="dc-title">
+     コマンドを実行し、入出力用にファイルポインタを開く
+    </span></p>
+
+   </div>
+   <div class="refsect1 description" id="refsect1-function.proc-open-description">
+    <h3 class="title">説明</h3>
+     <div class="methodsynopsis dc-description">
+      <span class="type">resource</span> <span class="methodname"><b>proc_open</b></span>
+       ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$cmd</tt></span>
+      , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$descriptorspec</tt></span>
+      , <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$pipes</tt></span>
+      [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$cwd</tt></span>
+      [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$env</tt></span>
+      [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$other_options</tt></span>
+     ]]] )</div>
+
+    <p class="para rdfs-comment">
+     <span class="function"><b>proc_open()</b></span> は <span class="function"><a href="function.popen.html" class="function">popen()</a></span> と
+     よく似ていますが、プログラムの実行をさらに細かく制御できる点で違います。
+    </p>
+
+
+
+   </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.proc-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cmd</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行されるコマンド。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">descriptorspec</tt></i></span>
+     <dd>
+
+      <p class="para">
+       数値添字の配列で、ディスクリプタ番号をキーとし、PHP がその
+       ディスクリプタをどのように子プロセスに渡すかを表すのが
+       対応する値となります。
+       0 が標準入力 (stdin)、1 が標準出力 (stdout) で、
+       2 が標準エラー出力 (stderr) となります。
+      </p>
+      <p class="para">
+       各要素は、次のようになります。
+       <ul class="simplelist">
+        <li class="member">
+         プロセスに渡すパイプをあらわす配列。
+         最初の要素はディスクリプタの型で、2 番目の要素がその型に対応するオプションとなります。
+         使用できる型は <i>pipe</i> (2 番目の要素は、
+         プロセスにパイプの読み込み側を渡すのなら <i>r</i>、
+         書き込み側を渡すのなら <i>w</i>)
+         および <i>file</i> (2 番目の要素はファイル名)
+         です。
+        </li>
+        <li class="member">
+         実際のファイルディスクリプタ (オープンしたファイルやソケット、
+         <b><tt>STDIN</tt></b> など) をあらわすストリームリソース。
+        </li>
+       </ul>
+      </p>
+      <p class="para">
+       ファイルディスクリプタの番号は、特に 0, 1, 2 に限られているわけでは
+       ありません。有効であるどのようなファイルディスクリプタの番号も指定でき、
+       それは子プロセスに渡されます。これにより、あるスクリプトと、
+       子プロセスとして起動している別のスクリプトとの間で通信ができます。
+       特に、これは PGP や GPG、openssl といったプログラムにパスフレーズを
+       より安全な方法で渡したいとき威力を発揮します。
+       補助的なファイルディスクリプタを介して、そのようなプログラムの
+       状態を取得するのにも便利です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pipes</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PHP 側で生成されたパイプの終端にあたる
+       ファイルポインタの配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cwd</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コマンドの初期作業ディレクトリ。
+       <em class="emphasis">完全</em>パスである必要があります。
+       デフォルト値 (現在の PHP プロセスの作業ディレクトリ) を使用したい場合は
+       <b><tt>NULL</tt></b> を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">env</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行するコマンドのための環境変数の配列。
+       現在の PHP プロセスと同じ環境変数を使用する場合は
+       <b><tt>NULL</tt></b> を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">other_options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       その他の追加オプションを指定することが可能です。
+       現在サポートされているオプションは次の通りです。
+       <ul class="simplelist">
+        <li class="member">
+         <i>suppress_errors</i> (windows のみ):
+         <b><tt>TRUE</tt></b> にすると、この関数が出力するエラーを抑制します。
+        </li>
+        <li class="member">
+         <i>bypass_shell</i> (windows のみ):
+         <b><tt>TRUE</tt></b> にすると、<i>cmd.exe</i> シェルをバイパスします。
+        </li>
+        <li class="member">
+         <i>context</i>: ファイルをオープンする際に
+         (<span class="function"><a href="function.stream-context-create.html" class="function">stream_context_create()</a></span> で作成した)
+		 ストリームコンテキストを使用します。
+        </li>
+        <li class="member">
+         <i>binary_pipes</i>: パイプをバイナリモードでオープンします。
+         通常の <i>stream_encoding</i>
+		 は使用しません。
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.proc-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   プロセスを表すリソースを返します。このリソースは、使用し終えた際に
+   <span class="function"><a href="function.proc-close.html" class="function">proc_close()</a></span> を使用して開放する必要があります。
+   失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.proc-open-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      
+      <tr valign="middle">
+       <td align="left">5.2.1</td>
+       <td align="left">
+        <i><tt class="parameter">other_options</tt></i> パラメータに
+        オプション <i>bypass_shell</i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">cwd</tt></i>、<i><tt class="parameter">env</tt></i>
+        および <i><tt class="parameter">other_options</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.proc-open-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3030">
+    <p><b>例1 A <span class="function"><b>proc_open()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$descriptorspec&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">),&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;stdin&nbsp;は、子プロセスが読み込むパイプです。<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"pipe"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">),&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;stdout&nbsp;は、子プロセスが書き込むパイプです。<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"file"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/tmp/error-output.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"a"</span><span style="color: #007700">)&nbsp;</span><span style="color: #FF8000">//&nbsp;はファイルで、そこに書き込みます。<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$cwd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'/tmp'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$env&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'some_option'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'aeiou'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$process&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">proc_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$descriptorspec</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$cwd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$env</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_resource</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$pipes&nbsp;はこの時点で次のような形を取っています。<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;0&nbsp;=&gt;&nbsp;子プロセスの&nbsp;stdin&nbsp;に繋がれた書き込み可能なハンドル<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;1&nbsp;=&gt;&nbsp;子プロセスの&nbsp;stdout&nbsp;に繋がれた読み込み可能なハンドル<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;すべてのエラー出力は&nbsp;/tmp/error-output.txt&nbsp;に書き込みされます。<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">'&lt;?php&nbsp;print_r($_ENV);&nbsp;?&gt;'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$pipes</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;デッドロックを避けるため、proc_close&nbsp;を呼ぶ前に<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;すべてのパイプを閉じることが重要です。<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$return_value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">proc_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$process</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"command&nbsp;returned&nbsp;</span><span style="color: #0000BB">$return_value</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [some_option] =&gt; aeiou
+    [PWD] =&gt; /tmp
+    [SHLVL] =&gt; 1
+    [_] =&gt; /usr/local/bin/php
+)
+command returned 0
+</pre></div>
+    </div>
+   </div>
+  </p>
+
+
+
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.proc-open-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Windows における互換性: 2 (stderr) よりも大きな番号のディスクリプタは
+    子プロセスに継承可能なハンドルとして渡されますが、
+    Windows のアーキテクチャは、ファイルディスクリプタの番号と
+    より低レベルなハンドルを関連付けないので、子プロセスは、
+    それらのハンドルにアクセスする術を持ちません。stdin, stdout, stderr
+    は期待通り動きます。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    もし単方向(一方向)のパイプを利用したいだけでしたら、
+    <span class="function"><a href="function.popen.html" class="function">popen()</a></span> を使うほうがより簡単です。
+   </p>
+  </p></blockquote>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.proc-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.popen.html" class="function" rel="rdfs-seeAlso">popen()</a> - プロセスへのファイルポインタをオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.exec.html" class="function" rel="rdfs-seeAlso">exec()</a> - 外部プログラムを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.system.html" class="function" rel="rdfs-seeAlso">system()</a> - 外部プログラムを実行し、出力を表示する</span></li>
+    <li class="member"><span class="function"><a href="function.passthru.html" class="function" rel="rdfs-seeAlso">passthru()</a> - 外部プログラムを実行し、未整形の出力を表示する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-select.html" class="function" rel="rdfs-seeAlso">stream_select()</a> - select() システムコールと同等の操作を、
+   ストリームの配列に対して tv_sec と tv_usec で指定されたタイムアウト時間をもって行う</span></li>
+    <li class="member"><a href="language.operators.execution.html" class="link">バックティック演算子</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.proc-nice.html">proc_nice</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.proc-terminate.html">proc_terminate</a></div>
+ <div class="up"><a href="ref.exec.html">プログラム実行関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

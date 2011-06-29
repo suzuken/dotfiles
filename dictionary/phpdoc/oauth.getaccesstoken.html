@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アクセストークンを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauth.fetch.html">OAuth::fetch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauth.getcapath.html">OAuth::getCAPath</a></div>
+ <div class="up"><a href="class.oauth.html">OAuth</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oauth.getaccesstoken" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">OAuth::getAccessToken</h1>
+  <p class="verinfo">(PECL OAuth &gt;= 0.99.1)</p><p class="refpurpose"><span class="refname">OAuth::getAccessToken</span> &mdash; <span class="dc-title">アクセストークンを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-oauth.getaccesstoken-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>OAuth::getAccessToken</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$access_token_url</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$verifier_token</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   アクセストークン、secret そして追加のレスポンスパラメータをサービスプロバイダから取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-oauth.getaccesstoken-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">access_token_url</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アクセストークン API の URL。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">auth_session_handle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       認証セッションハンドル。このパラメータはコア OAuth 1.0
+       仕様を引用していませんが、大手プロバイダでは実装されているでしょう。
+       詳細な情報は
+       <a href="http://oauth.pbwiki.com/ScalableOAuth/" class="link external">&raquo; ScalableOAuth</a>
+       を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">verifier_token</tt></i></span>
+     <dd>
+
+      <p class="para">
+       1.0a をサポートするサービスプロバイダでは、リクエストトークンとアクセストークンを交換する際に
+       <i><tt class="parameter">verifier_token</tt></i> を渡す必要があります。
+       <i><tt class="parameter">verifier_token</tt></i> が <i><tt class="parameter">$_GET</tt></i>
+       あるいは <i><tt class="parameter">$_POST</tt></i> に存在する場合は自動的にそれが渡され、
+       呼び出し側が <i><tt class="parameter">verifier_token</tt></i> を指定する必要はありません
+       (通常、アクセストークンを oauth_callback URL で交換する場合はこのようになります)。
+       詳細な情報は
+       <a href="http://oauth.pbwiki.com/ScalableOAuth/" class="link external">&raquo; ScalableOAuth</a>
+       を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-oauth.getaccesstoken-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合は OAuth レスポンスをパースした配列、失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-oauth.getaccesstoken-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">1.0.0</td>
+       <td align="left">
+        以前は、失敗したときに <b><tt>FALSE</tt></b> ではなく <b><tt>NULL</tt></b> を返していました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">0.99.9</td>
+       <td align="left">
+        <i><tt class="parameter">verifier_token</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-oauth.getaccesstoken-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4326">
+    <p><b>例1 <span class="function"><b>OAuth::getAccessToken()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$oauth&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">OAuth</span><span style="color: #007700">(</span><span style="color: #0000BB">OAUTH_CONSUMER_KEY</span><span style="color: #007700">,</span><span style="color: #0000BB">OAUTH_CONSUMER_SECRET</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setToken</span><span style="color: #007700">(</span><span style="color: #0000BB">$request_token</span><span style="color: #007700">,</span><span style="color: #0000BB">$request_token_secret</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$access_token_info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getAccessToken</span><span style="color: #007700">(</span><span style="color: #DD0000">"https://example.com/oauth/access_token"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if(!empty(</span><span style="color: #0000BB">$access_token_info</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$access_token_info</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Failed&nbsp;fetching&nbsp;access&nbsp;token,&nbsp;response&nbsp;was:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$oauth</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getLastResponse</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}&nbsp;catch(</span><span style="color: #0000BB">OAuthException&nbsp;$E</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Response:&nbsp;"</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$E</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastResponse&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [oauth_token] =&gt; some_token
+    [oauth_token_secret] =&gt; some_token_secret
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-oauth.getaccesstoken-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="oauth.getlastresponse.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponse()</a> - 直近のレスポンスを取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="oauth.getlastresponseinfo.html" class="methodname" rel="rdfs-seeAlso">OAuth::getLastResponseInfo()</a> - 直近のレスポンスの HTTP 情報を取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="oauth.settoken.html" class="methodname" rel="rdfs-seeAlso">OAuth::setToken()</a> - トークンと secret を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oauth.fetch.html">OAuth::fetch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oauth.getcapath.html">OAuth::getCAPath</a></div>
+ <div class="up"><a href="class.oauth.html">OAuth</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SNMP オブジェクトの値を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.snmp2-real-walk.html">snmp2_real_walk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.snmp2-walk.html">snmp2_walk</a></div>
+ <div class="up"><a href="ref.snmp.html">SNMP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.snmp2-set" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">snmp2_set</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">snmp2_set</span> &mdash; <span class="dc-title"><acronym>SNMP</acronym> オブジェクトの値を設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.snmp2-set-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>snmp2_set</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$community</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$object_id</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$type</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$timeout</tt><span class="initializer"> = 1000000</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$retries</tt><span class="initializer"> = 5</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>snmp2_set()</b></span> は、
+   <i><tt class="parameter">object_id</tt></i> で指定した
+   <acronym>SNMP</acronym> オブジェクトの値を設定します。
+  </p>
+  
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-function.snmp2-set-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">host</tt></i></span>
+    <dd>
+
+     <p class="para">
+      <acronym>SNMP</acronym> エージェント (サーバ) のホスト名。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">community</tt></i></span>
+    <dd>
+
+     <p class="para">
+      ライトコミュニティ。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">object_id</tt></i></span>
+    <dd>
+
+     <p class="para">
+      <acronym>SNMP</acronym> オブジェクト ID。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">type</tt></i></span>
+    <dd>
+
+     <p class="para">
+      オブジェクト ID の型を定義する <acronym>MIB</acronym>。以下の一覧のうちの一文字で指定しなければなりません。
+     </p>
+     <table class="doctable table">
+      <caption><b>型</b></caption>
+      
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle"><td align="left">=</td><td align="left">型を MIB から取得する</td></tr>
+
+        <tr valign="middle"><td align="left">i</td><td align="left">INTEGER</td> </tr>
+
+        <tr valign="middle"><td align="left">u</td><td align="left">INTEGER</td></tr>
+
+        <tr valign="middle"><td align="left">s</td><td align="left">STRING</td></tr>
+
+        <tr valign="middle"><td align="left">x</td><td align="left">HEX STRING</td></tr>
+
+        <tr valign="middle"><td align="left">d</td><td align="left">DECIMAL STRING</td></tr>
+
+        <tr valign="middle"><td align="left">n</td><td align="left">NULLOBJ</td></tr>
+
+        <tr valign="middle"><td align="left">o</td><td align="left">OBJID</td></tr>
+
+        <tr valign="middle"><td align="left">t</td><td align="left">TIMETICKS</td></tr>
+
+        <tr valign="middle"><td align="left">a</td><td align="left">IPADDRESS</td></tr>
+
+        <tr valign="middle"><td align="left">b</td><td align="left">BITS</td></tr>
+
+       </tbody>
+      
+     </table>
+
+     <p class="para">
+      SNMP ライブラリのコンパイル時に OPAQUE_SPECIAL_TYPES を定義した場合は、以下の型も使えます。
+     </p>
+     <table class="doctable table">
+      <caption><b>型</b></caption>
+      
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle"><td align="left">U</td><td align="left">unsigned int64</td></tr>
+
+        <tr valign="middle"><td align="left">I</td><td align="left">signed int64</td></tr>
+
+        <tr valign="middle"><td align="left">F</td><td align="left">float</td></tr>
+
+        <tr valign="middle"><td align="left">D</td><td align="left">double</td></tr>
+
+       </tbody>
+      
+     </table>
+
+     <p class="para">
+      これらの大半は、対応する ASN.1 の型を使います。&#039;s&#039;, &#039;x&#039;, &#039;d&#039; および &#039;b&#039; はどれも OCTET STRING
+      を異なる方法で表したものであり、&#039;u&#039; も Gauge32 値を扱うためのものです。
+     </p>
+     <p class="para">
+      MIB ファイルが &quot;snmp_read_mib&quot; や libsnmp の設定で MIB ツリーに読み込まれている場合は、
+      <i><tt class="parameter">type</tt></i> に &#039;=&#039; を使うことができます。
+      これはすべてのオブジェクト ID を表し、型は自動的に MIB から読み込みます。
+     </p>
+     <p class="para">
+      &quot;SYNTAX    BITS {telnet(0), ftp(1), http(2), icmp(3), snmp(4), ssh(5), https(6)}&quot;
+      のような BITS 型の値変数を設定する方法は二通りあることに注意しましょう。
+     </p>
+     <ul class="itemizedlist">
+      <li class="listitem">
+       <p class="para">
+        型として &quot;b&quot; を使い、ビット番号の一覧を <div class="example-contents"><div class="phpcode"><code><span style="color: #000000">
+snmpset('FOO-MIB::bar.42',&nbsp;'b',&nbsp;'0&nbsp;1&nbsp;2&nbsp;3&nbsp;4');</span>
+</code></div></div>
+ のように指定する。
+        これは、同じ OID に対して snmpget() を実行しても 0xF8 などを返すので成功したかどうかを調べにくいという問題があります。
+       </p>
+      </li>
+      <li class="listitem">
+       <p class="para">
+        型として &quot;x&quot; を使い、通常のプレフィックス &quot;0x&quot; をつけずに(!) 16 進数を指定する: <div class="example-contents"><div class="phpcode"><code><span style="color: #000000">
+snmpset('FOO-MIB::bar.42',&nbsp;'x',&nbsp;'F0');</span>
+</code></div></div>
+
+       </p>
+      </li>
+     </ul>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">value</tt></i></span>
+    <dd>
+
+     <p class="para">
+      新しい値。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+    <dd>
+
+     <p class="para">
+      最初のタイムアウトまでのマイクロ秒数。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">retries</tt></i></span>
+    <dd>
+
+     <p class="para">
+      タイムアウト発生時の再試行回数。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.snmp2-set-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   SNMP ホストがデータ型を却下すると、&quot;Warning: Error in packet. 
+   Reason: (badValue) The value given has the wrong type or length.&quot; のような’
+   E_WARNING メッセージが表示されます。未知の OID あるいは無効な OID
+   を指定した場合は、おそらく &quot;Could not add variable&quot; のような警告となります。
+  </p>
+ </div>
+
+ 
+ 
+ 
+ <div class="refsect1 examples" id="refsect1-function.snmp2-set-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3728">
+    <p><b>例1 <span class="function"><b>snmp2_set()</b></span> の使用法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;snmp2_set</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"public"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"IF-MIB::ifAlias.3"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"s"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.snmp2-set-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.snmp2-get.html" class="function" rel="rdfs-seeAlso">snmp2_get()</a> - SNMP オブジェクトを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.snmp2-real-walk.html">snmp2_real_walk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.snmp2-walk.html">snmp2_walk</a></div>
+ <div class="up"><a href="ref.snmp.html">SNMP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

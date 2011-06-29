@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ふたつの &quot;PHP 標準&quot; バージョン番号文字列を比較する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sys-get-temp-dir.html">sys_get_temp_dir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.zend-logo-guid.html">zend_logo_guid</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.version-compare" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">version_compare</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">version_compare</span> &mdash; <span class="dc-title">ふたつの &quot;PHP 標準&quot; バージョン番号文字列を比較する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.version-compare-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>version_compare</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$version1</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$version2</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$operator</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>version_compare()</b></span>は、ふたつの &quot;PHP 標準&quot; バージョン
+   番号文字列を比較します。この関数は、いくつかのバージョンの PHP でのみ
+   動作するプログラムを書きたい場合に有用です。
+  </p>
+  <p class="para">
+   この関数はまず、バージョン文字列の
+   <i>_</i>, <i>-</i>,
+   <i>+</i> をドット <i>.</i> で置き換えます。
+   さらに、数値でない部分の前後にドット <i>.</i> を追加します。
+   例えば &#039;4.3.2RC1&#039; は &#039;4.3.2.RC.1&#039; となります。
+   次に、explode(&#039;.&#039;, $ver) とするのと同じように結果を分割し、左から右へ
+   各部分を比較していきます。特殊な文字列が含まれている場合は以下の順で
+   並べ替えます:
+   <i>ここにないすべての文字列</i> &lt; 
+   <i>dev</i> &lt; <i>alpha</i> = 
+   <i>a</i> &lt; <i>beta</i> = 
+   <i>b</i> &lt; <i>RC</i> =  
+   <i>rc</i> &lt; <i>#</i> &lt;
+   <i>pl</i> = <i>p</i>
+   この方法により、&#039;4.1&#039; と &#039;4.1.2&#039; のようなバージョンの違いだけではなく
+   PHP 固有の開発ステータスの違いも判断することが可能となります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.version-compare-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">version1</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最初のバージョン番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">version2</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ふたつめのバージョン番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">operator</tt></i></span>
+     <dd>
+
+      <p class="para">
+       三番目のオプション引数 <i><tt class="parameter">operator</tt></i> を指定した場合、
+       特定の関係を調べることが可能です。指定可能な演算子を以下に示します。
+       <i>&lt;</i>,
+       <i>lt</i>, <i>&lt;=</i>,
+       <i>le</i>, <i>&gt;</i>,
+       <i>gt</i>, <i>&gt;=</i>,
+       <i>ge</i>, <i>==</i>,
+       <i>=</i>, <i>eq</i>,
+       <i>!=</i>, <i>&lt;&gt;</i>,
+       <i>ne</i>
+      </p>
+      <p class="para">
+       このパラメータは大文字小文字を区別するので、すべて小文字で指定しなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.version-compare-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   デフォルトでは、<span class="function"><b>version_compare()</b></span> の返り値は
+   最初のバージョンが 2 番目のバージョンより小さい場合に <i>-1</i>、
+   同じ場合に <i>0</i>、そして 2 番目のバージョンのほうが小さい場合に
+   <i>1</i> となります。
+  </p>
+  <p class="para">
+   オプションの引数 <i><tt class="parameter">operator</tt></i> を使用すると、
+   指定した演算子による関係を満たす場合に <b><tt>TRUE</tt></b>、それ以外の場合に
+   <b><tt>FALSE</tt></b> を返すようになります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.version-compare-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   以下の例では定数 <b><tt>PHP_VERSION</tt></b> を使用しています。
+   この定数には、コードを実行している PHP のバージョンが格納されています。
+  </p>
+  <p class="para">
+   <div class="example" id="example-458">
+    <p><b>例1 <span class="function"><b>version_compare()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">version_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'6.0.0'</span><span style="color: #007700">)&nbsp;&gt;=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'6.0.0&nbsp;より新しいバージョンの&nbsp;PHP&nbsp;を使っています。バージョンは&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_VERSION&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">version_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'5.3.0'</span><span style="color: #007700">)&nbsp;&gt;=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'5.3.0&nbsp;より新しいバージョンの&nbsp;PHP&nbsp;を使っています。バージョンは&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_VERSION&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">version_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'5.0.0'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;='</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'PHP&nbsp;5&nbsp;を使っています。バージョンは&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_VERSION&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">version_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">PHP_VERSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'5.0.0'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'PHP&nbsp;4&nbsp;を使っています。バージョンは&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_VERSION&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.version-compare-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <b><tt>PHP_VERSION</tt></b> 定数には現在の
+    PHP のバージョンが格納されます。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    プレリリース版 (たとえば 5.3.0-dev など)
+    は、それに対応する正式版 (5.3.0) より小さいとみなされます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.version-compare-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.phpversion.html" class="function" rel="rdfs-seeAlso">phpversion()</a> - 現在の PHP バージョンを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.php-uname.html" class="function" rel="rdfs-seeAlso">php_uname()</a> - PHP が稼動しているオペレーティングシステムに関する情報を返す</span></li>
+    <li class="member"><span class="function"><a href="function.function-exists.html" class="function" rel="rdfs-seeAlso">function_exists()</a> - 指定した関数が定義されている場合に TRUE を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sys-get-temp-dir.html">sys_get_temp_dir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.zend-logo-guid.html">zend_logo_guid</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

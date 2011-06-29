@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>TrueType フォントを使用してテキストを画像に書き込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagettfbbox.html">imagettfbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagetypes.html">imagetypes</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagettftext" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagettftext</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imagettftext</span> &mdash; <span class="dc-title">TrueType フォントを使用してテキストを画像に書き込む</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagettftext-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>imagettftext</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$size</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$angle</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$y</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$color</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$fontfile</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$text</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した <i><tt class="parameter">text</tt></i> を、
+   TrueType フォントを使用して画像に書き込みます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagettftext-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">size</tt></i></span>
+     <dd>
+
+      <p class="para">フォントサイズ。GD のバージョンによって、ピクセル単位 (GD1) あるいはポイント数 (GD2) で指定します。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">angle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       度で表される角度。0 度は左から右にテキストを読む方向になります。
+       0 より大きな値は、反時計回りの回転を表現します。例えば、
+       90 という値は下から上にテキストを読む方向になります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">x</tt></i> と <i><tt class="parameter">y</tt></i>
+       で与えられた座標は、最初の文字のベースポイント
+       (ほぼ文字の左下角) を定義します。
+       この仕様は、<i><tt class="parameter">x</tt></i> と <i><tt class="parameter">y</tt></i>
+       で最初の文字の右上角を定義する
+       <span class="function"><a href="function.imagestring.html" class="function">imagestring()</a></span> と異なっています。
+       例えば、左上は 0, 0 となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       y 座標。これは文字の最下位置ではなく、
+       フォントペースラインの位置を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">color</tt></i></span>
+     <dd>
+
+      <p class="para">
+       カラーインデックス。負の数を使用した場合、
+       アンチエイリアス機能がオフになります。
+       <span class="function"><a href="function.imagecolorallocate.html" class="function">imagecolorallocate()</a></span> を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fontfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用する TrueType フォントのパス。
+      </p>
+      <p class="para">
+       PHP が使用している GD ライブラリのバージョンに依存しており、<em class="emphasis">
+       <i><tt class="parameter">fontfile</tt></i> が <i>/</i>
+       で始まらない場合、ファイル名に <i>.ttf</i> が追加され、
+       </em>
+       ライブラリはライブラリが定義したフォントパスから
+       ファイル名を検索しようとします。
+      </p>
+      <p class="para">
+       2.0.18 以前のバージョンの GD ライブラリを使用している場合、
+       異なるフォントファイルに対する &#039;パスの区切り文字&#039; として
+       セミコロンよりも <i>space</i> 文字が使用されます。
+       この特徴が意図せずに使用されることで
+       <i>Warning: Could not find/open font</i>
+       という結果になります。
+       これらの影響があるバージョンに対する唯一の解決方法は、
+       スペースを含まないパスにフォントを移動させることです。
+      </p>
+      <p class="para">
+       フォントがスクリプトと同一ディレクトリに存在している場合のほとんどで、
+       以下のトリックが問題の軽減に繋がります。
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;GD&nbsp;の環境変数を設定します<br /></span><span style="color: #0000BB">putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">'GDFONTPATH='&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;使用するフォント名を指定します&nbsp;(拡張子&nbsp;.ttf&nbsp;がないことに注意)<br /></span><span style="color: #0000BB">$font&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SomeFont'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">text</tt></i></span>
+     <dd>
+
+      <p class="para">
+       テキスト文字列を UTF-8 エンコーディングで表したもの。
+      </p>
+      <p class="para">
+       フォント内で 127 文字目以降の文字にアクセスするために、
+       (&amp;#8364; のような) 十進数文字参照を含めることができます。
+       (&amp;#xA9; のような) 十六進形式もサポートしています。
+       UTF-8 エンコーディングされた文字列を直接渡すことができます。
+      </p>
+      <p class="para">
+       &amp;copy; のような文字エンティティはサポートされません。
+       <span class="function"><a href="function.html-entity-decode.html" class="function">html_entity_decode()</a></span> を使用して、
+       文字エンティティを UTF-8 文字列にすることを検討してください
+       (html_entity_decode() は、PHP 5.0.0 以降でこの機能をサポートします)。
+      </p>
+      <p class="para">
+       フォントでサポートされていない文字が文字列で使用されている場合、
+       その文字は白抜きの矩形に置き換えられます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagettftext-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   テキストの境界を
+   構成する 4 点を表す 8 個の要素を有する配列を返します。
+   返される点は左下、右下、右上、左上の順番となります。
+   点の座標は、角度によらず text に関する相対座標として表されます。
+   つまり、&quot;左上&quot;は、text を水平に見た場合の左上の隅を表します。
+   エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.imagettftext-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left">
+        <i><tt class="parameter">text</tt></i> で十六進形式のエンティティを指定できるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagettftext-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2341">
+    <p><b>例1 <span class="function"><b>imagettftext()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この例は、400x30 ピクセルの白地に Arial
+     フォントを用いて、黒字 (グレーの影付き) で &quot;Testing...&quot;
+     と書かれた PNG を作成します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;コンテントタイプを設定します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;画像を生成します<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">400</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">30</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;いくつかの色を生成します<br /></span><span style="color: #0000BB">$white&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$grey&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">128</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">128</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">128</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$black&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">399</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">29</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$white</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;描画する文字列<br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Testing...'</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;フォント自身のパスでパスを置き換えます<br /></span><span style="color: #0000BB">$font&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'arial.ttf'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;テキストに影を付けます<br /></span><span style="color: #0000BB">imagettftext</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">21</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$grey</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$font</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;テキストを追加します<br /></span><span style="color: #0000BB">imagettftext</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$black</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$font</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;imagepng()&nbsp;を使用して&nbsp;imagejpeg()&nbsp;よりもクリアなテキストにします<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagettftext.png" alt="出力例 : imagettftext()" width="400" height="30" />
+     </div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagettftext-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は GD ライブラリと <a href="http://www.freetype.org/" class="link external">&raquo; FreeType</a>
+    ライブラリの両方が必要です。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imagettftext-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imagettfbbox.html" class="function" rel="rdfs-seeAlso">imagettfbbox()</a> - TypeType フォントを使用したテキストの bounding box を生成する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagettfbbox.html">imagettfbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagetypes.html">imagetypes</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

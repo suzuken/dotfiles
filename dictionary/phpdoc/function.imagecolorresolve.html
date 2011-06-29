@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した色または出来るだけ近い色のインデックスを得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecolormatch.html">imagecolormatch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecolorresolvealpha.html">imagecolorresolvealpha</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagecolorresolve" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagecolorresolve</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imagecolorresolve</span> &mdash; <span class="dc-title">指定した色または出来るだけ近い色のインデックスを得る</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagecolorresolve-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>imagecolorresolve</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$red</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$green</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$blue</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、指定した色に関するインデックスを常に返します。
+   その色そのものまたは出来るだけ近い色へのインデックスが返されます。
+  </p>
+  <p class="para">画像をファイルから作成した場合は、画像内で使われている色だけを解決します。パレットにだけ存在する色は解決されません。</p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagecolorresolve-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">red</tt></i></span>
+     <dd>
+
+      <p class="para">赤コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">green</tt></i></span>
+     <dd>
+
+      <p class="para">緑コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">blue</tt></i></span>
+     <dd>
+
+      <p class="para">青コンポーネントの値。</p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagecolorresolve-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   色インデックスを返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagecolorresolve-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2254">
+   <p><b>例1 <span class="function"><b>imagecoloresolve()</b></span> による画像からの色の取得</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;画像を読み込みます<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromgif</span><span style="color: #007700">(</span><span style="color: #DD0000">'phplogo.gif'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;最も近い色を画像から取得します<br /></span><span style="color: #0000BB">$colors&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorresolve</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$colors</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">imagecolorresolve</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">200</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力します<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$colors</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>  
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; 89
+    [1] =&gt; 85
+)
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imagecolorresolve-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imagecolorclosest.html" class="function" rel="rdfs-seeAlso">imagecolorclosest()</a> - 指定した色に最も近い色のインデックスを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagecolormatch.html">imagecolormatch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagecolorresolvealpha.html">imagecolorresolvealpha</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

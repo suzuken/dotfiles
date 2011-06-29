@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>CLOB を作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-create-blob.html">fbsql_create_blob</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-create-db.html">fbsql_create_db</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fbsql-create-clob" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fbsql_create_clob</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">fbsql_create_clob</span> &mdash; <span class="dc-title">CLOB を作成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fbsql-create-clob-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>fbsql_create_clob</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$clob_data</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   指定したデータから CLOB を作成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fbsql-create-clob-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">clob_data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       CLOB データ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> あるいは
+<span class="function"><a href="function.fbsql-pconnect.html" class="function">fbsql_pconnect()</a></span> が返す FrontBase リンク ID。</p>
+<p class="para">指定しなかった場合は、この関数は FrontBase
+サーバでオープンしているリンクを探します。見つからないときは
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> に引数を指定せずにコールしたときと同様にして作成します。</p>
+</dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fbsql-create-clob-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   新しく作成した CLOB のリソースハンドルを返します。
+   これを insert や update コマンドで使用すると、
+   データベースに CLOB を保存することができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fbsql-create-clob-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1088">
+    <p><b>例1 <span class="function"><b>fbsql_create_clob()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_pconnect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"_SYSTEM"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"secret"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できません"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$filename&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"clob_file.txt"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$clobdata&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$clobHandle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_create_clob</span><span style="color: #007700">(</span><span style="color: #0000BB">$clobdata</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;CLOB_TABLE&nbsp;(CLOB_COLUMN)&nbsp;VALUES&nbsp;(</span><span style="color: #0000BB">$clobHandle</span><span style="color: #DD0000">);"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$rs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fbsql-create-clob-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fbsql-create-blob.html" class="function" rel="rdfs-seeAlso">fbsql_create_blob()</a> - BLOB を作成する</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-read-blob.html" class="function" rel="rdfs-seeAlso">fbsql_read_blob()</a> - データベースから BLOB を読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-read-clob.html" class="function" rel="rdfs-seeAlso">fbsql_read_clob()</a> - データベースから CLOB を読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-set-lob-mode.html" class="function" rel="rdfs-seeAlso">fbsql_set_lob_mode()</a> - FrontBase 結果セットの LOB 取得モードを設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-create-blob.html">fbsql_create_blob</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-create-db.html">fbsql_create_db</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

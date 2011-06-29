@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>接続</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.tutorial.html">チュートリアル</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.writes.html">書き込み</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.connecting" class="section">
+ <h2 class="title">接続</h2>
+
+ <p class="para">
+  MongoDB への接続は単に <i>new Mongo</i> とするだけの簡単なものですが、
+  オプションや設定項目が多数あります。
+  <span class="function"><a href="mongo.construct.html" class="function">Mongo::__construct()</a></span> のページにすべての API
+  オプションをまとめましたが、ここではより実用的な使用例とアドバイスをとりあげます。
+ </p>
+
+ <div class="section">
+  <h2 class="title">接続時のログイン</h2>
+  <p class="para">
+   MongoDB を <i>--auth</i> オプションつきで起動すると、
+   接続時の認証が必須となります。データベース単位でこれを設定するには
+   <span class="function"><a href="mongodb.authenticate.html" class="function">MongoDB::authenticate()</a></span> を使います。
+  </p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">admin</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">authenticate</span><span style="color: #007700">(</span><span style="color: #0000BB">$username</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+  <p class="para">
+   この方法には大きな弱点があります。
+   データベースとの接続が切れてしまってから再接続をしたときには、
+   認証されていない状態になってしまうということです。
+  </p>
+  <p class="para">
+   <span class="function"><a href="mongo.construct.html" class="function">Mongo::__construct()</a></span> で説明した接続文字列形式を使えば、
+   接続を再確立したときにも再び認証を行うことができます。
+  </p>
+  <p class="para">
+   これは上のコードと同じ意味ですが、
+   再接続したときにも自動的に認証を行います。
+  </p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://</span><span style="color: #007700">${</span><span style="color: #0000BB">username</span><span style="color: #007700">}</span><span style="color: #DD0000">:</span><span style="color: #007700">${</span><span style="color: #0000BB">password</span><span style="color: #007700">}</span><span style="color: #DD0000">@localhost"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+  <p class="para">
+   デフォルトでは、ユーザの認証は admin データベースに対して行います。
+   別のデータベースへの認証を行うには、ホスト名のあとにデータベース名を指定します。
+   この例は、&quot;blog&quot; データベースにログインします。
+  </p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://</span><span style="color: #007700">${</span><span style="color: #0000BB">username</span><span style="color: #007700">}</span><span style="color: #DD0000">:</span><span style="color: #007700">${</span><span style="color: #0000BB">password</span><span style="color: #007700">}</span><span style="color: #DD0000">@localhost/blog"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+ </div>
+
+ <div class="section">
+  <h2 class="title">レプリカセット</h2>
+  <p class="para">
+   レプリカセットに接続するには、セットに属するサーバをひとつ以上指定して、
+   さらに <i>replicaSet</i> オプションを使います。
+  </p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost:27017"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"replicaSet"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+  <p class="para">
+   バージョン 1.0.9 以降のドライバでは、レプリカセットへの接続が必須となります
+   (それより前のバージョンでは、マスタの自動検出や再接続が正しく動作しません)。
+  </p>
+  <p class="para">
+   PHP ドライバは、指定したサーバ群に問い合わせてどれがマスタなのかを調べます。
+   リストにあげたサーバのうち少なくともひとつに接続でき、
+   マスタが見つかってさえいれば接続が成功したとみなされます。
+   どのサーバにも接続できない、あるいはマスタが見つからないといった場合は
+   <a href="class.mongoconnectionexception.html" class="classname">MongoConnectionException</a> がスローされます。
+  </p>
+  <p class="para">
+   マスタが使えなくなったときに、スレーブがマスタになるには数秒かかります。
+   その間は、この接続では一切のデータベース操作ができなくなります
+   (スレーブに接続して読み込みを行うことは可能です)。
+   したがって、このときに何らかの読み書き操作をすると例外が発生します。
+  </p>
+  <p class="para">
+   新しいマスタが選ばれると、読み込みや書き込みの操作時にドライバが新しいマスタを検出できるようになります。
+   そして、ドライバがデータベース接続を切り替えて通常の操作を続行できるようになります。
+  </p>
+  <p class="para">
+   レプリカセットについての詳細は、
+   <a href="http://www.mongodb.org/display/DOCS/Replication" class="link external">&raquo; コアドキュメント</a>
+   を参照ください。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">持続的接続</h2>
+
+  <p class="para">
+   データベースへの接続を新たに確立させるには、非常に時間がかかります。
+   データベースへ接続の作成回数を最小限にするには、持続的接続を使うことができます。
+   持続的接続は PHP が保持するので、同じ接続を使って複数のリクエストを送ることができます。
+  </p>
+
+  <p class="para">
+   たとえば、この単純なプログラムはデータベースに 1000 回接続します。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">for&nbsp;(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">&lt;</span><span style="color: #0000BB">1000</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   実行時間は約 18 秒です。これを、持続的接続を使うように変更してみましょう。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">for&nbsp;(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">&lt;</span><span style="color: #0000BB">1000</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost:27017"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"x"</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   実行時間は .02 秒未満になりました。データベースへの接続は 1 回だけしか行わないからです。
+  </p>
+
+  <p class="para">
+   持続的接続には識別用の文字列 (上の例では &quot;x&quot;)
+   が必要で、これを使って接続を識別します。
+   持続的接続を使うには、ホスト名とポート、持続文字列、そしてユーザ名とパスワード(指定した場合)
+   が既存の持続的接続と一致しなければなりません。
+   一致しない場合は、この識別情報で新しい接続を作成します。
+  </p>
+  <p class="para">
+   持続的接続を使うことを<em class="emphasis">強く推奨します</em>。
+   実運用環境では、やむを得ぬ理由がない限り常に持続的接続を使うべきです。
+   リレーショナルデータベースにおいて持続的接続を推奨しない理由はいくつかありますが、
+   その大半は MongoDB には無関係なものです。
+  </p>
+  <p class="para">
+   持続的接続は、1.0.12 でデフォルトの接続方式になりました。
+   持続的でない接続を作成するには、
+   <i>&quot;persist&quot; =&gt; false</i> を
+   <span class="function"><a href="mongo.construct.html" class="function">Mongo::__construct()</a></span> に渡さなければなりません。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">ドメインソケット</h2>
+
+  <p class="para">
+   MongoDB をローカルで動かしていてバージョン 1.0.9
+   以降のドライバを使っている場合は、ファイル経由でデータベースに接続することができます。
+   MongoDB は、起動時に自動的にソケットファイル
+   /tmp/mongodb-&lt;port&gt;.sock をオープンします。
+  </p>
+
+  <p class="para">
+   ソケットファイルに接続するには、このパスを MongoDB 接続文字列に指定します。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb:///tmp/mongo-27017.sock"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+  <p class="para">
+   上で示したようなソケットファイルへの接続で認証を使いたい場合は、
+   ポート番号 0 を指定しなければなりません。
+   接続文字列のパーサは、これを接続文字列の終端と見なします。
+  </p>
+
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://username:password@/tmp/mongo-27017.sock:0/foo"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.tutorial.html">チュートリアル</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.writes.html">書き込み</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

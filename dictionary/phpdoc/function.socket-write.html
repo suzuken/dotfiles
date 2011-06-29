@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソケットに書き込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-strerror.html">socket_strerror</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.ssh2.html">SSH2</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-write" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_write</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_write</span> &mdash; <span class="dc-title">ソケットに書き込む</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-write-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>socket_write</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$socket</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$buffer</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$length</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   関数 <span class="function"><b>socket_write()</b></span> は、
+   <i><tt class="parameter">buffer</tt></i> の内容をソケット
+   <i><tt class="parameter">socket</tt></i> に書き込みます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-write-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">buffer</tt></i></span>
+     <dd>
+
+      <p class="para">
+       書き込まれるバッファ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">length</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションのパラメータ <i><tt class="parameter">length</tt></i> で、
+       ソケットに書き込むバイト数を指定することが可能です。
+       この値がバッファの長さより大きい場合、自動的にバッファのサイズに切り詰められます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-write-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ソケットへの書き込みに成功したデータのバイト数を返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   エラーコードは <span class="function"><a href="function.socket-last-error.html" class="function">socket_last_error()</a></span>
+   を用いて取得することができ、この値を <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span>
+   に渡すことでエラー情報を文字列で取得可能です。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>socket_write()</b></span> がゼロを返すことも十分ありえます。
+    これは、書き込むデータが存在しなかったことを意味します。
+    エラーをチェックするために <b><tt>FALSE</tt></b> かどうかを調べる際には、必ず
+    <i>===</i> 演算子を使用しましょう。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.socket-write-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>socket_write()</b></span> は、バッファの内容を必ずしもすべて
+    書き込むとは限りません。ネットワークバッファの状態にもよりますが、
+    たとえ 1 バイトだけ書き込まれたのであったとしても、それはエラーではなく正常な動作です。
+    そのため、データがすべて書き込まれたのかどうかに注意する必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-write-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-accept.html" class="function" rel="rdfs-seeAlso">socket_accept()</a> - ソケットへの接続を許可する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-bind.html" class="function" rel="rdfs-seeAlso">socket_bind()</a> - ソケットに名前をバインドする</span></li>
+    <li class="member"><span class="function"><a href="function.socket-connect.html" class="function" rel="rdfs-seeAlso">socket_connect()</a> - ソケット上の接続を初期化する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-listen.html" class="function" rel="rdfs-seeAlso">socket_listen()</a> - ソケット上で接続待ち(listen)する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-read.html" class="function" rel="rdfs-seeAlso">socket_read()</a> - ソケットから最大バイト長まで読みこむ</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - ソケットエラーの内容を文字列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-strerror.html">socket_strerror</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.ssh2.html">SSH2</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したデータベースに対してクエリを実行し、配列を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-busy-timeout.html">sqlite_busy_timeout</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sqlite-array-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sqlite_array_query</h1>
+  <h1 class="refname">SQLiteDatabase->arrayQuery</h1>
+  <p class="verinfo">(PHP 5, PECL sqlite &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">sqlite_array_query</span> -- <span class="refname">SQLiteDatabase-&gt;arrayQuery</span> &mdash; <span class="dc-title">指定したデータベースに対してクエリを実行し、配列を返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.sqlite-array-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>sqlite_array_query</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dbhandle</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt></span>
+  ]] )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>sqlite_array_query</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   , <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dbhandle</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">オブジェクト指向言語型スタイル (メソッド):</p>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">array</span> <span class="methodname"><b>SQLiteDatabase::arrayQuery</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+    [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+    [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt></span>
+   ]] )</div>
+
+  </div>
+  <p class="para">
+   <span class="function"><b>sqlite_array_query()</b></span> は与えられたクエリを実行し、
+   結果セット全体を配列で返します。これは、結果セットの各レコードに関して
+   <span class="function"><a href="function.sqlite-query.html" class="function">sqlite_query()</a></span>に続いて
+   <span class="function"><a href="function.sqlite-fetch-array.html" class="function">sqlite_fetch_array()</a></span>をコールすることに似ています。
+   <span class="function"><b>sqlite_array_query()</b></span> は前述の方法よりも著しく高速です。
+  </p>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    <span class="function"><b>sqlite_array_query()</b></span> は、返すレコードが45件以下
+    のクエリーで最も有効です。これ以上のデータがある場合には、
+    より性能を最適化するために、代わりに
+    <span class="function"><a href="function.sqlite-unbuffered-query.html" class="function">sqlite_unbuffered_query()</a></span>を使用するようなスクリ
+    プトを書くことをお薦めします。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sqlite-array-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行するクエリ
+      </p>
+      <p class="para">
+       クエリ内のデータは <a href="function.sqlite-escape-string.html" class="link">適切にエスケープ</a>
+       する必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dbhandle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite データベースリソース。手続きに従って、
+       <span class="function"><a href="function.sqlite-open.html" class="function">sqlite_open()</a></span> から返されます。
+       このパラメータは、
+       オブジェクト指向言語型メソッドを使用する場合は不要です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_type</tt></i></span>
+     <dd>
+
+      <p class="para">オプションの <i><tt class="parameter">result_type</tt></i>
+パラメータには定数を指定でき、返される配列の添字を定義します。
+<b><tt>SQLITE_ASSOC</tt></b> を用いると、連想配列の添字(名前フィールド)のみが
+返されます。一方、<b><tt>SQLITE_NUM</tt></b> は、
+数値の添字(フィールド番号)のみを返します。<b><tt>SQLITE_BOTH</tt></b> は、
+連想配列の添字と数値の添字の両方を返します。
+<b><tt>SQLITE_BOTH</tt></b> がこの関数のデフォルトです。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">decode_binary</tt></i></span>
+     <dd>
+
+      <p class="para">
+<i><tt class="parameter">decode_binary</tt></i> パラメータが <b><tt>TRUE</tt></b> (デフォルト)に
+設定された場合、PHP はバイナリエンコーディングをデコードします。
+これは、<span class="function"><a href="function.sqlite-escape-string.html" class="function">sqlite_escape_string()</a></span> によりエンコードされたデータに
+適用されます。sqlite をサポートする他のアプリケーションにより
+作成されたデータベースを処理する時以外は、この値をデフォルトのままにしておくべきです。</p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+(MySQL のような)他のデータベースエクステンションとの互換性のため、
+2 種類の構文がサポートされています。
+推奨されるのは最初の構文で、<i><tt class="parameter">dbhandle</tt></i> パラメータを
+関数の最初のパラメータとするものです。</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sqlite-array-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果セット全体の配列、その他の場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+<b><tt>SQLITE_ASSOC</tt></b> および <b><tt>SQLITE_BOTH</tt></b> で
+返されるカラム名は、設定オプション
+<a href="sqlite.configuration.html#ini.sqlite.assoc-case" class="link">sqlite.assoc_case</a> の値に基づき、
+大文字小文字が変換されます。</p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.sqlite-array-query-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1773">
+    <p><b>例1 手続き言語型スタイル</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$dbhandle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sqlite_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlitedb'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sqlite_array_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbhandle</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;email&nbsp;FROM&nbsp;users&nbsp;LIMIT&nbsp;25'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SQLITE_ASSOC</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Name:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">'&nbsp;&nbsp;E-mail:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'email'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-1774">
+    <p><b>例2 オブジェクト指向言語型スタイル</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$dbhandle&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SQLiteDatabase</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlitedb'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbhandle</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">arrayQuery</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;email&nbsp;FROM&nbsp;users&nbsp;LIMIT&nbsp;25'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SQLITE_ASSOC</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Name:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">'&nbsp;&nbsp;E-mail:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">[</span><span style="color: #DD0000">'email'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sqlite-array-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sqlite-query.html" class="function" rel="rdfs-seeAlso">sqlite_query()</a> - 指定したデータベースに対してクエリを実行し、結果ハンドル
+  を返す</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-fetch-array.html" class="function" rel="rdfs-seeAlso">sqlite_fetch_array()</a> - 結果セットから次のレコードを配列として取得する</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-fetch-string.html" class="function" rel="rdfs-seeAlso">sqlite_fetch_string()</a> - sqlite_fetch_single のエイリアス</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-busy-timeout.html">sqlite_busy_timeout</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

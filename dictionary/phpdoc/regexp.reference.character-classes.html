@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.dot.html">ドット</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.alternation.html">選択肢</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.character-classes" class="section">
+  <h2 class="title">文字クラス</h2>
+     <p class="para">
+      開き角カッコは文字クラス (character class) の開始を表し、
+      閉じ角カッコにより文字クラスは終了します。閉じ角カッコだけでは、
+      特別な意味を持ちません。閉じ角カッコを文字クラスのメンバとしたい場合は、
+      文字クラスの最初の文字（否定のハット記号がある場合はその直後）とするか、
+      バックスラッシュでエスケープする必要があります。
+     </p>
+     <p class="para">
+      文字クラスは、検索対象文字列のたかだか 1 文字にマッチします。
+      マッチする文字は、その文字クラスによって定義された文字集合のうちの
+      どれかです。ただし、文字クラスの最初の文字がハット記号の場合は、
+      マッチする文字は、その文字クラスに定義されていない文字となります。
+      ハット記号自体をクラスのメンバとしたい場合は、文字クラスの
+      最初の文字としないか、バックスラッシュでエスケープしてください。
+     </p>
+     <p class="para">
+      例えば、文字クラス [aeiou] は小文字の母音にマッチしますが、[^aeiou] は
+      小文字の母音以外の文字にマッチします。ハット記号は、含まれない文字を
+      列挙することにより文字クラスに含まれる文字を指定するための簡略表記です。
+      文字クラスは、言明ではありません。対象文字列から文字を消費します。また、
+      カレントのポインタが文字列の終端にある場合には、マッチに失敗します。
+     </p>
+     <p class="para">
+      大小文字を区別しないマッチングを行うよう設定した場合は、
+      クラス内の文字は大小文字の両方を表します。例えば、
+      大小文字を区別しない場合、[aeiou] は &quot;a&quot; にも &quot;A&quot; にもマッチします。
+      同じく大小文字を区別しない場合 [^aeiou] は &quot;A&quot; にマッチしませんが、
+      区別する場合はマッチします
+     </p>
+     <p class="para">
+      <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOTALL</a> 
+      または <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_MULTILINE</a> 
+      オプションをどのように設定しようとも、改行文字は、文字クラスにおいて
+      特別な扱いはされません。たとえば、 [^a] のようなクラスは、
+      常に改行にマッチします。
+     </p>
+     <p class="para">
+      マイナス (ハイフン) 記号は、文字クラスで文字の範囲を指定するために
+      使われます。例えば、[d-m] は d と m の間のあらゆる文字にマッチします。
+      マイナス記号が文字クラス内に必要な場合は、バックスラッシュで
+      エスケープしてください。もしくは、文字クラスの最初または最後など、
+      範囲を示すと解釈されない場所に記述してください。
+     </p>
+     <p class="para">
+      文字リテラル &quot;]&quot; を、文字範囲を示す最後の文字として使うことは
+      できません。 [W-]46] というパターンは、2 つの文字 (&quot;W&quot; および&quot;-&quot;) が
+      含まれるクラスの後に文字列リテラル &quot;46]&quot; が続いていると解釈され、
+      &quot;W46]&quot; や &quot;-46]&quot; にマッチします。しかし、&quot;]&quot; をバックスラッシュで
+      エスケープすると文字範囲の終端として解釈され、 [W-]46] は、
+      範囲指定の後に 2 つの文字が続く 1 つのクラスとして解釈されます。 
+      &quot;]&quot; の 8 進あるいは 16 進表現も文字範囲の終端として使用可能です。
+     </p>
+     <p class="para">
+      文字範囲指定では、ASCII 照合順序 (collating sequence) が用いられます
+      〔つまり、範囲指定する際の文字の並び順として ASCII が用いられます〕。
+       [\000-\037] のような、数値的な文字の指定も使用可能です。大小文字を
+       区別しないマッチングを行うよう設定した場合、パターン中の英字は
+       大小文字の両方にマッチします。例えば、[W-c] は、[][\^_`wxyzabc] に
+       等価であり、大小文字に関係なくマッチします。また、 &quot;fr&quot; 
+       ロケールの文字テーブルを使う場合、[\xc8-\xcb] は、
+       大小文字の区別無くアクセント付きの E にマッチします。
+     </p>
+     <p class="para">
+      文字型 \d, \D, \s, \S, \w, \W も、文字クラス内で使え、
+      マッチする文字を追加することが可能です。例えば、[ABCDEF] は、
+      16進数にマッチします。ハット記号と大文字の文字型を組み合わせることで、
+      小文字の文字型がマッチするものより狭い文字集合を
+      簡便に指定することができます。例えば、クラス [^\W_] は、
+      〔単語構成〕文字および数字にマッチしますが、アンダースコアには
+      マッチしません。
+     </p>
+     <p class="para">
+      \, -, (始端の)^ および終端の ] 以外のすべての非英数字は、
+      文字クラスにおいて特別な意味を持たない文字ですが、
+      エスケープしても問題はありません。
+      パターンの終端文字は常に特別扱いされるので、
+      正規表現内で私用する場合は必ずエスケープしなければなりません。
+     </p>
+     <p class="para">
+      Perl は、POSIX 記法の文字クラスもサポートしています。これは、
+      <i>[:</i> と <i>:]</i> で囲んだ名前を角カッコ内で使うものです。
+      PCRE でもこの記法に対応しています。たとえば <i>[01[:alpha:]%]</i> は
+      &quot;0&quot;、&quot;1&quot;、任意のアルファベット、あるいは &quot;%&quot; にマッチします。対応しているクラス名は次のとおりです。
+      <table class="doctable table">
+       <caption><b>文字クラス</b></caption>
+       
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle"><td align="left"><i>alnum</i></td><td align="left">letters and digits</td></tr>
+
+         <tr valign="middle"><td align="left"><i>alpha</i></td><td align="left">letters</td></tr>
+
+         <tr valign="middle"><td align="left"><i>ascii</i></td><td align="left">character codes 0 - 127</td></tr>
+
+         <tr valign="middle"><td align="left"><i>blank</i></td><td align="left">space or tab only</td></tr>
+
+         <tr valign="middle"><td align="left"><i>cntrl</i></td><td align="left">control characters</td></tr>
+
+         <tr valign="middle"><td align="left"><i>digit</i></td><td align="left">decimal digits (same as \d)</td></tr>
+
+         <tr valign="middle"><td align="left"><i>graph</i></td><td align="left">printing characters, excluding space</td></tr>
+
+         <tr valign="middle"><td align="left"><i>lower</i></td><td align="left">lower case letters</td></tr>
+
+         <tr valign="middle"><td align="left"><i>print</i></td><td align="left">printing characters, including space</td></tr>
+
+         <tr valign="middle"><td align="left"><i>punct</i></td><td align="left">printing characters, excluding letters and digits</td></tr>
+
+         <tr valign="middle"><td align="left"><i>space</i></td><td align="left">white space (not quite the same as \s)</td></tr>
+
+         <tr valign="middle"><td align="left"><i>upper</i></td><td align="left">upper case letters</td></tr>
+
+         <tr valign="middle"><td align="left"><i>word</i></td><td align="left">&quot;word&quot; characters (same as \w)</td></tr>
+
+         <tr valign="middle"><td align="left"><i>xdigit</i></td><td align="left">hexadecimal digits</td></tr>
+
+        </tbody>
+       
+      </table>
+
+      <i>space</i> 文字は HT (9), LF (10), VT (11), FF (12), CR (13),
+      およびスペース (32) です。この中に VT 文字 (コード 11) が含まれていることに注目しましょう。
+      この点で、&quot;space&quot; は <i>\s</i> と異なります。こちらは VT を含みません
+      (Perl との互換性のため)。
+     </p>
+     <p class="para">
+      <i>word</i> は Perl 拡張で、<i>blank</i> は Perl 5.8
+      からの GNU 拡張です。それ以外の Perl 拡張には否定があります。否定を指示するには
+      <i>^</i> をコロンの後に続けます。たとえば
+      <i>[12[:^digit:]]</i> は &quot;1&quot;、&quot;2&quot;、あるいは任意の非数値にマッチします。
+     </p>
+     <p class="para">
+      UTF-8 モードでは、128 より大きなコードはどの POSIX 文字クラスにもマッチしません。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.dot.html">ドット</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.alternation.html">選択肢</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>UNIX 用のビルドシステム: config.m4</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.buildsys.skeleton.html">ext_skel スクリプト</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.buildsys.configwin.html">Windows 用のビルドシステム: config.w32</a></div>
+ <div class="up"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.buildsys.configunix" class="sect1">
+  <h2 class="title">UNIX 用のビルドシステム: config.m4</h2>
+  <p class="para">
+   拡張モジュールの <var class="filename">config.m4</var> ファイルは、
+   UNIX のビルドシステムに対して「その拡張モジュールがサポートしている
+   <var class="filename">configure</var> オプション」「依存する外部ライブラリ」
+   「コンパイル対象となるソースファイル」などの情報を伝えるものです。
+   一般的に用いられる autoconf マクロ (PHP 固有のものおよび autoconf 組み込みのもの)
+   については <a href="internals2.apiref.html" class="xref">Zend Engine 2 API リファレンス</a> を参照ください。
+  </p>
+  
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    PHP の拡張モジュールを開発する際には、<strong class="command">autoconf</strong>
+    のバージョン 2.13 を使用することを <em class="emphasis">強く</em> 推奨します
+    (もっと新しいバージョンもありますが、それでもあえて 2.13 です)。
+    バージョン 2.13 は、(機能や使い勝手、利用者数など)
+    いろんな意味で最も一般的な <strong class="command">autoconf</strong> です。
+    これより新しいバージョンを使用すると、<strong class="command">configure</strong>
+    の内容が期待とは多少異なるものになるかもしれません。
+   </p>
+  </div>
+  
+  <div class="example" id="internals2.buildsys.configunix.sample-config">
+   <p><b>例1 config.m4 ファイルの例</b></p>
+   <div class="example-contents"><div class="autoconfcode"><pre class="autoconfcode">dnl $Id$
+dnl config.m4 for extension example</pre>
+</div><div class="autoconfcode"><pre class="autoconfcode">PHP_ARG_WITH(example, for example support,
+[  --with-example[=FILE]       Include example support. File is the optional path to example-config])
+PHP_ARG_ENABLE(example-debug, whether to enable debugging support in example,
+[  --enable-example-debug        example: Enable debugging support in example], no, no)
+PHP_ARG_WITH(example-extra, for extra libraries for example,
+[  --with-example-extra=DIR      example: Location of extra libraries for example], no, no)
+
+dnl Check whether the extension is enabled at all
+if test &quot;$PHP_EXAMPLE&quot; != &quot;no&quot;; then
+  
+  dnl Check for example-config. First try any path that was given to us, then look in $PATH
+  AC_MSG_CHECKING([for example-config])
+  EXAMPLE_CONFIG=&quot;example-config&quot;
+  if test &quot;$PHP_EXAMPLE&quot; != &quot;yes&quot;; then
+    EXAMPLE_PATH=$PHP_EXAMPLE
+  else
+    EXAMPLE_PATH=`$php_shtool path $EXAMPLE_CONFIG`
+  fi
+  
+  dnl If a usable example-config was found, use it
+  if test -f &quot;$EXAMPLE_PATH&quot; &amp;&amp; test -x &quot;$EXAMPLE_PATH&quot; &amp;&amp; $EXAMPLE_PATH --version &gt; /dev/null 2&gt;&amp;1; then
+    AC_MSG_RESULT([$EXAMPLE_PATH])
+    EXAMPLE_LIB_NAME=`$EXAMPLE_PATH --libname`
+    EXAMPLE_INCDIRS=`$EXAMPLE_PATH --incdirs`
+    EXAMPLE_LIBS=`$EXAMPLE_PATH --libs`
+    
+    dnl Check that the library works properly
+    PHP_CHECK_LIBRARY($EXAMPLE_LIB_NAME, example_critical_function,
+    [
+      dnl Add the necessary include dirs
+      PHP_EVAL_INCLINE($EXAMPLE_INCDIRS)
+      dnl Add the necessary libraries and library dirs
+      PHP_EVAL_LIBLINE($EXAMPLE_LIBS, EXAMPLE_SHARED_LIBADD)
+    ],[
+      dnl Bail out
+      AC_MSG_ERROR([example library not found. Check config.log for more information.])
+    ],[$EXAMPLE_LIBS]
+    )
+  else
+    dnl No usable example-config, bail  
+    AC_MSG_RESULT([not found])
+    AC_MSG_ERROR([Please check your example installation.])
+  fi
+  
+  dnl Check whether to enable debugging
+  if test &quot;$PHP_EXAMPLE_DEBUG&quot; != &quot;no&quot;; then
+    dnl Yes, so set the C macro
+    AC_DEFINE(USE_EXAMPLE_DEBUG,1,[Include debugging support in example])
+  fi
+  
+  dnl Check for the extra support
+  if test &quot;$PHP_EXAMPLE_EXTRA&quot; != &quot;no&quot;; then
+    if test &quot;$PHP_EXAMPLE_EXTRA&quot; == &quot;yes&quot;; then
+      AC_MSG_ERROR([You must specify a path when using --with-example-extra])
+    fi
+    
+    PHP_CHECK_LIBRARY(example-extra, example_critical_extra_function,
+    [
+      dnl Add the neccessary paths
+      PHP_ADD_INCLUDE($PHP_EXAMPLE_EXTRA/include)
+      PHP_ADD_LIBRARY_WITH_PATH(example-extra, $PHP_EXAMPLE_EXTRA/lib, EXAMPLE_SHARED_LIBADD)
+      AC_DEFINE(HAVE_EXAMPLEEXTRALIB,1,[Whether example-extra support is present and requested])
+      EXAMPLE_SOURCES=&quot;$EXAMPLE_SOURCES example_extra.c&quot;
+    ],[
+      AC_MSG_ERROR([example-extra lib not found. See config.log for more information.])
+    ],[-L$PHP_EXAMPLE_EXTRA/lib]
+    )
+  fi
+  
+  dnl Finally, tell the build system about the extension and what files are needed
+  PHP_NEW_EXTENSION(example, example.c $EXAMPLE_SOURCES, $ext_shared)
+  PHP_SUBST(EXAMPLE_SHARED_LIBADD)
+fi</pre>
+</div>
+   </div>
+
+  </div>
+  
+  <div class="sect2" id="internals2.buildsys.configunix.autoconf">
+   <h3 class="title">autoconf の構文についての簡単な説明</h3>
+   <p class="para">
+    <var class="filename">config.m4</var> は、GNU
+    <strong class="command">autoconf</strong> の構文で書かれています。簡単にいうと、
+    これはシェルスクリプトに強力なマクロ言語を追加したようなものです。
+    コメントを記述する際には文字列 <i>dnl</i>
+    を使用し、文字列のクォートには角括弧 (<i>[</i> および
+    <i>]</i>) を使用します。文字列のクォートは、
+    必要に応じて何段階でもネストすることができます。この構文の完全な解説は、
+    <a href="http://www.gnu.org/software/autoconf/manual/" class="link external">&raquo; http://www.gnu.org/software/autoconf/manual/</a>
+    にある <strong class="command">autoconf</strong> のマニュアルを参照ください。
+   </p>
+  </div>
+  
+  <div class="sect2" id="internals2.buildsys.configunix.php-arg">
+   <h3 class="title">PHP_ARG_*: ユーザに対するオプションの提供</h3>
+   <p class="para">
+    先ほどの <var class="filename">config.m4</var> のサンプルで、
+    ちょっとしたコメントを除いていちばん最初にあるのは
+    <span class="function"><b>PHP_ARG_WITH()</b></span> および <span class="function"><b>PHP_ARG_ENABLE()</b></span>
+    を使用した 3 行です。これらは、<strong class="command">configure</strong> コマンドで
+    <strong class="command">./configure --help</strong> を実行したときに表示される
+    オプションとその説明文を指定するものです。
+    その名が示すように、両者の違いはそれぞれ
+    <strong class="option configure">--with-*</strong>
+ 系のオプションを作成するか
+    <strong class="option configure">--enable-*</strong>
+ 系のオプションを作成するかです。
+    すべての拡張モジュールは、
+    このどちらかに拡張モジュール名とつけたオプションを提供する必要があります。
+    これにより、その拡張モジュールを PHP に組み込むかどうかを選択できるようになります。
+    規約上では、何らかのパラメータ (その拡張モジュールが必要とするライブラリやプログラムの場所など)
+    を指定させる場合には <span class="function"><b>PHP_ARG_WITH()</b></span> を使うことになっています。
+    一方、単なるフラグとして使用するオプションの場合は
+    <span class="function"><b>PHP_ARG_ENABLE()</b></span> を使用します。
+   </p>
+   <div class="example" id="internals2.buildsys.configunix.php-arg.configure-out">
+    <p><b>例2 configure の出力例</b></p>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+$ ./configure --help
+...
+  --with-example[=FILE]       Include example support. FILE is the optional path to example-config
+  --enable-example-debug        example: Enable debugging support in example
+  --with-example-extra=DIR      example: Location of extra libraries for example
+...
+
+$ ./configure --with-example=/some/library/path/example-config --disable-example-debug --with-example-extra=/another/library/path
+...
+checking for example support... yes
+checking whether to enable debugging support in example... no
+checking for extra libraries for example... /another/library/path
+...
+</pre></div>
+    </div>
+   </div>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     <strong class="command">configure</strong> のコール時にどんな順でオプションを指定したかにかかわらず、
+     内部では <var class="filename">config.m4</var> で指定した順にチェックを行います。
+    </p>
+   </p></blockquote>
+  </div>
+  
+  <div class="sect2" id="internals2.buildsys.configunix.processing">
+   <h3 class="title">ユーザの選択内容の処理</h3>
+   <p class="para">
+    ここまでで、<var class="filename">config.m4</var>
+    を使ってユーザに対して選択肢を提供できるようになりました。
+    次は、選択内容に応じて実際の処理を行う番です。
+    上の例で、3 つのオプションすべてのデフォルト、つまり何も指定しなかったときの値は
+    &quot;no&quot; です。拡張モジュールを有効にするオプションでは、
+    デフォルトを no にしておくのがおすすめです。
+    <strong class="command">phpize</strong> で個別にビルドするときにはこれは上書きされますし、
+    PHP に組み込む際にデフォルトで拡張モジュールの空間を乱してはいけないからです。
+    これらの 3 つのオプションを処理するコードは、より複雑なものとなります。
+   </p>
+   
+   <div class="sect3" id="internals2.buildsys.configunix.processing.with-example">
+    <h4 class="title">--with-example[=FILE] オプションの処理</h4>
+    <p class="para">
+     最初のチェック、つまり
+     <strong class="option configure">--with-example[=FILE]</strong>
+
+     オプションのチェックは、それが設定されているかどうかを調べます。
+     このオプションは拡張モジュールそのものを組み込むかどうかを決めるものです。
+     省略されていたり否定形式
+     (<strong class="option configure">--without-example</strong>
+)
+     で指定されていたり、あるいは値として &quot;no&quot;
+     が指定されていたりした場合は、それ以降は何も行いません。
+     上の例では、値として <i>/some/library/path/example-config</i>
+     が指定されているので、このチェックは成功します。
+    </p>
+    
+    <p class="para">
+     次に、このコードは <span class="function"><b>AC_MSG_CHECKING()</b></span> をコールします。
+     これは <strong class="command">autoconf</strong> のマクロで、標準的な
+     &quot;checking for something&quot; の行を出力してユーザが
+     <strong class="command">example-config</strong> にパスを明示したかどうかを調べます。
+     この例では <i>PHP_EXAMPLE</i> は値
+     <i>/some/library/path/example-config</i> を受け取り、
+     それが変数 EXAMPLE_PATH にコピーされます。ユーザが
+     <strong class="option configure">--with-example</strong>
+ だけしか指定しなかった場合は、
+     このコードは <strong class="command">$php_shtool path $EXAMPLE_CONFIG</strong>
+     を実行します。これは、そのユーザの現在の <i>PATH</i>
+     を使用して <strong class="command">example-config</strong> の場所を探します。
+     どちらにしても、次に行うのは <i>EXAMPLE_PATH</i>
+     が通常の実行可能ファイルであるかどうか、
+     そして正常に実行できるかどうかの調査となります。
+     実行できた場合は <span class="function"><b>AC_MSG_RESULT()</b></span> がコールされ、
+     <span class="function"><b>AC_MSG_CHECKING()</b></span> で始まる出力行を補完します。
+     それ以外の場合は <span class="function"><b>AC_MSG_ERROR()</b></span> がコールされ、
+     指定されたメッセージを表示して <strong class="command">configure</strong> を即時に終了させます。
+    </p>
+    
+    <p class="para">
+     次に、このコードは <strong class="command">example-config</strong>
+     を何度か実行してサイト固有の設定情報を取得します。
+     その次にコールするのは <span class="function"><b>PHP_CHECK_LIBRARY()</b></span>
+     です。これは PHP のビルドシステムが <strong class="command">autoconf</strong> の
+     <span class="function"><b>AC_CHECK_LIB()</b></span> のラッパーとして用意しているマクロです。
+     <span class="function"><b>PHP_CHECK_LIBRARY()</b></span> は、
+     最初のパラメータで指定したライブラリの
+     2 番目のパラメータで指定したシンボルをコールするプログラムを
+     コンパイル、リンクして実行します。
+     成功すると、3 番目のパラメータで指定したスクリプトを実行します。
+     このスクリプトは PHP ビルドシステムに対して
+     インクルードパスやライブラリパス、ライブラリ名を
+     <strong class="command">example-config</strong> が返す文字列から通知します。
+     失敗すると、かわりに 4 番目のパラメータで指定したスクリプトを実行します。
+     この場合は、<span class="function"><b>AC_MSG_ERROR()</b></span> がコールされて処理を停止します。
+    </p>
+   </div>
+   
+   <div class="sect3" id="internals2.buildsys.configunix.processing.enable-example-debug">
+    <h4 class="title">--enable-example-debug オプションの処理</h4>
+    <p class="para">
+     <strong class="option configure">--enable-example-debug</strong>
+
+     の処理はずっと単純です。真値が設定されているかどうかだけを調べます。
+     チェックに成功すると、<span class="function"><b>AC_DEFINE()</b></span>
+     をコールして C のマクロ <i>USE_EXAMPLE_DEBUG</i>
+     を作成し、拡張モジュールのソースで使用できるようにします。
+     3 番目のパラメータは <var class="filename">config.h</var> 用のコメント文字列です。
+     これを空のままにしておいても問題はありません。たいていは空のままにします。
+    </p>
+   </div>
+   
+   <div class="sect3" id="internals2.buildsys.configunix.processing.with-example-extra">
+    <h4 class="title">--with-example-extra=DIR オプションの処理</h4>
+    <p class="para">
+     このサンプルでの説明用に用意した架空の機能 &quot;extra&quot;
+     は <strong class="option configure">--with-example-extra=DIR</strong>
+
+     オプションで要求されるもので、架空のプログラム
+     <strong class="command">example-config</strong> とは別のものであり、
+     デフォルトのサーチパスもありません。
+     そのためユーザは、必要なライブラリのインストール先を指定する必要があります。
+     このような設定は実際の拡張モジュールではあまりないかもしれませんが、
+     説明用として用意しました。
+    </p>
+    
+    <p class="para">
+     このコードは、あまりなじみのない方法で
+     <i>PHP_EXAMPLE_EXTRA</i> が真値であるかどうかを調べます。
+     否定形が指定された場合は、それ以降の処理を行いません。
+     これは、そのユーザが追加機能を必要としなかったことを表します。
+     パラメータなしで肯定形が指定された場合は、
+     <span class="function"><b>AC_MSG_ERROR()</b></span> がコールされて処理を停止します。
+     その次に、また <span class="function"><b>PHP_CHECK_LIBRARY()</b></span> を実行します。
+     今度は、定義済みのコンパイラオプションはないので、
+     <span class="function"><b>PHP_ADD_INCLUDE()</b></span> と
+     <span class="function"><b>PHP_ADD_LIBRARY_WITH_PATH()</b></span>
+     を使用して必要なインクルードパスやライブラリパス、
+     追加機能のためのライブラリのフラグを作成します。
+     <span class="function"><b>AC_DEFINE()</b></span> もコールされ、
+     追加機能が要求されていてそれが使用可能であることを通知します。
+     また、ビルドすべきファイルが別に存在することを示す変数も設定します。
+     チェックに失敗すると、おなじみの
+     <span class="function"><b>AC_MSG_ERROR()</b></span> がコールされます。
+     失敗時のもうひとつの処理法は、次のように
+     <span class="function"><b>AC_MSG_WARNING()</b></span> をコールすることです。
+    </p>
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="autoconfcode"><pre class="autoconfcode">AC_MSG_WARNING([example-extra lib not found. example will be built without extra functionality.])</pre>
+</div>
+     </div>
+
+    </div>
+    <p class="para">
+     この場合は、<strong class="command">configure</strong>
+     はエラーではなく警告メッセージを表示し、処理を続行します。
+     いずれにせよ、失敗をどう処理するのかは拡張モジュールの開発者が決めることです。
+    </p>
+   </div>
+  </div>
+  
+  <div class="sect2" id="internals2.buildsys.configunix.finishing">
+   <h3 class="title">ビルドシステムに対しての決定内容の通知</h3>
+   <p class="para">
+    必要なインクルードファイルやライブラリはすべて指定しました。
+    必要なオプションやマクロもすべて定義しました。
+    でも、あとひとつ残っていることがあります。
+    ビルドシステムに対して、拡張モジュール自身をビルドすることと
+    そのために使用するファイル群を教えてやらなければならないのです。
+    そのためには <span class="function"><b>PHP_NEW_EXTENSION()</b></span> マクロをコールします。
+    このマクロの最初のパラメータは拡張モジュールの名前で、
+    これはディレクトリ名と一致します。2 番目のパラメータは、
+    その拡張モジュールを構成するすべてのソースファイルのリストです。
+    サブディレクトリ内のソースファイルをビルド処理に追加する方法については
+    <span class="function"><b>PHP_ADD_BUILD_DIR()</b></span> を参照ください。
+    3 番目のパラメータは、常に <i>$ext_shared</i>
+    でなければなりません。この値は、
+    <strong class="command">configure</strong> の際に
+    <strong class="option configure">--with-example[=FILE]</strong>
+ 用に
+    <span class="function"><b>PHP_ARG_WITH()</b></span> がコールされたときに決まります。
+    4 番目のパラメータでは &quot;SAPI クラス&quot; を指定します。
+    これは CGI SAPI や CLI SAPI を必要とする場合にのみ有用です。
+    その他のクラスでは、ここは空のままにしておかなければなりません。
+    5 番目のパラメータには、拡張モジュールのビルド時の
+    <i>CFLAGS</i> に追加するフラグのリストを指定します。
+    6 番目のパラメータは boolean 値です。&quot;yes&quot; を指定すると、
+    拡張モジュール全体のビルドを <i>$CC</i> ではなく
+    <i>$CXX</i> を用いて行います。
+    3 番目以降のパラメータは、すべてオプションです。
+    最後に <span class="function"><b>PHP_SUBST()</b></span> をコールして、
+    拡張モジュールの共有ビルドを有効にします。
+    共有モードでの拡張モジュールのビルドをサポートしないようにする方法についての詳細は
+    <a href="internals2.faq.html" class="xref">拡張モジュールに関する FAQ</a> を参照ください。
+   </p>
+  </div>
+
+  <div class="sect2" id="internals2.buildsys.configunix.counter">
+   <h3 class="title">counter 拡張モジュールの config.m4 ファイル</h3>
+   <p class="para">
+    先ほど説明した counter 拡張モジュールの
+    <var class="filename">config.m4</var> ファイルは、上で説明したよりずっとシンプルです。
+    これは、ビルドシステムのさまざまな機能を使用していないからです。
+    外部のライブラリや同梱されているライブラリを使わない場合は、
+    このようにしておくことをお勧めします。
+   </p>
+   <div class="example" id="internals2.buildsys.configunix.counter.configunix">
+    <p><b>例3 counter の config.m4 ファイル</b></p>
+    <div class="example-contents">
+<div class="autoconfcode"><pre class="autoconfcode">dnl</pre>
+</div><div class="autoconfcode"><pre class="autoconfcode">$</pre>
+</div><div class="autoconfcode"><pre class="autoconfcode">Id$
+dnl config.m4 for extension counter
+
+PHP_ARG_ENABLE(counter, for counter support,
+[  --enable-counter            Include counter support])
+
+dnl Check whether the extension is enabled at all
+if test &quot;$PHP_COUNTER&quot; != &quot;no&quot;; then
+  dnl Finally, tell the build system about the extension and what files are needed
+  PHP_NEW_EXTENSION(counter, counter.c counter_util.c, $ext_shared)
+  PHP_SUBST(COUNTER_SHARED_LIBADD)
+fi</pre>
+</div>
+    </div>
+
+   </div>
+  </div>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.buildsys.skeleton.html">ext_skel スクリプト</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.buildsys.configwin.html">Windows 用のビルドシステム: config.w32</a></div>
+ <div class="up"><a href="internals2.buildsys.html">PHP 5 ビルドシステム</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

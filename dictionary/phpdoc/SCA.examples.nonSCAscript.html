@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SCA コンポーネントではないスクリプトからのサービスの指定およびコール</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.calling.html">別のサービスコンポーネントのコール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sca.examples.exposing-webservice.html">サービスコンポーネントの、ウェブサービスとしての公開</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.nonSCAscript" class="section">
+  <h2 class="title">SCA コンポーネントではないスクリプトからのサービスの指定およびコール</h2>
+
+  <p class="para"> 
+   SCA コンポーネントは、インスタンス変数に @reference
+   アノテーションを指定することで他のコンポーネントやサービスのプロキシを取得することができます。
+   しかし、コンポーネントではないスクリプトの場合はこれは不可能です。
+   クライアントスクリプトがコンポーネントではない場合は、静的メソッド
+   <span class="function"><a href="function.sca-getservice.html" class="function">SCA::getService()</a></span> を使用して
+   ローカルあるいはリモートサービスのプロキシを取得する必要があります。
+   <span class="function"><b>getService()</b></span> メソッドの引数には URI を指定します。
+   通常は、これはコンポーネントを含むローカル PHP スクリプトの場所か、
+   あるいは wsdl ファイルの場所となります。また、先ほどの節で説明した
+   @binding アノテーションで指定するものと同じようになります。
+   つまり、相対 URI はクライアントスクリプトの場所を基準として解決し、
+   PHP の include_path や現在の作業ディレクトリは使用しません。
+  </p>
+  
+  <p class="para"> 
+   たとえば、あるスクリプトで ExchangeRate および StockQuote
+   サービスのプロキシを取得する必要があるが、そのスクリプトがコンポーネントではない場合、
+   <span class="function"><b>getService()</b></span> メソッドを次のように使用します。
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-4342">
+    <p><b>例1 getService を使用したプロキシの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$exchange_rate&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SCA</span><span style="color: #007700">::</span><span style="color: #0000BB">getService</span><span style="color: #007700">(</span><span style="color: #DD0000">'../ExchangeRate/ExchangeRate.php'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stock_quote&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SCA</span><span style="color: #007700">::</span><span style="color: #0000BB">getService</span><span style="color: #007700">(</span><span style="color: #DD0000">'../StockQuote/StockQuote.wsdl'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  
+  <p class="para">
+   サービスのメソッドをコールするには、返されたプロキシを使用します。
+   これはコンポーネント内からコールする場合と同じです。
+  </p>
+  <p class="para">
+   <div class="example" id="example-4343">
+    <p><b>例2 プロキシ上でのコール</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$quote&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$stock_quote</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuote</span><span style="color: #007700">(</span><span style="color: #0000BB">$ticker</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rate&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$exchange_rate</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRate</span><span style="color: #007700">(</span><span style="color: #0000BB">$currency</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.calling.html">別のサービスコンポーネントのコール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sca.examples.exposing-webservice.html">サービスコンポーネントの、ウェブサービスとしての公開</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

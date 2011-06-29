@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>準備されたクエリを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-errmsg.html">ibase_errmsg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-fetch-assoc.html">ibase_fetch_assoc</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ibase-execute" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ibase_execute</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ibase_execute</span> &mdash; <span class="dc-title">準備されたクエリを実行する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ibase-execute-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>ibase_execute</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$bind_arg</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$...</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.ibase-prepare.html" class="function">ibase_prepare()</a></span> で準備したクエリを実行します。
+  </p>
+  <p class="para">
+   いくつかのパラメータが変わるだけで同じクエリを
+   複数回実行する場合には、この関数は
+   <span class="function"><a href="function.ibase-query.html" class="function">ibase_query()</a></span> を使用するよりもずっと効率的です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ibase-execute-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ibase-prepare.html" class="function">ibase_prepare()</a></span> で準備した InterBase クエリ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">bind_arg</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">...</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ibase-execute-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   クエリがエラーを発生させた場合は  <b><tt>FALSE</tt></b> を返します。
+   クエリが成功し、結果セット(空のセットとなる可能性もありえます)を
+   返した場合(SELECT クエリなど)は結果 ID を返します。クエリが成功し、
+   結果セットが返されなかった場合は <b><tt>TRUE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 5.0.0 以降では、この関数はクエリによって変更された行の数を
+    返します(行を変更するクエリで、結果が 0 より大きかった場合)。
+    クエリは成功したが、どの行も変更されなかった場合(例: 存在しない
+    行に対する UPDATE)は <b><tt>TRUE</tt></b> を返します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ibase-execute-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1112">
+    <p><b>例1 <span class="function"><b>ibase_execute()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$dbh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$username</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$updates&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Eric'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Filip'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">7&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Larry'<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"UPDATE&nbsp;FOO&nbsp;SET&nbsp;BAR&nbsp;=&nbsp;?&nbsp;WHERE&nbsp;BAZ&nbsp;=&nbsp;?"</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$updates&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ibase_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$baz</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ibase-execute-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ibase-query.html" class="function" rel="rdfs-seeAlso">ibase_query()</a> - InterBase データベースでクエリを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-errmsg.html">ibase_errmsg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-fetch-assoc.html">ibase_fetch_assoc</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

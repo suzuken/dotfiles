@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メッセージキューからメッセージを受信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msg-queue-exists.html">msg_queue_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msg-remove-queue.html">msg_remove_queue</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.msg-receive" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">msg_receive</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">msg_receive</span> &mdash; <span class="dc-title">メッセージキューからメッセージを受信する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.msg-receive-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>msg_receive</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$queue</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$desiredmsgtype</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$msgtype</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$maxsize</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter reference">&$message</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$unserialize</tt><span class="initializer"> = true</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$errorcode</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>msg_receive()</b></span> は、指定した <i><tt class="parameter">queue</tt></i>
+   から指定した <i><tt class="parameter">desiredmsgtype</tt></i>
+   の最初のメッセージを受信します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.msg-receive-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">queue</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">desiredmsgtype</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">desiredmsgtype</tt></i> が 0 の場合、
+       キューの先頭にあるメッセージが返されます。<i><tt class="parameter">desiredmsgtype</tt></i>
+       が 0 より大きな値の場合、その型のメッセージのうち一番最初にあるものが返されます。
+       <i><tt class="parameter">desiredmsgtype</tt></i> が 0 より小さな値の場合、
+       <i><tt class="parameter">desiredmsgtype</tt></i>
+       の絶対値と同じかそれより小さい型のメッセージのうち一番最初にあるものが返されます。
+       条件を満たすメッセージがない場合は、
+       条件を満たすメッセージがキューに投入されるまで待ち続けます。
+       パラメータ <i><tt class="parameter">flags</tt></i>
+       に <b><tt>MSG_IPC_NOWAIT</tt></b> を指定することで、
+       ブロックモードではなくすることが可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">msgtype</tt></i></span>
+     <dd>
+
+      <p class="para">
+       受信したメッセージの型がこのパラメータに保存されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">maxsize</tt></i></span>
+     <dd>
+
+      <p class="para">
+       読み込むメッセージの最大サイズは <i><tt class="parameter">maxsize</tt></i>
+       で指定します。もしキューにあるメッセージのサイズがこれより大きい場合、
+       (以下で説明する <i><tt class="parameter">flags</tt></i> が設定されていない限り)
+       この関数は失敗します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">message</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エラーが発生しなければ、
+       受信したメッセージは <i><tt class="parameter">message</tt></i> に保存されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">unserialize</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータが <b><tt>TRUE</tt></b> に設定されている場合、
+       メッセージはセッションモジュールと同様の方法でシリアライズされているものとみなされます。
+       メッセージは元の状態に復元されたうえでスクリプトに返されます。
+       これにより、配列やオブジェクト構造体のような複雑な形式のデータを他の
+       PHP スクリプトから簡単に受信することが可能となります。
+       また、もし WDDX シリアライザを使用しているなら、あらゆる WDDX
+       互換のソースからデータを受け取ることが可能となります。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">unserialize</tt></i> が <b><tt>FALSE</tt></b> の場合、
+       メッセージはバイナリセーフな文字列として返されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの <i><tt class="parameter">flags</tt></i> により、低レベルの
+       msgrcv システムコールにフラグを渡すことが可能です。デフォルト値は 0
+       ですが、以下の値のうちのいくつかを(値を足すかあるいは論理和ととることで)
+       指定することが可能です。
+       <table class="doctable table">
+        <caption><b>msg_receive のフラグの値</b></caption>
+        
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><b><tt>MSG_IPC_NOWAIT</tt></b></td>
+           <td align="left">
+            <i><tt class="parameter">desiredmsgtype</tt></i> を満たすメッセージが存在しない場合に、
+            待ち続けずにすぐに結果を返します。
+            関数は失敗し、<b><tt>MSG_ENOMSG</tt></b>
+            に対応する整数値を返します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>MSG_EXCEPT</tt></b></td>
+           <td align="left">
+            このフラグを正の <i><tt class="parameter">desiredmsgtype</tt></i>
+            と組み合わせて使用すると、この関数は
+            <i><tt class="parameter">desiredmsgtype</tt></i> 以外の型をもつ
+            最初のメッセージを受信するようになります。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>MSG_NOERROR</tt></b></td>
+           <td align="left">
+            このフラグを設定しておくと、メッセージが
+            <i><tt class="parameter">maxsize</tt></i> より大きい場合に
+            そのメッセージを <i><tt class="parameter">maxsize</tt></i> までに切り詰め、
+            エラーを返しません。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">errorcode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エラーが発生した場合は、オプションの <i><tt class="parameter">errorcode</tt></i>
+       にシステムの errno 値が設定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.msg-receive-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   処理が正常に完了すると、メッセージキューデータ構造体は以下のように更新されます。
+   <i>msg_lrpid</i> には呼び出し元のプロセス ID が
+   設定され、<i><tt class="parameter">msg_qnum</tt></i> が 1 減少し、
+   <i>msg_rtime</i> が現在の時刻に設定されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.msg-receive-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.msg-remove-queue.html" class="function" rel="rdfs-seeAlso">msg_remove_queue()</a> - メッセージキューを破棄する</span></li>
+    <li class="member"><span class="function"><a href="function.msg-send.html" class="function" rel="rdfs-seeAlso">msg_send()</a> - メッセージキューにメッセージを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.msg-stat-queue.html" class="function" rel="rdfs-seeAlso">msg_stat_queue()</a> - メッセージキューデータ構造体の情報を返す</span></li>
+    <li class="member"><span class="function"><a href="function.msg-set-queue.html" class="function" rel="rdfs-seeAlso">msg_set_queue()</a> - メッセージキューデータ構造体の情報を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+  
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msg-queue-exists.html">msg_queue_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msg-remove-queue.html">msg_remove_queue</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

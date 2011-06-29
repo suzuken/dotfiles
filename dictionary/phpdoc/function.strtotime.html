@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>英文形式の日付を Unix タイムスタンプに変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strptime.html">strptime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.time.html">time</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strtotime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strtotime</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">strtotime</span> &mdash; <span class="dc-title">
+   英文形式の日付を Unix タイムスタンプに変換する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.strtotime-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>strtotime</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$time</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$now</tt></span>
+  ] )</div>
+
+  <p class="simpara">
+   この関数は英語の書式での日付を含む文字列が指定されることを期待しており、
+   <i><tt class="parameter">now</tt></i> で与えられたその形式から
+   Unix タイムスタンプ (1970 年 1 月 1 日 00:00:00 UTC からの経過秒数) への変換を試みます。
+   <i><tt class="parameter">now</tt></i> が指定されていない場合は現在日時に変換します。
+  </p>
+  <p class="para">
+   この関数は、タイムスタンプを計算するために (利用可能であれば) 環境変数
+   <span class="envar">TZ</span> を使用します。PHP 5.1.0 以降では、日付/時刻関数で
+   使用されるタイムゾーンを設定する簡単な方法があります。
+   その方法については <span class="function"><a href="function.date-default-timezone-get.html" class="function">date_default_timezone_get()</a></span>
+   関数のページを参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strtotime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">time</tt></i></span>
+     <dd>
+
+      <p class="para">日付/時刻 文字列。有効な書式については <a href="datetime.formats.html" class="link">日付と時刻の書式</a> で説明しています。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">now</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返される値を計算するために使用されるタイムスタンプ。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strtotime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功時はタイムスタンプ、そうでなければ <b><tt>FALSE</tt></b> を返します。
+   PHP 5.1.0 以前ではこの関数は失敗時に <i>-1</i> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.strtotime-errors">
+  <h3 class="title">エラー / 例外</h3>
+   
+   <p class="para">
+すべての日付/時刻関数は、
+有効なタイムゾーンが設定されていない場合に <b><tt>E_NOTICE</tt></b>
+を発生させます。また、システム設定のタイムゾーンあるいは環境変数
+<var class="varname"><var class="varname">TZ</var></var> を使用した場合には <b><tt>E_STRICT</tt></b>
+あるいは <b><tt>E_WARNING</tt></b> を発生させます。
+<span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span> も参照ください。</p>
+ 
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strtotime-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        PHP 5.3.0 より前のバージョンでは、<i>24:00</i>
+        は無効なフォーマットとされており
+        <span class="function"><b>strtotime()</b></span> は <b><tt>FALSE</tt></b> を返していました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.7</td>
+       <td align="left">
+        5.2.7 より前の PHP 5 では、「ある月の何回目の何曜日」
+        を取得するときにもしその月の初日がその曜日だった場合、
+        タイムスタンプが間違って一週間追加されてしまっていました。
+        これは 5.2.7 以降のバージョンでは修正されています。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        失敗時に <i>-1</i> の代わりに <b><tt>FALSE</tt></b>
+        を返すようになりました。
+       </td>
+      </tr>
+
+
+      <tr valign="middle"><td align="left">5.1.0</td><td align="left"><p class="para">
+タイムゾーンがおかしい場合に <b><tt>E_STRICT</tt></b> や
+<b><tt>E_NOTICE</tt></b> が発生するようになりました。</p></td></tr>
+
+
+      <tr valign="middle">
+       <td align="left">5.0.2</td>
+       <td align="left">
+        5.0.2 までの PHP 5 では、<i>&quot;now&quot;</i>
+        やその他の相対時刻は誤って当日の真夜中から計算されます。
+        他のバージョンでは、これは正しく現在時刻から計算されます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        マイクロ秒も受け付けるようになりましたが、指定してもそれは無視されます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.4.0</td>
+       <td align="left">
+        バージョン 4.4.0 より前の PHP では、<i>&quot;next&quot;</i>
+        が誤って +2 として計算されます。これを解決するには、代わりに
+        <i>&quot;+1&quot;</i> を使用します。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strtotime-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-639">
+    <p><b>例1 A <span class="function"><b>strtotime()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"now"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"10&nbsp;September&nbsp;2000"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"+1&nbsp;day"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"+1&nbsp;week"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"+1&nbsp;week&nbsp;2&nbsp;days&nbsp;4&nbsp;hours&nbsp;2&nbsp;seconds"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"next&nbsp;Thursday"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"last&nbsp;Monday"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-640">
+    <p><b>例2 失敗のチェック</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Not&nbsp;Good'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.1.0&nbsp;以前では、false&nbsp;の代わりに&nbsp;-1&nbsp;と比較する<br /></span><span style="color: #007700">if&nbsp;((</span><span style="color: #0000BB">$timestamp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">))&nbsp;===&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"The&nbsp;string&nbsp;(</span><span style="color: #0000BB">$str</span><span style="color: #DD0000">)&nbsp;is&nbsp;bogus"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$str</span><span style="color: #DD0000">&nbsp;==&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'l&nbsp;dS&nbsp;\o\f&nbsp;F&nbsp;Y&nbsp;h:i:s&nbsp;A'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$timestamp</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.strtotime-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    年を 2 桁の数値で指定した場合、その値が 00-69 なら 2000-2069 に、
+    70-99 なら 1970-1999 にそれぞれ変換されます。
+    32 ビットシステム上での相違点 (2038-01-19 03:14:07
+    までの日付しか表せない) については以下の注意を参照ください。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    タイムスタンプの有効な範囲は、通常、Fri, 13 Dec 1901 20:45:54
+    UTC から Tue, 19 Jan 2038 03:14:07 UTC までです (これらは、32
+    ビット符号付整数の最大及び最小に一致します)。
+    さらに全てのプラットフォームが負のタイムスタンプをサポートしている
+    わけではありませんので、日付の範囲は Unix
+    エポック以前にはならないかも知れません。
+    これは、例えば Windows やいくつかの Linux ディストリビューション、
+    いくつかの他のオペレーティングシステムでは
+    1970 年 1 月 1 日以前の日付では動作しない事を意味しています。
+    PHP 5.1.0 以降のバージョンでは、この制限はなくなっています。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <i>m/d/y</i> あるいは <i>d-m-y</i>
+    といった書式の曖昧さを解決する際には、区切り文字を利用します。スラッシュ
+    (<i>/</i>) で区切られている場合はアメリカ風の
+    <i>m/d/y</i> と見なし、ダッシュ
+    (<i>-</i>) あるいはドット (<i>.</i>)
+    で区切られている場合はヨーロッパ風の
+    <i>d-m-y</i> であると見なします。
+   </p>
+   <p class="para">
+    このような曖昧さを避けるためにも、ISO 8601 形式
+    (<i>YYYY-MM-DD</i>) を使うか、可能であれば
+     <span class="methodname"><a href="datetime.createfromformat.html" class="methodname">DateTime::createFromFormat()</a></span> を使うことを推奨します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strtotime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="datetime.createfromformat.html" class="methodname" rel="rdfs-seeAlso">DateTime::createFromFormat()</a> - 指定した書式でフォーマットした新しい DateTime オブジェクトを返す</span></li>
+    <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - グレゴリオ暦の日付/時刻の妥当性を確認します</span></li>
+    <li class="member"><span class="function"><a href="function.strptime.html" class="function" rel="rdfs-seeAlso">strptime()</a> - strftime が生成した日付/時刻をパースする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strptime.html">strptime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.time.html">time</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

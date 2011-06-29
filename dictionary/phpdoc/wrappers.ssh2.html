@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Secure Shell 2</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.phar.html">phar://</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.rar.html">rar://</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="wrappers.ssh2" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ssh2://</h1>
+  <p class="refpurpose"><span class="refname">ssh2://</span> &mdash; <span class="dc-title">Secure Shell 2</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-wrappers.ssh2-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   <var class="filename">ssh2.shell://</var>
+   <var class="filename">ssh2.exec://</var>
+   <var class="filename">ssh2.tunnel://</var>
+   <var class="filename">ssh2.sftp://</var>
+   <var class="filename">ssh2.scp://</var>
+   PHP 4.3.0 以降（PECL）
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>このラッパーはデフォルトでは有効になっていません</b><br />
+   <span class="simpara">
+    <var class="filename">ssh2.*://</var> ラッパーを使用するには、
+    <a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> から
+    <a href="http://pecl.php.net/package/ssh2" class="link external">&raquo; SSH2</a> 拡張モジュールを
+    インストールする必要があります。
+   </span>
+  </p></blockquote>
+
+  <p class="simpara">
+   ssh2 ラッパーでは、URL のホスト部分に接続リソースを渡すことで既にオープン
+   している接続を再利用することが可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 usage" id="refsect1-wrappers.ssh2-usage"> 
+  <h3 class="title">オプション</h3>
+  <ul class="itemizedlist">
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.shell://user:pass@example.com:22/xterm</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.exec://user:pass@example.com:22/usr/local/bin/somecmd</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.tunnel://user:pass@example.com:22/192.168.0.1:14</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">ssh2.sftp://user:pass@example.com:22/path/to/filename</var></span></li>
+  </ul>
+ </div>
+ 
+
+ <div class="refsect1 options" id="refsect1-wrappers.ssh2-options">
+  <h3 class="title">オプション</h3>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>ラッパーの概要</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>属性</th>
+       <th>ssh2.shell</th>
+       <th>ssh2.exec</th>
+       <th>ssh2.tunnel</th>
+       <th>ssh2.sftp</th>
+       <th>ssh2.scp</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">allow_url_fopen</a> で制約される</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">読み込み許可</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">書き込み許可</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">追加許可</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes（サーバがサポートしている場合）</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">同時読み書き許可</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.stat.html" class="function">stat()</a></span> のサポート</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.unlink.html" class="function">unlink()</a></span> のサポート</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rename.html" class="function">rename()</a></span> のサポート</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.mkdir.html" class="function">mkdir()</a></span> のサポート</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rmdir.html" class="function">rmdir()</a></span> のサポート</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">No</td>
+       <td align="left">Yes</td>
+       <td align="left">No</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+
+  
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>コンテキストオプション</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>名前</th>
+       <th>使用法</th>
+       <th>デフォルト</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><i>session</i></td>
+       <td align="left">再利用する接続済みの ssh2 リソース</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>sftp</i></td>
+       <td align="left">再利用する割り当て済みの sftp リソース</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>methods</i></td>
+       <td align="left">Key exchange, hostkey, cipher, compression, および MAC methods</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>callbacks</i></td>
+       <td class="empty">&nbsp;</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>username</i></td>
+       <td align="left">接続するユーザ名</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>password</i></td>
+       <td align="left">パスワード認証に使用するパスワード</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>pubkey_file</i></td>
+       <td align="left">認証に使用する公開鍵ファイル</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>privkey_file</i></td>
+       <td align="left">認証に使用する秘密鍵ファイル</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>env</i></td>
+       <td align="left">設定する環境変数の連想配列</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>term</i></td>
+       <td align="left">pty を割り当てる際の端末エミュレート方式</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>term_width</i></td>
+       <td align="left">pty を割り当てる際の端末の幅</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>term_height</i></td>
+       <td align="left">pty を割り当てる際の端末の高さ</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>term_units</i></td>
+       <td align="left">term_width および term_height の単位</td>
+       <td align="left"><b><tt>SSH2_TERM_UNIT_CHARS</tt></b></td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+ 
+
+ <div class="refsect1 examples" id="refsect1-wrappers.ssh2-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-288">
+   <p><b>例1 アクティブな接続からストリームをオープンする</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$session&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ssh2_auth_pubkey_file</span><span style="color: #007700">(</span><span style="color: #0000BB">$session</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'username'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/home/username/.ssh/id_rsa.pub'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'/home/username/.ssh/id_rsa'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"ssh2.tunnel://</span><span style="color: #0000BB">$session</span><span style="color: #DD0000">/remote.example.com:1234"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.phar.html">phar://</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.rar.html">rar://</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

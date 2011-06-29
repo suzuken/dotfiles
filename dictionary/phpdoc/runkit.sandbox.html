@@ -1,0 +1,471 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Runkit Sandbox クラス -- PHP バーチャルマシン</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="runkit.sandbox-parent.html">Runkit_Sandbox_Parent</a></div>
+ <div class="up"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="runkit.sandbox" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Runkit_Sandbox</h1>
+  <p class="verinfo">(PECL runkit &gt;= 0.7.0)</p><p class="refpurpose"><span class="refname">Runkit_Sandbox</span> &mdash; <span class="dc-title">
+   Runkit Sandbox クラス -- PHP バーチャルマシン
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-runkit.sandbox-description">
+  <h3 class="title">説明</h3>
+
+  <p class="para">
+   <b class="classname">Runkit_Sandbox</b> クラスをインスタンス化すると、
+   独自のスコープとプログラムスタックを持つ新しいスレッドが生成されます。
+   コンストラクタに渡すオプションを設定することで、この環境では
+   インタプリタの機能を制限することが可能す。そのため、ユーザから渡された
+   コードを実行する場合などに、より安全な環境を提供可能です。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+サンドボックスのサポート
+(<span class="function"><a href="function.runkit-lint.html" class="function">runkit_lint()</a></span>, <span class="function"><a href="function.runkit-lint-file.html" class="function">runkit_lint_file()</a></span>,
+および <b class="classname">Runkit_Sandbox</b> クラスで使用)は、
+PHP 5.1.0 以降または特別なパッチを適用した
+PHP 5.0 でのみ利用可能であり、スレッドセーフを有効にしておく必要があります。
+詳細については、runkit パッケージに含まれる <var class="filename">README</var>
+ファイルを参照してください。</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 constructor" id="refsect1-runkit.sandbox-constructor">
+  <h3 class="title">コンストラクタ</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>Runkit_Sandbox::__construct</b></span>
+    ([ <span class="methodparam"><span class="type">array</span> <tt class="parameter">$options</tt></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">options</tt></i> は連想配列で、その中に
+   以下の ini オプションの組み合わせを格納します。
+  </p>
+
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">safe_mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b class="classname">Runkit_Sandbox</b> クラスをインスタンス化した
+       外部スクリプトが <i>safe_mode = off</i> と設定されている
+       場合、サンドボックス内の safe_mode を on にすることが可能です。
+       外部スクリプトで <i>safe_mode</i> が有効になっている
+       場合に、サンドボックス内でそれを無効にすることはできません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">safe_mode_gid</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b class="classname">Runkit_Sandbox</b> クラスをインスタンス化した
+       外部スクリプトが <i>safe_mode_gid = on</i> と設定されている
+       場合、サンドボックス内の safe_mode_gid を off にすることが可能です。
+       外部スクリプトで <i>safe_mode_gid</i> が無効になっている
+       場合に、サンドボックス内でそれを有効にすることはできません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">safe_mode_include_dir</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b class="classname">Runkit_Sandbox</b> クラスをインスタンス化した
+       外部スクリプトが <i>safe_mode_include_dir</i> を
+       組み込んで configure されていた場合、サンドボックス内の
+       safe_mode_include_dir を定義されているディレクトリ以下に指定することが
+       可能です。この機能を無効にすることを示すため、safe_mode_include_dir
+       をクリアすることも可能です。
+       外部スクリプトで safe_mode_include_dir が空白になっているが
+       safe_mode は有効でない場合、任意の safe_mode_include_dir を
+       指定して safe_mode を on にすることが可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">open_basedir</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">open_basedir</tt></i> は、カレントの
+       <i>open_basedir</i> 以下の任意のパスを指定可能です。
+       グローバルスコープで <i>open_basedir</i> 
+       が指定されていない場合、それはルートディレクトリと判断され、
+       どの場所でも指定可能となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">allow_url_fopen</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">safe_mode</tt></i> と同様、より厳しくする方向にのみ
+       指定可能です。この場合は <b><tt>TRUE</tt></b> と指定されている場合に <b><tt>FALSE</tt></b> を
+       指定することが可能となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">disable_functions</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サンドボックス内のインタプリタで無効とする関数を、カンマ区切りの
+       リストで指定します。現在すでに無効になっている関数名を含める必要は
+       ありません。それらはリストに載っているか否かにかかわらず無効となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">disable_classes</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サンドボックス内のインタプリタで無効とするクラスを、カンマ区切りの
+       リストで指定します。現在すでに無効になっているクラス名を含める必要は
+       ありません。それらはリストに載っているか否かにかかわらず無効となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">runkit.superglobal</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サンドボックス内のインタプリタでスーパーグローバルとして扱う変数を、
+       カンマ区切りのリストで指定します。これらの変数は、既に内部で
+       定義されている変数やグローバルの runkit.superglobal 設定に
+       追加して使用されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">runkit.internal_override</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Ini オプション <i>runkit.internal_override</i> は、
+       サンドボックス内では無効になる（そして、再度有効にはならない）
+       かもしれません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+  <div class="example" id="example-477">
+   <p><b>例1 機能を制限したサンドボックスのインスタンス化</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$options&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'safe_mode'</span><span style="color: #007700">=&gt;</span><span style="color: #0000BB">true</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'open_basedir'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'/var/www/users/jdoe/'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'allow_url_fopen'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'false'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'disable_functions'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'exec,shell_exec,passthru,system'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'disable_classes'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'myAppClass'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sandbox&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Runkit_Sandbox</span><span style="color: #007700">(</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/*&nbsp;制限されていない&nbsp;ini&nbsp;項目は、普通に設定できる&nbsp;*/<br /></span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'html_errors'</span><span style="color: #007700">,</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+ <div class="refsect1 variables" id="refsect1-runkit.sandbox-variables">
+  <h3 class="title">変数へのアクセス</h3>
+  <p class="para">
+   サンドボックス環境内のすべてのグローバル変数は、サンドボックス
+   オブジェクトのプロパティとしてアクセス可能です。しかし、
+   オブジェクト変数やリソース変数はインタプリタ越しに
+   利用することができないことに注意しましょう。これは、これらの
+   2 つのスレッドのメモリ管理が仮想マシン上で行われていることが原因です。
+   さらに、配列はすべてディープコピーされ、参照渡しのデータは
+   失われます。つまり、参照渡しのデータをインタプリタ越しに使用することは
+   できないということです。
+  </p>
+
+  <div class="example" id="example-478">
+   <p><b>例2 サンドボックス内部の変数の扱い</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$sandbox&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Runkit_Sandbox</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">eval</span><span style="color: #007700">(</span><span style="color: #DD0000">'echo&nbsp;"$foo\n";&nbsp;$bar&nbsp;=&nbsp;$foo&nbsp;.&nbsp;"baz";'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #007700">{</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bar</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />if&nbsp;(isset(</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo</span><span style="color: #007700">))&nbsp;unset(</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">eval</span><span style="color: #007700">(</span><span style="color: #DD0000">'var_dump(isset($foo));'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+bar
+barbaz
+bool(false)
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 functions" id="refsect1-runkit.sandbox-functions">
+  <h3 class="title">PHP 関数のコール</h3>
+  <p class="para">
+   サンドボックス内で定義されている関数は、すべてサンドボックス
+   オブジェクトのメソッドとしてコールできます。これには、擬似関数として
+   扱われる以下のような言語構造も含みます。<span class="function"><a href="function.eval.html" class="function">eval()</a></span>、
+   <span class="function"><a href="function.include.html" class="function">include()</a></span>、<span class="function"><a href="function.include-once.html" class="function">include_once()</a></span>、
+   <span class="function"><a href="function.require.html" class="function">require()</a></span>、<span class="function"><a href="function.require-once.html" class="function">require_once()</a></span>、
+   <span class="function"><a href="function.echo.html" class="function">echo()</a></span>、<span class="function"><a href="function.print.html" class="function">print()</a></span>、
+   <span class="function"><a href="function.die.html" class="function">die()</a></span> および <span class="function"><a href="function.exit.html" class="function">exit()</a></span>。
+  </p>
+
+  <div class="example" id="example-479">
+   <p><b>例3 サンドボックス内の関数のコール</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$sandbox&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Runkit_Sandbox</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">str_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,</span><span style="color: #DD0000">'f'</span><span style="color: #007700">,</span><span style="color: #DD0000">'abc'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+fbc
+</pre></div>
+  </div>
+
+  <p class="para">
+   サンドボックス内の関数への引数は、外部の PHP インスタンスから
+   渡されます。もしサンドボックスのスコープから引数を渡したい場合は、
+   上で示したようにサンドボックスのプロパティとしてそれにアクセスする
+   ようにしてください。
+  </p>
+
+  <div class="example" id="example-480">
+   <p><b>例4 サンドボックス内の関数に引数を渡す</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$sandbox&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Runkit_Sandbox</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">str_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,</span><span style="color: #0000BB">$foo</span><span style="color: #007700">,</span><span style="color: #DD0000">'a'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">str_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,</span><span style="color: #0000BB">$sandbox</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo</span><span style="color: #007700">,</span><span style="color: #DD0000">'a'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+bar
+baz
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 settings" id="refsect1-runkit.sandbox-settings">
+  <h3 class="title">サンドボックス設定の変更</h3>
+  <p class="para">
+   runkit バージョン 0.5 以降では、配列へのアクセスと同じ構文で、
+   実行時にサンドボックスの一部の設定を変更することが可能です。
+   <i><tt class="parameter">active</tt></i> は読み込み専用で、現在の状態に
+   ついての情報を提供します。<i><tt class="parameter">output_handler</tt></i>
+   は通常の配列オフセットと同様に読み書きが可能です。
+   将来的には書き込み専用の設定項目も現れるかもしれませんが、
+   今のところはそのような項目はありません。
+  </p>
+
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>サンドボックス設定 / 状態のインジケータ</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>設定</th>
+       <th>型</th>
+       <th>目的</th>
+       <th>デフォルト</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><i>active</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span> (Read Only)</td>
+       <td align="left">
+        サンドボックスが使用可能な状態である場合に <b><tt>TRUE</tt></b> 、
+        die() や exit() のコールもしくは致命的なエラーなどで
+        リクエストから抜けた状態である場合に <b><tt>FALSE</tt></b> 。
+       </td>
+       <td align="left"><b><tt>TRUE</tt></b> (Initial)</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>output_handler</i></td>
+       <td align="left"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type Callback">Callback</a></span></td>
+       <td align="left">
+        有効なコールバックを指定すると、サンドボックス
+        インスタンスの生成するすべての出力に対してその
+        関数が適用されます。
+        サンドボックス出力ハンドラは、システム全体の
+        出力ハンドラと同じ呼び出し規約に従います。
+       </td>
+       <td align="left">なし</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_access</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが <b class="classname">Runkit_Sandbox_Parent</b>
+        クラスのインスタンスを使用するかどうか。使用するには、
+        その他の <b class="classname">Runkit_Sandbox_Parent</b>
+        関連の設定を有効にする必要があります。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_read</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストの変数を読み込むかどうか。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_write</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストの変数を変更するかどうか。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_eval</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストの任意のコードを評価する（evaluate）
+        かどうか。<em class="emphasis">危険です。</em>
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_include</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストの php ファイルを include するかどうか。
+        <em class="emphasis">危険です。</em>
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_echo</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストのデータを表示する際に、それ自身の
+        出力ハンドラを回避するかどうか。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_call</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキストの関数をコールするかどうか。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_die</i></td>
+       <td align="left"><span class="type"><a href="language.types.boolean.html" class="type Boolean">Boolean</a></span></td>
+       <td align="left">
+        サンドボックスが親コンテキスト（そして自分自身）を終了させるかどうか。
+       </td>
+       <td align="left"><b><tt>FALSE</tt></b></td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_scope</i></td>
+       <td align="left"><span class="type"><a href="language.types.integer.html" class="type Integer">Integer</a></span></td>
+       <td align="left">
+        親のプロパティに対してどのようなスコープでアクセスするか。
+        0 == Global scope, 1 == Calling scope,
+        2 == Scope preceeding calling scope,
+        3 == The scope before that, etc..., etc...
+       </td>
+       <td align="left"><i>0</i> (Global)</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><i>parent_scope</i></td>
+       <td align="left"><span class="type"><a href="language.types.string.html" class="type String">String</a></span></td>
+       <td align="left">
+        <i>parent_scope</i> に文字列値が設定されている場合は、
+        グローバルスコープの配列変数名を表します。アクセス時にその名前の
+        変数が存在しない場合は、空の配列が作成されます。変数が存在するが
+        配列ではない場合は、その変数への参照を含むダミー配列が作成されます。
+       </td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="runkit.sandbox-parent.html">Runkit_Sandbox_Parent</a></div>
+ <div class="up"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

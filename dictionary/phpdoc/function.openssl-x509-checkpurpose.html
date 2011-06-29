@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>証明書が特定の目的に使用可能かどうか確認する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.openssl-x509-check-private-key.html">openssl_x509_check_private_key</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.openssl-x509-export-to-file.html">openssl_x509_export_to_file</a></div>
+ <div class="up"><a href="ref.openssl.html">OpenSSL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.openssl-x509-checkpurpose" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">openssl_x509_checkpurpose</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">openssl_x509_checkpurpose</span> &mdash; <span class="dc-title">証明書が特定の目的に使用可能かどうか確認する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.openssl-x509-checkpurpose-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>openssl_x509_checkpurpose</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$x509cert</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$purpose</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$cainfo</tt><span class="initializer"> = array()</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$untrustedfile</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>openssl_x509_checkpurpose()</b></span> は証明書を調べ、
+   <i><tt class="parameter">purpose</tt></i> で指定した目的に使用可能であるかどうかを確認します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.openssl-x509-checkpurpose-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">x509cert</tt></i></span>
+     <dd>
+
+      <p class="para">
+       調べたい証明書。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">purpose</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <table class="doctable table">
+        <caption><b><span class="function"><b>openssl_x509_checkpurpose()</b></span> の目的</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>定数</th>
+           <th>説明</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_SSL_CLIENT</td>
+           <td align="left">
+            この証明書を SSL 接続のクライアント側で使用できるか?
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_SSL_SERVER</td>
+           <td align="left">
+            この証明書を SSL 接続のサーバ側で使用できるか?
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_NS_SSL_SERVER</td>
+           <td align="left">この証明書を Netscape SSL サーバで使用できるか?</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_SMIME_SIGN</td>
+           <td align="left">この証明書を S/MIME email で使用できるか?</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_SMIME_ENCRYPT</td>
+           <td align="left">この証明書を S/MIME email の暗号化で使用できるか?</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_CRL_SIGN</td>
+           <td align="left">
+            この証明書を証明書取消リスト(CRL)にサインをする際に使用できるか?
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">X509_PURPOSE_ANY</td>
+           <td align="left">この証明書をあらゆる用途に使用できるか?</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+       これらのオプションはビットフィールドではありません。
+       指定できるのは一つだけです!
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cainfo</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">cainfo</tt></i> は、<a href="openssl.cert.verification.html" class="link">証明書の認証</a>
+       で説明したような信頼できる CA ファイル/ディレクトリの配列です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">untrustedfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定した場合は、これが証明書を含むPEMエンコードされたファイルの名前になります。
+       この証明書は、検証と証明を簡単化するために使用されます。
+       そのファイル内にある証明書は、信頼されない(untrusted)証明書とみなされます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.openssl-x509-checkpurpose-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   証明書が意図した目的に使用可能である場合に <b><tt>TRUE</tt></b>、使用できない場合に
+   <b><tt>FALSE</tt></b> 、エラーの場合に -1 を返します。
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.openssl-x509-check-private-key.html">openssl_x509_check_private_key</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.openssl-x509-export-to-file.html">openssl_x509_export_to_file</a></div>
+ <div class="up"><a href="ref.openssl.html">OpenSSL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

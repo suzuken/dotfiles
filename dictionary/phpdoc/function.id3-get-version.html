@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ID3 タグのバージョンを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.id3-get-tag.html">id3_get_tag</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.id3-remove-tag.html">id3_remove_tag</a></div>
+ <div class="up"><a href="ref.id3.html">ID3 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.id3-get-version" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">id3_get_version</h1>
+  <p class="verinfo">(PECL id3 &gt;= 0.1)</p><p class="refpurpose"><span class="refname">id3_get_version</span> &mdash; <span class="dc-title">ID3 タグのバージョンを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.id3-get-version-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>id3_get_version</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>id3_get_version()</b></span> は、MP3 ファイル内の ID3
+   タグのバージョンを取得します。
+  </p>
+  <p class="para">
+   あるファイルが ID3 v1.1 タグを含んでいるのなら、そのファイルは
+   常に 1.0 タグも含んでいます。というのも、バージョン 1.1
+   は単に 1.0 を拡張したものであるからです。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.id3-get-version-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       MP3 ファイルへのパス。
+      </p>
+      <p class="para">
+       ファイル名のかわりに、ストリームリソースを渡すことも可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.id3-get-version-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   MP3 ファイル内の ID3 タグのバージョンを返します。
+   ID3 v1.x のタグおよび v2.x のタグを同時に保持することも可能なので、
+   この関数の返す値を利用する際には
+   定義済みの定数 <b><tt>ID3_V1_0</tt></b>、
+   <b><tt>ID3_V1_1</tt></b> および <b><tt>ID3_V2</tt></b>
+   とのビット比較を行わなければなりません。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.id3-get-version-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-535">
+    <p><b>例1 <span class="function"><b>id3_get_version()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">id3_get_version</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"path/to/example.mp3"&nbsp;</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$version&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">ID3_V1_0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"1.x&nbsp;タグを含んでいます\n"</span><span style="color: #007700">;<br />}<br />if&nbsp;(</span><span style="color: #0000BB">$version&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">ID3_V1_1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"1.1&nbsp;タグを含んでいます\n"</span><span style="color: #007700">;<br />}<br />if&nbsp;(</span><span style="color: #0000BB">$version&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">ID3_V2</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"2.x&nbsp;タグを含んでいます\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+1.x タグを含んでいます
+1.1 タグを含んでいます
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.id3-get-version-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.id3-set-tag.html" class="function" rel="rdfs-seeAlso">id3_set_tag()</a> - ID3 タグに格納されている情報を更新する</span></li>
+    <li class="member"><span class="function"><a href="function.id3-get-tag.html" class="function" rel="rdfs-seeAlso">id3_get_tag()</a> - ID3 タグに含まれるすべての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.id3-remove-tag.html" class="function" rel="rdfs-seeAlso">id3_remove_tag()</a> - 既存の ID3 タグを削除する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.id3-get-tag.html">id3_get_tag</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.id3-remove-tag.html">id3_remove_tag</a></div>
+ <div class="up"><a href="ref.id3.html">ID3 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

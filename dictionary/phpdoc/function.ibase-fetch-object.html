@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>InterBase データベースからオブジェクトを得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-fetch-assoc.html">ibase_fetch_assoc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-fetch-row.html">ibase_fetch_row</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ibase-fetch-object" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ibase_fetch_object</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ibase_fetch_object</span> &mdash; <span class="dc-title">InterBase データベースからオブジェクトを得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ibase-fetch-object-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">object</span> <span class="methodname"><b>ibase_fetch_object</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result_id</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$fetch_flag</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   指定した結果 ID から、行を疑似オブジェクトとして取得します。
+  </p>
+  <p class="para">
+   <span class="function"><b>ibase_fetch_object()</b></span> を続けてコールすると、
+   結果セットの次の行を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ibase-fetch-object-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ibase-query.html" class="function">ibase_query()</a></span> あるいは <span class="function"><a href="function.ibase-execute.html" class="function">ibase_execute()</a></span>
+       で取得した InterBase 結果 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fetch_flag</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">fetch_flag</tt></i> は、定数 <b><tt>IBASE_TEXT</tt></b>
+       および <b><tt>IBASE_UNIXTIME</tt></b>
+       を論理和で指定します。<b><tt>IBASE_TEXT</tt></b> を渡すと、BLOB ID のかわりに BLOB
+       の内容自体を返します。<b><tt>IBASE_UNIXTIME</tt></b> を渡すと、日付/時刻の値を文字列ではなく
+       Unix タイムスタンプで返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ibase-fetch-object-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   次の行の情報を含むオブジェクト、
+   あるいは行がもうない場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ibase-fetch-object-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1113">
+    <p><b>例1 <span class="function"><b>ibase_fetch_object()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$dbh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$username</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;*&nbsp;FROM&nbsp;tblname'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$sth</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">email&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">ibase_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>   
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ibase-fetch-object-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ibase-fetch-row.html" class="function" rel="rdfs-seeAlso">ibase_fetch_row()</a> - InterBase データベースから 1 行分の結果を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ibase-fetch-assoc.html" class="function" rel="rdfs-seeAlso">ibase_fetch_assoc()</a> - クエリの結果から、行を連想配列として取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-fetch-assoc.html">ibase_fetch_assoc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-fetch-row.html">ibase_fetch_row</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>フォーマットに従ってファイルからの入力をパースする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fpassthru.html">SplFileObject::fpassthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fseek.html">SplFileObject::fseek</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splfileobject.fscanf" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplFileObject::fscanf</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplFileObject::fscanf</span> &mdash; <span class="dc-title">フォーマットに従ってファイルからの入力をパースする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splfileobject.fscanf-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>SplFileObject::fscanf</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter reference">&$...</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ファイルから 1 行読み込み、<span class="function"><a href="function.sprintf.html" class="function">sprintf()</a></span> のドキュメントで説明される規定の <i><tt class="parameter">format</tt></i> に従って解釈されます。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">format</tt></i> 文字列のホワイトスペースはファイルからの行のホワイトスペースとマッチします。このことが意味するのは付ぉマット文字列のタブ (<i>\t</i>) でさえも入力ストリームの 1 つのスペース文字とマッチしてしまうということです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splfileobject.fscanf-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+       規定のフォーマットは <span class="function"><a href="function.sprintf.html" class="function">sprintf()</a></span> のドキュメントで説明されています。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">...</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの割り当て値。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splfileobject.fscanf-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   このメソッドに渡される引数がひとつしかない場合、処理される値は配列として返されます。そうでなければ、オプションパラメータが渡される場合、メソッドは割り当て値の個数を返します。オプションパラメータは参照渡しでなければなりません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splfileobject.fscanf-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3279">
+    <p><b>例1  <span class="methodname"><b>SplFileObject::fscanf()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"misc.txt"</span><span style="color: #007700">);<br />while&nbsp;(</span><span style="color: #0000BB">$userinfo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fscanf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;%s&nbsp;%s"</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;(</span><span style="color: #0000BB">$name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$profession</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$countrycode</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">$userinfo</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$name&nbsp;$profession&nbsp;で何かを行う<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>users.txt の内容</p></div>
+    <div class="example-contents">
+<div class="txtcode"><pre class="txtcode">javier   argonaut    pe
+hiroshi  sculptor    jp
+robert   slacker     us
+luigi    florist     it</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splfileobject.fscanf-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fscanf.html" class="function" rel="rdfs-seeAlso">fscanf()</a> - フォーマットに基づきファイルからの入力を処理する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fpassthru.html">SplFileObject::fpassthru</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fseek.html">SplFileObject::fseek</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

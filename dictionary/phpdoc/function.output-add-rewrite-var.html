@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>URL リライタの値を追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-start.html">ob_start</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.output-reset-rewrite-vars.html">output_reset_rewrite_vars</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.output-add-rewrite-var" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">output_add_rewrite_var</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">output_add_rewrite_var</span> &mdash; <span class="dc-title">URL リライタの値を追加する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.output-add-rewrite-var-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>output_add_rewrite_var</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、URL リライト機構に新しい名前/値の組を追加します。
+   名前および値は、URL (GET パラメータとして) およびフォーム
+   (hidden フィールドとして) で追加されます。これは、<a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a>
+   で透過的 URL リライティングが有効になっている場合に
+   セッション ID が渡される方法と同じです。
+   絶対 URL (http://example.com/..)
+   はリライトされないことに注意しましょう。
+  </p>
+  <p class="para">
+   この関数の挙動は、<var class="filename">php.ini</var> パラメータ <a href="session.configuration.html#ini.url-rewriter.tags" class="link">url_rewriter.tags</a>
+   によって制御されます。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    もし出力バッファリングが有効になっていない場合、この関数を
+    コールすると出力バッファリングが暗黙的に開始されます。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.output-add-rewrite-var-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数の値。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.output-add-rewrite-var-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.output-add-rewrite-var-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-474">
+    <p><b>例1 <span class="function"><b>output_add_rewrite_var()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />output_add_rewrite_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'var'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'value'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;リンク<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;a&nbsp;href="file.php"&gt;リンク&lt;/a&gt;<br />&lt;a&nbsp;href="http://example.com"&gt;リンク2&lt;/a&gt;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;フォーム<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;form&nbsp;action="script.php"&nbsp;method="post"&gt;<br />&lt;input&nbsp;type="text"&nbsp;name="var2"&nbsp;/&gt;<br />&lt;/form&gt;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">ob_list_handlers</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;a href=&quot;file.php?var=value&quot;&gt;リンク&lt;/a&gt;
+&lt;a href=&quot;http://example.com&quot;&gt;リンク2&lt;/a&gt;
+
+&lt;form action=&quot;script.php&quot; method=&quot;post&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;var&quot; value=&quot;value&quot; /&gt;
+&lt;input type=&quot;text&quot; name=&quot;var2&quot; /&gt;
+&lt;/form&gt;
+
+Array
+(
+    [0] =&gt; URL-Rewriter
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.output-add-rewrite-var-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.output-reset-rewrite-vars.html" class="function" rel="rdfs-seeAlso">output_reset_rewrite_vars()</a> - URL リライタの値をリセットする</span></li>
+    <li class="member"><span class="function"><a href="function.ob-flush.html" class="function" rel="rdfs-seeAlso">ob_flush()</a> - 出力バッファをフラッシュ(送信)する</span></li>
+    <li class="member"><span class="function"><a href="function.ob-list-handlers.html" class="function" rel="rdfs-seeAlso">ob_list_handlers()</a> - 使用中の出力ハンドラの一覧を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+  
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-start.html">ob_start</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.output-reset-rewrite-vars.html">output_reset_rewrite_vars</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

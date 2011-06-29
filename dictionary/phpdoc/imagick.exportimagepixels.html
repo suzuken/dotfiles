@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>画像の生のピクセルをエクスポートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagick-evaluateimage.html">Imagick::evaluateImage</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagick-extentimage.html">Imagick::extentImage</a></div>
+ <div class="up"><a href="class.imagick.html">Imagick クラス</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="imagick.exportimagepixels" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Imagick::exportImagePixels</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">Imagick::exportImagePixels</span> &mdash; <span class="dc-title">画像の生のピクセルをエクスポートする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-imagick.exportimagepixels-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>Imagick::exportImagePixels</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$y</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$width</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$height</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$map</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$STORAGE</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   画像のピクセルを配列にエクスポートします。map には、エクスポートするピクセルの順序を指定します。
+   返される配列の大きさは <i>width * height * strlen(map)</i> となります。
+   このメソッドは、ImageMagick バージョン 6.4.7 以降で Imagick をコンパイルした場合に使用可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-imagick.exportimagepixels-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エクスポートする範囲の X 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エクスポートする範囲の Y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エクスポートする範囲の幅。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">height</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エクスポートする範囲の高さ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">map</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エクスポートするピクセルの順序。<i>&quot;RGB&quot;</i> など。
+       map で使える文字は R, G, B, A, O, C, Y, M, K, I および P です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">STORAGE</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="imagick.constants.html#imagick.constants.pixel" class="link">ピクセル型定数</a> を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-imagick.exportimagepixels-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2369">
+    <p><b>例1 <span class="function"><b>Imagick::exportImagePixels()</b></span> の使用法</b></p>
+    <div class="example-contents"><p>
+     画像のピクセルを配列にエクスポートします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;新しいオブジェクトを作成します&nbsp;*/<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Imagick</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;新しい画像を作成します&nbsp;*/<br /></span><span style="color: #0000BB">$im</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">newPseudoImage</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"magick:rose"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;画像のピクセルをエクスポートします。&nbsp;*/<br /></span><span style="color: #0000BB">$pixels&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$im</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exportImagePixels</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"RGB"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">Imagick</span><span style="color: #007700">::</span><span style="color: #0000BB">PIXEL_CHAR</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;出力します&nbsp;*/<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$pixels</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(12) {
+  [0]=&gt;
+  int(72)
+  [1]=&gt;
+  int(64)
+  [2]=&gt;
+  int(57)
+  [3]=&gt;
+  int(69)
+  [4]=&gt;
+  int(59)
+  [5]=&gt;
+  int(43)
+  [6]=&gt;
+  int(124)
+  [7]=&gt;
+  int(120)
+  [8]=&gt;
+  int(-96)
+  [9]=&gt;
+  int(91)
+  [10]=&gt;
+  int(84)
+  [11]=&gt;
+  int(111)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-imagick.exportimagepixels-returnvalues">
+   <h3 class="title">返り値</h3>
+  <p class="para">
+   ピクセルの値を含む配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-imagick.exportimagepixels-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   エラー時に ImagickException をスローします。
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagick-evaluateimage.html">Imagick::evaluateImage</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagick-extentimage.html">Imagick::extentImage</a></div>
+ <div class="up"><a href="class.imagick.html">Imagick クラス</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

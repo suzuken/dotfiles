@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>時刻の書式</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.formats.date.html">日付の書式</a></div>
+ <div class="up"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.formats.time" class="section">
+  <h2 class="title">時刻の書式</h2>
+  
+  <table class="doctable table">
+   <caption><b>シンボル一覧</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>シンボル</th>
+      <th>書式</th>
+      <th>例</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><i>frac</i></td>
+      <td align="left">. [0-9]+</td>
+      <td align="left">&quot;.21342&quot;, &quot;.85&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>hh</i></td>
+      <td align="left">&quot;0&quot;?[1-9] | &quot;1&quot;[0-2]</td>
+      <td align="left">&quot;04&quot;, &quot;7&quot;, &quot;12&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>HH</i></td>
+      <td align="left">[01][0-9] | &quot;2&quot;[0-4]</td>
+      <td align="left">&quot;04&quot;, &quot;7&quot;, &quot;19&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>meridian</i></td>
+      <td align="left">[AaPp] .? [Mm] .? [\0\t ]</td>
+      <td align="left">&quot;A.m.&quot;, &quot;pM&quot;, &quot;am.&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>MM</i></td>
+      <td align="left">[0-5][0-9]</td>
+      <td align="left">&quot;00&quot;, &quot;12&quot;, &quot;59&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>II</i></td>
+      <td align="left">[0-5][0-9]</td>
+      <td align="left">&quot;00&quot;, &quot;12&quot;, &quot;59&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>space</i></td>
+      <td align="left">[ \t]</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>tz</i></td>
+      <td align="left">&quot;(&quot;? [A-Za-z]{1,6} &quot;)&quot;? | [A-Z][a-z]+([_/][A-Z][a-z]+)+</td>
+      <td align="left">&quot;CEST&quot;, &quot;Europe/Amsterdam&quot;, &quot;America/Indiana/Knox&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>tzcorrection</i></td>
+      <td align="left">&quot;GMT&quot;? [+-] <i>hh</i> &quot;:&quot;? <i>MM</i>?</td>
+      <td align="left">&quot;+0400&quot;, &quot;GMT-07:00&quot;, &quot;-07:00&quot;</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+  <table class="doctable table">
+   <caption><b>12時間制の表記</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>説明</th>
+      <th>書式</th>
+      <th>例</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">時、午前/午後</td>
+      <td align="left"><i>hh</i> <i>space</i>? <i>meridian</i></td>
+      <td align="left">&quot;4 am&quot;, &quot;5PM&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、午前/午後</td>
+      <td align="left"><i>hh</i> [.:] <i>MM</i> <i>space</i>? <i>meridian</i></td>
+      <td align="left">&quot;4:08 am&quot;, &quot;7:19P.M.&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、秒、午前/午後</td>
+      <td align="left"><i>hh</i> [.:] <i>MM</i> [.:] <i>II</i> <i>space</i>? <i>meridian</i></td>
+      <td align="left">&quot;4:08:37 am&quot;, &quot;7:19:19P.M.&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">MS SQL (時、分、秒、端数、午前/午後), PHP 5.3 以降で利用可能</td>
+      <td align="left"><i>hh</i> &quot;:&quot; <i>MM</i> &quot;:&quot; <i>II</i> [.:] [0-9]+ <i>meridian</i></td>
+      <td align="left">&quot;4:08:39:12313am&quot;</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+  <table class="doctable table">
+   <caption><b>24時間制の表記</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>説明</th>
+      <th>書式</th>
+      <th>例</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">時、分</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> [.:] <i>MM</i></td>
+      <td align="left">&quot;04:08&quot;, &quot;19.19&quot;, &quot;T23:43&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分（コロンなし）</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> <i>MM</i></td>
+      <td align="left">&quot;0408&quot;, &quot;t1919&quot;, &quot;T2343&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、秒</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> [.:] <i>MM</i> [.:] <i>II</i></td>
+      <td align="left">&quot;04.08.37&quot;, &quot;t19:19:19&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、秒（コロンなし）</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> <i>MM</i> <i>II</i></td>
+      <td align="left">&quot;040837&quot;, &quot;T191919&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、秒、タイムゾーン</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> [.:] <i>MM</i> [.:] <i>II</i> <i>space</i>? ( <i>tzcorrection</i> | <i>tz</i> )</td>
+      <td align="left">&quot;040837CEST&quot;, &quot;T191919-0700&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">時、分、秒、端数</td>
+      <td align="left">&#039;t&#039;? <i>HH</i> [.:] <i>MM</i> [.:] <i>II</i> <i>frac</i></td>
+      <td align="left">&quot;04.08.37.81412&quot;, &quot;19:19:19.532453&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">タイムゾーン</td>
+      <td align="left"><i>tz</i> | <i>tzcorrection</i></td>
+      <td align="left">&quot;CEST&quot;, &quot;Europe/Amsterdam&quot;, &quot;+0430&quot;, &quot;GMT-06:00&quot;</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.formats.date.html">日付の書式</a></div>
+ <div class="up"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

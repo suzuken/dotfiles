@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したディレクトリのファイルの一覧を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-nb-put.html">ftp_nb_put</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-pasv.html">ftp_pasv</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ftp-nlist" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ftp_nlist</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ftp_nlist</span> &mdash; <span class="dc-title">指定したディレクトリのファイルの一覧を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ftp-nlist-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>ftp_nlist</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$ftp_stream</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$directory</tt></span>
+   )</div>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ftp-nlist-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ftp_stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       FTP 接続のリンク ID 。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">directory</tt></i></span>
+     <dd>
+
+      <p class="para">
+       一覧を表示するディレクトリ。このパラメータには引数を含めることができます。
+       例: ftp_nlist($conn_id, &quot;-la /your/dir&quot;);
+       このパラメータはエスケープ処理されません。スペースやその他の文字を含む
+       ファイル名では問題が発生する可能性があることに注意してください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ftp-nlist-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合は指定したディレクトリ内のファイル名の配列を、
+   エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ftp-nlist-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3478">
+    <p><b>例1 <span class="function"><b>ftp_nlist()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;接続を確立する<br /></span><span style="color: #0000BB">$conn_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp_server</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ユーザ名とパスワードでログインする<br /></span><span style="color: #0000BB">$login_result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_login</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_pass</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;カレントディレクトリの内容を得る<br /></span><span style="color: #0000BB">$contents&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_nlist</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"."</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;$contents&nbsp;を出力する<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$contents</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>  
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [0]=&gt;
+  string(11) &quot;public_html&quot;
+  [1]=&gt;
+  string(10) &quot;public_ftp&quot;
+  [2]=&gt;
+  string(3) &quot;www&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ftp-nlist-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ftp-rawlist.html" class="function" rel="rdfs-seeAlso">ftp_rawlist()</a> - 指定したディレクトリの詳細なファイル一覧を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-nb-put.html">ftp_nb_put</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-pasv.html">ftp_pasv</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

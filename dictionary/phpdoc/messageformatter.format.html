@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メッセージをフォーマットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="messageformatter.formatmessage.html">MessageFormatter::formatMessage</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="messageformatter.geterrorcode.html">MessageFormatter::getErrorCode</a></div>
+ <div class="up"><a href="class.messageformatter.html">MessageFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="messageformatter.format" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MessageFormatter::format</h1>
+  <h1 class="refname">msgfmt_format</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">MessageFormatter::format</span> -- <span class="refname">msgfmt_format</span> &mdash; <span class="dc-title">メッセージをフォーマットする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-messageformatter.format-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   オブジェクト指向型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><b>MessageFormatter::format</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$args</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   手続き型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><b>msgfmt_format</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.messageformatter.html" class="type MessageFormatter">MessageFormatter</a></span> <tt class="parameter">$fmt</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$args</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ロケールの規則にしたがってデータをフォーマット文字列に埋め込み、
+   メッセージをフォーマットします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-messageformatter.format-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージのフォーマッタ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">args</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フォーマット文字列に埋め込む引数。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 returnvalues" id="refsect1-messageformatter.format-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   フォーマットした文字列を返します。
+   あるいはエラーが発生した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-messageformatter.format-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2099">
+   <p><b>例1 <span class="function"><b>msgfmt_format()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">msgfmt_create</span><span style="color: #007700">(</span><span style="color: #DD0000">"en_US"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,number,integer}&nbsp;monkeys&nbsp;on&nbsp;{1,number,integer}&nbsp;trees&nbsp;make&nbsp;{2,number}&nbsp;monkeys&nbsp;per&nbsp;tree"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">msgfmt_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">4560</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4560</span><span style="color: #007700">/</span><span style="color: #0000BB">123</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">msgfmt_create</span><span style="color: #007700">(</span><span style="color: #DD0000">"de"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,number,integer}&nbsp;Affen&nbsp;auf&nbsp;{1,number,integer}&nbsp;Bäumen&nbsp;sind&nbsp;{2,number}&nbsp;Affen&nbsp;pro&nbsp;Baum"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">msgfmt_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">4560</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4560</span><span style="color: #007700">/</span><span style="color: #0000BB">123</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-2100">
+   <p><b>例2 オブジェクト指向の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MessageFormatter</span><span style="color: #007700">(</span><span style="color: #DD0000">"en_US"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,number,integer}&nbsp;monkeys&nbsp;on&nbsp;{1,number,integer}&nbsp;trees&nbsp;make&nbsp;{2,number}&nbsp;monkeys&nbsp;per&nbsp;tree"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(array(</span><span style="color: #0000BB">4560</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4560</span><span style="color: #007700">/</span><span style="color: #0000BB">123</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MessageFormatter</span><span style="color: #007700">(</span><span style="color: #DD0000">"de"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,number,integer}&nbsp;Affen&nbsp;auf&nbsp;{1,number,integer}&nbsp;Bäumen&nbsp;sind&nbsp;{2,number}&nbsp;Affen&nbsp;pro&nbsp;Baum"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(array(</span><span style="color: #0000BB">4560</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4560</span><span style="color: #007700">/</span><span style="color: #0000BB">123</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+4,560 monkeys on 123 trees make 37.073 monkeys per tree
+4.560 Affen auf 123 Bäumen sind 37,073 Affen pro Baum
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-messageformatter.format-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="messageformatter.create.html" class="function" rel="rdfs-seeAlso">msgfmt_create()</a> - 新しいメッセージフォーマッタを作成する</span></li>
+    <li class="member"><span class="function"><a href="messageformatter.parse.html" class="function" rel="rdfs-seeAlso">msgfmt_parse()</a> - パターンを使用して入力文字列をパースする</span></li>
+    <li class="member"><span class="function"><a href="messageformatter.formatmessage.html" class="function" rel="rdfs-seeAlso">msgfmt_format_message()</a> - 手早くメッセージをフォーマットする</span></li>
+    <li class="member"><span class="function"><a href="messageformatter.geterrorcode.html" class="function" rel="rdfs-seeAlso">msgfmt_get_error_code()</a> - 直近の操作のエラーコードを取得する</span></li>
+    <li class="member"><span class="function"><a href="messageformatter.geterrormessage.html" class="function" rel="rdfs-seeAlso">msgfmt_get_error_message()</a> - 直近の操作のエラーテキストを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="messageformatter.formatmessage.html">MessageFormatter::formatMessage</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="messageformatter.geterrorcode.html">MessageFormatter::getErrorCode</a></div>
+ <div class="up"><a href="class.messageformatter.html">MessageFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

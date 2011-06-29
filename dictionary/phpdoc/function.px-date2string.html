@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>日付を文字列に変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-create-fp.html">px_create_fp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-delete-record.html">px_delete_record</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.px-date2string" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">px_date2string</h1>
+  <p class="verinfo">(PECL paradox &gt;= 1.4.0)</p><p class="refpurpose"><span class="refname">px_date2string</span> &mdash; <span class="dc-title">
+   日付を文字列に変換する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.px-date2string-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>px_date2string</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$pxdoc</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$value</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   paradox ファイルに保存されている日付を、人間が理解しやすい形式に変換します。
+   paradox の日付は、0000 年 1 月 1 日からの経過日数で保存されています。
+   この関数は利便性を高めるためだけのもので、
+   以下の例のように数学関数やカレンダー関数で同等のことを実現できます。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.px-date2string-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pxdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.px-new.html" class="function">px_new()</a></span> が返す
+       paradox データベースのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PX_FIELD_DATE 型の paradox データベースフィールドに格納される値。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+        <span class="function"><a href="function.date.html" class="function">date()</a></span> で使用するのと同じ形式の文字列フォーマット。
+        この関数がサポートするプレースホルダは、<span class="function"><a href="function.date.html" class="function">date()</a></span>
+        でサポートしているもの (Y, y, m, n, d, j, L) のサブセットです。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.px-date2string-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+
+
+ 
+
+
+ <div class="refsect1 examples" id="refsect1-function.px-date2string-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1684">
+    <p><b>例1 paradox の日付を人間が理解しやすい形式に変換する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$px&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">px_new</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;paradox&nbsp;db&nbsp;形式の日付データを再現します。*/<br />/*&nbsp;0000&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日から&nbsp;700000&nbsp;日後です。*/<br /></span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">700000</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;カレンダー関数を使用して、人間が理解しやすい形式で&nbsp;*/<br />/*&nbsp;日付を表示します。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">jdtogregorian</span><span style="color: #007700">(</span><span style="color: #0000BB">$days</span><span style="color: #007700">+</span><span style="color: #0000BB">1721425</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/*&nbsp;px_date2string()&nbsp;で同じように出力します。*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">px_date2string</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$days</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"n/d/Y"</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">px_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+7/15/1917
+7/15/1917
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.px-date2string-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.px-timestamp2string.html" class="function" rel="rdfs-seeAlso">px_timestamp2string()</a> - タイムスタンプを文字列に変換する</span></li>
+    <li class="member"><span class="function"><a href="function.jdtogregorian.html" class="function" rel="rdfs-seeAlso">jdtogregorian()</a> - ユリウス積算日をグレゴリウス日に変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-create-fp.html">px_create_fp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-delete-record.html">px_delete_record</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

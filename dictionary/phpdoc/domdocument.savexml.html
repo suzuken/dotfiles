@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>内部の XML ツリーを文字列として出力する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.savehtmlfile.html">DOMDocument::saveHTMLFile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.schemavalidate.html">DOMDocument::schemaValidate</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="domdocument.savexml" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DOMDocument::saveXML</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">DOMDocument::saveXML</span> &mdash; <span class="dc-title">
+   内部の XML ツリーを文字列として出力する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-domdocument.savexml-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>DOMDocument::saveXML</b></span>
+    ([ <span class="methodparam"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span> <tt class="parameter">$node</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   DOM 表現から XML ドキュメントを作成します。この関数は、通常は以下の例のように
+   DOM ドキュメントを新しく作成した後にコールされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-domdocument.savexml-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">node</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ドキュメント全体ではなく、XML 宣言以外の特定のノードだけを
+       出力したい場合にこのパラメータを使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       追加のオプション。現在は <a href="libxml.constants.html" class="link">LIBXML_NOEMPTYTAG</a> のみが
+       サポートされています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-domdocument.savexml-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   XML、あるいはエラーが発生した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-domdocument.savexml-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><b><tt>DOM_WRONG_DOCUMENT_ERR</tt></b></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">node</tt></i> が別のドキュメントのものである場合に
+       発生します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-domdocument.savexml-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        <i><tt class="parameter">options</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-domdocument.savexml-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4441">
+    <p><b>例1 DOM ツリーを文字列に保存する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">(</span><span style="color: #DD0000">'1.0'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;出力はきれいに整形したいですね。<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">formatOutput&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createElement</span><span style="color: #007700">(</span><span style="color: #DD0000">'book'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$root&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">appendChild</span><span style="color: #007700">(</span><span style="color: #0000BB">$root</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$title&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createElement</span><span style="color: #007700">(</span><span style="color: #DD0000">'title'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$title&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">appendChild</span><span style="color: #007700">(</span><span style="color: #0000BB">$title</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createTextNode</span><span style="color: #007700">(</span><span style="color: #DD0000">'これはタイトルです'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$title</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">appendChild</span><span style="color: #007700">(</span><span style="color: #0000BB">$text</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"ドキュメント全体を保存します\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveXML</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">"タイトルの部分のみを保存します\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveXML</span><span style="color: #007700">(</span><span style="color: #0000BB">$title</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+ドキュメント全体を保存します
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;book&gt;
+  &lt;title&gt;これはタイトルです&lt;/title&gt;
+&lt;/book&gt;
+
+タイトルの部分のみを保存します
+&lt;title&gt;これはタイトルです&lt;/title&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-domdocument.savexml-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="domdocument.save.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::save()</a> - 内部の XML ツリーをファイルに出力する</span></li>
+    <li class="member"> <span class="methodname"><a href="domdocument.load.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::load()</a> - ファイルから XML を読み込む</span></li>
+    <li class="member"> <span class="methodname"><a href="domdocument.loadxml.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::loadXML()</a> - 文字列から XML を読み込む</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.savehtmlfile.html">DOMDocument::saveHTMLFile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.schemavalidate.html">DOMDocument::schemaValidate</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

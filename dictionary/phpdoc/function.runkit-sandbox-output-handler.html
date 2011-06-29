@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>サンドボックス内での出力を取得・処理するための関数を指定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.runkit-return-value-used.html">runkit_return_value_used</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.runkit-superglobals.html">runkit_superglobals</a></div>
+ <div class="up"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.runkit-sandbox-output-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">runkit_sandbox_output_handler</h1>
+  <p class="verinfo">(PECL runkit &gt;= 0.7.0)</p><p class="refpurpose"><span class="refname">runkit_sandbox_output_handler</span> &mdash; <span class="dc-title">
+   サンドボックス内での出力を取得・処理するための関数を指定する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.runkit-sandbox-output-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>runkit_sandbox_output_handler</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$sandbox</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$callback</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   通常、（<span class="function"><a href="function.echo.html" class="function">echo()</a></span> や <span class="function"><a href="function.print.html" class="function">print()</a></span> などの）
+   あらゆる出力は、親のスコープから出力しているかのように出力されます。
+   しかし、<span class="function"><b>runkit_sandbox_output_handler()</b></span> を使用すると
+   サンドボックス内の出力（エラーを含む）をサンドボックス外で受け取ることが
+   可能です。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+サンドボックスのサポート
+(<span class="function"><a href="function.runkit-lint.html" class="function">runkit_lint()</a></span>, <span class="function"><a href="function.runkit-lint-file.html" class="function">runkit_lint_file()</a></span>,
+および <b class="classname">Runkit_Sandbox</b> クラスで使用)は、
+PHP 5.1.0 以降または特別なパッチを適用した
+PHP 5.0 でのみ利用可能であり、スレッドセーフを有効にしておく必要があります。
+詳細については、runkit パッケージに含まれる <var class="filename">README</var>
+ファイルを参照してください。</span></p></blockquote>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>非推奨</b><br />
+    <p class="para">
+      runkit バージョン 0.5 以降この関数は非推奨となっており、1.0 が
+      リリースされるまでに削除される予定です。指定した Runkit_Sandbox
+      インスタンスの出力ハンドラは、配列オフセット構文を使用して
+      取得/設定が可能です。この方法について、
+      <a href="runkit.sandbox.html" class="link">Runkit_Sandbox</a>
+      のクラス定義で説明しています。
+    </p>
+  </p></blockquote>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.runkit-sandbox-output-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">sandbox</tt></i></span>
+     <dd>
+
+      <p class="para">
+       出力の処理を設定する Runkit_Sandbox クラスのインスタンス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">callback</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ひとつのパラメータを受け取る関数の名前。
+       <i><tt class="parameter">sandbox</tt></i> による出力がこのコールバックに
+       渡されます。コールバックが返す値は通常通り表示されます。
+       このパラメータが渡されなかった場合、出力の操作方法は変わりません。
+       真でない値が渡された場合、出力の操作は無効となり直接表示されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.runkit-sandbox-output-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   前に定義されていた出力ハンドラコールバックの名前を返します。
+   ハンドラが定義されていなかった場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.runkit-sandbox-output-handler-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-494">
+    <p><b>例1 出力を変数に送る</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">capture_output</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'sandbox_output'</span><span style="color: #007700">]&nbsp;.=&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$sandbox_output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$php&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Runkit_Sandbox</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">runkit_sandbox_output_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$php</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'capture_output'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$php</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">echo</span><span style="color: #007700">(</span><span style="color: #DD0000">"Hello\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$php</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">eval</span><span style="color: #007700">(</span><span style="color: #DD0000">'var_dump("Excuse&nbsp;me");'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$php</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">die</span><span style="color: #007700">(</span><span style="color: #DD0000">"I&nbsp;lost&nbsp;myself."</span><span style="color: #007700">);<br />unset(</span><span style="color: #0000BB">$php</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Sandbox&nbsp;Complete\n\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$sandbox_output</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Sandbox Complete
+
+Hello
+string(9) &quot;Excuse me&quot;
+I lost myself.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.runkit-return-value-used.html">runkit_return_value_used</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.runkit-superglobals.html">runkit_superglobals</a></div>
+ <div class="up"><a href="ref.runkit.html">runkit 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>導入</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.bcompiler.html">bcompiler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="bcompiler.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.bcompiler.html">bcompiler</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="intro.bcompiler" class="preface">
+   <h1 class="title">導入</h1>
+   <div class="warning"><b class="warning">警告</b><p class="simpara">この拡張モジュールは、
+<em class="emphasis">実験的</em> なものです。この拡張モジュールの動作・
+関数名・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+このモジュールは自己責任で使用してください。</p></div>
+    <p class="para">
+     Bcompiler は、以下のような目的で作成されました。
+     <ul class="simplelist">
+      <li class="member">
+       プロプライエタリな PHP アプリケーションのスクリプト全体をエンコードするため
+      </li>
+      <li class="member">
+       プロプライエタリな PHP アプリケーションの一部のクラスや関数をエンコードするため
+      </li>
+      <li class="member">
+       クライアントのデスクトップで動作する php-gtk アプリケーションを、
+       php.exe を用いずに実行させるため
+      </li>
+      <li class="member">PHP から C へのコンバータの実現可能性を調べるため</li>
+     </ul>
+     最初の目的は
+     <span class="function"><a href="function.bcompiler-write-header.html" class="function">bcompiler_write_header()</a></span>、
+     <span class="function"><a href="function.bcompiler-write-file.html" class="function">bcompiler_write_file()</a></span> および
+     <span class="function"><a href="function.bcompiler-write-footer.html" class="function">bcompiler_write_footer()</a></span>
+     を使用することで実現できます。バイトコードのファイルが、
+     圧縮されていないかあるいはプレーンな形式で書き出されます。
+     出来上がったバイトコードは、単純に include や require を用いることで使用可能です。
+    </p>
+    <p class="para">
+     2 番目の目的を実現するには
+     <span class="function"><a href="function.bcompiler-write-header.html" class="function">bcompiler_write_header()</a></span>、
+     <span class="function"><a href="function.bcompiler-write-class.html" class="function">bcompiler_write_class()</a></span>、
+     <span class="function"><a href="function.bcompiler-write-footer.html" class="function">bcompiler_write_footer()</a></span>、
+     <span class="function"><a href="function.bcompiler-read.html" class="function">bcompiler_read()</a></span>
+     および <span class="function"><a href="function.bcompiler-load.html" class="function">bcompiler_load()</a></span> 関数を使用します。
+     バイトコードのファイルが、圧縮されていないか
+     あるいはプレーンな形式で書き出されます。
+     <span class="function"><a href="function.bcompiler-load.html" class="function">bcompiler_load()</a></span> は、bzip で圧縮された
+     バイトコードファイルを読み込みます。これは元のファイルに比べて
+     1/3 程度の大きさになります。
+    </p>
+    <p class="para">
+     EXE 形式のファイルを作成するには、修正された sapi ファイルか
+     共有ライブラリとしてコンパイルされた PHP とともに bcompiler
+     を使用する必要があります。この場合、bcompiler は
+     圧縮されたバイトコードを exe ファイルの後ろから読み込みます。
+    </p>
+    <p class="para">
+     圧縮しないバイトコードのみで使用した場合、bcompiler によって
+     処理速度を約 30% 向上させることが可能です。しかし、圧縮しない
+     バイトコードは元のソースコードに比べて 5 倍程度の大きさに
+     なることに気をつけてください。バイトコードを圧縮することで
+     容量を節約することが可能ですが、圧縮ファイルを展開するのには
+     ソースコードをパースするよりはるかに長い時間がかかります。
+     bcompiler はバイトコードに対する最適化を一切行いません。
+     これは将来のバージョンで対応する予定です…。
+    </p>
+    <p class="para">
+     コードの保護という点に関しては、もとのソースコードやコメントを
+     復元することは不可能であると考えて間違いありません。bcompiler
+     のバイトコードをもとにしてコードを復元し、クラスに手を加える
+     といったことは無意味です。しかし、bcompiler で作成した
+     バイトコードファイルからデータを取り出すことは可能です。
+     個人的なパスワードなどの情報をバイトコードの中に含めないでください。
+    </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.bcompiler.html">bcompiler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="bcompiler.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.bcompiler.html">bcompiler</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

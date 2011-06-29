@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>データベース接続を閉じる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-client-info.html">db2_client_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-column-privileges.html">db2_column_privileges</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-close" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_close</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_close</span> &mdash; <span class="dc-title">
+   データベース接続を閉じる
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-close-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>db2_close</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   この関数は、<span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> で作成した
+   DB2 クライアント接続を閉じ、データベースサーバへのリソースを返します。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span> で作成した持続的 DB2
+   クライアント接続を閉じようとするとその要求は無視され、
+   次にコールされるときまで持続的 DB2 クライアント接続はそのまま残ります。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-close-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+      <dd>
+
+       <p class="para">
+        アクティブな DB2 クライアント接続を指定します。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-close-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-close-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1139">
+    <p><b>例1 接続を閉じる</b></p>
+    <div class="example-contents"><p>
+     以下では IBM DB2、Cloudscape あるいは Apache Derby
+     データベースとの接続が正常に閉じられた場合の例を示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'SAMPLE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'db2inst1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ibmdb2'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$rc</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"接続が正しく閉じられました。"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+接続が正しく閉じられました。
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-close-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-connect.html" class="function" rel="rdfs-seeAlso">db2_connect()</a> - データベースへの接続を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-pclose.html" class="function" rel="rdfs-seeAlso">db2_pclose()</a> - 持続的データベース接続を閉じる</span></li>
+    <li class="member"><span class="function"><a href="function.db2-pconnect.html" class="function" rel="rdfs-seeAlso">db2_pconnect()</a> - データベースへの持続的接続を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-client-info.html">db2_client_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-column-privileges.html">db2_column_privileges</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

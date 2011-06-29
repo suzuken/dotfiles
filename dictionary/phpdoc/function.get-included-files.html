@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>include または require で読み込まれたファイルの名前を配列として返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-include-path.html">get_include_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.get-loaded-extensions.html">get_loaded_extensions</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.get-included-files" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">get_included_files</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">get_included_files</span> &mdash; <span class="dc-title">include または require で読み込まれたファイルの名前を配列として返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.get-included-files-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>get_included_files</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、<span class="function"><a href="function.include.html" class="function">include()</a></span>,
+   <span class="function"><a href="function.include-once.html" class="function">include_once()</a></span>, <span class="function"><a href="function.require.html" class="function">require()</a></span>,
+   <span class="function"><a href="function.require-once.html" class="function">require_once()</a></span> によりスクリプトにロードされた
+   すべてのファイルの名前を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.get-included-files-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   すべてのファイル名を含む配列を返します。
+  </p>
+  <p class="para">
+   最初にコールされたスクリプトは &quot;include されたファイル&quot; という扱いに
+   なります。そのため、<span class="function"><a href="function.include.html" class="function">include()</a></span> やその仲間たちにより
+   読み込まれたファイルの一覧に含めて表示されます。
+  </p>
+  <p class="para">
+   複数回読み込まれているファイルも、
+   返される配列には一度しかあらわれません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.get-included-files-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.0.1</td>
+       <td align="left">
+        PHP 4.0.1および以前のバージョンにおいて、
+        <span class="function"><b>get_included_files()</b></span>
+        は読み込まれるファイルが拡張子 <i>.php</i>
+        となることを仮定しており、他の拡張子のファイルは返されませんでした。
+        <span class="function"><b>get_included_files()</b></span> により返される配列は
+        連想配列であり、<span class="function"><a href="function.include.html" class="function">include()</a></span> および
+        <span class="function"><a href="function.include-once.html" class="function">include_once()</a></span> で読み込まれたファイルのみが
+        一覧に含まれていました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.get-included-files-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-424">
+    <p><b>例1 <span class="function"><b>get_included_files()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;このファイルは&nbsp;abc.php&nbsp;です<br /><br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'test1.php'</span><span style="color: #007700">;<br />include_once&nbsp;</span><span style="color: #DD0000">'test2.php'</span><span style="color: #007700">;<br />require&nbsp;</span><span style="color: #DD0000">'test3.php'</span><span style="color: #007700">;<br />require_once&nbsp;</span><span style="color: #DD0000">'test4.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$included_files&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_included_files</span><span style="color: #007700">();<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$included_files&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$filename</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+abc.php
+test1.php
+test2.php
+test3.php
+test4.php
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.get-included-files-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    設定ディレクティブ <i>auto_prepend_file</i>
+    で読み込まれたファイルは、返される配列には含まれません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.get-included-files-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.include.html" class="function" rel="rdfs-seeAlso">include()</a> - include</span></li>
+    <li class="member"><span class="function"><a href="function.include-once.html" class="function" rel="rdfs-seeAlso">include_once()</a> - include_once</span></li>
+    <li class="member"><span class="function"><a href="function.require.html" class="function" rel="rdfs-seeAlso">require()</a> - require</span></li>
+    <li class="member"><span class="function"><a href="function.require-once.html" class="function" rel="rdfs-seeAlso">require_once()</a> - require_once</span></li>
+    <li class="member"><span class="function"><a href="function.get-required-files.html" class="function" rel="rdfs-seeAlso">get_required_files()</a> - get_included_files のエイリアス</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-include-path.html">get_include_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.get-loaded-extensions.html">get_loaded_extensions</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

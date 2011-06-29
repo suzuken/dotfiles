@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>データベースをオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dba-nextkey.html">dba_nextkey</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dba-optimize.html">dba_optimize</a></div>
+ <div class="up"><a href="ref.dba.html">DBA 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dba-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dba_open</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">dba_open</span> &mdash; <span class="dc-title">データベースをオープンする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dba-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>dba_open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$mode</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$handler</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$...</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>dba_open()</b></span> は、<i><tt class="parameter">handler</tt></i> を用いて
+   <i><tt class="parameter">mode</tt></i> を指定し、<i><tt class="parameter">path</tt></i>
+   にデータベースインスタンスを生成します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dba-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       通常のファイルシステムのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       既存のデータベースへの読み込みアクセスには &quot;r&quot;、読込み/書き込み
+       アクセスには &quot;w&quot; を指定します。
+       読み込み/書き込みアクセスおよび存在しない場合にデータベースの作成を
+       するには &quot;c&quot; を、そして作成、削除、読込み/書き込みアクセス用には
+       &quot;n&quot; を指定します。データベースは BTree モードで作られます。
+       その他のモード (Hash や Queue) には対応していません。
+      </p>
+      <p class="para">
+       さらに、次の文字でデータベースのロック方法を指定することができます。
+       <var class="filename">.lck</var> でデータベースをロックする場合には &quot;l&quot;、
+       データベースファイル自体をロックする場合は &quot;d&quot; を使用してください。
+       アプリケーション全体で統一した方法を用いることが重要です。
+      </p>
+      <p class="para">
+       アクセスのテストを行う際にロックのために待ちたくない場合、&quot;t&quot; を
+       3 番目の文字に追加することができます。明らかにデータベースのロックが
+       不要な場合には、&quot;l&quot; や &quot;d&quot; の代わりに &quot;-&quot; を使用してロックを
+       行わないことができます。&quot;d&quot;、&quot;l&quot; または &quot;-&quot; のどれも指定されない場合、
+       &quot;d&quot;が指定されたものとしてデータベースファイルをロックします。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        ひとつのデータベースファイルに同時に書き込めるのは、ひとつだけです。
+        dba を Web サーバで使用している際に複数のリクエストが書き込み処理を
+        行う必要がある場合、他の書き込みが終わってからでないと次の書き込みを
+        行うことができません。また、書き込み中に読み込むことはできません。
+        dba 拡張モジュールは、このようなことを防止するためにロックを使用します。
+        以下の表を参照してください:
+        <table class="doctable table">
+         <caption><b>DBA のロック処理</b></caption>
+         
+          <thead valign="middle">
+           <tr valign="middle">
+            <th>既にオープンしているデータベース</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;rl&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;rlt&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;wl&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;wlt&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;rd&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;rdt&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;wd&quot;</th>
+            <th><i><tt class="parameter">mode</tt></i> = &quot;wdt&quot;</th>
+           </tr>
+
+          </thead>
+
+          <tbody valign="middle" class="tbody">
+           <tr valign="middle">
+            <td align="left">not open</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+           </tr>
+
+           <tr valign="middle">
+            <td align="left"><i><tt class="parameter">mode</tt></i> = &quot;rl&quot;</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+           </tr>
+
+           <tr valign="middle">
+            <td align="left"><i><tt class="parameter">mode</tt></i> = &quot;wl&quot;</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+           </tr>
+
+           <tr valign="middle">
+            <td align="left"><i><tt class="parameter">mode</tt></i> = &quot;rd&quot;</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">ok</td>
+            <td align="left">ok</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+           </tr>
+
+           <tr valign="middle">
+            <td align="left"><i><tt class="parameter">mode</tt></i> = &quot;wd&quot;</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">illegal</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+            <td align="left">wait</td>
+            <td align="left">false</td>
+           </tr>
+
+          </tbody>
+         
+        </table>
+
+        <ul class="simplelist">
+         <li class="member">ok: 2 番目のコールは成功します。</li>
+         <li class="member">wait: 2 番目のコールは、最初のデータベースで <span class="function"><a href="function.dba-close.html" class="function">dba_close()</a></span> がコールされるまで待ちます。</li>
+         <li class="member">false: 2 番目のコールは、false を返します。</li>
+         <li class="member">illegal: <i><tt class="parameter">mode</tt></i> パラメータで &quot;l&quot; および &quot;d&quot; を同時に使用することはできません。</li>
+        </ul>
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">path</tt></i> にアクセスする際に使用する
+       <a href="dba.requirements.html" class="link">ハンドラ</a>の名前。
+       <span class="function"><b>dba_open()</b></span> に指定したすべてのオプションが
+       渡され、その機能を用いることができます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dba-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に正のハンドル、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.dba-open-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        ネットワーク接続されたデータベースファイルをオープンすることができます。
+        しかし、（http や ftp のような）ソケット接続が使用された場合、
+        リソース自体ではなくこの接続がロックされます。このような場合、
+        このリソースに関してのロック処理は単に無視されることになり、
+        他の解決策を見付ける必要があることに留意する必要があります。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        ロック処理と <i><tt class="parameter">mode</tt></i> 修正子 &quot;l&quot;, &quot;d&quot;, &quot;-&quot;, &quot;t&quot;
+        が追加されました。
+        以前のバージョンの PHP では、GDBM 以外のデータベースハンドラで
+        同時データベースアクセスに対する保護を行うためには、セマフォを
+        使用する必要がありました。
+        <a href="book.sem.html" class="link">System V セマフォサポート</a> を参照ください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.5 以前</td>
+       <td align="left">
+        オープンモード &#039;c&#039; はいくつかの内部ハンドラでは正常に動作せず、
+        既存のデータベースにデータを追加するのではなく、データベースを
+        切り捨ててしまっていました。また、dbm と ndbm は典型的な設定で
+        モード &#039;c&#039; の処理が正常に動作しません（これは修正できません）。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dba-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dba-popen.html" class="function" rel="rdfs-seeAlso">dba_popen()</a> - データベースを持続的にオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.dba-close.html" class="function" rel="rdfs-seeAlso">dba_close()</a> - DBA データベースを閉じる</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dba-nextkey.html">dba_nextkey</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dba-optimize.html">dba_optimize</a></div>
+ <div class="up"><a href="ref.dba.html">DBA 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

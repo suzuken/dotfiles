@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Emits the current page</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="cairocontext.construct.html">CairoContext::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="cairocontext.copypath.html">CairoContext::copyPath</a></div>
+ <div class="up"><a href="class.cairocontext.html">CairoContext</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="cairocontext.copypage" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">CairoContext::copyPage</h1>
+  <h1 class="refname">cairo_copy_page</h1>
+  <p class="verinfo">(PECL cairo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">CairoContext::copyPage</span> -- <span class="refname">cairo_copy_page</span> &mdash; <span class="dc-title">Emits the current page</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-cairocontext.copypage-description">
+  <h3 class="title">説明</h3>
+  <p class="para">Object oriented style (method):</p>
+   <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>CairoContext::copyPage</b></span>
+    ( <span class="methodparam">void</span>
+    )</div>
+
+  <p class="para rdfs-comment">Procedural style:</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><a href="cairosurface.copypage.html" class="methodname">cairo_copy_page</a></span>
+    ( <span class="methodparam"><span class="type"><a href="class.cairocontext.html" class="type CairoContext">CairoContext</a></span> <tt class="parameter">$context</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+    Emits the current page for backends that support multiple pages, but doesn’t clear it, so,
+    the contents of the current page will be retained for the next page too.
+    Use  <span class="methodname"><a href="cairocontext.showpage.html" class="methodname">CairoContext::showPage()</a></span> if you want to get an empty page after the emission.
+  </p>
+  <p class="para">
+
+    This is a convenience function that simply calls  <span class="methodname"><a href="cairosurface.copypage.html" class="methodname">CairoSurface::copyPage()</a></span>
+    on <a href="class.cairocontext.html" class="classname">CairoContext</a>’s target.
+
+  </p>
+ 
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-cairocontext.copypage-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">context</tt></i></span>
+     <dd>
+
+      <p class="para">
+       A valid <a href="class.cairocontext.html" class="classname">CairoContext</a> object created with  <span class="methodname"><a href="cairocontext.construct.html" class="methodname">CairoContext::__construct()</a></span> or
+       <span class="function"><a href="function.cairo-create.html" class="function">cairo_create()</a></span>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-cairocontext.copypage-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-cairocontext.copypage-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2514">
+    <p><b>例1 Object oriented style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$surface&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">CairoImageSurface</span><span style="color: #007700">(</span><span style="color: #0000BB">CairoFormat</span><span style="color: #007700">::</span><span style="color: #0000BB">ARGB32</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">CairoContext</span><span style="color: #007700">(</span><span style="color: #0000BB">$surface</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$context</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">copyPage</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-2515">
+    <p><b>例2 Procedural style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$surface&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cairo_image_surface_create</span><span style="color: #007700">(</span><span style="color: #0000BB">CAIRO_FORMAT_ARGB32</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cairo_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$surface</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">cairo_copy_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$context</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-cairocontext.copypage-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="cairocontext.showpage.html" class="methodname" rel="rdfs-seeAlso">CairoContext::showPage()</a> - The showPage purpose</span></li>
+    <li class="member"> <span class="methodname"><a href="cairosurface.copypage.html" class="methodname" rel="rdfs-seeAlso">CairoSurface::copyPage()</a> - The copyPage purpose</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="cairocontext.construct.html">CairoContext::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="cairocontext.copypath.html">CairoContext::copyPath</a></div>
+ <div class="up"><a href="class.cairocontext.html">CairoContext</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

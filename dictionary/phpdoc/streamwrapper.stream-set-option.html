@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ストリームのオプションを変更する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="streamwrapper.stream-seek.html">streamWrapper::stream_seek</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="streamwrapper.stream-stat.html">streamWrapper::stream_stat</a></div>
+ <div class="up"><a href="class.streamwrapper.html">streamWrapper</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="streamwrapper.stream-set-option" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">streamWrapper::stream_set_option</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">streamWrapper::stream_set_option</span> &mdash; <span class="dc-title">ストリームのオプションを変更する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-streamwrapper.stream-set-option-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>streamWrapper::stream_set_option</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$option</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$arg1</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$arg2</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   このメソッドは、ストリームのオプションを設定する際にコールされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-streamwrapper.stream-set-option-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">option</tt></i></span>
+     <dd>
+
+      <p class="para">
+       以下のいずれか。
+       <ul class="simplelist">
+        <li class="member"><b><tt>STREAM_OPTION_BLOCKING</tt></b> (このメソッドは、<span class="function"><a href="function.stream-set-blocking.html" class="function">stream_set_blocking()</a></span> に対応してコールされます)</li>
+        <li class="member"><b><tt>STREAM_OPTION_READ_TIMEOUT</tt></b> (このメソッドは、<span class="function"><a href="function.stream-set-timeout.html" class="function">stream_set_timeout()</a></span> に対応してコールされます)</li>
+        <li class="member"><b><tt>STREAM_OPTION_WRITE_BUFFER</tt></b> (このメソッドは、<span class="function"><a href="function.stream-set-write-buffer.html" class="function">stream_set_write_buffer()</a></span> に対応してコールされます)</li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">arg1</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">option</tt></i> の値に応じて、以下の内容となります。
+       <ul class="simplelist">
+        <li class="member"><b><tt>STREAM_OPTION_BLOCKING</tt></b>: 要求されたブロックモード (1 はブロックモード、0 は非ブロックモード)。</li>
+        <li class="member"><b><tt>STREAM_OPTION_READ_TIMEOUT</tt></b>: タイムアウト秒数。</li>
+        <li class="member"><b><tt>STREAM_OPTION_WRITE_BUFFER</tt></b>: バッファモード (<b><tt>STREAM_BUFFER_NONE</tt></b> あるいは <b><tt>STREAM_BUFFER_FULL</tt></b>)。</li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">arg2</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">option</tt></i> の値に応じて、以下の内容となります。
+       <ul class="simplelist">
+        <li class="member"><b><tt>STREAM_OPTION_BLOCKING</tt></b>: このオプションは設定されません。</li>
+        <li class="member"><b><tt>STREAM_OPTION_READ_TIMEOUT</tt></b>: タイムアウトマイクロ秒数。</li>
+        <li class="member"><b><tt>STREAM_OPTION_WRITE_BUFFER</tt></b>: 要求されたバッファサイズ。</li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-streamwrapper.stream-set-option-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   <i><tt class="parameter">option</tt></i> が実装されていない場合は <b><tt>FALSE</tt></b> を返さなければなりません。
+  </p>
+ </div>
+
+
+
+
+ <div class="refsect1 seealso" id="refsect1-streamwrapper.stream-set-option-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.stream-set-blocking.html" class="function" rel="rdfs-seeAlso">stream_set_blocking()</a> - ストリームのブロックモードを有効にする / 解除する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-set-timeout.html" class="function" rel="rdfs-seeAlso">stream_set_timeout()</a> - ストリームにタイムアウトを設定する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-set-write-buffer.html" class="function" rel="rdfs-seeAlso">stream_set_write_buffer()</a> - 指定されたストリームのファイル書き込みバッファリングを有効にする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="streamwrapper.stream-seek.html">streamWrapper::stream_seek</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="streamwrapper.stream-stat.html">streamWrapper::stream_stat</a></div>
+ <div class="up"><a href="class.streamwrapper.html">streamWrapper</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

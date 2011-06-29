@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在の DirectoryIterator アイテムの inode 修正時刻を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="directoryiterator.getbasename.html">DirectoryIterator::getBasename</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="directoryiterator.getfilename.html">DirectoryIterator::getFilename</a></div>
+ <div class="up"><a href="class.directoryiterator.html">DirectoryIterator</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="directoryiterator.getctime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DirectoryIterator::getCTime</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">DirectoryIterator::getCTime</span> &mdash; <span class="dc-title">現在の DirectoryIterator アイテムの inode 修正時刻を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-directoryiterator.getctime-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>DirectoryIterator::getCTime</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   現在の <a href="class.directoryiterator.html" class="classname">DirectoryIterator</a> アイテムの inode 修正時刻を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-directoryiterator.getctime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-directoryiterator.getctime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルの最終更新時刻を、Unix タイムスタンプで返します。
+  </p>
+ </div>
+
+ 
+  <div class="refsect1 examples" id="refsect1-directoryiterator.getctime-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3172">
+    <p><b>例1 <span class="function"><b>DirectoryIterator::getCTime()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この例は、スクリプトのディレクトリ内のファイルのファイル名と、その最終更新時刻を表示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$iterator&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DirectoryIterator</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">));<br />foreach&nbsp;(</span><span style="color: #0000BB">$iterator&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">isFile</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getFilename</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;changed&nbsp;at&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$fileinfo</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getCTime</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+apple.jpg changed at 1240398312
+banana.jpg changed at 1238605440
+index.php changed at 1240398935
+pear.jpg changed at 1237423740
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-directoryiterator.getctime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="directoryiterator.getatime.html" class="methodname" rel="rdfs-seeAlso">DirectoryIterator::getATime()</a> - 現在の DirectoryIterator アイテムの最終アクセス時刻を取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="directoryiterator.getmtime.html" class="methodname" rel="rdfs-seeAlso">DirectoryIterator::getMTime()</a> - 現在の DirectoryIterator アイテムの最終修正時刻を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.filectime.html" class="function" rel="rdfs-seeAlso">filectime()</a> - ファイルの inode 変更時刻を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="directoryiterator.getbasename.html">DirectoryIterator::getBasename</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="directoryiterator.getfilename.html">DirectoryIterator::getFilename</a></div>
+ <div class="up"><a href="class.directoryiterator.html">DirectoryIterator</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

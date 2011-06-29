@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memtrack.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.overload.html">オブジェクトのオーバーロード</a></div>
+ <div class="up"><a href="memtrack.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memtrack.examples.basic" class="section">
+  <p class="para">
+   memtrack 拡張モジュールの基本的な使用例です。
+   <div class="example" id="example-462">
+    <p><b>例1 関数内での巨大な配列の作成</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;/tmp/example1.php&nbsp;*/<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;array();<br />&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">10000</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #DD0000">"test"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   このサンプルを、次のようなコマンドで実行します。
+  </p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+php -d memtrack.enabled=1 -d memtrack.soft_limit=1M -d memtrack.vm_limit=3M /tmp/example1.php
+</pre></div>
+  </div>
+  <p class="para">上の例の出力は、
+たとえば以下のようになります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+Warning: [memtrack] [pid 26177] user function foo() executed in /tmp/example1.php on line 10 allocated 4194304 bytes in /tmp/example1.php on line 0
+Warning: [memtrack] [pid 26177] virtual memory usage on shutdown: 32911360 bytes in Unknown on line 0
+</pre></div>
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memtrack.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.overload.html">オブジェクトのオーバーロード</a></div>
+ <div class="up"><a href="memtrack.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

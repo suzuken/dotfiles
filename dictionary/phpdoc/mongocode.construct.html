@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>新しいコードオブジェクトを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongocode.html">MongoCode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocode.tostring.html">MongoCode::__toString</a></div>
+ <div class="up"><a href="class.mongocode.html">MongoCode</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocode.construct" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCode::__construct</h1>
+  <p class="verinfo">(PECL mongo &gt;= 0.8.3)</p><p class="refpurpose"><span class="refname">MongoCode::__construct</span> &mdash; <span class="dc-title">新しいコードオブジェクトを作成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongocode.construct-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+    <span class="methodname"><b>MongoCode::__construct</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$code</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$scope</tt><span class="initializer"> = array()</span></span>
+  ] )</div>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongocode.construct-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">code</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       コード文字列。
+      </p>
+     </dd>
+
+    </dt>
+   
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">scope</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       このコードで使用するスコープ。
+      </p>
+     </dd>
+
+    </dt>
+   
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongocode.construct-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   新しいコードオブジェクトを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongocode.construct-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1395">
+   <p><b>例1 <span class="function"><b>MongoCode::__construct()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$code&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoCode</span><span style="color: #007700">(</span><span style="color: #DD0000">'function()&nbsp;{&nbsp;'</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'for(i=0;i&lt;10;i++)&nbsp;{'</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'db.foo.update({z&nbsp;:&nbsp;i},&nbsp;{z&nbsp;:&nbsp;x});'</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'}'</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'return&nbsp;x-1;'</span><span style="color: #007700">.<br />&nbsp;</span><span style="color: #DD0000">'}'</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"x"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$code</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+object(MongoCode)#1 (2) {
+  [&quot;scope&quot;]=&gt;
+  array(1) {
+    [&quot;x&quot;]=&gt;
+    int(4)
+  }
+  [&quot;code&quot;]=&gt;
+  string(80) &quot;function() { for(i=0;i&lt;10;i++) { db.foo.update({z : i}, {z : x}); } return x-1; }&quot;
+}
+</pre></div>
+   </div>
+  </div>
+
+
+  <div class="example" id="example-1396">
+   <p><b>例2 <span class="function"><b>MongoCode()</b></span> での $where の使用例</b></p>
+   <div class="example-contents"><p>
+    この例では、コレクションに対して &#039;x&#039; フィールドが $y 未満である要素を問い合わせます。
+    PHP オブジェクトを JavaScript のスコープに渡すことができること、
+    そして JavaScript の関数は boolean 値を返すことに注意しましょう。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'$where'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoCode</span><span style="color: #007700">(</span><span style="color: #DD0000">'function()&nbsp;{&nbsp;return&nbsp;this.x&nbsp;&lt;&nbsp;y;&nbsp;}'</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">'y'</span><span style="color: #007700">=&gt;</span><span style="color: #0000BB">$y</span><span style="color: #007700">))));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongocode.html">MongoCode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocode.tostring.html">MongoCode::__toString</a></div>
+ <div class="up"><a href="class.mongocode.html">MongoCode</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

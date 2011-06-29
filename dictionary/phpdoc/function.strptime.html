@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>strftime が生成した日付/時刻をパースする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strftime.html">strftime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strtotime.html">strtotime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strptime" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">strptime</h1>
+    <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">strptime</span> &mdash; <span class="dc-title">
+     <span class="function"><a href="function.strftime.html" class="function">strftime()</a></span> が生成した日付/時刻をパースする
+    </span></p>
+
+   </div>
+   <div class="refsect1 description" id="refsect1-function.strptime-description">
+    <h3 class="title">説明</h3>
+    <div class="methodsynopsis dc-description">
+     <span class="type">array</span> <span class="methodname"><b>strptime</b></span>
+      ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$date</tt></span>
+     , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+     )</div>
+
+    <p class="para rdfs-comment">
+     <span class="function"><b>strptime()</b></span> は <i><tt class="parameter">date</tt></i>
+     をパースした結果を配列で返します。エラー時には <b><tt>FALSE</tt></b> を返します。
+    </p>
+    <p class="para">
+     月名や曜日、そしてその他の言語依存な文字列は
+     <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> (<b><tt>LC_TIME</tt></b>) で設定された現在の
+     ロケールを考慮して返します。
+    </p>
+   </div>
+
+
+   <div class="refsect1 parameters" id="refsect1-function.strptime-parameters">
+   <h3 class="title">パラメータ</h3>
+   <p class="para">
+    <dl>
+
+     <dt>
+
+      <span class="term"><i><tt class="parameter">date</tt></i> (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+      <dd>
+
+       <p class="para">
+        パースする文字列（例: <span class="function"><a href="function.strftime.html" class="function">strftime()</a></span> の返り値）。
+       </p>
+      </dd>
+
+     </dt>
+
+     <dt>
+
+      <span class="term"><i><tt class="parameter">format</tt></i> (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+      <dd>
+
+       <p class="para">
+        <i><tt class="parameter">date</tt></i> で使用されているフォーマット
+        （例: <span class="function"><a href="function.strftime.html" class="function">strftime()</a></span> で使用されていたものと同じ）。
+        <span class="function"><a href="function.strftime.html" class="function">strftime()</a></span> で使えるオプションの中には、
+        <span class="function"><b>strptime()</b></span> では何の影響を及ぼさないものがあることに注意しましょう。
+        実際にサポートする範囲がどのようになるのかは、
+        使っている OS と C ライブラリに依存します。
+       </p>
+       <p class="para">
+        フォーマットオプションについての詳細は
+        <span class="function"><a href="function.strftime.html" class="function">strftime()</a></span> のページを参照ください。
+       </p>
+      </dd>
+
+     </dt>
+
+    </dl>
+
+   </p>
+  </div>
+
+
+  <div class="refsect1 returnvalues" id="refsect1-function.strptime-returnvalues">
+   <h3 class="title">返り値</h3>
+   <p class="para">
+    成功した場合は配列、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   </p>
+
+    <p class="para">
+     <table class="doctable table">
+      <caption><b>配列で返されるパラメータ</b></caption>
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>パラメータ</th>
+         <th>説明</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_sec&quot;</i></td>
+         <td align="left">分未満の秒数 (0-61)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_min&quot;</i></td>
+         <td align="left">時間未満の分数 (0-59)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_hour&quot;</i></td>
+         <td align="left">0 時以降の時間数 (0-23)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_mday&quot;</i></td>
+         <td align="left">月内の日数 (1-31)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_mon&quot;</i></td>
+         <td align="left">1 月から数えた月数 (0-11)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_year&quot;</i></td>
+         <td align="left">1900 年以降の年</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_wday&quot;</i></td>
+         <td align="left">日曜日からの日数 (0-6)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;tm_yday&quot;</i></td>
+         <td align="left">1 月 1 日からの日数 (0-365)</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>&quot;unparsed&quot;</i></td>
+         <td align="left"><i><tt class="parameter">date</tt></i> の中で、指定された
+          <i><tt class="parameter">format</tt></i> で判断できなかった部分</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+    </p>
+
+  </div>
+
+
+  <div class="refsect1 examples" id="refsect1-function.strptime-examples">
+   <h3 class="title">例</h3>
+   <p class="para">
+   <div class="example" id="example-638">
+    <p><b>例1 <span class="function"><b>strptime()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'%d/%m/%Y&nbsp;%H:%M:%S'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$strf&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$strf</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">strptime</span><span style="color: #007700">(</span><span style="color: #0000BB">$strf</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+      <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+03/10/2004 15:54:19
+
+Array
+(
+    [tm_sec] =&gt; 19
+    [tm_min] =&gt; 54
+    [tm_hour] =&gt; 15
+    [tm_mday] =&gt; 3
+    [tm_mon] =&gt; 9
+    [tm_year] =&gt; 104
+    [tm_wday] =&gt; 0
+    [tm_yday] =&gt; 276
+    [unparsed] =&gt;
+)
+</pre></div>
+      </div>
+      </div>
+     </p>
+    </div>
+
+
+    <div class="refsect1 notes" id="refsect1-function.strptime-notes">
+     <h3 class="title">注意</h3>
+     <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は Windows 環境にはまだ実装されていません。
+</span></p></blockquote>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       内部では、この関数はシステムの C ライブラリ関数
+       <i>strptime()</i> をコールしています。
+       このライブラリ関数は、OS によって挙動が異なることがあります。
+       <span class="function"><a href="function.date-parse-from-format.html" class="function">date_parse_from_format()</a></span>
+       はこの問題の影響を受けないので、PHP 5.3.0
+       以降ではこちらの関数を使うことを推奨します。
+      </p>
+     </p></blockquote>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       <i>&quot;tm_sec&quot;</i> には、うるう秒も組み込まれています (現在は、年間
+       2 秒まで)。うるう秒についての詳細な情報は <a href="http://en.wikipedia.org/wiki/Leap_second" class="link external">&raquo; Wikipedia
+       の記事</a> を参照ください。
+      </p>
+     </p></blockquote>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       PHP 5.2.0 より前のバージョンでは、この関数が未定義の挙動をすることがありました。
+       特に <i>&quot;tm_sec&quot;</i>、<i>&quot;tm_min&quot;</i> および <i>&quot;tm_hour&quot;</i>
+       が未定義の値になることがありました。
+      </p>
+     </p></blockquote>
+    </div>
+
+
+    <div class="refsect1 seealso" id="refsect1-function.strptime-seealso">
+    <h3 class="title">参考</h3>
+    <p class="para">
+     <ul class="simplelist">
+      <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - グレゴリオ暦の日付/時刻の妥当性を確認します</span></li>
+      <li class="member"><span class="function"><a href="function.strftime.html" class="function" rel="rdfs-seeAlso">strftime()</a> - ロケールの設定に基づいてローカルな日付・時間をフォーマットする</span></li>
+     </ul>
+    </p>
+   </div>
+
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strftime.html">strftime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strtotime.html">strtotime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

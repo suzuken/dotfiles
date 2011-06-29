@@ -1,0 +1,347 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SSH サーバに接続する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-auth-pubkey-file.html">ssh2_auth_pubkey_file</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-exec.html">ssh2_exec</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ssh2-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ssh2_connect</h1>
+  <p class="verinfo">(PECL ssh2 &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">ssh2_connect</span> &mdash; <span class="dc-title">SSH サーバに接続する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ssh2-connect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>ssh2_connect</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 22</span></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$methods</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$callbacks</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   リモートの SSH サーバとの接続を確立します。
+  </p>
+  <p class="para">
+   一度接続すると、クライアントは <span class="function"><a href="function.ssh2-fingerprint.html" class="function">ssh2_fingerprint()</a></span>
+   を使用してサーバのホスト鍵を検証し、
+   パスワードもしくは公開鍵を使用して認証します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ssh2-connect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">methods</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">methods</tt></i>
+       は以下に示された4つのパラメータを持つ連想配列です。
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><b><i><tt class="parameter">methods</tt></i>
+        は以下のパラメータのいくつかあるいは全てを含む連想配列</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>インデックス</th>
+           <th>意味</th>
+           <th>サポートする値*</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">kex</td>
+           <td align="left">
+            通知する鍵交換メソッドのリスト。優先する順にカンマ区切りにする。
+           </td>
+           <td align="left">
+            <i>diffie-hellman-group1-sha1</i>、
+            <i>diffie-hellman-group14-sha1</i> および
+            <i>diffie-hellman-group-exchange-sha1</i>
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">hostkey</td>
+           <td align="left">
+            通知するホスト鍵メソッドのリスト。優先する順にカンマ区切りにする。
+           </td>
+           <td align="left">
+            <i>ssh-rsa</i> および
+            <i>ssh-dss</i>
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">client_to_server</td>
+           <td align="left">
+            クライアントからサーバに送信されるメッセージのために優先する暗号化、
+            圧縮、メッセージ認証コード (MAC) メソッドを含む連想配列。
+           </td>
+           <td class="empty">&nbsp;</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">server_to_client</td>
+           <td align="left">
+            サーバからクライアントに送信されるメッセージのために優先する暗号化、
+            圧縮、メッセージ認証コード (MAC) メソッドを含む連想配列。
+           </td>
+           <td class="empty">&nbsp;</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+      <p class="para">
+       * - サポートする値は、
+       構成するライブラリがサポートしているメソッドに依存します。
+       追加情報については <a href="http://libssh2.org/" class="link external">&raquo; libssh2</a>
+       ドキュメントを参照ください。
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><b>
+         <i><tt class="parameter">client_to_server</tt></i> と
+         <i><tt class="parameter">server_to_client</tt></i>
+         は以下のパラメータのいくつかあるいは全てを含む連想配列
+        </b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>インデックス</th>
+           <th>意味</th>
+           <th>サポートする値*</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">crypt</td>
+           <td align="left">通知する暗号化メソッドのリスト。
+           優先する順にカンマ区切りにする。</td>
+           <td align="left">
+            <i>rijndael-cbc@lysator.liu.se</i>、
+            <i>aes256-cbc</i>、
+            <i>aes192-cbc</i>、
+            <i>aes128-cbc</i>、
+            <i>3des-cbc</i>、
+            <i>blowfish-cbc</i>、
+            <i>cast128-cbc</i>、
+            <i>arcfour</i> および
+            <i>none**</i>
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">comp</td>
+           <td align="left">通知する圧縮メソッドのリスト。
+           優先する順にカンマ区切りにする。</td>
+           <td align="left">
+            <i>zlib</i> および
+            <i>none</i>
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">mac</td>
+           <td align="left">通知する MAC メソッドのリスト。
+           優先する順にカンマ区切りにする。</td>
+           <td align="left">
+            <i>hmac-sha1</i>、
+            <i>hmac-sha1-96</i>、
+            <i>hmac-ripemd160</i>、
+            <i>hmac-ripemd160@openssh.com</i> および
+            <i>none**</i>
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+      <p class="para">
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <b>暗号化、MAC メソッドの &quot;<i>none</i>&quot;</b><br />
+        <p class="para">
+         セキュリティ上の問題で、<i>none</i> は
+         ビルド時に適切な ./configure
+         オプションを使用して明示的に有効にしない限り、構成している
+         <a href="http://libssh2.org/" class="link external">&raquo; libssh2</a> によって無効にされます。
+         詳細は構成するライブラリのドキュメントを参照ください。
+        </p>
+       </p></blockquote>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">callbacks</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">callbacks</tt></i>
+       は以下のパラメータのいくつかあるいは全てを含む連想配列
+       <table class="doctable table">
+        <caption><b>
+         コールバックパラメータ
+        </b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>インデックス</th>
+           <th>意味</th>
+           <th>プロトタイプ</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">ignore</td>
+           <td align="left">
+            <b><tt>SSH2_MSG_IGNORE</tt></b>
+            パケットを受信したときにコールする関数名
+           </td>
+           <td align="left">void ignore_cb($message)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">debug</td>
+           <td align="left">
+            <b><tt>SSH2_MSG_DEBUG</tt></b>
+            パケットを受信したときにコールする関数名
+           </td>
+           <td align="left">void debug_cb($message, $language, $always_display)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">macerror</td>
+           <td align="left">
+            パケットを受信したがメッセージ認証コードに失敗した場合にコールされる関数名。
+            もしコールバックが <b><tt>TRUE</tt></b> を返す場合、不整合は無視されます。
+            そうでない場合、接続は終了します。
+           </td>
+           <td align="left">bool macerror_cb($packet)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">disconnect</td>
+           <td align="left">
+            <b><tt>SSH2_MSG_DISCONNECT</tt></b>
+            パケットを受信したときにコールする関数名
+           </td>
+           <td align="left">void disconnect_cb($reason, $message, $language)</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ssh2-connect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にリソース、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ssh2-connect-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3762">
+    <p><b>例1 <span class="function"><b>ssh2_connect()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     パケット送信時に 3des-cbc 、
+     パケット受信時に任意の強度の aes cipher、
+     両方向で無圧縮、
+     Group1 での鍵交換という設定で強制的に接続をオープンします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;もしサーバが接続を終了した場合、ユーザーに通知する&nbsp;*/<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">my_ssh_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$reason</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$language</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Server&nbsp;disconnected&nbsp;with&nbsp;reason&nbsp;code&nbsp;[%d]&nbsp;and&nbsp;message:&nbsp;%s\n"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$reason</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$methods&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'kex'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'diffie-hellman-group1-sha1'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'client_to_server'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'crypt'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'3des-cbc'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'comp'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'none'</span><span style="color: #007700">),<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'server_to_client'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'crypt'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'aes256-cbc,aes192-cbc,aes128-cbc'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'comp'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'none'</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$callbacks&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'disconnect'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'my_ssh_disconnect'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$connection&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'shell.example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$methods</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$callbacks</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$connection</span><span style="color: #007700">)&nbsp;die(</span><span style="color: #DD0000">'Connection&nbsp;failed'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ssh2-connect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ssh2-fingerprint.html" class="function" rel="rdfs-seeAlso">ssh2_fingerprint()</a> - リモートサーバのフィンガープリントを処理する</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-auth-none.html" class="function" rel="rdfs-seeAlso">ssh2_auth_none()</a> - &quot;none&quot; として認証する</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-auth-password.html" class="function" rel="rdfs-seeAlso">ssh2_auth_password()</a> - SSH 上でプレーンなパスワードを使用した認証を行う</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-auth-pubkey-file.html" class="function" rel="rdfs-seeAlso">ssh2_auth_pubkey_file()</a> - 公開鍵を使用した認証を行う</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-auth-pubkey-file.html">ssh2_auth_pubkey_file</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-exec.html">ssh2_exec</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

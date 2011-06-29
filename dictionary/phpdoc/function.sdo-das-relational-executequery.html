@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL クエリをリレーショナルデータベースに対して実行し、
+   結果を正規化されたデータグラフ形式で返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sdo-das-relational-executepreparedquery.html">SDO_DAS_Relational::executePreparedQuery</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.sdo-das-xml.html">SDO DAS XML</a></div>
+ <div class="up"><a href="ref.sdo.das.rel.html">SDO-DAS-Relational 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sdo-das-relational-executequery" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SDO_DAS_Relational::executeQuery</h1>
+  <p class="verinfo">(^)</p><p class="refpurpose"><span class="refname">SDO_DAS_Relational::executeQuery</span> &mdash; <span class="dc-title">
+   SQL クエリをリレーショナルデータベースに対して実行し、
+   結果を正規化されたデータグラフ形式で返す
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.sdo-das-relational-executequery-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type SDODataObject">SDODataObject</span></span>
+    <span class="methodname"><b>SDO_DAS_Relational::executeQuery</b></span>
+    ( <span class="methodparam">
+    <span class="type"><a href="class.pdo.html" class="type PDO">PDO</a></span>
+     <tt class="parameter">$database_handle</tt>
+   </span>
+   , <span class="methodparam">
+    <span class="type">string</span>
+     <tt class="parameter">$SQL_statement</tt>
+   </span>
+   [, <span class="methodparam">
+    <span class="type">array</span>
+     <tt class="parameter">$column_specifier</tt>
+   </span>
+  ] )</div>
+
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+
+  <p class="para">
+   クエリをリレーショナルデータベースに対して実行します。
+   実行には、渡された PDO データベースハンドルを使用します。
+   メタデータから作成されたモデルを使用し、結果セットを取得します。
+   結果をデータグラフとして返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sdo-das-relational-executequery-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">PDO_database_handle</span>
+     <dd>
+
+      <p class="para">
+       PDO 拡張モジュールを使用して作成します。
+       PDO データベースハンドルを作成する典型的な方法は、このようになります。
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+$dbh&nbsp;=&nbsp;new&nbsp;PDO("mysql:dbname=COMPANYDB;host=localhost",DATABASE_USER,DATABASE_PASSWORD);</span>
+</code></div>
+       </div>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">SQL_statement</span>
+     <dd>
+
+      <p class="para">
+       データベースに対して実行する SQL 文。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">column_specifier</span>
+     <dd>
+
+      <p class="para">
+       リレーショナル DAS では、結果セットの各カラムを調べ、
+       それがどのテーブルのどのカラムからきたものなのかを知る必要があります。
+       データ自身からそれらの情報を取得できる場合もありますが、
+       そうでない場合もあります。取得できない場合にはカラム指定子が必要となります。
+       これは、カラムを識別するための配列です。
+       配列の各項目は、単純な
+       <var class="varname"><var class="varname">テーブル名.カラム名</var></var>
+       形式の文字列となります。
+      </p>
+          
+
+      <p class="para">
+       カラム指定子が必要となるのは、
+       データベースのメタデータ内に同じ名前のカラムが複数ある場合です。
+       例で使用しているデータベースでは、すべてのテーブルに
+       <var class="varname"><var class="varname">id</var></var> および <var class="varname"><var class="varname">name</var></var>
+       のふたつのカラムがあります。
+       リレーショナル DAS が PDO から結果セットを読み込む際には、
+       属性 PDO_FETCH_ASSOC を使用できます。これは、
+       結果セットのカラム名をリレーショナル DAS のカラム名に対応させますが、
+       同じ名前の重複を識別できません。そのため、
+       これは、結果セットでカラム名が重複する可能性がない場合にのみ動作します。
+      </p>
+          
+      <p class="para">
+       まとめます。そのカラムがどのテーブルのものかが判別できなくなる
+       可能性が少しでもある場合には、カラム指定子の配列を設定します。
+       省略できるのは、データベースのメタデータ内にあるすべてのカラム名が
+       一意な場合のみです。
+      </p>
+          
+      <p class="para">
+       <a href="sdo.das.rel.examples.html" class="link">例</a>
+       で示したサンプルでは、すべてカラム指定子を設定しています。
+       インストール先の <var class="filename">Scenarios</var>
+       ディレクトリ内に、カラム指定子を使用しない例がひとつあります。
+       これは employee テーブルだけを使用するものです。
+       ひとつのテーブルしか使用していないので、
+       カラム名が重複することがないわけです。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sdo-das-relational-executequery-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   データグラフを返します。具体的には、特別な型のルートオブジェクトを返します。
+   このルートオブジェクトの下に、結果セットからのデータが格納されています。
+   ルートオブジェクトは複数の値を持つプロパティを持っており、
+   そのプロパティは、コンストラクタで指定した
+   アプリケーションのルート型と同じ名前になります。
+   また、そのプロパティの内容は、
+   アプリケーションのルート型のオブジェクトとなります。
+  </p>
+  <p class="para">
+   クエリがデータを返さなかった場合にも特別なルート型のオブジェクトが返されますが、
+   その中にあるアプリケーションルート型のプロパティの内容は空となります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.sdo-das-relational-executequery-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <span class="function"><b>SDO_DAS_Relational::executeQuery()</b></span>
+   は、データグラフを正常に作成できなかった場合に
+   SDO_DAS_Relational_Exception をスローします。
+   これが起こる原因は、いろいろ考えられます。例えば、
+   すべてのオブジェクトの結果セットで主キーがなかった場合などです。
+   また、何らかの PDO 例外が発生した場合には、
+   それをキャッチして PDO の診断情報を
+   SDO_DAS_Relational_Exception に格納し、それをスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.sdo-das-relational-executequery-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   このメソッドをコールする例については、リレーショナル DAS
+   の全般的な情報の中にある
+   <a href="sdo.das.rel.examples.html" class="link">例</a>
+   の節を参照ください。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sdo-das-relational-executepreparedquery.html">SDO_DAS_Relational::executePreparedQuery</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.sdo-das-xml.html">SDO DAS XML</a></div>
+ <div class="up"><a href="ref.sdo.das.rel.html">SDO-DAS-Relational 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

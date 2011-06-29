@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>代数演算子</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.precedence.html">演算子の優先順位</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.assignment.html">代入演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.operators.arithmetic" class="sect1">
+   <h2 class="title">代数演算子</h2>
+   <p class="simpara">
+    学校で習った基礎代数を憶えていますか?
+    この演算子はそれらと同様に動作します。
+   </p>
+   <table class="doctable table">
+    <caption><b>代数演算子</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>例</th>
+       <th>名前</th>
+       <th>結果</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">-$a</td>
+       <td align="left">負にする</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> の逆</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">$a + $b</td>
+       <td align="left">加算</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> および <var class="varname"><var class="varname">$b</var></var> の合計</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">$a - $b</td>
+       <td align="left">減算</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> と <var class="varname"><var class="varname">$b</var></var> の差</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">$a * $b</td>
+       <td align="left">乗算</td>
+        <td align="left"><var class="varname"><var class="varname">$a</var></var> および <var class="varname"><var class="varname">$b</var></var> の積</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">$a / $b</td>
+       <td align="left">除算</td>
+        <td align="left"><var class="varname"><var class="varname">$a</var></var> および <var class="varname"><var class="varname">$b</var></var> の商</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">$a % $b</td>
+       <td align="left">剰余</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> を <var class="varname"><var class="varname">$b</var></var> で割った余り</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  
+   <p class="simpara">
+    除算演算子 (&quot;/&quot;) の返す値は浮動小数点数となります。
+    ただし、ふたつのオペランドがともに整数 (あるいは整数に変換できる文字列)
+    であり、かつ結果が割り切れる場合には整数値を返します。
+   </p>
+   <p class="simpara">
+    剰余演算子は、まず両方のオペランドを整数に直し
+    (小数点以下を切り捨てます)
+    てから処理を行います。
+   </p>
+   <p class="para">
+    剰余演算子 <i>%</i> の結果の符号は、被除数の符号と同じになります。
+    つまり、<i>$a % $b</i> の結果の符号は
+    <var class="varname"><var class="varname">$a</var></var> と同じになるということです。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo&nbsp;(</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">%&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;2<br /></span><span style="color: #007700">echo&nbsp;(</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">%&nbsp;-</span><span style="color: #0000BB">3</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;2<br /></span><span style="color: #007700">echo&nbsp;(-</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">%&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;-2<br /></span><span style="color: #007700">echo&nbsp;(-</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">%&nbsp;-</span><span style="color: #0000BB">3</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;-2<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="simpara">
+    マニュアルの
+    <a href="ref.math.html" class="link">数学関数</a>の項も参照してください。
+   </p>
+
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.precedence.html">演算子の優先順位</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.assignment.html">代入演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

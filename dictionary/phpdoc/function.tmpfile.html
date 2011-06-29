@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>テンポラリファイルを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.tempnam.html">tempnam</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.touch.html">touch</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.tmpfile" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">tmpfile</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">tmpfile</span> &mdash; <span class="dc-title">テンポラリファイルを作成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.tmpfile-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>tmpfile</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   書き込み可のモード (w+) でユニークな名前を有するテンポラリファイルを作成し、
+   ファイルハンドルを返します。
+  </p>
+  <p class="para">
+   ファイルが (<span class="function"><a href="function.fclose.html" class="function">fclose()</a></span> を用いて) クローズされた時、
+   またはスクリプトが終了された際に自動的にファイルが削除されます。
+  </p>
+  <p class="para">
+   詳細については、関数 <i>tmpfile(3)</i>
+   のシステムドキュメント、およびヘッダファイル
+   <var class="filename">stdio.h</var> を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.tmpfile-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルのハンドルを返します。
+   これは、 <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>
+   により返されるハンドルと同じものです。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.tmpfile-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1963">
+    <p><b>例1 <span class="function"><b>tmpfile()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$temp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">tmpfile</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$temp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"writing&nbsp;to&nbsp;tempfile"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fseek</span><span style="color: #007700">(</span><span style="color: #0000BB">$temp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$temp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1024</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$temp</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ファイルを削除します<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+writing to tempfile
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.tmpfile-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.tempnam.html" class="function" rel="rdfs-seeAlso">tempnam()</a> - 一意なファイル名を生成する</span></li>
+    <li class="member"><span class="function"><a href="function.sys-get-temp-dir.html" class="function" rel="rdfs-seeAlso">sys_get_temp_dir()</a> - 一時ファイル用に使用されるディレクトリのパスを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.tempnam.html">tempnam</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.touch.html">touch</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

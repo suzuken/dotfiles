@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した DateTime に関連するタイムゾーンを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.gettimestamp.html">DateTime::getTimestamp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.modify.html">DateTime::modify</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.gettimezone" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DateTime::getTimezone</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">DateTime::getTimezone</span> &mdash; <span class="dc-title">指定した DateTime に関連するタイムゾーンを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-datetime.gettimezone-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span> <span class="methodname"><b>DateTime::getTimezone</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span> <span class="methodname"><a href="function.date-timezone-get.html" class="methodname">date_timezone_get</a></span>
+    ( <span class="methodparam"><span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した DateTime に関連するタイムゾーンを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-datetime.gettimezone-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+<span class="term"><i><tt class="parameter">
+object</tt></i></span><dd>
+<p class="para">手続き型のみ: <span class="function"><a href="function.date-create.html" class="function">date_create()</a></span>
+が返す <a href="class.datetime.html" class="classname">DateTime</a> オブジェクト</p></dd>
+</dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-datetime.gettimezone-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <a href="class.datetimezone.html" class="classname">DateTimeZone</a> オブジェクト、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-datetime.gettimezone-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-583">
+   <p><b>例1 <span class="function"><b>DateTime::getTimezone()</b></span> の例</b></p>
+   <div class="example-contents"><p>オブジェクト指向型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$tz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTimezone</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$tz</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getName</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>手続き型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">timezone_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$tz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_timezone_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">timezone_name_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$tz</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Europe/London
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-datetime.gettimezone-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="datetime.settimezone.html" class="function" rel="rdfs-seeAlso">DateTime::setTimezone()</a> - DateTime オブジェクトのタイムゾーンを設定する</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.gettimestamp.html">DateTime::getTimestamp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.modify.html">DateTime::modify</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

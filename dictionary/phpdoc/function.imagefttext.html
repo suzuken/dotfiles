@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>FreeType 2 によるフォントを用いてイメージにテキストを描画する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imageftbbox.html">imageftbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagegammacorrect.html">imagegammacorrect</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagefttext" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagefttext</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.7, PHP 5)</p><p class="refpurpose"><span class="refname">imagefttext</span> &mdash; <span class="dc-title">FreeType 2 によるフォントを用いてイメージにテキストを描画する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagefttext-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>imagefttext</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$size</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$angle</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$y</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$color</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$fontfile</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$text</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$extrainfo</tt></span>
+  ] )</div>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+現在のところ詳細な情報はありません。引数のリストのみが
+記述されています。</p></div>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagefttext-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">size</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するフォントのサイズ (ポイント数)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">angle</tt></i></span>
+     <dd>
+
+      <p class="para"> 
+       角度 (度数)。0 度は、左から右に読むテキストを表します。
+       度数を上げていくと、反時計回りに回転します。たとえば、
+       90 度の場合は下から上に読むテキストとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">x</tt></i> と
+       <i><tt class="parameter">y</tt></i> で表す座標が、最初の文字のベースポイント
+       (その文字の左下の角とほぼ等しい点) となります。
+       <span class="function"><a href="function.imagestring.html" class="function">imagestring()</a></span> の場合は
+       <i><tt class="parameter">x</tt></i> と <i><tt class="parameter">y</tt></i>
+       で最初の文字の左上の角を指定しており、
+       たとえば &quot;左上&quot; は 0, 0 となりますが、この関数では異なります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       y 座標。これはフォントのベースラインを指定するものであり、
+       文字の最下端を指定するものではありません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">color</tt></i></span>
+     <dd>
+
+      <p class="para">
+       テキストに使用する色のインデックス。
+       <span class="function"><a href="function.imagecolorexact.html" class="function">imagecolorexact()</a></span> を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fontfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用する TrueType フォントへのパス。
+      </p>
+      <p class="para">
+       PHP が使用している GD ライブラリのバージョンにも依存しますが、
+       <em class="emphasis"><i><tt class="parameter">fontfile</tt></i> の先頭に <i>/</i>
+       がついていない場合はファイル名の末尾に
+       <i>.ttf</i> を追加</em>して GD
+       のフォントパスからファイルを探そうとすることもあります。
+      </p>
+      <p class="para">
+       GD ライブラリのバージョンが 2.0.18 より古い場合は、複数のフォントファイルを指定するときの
+       &#039;パス区切り文字&#039; がセミコロンではなく <i>スペース</i> となります。
+       この機能を意図せずに使ってしまい、
+       <i>Warning: Could not find/open font</i>
+       といった警告が発生してしまうことがあります。
+       この問題が発生するバージョンの場合は、
+       スペースを含まないパスにフォントを格納しなければなりません。
+      </p>
+      <p class="para">
+       たいていの場合は、スクリプト内で使うフォントの場所は同じディレクトリになるでしょう。
+       そんな場合は、次のようにすれば読み込み時の問題を回避できます。
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;GD&nbsp;用の環境変数を設定します<br /></span><span style="color: #0000BB">putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">'GDFONTPATH='&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">realpath</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;使用するフォント名を指定します&nbsp;(拡張子&nbsp;.ttf&nbsp;がないことに注目しましょう)<br /></span><span style="color: #0000BB">$font&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SomeFont'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">text</tt></i></span>
+     <dd>
+
+      <p class="para">
+       画像に挿入するテキスト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extrainfo</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <table class="doctable table">
+       <caption><b><i><tt class="parameter">extrainfo</tt></i> の配列のインデックス</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>キー</th>
+           <th>型</th>
+           <th>意味</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><i>linespacing</i></td>
+           <td align="left"><span class="type"><a href="language.types.float.html" class="type float">float</a></span></td>
+           <td align="left">描画時の行間を定義します</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagefttext-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は、長方形の 4 つの角を表す点の配列を返します。
+   最初が左下の位置で、そこから反時計回りに回ります。
+   <table class="doctable informaltable">
+    
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">0</td>
+       <td align="left">左下の x 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1</td>
+       <td align="left">左下の y 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">2</td>
+       <td align="left">右下の x 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">3</td>
+       <td align="left">右下の y 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4</td>
+       <td align="left">右上の x 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5</td>
+       <td align="left">右上の y 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">6</td>
+       <td align="left">左上の x 座標</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">7</td>
+       <td align="left">左上の y 座標</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagefttext-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2300">
+    <p><b>例1 <span class="function"><b>imagefttext()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;300x100&nbsp;の画像を作成します<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">300</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$red&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0xFF</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$black&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0x00</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;背景を赤にします<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">299</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">99</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$red</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ttf&nbsp;フォントファイルへのパスを設定します<br /></span><span style="color: #0000BB">$font_file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'./arial.ttf'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;フォントサイズ&nbsp;13&nbsp;で&nbsp;'PHP&nbsp;Manual'&nbsp;というテキストを描画します<br /></span><span style="color: #0000BB">imagefttext</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">13</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">105</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">55</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$black</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$font_file</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'PHP&nbsp;Manual'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;画像をブラウザに出力します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Type:&nbsp;image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagefttext-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、GD 2.0.1 以降を必要とします (2.0.28 以降を推奨します)。</span></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、PHP が FreeType サポート
+(<strong class="option configure">--with-freetype-dir=DIR</strong>
+)
+を有効にしてコンパイルされている場合のみ使用可能です。
+</span></p></blockquote>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.imagefttext-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.5</td>
+       <td align="left">
+        <i><tt class="parameter">extrainfo</tt></i> がオプションになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imageftbbox.html">imageftbbox</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagegammacorrect.html">imagegammacorrect</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

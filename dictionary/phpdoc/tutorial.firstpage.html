@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PHP を使用する初めてのページ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tutorial.requirements.html">必要なものは?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tutorial.useful.html">実用的な例</a></div>
+ <div class="up"><a href="tutorial.html">簡易チュートリアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tutorial.firstpage" class="sect1">
+   <h2 class="title">PHP を使用する初めてのページ</h2>
+   <p class="para">
+    以下の内容で <var class="filename">hello.php</var>
+    という名前のファイルを作成し、Web サーバのルートディレクトリ
+    (<var class="varname"><var class="varname">DOCUMENT_ROOT</var></var>) に置いてください。
+   </p>
+   <p class="para">
+    <div class="example" id="example-2">
+     <p><b>例1 初めての PHP スクリプト: <var class="filename">hello.php</var></b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;html&gt;<br />&nbsp;&lt;head&gt;<br />&nbsp;&nbsp;&lt;title&gt;PHP&nbsp;Test&lt;/title&gt;<br />&nbsp;&lt;/head&gt;<br />&nbsp;&lt;body&gt;<br />&nbsp;<span style="color: #0000BB">&lt;?php&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;p&gt;Hello&nbsp;World&lt;/p&gt;'</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">?&gt;</span>&nbsp;<br />&nbsp;&lt;/body&gt;<br />&lt;/html&gt;</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>
+      ブラウザを使用して、<i>/hello.php</i> で終わる Web アクセス用 URL を指定し、
+      このファイルにアクセスしてください。
+      ローカルに開発を行っている場合、この URL は
+      <i>http://localhost/hello.php</i> または
+      <i>http://127.0.0.1/hello.php</i> のようになります。
+      しかし、これは Web サーバの設定に依存します。
+      全てが正しく設定されている場合、
+      このファイルは PHP によりパースされ、以下の出力がブラウザに送信されます。
+     </p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;html&gt;
+ &lt;head&gt;
+  &lt;title&gt;PHP Test&lt;/title&gt;
+ &lt;/head&gt;
+ &lt;body&gt;
+ Hello World&lt;p&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <p class="para">
+    このプログラムは非常に簡単なので、実際には、このようなページを
+    作成するために PHP を使用する必要はありません。
+    <i>Hello World</i> を PHP の <span class="function"><a href="function.echo.html" class="function">echo()</a></span>
+    命令により出力しているだけです。
+    このファイルは、実行ファイルまたは特殊なファイルとする必要がないことに注意してください。
+    このファイルが拡張子 &quot;.php&quot; を有し、このファイルが PHP
+    に渡される必要があると設定されているため、サーバは PHP
+    により解釈されるファイルを見付けることができます。
+    このファイルは、多くの面白いことを可能にする特別なタグを利用できる、
+    通常の HTML ファイルと考えることができます。
+   </p>
+   <p class="para">
+    この例を試しても何も出力されない場合、または、
+    ダウンロード用のプロンプトが表示されるか、
+    テキストとしてファイル全体が表示された場合、
+    利用しているサーバで PHP が利用できない可能性があります。本マニュアルの
+    <a href="install.html" class="link">インストール</a> の章により
+    PHP を利用できるようにするよう管理者にきいてみてください。
+    ローカルに開発を行っている場合も、
+    インストールの章を読んで設定が全て正しく行われていることを確認してください。
+    解決しない問題がある場合は、多くの
+    <a href="http://www.php.net/support.php" class="link external">&raquo; PHP サポート</a>
+    の選択肢のどれかを利用してみてください。
+   </p>
+   <p class="para">
+    この例の目的は、特殊な PHP タグ形式を示すことです。
+    この例では、<i>&lt;?php</i> が PHP
+    タグの開始を示しています。この後、PHP 命令を置き、終了タグ <i>?&gt;</i>
+    を記述することにより、PHP モードを抜けています。
+    このように任意の場所で PHP モードを抜けて HTML
+    ファイルに移ることができます。詳細は、<a href="language.basic-syntax.html" class="link">
+    基本的な構文</a>のセクションを参照ください。
+   </p>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>改行に関する注意</b><br />
+    <p class="para">
+     HTML においては改行にはほとんど意味がありません。ただ、
+     HTML の見栄えをよくするためにも適宜改行を入れておくとよいでしょう。
+     <i>?&gt;</i> の直後の改行は、PHP によって取り除かれます。
+     複数の PHP ブロックを使用している場合や、
+     何かを出力するのかどうかがわからないファイルを include する際などに、
+     この挙動は非常に便利です。と同時に少々混乱するかもしれません。
+     強制的に改行させるには、<i>?&gt;</i> の後に空白を置くか、
+     あるいは PHP ブロック内の最後の echo/print で明示的に改行を出力します。
+    </p> 
+   </p></blockquote> 
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>テキストエディタに関する注意</b><br />
+    <p class="para">
+     PHP ファイルを作成、編集、監理する際に使用できる、
+     多くのテキストエディタや統合開発環境 (IDE) があります。
+     これらのツールのリストの一部は、<a href="http://en.wikipedia.org/wiki/List_of_PHP_editors" class="link external">&raquo; PHP エディタのリスト</a>
+     で整理されています。あるエディタを推薦したい場合、上記のページを訪れ、
+     ページの監理者にそのエディタをリストに加えてくれないかとたずねてみてください。
+    </p>
+   </p></blockquote>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>ワードプロセッサに関する注意</b><br />
+    <p class="para">
+     StarOffice Writer, Microsoft Word および Abiword
+     のようなワードプロセッサは、PHP ファイルの編集には向いていません。
+     これらのワープロ上でテストスクリプトを編集する場合は、
+     ファイルをプレーンテキストとして保存していることを確認してください。
+     さもないと、PHP はスクリプトを読み込んで実行できません。
+    </p>
+   </p></blockquote>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>Windows のメモ帳に関する注意</b><br />
+    <p class="para">
+     Windows のメモ帳を使用して PHP スクリプトを書く場合には、ファイルに
+     拡張子 <var class="filename">.php</var> を付けて保存したかどうかを確認する必要があります
+     (メモ帳は、以下の防止策のどらかを適用しない限り、拡張子 <var class="filename">.txt</var>
+     を自動的に付加します)。ファイルを保存する際に、
+     ファイル名を入力するプロンプトでファイル名を引用符で括ります
+     (すなわち、&quot;<var class="filename">hello.php</var>&quot; とします)。
+     もしくは、保存ダイアログボックスにおいてドロップダウンメニュー
+     &quot;テキスト文書&quot;をクリックし、&quot;すべてのファイル&quot; に設定を変更します。
+     これにより、引用符を付けずにファイル名を入力することができます。
+    </p>
+   </p></blockquote>
+
+   <p class="para">
+    さて、動作する簡単な PHP スクリプトを作成することができましたので、
+    最も有名な PHP スクリプトを作成してみましょう!
+    <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> 関数をコールすることにより、
+    <a href="language.variables.predefined.html" class="link">定義済み変数</a>、
+    ロードされている PHP モジュール、<a href="configuration.html" class="link">設定
+    </a>等のシステムに関する多くの有用な情報を得ることができます。
+    この重要な情報を見てみてください。
+   </p>
+
+   <p class="para">
+    <div class="example" id="example-3">
+     <p><b>例2 PHP からシステムに関する情報を取得する</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;phpinfo</span><span style="color: #007700">();&nbsp;</span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tutorial.requirements.html">必要なものは?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tutorial.useful.html">実用的な例</a></div>
+ <div class="up"><a href="tutorial.html">簡易チュートリアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

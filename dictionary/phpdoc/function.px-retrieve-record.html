@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>paradox データベースのレコードを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-put-record.html">px_put_record</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-set-blob-file.html">px_set_blob_file</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.px-retrieve-record" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">px_retrieve_record</h1>
+  <p class="verinfo">(PECL paradox &gt;= 1.4.0)</p><p class="refpurpose"><span class="refname">px_retrieve_record</span> &mdash; <span class="dc-title">paradox データベースのレコードを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.px-retrieve-record-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>px_retrieve_record</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$pxdoc</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$num</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は <span class="function"><a href="function.px-get-record.html" class="function">px_get_record()</a></span> と非常によく似ていますが、
+   関数内でデータを取得するために使用している方法が違います。
+   この関数は、各フィールドの値を取得するのに pxlib の機能を使用しており、
+   結果としてより多くのフィールド型をサポートしています。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、pxlib &gt;= 0.6.0 が使用されている場合にのみ有効です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.px-retrieve-record-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pxdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.px-new.html" class="function">px_new()</a></span> が返す、
+       paradox データベースのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">num</tt></i></span>
+     <dd>
+
+      <p class="para">
+       レコード番号は人為的な番号で、レコードがデータベースに格納された順番を表します。
+       最初のレコードの番号は 0 です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       キーを小文字または大文字に変換するために、
+       オプションの <i><tt class="parameter">mode</tt></i> に
+       <b><tt>PX_KEYTOLOWER</tt></b> あるいは <b><tt>PX_KEYTOUPPER</tt></b>
+       を指定することができます。<i><tt class="parameter">mode</tt></i>
+       が渡されなかったりあるいは 0 であった場合は、
+       キーはフィールド名そのものとなります。
+       要素の値にはフィールドの値が含まれます。
+       NULL 値もそのまま残ります。NULL は 0.0、0 あるいは
+       空の文字列とはことなる値です。<b><tt>PX_FIELD_TIME</tt></b>
+       型のフィールドは、深夜 0 時から数えたミリ秒数を整数で返します。
+       timestamp は浮動小数点値で、ユリウス暦の開始時からの経過ミリ秒数を返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.px-retrieve-record-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   paradox データベースから、<i><tt class="parameter">num</tt></i> 番目のレコードを返します。
+   レコードは連想配列形式で返され、フィールド名がキーとなります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.px-retrieve-record-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.px-get-record.html" class="function" rel="rdfs-seeAlso">px_get_record()</a> - paradox データベースのレコードを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-put-record.html">px_put_record</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-set-blob-file.html">px_set_blob_file</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

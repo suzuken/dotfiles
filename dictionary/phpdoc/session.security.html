@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>セッションとセキュリティ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="session.customhandler.html">カスタムセッションハンドラ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.session.html">セッション関数</a></div>
+ <div class="up"><a href="book.session.html">Sessions</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="session.security" class="chapter">
+ <h1>セッションとセキュリティ</h1>
+
+ <p class="para">
+  外部リンク: <a href="http://www.acros.si/papers/session_fixation.pdf" class="link external">&raquo; Session fixation</a>
+ </p>
+ <p class="para">
+  セッションモジュールは、セッションに保存した情報を見ることができる
+  のがそのセッションを作成したユーザーだけであることを保証することが
+  できません。セッションの完全性を積極的に守るには、そのセッションに
+  紐づく値に応じた追加措置が必要です。
+ </p>
+ <p class="para">
+  セッションに運ばれるデータの重要性を評価し、必要な保護策を講じてください。
+  この対策は、通常は何らかの犠牲を伴うもので、ユーザの利便性を損なうことになります。
+  例えば、単純なソーシャルエンジニアリングからユーザを守るためには
+  <i>session.use_only_cookies</i> を有効にする必要があります。
+  この場合、ユーザ側でクッキーが常に有効となっていなければならず、
+  有効でない場合はセッションが動作しなくなります。
+ </p>
+ <p class="para">
+  存在するセッションIDが第三者に洩れる手順は何種類かあります。
+  洩れたセッションIDにより、第三者が特定のIDに関連する全てのリソー
+  スにアクセスできるようになります。まず、セッションIDがURLにより伝
+  送される場合です。外部サイトにリンクを張っている場合、外部サイト
+  のreferrerログにセッションIDを含むURLが保存される可能性があります。
+  第二に、よりアクティブな攻撃者がネットワークのトラフィックをモニ
+  ターしている可能性があります。セッションIDが暗号化されていない場
+  合、セッションIDはネットワーク上を平文テキストで伝送されます。
+  解決策はサーバ上にSSLを実装し、ユーザにSSLを必ず使用させることです。
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="session.customhandler.html">カスタムセッションハンドラ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.session.html">セッション関数</a></div>
+ <div class="up"><a href="book.session.html">Sessions</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

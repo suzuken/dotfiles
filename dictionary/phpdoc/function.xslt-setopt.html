@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>与えられた xsl プロセッサにオプションを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-scheme-handlers.html">xslt_set_scheme_handlers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.html">PHP のコア: Zend Engine ハッカーの手引き</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xslt-setopt" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xslt_setopt</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0)</p><p class="refpurpose"><span class="refname">xslt_setopt</span> &mdash; <span class="dc-title">与えられた xsl プロセッサにオプションを設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xslt-setopt-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>xslt_setopt</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$processor</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$newmask</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>xslt_setopt()</b></span> は、与えられた
+   <i><tt class="parameter">processor</tt></i> に <i><tt class="parameter">newmask</tt></i>
+   で指定されるオプションを設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xslt-setopt-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">processor</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.xslt-create.html" class="function">xslt_create()</a></span> で作成した
+       XSLT プロセッサリンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">newmask</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">newmask</tt></i> は次の定数で定義されたビットマスクです。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>XSLT_SABOPT_PARSE_PUBLIC_ENTITIES</tt></b> -
+          プロセッサにパブリックなエンティティをパースするよう伝える。
+          デフォルトはオフ。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>XSLT_SABOPT_DISABLE_ADDING_META</tt></b> -
+          HTML 出力にメタタグ &quot;Content-Type&quot; を出力しない。
+          デフォルトはプロセッサのコンパイル時に設定される。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>XSLT_SABOPT_DISABLE_STRIPPING</tt></b> - Suppress the
+          whitespace stripping (on data files only).
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>XSLT_SABOPT_IGNORE_DOC_NOT_FOUND</tt></b> -
+          空白の除去を抑制する (データファイルの場合のみ) 。
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xslt-setopt-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   以前の設定値が取得できた場合はその値、それ以外の場合は <b><tt>TRUE</tt></b>
+   を返します。エラーが発生した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.xslt-setopt-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4609">
+    <p><b>例1 <span class="function"><b>xslt_setopt()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$xh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">xslt_create</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;Sablotron&nbsp;にパブリックなエンティティを処理するよう伝える<br /></span><span style="color: #0000BB">xslt_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">XSLT_SABOPT_PARSE_PUBLIC_ENTITIES</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;空白の除去もしてくれるよう問い合わせてみる<br /></span><span style="color: #0000BB">xslt_setopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">xslt_getopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">)&nbsp;|&nbsp;</span><span style="color: #0000BB">XSLT_SABOPT_DISABLE_STRIPPING</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.xslt-setopt-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.xslt-getopt.html" class="function" rel="rdfs-seeAlso">xslt_getopt()</a> - xsl プロセッサのオプションを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-scheme-handlers.html">xslt_set_scheme_handlers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.html">PHP のコア: Zend Engine ハッカーの手引き</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

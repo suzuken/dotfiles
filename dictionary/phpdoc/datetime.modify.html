@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>タイムスタンプを変更する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.gettimezone.html">DateTime::getTimezone</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.set-state.html">DateTime::__set_state</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.modify" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DateTime::modify</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">DateTime::modify</span> &mdash; <span class="dc-title">タイムスタンプを変更する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-datetime.modify-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <span class="methodname"><b>DateTime::modify</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$modify</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <span class="methodname"><a href="function.date-modify.html" class="methodname">date_modify</a></span>
+    ( <span class="methodparam"><span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <tt class="parameter">$object</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$modify</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span> 形式で加算あるいは減算することによって
+   DateTime オブジェクトのタイムスタンプを変更します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-datetime.modify-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+<span class="term"><i><tt class="parameter">object</tt></i></span>
+<dd>
+<p class="para">手続き型のみ: 
+<span class="function"><a href="function.date-create.html" class="function">date_create()</a></span> が返す <a href="class.datetime.html" class="classname">DateTime</a> オブジェクト。
+この関数は、このオブジェクトを変更します。</p></dd>
+</dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">modify</tt></i></span>
+    <dd>
+
+     <p class="para">日付/時刻 文字列。有効な書式については <a href="datetime.formats.html" class="link">日付と時刻の書式</a> で説明しています。</p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-datetime.modify-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   メソッドチェインに使う <a href="class.datetime.html" class="classname">DateTime</a> オブジェクトを返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-datetime.modify-changelog">
+  <h3 class="title">変更履歴</h3>
+  <table class="doctable informaltable">
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>バージョン</th>
+      <th>説明</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle"><td align="left">5.3.0</td><td align="left">成功した場合の返り値が
+<b><tt>NULL</tt></b> から <a href="class.datetime.html" class="classname">DateTime</a> に変更されました。</td></tr>
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-datetime.modify-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-584">
+   <p><b>例1 <span class="function"><b>DateTime::modify()</b></span> の例</b></p>
+   <div class="example-contents"><p>オブジェクト指向型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2006-12-12'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #DD0000">'+1&nbsp;day'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>手続き型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'2006-12-12'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">date_modify</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'+1&nbsp;day'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">date_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$date</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+2006-12-13
+</pre></div>
+   </div>
+  </div>
+  <div class="example" id="example-585">
+   <p><b>例2 月の加減算には注意</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$date&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2000-12-31'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #DD0000">'+1&nbsp;month'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">modify</span><span style="color: #007700">(</span><span style="color: #DD0000">'+1&nbsp;month'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y-m-d'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+2001-01-31
+2001-03-03
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-datetime.modify-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.strtotime.html" class="function" rel="rdfs-seeAlso">strtotime()</a> - 英文形式の日付を Unix タイムスタンプに変換する</span></li>
+   <li class="member"><span class="function"><a href="datetime.add.html" class="function" rel="rdfs-seeAlso">DateTime::add()</a> - 年月日時分秒の値を DateTime オブジェクトに加える</span></li>
+   <li class="member"><span class="function"><a href="datetime.sub.html" class="function" rel="rdfs-seeAlso">DateTime::sub()</a> - 年月日時分秒の値を DateTime オブジェクトから引く</span></li>
+   <li class="member"><span class="function"><a href="datetime.setdate.html" class="function" rel="rdfs-seeAlso">DateTime::setDate()</a> - 日付を設定する</span></li>
+   <li class="member"><span class="function"><a href="datetime.setisodate.html" class="function" rel="rdfs-seeAlso">DateTime::setISODate()</a> - ISO 日付を設定する</span></li>
+   <li class="member"><span class="function"><a href="datetime.settime.html" class="function" rel="rdfs-seeAlso">DateTime::setTime()</a> - 時刻を設定する</span></li>
+   <li class="member"><span class="function"><a href="datetime.settimestamp.html" class="function" rel="rdfs-seeAlso">DateTime::setTimestamp()</a> - Unix タイムスタンプを用いて日付と時刻を設定する</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.gettimezone.html">DateTime::getTimezone</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.set-state.html">DateTime::__set_state</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

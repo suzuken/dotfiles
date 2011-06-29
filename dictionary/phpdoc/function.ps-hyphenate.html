@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>単語をハイフネーションする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-get-value.html">ps_get_value</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-include-file.html">ps_include_file</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ps-hyphenate" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ps_hyphenate</h1>
+  <p class="verinfo">(PECL ps &gt;= 1.1.1)</p><p class="refpurpose"><span class="refname">ps_hyphenate</span> &mdash; <span class="dc-title">単語をハイフネーションする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ps-hyphenate-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>ps_hyphenate</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$psdoc</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$text</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+    渡された単語をハイフネーションします。<span class="function"><b>ps_hyphenate()</b></span>
+    は、(<span class="function"><a href="function.ps-set-value.html" class="function">ps_set_value()</a></span> で設定した)
+    hyphenminchars の値と (<span class="function"><a href="function.ps-set-parameter.html" class="function">ps_set_parameter()</a></span> で設定した)
+    hyphendict パラメータの内容を評価します。
+    hyphendict は、この関数を呼ぶ前に必ず設定しておかなければなりません。
+  </p>
+  <p class="para">
+    この関数を利用するためには、LC_CTYPE が適切に設定されている必要があります。
+    PostScript 拡張が初期化される際、環境変数の値が利用されます。
+    Unix 環境を利用している方は、詳細な情報は locale の man ページを見てください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ps-hyphenate-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">psdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ps-new.html" class="function">ps_new()</a></span> が返す、postscript
+       ファイルのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">text</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">text</tt></i> にはアルファベット以外の文字を
+       含むべきではありません。ハイフンで分割できる位置が、
+       整数値の配列として返されます。配列の個々の要素の内容は、
+       <i><tt class="parameter">text</tt></i> 内でハイフンを入れられる場所の
+       次の文字の位置を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ps-hyphenate-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   テキスト内で改行を入れられる位置を表す整数値の配列、
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ps-hyphenate-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3009">
+    <p><b>例1 テキストのハイフネーション</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$word&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Koordinatensystem"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$psdoc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ps_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">ps_set_parameter</span><span style="color: #007700">(</span><span style="color: #0000BB">$psdoc</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hyphendict"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hyph_de.dic"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$hyphens&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ps_hyphenate</span><span style="color: #007700">(</span><span style="color: #0000BB">$psdoc</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$word</span><span style="color: #007700">);<br />for(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">&lt;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$word</span><span style="color: #007700">);&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$word</span><span style="color: #007700">[</span><span style="color: #0000BB">$i</span><span style="color: #007700">];<br />&nbsp;&nbsp;if(</span><span style="color: #0000BB">in_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$i</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$hyphens</span><span style="color: #007700">))<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"-"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">ps_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$psdoc</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Ko-ordi-na-ten-sys-tem
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ps-hyphenate-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    
+    <li class="member"><span class="function"><a href="function.ps-show-boxed.html" class="function" rel="rdfs-seeAlso">ps_show_boxed()</a> - テキストをボックス内に出力する</span></li>
+    <li class="member">locale(1)</li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-get-value.html">ps_get_value</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-include-file.html">ps_include_file</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

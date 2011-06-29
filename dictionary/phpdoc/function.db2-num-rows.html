@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL 文によって変更された行の数を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-num-fields.html">db2_num_fields</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-pclose.html">db2_pclose</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-num-rows" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_num_rows</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_num_rows</span> &mdash; <span class="dc-title">
+   SQL 文によって変更された行の数を返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-num-rows-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>db2_num_rows</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stmt</tt></span>
+   )</div>
+
+
+
+  <p class="para rdfs-comment">
+   SQL 文によって削除、挿入あるいは更新された行の数を返します。
+  </p>
+  <p class="para">
+   SELECT 文が返す行の数を取得するには、調べたい SELECT
+   文と同じ述部を持つ SELECT COUNT(*) を発行し、その値を取得します。
+  </p>
+  <p class="para">
+   SELECT 文が返す行の数を調べて 0 の場合には別の処理を行うようなロジックを
+   アプリケーションで使用している場合、その代わりに
+   <span class="function"><a href="function.db2-fetch-assoc.html" class="function">db2_fetch_assoc()</a></span>、<span class="function"><a href="function.db2-fetch-both.html" class="function">db2_fetch_both()</a></span>、
+   <span class="function"><a href="function.db2-fetch-array.html" class="function">db2_fetch_array()</a></span> あるいは <span class="function"><a href="function.db2-fetch-row.html" class="function">db2_fetch_row()</a></span>
+   を使用して最初の行を取得し、
+   結果が <b><tt>FALSE</tt></b> の場合には別の処理を行うという方法を検討してください。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    スクロール可能なカーソルを使用して SELECT 文を発行した場合は、
+    <span class="function"><b>db2_num_rows()</b></span> は SELECT 文の結果の行数を返します。
+    しかし、スクロール可能なカーソルを使用すると、
+    アプリケーションのパフォーマンスが急激に低下します。
+    そのため、SELECT 文の結果の行数を知りたいというだけの理由で
+    スクロール可能なカーソルを使用するのは避けましょう。
+    前進のみのカーソルを使用し、SELECT COUNT(*) をコールするか
+    フェッチ関数の返す <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span> 値を調べるほうが、
+    同じ機能をずっと高速に実現できます。
+   </p>
+  </p></blockquote>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-num-rows-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       結果セットを含む有効な <i>stmt</i> リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-num-rows-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したステートメントハンドルによって発行された、
+   直近の SQL 文によって変更された行の数を返します。
+  </p>
+ </div>
+
+
+ 
+
+
+ 
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-num-fields.html">db2_num_fields</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-pclose.html">db2_pclose</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

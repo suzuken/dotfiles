@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Apacheサブプロセスの環境変数を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apache-response-headers.html">apache_response_headers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getallheaders.html">getallheaders</a></div>
+ <div class="up"><a href="ref.apache.html">Apache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apache-setenv" class="refentry">
+   <div class="refnamediv">
+    <h1 class="refname">apache_setenv</h1>
+    <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">apache_setenv</span> &mdash; <span class="dc-title">Apacheサブプロセスの環境変数を設定する</span></p>
+
+   </div>
+
+ <div class="refsect1 description" id="refsect1-function.apache-setenv-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>apache_setenv</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$variable</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$walk_to_top</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>apache_setenv()</b></span> は <i><tt class="parameter">variable</tt></i>
+   で指定された Apache 環境変数の値を設定します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Apache 環境変数を設定しても、対応する
+    <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var>
+    の値は変更されません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.apache-setenv-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">variable</tt></i></span>
+     <dd>
+
+      <p class="para">
+       設定する環境変数
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">variable</tt></i> の新しい値
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">walk_to_top</tt></i></span>
+     <dd>
+
+      <p class="para">
+       全ての Apache レイヤに対して有効なトップレベルの変数を設定するかどうか
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apache-setenv-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apache-setenv-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3894">
+   <p><b>例1 <span class="function"><b>apache_setenv()</b></span> を使った
+   Apache 環境変数の設定</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />apache_setenv</span><span style="color: #007700">(</span><span style="color: #DD0000">"EXAMPLE_VAR"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Example&nbsp;Value"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.apache-setenv-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>apache_setenv()</b></span> は、分割されたページや PHP
+    スクリプトによって取り込まれた Server Side Includes (.shtml)
+    に渡すための変数を設定する場合、
+    <span class="function"><a href="function.apache-getenv.html" class="function">apache_getenv()</a></span> と対にして使用することができます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apache-setenv-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.apache-getenv.html" class="function" rel="rdfs-seeAlso">apache_getenv()</a> - Apache の subprocess_env 変数を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apache-response-headers.html">apache_response_headers</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getallheaders.html">getallheaders</a></div>
+ <div class="up"><a href="ref.apache.html">Apache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

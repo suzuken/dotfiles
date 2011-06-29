@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>DOMDocument に変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xsltprocessor.setprofiling.html">XSLTProcessor::setProfiling</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xsltprocessor.transformtouri.html">XSLTProcessor::transformToUri</a></div>
+ <div class="up"><a href="class.xsltprocessor.html">XSLTProcessor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="xsltprocessor.transformtodoc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">XSLTProcessor::transformToDoc</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">XSLTProcessor::transformToDoc</span> &mdash; <span class="dc-title">DOMDocument に変換する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-xsltprocessor.transformtodoc-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">DOMDocument</span>
+     <span class="methodname"><b>XSLTProcessor::transformToDoc</b></span>
+     ( <span class="methodparam"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span> <tt class="parameter">$doc</tt></span>
+    )</div>
+
+  </div>
+  <p class="para">
+   <span class="function"><a href="xsltprocessor.importstylesheet.html" class="function">XSLTProcessor::importStylesheet()</a></span>
+   メソッドで与えられたスタイルシートを適用し、
+   ソースノードを <a href="class.domdocument.html" class="classname">DOMDocument</a> に変換します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-xsltprocessor.transformtodoc-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">doc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変換されるノードを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-xsltprocessor.transformtodoc-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果の <a href="class.domdocument.html" class="classname">DOMDocument</a> 。
+   エラーが発生した場合は <b><tt>FALSE</tt></b> 。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-xsltprocessor.transformtodoc-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4592">
+    <p><b>例1 DOMDocument への変換</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;XML&nbsp;ソースをロードする<br /></span><span style="color: #0000BB">$xml&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$xml</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'collection.xml'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$xsl&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$xsl</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'collection.xsl'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;変換の設定を行う<br /></span><span style="color: #0000BB">$proc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">XSLTProcessor</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$proc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">importStyleSheet</span><span style="color: #007700">(</span><span style="color: #0000BB">$xsl</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;XSL&nbsp;ルールを適用する<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">trim</span><span style="color: #007700">(</span><span style="color: #0000BB">$proc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">transformToDoc</span><span style="color: #007700">(</span><span style="color: #0000BB">$xml</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">firstChild</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">wholeText</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Hey! Welcome to Nicolas Eliaszewicz&#039;s sweet CD collection!
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-xsltprocessor.transformtodoc-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="xsltprocessor.transformtouri.html" class="function" rel="rdfs-seeAlso">XSLTProcessor::transformToUri()</a> - URI に変換する</span></li>
+    <li class="member"><span class="function"><a href="xsltprocessor.transformtoxml.html" class="function" rel="rdfs-seeAlso">XSLTProcessor::transformToXml()</a> - XML に変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xsltprocessor.setprofiling.html">XSLTProcessor::setProfiling</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xsltprocessor.transformtouri.html">XSLTProcessor::transformToUri</a></div>
+ <div class="up"><a href="class.xsltprocessor.html">XSLTProcessor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

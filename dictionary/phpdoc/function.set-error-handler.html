@@ -1,0 +1,354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ユーザ定義のエラーハンドラ関数を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.restore-exception-handler.html">restore_exception_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.set-exception-handler.html">set_exception_handler</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.set-error-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">set_error_handler</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PHP 5)</p><p class="refpurpose"><span class="refname">set_error_handler</span> &mdash; <span class="dc-title">ユーザ定義のエラーハンドラ関数を設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.set-error-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>set_error_handler</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$error_handler</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$error_types</tt><span class="initializer"> = E_ALL | E_STRICT</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   スクリプトのエラー処理を行うユーザ関数
+   (<i><tt class="parameter">error_handler</tt></i>)を設定します。
+  </p>
+  <p class="para">
+   この関数は、実行時のエラー処理をユーザが定義するために使用します。
+   例えば、致命的なエラーの際にデータやファイルを消去する必要があるような
+   アプリケーションや、ある条件のもとに
+   (<span class="function"><a href="function.trigger-error.html" class="function">trigger_error()</a></span>を使用して)エラーを発生する必要がある
+   アプリケーションがこの場合にあたります。
+  </p>
+  <p class="para">
+   コールバック関数が <b><tt>FALSE</tt></b> を返さない限り、<i><tt class="parameter">error_types</tt></i>
+   で指定した型のエラーでは PHP 標準のエラーハンドラが完全にバイパスされることに注意してください。
+   <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> の設定にかかわらず、どのような場合でも
+   ユーザが設定したエラーハンドラがコールされます。ただし、この場合でも
+   ハンドラで <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> のカレントの値を読み、
+   それにあわせて適切に動作させることは可能です。エラーを発生した命令の前に
+   <a href="language.operators.errorcontrol.html" class="link">@ エラー制御演算子
+   </a> が付加されている場合、この値は 0 となることには注意しましょう。
+  </p>
+  <p class="para">
+   ユーザハンドラ関数は、必要に応じて <span class="function"><a href="function.die.html" class="function">die()</a></span> を
+   コールする責任があることにも注意しましょう。エラーハンドラ関数が
+   リターンした場合、スクリプトの実行は、エラーを発生した命令の次の命令に
+   継続されます。
+  </p>
+  <p class="para">
+   以下のエラータイプは、ユーザ定義の関数では扱えません。
+   <b><tt>E_ERROR</tt></b>, <b><tt>E_PARSE</tt></b>,
+   <b><tt>E_CORE_ERROR</tt></b>, <b><tt>E_CORE_WARNING</tt></b>,
+   <b><tt>E_COMPILE_ERROR</tt></b>,
+   <b><tt>E_COMPILE_WARNING</tt></b> および
+   <span class="function"><b>set_error_handler()</b></span> がコールされたファイルで発生した
+   大半の <b><tt>E_STRICT</tt></b> 。
+  </p>
+  <p class="para">
+   (ファイルアップロードのように)スクリプトが実行される前にエラーが
+   発生した場合、カスタムエラーハンドラはコールされません。
+   これは、その時点では登録されていないためです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.set-error-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ関数は、エラーコードとエラーを記述する文字列の 2 つの引数を
+       受け取る必要があります。さらにオプションのパラメータとして 3 つの引数が
+       追加されています。これらは、エラーが発生したファイル名、エラーが
+       発生した行、発生したエラーのコンテキスト(エラーが発生した場所での
+       アクティブなシンボルテーブルを指す配列)です。関数は以下のようになります。
+      </p>
+      <p class="para">
+       <div class="methodsynopsis dc-description">
+         <span class="methodname"><span class="replaceable">handler</span></span>
+         ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$errno</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$errstr</tt></span>
+        [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$errfile</tt></span>
+        [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$errline</tt></span>
+        [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$errcontext</tt></span>
+       ]]] )</div>
+
+       <dl>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">errno</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           最初のパラメータ <i><tt class="parameter">errno</tt></i> は、発生させる
+           エラーのレベルを整数で格納します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">errstr</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           2 番目のパラメータ <i><tt class="parameter">errstr</tt></i> は、
+           エラーメッセージを文字列で格納します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">errfile</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           3 番目のパラメータ <i><tt class="parameter">errfile</tt></i> はオプションで、
+           エラーが発生したファイルの名前を文字列で格納します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">errline</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           4 番目のパラメータ <i><tt class="parameter">errline</tt></i> はオプションで、
+           エラーが発生した行番号を整数で格納します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">errcontext</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           5 番目のパラメータ <i><tt class="parameter">errcontext</tt></i> はオプションで、
+           エラーが発生した場所のアクティブシンボルテーブルを指す配列です。
+           つまり、エラーが発生したスコープ内でのすべての変数の内容を格納した
+           配列が <i><tt class="parameter">errcontext</tt></i> だということです。
+           ユーザエラーハンドラは、決してエラーコンテキストを書き換えては
+           いけません。
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+      <p class="para">
+       この関数が <b><tt>FALSE</tt></b> を返した場合は、通常のエラーハンドラが処理を引き継ぎます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_types</tt></i></span>
+     <dd>
+
+      <p class="para">
+       設定パラメータ
+       <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a>
+       で表示するエラーを制御するのと全く同様に、
+       <i><tt class="parameter">error_handler</tt></i> の起動を制御する際に
+       使用可能です。
+       このマスクを指定しない場合、
+       <i><tt class="parameter">error_handler</tt></i> は
+       <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> の設定によらず
+       全てのエラーに関してコールされます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.set-error-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   前に定義されたエラーハンドラ(ある場合)を含む文字列を返します。
+   組み込みのエラーハンドラを使用している場合は <b><tt>NULL</tt></b> を返します。
+   また、無効なコールバックなどでエラーとなった場合も <b><tt>NULL</tt></b> を返します。
+   前に定義されたハンドラがクラスメソッドの場合、この関数は、
+   クラスとメソッド名からなる添字配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.set-error-handler-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left">
+        <var class="varname"><var class="varname"><a href="reserved.variables.phperrormsg.html" class="classname">$php_errormsg</a></var></var>
+        の内容を設定するため、エラーハンドラは必ず <b><tt>FALSE</tt></b>
+        を返さなければなりません。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <i><tt class="parameter">error_types</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">error_handler</tt></i> として、関数名のかわりに
+        オブジェクトへのリファレンスとメソッド名を含む配列を指定することも
+        できます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.2</td>
+       <td align="left">
+        ユーザ定義関数 <i><tt class="parameter">error_handler</tt></i> で 3 つの
+        オプションパラメータが利用できるようになりました。filename, line number, 
+        および context です。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.set-error-handler-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-409">
+    <p><b>例1 
+     <span class="function"><b>set_error_handler()</b></span> および
+     <span class="function"><a href="function.trigger-error.html" class="function">trigger_error()</a></span> によるエラー処理
+    </b></p>
+    <div class="example-contents"><p>
+     以下の例では、エラーを発生させることによる内部例外の処理や
+     それらをユーザ定義関数で処理する方法を説明します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;エラーハンドラ関数<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">myErrorHandler</span><span style="color: #007700">(</span><span style="color: #0000BB">$errno</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$errstr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$errfile</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$errline</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!(</span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">()&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">$errno</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;error_reporting&nbsp;設定に含まれていないエラーコードです<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">return;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;switch&nbsp;(</span><span style="color: #0000BB">$errno</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;b&gt;My&nbsp;ERROR&lt;/b&gt;&nbsp;[</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">]&nbsp;</span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;&nbsp;Fatal&nbsp;error&nbsp;on&nbsp;line&nbsp;</span><span style="color: #0000BB">$errline</span><span style="color: #DD0000">&nbsp;in&nbsp;file&nbsp;</span><span style="color: #0000BB">$errfile</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">",&nbsp;PHP&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_VERSION&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;("&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">PHP_OS&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">")&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Aborting...&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">E_USER_WARNING</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;b&gt;My&nbsp;WARNING&lt;/b&gt;&nbsp;[</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">]&nbsp;</span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">E_USER_NOTICE</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;b&gt;My&nbsp;NOTICE&lt;/b&gt;&nbsp;[</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">]&nbsp;</span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;default:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Unknown&nbsp;error&nbsp;type:&nbsp;[</span><span style="color: #0000BB">$errno</span><span style="color: #DD0000">]&nbsp;</span><span style="color: #0000BB">$errstr</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;PHP&nbsp;の内部エラーハンドラを実行しません&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;エラー処理のテスト用関数<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$vect</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$scale</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">is_numeric</span><span style="color: #007700">(</span><span style="color: #0000BB">$scale</span><span style="color: #007700">)&nbsp;||&nbsp;</span><span style="color: #0000BB">$scale&nbsp;</span><span style="color: #007700">&lt;=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"log(x)&nbsp;for&nbsp;x&nbsp;&lt;=&nbsp;0&nbsp;is&nbsp;undefined,&nbsp;you&nbsp;used:&nbsp;scale&nbsp;=&nbsp;</span><span style="color: #0000BB">$scale</span><span style="color: #DD0000">"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$vect</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"Incorrect&nbsp;input&nbsp;vector,&nbsp;array&nbsp;of&nbsp;values&nbsp;expected"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_USER_WARNING</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$temp&nbsp;</span><span style="color: #007700">=&nbsp;array();<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach(</span><span style="color: #0000BB">$vect&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$pos&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">is_numeric</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #DD0000">"Value&nbsp;at&nbsp;position&nbsp;</span><span style="color: #0000BB">$pos</span><span style="color: #DD0000">&nbsp;is&nbsp;not&nbsp;a&nbsp;number,&nbsp;using&nbsp;0&nbsp;(zero)"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_USER_NOTICE</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$temp</span><span style="color: #007700">[</span><span style="color: #0000BB">$pos</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">log</span><span style="color: #007700">(</span><span style="color: #0000BB">$scale</span><span style="color: #007700">)&nbsp;*&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$temp</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;定義したエラーハンドラを設定する<br /></span><span style="color: #0000BB">$old_error_handler&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">set_error_handler</span><span style="color: #007700">(</span><span style="color: #DD0000">"myErrorHandler"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;エラーを発生します。まず、数値でない項目が混ざった配列を定義します。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"vector&nbsp;a\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5.5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">43.3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">21.11</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;二番目の配列を生成します。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"----\nvector&nbsp;b&nbsp;-&nbsp;a&nbsp;notice&nbsp;(b&nbsp;=&nbsp;log(PI)&nbsp;*&nbsp;a)\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/*&nbsp;Value&nbsp;at&nbsp;position&nbsp;$pos&nbsp;is&nbsp;not&nbsp;a&nbsp;number,&nbsp;using&nbsp;0&nbsp;(zero)&nbsp;*/<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">M_PI</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;配列の代わりに文字列を渡しており、問題を発生します。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"----\nvector&nbsp;c&nbsp;-&nbsp;a&nbsp;warning\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/*&nbsp;Incorrect&nbsp;input&nbsp;vector,&nbsp;array&nbsp;of&nbsp;values&nbsp;expected&nbsp;*/<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"not&nbsp;array"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2.3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;NULL<br /><br />//&nbsp;ゼロまたは負数の対数が定義されないという致命的なエラーを発生します。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"----\nvector&nbsp;d&nbsp;-&nbsp;fatal&nbsp;error\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/*&nbsp;log(x)&nbsp;for&nbsp;x&nbsp;&lt;=&nbsp;0&nbsp;is&nbsp;undefined,&nbsp;you&nbsp;used:&nbsp;scale&nbsp;=&nbsp;$scale"&nbsp;*/<br /></span><span style="color: #0000BB">$d&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">scale_by_log</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">2.5</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$d</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;ここには到達しません<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+vector a
+Array
+(
+    [0] =&gt; 2
+    [1] =&gt; 3
+    [2] =&gt; foo
+    [3] =&gt; 5.5
+    [4] =&gt; 43.3
+    [5] =&gt; 21.11
+)
+----
+vector b - a notice (b = log(PI) * a)
+&lt;b&gt;My NOTICE&lt;/b&gt; [1024] Value at position 2 is not a number, using 0 (zero)&lt;br /&gt;
+Array
+(
+    [0] =&gt; 2.2894597716988
+    [1] =&gt; 3.4341896575482
+    [2] =&gt; 0
+    [3] =&gt; 6.2960143721717
+    [4] =&gt; 49.566804057279
+    [5] =&gt; 24.165247890281
+)
+----
+vector c - a warning
+&lt;b&gt;My WARNING&lt;/b&gt; [512] Incorrect input vector, array of values expected&lt;br /&gt;
+NULL
+----
+vector d - fatal error
+&lt;b&gt;My ERROR&lt;/b&gt; [256] log(x) for x &lt;= 0 is undefined, you used: scale = -2.5&lt;br /&gt;
+  Fatal error on line 35 in file trigger_error.php, PHP 5.2.1 (FreeBSD)&lt;br /&gt;
+Aborting...&lt;br /&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.set-error-handler-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="class.errorexception.html" class="classname">ErrorException</a></li>
+    <li class="member"><span class="function"><a href="function.error-reporting.html" class="function" rel="rdfs-seeAlso">error_reporting()</a> - 出力する PHP エラーの種類を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.restore-error-handler.html" class="function" rel="rdfs-seeAlso">restore_error_handler()</a> - 以前のエラーハンドラ関数を回復する</span></li>
+    <li class="member"><span class="function"><a href="function.trigger-error.html" class="function" rel="rdfs-seeAlso">trigger_error()</a> - ユーザレベルのエラー/警告/通知メッセージを生成する</span></li>
+    <li class="member"><a href="errorfunc.constants.html" class="link">エラーレベル定数</a></li>
+    <li class="member"><a href="language.pseudo-types.html#language.types.callback" class="link">callback</a> 型に関する情報</li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.restore-exception-handler.html">restore_exception_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.set-exception-handler.html">set_exception_handler</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

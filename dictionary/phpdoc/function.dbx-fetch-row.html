@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>DBX_RESULT_UNBUFFERED フラグを指定した
+  クエリ結果から、行を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-escape-string.html">dbx_escape_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-query.html">dbx_query</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dbx-fetch-row" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dbx_fetch_row</h1>
+  <p class="verinfo">(PHP 5 &lt;= 5.0.5, PECL dbx &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">dbx_fetch_row</span> &mdash; <span class="dc-title"><b><tt>DBX_RESULT_UNBUFFERED</tt></b> フラグを指定した
+  クエリ結果から、行を取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dbx-fetch-row-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>dbx_fetch_row</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$result_identifier</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>dbx_fetch_row()</b></span> は、
+   <b><tt>DBX_RESULT_UNBUFFERED</tt></b>
+   フラグを指定したクエリ結果から、行を取得します。
+  </p>
+  <p class="para">
+   クエリで <b><tt>DBX_RESULT_UNBUFFERED</tt></b> が指定されていない場合、
+   <span class="function"><b>dbx_fetch_row()</b></span> は失敗します。なぜなら、すでにすべての
+   行は取得されて <span class="property">data</span> プロパティに格納されているからです。
+  </p>
+  <p class="para">
+   副作用として、<span class="function"><b>dbx_fetch_row()</b></span> のコールのたびに
+   クエリ結果オブジェクトの <span class="property">rows</span> プロパティの
+   値が加算されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dbx-fetch-row-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_identifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.dbx-query.html" class="function">dbx_query()</a></span> が返す結果セット。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dbx-fetch-row-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にオブジェクトを返します。このオブジェクトには、
+   <span class="function"><a href="function.dbx-query.html" class="function">dbx_query()</a></span> の結果における <span class="property">data</span>
+   プロパティの内容と同じ情報が含まれ、<span class="function"><a href="function.dbx-query.html" class="function">dbx_query()</a></span>
+   で設定した内容に応じてインデックスあるいはフィールド名でアクセスが可能です。
+  </p>
+  <p class="para">
+   失敗した場合 (例: 行がもうない場合)
+   には <i>0</i> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dbx-fetch-row-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-892">
+    <p><b>例1 返り値を処理する方法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id,&nbsp;parentid,&nbsp;description&nbsp;FROM&nbsp;table'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DBX_RESULT_UNBUFFERED</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"&lt;table&gt;\n"</span><span style="color: #007700">;<br />while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;tr&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$field</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;td&gt;</span><span style="color: #0000BB">$field</span><span style="color: #DD0000">&lt;/td&gt;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;/tr&gt;\n"</span><span style="color: #007700">;<br />}<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;/table&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dbx-fetch-row-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dbx-query.html" class="function" rel="rdfs-seeAlso">dbx_query()</a> - クエリを送信し、(ある場合には)結果を全て取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-escape-string.html">dbx_escape_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-query.html">dbx_query</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

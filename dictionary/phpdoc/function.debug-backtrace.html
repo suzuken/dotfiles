@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バックトレースを生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.debug-print-backtrace.html">debug_print_backtrace</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.debug-backtrace" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">debug_backtrace</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">debug_backtrace</span> &mdash; <span class="dc-title">バックトレースを生成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.debug-backtrace-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>debug_backtrace</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = DEBUG_BACKTRACE_PROVIDE_OBJECT</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>debug_backtrace()</b></span> は PHP バックトレースを生成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.debug-backtrace-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PHP 5.3.6 以降、このパラメータは次のオプションのビットマスクとなります。
+       <table class="doctable table">
+        <caption><b><span class="function"><b>debug_backtrace()</b></span> のオプション</b></caption>
+        
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">DEBUG_BACKTRACE_PROVIDE_OBJECT</td>
+           <td align="left">
+            &quot;object&quot; インデックスを埋めるかどうか。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">DEBUG_BACKTRACE_IGNORE_ARGS</td>
+           <td align="left">
+            &quot;args&quot; インデックスを無視してすべてのメソッド引数をメモリに格納するかどうか。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+       5.3.6 より前のバージョンでは <b><tt>TRUE</tt></b> あるいは <b><tt>FALSE</tt></b> しか指定できませんでした。これは
+       <b><tt>DEBUG_BACKTRACE_PROVIDE_OBJECT</tt></b> オプションを指定するかしないかを意味します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.debug-backtrace-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   連想配列を返します。連想配列の要素として返される可能性があるものは以下のとおりです。
+  </p>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>
+     <span class="function"><b>debug_backtrace()</b></span> から返される可能性がある要素
+    </b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>名前</th>
+       <th>型</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">function</td>
+       <td align="left"><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+       <td align="left">
+        カレントの関数名。
+        <a href="language.constants.predefined.html" class="link">__FUNCTION__</a>
+        も参照してください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">line</td>
+       <td align="left"><span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span></td>
+       <td align="left">
+        カレントの行番号。
+        <a href="language.constants.predefined.html" class="link">__LINE__</a>
+        も参照してください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">file</td>
+       <td align="left"><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+       <td align="left">
+        カレントのファイル名。
+        <a href="language.constants.predefined.html" class="link">__FILE__</a>
+        も参照してください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">class</td>
+       <td align="left"><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+       <td align="left">
+        カレントの<a href="language.oop5.html" class="link">クラス</a>名。
+        <a href="language.constants.predefined.html" class="link">__CLASS__</a>
+        も参照してください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">object</td>
+       <td align="left"><span class="type"><a href="language.types.object.html" class="type object">object</a></span></td>
+       <td align="left">
+        カレントの<a href="language.oop5.html" class="link">オブジェクト</a>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">type</td>
+       <td align="left"><span class="type"><a href="language.types.string.html" class="type string">string</a></span></td>
+       <td align="left">
+        カレントのコール方式。メソッド呼び出しの場合は &quot;-&gt;&quot;、
+        静的なメソッド呼び出しの場合は &quot;::&quot; が返されます。
+        関数呼び出しの場合は何も返されません。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">args</td>
+       <td align="left"><span class="type"><a href="language.types.array.html" class="type array">array</a></span></td>
+       <td align="left">
+        関数の内部の場合、関数の引数のリストとなります。
+        インクルードされたファイル内では、
+        読み込まれたファイルの名前となります。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.debug-backtrace-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.6</td>
+       <td align="left">
+        <i><tt class="parameter">provide_object</tt></i> パラメータが <i><tt class="parameter">options</tt></i>
+        パラメータに変わり、オプション
+        <b><tt>DEBUG_BACKTRACE_IGNORE_ARGS</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.5</td>
+       <td align="left">
+        オプションのパラメータ <i><tt class="parameter">provide_object</tt></i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.1.1</td>
+       <td align="left">
+        現在の<span class="type"><span class="type オブジェクト">オブジェクト</span></span>を返せるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.debug-backtrace-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-402">
+    <p><b>例1 <span class="function"><b>debug_backtrace()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ファイル名:&nbsp;/tmp/a.php<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">a_test</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"\nHi:&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">debug_backtrace</span><span style="color: #007700">());<br />}<br /><br /></span><span style="color: #0000BB">a_test</span><span style="color: #007700">(</span><span style="color: #DD0000">'friend'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;<br /></span><br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ファイル名:&nbsp;/tmp/b.php<br /></span><span style="color: #007700">include_once&nbsp;</span><span style="color: #DD0000">'/tmp/a.php'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+    <var class="filename">/tmp/b.php</var>
+    を実行した際の結果は以下のようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Hi: friend
+array(2) {
+[0]=&gt;
+array(4) {
+    [&quot;file&quot;] =&gt; string(10) &quot;/tmp/a.php&quot;
+    [&quot;line&quot;] =&gt; int(10)
+    [&quot;function&quot;] =&gt; string(6) &quot;a_test&quot;
+    [&quot;args&quot;]=&gt;
+    array(1) {
+      [0] =&gt; &amp;string(6) &quot;friend&quot;
+    }
+}
+[1]=&gt;
+array(4) {
+    [&quot;file&quot;] =&gt; string(10) &quot;/tmp/b.php&quot;
+    [&quot;line&quot;] =&gt; int(2)
+    [&quot;args&quot;] =&gt;
+    array(1) {
+      [0] =&gt; string(10) &quot;/tmp/a.php&quot;
+    }
+    [&quot;function&quot;] =&gt; string(12) &quot;include_once&quot;
+  }
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.debug-backtrace-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.trigger-error.html" class="function" rel="rdfs-seeAlso">trigger_error()</a> - ユーザレベルのエラー/警告/通知メッセージを生成する</span></li>
+    <li class="member"><span class="function"><a href="function.debug-print-backtrace.html" class="function" rel="rdfs-seeAlso">debug_print_backtrace()</a> - バックトレースを表示する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.debug-print-backtrace.html">debug_print_backtrace</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

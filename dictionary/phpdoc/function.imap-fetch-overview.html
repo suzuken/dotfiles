@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したメッセージのヘッダ情報の概要を読む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-expunge.html">imap_expunge</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-fetchbody.html">imap_fetchbody</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imap-fetch-overview" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imap_fetch_overview</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imap_fetch_overview</span> &mdash; <span class="dc-title">指定したメッセージのヘッダ情報の概要を読む</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imap-fetch-overview-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>imap_fetch_overview</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$imap_stream</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$sequence</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、指定された <i><tt class="parameter">sequence</tt></i>
+   のメールヘッダを取得してその内容の概要を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imap-fetch-overview-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+imap_stream</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imap-open.html" class="function">imap_open()</a></span>
+が返す IMAP ストリーム。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">sequence</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージのシーケンスを指定します。
+       <i>X,Y</i> 形式で列挙したり、
+       <i>X:Y</i> 形式でその範囲内のすべてのメッセージを取得したりできます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">sequence</tt></i>
+       には、メッセージのインデックスか、もし <i><tt class="parameter">flags</tt></i> に
+       FT_UID が含まれている場合は UID が含まれます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imap-fetch-overview-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   オブジェクトの配列を返します。各要素が、
+   それぞれひとつのメッセージのヘッダを表します。
+   オブジェクトで定義されるのは、存在するプロパティのみです。
+   以下のプロパティがあります。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      <i>subject</i> - メッセージの題名(subject)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>from</i> - 送信者
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>to</i> - 受信者
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>date</i> - 送信日
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>message_id</i> - Message-ID 
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>references</i> - このメッセージ ID への参照です
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>in_reply_to</i> - このメッセージ ID への返信です
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>size</i> - サイズ（バイト数）
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>uid</i> - メールボックスにおけるこのメッセージの UID
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>msgno</i> - メールボックスにおけるこのメッセージのシーケンス番号
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>recent</i> - このメッセージには recent フラグが立てられています
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>flagged</i> -  フラグが立てられています
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>answered</i> -  返信済みフラグが立てられています
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>deleted</i> -  削除フラグが立てられています
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>seen</i> -  既読フラグが立てられています
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>draft</i> -  草稿フラグが立てられています
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imap-fetch-overview-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2817">
+    <p><b>例1 <span class="function"><b>imap_fetch_overview()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$mbox&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imap_open</span><span style="color: #007700">(</span><span style="color: #DD0000">"{imap.example.org:143}INBOX"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できません:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">imap_last_error</span><span style="color: #007700">());<br /><br /></span><span style="color: #0000BB">$MC&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imap_check</span><span style="color: #007700">(</span><span style="color: #0000BB">$mbox</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;INBOX&nbsp;のすべてのメッセージの概要を取得します<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imap_fetch_overview</span><span style="color: #007700">(</span><span style="color: #0000BB">$mbox</span><span style="color: #007700">,</span><span style="color: #DD0000">"1:</span><span style="color: #007700">{</span><span style="color: #0000BB">$MC</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">Nmsgs</span><span style="color: #007700">}</span><span style="color: #DD0000">"</span><span style="color: #007700">,</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$overview</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"#</span><span style="color: #007700">{</span><span style="color: #0000BB">$overview</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">msgno</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;(</span><span style="color: #007700">{</span><span style="color: #0000BB">$overview</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">date</span><span style="color: #007700">}</span><span style="color: #DD0000">)&nbsp;-&nbsp;From:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$overview</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">from</span><span style="color: #007700">}</span><span style="color: #DD0000"><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$overview</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">subject</span><span style="color: #007700">}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">imap_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$mbox</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imap-fetch-overview-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imap-fetchheader.html" class="function" rel="rdfs-seeAlso">imap_fetchheader()</a> - メッセージのヘッダを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imap-expunge.html">imap_expunge</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imap-fetchbody.html">imap_fetchbody</a></div>
+ <div class="up"><a href="ref.imap.html">IMAP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

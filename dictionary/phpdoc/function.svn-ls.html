@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したリポジトリ URL のディレクトリ内の一覧を返す (オプションでリビジョン番号も指定可能)</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-log.html">svn_log</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-mkdir.html">svn_mkdir</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.svn-ls" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">svn_ls</h1>
+  <p class="verinfo">(PECL svn &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">svn_ls</span> &mdash; <span class="dc-title">指定したリポジトリ URL のディレクトリ内の一覧を返す (オプションでリビジョン番号も指定可能)</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.svn-ls-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>svn_ls</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$repos_url</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$revision_no</tt><span class="initializer"> = SVN_REVISION_HEAD</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$recurse</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$peg</tt><span class="initializer"> = false</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、指定したリポジトリ URL のファイルやディレクトリの一覧を返します。
+   オプションで、特定のリビジョンを指定することもできます。
+   これは、<strong class="userinput"><code>svn list $repos_url[@$revision_no]</code></strong>
+   と同等です。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、作業コピーに対して使用することはできません。
+    <i><tt class="parameter">repos_url</tt></i> には
+    <em class="emphasis">必ず</em> リポジトリの URL を指定しなければなりません。
+   </p>
+  </p></blockquote>
+  
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.svn-ls-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">url</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リポジトリの URL。たとえば <strong class="userinput"><code>http://www.example.com/svnroot</code></strong>
+       のようになります。ローカルの Subversion リポジトリに対してファイルシステム経由でアクセスしたい場合は、
+       file URI スキームを使用して <strong class="userinput"><code>file:///home/user/svn-repos</code></strong>
+       のようにします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">revision</tt></i></span>
+     <dd>
+
+      <p class="para">
+       一覧を取得したいリビジョン番号。省略した場合は
+       HEAD リビジョンを使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">recurse</tt></i></span>
+     <dd>
+
+      <p class="para">
+       再帰処理を有効にします。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.svn-ls-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合は、この関数は次のような構造の配列を返します。
+   <div class="example-contents screen">
+<div class="returnvaluescode"><pre class="returnvaluescode">[0] =&gt; Array
+    (
+        [created_rev] =&gt; 最後に変更されたリビジョン番号
+        [last_author] =&gt; 最後に変更した人の名前
+        [size] =&gt; ファイルのバイト数
+        [time] =&gt; 最終更新日時を、その古さによって &#039;M d H:i&#039;
+                  あるいは &#039;M d Y&#039; のいずれかの形式で表したもの
+        [time_t] =&gt; 最終更新日時の unix タイムスタンプ
+        [name] =&gt; ファイル/ディレクトリの名前
+        [type] =&gt; &#039;file&#039; あるいは &#039;dir&#039; のいずれか
+    )
+[1] =&gt; ...</pre>
+</div>
+    </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.svn-ls-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.svn-ls-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3819">
+    <p><b>例1 <span class="function"><b>svn_ls()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />print_r</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">svn_ls</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/svnroot/'</span><span style="color: #007700">)&nbsp;);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; Array
+        (
+            [created_rev] =&gt; 20
+            [last_author] =&gt; Joe
+            [size] =&gt; 0
+            [time] =&gt; Apr 02 09:28
+            [time_t] =&gt; 1175520529
+            [name] =&gt; tags
+            [type] =&gt; dir
+        )
+    [1] =&gt; Array
+        (
+            [created_rev] =&gt; 23
+            [last_author] =&gt; Bob
+            [size] =&gt; 0
+            [time] =&gt; Apr 02 15:15
+            [time_t] =&gt; 1175541322
+            [name] =&gt; trunk
+            [type] =&gt; dir
+        )
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.svn-ls-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">
+     <a href="http://svnbook.red-bean.com/en/1.2/svn.ref.svn.c.list.html" class="link external">&raquo; SVN ドキュメントの svn list</a>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-log.html">svn_log</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-mkdir.html">svn_mkdir</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Apache モジュールとしてインストール</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.cgi-bin.shell.html">ケース 4: Webツリーの外にPHPパーサを置く</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.filesystem.html">ファイルシステムのセキュリティ</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="security.apache" class="chapter">
+   <h1>Apache モジュールとしてインストール</h1>
+
+   <p class="simpara">
+    <acronym title="PHP: Hypertext Preprocessor">PHP</acronym> が Apache モジュールとして使用された場合、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym> は、Apache ユー
+    ザーの許可属性(通常はユーザー &quot;nobody&quot; の許可属性)を継承します。
+    これは、セキュリティと認証に数々の影響を与えます。例えば、データベー
+    スと接続するために<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>を使用している場合、データベースが組込みのア
+    クセス制御機能を有していない限り、そのデータベースを &quot;nobody&quot;ユー
+    ザからアクセス可能とする必要が生じます。これは、悪意のあるスクリプ
+    トが、ユーザ名とパスワードなしにデータベースにアクセスし、修正する
+    ことができることを意味します。Webスパイダがデータベース管理用Webペー
+    ジを回って、データベースを全て削除することも可能です。Apache認証に
+    よりこの攻撃に対して防衛することが可能であり、また、LDAPや
+    .htaccessファイル等を使用して固有のアクセスモデルを設計し、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>スク
+    リプトの一部としてそのコードを読み込むことも可能です。
+   </p>
+   <p class="simpara">
+    しばしば、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>ユーザ(この場合はApacheユーザ)が非常に小さなリスクを
+    有する場所に一度セキュリティが確立されると、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>はユーザディレクト
+    リにウイルスファイルを書き込んだりすることができなくなります。もし
+    くは、データベースにアクセスしたり変更したりといったことが出来なく
+    なります。この場合、良いファイルおよび悪いファイルの書き込み、また
+    は、良いデータベーストランザクションと悪いデータベーストランザクシ
+    ョンに関して等しく安全性が確保されていると言えます。
+   </p>
+   <p class="simpara">
+    この観点からしばしば行われるセキュリティ上の失敗としてApacheにルー
+    ト権限を与えたり、他の何らかの手段でApacheの権限を昇格させるという
+    ものがあります。
+   </p>
+   <p class="simpara">
+    Apacheユーザの権限をルートに昇格させることは非常に危険であり、シ
+    ステム全体を危険にさらす可能性があります。よって、sudoやchrootの実
+    行、ルート権限で実行を行う他の手段は、セキュリティに精通した人以外
+    は、考慮するべきではありません。
+   </p>
+   <p class="simpara">
+    いくつかのより簡単な解決策があります。<a href="ini.core.html#ini.open-basedir" class="link">open_basedir</a> を使用することによ
+    り、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>に使用を許可するディレクトリを制御したり制限したりすること
+    が可能です。また、全てのWebベースの作業をユーザファイル、システム
+    ファイル以外のファイルに制限するために、Apache専用エリアを設定する
+    ことも可能です。
+   </p>
+  </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.cgi-bin.shell.html">ケース 4: Webツリーの外にPHPパーサを置く</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.filesystem.html">ファイルシステムのセキュリティ</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

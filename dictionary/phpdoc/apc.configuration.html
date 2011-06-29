@@ -1,0 +1,1045 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="apc.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="apc.resources.html">リソース型</a></div>
+ <div class="up"><a href="apc.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="apc.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  たいていの場合はデフォルトの APC 設定でうまく動作しますが、
+  きちんとチューニングをしたい場合は以下のパラメータを設定します。
+ </p>
+ <p class="para">
+  あなたが決めなければいけないことは、以下の 2 つです。
+  まず APC にどれくらいの共有メモリを設定するかということ、そして、
+  ファイルの更新チェックをリクエストのたびに APC が行うかどうかということです。
+  これらに関連する ini ディレクティブが <i>apc.shm_size</i>
+  および <i>apc.stat</i> です。これらのディレクティブについて、
+  以下の説明を注意深くお読みください。
+ </p>
+ <p class="para">
+  サーバを起動したら、この拡張モジュールに含まれているスクリプト
+  <i>apc.php</i> をドキュメントルート以下に配置し、
+  ブラウザでアクセスしてください。
+  キャッシュの状態についての詳細な情報がここで得られます。
+  PHP で GD が使用可能になっている場合は、きれいなグラフも表示されます。
+  まず最初にチェックすべきなのは、当然、
+  実際にファイルがキャッシュされているかどうかでしょう。
+  実際に動作していることを確認したら、次は左側にある
+  <i>Cache full count</i> の値に注目しましょう。
+  これは、キャッシュがいっぱいになったために強制削除が行われた
+  (直近の <i>apc.ttl</i> 秒間にアクセスされなかったエントリが、
+  キャッシュから削除された) 回数を表します。
+  この値ができるだけ小さくなるようにキャッシュを設定しなければなりません。
+  キャッシュが絶えずいっぱいになっているようだと、
+  パフォーマンスに影響を及ぼします。
+  この場合は、APC に割り当てるメモリの量を増やすか、
+  キャッシュするスクリプトを絞り込むために
+  <i>apc.filters</i> を使用します。
+ </p>
+ <p class="para">
+  APC を mmap (メモリマッピング) サポート付きでコンパイルすると、
+  ひとつのメモリセグメントだけを使うようになります。一方、APC を SHM (SysV 共有メモリ)
+  サポートでビルドした場合は複数のメモリセグメントを使います。
+  MMAP には、SHM における
+  <i>/proc/sys/kernel/shmmax</i>
+  のような最大値の制限はありません。
+  一般的には MMAP サポートを推奨します。
+  ウェブサーバを再起動するよりも高速にメモリを再利用するし、
+  起動時のメモリ割り当て量も軽減できるからです。
+ </p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>APC の設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更の可否</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.enabled" class="link">apc.enabled</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 2 で PHP_INI_SYSTEM。APC &lt;= 3.0.12 で PHP_INI_ALL。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.shm-segments" class="link">apc.shm_segments</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.shm-size" class="link">apc.shm_size</a></td>
+      <td align="left">&quot;32M&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.optimization" class="link">apc.optimization</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.num-files-hint" class="link">apc.num_files_hint</a></td>
+      <td align="left">&quot;1000&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.user-entries-hint" class="link">apc.user_entries_hint</a></td>
+      <td align="left">&quot;4096&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.0 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.ttl" class="link">apc.ttl</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.0 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.user-ttl" class="link">apc.user_ttl</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.0 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.gc-ttl" class="link">apc.gc_ttl</a></td>
+      <td align="left">&quot;3600&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.cache-by-default" class="link">apc.cache_by_default</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">APC &lt;= 3.0.12 で PHP_INI_SYSTEM。APC 3.0.0 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.filters" class="link">apc.filters</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.mmap-file-mask" class="link">apc.mmap_file_mask</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.slam-defense" class="link">apc.slam_defense</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.0 以降で利用可能。APC 3.1.4 より前のバージョンでは、デフォルト値が <i>&quot;0&quot;</i> (無効) でした。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.file-update-protection" class="link">apc.file_update_protection</a></td>
+      <td align="left">&quot;2&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.6 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.enable-cli" class="link">apc.enable_cli</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.7 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.max-file-size" class="link">apc.max_file_size</a></td>
+      <td align="left">&quot;1M&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.7 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.use-request-time" class="link">apc.use_request_time</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">APC 3.1.3 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.stat" class="link">apc.stat</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.10 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.write-lock" class="link">apc.write_lock</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.11 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.report-autofilter" class="link">apc.report_autofilter</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.11 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.include-once-override" class="link">apc.include_once_override</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.12 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.rfc1867" class="link">apc.rfc1867</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.13 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.rfc1867-prefix" class="link">apc.rfc1867_prefix</a></td>
+      <td align="left">&quot;upload_&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.rfc1867-name" class="link">apc.rfc1867_name</a></td>
+      <td align="left">&quot;APC_UPLOAD_PROGRESS&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.rfc1867-freq" class="link">apc.rfc1867_freq</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.rfc1867-ttl" class="link">apc.rfc1867_ttl</a></td>
+      <td align="left">&quot;3600&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.1 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.localcache" class="link">apc.localcache</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.14 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.localcache.size" class="link">apc.localcache.size</a></td>
+      <td align="left">&quot;512&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.14 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.coredump-unmap" class="link">apc.coredump_unmap</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.16 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.stat-ctime" class="link">apc.stat_ctime</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.0.13 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.preload-path" class="link">apc.preload_path</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.1 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.file-md5" class="link">apc.file_md5</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.1 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="apc.configuration.html#ini.apc.canonicalize" class="link">apc.canonicalize</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.1 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">apc.lazy_functions</td>
+      <td align="left">0</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.3 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">apc.lazy_classes</td>
+      <td align="left">0</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">APC 3.1.3 以降で利用可能。</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  PHP_INI_* モードの詳細および定義については
+<a href="configuration.changes.modes.html" class="xref">どこで設定を行うのか</a> を参照してください。
+ </p>
+ 
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+ 
+ <p class="para">
+  <dl>
+
+   <dt id="ini.apc.enabled">
+    <span class="term">
+     <i><tt class="parameter">apc.enabled</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <i>apc.enabled</i> を 0 にすることで APC を無効にできます。
+      APC が静的にコンパイルされて PHP に組み込まれており、
+      他に無効にする手段がない場合などに有用です (DSO としてコンパイルされている場合は、
+      単に <i>php.ini</i> の中の <i>extension</i>
+      という行をコメントアウトするだけで無効にできます)。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.shm-segments">
+    <span class="term">
+     <i><tt class="parameter">apc.shm_segments</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      コンパイラキャッシュのために割り当てる共有メモリセグメントの数。
+      APC が割り当て済みの共有メモリを使い切ってしまっているが、
+      すでにシステムが許す限り <i>apc.shm_size</i>
+      を拡大しているといった場合に、この値を大きくすることを試みます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.shm-size">
+    <span class="term">
+     <i><tt class="parameter">apc.shm_size</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      個々の共有メモリセグメントの大きさを MB 単位で指定します。デフォルトで、
+      共有メモリセグメントの大きさが非常に小さく設定されているシステムもあります
+      (大半の BSD 系システムがこれに含まれます)。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.optimization">
+    <span class="term">
+     <i><tt class="parameter">apc.optimization</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      最適化レベル。ゼロは最適化を無効にし、
+      値を大きくするほど最適化のレベルが高くなります。
+      わずかながら速度の向上が期待できます。この項目は実験的なものです。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.num-files-hint">
+    <span class="term">
+     <i><tt class="parameter">apc.num_files_hint</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      Web サーバで読み込まれるソースファイルの総数についての
+      「ヒント」。よくわからない場合はゼロを指定するか、
+      単に無視してください。
+      何千ものソースファイルを扱っているようなサイトで有用です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.user-entries-hint">
+    <span class="term">
+     <i><tt class="parameter">apc.user_entries_hint</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <a href="apc.configuration.html#ini.apc.num-files-hint" class="link">apc.num_files_hint</a> と同様に、
+      保存するユーザキャッシュ変数の数についての「ヒント」。
+      よくわからない場合は、ゼロを設定するか無視してください。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.ttl">
+    <span class="term">
+     <i><tt class="parameter">apc.ttl</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      キャッシュされているエントリが、
+      他のエントリに割り当てられるまでスロットに残っていることの可能な秒数。
+      ゼロのままにしておくと、キャッシュの中身が古いエントリでいっぱいになってしまい、
+      新しいエントリがキャッシュできなくなります。
+      キャッシュが使用可能メモリを超えてしまった場合、
+      ttl が 0 ならキャッシュを完全に破棄します。
+      ttl が 0 より大きい場合は、APC は期限切れのエントリの削除を試みます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.user-ttl">
+    <span class="term">
+     <i><tt class="parameter">apc.user_ttl</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      ユーザキャッシュエントリが、
+      他のエントリに割り当てられるまでスロットに残っていることの可能な秒数。
+      ゼロのままにしておくと、キャッシュの中身が古いエントリでいっぱいになってしまい、
+      新しいエントリがキャッシュできなくなります。
+      キャッシュが使用可能メモリを超えてしまった場合、
+      ttl が 0 ならキャッシュを完全に破棄します。
+      ttl が 0 より大きい場合は、APC は期限切れのエントリの削除を試みます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.gc-ttl">
+    <span class="term">
+     <i><tt class="parameter">apc.gc_ttl</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      キャッシュエントリがガベージコレクションのリストに残り続ける秒数。
+      ソースファイルのキャッシュ中にサーバプロセスが死んだ場合の安全装置となります。
+      ソースファイルが変更された場合、メモリに割り当てられている古いバージョンは、
+      この TTL に達するまで再読み込みされません。
+      この機能を無効にするにはゼロを設定します。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.cache-by-default">
+    <span class="term">
+     <i><tt class="parameter">apc.cache_by_default</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      デフォルトで On です。しかし、これを Off にして
+      <i>+</i> で始まる <i>apc.filters</i>
+      とともに使用することで、
+      フィルタに一致したファイルのみをキャッシュすることが可能です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.filters">
+    <span class="term">
+     <i><tt class="parameter">apc.filters</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      カンマで区切られた、POSIX 拡張正規表現のリスト。
+      ソースファイル名がいずれかのパターンにマッチした場合、そのファイルはキャッシュされません。
+      マッチングに使用されるファイル名は include/require に渡される名前であり、
+      絶対パスではないことに注意しましょう。正規表現が <i>+</i>
+      で始まっている場合、その条件にマッチするファイルはキャッシュされます。
+      また <i>-</i> で始まっている場合は、
+      条件にマッチするファイルはキャッシュされません。
+      デフォルトは <i>-</i> なので、これは省略可能です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.mmap-file-mask">
+    <span class="term">
+     <i><tt class="parameter">apc.mmap_file_mask</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <i>--enable-mmap</i> を用いて MMAP
+      サポートつきでコンパイルされている場合、ここで
+      mktemp 形式のファイルマスクを指定します。mmap モジュールは、
+      mmap されたメモリ領域をファイルに置くか共有メモリに置くかを、
+      これによって判断します。
+      ファイルベースの mmap を使用するには、この値を
+      <i>/tmp/apc.XXXXXX</i>
+      （正確に 6 つの <i>X</i>）のように指定します。
+      POSIX 形式の shm_open/mmap を使用するには、<i>.shm</i>
+      をマスクのどこかで指定します。例: <i>/apc.shm.XXXXXX</i> 。
+      また、<i>/dev/zero</i> を指定することで、カーネルの
+      <i>/dev/zero</i> インターフェースを使用した anonymous mmap
+      を使用することもできます。未定義の場合は、この方式が用いられます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.slam-defense">
+    <span class="term">
+     <i><tt class="parameter">apc.slam_defense</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      非常にアクセスの多いサーバでは、
+      サーバを起動したりファイルを書き換えたりするたびに
+      「多くのプロセスが」「同時に」「同じファイルを」
+      キャッシュしようとすることになります。このオプションを指定すると、
+      ある一定のパーセンテージでファイルをキャッシュせずに利用するようにします。
+      あるいは、単一のプロセスがキャッシュ処理をスキップする確率と考えることもできます。
+      たとえば、<i>apc.slam_defense</i> を <i>75</i>
+      に設定すると、プロセスがキャッシュされていないファイルをキャッシュする処理を 
+      75% の確率で抑えられます。つまり、この値を大きく設定することで、
+      キャッシュ処理の混雑を防ぐことが可能です。値を <i>0</i>
+      に設定すると、この機能が無効になります。
+     </p>
+     <p class="para">
+      非推奨です。かわりに <a href="apc.configuration.html#ini.apc.write-lock" class="link">apc.write_lock</a>
+      を使用しましょう。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.file-update-protection">
+    <span class="term">
+     <i><tt class="parameter">apc.file_update_protection</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      稼動中の Web サーバ上のファイルを書き換える場合、
+      アトミックな手段で行うべきです。つまり、まずいったん一時ファイルに書き込み、
+      準備ができた時点でそれをリネーム（<i>mv</i>）
+      して正しい位置に移動します。多くのテキストエディタや <strong class="command">cp</strong>、<strong class="command">tar</strong>
+      その他のプログラムはこの方式ではありません。
+      ということは、ファイルの書き込み中にそのファイルがアクセスされる
+      （そしてキャッシュされる）可能性があるわけです。
+      <i>apc.file_update_protection</i> は、
+      新しいファイルをキャッシュするまでの遅延を設定します。デフォルトは
+      2 秒で、ファイルの更新時刻（<i>mtime</i>）がアクセス時刻と
+      2 秒未満しか違わない場合はファイルをキャッシュしないという意味です。
+      更新の最中のファイルにアクセスしてしまった不幸な人には
+      変なデータが見えてしまいますが、
+      少なくともその変な状態がキャッシュされてしまうことはありません。
+      <strong class="command">rsync</strong> などのアトミックな更新を保証する方式を利用することがわかっている場合は、
+      値を 0 に設定することでこの機能を無効にできます。
+      更新処理に 2 秒以上かかるようなシステムを利用している場合は、
+      この値をもう少し大きくしたくなるかもしれません。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.enable-cli">
+    <span class="term">
+     <i><tt class="parameter">apc.enable_cli</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      たいていは、テストやデバッグ用に使用します。これを設定すると
+      CLI バージョンの PHP で APC を有効にします。通常は、すべての
+      CLI リクエストに対して APC キャッシュを作成/格納/削除したいとは思わないでしょう。
+      しかし、CLI バージョンの APC を簡単に作成できるようにしておくことは、
+      多くのテストシナリオで有用です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.max-file-size">
+    <span class="term">
+     <i><tt class="parameter">apc.max_file_size</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      この値よも大きなサイズのファイルは、キャッシュされません。
+      デフォルトは 1M です。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.apc.stat">
+    <span class="term">
+     <i><tt class="parameter">apc.stat</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      この設定を変更する場合は十分注意してください。デフォルト設定は On で、
+      これは、ファイルが変更されていないかどうかを
+      スクリプトの実行のたびに APC が調べ、
+      もし変更されていれば、再コンパイルして新しいバージョンをキャッシュします。
+      この設定を Off にすると、変更されているかどうかがチェックされません。
+      つまり、変更内容を有効にするには Web サーバを再起動する必要があるということです。
+      実運用環境ではコードを変更することはめったにないでしょうから、
+      この設定を Off にしておくことでパフォーマンスを大きく向上させられます。
+     </p>
+     <p class="para">
+      include/require されたファイルについてもこのオプションは適用されますが、
+      もし相対パス (Unix の場合は / で始まらないすべてのパス) の include
+      を使用している場合は、ファイルを一意に識別するために APC
+      がチェックする必要があります。
+      絶対パスの include を使用している場合、
+      APC 絶対パスをファイルの識別子として使用し、
+      チェックを飛ばすことができます。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.apc.write-lock">
+    <span class="term">
+     <i><tt class="parameter">apc.write_lock</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      多くの処理が実行されるサーバでは、最初にサーバを立ち上げたときや
+      多くのファイルを変更した場合などに、
+      すべてのプロセスが同一のファイルをコンパイルしたりキャッシュしたりしてしまうことがあります。
+      write_lock を有効にすると、ひとつのプロセスのみが
+      未キャッシュのスクリプトをコンパイルするようになります。
+      その間、他のプロセスはロック待ちをするのではなく
+      キャッシュされていない状態で実行します。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.apc.report-autofilter">
+    <span class="term">
+     <i><tt class="parameter">apc.report_autofilter</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      バインド時の問題によりキャッシュから自動的に除外されたスクリプトを記録します。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.apc.include-once-override">
+    <span class="term">
+     <i><tt class="parameter">apc.include_once_override</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <span class="function"><a href="function.include-once.html" class="function">include_once()</a></span> および <span class="function"><a href="function.require-once.html" class="function">require_once()</a></span>
+      を最適化し、コストの高いシステムコールの使用を避けるようにします。
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.apc.rfc1867">
+    <span class="term">
+     <i><tt class="parameter">apc.rfc1867</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      RFC1867 のファイルアップロード進捗ハンドラが有効になるのは、
+      PHP 5.2.0 以降で APC をコンパイルした場合のみです。
+      これを有効にすると、ファイルアップロードフォームの file フィールドの前に
+      <i>APC_UPLOAD_PROGRESS</i> というフィールドがある場合に
+      APC が自動的にユーザキャッシュエントリ upload_<em class="emphasis">key</em>
+      を作成します。ここで、<em class="emphasis">key</em> はフォームの
+      <i>APC_UPLOAD_PROGRESS</i> エントリの値となります。
+     </p>
+     <p class="para">
+      <i>APC_UPLOAD_PROGRESS</i> で指定した hidden フィールドが
+      file フィールドよりも前にこなければならないことに注意しましょう。
+      そうしないと、アップロードの進捗処理が正しく動作しません。
+     </p>
+     <p class="para">
+      現時点では、ファイルアップロードの追跡はスレッドセーフではないことに注意しましょう。
+      前のアップロード処理が終わる前に別のアップロードを開始すると、
+      前のアップロードの追跡が無効になってしまいます。
+     </p>
+     <p class="para">
+      <div class="example" id="example-358">
+       <p><b>例1 apc.rfc1867 の例</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">"upload_</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #0000BB">APC_UPLOAD_PROGRESS</span><span style="color: #007700">]</span><span style="color: #DD0000">"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+       <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+       <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [total] =&gt; 1142543
+    [current] =&gt; 1142543
+    [rate] =&gt; 1828068.8
+    [filename] =&gt; test
+    [name] =&gt; file
+    [temp_filename] =&gt; /tmp/php8F
+    [cancel_upload] =&gt; 0
+    [done] =&gt; 1
+)
+</pre></div>
+       </div>
+      </div>
+     </p>
+    </dd>
+
+   </dt>
+
+   
+   <dt id="ini.apc.rfc1867-prefix">
+    <span class="term">
+     <i><tt class="parameter">apc.rfc1867_prefix</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      rfc1867 のアップロード進捗処理機能で作成するユーザキャッシュエントリの
+      キーにつけるプレフィックスを指定します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.rfc1867-name">
+    <span class="term">
+     <i><tt class="parameter">apc.rfc1867_name</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      APC のアップロード進捗処理機能を有効にするフォームの hidden
+      項目名、そしてユーザキャッシュエントリのキーのサフィックスを指定します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.rfc1867-freq">
+    <span class="term">
+     <i><tt class="parameter">apc.rfc1867_freq</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      アップロードの進捗を記録するユーザキャッシュエントリの更新頻度を指定します。
+      ファイルサイズに対するパーセンテージ、あるいはファイルサイズで指定します。
+      サイズを指定する場合は、最後に
+      <i>&quot;k&quot;</i>、<i>&quot;m&quot;</i> あるいは <i>&quot;g&quot;</i>
+      を指定することでそれぞれキロバイト、メガバイト、ギガバイトを指定できます
+      (大文字小文字は区別しません)。
+      0 を指定すると、可能な限り進捗を更新するようにします。
+      これは、アップロードの速度を低下させてしまいます。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.rfc1867-ttl">
+    <span class="term">
+     <i><tt class="parameter">apc.rfc1867_ttl</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      rfc1867 エントリの <acronym>TTL</acronym>。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.localcache">
+    <span class="term">
+     <i><tt class="parameter">apc.localcache</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      これは、ロックが不要なローカルプロセスのシャドウキャッシュを有効にします。
+      これにより、キャッシュが書き込まれる際のロックの競合を軽減します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.localcache.size">
+    <span class="term">
+     <i><tt class="parameter">apc.localcache.size</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      ローカルプロセスのシャドウキャッシュの大きさ。
+      ある程度大きなな値を設定しておく必要があります。目安としては
+      <a href="apc.configuration.html#ini.apc.num-files-hint" class="link">apc.num_files_hint</a>
+      の半分程度となります。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.coredump-unmap">
+    <span class="term">
+     <i><tt class="parameter">apc.coredump_unmap</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      APC で SIGSEGV のようなシグナルを捕捉し、
+      シグナルの発生時にコアファイルを書き出せるようにします。
+      シグナルを受け取ると、
+      APC は共有メモリセグメントの割り当てを解除し、
+      コアファイルにそれが書き出されないようにします。
+      この設定を行うと、
+      APC の共有メモリセグメントを大きめに設定しているときに
+      致命的なシグナルを受け取った場合のシステムの安定性が向上します。
+     </p>
+     <div class="warning"><b class="warning">警告</b>
+      <p class="para">
+       この機能には危険性があります。
+       致命的なシグナルのハンドラで共有メモリセグメントの割り当てを解除しようとすると、
+       発生したエラーによっては未定義の振る舞いを起こす可能性があります。
+      </p>
+     </div>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       カーネルによってはコアダンプファイルの生成時に共有メモリを無視する機能を持つものもありますが、
+       そのような実装は、たとえば Apache のスコアボードのような
+       重要な共有メモリセグメントも無視してしまう可能性があります。
+      </p>
+     </p></blockquote>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.stat-ctime">
+    <span class="term">
+     <i><tt class="parameter">apc.stat_ctime</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      ctime による検証を行えば、svn や rsync といったプログラムが引き起こす問題を回避することができます。
+      直近の状態から inode が変わっていないことを確実に確かめられるからです。
+      APC は、通常は mtime のみしか確認しません。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.canonicalize">
+    <span class="term">
+     <i><tt class="parameter">apc.canonicalize</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      オンにすると、no-stat モードのときに相対パスを正規化します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.preload-path">
+    <span class="term">
+     <i><tt class="parameter">apc.preload_path</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.use-request-time">
+    <span class="term">
+     <i><tt class="parameter">apc.use_request_time</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <acronym title="Server Application Programming Interface">SAPI</acronym> リクエストの開始時刻を
+      <acronym>TTL</acronym> に使用します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.file-md5">
+    <span class="term">
+     <i><tt class="parameter">apc.file_md5</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      ファイルの md5 ハッシュを記録します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.lazy-functions">
+    <span class="term">
+     <i><tt class="parameter">apc.lazy_functions</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      関数の lazy loading を有効にします。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.apc.lazy-classes">
+    <span class="term">
+     <i><tt class="parameter">apc.lazy_classes</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      クラスの lazy loading を有効にします。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="apc.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="apc.resources.html">リソース型</a></div>
+ <div class="up"><a href="apc.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

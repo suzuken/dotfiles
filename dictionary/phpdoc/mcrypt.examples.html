@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mcrypt.ciphers.html">Mcrypt 暗号</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.mcrypt.html">Mcrypt 関数</a></div>
+ <div class="up"><a href="book.mcrypt.html">Mcrypt</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mcrypt.examples" class="appendix">
+ <h1>例</h1>
+
+ <p class="para">
+  mcrypt は、上に示した暗号を用いて暗号化および復号化を
+  行うことが可能です。<i>libmcrypt-2.2.x</i> とリンクした場合、4つの重要な
+  mcrypt コマンド (<span class="function"><a href="function.mcrypt-cfb.html" class="function">mcrypt_cfb()</a></span>,
+  <span class="function"><a href="function.mcrypt-cbc.html" class="function">mcrypt_cbc()</a></span>,<span class="function"><a href="function.mcrypt-ecb.html" class="function">mcrypt_ecb()</a></span>, 
+  <span class="function"><a href="function.mcrypt-ofb.html" class="function">mcrypt_ofb()</a></span>) は、<b><tt>MCRYPT_ENCRYPT</tt></b> および
+  <b><tt>MCRYPT_DECRYPT</tt></b> という 2つのモードの両方で実行可能です。
+  <div class="example" id="example-850">
+   <p><b>例1 入力値を 2.2.x において <i>ECB</i> モードの <i>TripleDES</i> で暗号化する</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$key&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"this&nbsp;is&nbsp;a&nbsp;secret&nbsp;key"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$input&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Let&nbsp;us&nbsp;meet&nbsp;at&nbsp;9&nbsp;o'clock&nbsp;at&nbsp;the&nbsp;secret&nbsp;place."</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$encrypted_data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_ecb&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">MCRYPT_3DES</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$input</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">MCRYPT_ENCRYPT</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  この例では、<i>$encrypted_data</i> に文字列として
+  暗号化されたデータが返されます。
+ </p>
+ <p class="para">
+  libmcrypt 2.4.x または 2.5.x とリンクした場合、上記の関数も利用可能
+  ですが、新しい関数を使用されることを推奨します。
+  <div class="example" id="example-851">
+   <p><b>例2 2.4.x 以降において <i>ECB</i> モードで <i>TripleDES</i> により入力を暗号化する</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$key&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"this&nbsp;is&nbsp;a&nbsp;secret&nbsp;key"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$input&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Let&nbsp;us&nbsp;meet&nbsp;at&nbsp;9&nbsp;o'clock&nbsp;at&nbsp;the&nbsp;secret&nbsp;place."</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$td&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_module_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'tripledes'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ecb'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$iv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_create_iv&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">mcrypt_enc_get_iv_size</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">MCRYPT_RAND</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$iv</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$encrypted_data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_generic</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$input</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_deinit</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_module_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  この例は、<i>$encrypted_data</i> に文字列として
+  暗号化されたデータを取得します。詳細な例については、
+  <span class="function"><a href="function.mcrypt-module-open.html" class="function">mcrypt_module_open()</a></span> を参照してください。
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mcrypt.ciphers.html">Mcrypt 暗号</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.mcrypt.html">Mcrypt 関数</a></div>
+ <div class="up"><a href="book.mcrypt.html">Mcrypt</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

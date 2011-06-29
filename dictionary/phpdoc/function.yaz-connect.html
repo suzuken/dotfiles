@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Z39.50 サーバへの接続を準備する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-close.html">yaz_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-database.html">yaz_database</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.yaz-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">yaz_connect</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PECL yaz &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">yaz_connect</span> &mdash; <span class="dc-title">
+   Z39.50 サーバへの接続を準備する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.yaz-connect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>yaz_connect</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$zurl</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$options</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、成功した場合に接続リソース、失敗した場合にゼロを返します。
+  </p>
+  <p class="para">
+   <span class="function"><b>yaz_connect()</b></span> は Z39.50 サーバへの接続を準備します。
+   この関数は非ブロックモードで動作し、接続を確立しようとしません
+   - 単にあとで <span class="function"><a href="function.yaz-wait.html" class="function">yaz_wait()</a></span> がコールされた際に
+   接続を実行する準備を行うだけです。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="http://www.indexdata.dk/yazproxy/" class="link external">&raquo; YAZ プロキシ</a>
+    は、フリーで使用可能な Z39.50 のプロキシです。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.yaz-connect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">zurl</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>host[:port][/database]</i> という形式の文字列です。
+       port が省略された場合、210 が使用されます。database が省略された
+       場合、<i>Default</i> が使用されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       文字列が指定された場合、
+       Z39.50 V2 認証文字列(OpenAuth)として処理されます。
+      </p>
+      <p class="para">
+       配列が指定された場合、その配列の内容はオプションとして処理されます。
+       <dl>
+
+        <dt>
+
+         <span class="term">user</span>
+         <dd>
+
+          <p class="para">
+           認証用のユーザ名
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">group</span>
+         <dd>
+
+          <p class="para">
+           認証用のグループ
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">password</span>
+          <dd>
+
+           <p class="para">
+            認証用のパスワード
+           </p>
+          </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">cookie</span>
+         <dd>
+
+          <p class="para">
+           セッションクッキー（YAZ プロキシ）
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">proxy</span>
+         <dd>
+
+          <p class="para">
+           接続用プロキシ（YAZ プロキシ）
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">persistent</span>
+         <dd>
+
+          <p class="para">
+           論理値。<b><tt>TRUE</tt></b> の場合、接続は持続的となります。<b><tt>FALSE</tt></b> の
+           場合、接続は持続的ではありません。デフォルトでは
+           接続は持続的です。
+          </p>
+          <blockquote class="note"><p><b class="note">注意</b>: 
+           <p class="para">
+            持続的な接続をオープンした場合、後でそれを
+            <span class="function"><a href="function.yaz-close.html" class="function">yaz_close()</a></span> によってクローズすることは
+            できません。
+           </p>
+          </p></blockquote>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">piggyback</span>
+         <dd>
+
+          <p class="para">
+           論理値。<b><tt>TRUE</tt></b> の場合、検索時の piggyback が有効になります。
+           <b><tt>FALSE</tt></b> の場合、piggyback が無効になります。デフォルトでは
+           piggyback は有効です。
+          </p>
+          <p class="para">
+           piggyback を有効にするとより効率的となり、
+           通常、レコードを最初に取得する際のネットワーク往復時間を
+           節約することが可能です。しかし、少数の Z39.50 ターゲットは
+           piggyback をサポートしていないか、エレメント集合名を無視します。
+           この場合、piggyback を無効とする必要があります。
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">charset</span>
+         <dd>
+
+          <p class="para">
+           Z39.50 の言語および文字セットネゴシエーションに使用する
+           文字セットを指定する文字列。以下のような文字列を使用します。
+           <i>ISO-8859-1</i>、<i>UTF-8</i>、
+           <i>UTF-16</i> 。
+          </p>
+          <p class="para">
+           ほとんどの Z39.50 サーバはこの機能をサポートしません（そのため、
+           無視されます）。ほとんどのサーバは、クエリやメッセージに
+           ISO-8859-1 エンコーディングを使用します。MARC21/USMARC レコードは
+           この設定の影響を受けません。
+          </p>
+         </dd>
+
+        </dt>
+
+
+        <dt>
+
+         <span class="term">preferredMessageSize</span>
+         <dd>
+
+          <p class="para">
+           ターゲットから取得される全レコードの最大バイト数を指定する整数値。
+           詳細な情報は
+           <a href="http://www.loc.gov/z3950/agency/markup/04.html#3.2.1.1.4" class="link external">&raquo; Z39.50 standard</a>
+           を参照ください。
+          </p>
+          <blockquote class="note"><p><b class="note">注意</b>: 
+           <p class="para">
+            このオプションは PECL YAZ 1.0.5 以降でサポートされます。
+           </p>
+          </p></blockquote>
+         </dd>
+
+        </dt>
+
+
+        <dt>
+
+         <span class="term">maximumRecordSize</span>
+         <dd>
+
+          <p class="para">
+           ターゲットから取得される単一のレコードの最大バイト数を指定する
+           整数値。この項目は、
+          <a href="http://www.loc.gov/z3950/agency/markup/04.html#3.2.1.1.4" class="link external">&raquo; Z39.50 standard</a>
+           の Exceptional-record-size として参照されます。
+          </p>
+          <blockquote class="note"><p><b class="note">注意</b>: 
+           <p class="para">
+            このオプションは PECL YAZ 1.0.5 以降でサポートされます。
+           </p>
+          </p></blockquote>
+         </dd>
+
+        </dt>
+
+
+       </dl>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.yaz-connect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に接続リソース、エラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.yaz-connect-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.1.0</td>
+       <td align="left">
+        <i><tt class="parameter">options</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.yaz-connect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.yaz-close.html" class="function" rel="rdfs-seeAlso">yaz_close()</a> - YAZ 接続をクローズする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-close.html">yaz_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-database.html">yaz_database</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

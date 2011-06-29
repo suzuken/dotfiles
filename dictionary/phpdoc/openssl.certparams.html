@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>キー/証明書パラメータ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="openssl.constsni.html">Server Name Indication 定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="openssl.cert.verification.html">証明書の認証</a></div>
+ <div class="up"><a href="book.openssl.html">OpenSSL</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="openssl.certparams" class="appendix">
+ <h1>キー/証明書パラメータ</h1>
+
+ <p class="para">
+  OpenSSL 関数のうち、キーまたは証明書パラメータを必要とするものはごく一部です。
+  PHP 4.0.5 以前は、<i>openssl_get_xxx()</i>
+  関数により返されたキーまたは証明書リソースを使用する必要がありました。
+  これより後のバージョンでは、次の方法のどれかを使用することが可能となる予定です。
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     証明書
+     <ol type="1">
+      <li class="listitem">
+       <span class="simpara">
+        <span class="function"><a href="function.openssl-x509-read.html" class="function">openssl_x509_read()</a></span> から返された
+        X.509 リソース。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        <var class="filename">file://path/to/cert.pem</var> 形式の文字列。
+        このファイルは、PEM エンコードされた証明書である必要があります。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        PEM エンコードされた証明書の内容を含む文字列。
+       </span>
+      </li>
+     </ol>
+    </p>
+   </li>
+   
+   <li class="listitem">
+    <p class="para">
+     公開鍵/秘密鍵
+     <ol type="1">
+      <li class="listitem">
+       <span class="simpara">
+        <span class="function"><a href="function.openssl-get-publickey.html" class="function">openssl_get_publickey()</a></span> あるいは
+        <span class="function"><a href="function.openssl-get-privatekey.html" class="function">openssl_get_privatekey()</a></span> から返された
+        キーリソース。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">公開鍵のみ: X.509リソース。</span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        <var class="filename">file://path/to/file.pem</var> 形式の文字列。-
+        このファイルは、PEM エンコードされた証明書/秘密鍵である
+        必要があります（両方を含むことも可能です）。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        PEM エンコードされた証明書/キーの内容を含む文字列
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        秘密鍵については <i>array($key,
+        $passphrase)</i> という構文を使用することも可能です。
+        ただし、$key は file:// または上記のテキスト表現形式を使用して指定したキー、
+        <var class="varname"><var class="varname">$passphrase</var></var>
+        はその秘密鍵に関するパスワードを有する文字列を表します。
+       </span>
+      </li>
+     </ol>
+    </p> 
+   </li>
+  </ul>
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="openssl.constsni.html">Server Name Indication 定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="openssl.cert.verification.html">証明書の認証</a></div>
+ <div class="up"><a href="book.openssl.html">OpenSSL</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

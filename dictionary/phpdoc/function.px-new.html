@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>新しい paradox オブジェクトを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-insert-record.html">px_insert_record</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-numfields.html">px_numfields</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.px-new" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">px_new</h1>
+  <p class="verinfo">(PECL paradox &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">px_new</span> &mdash; <span class="dc-title">新しい paradox オブジェクトを作成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.px-new-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>px_new</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   新しい paradox オブジェクトを作成します。この関数は、
+   その他の関数をコールする前にコールする必要があります。
+   <span class="function"><b>px_new()</b></span> は、ディスク上にファイルを作成するのではなく、
+   ただ単に paradox オブジェクトのインスタンスを作成するだけです。
+   オブジェクト指向のインターフェイスを使用している場合は、
+   この関数をコールしてはいけません。代わりに
+   <i>new paradox_db()</i> を使用してください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.px-new-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 examples" id="refsect1-function.px-new-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1686">
+    <p><b>例1 Paradox データベースをオープンする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if(!</span><span style="color: #0000BB">$pxdoc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">px_new</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;エラー処理&nbsp;*/<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"test.db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br />if(!</span><span style="color: #0000BB">px_open_fp</span><span style="color: #007700">(</span><span style="color: #0000BB">$pxdoc</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$fp</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;エラー処理&nbsp;*/<br /></span><span style="color: #007700">}<br /></span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #0000BB">px_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$pxdoc</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">px_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$pxdoc</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   オブジェクト指向の API がお好みなら、上の例は、このようになります。
+   <div class="example" id="example-1687">
+    <p><b>例2 Paradox データベースをオープンする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"test.db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pxdoc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">paradox_db</span><span style="color: #007700">();<br />if(!</span><span style="color: #0000BB">$pxdoc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open_fp</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;エラー処理&nbsp;*/<br /></span><span style="color: #007700">}<br /></span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #0000BB">$pxdoc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.px-new-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.px-delete.html" class="function" rel="rdfs-seeAlso">px_delete()</a> - paradox データベースのリソースを削除する</span></li>
+    <li class="member"><span class="function"><a href="function.px-open-fp.html" class="function" rel="rdfs-seeAlso">px_open_fp()</a> - paradox データベースをオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-insert-record.html">px_insert_record</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-numfields.html">px_numfields</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

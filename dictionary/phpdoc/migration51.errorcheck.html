@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>E_STRICT のチェック</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration51.databases.html">データベースサポートの変更</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration5.html">PHP 4 から PHP 5.0.x への移行</a></div>
+ <div class="up"><a href="migration51.html">PHP 5.0.x から PHP 5.1.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="migration51.errorcheck" class="section">
+  <h2 class="title"><b><tt>E_STRICT</tt></b> のチェック</h2>
+  <div class="informalexample">
+   <p class="para">
+    ひとつのスクリプトについてのみチェックしたいのであれば、
+    PHP コマンドラインの文法チェック機能を使用して
+    <b><tt>E_STRICT</tt></b> エラーを抜き出すことができます。
+   </p>
+   <div class="example-contents"><div class="shellcode"><pre class="shellcode">php -d error_reporting=4095 -l script_to_check.php</pre>
+</div></div>
+
+   <p class="para">
+    大量のファイルをチェックするのなら、以下のシェルスクリプトで同様のことが可能です。
+   </p>
+   <div class="example-contents">
+<div class="shellcode"><pre class="shellcode">#!/bin/sh
+
+directory=$1
+
+shift
+
+# チェックする拡張子を指定します
+extensions=&quot;php inc&quot;
+
+check_file ()
+{
+  echo -ne &quot;Doing PHP syntax check on $1 ...&quot;
+
+  # オプション
+  ERRORS=`/www/php/bin/php -d display_errors=1 -d html_errors=0 -d error_prepend_string=&quot; &quot; -d error_append_string=&quot; &quot; -d error_reporting=4095 -l $1 | grep -v &quot;No syntax errors detected&quot;`
+
+  if test -z &quot;$ERRORS&quot;; then
+    echo -ne &quot;OK.&quot;
+  else
+    echo -e &quot;Errors found!\n$ERRORS&quot;
+  fi
+
+  echo
+}
+
+# loop over remaining file args
+for FILE in &quot;$@&quot; ; do
+  for ext in $extensions; do
+     if echo $FILE | grep &quot;\.$ext$&quot; &gt; /dev/null; then
+       if test -f $FILE; then
+         check_file &quot;$FILE&quot;
+       fi
+     fi
+  done
+done</pre>
+</div>
+   </div>
+
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration51.databases.html">データベースサポートの変更</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration5.html">PHP 4 から PHP 5.0.x への移行</a></div>
+ <div class="up"><a href="migration51.html">PHP 5.0.x から PHP 5.1.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

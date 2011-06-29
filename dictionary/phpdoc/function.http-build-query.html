@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>URL エンコードされたクエリ文字列を生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-meta-tags.html">get_meta_tags</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-url.html">parse_url</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.http-build-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">http_build_query</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">http_build_query</span> &mdash; <span class="dc-title">URL エンコードされたクエリ文字列を生成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.http-build-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>http_build_query</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$query_data</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$numeric_prefix</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$arg_separator</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$enc_type</tt><span class="initializer"> = <b><tt>PHP_QUERY_RFC1738</tt></b></span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   与えられた連想配列 (もしくは添字配列) から URL
+   エンコードされたクエリ文字列を生成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.http-build-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query_data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プロパティを含む配列もしくはオブジェクト。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">query_data</tt></i> が配列の場合の形式は、
+       単純な一次元構造か
+       あるいは配列の配列 (言い換えると、他の配列を含む配列) となります。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">query_data</tt></i> がオブジェクトの場合、
+       public プロパティだけが結果に含められます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">numeric_prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+       もし数値インデックスが基底となる配列に使用されたり
+       <i><tt class="parameter">numeric_prefix</tt></i> が指定された場合、
+       基底となる配列の要素に対する数値インデックスの前にこれが追加されます。
+      </p>
+      <p class="para">
+       これは、後で PHP や他の CGI
+       アプリケーションによってデータがデコードされる際、
+       正当な変数名になるよう考慮したものです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">arg_separator</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="ini.core.html#ini.arg-separator.output" class="link">arg_separator.output</a>
+       が区分のためのセパレータとして使用されます。ただし、
+       このパラメータが指定されていた場合は
+       それが使用されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">enc_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デフォルトは <b><tt>PHP_QUERY_RFC1738</tt></b> です。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">enc_type</tt></i> が
+       <b><tt>PHP_QUERY_RFC1738</tt></b> の場合は
+       <a href="http://www.faqs.org/rfcs/rfc1738" class="link external">&raquo; RFC 1738</a> に従ってエンコードされ、メディアタイプは
+       <i>application/x-www-form-urlencoded</i> となります。
+       つまり、スペースはプラス記号 (<i>+</i>) にエンコードされるということです。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">enc_type</tt></i> が
+       <b><tt>PHP_QUERY_RFC3986</tt></b> の場合は
+       <a href="http://www.faqs.org/rfcs/rfc3986" class="link external">&raquo; RFC 3986</a> に従ってエンコードされ、
+       スペースはパーセント形式 (<i>%20</i>) となります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.http-build-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   URL エンコードされた文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.http-build-query-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.1.2</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">arg_separator</tt></i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.1.3</td>
+       <td align="left">
+        角括弧がエスケープされるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.6</td>
+       <td align="left">
+        <i><tt class="parameter">enc_type</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.http-build-query-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-3403">
+   <p><b>例1 <span class="function"><b>http_build_query()</b></span> の簡単な使用法</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'boom'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'cow'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'milk'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'php'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'hypertext&nbsp;processor'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&amp;amp;'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+foo=bar&amp;baz=boom&amp;cow=milk&amp;php=hypertext+processor
+foo=bar&amp;amp;baz=boom&amp;amp;cow=milk&amp;amp;php=hypertext+processor
+</pre></div>
+   </div>
+  </div>
+
+  <div class="example" id="example-3404">
+   <p><b>例2 数値インデックス要素の場合での
+   <span class="function"><b>http_build_query()</b></span></b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'boom'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cow'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'milk'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'php'&nbsp;</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'hypertext&nbsp;processor'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'myvar_'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+0=foo&amp;1=bar&amp;2=baz&amp;3=boom&amp;cow=milk&amp;php=hypertext+processor
+myvar_0=foo&amp;myvar_1=bar&amp;myvar_2=baz&amp;myvar_3=boom&amp;cow=milk&amp;php=hypertext+processor
+</pre></div>
+   </div>
+  </div>
+  <div class="example" id="example-3405">
+   <p><b>例3 複雑な配列の場合での <span class="function"><b>http_build_query()</b></span></b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'user'</span><span style="color: #007700">=&gt;array(</span><span style="color: #DD0000">'name'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'Bob&nbsp;Smith'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'age'</span><span style="color: #007700">=&gt;</span><span style="color: #0000BB">47</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'sex'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'M'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'dob'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'5/12/1956'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'pastimes'</span><span style="color: #007700">=&gt;array(</span><span style="color: #DD0000">'golf'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'opera'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'poker'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'rap'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'children'</span><span style="color: #007700">=&gt;array(</span><span style="color: #DD0000">'bobby'</span><span style="color: #007700">=&gt;array(</span><span style="color: #DD0000">'age'</span><span style="color: #007700">=&gt;</span><span style="color: #0000BB">12</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'sex'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'M'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'sally'</span><span style="color: #007700">=&gt;array(</span><span style="color: #DD0000">'age'</span><span style="color: #007700">=&gt;</span><span style="color: #0000BB">8</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'sex'</span><span style="color: #007700">=&gt;</span><span style="color: #DD0000">'F'</span><span style="color: #007700">)),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'CEO'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'flags_'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>
+    この例は以下を出力します: (可読性のため適宜折り返しています)
+   </p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+user%5Bname%5D=Bob+Smith&amp;user%5Bage%5D=47&amp;user%5Bsex%5D=M&amp;
+user%5Bdob%5D=5%2F12%2F1956&amp;pastimes%5B0%5D=golf&amp;pastimes%5B1%5D=opera&amp;
+pastimes%5B2%5D=poker&amp;pastimes%5B3%5D=rap&amp;children%5Bbobby%5D%5Bage%5D=12&amp;
+children%5Bbobby%5D%5Bsex%5D=M&amp;children%5Bsally%5D%5Bage%5D=8&amp;
+children%5Bsally%5D%5Bsex%5D=F&amp;flags_0=CEO
+</pre></div>
+   </div>
+   <div class="example-contents"><p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      基底の配列内の数値インデックス要素 &quot;CEO&quot; のみ、
+      接頭辞を受け取ります。pastimes 以下にある他の数値インデックスは、
+      正当な変数名にするための文字列の接頭辞を要求しません。
+     </p>
+    </p></blockquote>
+   </p></div>
+  </div>
+
+  <div class="example" id="example-3406">
+   <p><b>例4 オブジェクトの場合の <span class="function"><b>http_build_query()</b></span> の使用</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">parentClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$pub&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'publicParent'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;</span><span style="color: #0000BB">$prot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'protectedParent'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$priv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'privateParent'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$pub_bar&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Null</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;</span><span style="color: #0000BB">$prot_bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Null</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$priv_bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">Null</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(){<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">pub_bar&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">childClass</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prot_bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">childClass</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">priv_bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">childClass</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">childClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$pub&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'publicChild'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;</span><span style="color: #0000BB">$prot&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'protectedChild'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$priv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'privateChild'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$parent&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">parentClass</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #0000BB">http_build_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$parent</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+pub=publicParent&amp;pub_bar%5Bpub%5D=publicChild
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.http-build-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.parse-str.html" class="function" rel="rdfs-seeAlso">parse_str()</a> - 文字列を処理し、変数に代入する</span></li>
+    <li class="member"><span class="function"><a href="function.parse-url.html" class="function" rel="rdfs-seeAlso">parse_url()</a> - URL を解釈し、その構成要素を返す</span></li>
+    <li class="member"><span class="function"><a href="function.urlencode.html" class="function" rel="rdfs-seeAlso">urlencode()</a> - 文字列を URL エンコードする</span></li>
+    <li class="member"><span class="function"><a href="function.array-walk.html" class="function" rel="rdfs-seeAlso">array_walk()</a> - 配列の全ての要素にユーザ関数を適用する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-meta-tags.html">get_meta_tags</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.parse-url.html">parse_url</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

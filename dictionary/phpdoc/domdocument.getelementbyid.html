@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>id に対応する要素を検索する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.createtextnode.html">DOMDocument::createTextNode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.getelementsbytagname.html">DOMDocument::getElementsByTagName</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="domdocument.getelementbyid" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DOMDocument::getElementById</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">DOMDocument::getElementById</span> &mdash; <span class="dc-title">id に対応する要素を検索する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-domdocument.getelementbyid-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.domelement.html" class="type DOMElement">DOMElement</a></span> <span class="methodname"><b>DOMDocument::getElementById</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$elementId</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、
+   <a href="domdocument.getelementsbytagname.html" class="xref">DOMDocument::getElementsByTagName</a>
+   と同じですが、指定した ID から要素を検索する点が違います。
+  </p>
+  <p class="para">
+   この関数を動作させるには、何らかの ID 属性を
+   <a href="domelement.setidattribute.html" class="xref">DOMElement::setIdAttribute</a>
+   で設定するか、あるいは DTD で ID 型の属性を定義する必要があります。
+   後者の場合は、
+   <a href="domdocument.validate.html" class="xref">DOMDocument::validate</a> あるいは
+   <i>DOMDocument-&gt;validateOnParse</i>
+   を使用してドキュメントを検証する必要があります。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-domdocument.getelementbyid-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">elementId</tt></i></span>
+     <dd>
+
+      <p class="para">
+       要素の ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-domdocument.getelementbyid-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <a href="class.domelement.html" class="classname">DOMElement</a>、
+   あるいは要素が見つからなかった場合は <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-domdocument.getelementbyid-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-4427">
+   <p><b>例1 DOMDocument-&gt;getElementById() の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DomDocument</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;ID&nbsp;を参照する前に、ドキュメントを検証する必要があります<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">validateOnParse&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">Load</span><span style="color: #007700">(</span><span style="color: #DD0000">'book.xml'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"ID&nbsp;が&nbsp;books&nbsp;の要素は&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getElementById</span><span style="color: #007700">(</span><span style="color: #DD0000">'books'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">tagName&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;です。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+ID が books の要素は chapter です。
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-domdocument.getelementbyid-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="domdocument.getelementsbytagname.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::getElementsByTagName()</a> - 指定したタグ名に対応するすべての要素を検索する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.createtextnode.html">DOMDocument::createTextNode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.getelementsbytagname.html">DOMDocument::getElementsByTagName</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

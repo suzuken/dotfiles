@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ID3 タグに含まれるすべての情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.id3-get-genre-name.html">id3_get_genre_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.id3-get-version.html">id3_get_version</a></div>
+ <div class="up"><a href="ref.id3.html">ID3 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.id3-get-tag" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">id3_get_tag</h1>
+  <p class="verinfo">(PECL id3 &gt;= 0.1)</p><p class="refpurpose"><span class="refname">id3_get_tag</span> &mdash; <span class="dc-title">ID3 タグに含まれるすべての情報を取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.id3-get-tag-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>id3_get_tag</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$version</tt><span class="initializer"> = ID3_BEST</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>id3_get_tag()</b></span> は、指定したファイルの ID3 タグに
+   含まれるすべての情報を取得するために使用されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.id3-get-tag-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       MP3 ファイルへのパス。
+      </p>
+      <p class="para">
+       ファイル名のかわりに、ストリームリソースを渡すことも可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">version</tt></i></span>
+     <dd>
+
+      <p class="para">
+       MP3 ファイルがバージョン 1.x およびバージョン 2.x の両方のタグを
+       含んでいる場合に、タグのバージョンを指定します。
+      </p>
+      <p class="para">
+       バージョン 0.2 以降、<span class="function"><b>id3_get_tag()</b></span> は
+       ID3 タグのバージョン 2.2、2.3 および 2.4 にも対応するようになりました。
+       これらのタグに関する情報を取得するには、2 番目の引数に
+       ID3_V2_2、ID3_V2_3 あるいは ID3_V2_4 のいずれかの定数を指定します。
+       ID3 v2.x タグは、ID3 v1.x タグに比べてはるかに多くの情報を
+       MP3 ファイルに含めることが可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.id3-get-tag-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i>title</i> や <i>artist</i>
+   といったキーを含む連想配列を返します。
+  </p>
+  <p class="para">
+   <i>genre</i> には 0 から 147 までの整数値が格納されています。
+   <span class="function"><a href="function.id3-get-genre-name.html" class="function">id3_get_genre_name()</a></span> を使用することで、
+   この数値をジャンル名に変換することが可能です。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.id3-get-tag-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-533">
+    <p><b>例1 <span class="function"><b>id3_get_tag()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$tag&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">id3_get_tag</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"path/to/example.mp3"&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$tag</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [title] =&gt; DN-38416
+    [artist] =&gt; Re:\Legion
+    [album] =&gt; Reflections
+    [year] =&gt; 2004
+    [genre] =&gt; 19
+)
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-534">
+    <p><b>例2 <span class="function"><b>id3_get_tag()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$tag&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">id3_get_tag</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"path/to/example2.mp3"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ID3_V2_3&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$tag</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [copyright] =&gt; Dirty Mac
+    [originalArtist] =&gt; Dirty Mac
+    [composer] =&gt; Marcus Gze
+    [artist] =&gt; Dirty Mac
+    [title] =&gt; Little Big Man
+    [album] =&gt; Demo-Tape
+    [track] =&gt; 5/12
+    [genre] =&gt; (17)Rock
+    [year] =&gt; 2001
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.id3-get-tag-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.id3-set-tag.html" class="function" rel="rdfs-seeAlso">id3_set_tag()</a> - ID3 タグに格納されている情報を更新する</span></li>
+    <li class="member"><span class="function"><a href="function.id3-remove-tag.html" class="function" rel="rdfs-seeAlso">id3_remove_tag()</a> - 既存の ID3 タグを削除する</span></li>
+    <li class="member"><span class="function"><a href="function.id3-get-version.html" class="function" rel="rdfs-seeAlso">id3_get_version()</a> - ID3 タグのバージョンを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.id3-get-genre-name.html">id3_get_genre_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.id3-get-version.html">id3_get_version</a></div>
+ <div class="up"><a href="ref.id3.html">ID3 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

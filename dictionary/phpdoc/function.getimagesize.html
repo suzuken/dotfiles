@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>画像の大きさを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gd-info.html">gd_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.image-type-to-extension.html">image_type_to_extension</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.getimagesize" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">getimagesize</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">getimagesize</span> &mdash; <span class="dc-title">画像の大きさを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.getimagesize-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>getimagesize</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$imageinfo</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>getimagesize()</b></span> 関数は任意の画像ファイルの大きさを決定し、
+   ファイルの型と<i>高さ/幅</i>を表す文字列を返します。これらは
+   <acronym title="Hyper Text Markup Language">HTML</acronym> の <code class="tag">IMG</code>
+   タグや <acronym title="Hypertext Transfer Protocol">HTTP</acronym> の content type として使用できます。
+  </p>
+  <p class="para">
+   <span class="function"><b>getimagesize()</b></span> は、
+   <i><tt class="parameter">imageinfo</tt></i> パラメータで追加情報を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    JPC と JP2 は異なるビット深度のコンポーネントを含むことが可能なことに
+    注意してください。この場合 &quot;bits&quot; に対する値は、
+    最も大きい深度になります。また、JP2 ファイルは <i>複数の JPEG 2000
+    コードストリーム</i>を含む場合があります。この場合、
+    <span class="function"><b>getimagesize()</b></span> はファイルのルートから
+    最初に遭遇するコードストリームに対する値を返します。
+   </span>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    アイコンに関する情報は、ビットレートが最大のアイコンから取得します。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.getimagesize-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+        このパラメータは、情報を取得したいファイルの名前を指定します。
+        ローカルファイルへの参照、あるいは (設定で許可されているなら)
+        ストリームを用いたリモートファイルへの参照を指定できます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">imageinfo</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションのパラメータで、
+       画像ファイルから何らかの拡張情報を引き出すことが可能です。
+       現在、この変数には<acronym>JPG</acronym>ファイルについて
+       異なった複数のAPPマーカーが連想配列として返されます。いくつかのプログラムは、
+       これらのAPPマーカーを画像の中の埋込テキストの情報として使用します。
+       最も一般的な例は、マーカーAPPl3に埋込<acronym>IPTC</acronym>
+       <a href="http://www.iptc.org/" class="link external">&raquo; http://www.iptc.org/</a>情報が返されることです。
+       バイナリ形式のマーカーAPP13を読むことができるよう処理するために
+       <span class="function"><a href="function.iptcparse.html" class="function">iptcparse()</a></span> 関数を使用することができます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.getimagesize-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   7 つの要素からなる配列を返します。
+  </p>
+  <p class="para">
+   0 番目および 1 番目の要素は、それぞれ画像の幅と高さを表します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    形式によっては、画像を含まないものや複数の画像を含むものがあります。
+    これらの場合、<span class="function"><b>getimagesize()</b></span>
+    は画像のサイズを適切に決定することができません。このような場合、
+    <span class="function"><b>getimagesize()</b></span> が返す幅と高さはいずれもゼロとなります。
+   </p>
+  </p></blockquote>
+  <p class="para">
+   2 番目の要素は <i>IMAGETYPE_XXX</i> 定数のひとつで、
+   画像の形式を表します。
+  </p>
+  <p class="para">
+   3 番目の要素は <acronym>IMG</acronym> タグで直接利用できる文字列
+   <i>height=&quot;yyy&quot; width=&quot;xxx&quot;</i>
+   です。
+  </p>
+  <p class="para">
+   <i>mime</i>は画像のMIMEタイプに一致します。この情報は
+   画像とともに正しい HTTP <i>Content-type</i>
+   ヘッダを転送するために使用できます。
+   <div class="example" id="example-2231">
+    <p><b>例1 <span class="function"><b>getimagesize()</b></span> および MIME 型</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$size&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getimagesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"rb"</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$size&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">$fp</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-type:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$size</span><span style="color: #007700">[</span><span style="color: #DD0000">'mime'</span><span style="color: #007700">]}</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fpassthru</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;エラー<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <i>channels</i> は RGB 画像の場合に 3、CMYK 画像の場合に 4 です。
+  </p>
+  <p class="para">
+   <i>bits</i> は個々の色のビット数です。
+  </p>
+  <p class="para">
+   画像の形式によっては、<i>channels</i> や
+   <i>bits</i> の値の存在は混乱の元です。
+   たとえば、<acronym title="Graphic Interchange Format">GIF</acronym> は常に 1 ピクセルあたり
+   3 チャンネルを使用しますが、グローバルカラーテーブルを使ったアニメーション GIF
+   のピクセルあたりのビット数を計算することはできません。
+  </p>
+  <p class="para">
+   失敗した場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.getimagesize-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   もし <i><tt class="parameter">filename</tt></i> のイメージにアクセスできない場合、
+   もしくは有効な画像でない場合、<span class="function"><b>getimagesize()</b></span>
+   は <b><tt>FALSE</tt></b> を返し、<b><tt>E_WARNING</tt></b>
+   レベルのエラーを発生させます。
+   読み込み時にエラーが発生した場合は、
+   <span class="function"><b>getimagesize()</b></span> は
+   <b><tt>E_NOTICE</tt></b> レベルのエラーを発生させます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.getimagesize-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        アイコンに対応しました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.3</td>
+       <td align="left">
+        読み込み時にエラーが発生した場合のエラーレベルが、
+        <b><tt>E_WARNING</tt></b> から
+        <b><tt>E_NOTICE</tt></b> に変わりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.2</td>
+       <td align="left">
+        <acronym title="Japan Picture">JPC</acronym>, <acronym title="JPEG-2000">JP2</acronym>,
+        <acronym>JPX</acronym>, <acronym title="Joint Bilevel Image Experts Group">JB2</acronym>,
+        <acronym title="X Bitmap">XBM</acronym>, <acronym title="Wireless Bitmap">WBMP</acronym> のサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.2</td>
+       <td align="left">
+        <i><tt class="parameter">imageinfo</tt></i>
+        パラメータで JPEG 2000 のサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i>bits</i> と <i>channels</i>
+        が他の画像形式でも使用できるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i>mime</i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <acronym>SWC</acronym> および <acronym title="Interchange File Format">IFF</acronym> のサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        <acronym title="Tagged Image File Format">TIFF</acronym> のサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.6</td>
+       <td align="left">
+        <acronym title="Bitmap">BMP</acronym> および <acronym title="Photoshop Document">PSD</acronym> のサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        URL のサポートが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.getimagesize-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2232">
+    <p><b>例2 <span class="function"><b>getimagesize()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">list(</span><span style="color: #0000BB">$width</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$height</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$type</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$attr</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">getimagesize</span><span style="color: #007700">(</span><span style="color: #DD0000">"img/flag.jpg"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;img&nbsp;src=\"img/flag.jpg\"&nbsp;</span><span style="color: #0000BB">$attr</span><span style="color: #DD0000">&nbsp;alt=\"getimagesize()&nbsp;example\"&nbsp;/&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2233">
+    <p><b>例3 getimagesize (URL)</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$size&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getimagesize</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://www.example.com/gifs/logo.gif"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイル名にスペースが含まれる場合は適切にエンコードしてください<br /></span><span style="color: #0000BB">$size&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getimagesize</span><span style="color: #007700">(</span><span style="color: #DD0000">"http://www.example.com/gifs/lo%20go.gif"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2234">
+    <p><b>例4 IPTC を返す getimagesize()</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$size&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getimagesize</span><span style="color: #007700">(</span><span style="color: #DD0000">"testimg.jpg"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$info</span><span style="color: #007700">);<br />if&nbsp;(isset(</span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">"APP13"</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$iptc&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">iptcparse</span><span style="color: #007700">(</span><span style="color: #0000BB">$info</span><span style="color: #007700">[</span><span style="color: #DD0000">"APP13"</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$iptc</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.getimagesize-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">この関数は、GD 画像ライブラリを必要としません。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.getimagesize-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.image-type-to-mime-type.html" class="function" rel="rdfs-seeAlso">image_type_to_mime_type()</a> - getimagesize, exif_read_data, exif_thumbnail, exif_imagetypeから返される
+   画像形式のMIMEタイプを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.exif-imagetype.html" class="function" rel="rdfs-seeAlso">exif_imagetype()</a> - イメージの型を定義する</span></li>
+    <li class="member"><span class="function"><a href="function.exif-read-data.html" class="function" rel="rdfs-seeAlso">exif_read_data()</a> - JPEG あるいは TIFF から
+   EXIF ヘッダを読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.exif-thumbnail.html" class="function" rel="rdfs-seeAlso">exif_thumbnail()</a> - TIFF あるいは JPEG 形式の画像に埋め込まれたサムネイルを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gd-info.html">gd_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.image-type-to-extension.html">image_type_to_extension</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

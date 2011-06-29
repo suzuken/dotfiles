@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SEND_VAL</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.opcodes.send-ref.html">SEND_REF</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.opcodes.send-var.html">SEND_VAR</a></div>
+ <div class="up"><a href="internals2.opcodes.ops.html">オペコード一覧</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.opcodes.send-val" class="section">
+    <h2 class="title">SEND_VAL</h2>
+    <div class="section" id="internals2.opcodes.send-val.code">
+     <h2 class="title">PHP code</h2>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;Pass&nbsp;the&nbsp;constant&nbsp;value&nbsp;as&nbsp;an&nbsp;actual&nbsp;parameter&nbsp;to&nbsp;a&nbsp;function.&nbsp;&nbsp;DO_FCALL&nbsp;follows.<br />&nbsp;*&nbsp;opcode&nbsp;number:&nbsp;65<br />&nbsp;*/<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">funcA</span><span style="color: #007700">(</span><span style="color: #0000BB">$msg</span><span style="color: #007700">){<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$msg</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">funcA</span><span style="color: #007700">(</span><span style="color: #DD0000">'HELLO'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">defined</span><span style="color: #007700">(</span><span style="color: #DD0000">'IN_PHPBB'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    <div class="section" id="internals2.opcodes.send-val.listing">
+     <h2 class="title">PHP opcodes</h2>
+     <p class="simpara">Function name: (null)</p>
+     <p class="simpara">Compiled variables: none </p>
+     <table class="doctable informaltable">
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>line</th><th>#</th><th>op</th>
+         <th>fetch</th><th>ext</th><th>return</th>
+         <th>operands</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left">6</td><td align="left">0</td>
+         <td align="left">NOP</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left"> </td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">10</td><td align="left">1</td>
+         <td align="left">SEND_VAL</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">&#039;HELLO&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">2</td>
+         <td align="left">DO_FCALL</td><td align="left"> </td>
+         <td align="left">1</td><td align="left"> </td>
+         <td align="left">&#039;funca&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">12</td><td align="left">3</td>
+         <td align="left">SEND_VAL</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">&#039;IN_PHPBB&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">4</td>
+         <td align="left">DO_FCALL</td><td align="left"> </td>
+         <td align="left">1</td><td align="left"> </td>
+         <td align="left">&#039;defined&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">13</td><td align="left">5</td>
+         <td align="left">RETURN</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">1</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+     <p class="simpara">Function name: funcA</p>
+     <p class="simpara">Compiled variables: !0=$msg </p>
+     <table class="doctable informaltable">
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>line</th><th>#</th><th>op</th>
+         <th>fetch</th><th>ext</th><th>return</th>
+         <th>operands</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left">6</td><td align="left">0</td>
+         <td align="left">RECV</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">1</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">7</td><td align="left">1</td>
+         <td align="left">PRINT</td><td align="left"> </td>
+         <td align="left"> </td><td align="left">~0</td>
+         <td align="left">!0</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">2</td>
+         <td align="left">FREE</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">~0</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">8</td><td align="left">3</td>
+         <td align="left">RETURN</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">null</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+    </div>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.opcodes.send-ref.html">SEND_REF</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.opcodes.send-var.html">SEND_VAR</a></div>
+ <div class="up"><a href="internals2.opcodes.ops.html">オペコード一覧</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

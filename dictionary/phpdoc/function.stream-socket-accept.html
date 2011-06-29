@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>stream_socket_server で作られたソケットの接続を受け入れる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-set-write-buffer.html">stream_set_write_buffer</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-socket-client.html">stream_socket_client</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.stream-socket-accept" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">stream_socket_accept</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">stream_socket_accept</span> &mdash; <span class="dc-title"><span class="function"><a href="function.stream-socket-server.html" class="function">stream_socket_server()</a></span> で作られたソケットの接続を受け入れる</span></p>
+ 
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.stream-socket-accept-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>stream_socket_accept</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$server_socket</tt></span>
+   [, <span class="methodparam"><span class="type">float</span> <tt class="parameter">$timeout</tt><span class="initializer"> = ini_get(&quot;default_socket_timeout&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$peername</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   以前に <span class="function"><a href="function.stream-socket-server.html" class="function">stream_socket_server()</a></span>
+   によって作られたソケットの接続を受け入れます。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-function.stream-socket-accept-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">server_socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続元からの接続を受け付けるサーバソケット。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デフォルトのソケット接続待ちタイムアウトを上書きします。
+       時間は秒単位で指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">peername</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続元のクライアントの名前 (アドレス) が含まれていて、
+       選択したトランスポートで有効であった場合に、それを設定します。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        後で
+        <span class="function"><a href="function.stream-socket-get-name.html" class="function">stream_socket_get_name()</a></span>
+        を使用して指定することもできます。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.stream-socket-accept-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   受け付けたソケット接続へのストリームを返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.stream-socket-accept-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    この関数は UDP サーバソケットとともに使用すべきではありません。
+    代わりに <span class="function"><a href="function.stream-socket-recvfrom.html" class="function">stream_socket_recvfrom()</a></span> および
+    <span class="function"><a href="function.stream-socket-sendto.html" class="function">stream_socket_sendto()</a></span> を使用します。
+   </p>
+ </div>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.stream-socket-accept-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.stream-socket-server.html" class="function" rel="rdfs-seeAlso">stream_socket_server()</a> - インターネットドメインまたは Unix ドメインのサーバソケットを作成する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-socket-get-name.html" class="function" rel="rdfs-seeAlso">stream_socket_get_name()</a> - ローカルまたはリモートのソケットの名前を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-set-blocking.html" class="function" rel="rdfs-seeAlso">stream_set_blocking()</a> - ストリームのブロックモードを有効にする / 解除する</span></li>
+    <li class="member"><span class="function"><a href="function.stream-set-timeout.html" class="function" rel="rdfs-seeAlso">stream_set_timeout()</a> - ストリームにタイムアウトを設定する</span></li>
+    <li class="member"><span class="function"><a href="function.fgets.html" class="function" rel="rdfs-seeAlso">fgets()</a> - ファイルポインタから 1 行取得する</span></li>
+    <li class="member"><span class="function"><a href="function.fgetss.html" class="function" rel="rdfs-seeAlso">fgetss()</a> - ファイルポインタから 1 行取り出し、HTML タグを取り除く</span></li>
+    <li class="member"><span class="function"><a href="function.fwrite.html" class="function" rel="rdfs-seeAlso">fwrite()</a> - バイナリセーフなファイル書き込み処理</span></li>
+    <li class="member"><span class="function"><a href="function.fclose.html" class="function" rel="rdfs-seeAlso">fclose()</a> - オープンされたファイルポインタをクローズする</span></li>
+    <li class="member"><span class="function"><a href="function.feof.html" class="function" rel="rdfs-seeAlso">feof()</a> - ファイルポインタがファイル終端に達しているかどうか調べる</span></li>
+    <li class="member"><a href="ref.curl.html" class="xref">cURL 関数</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-set-write-buffer.html">stream_set_write_buffer</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-socket-client.html">stream_socket_client</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

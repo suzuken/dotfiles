@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ブラシを選択する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.printer-open.html">printer_open</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.printer-select-font.html">printer_select_font</a></div>
+ <div class="up"><a href="ref.printer.html">プリンタ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.printer-select-brush" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">printer_select_brush</h1>
+  <p class="verinfo">(PECL printer SVN)</p><p class="refpurpose"><span class="refname">printer_select_brush</span> &mdash; <span class="dc-title">ブラシを選択する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.printer-select-brush-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>printer_select_brush</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$printer_handle</tt></span>
+   , <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$brush_handle</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、実際のデバイスコンテキストのアクティブな描画オブジェクトと
+   してブラシを選択します。矩形を描画する場合、図形の描画には
+   ブラシが使用され、輪郭の描画にはペンが使用されます。
+  </p>
+  <p class="para">
+   図形を描く前にブラシが選択されていない場合、その図形は塗りつぶされません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.printer-select-brush-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">printer_handle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">printer_handle</tt></i>
+       には、プリンタへの有効なハンドルを指定する必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">brush_handle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">brush_handle</tt></i> は、
+       ブラシの有効なハンドルである必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.printer-select-brush-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.printer-select-brush-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4405">
+    <p><b>例1 <span class="function"><b>printer_select_brush()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">printer_open</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">printer_start_doc</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"My&nbsp;Document"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_start_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$pen&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">printer_create_pen</span><span style="color: #007700">(</span><span style="color: #0000BB">PRINTER_PEN_SOLID</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"000000"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_select_pen</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pen</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$brush&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">printer_create_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">PRINTER_BRUSH_CUSTOM</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c:\\brush.bmp"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_select_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$brush</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printer_draw_rectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">500</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">500</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printer_delete_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">$brush</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$brush&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">printer_create_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">PRINTER_BRUSH_SOLID</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"000000"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_select_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$brush</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_draw_rectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">501</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">500</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1001</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_delete_brush</span><span style="color: #007700">(</span><span style="color: #0000BB">$brush</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printer_delete_pen</span><span style="color: #007700">(</span><span style="color: #0000BB">$pen</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printer_end_page</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_end_doc</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">printer_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.printer-open.html">printer_open</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.printer-select-font.html">printer_select_font</a></div>
+ <div class="up"><a href="ref.printer.html">プリンタ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

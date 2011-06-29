@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>phar アーカイブ内のファイルを、phar 内で別の新しいファイルとしてコピーする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.converttoexecutable.html">PharData::convertToExecutable</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.decompress.html">PharData::decompress</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phardata.copy" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PharData::copy</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">PharData::copy</span> &mdash; <span class="dc-title">phar アーカイブ内のファイルを、phar 内で別の新しいファイルとしてコピーする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-phardata.copy-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PharData::copy</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$oldfile</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$newfile</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   phar アーカイブ内のファイルを、そのアーカイブ内で別の新しいファイルとしてコピーします。
+   これは、phar ストリームラッパーでの <span class="function"><a href="function.copy.html" class="function">copy()</a></span>
+   と同等の操作をオブジェクト指向で行うものです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-phardata.copy-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">oldfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">newfile</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phardata.copy-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を返します。しかし、より安全を期すなら
+   try/catch ブロック内で使用して例外がスローされないことを確認するといいでしょう。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-phardata.copy-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   コピー元のファイルが存在しない、コピー先のファイルが既に存在する、
+   書き込みアクセスが無効になっている、どちらかのファイルのオープンに失敗した、
+   あるいはコピー元のファイルの読み込みに失敗した場合に
+   <a href="class.unexpectedvalueexception.html" class="classname">UnexpectedValueException</a> をスローします。
+   変更内容の phar への書き込みに失敗した場合は
+   <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phardata.copy-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-732">
+    <p><b>例1 <span class="function"><b>PharData::copy()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この例は、<span class="function"><b>PharData::copy()</b></span> の使用法のほかに
+     それと同等の操作をストリームラッパーで行う方法を示すものです。
+     これらの方式の最大の違いはエラー処理です。
+     PharData のすべてのメソッドは例外をスローしますが、ストリームラッパーの場合は
+     <span class="function"><a href="function.trigger-error.html" class="function">trigger_error()</a></span> を使用します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'myphar.tar'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'hi'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$phar</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">];&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;"phar://myphar.tar/b"<br /></span><span style="color: #007700">}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;エラー処理<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;上のコードと同等の処理をストリームラッパーで行う例。<br />//&nbsp;エラー時には例外ではなく&nbsp;E_WARNINGS&nbsp;が発生します<br /></span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.tar/a'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'phar//myphar.tar/c'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://myphar.tar/c'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;"hi"<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.converttoexecutable.html">PharData::convertToExecutable</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.decompress.html">PharData::decompress</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

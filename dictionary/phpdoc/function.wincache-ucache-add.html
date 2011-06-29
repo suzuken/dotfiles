@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>変数が既にキャッシュに存在しない場合にのみ変数をユーザキャッシュに追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-scache-meminfo.html">wincache_scache_meminfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-ucache-cas.html">wincache_ucache_cas</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.wincache-ucache-add" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">wincache_ucache_add</h1>
+  <p class="verinfo">(PECL wincache &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">wincache_ucache_add</span> &mdash; <span class="dc-title">
+   変数が既にキャッシュに存在しない場合にのみ変数をユーザキャッシュに追加する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.wincache-ucache-add-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>wincache_ucache_add</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$ttl</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>wincache_ucache_add</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$values</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$unused</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$ttl</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   変数が既にキャッシュに存在しない場合にのみ変数をユーザキャッシュに追加します。
+   追加された変数は、有効期限に達するか、
+   <span class="function"><a href="function.wincache-ucache-delete.html" class="function">wincache_ucache_delete()</a></span> あるいは <span class="function"><a href="function.wincache-ucache-clear.html" class="function">wincache_ucache_clear()</a></span>
+   で削除されるまではキャッシュに残り続けます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.wincache-ucache-add-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数を格納するときに、この名前のキーを使います。
+       同じキーで既に変数が格納されているときは、この関数は失敗して <i>FALSE</i> を返します。
+       <i><tt class="parameter">key</tt></i> は大文字小文字を区別します。同じキーがあっても値を上書きしたい場合は
+       <span class="function"><a href="function.wincache-ucache-set.html" class="function">wincache_ucache_set()</a></span> 関数をかわりに使います。
+       <i><tt class="parameter">key</tt></i> には name =&gt; value のペアの配列を渡すこともできます。
+       この場合は name がキーとなります。
+       この形式を使えば複数の値を一度の操作でキャッシュに格納できるので、競合状態になることを防げます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       格納したい変数の値。ファイルハンドルのようなリソース型以外のすべてのデータ型をサポートしています。
+       最初のパラメータが配列の場合は、このパラメータは無視されます。
+       一般的な指針として、<i><tt class="parameter">key</tt></i> に配列を渡す場合は
+       <i><tt class="parameter">value</tt></i> を <i>NULL</i> にしておきましょう。
+       <i><tt class="parameter">value</tt></i> がオブジェクト、あるいはオブジェクトを含む配列である場合は、
+       オブジェクトがシリアライズされます。オブジェクトのシリアライズについての詳細は
+       <a href="language.oop5.magic.html#language.oop5.magic.sleep" class="link">__sleep()</a> を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">values</tt></i></span>
+     <dd>
+
+      <p class="para">
+       キーと値の連想配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ttl</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数のキャッシュ内での生存時間を秒単位で指定します。
+       <i><tt class="parameter">ttl</tt></i> で指定した秒数が経過すると、
+       格納されている変数はキャッシュから削除されます。
+       このパラメータのデフォルト値は <i>0</i> で、これは
+       <span class="function"><a href="function.wincache-ucache-delete.html" class="function">wincache_ucache_delete()</a></span>
+       あるいは <span class="function"><a href="function.wincache-ucache-clear.html" class="function">wincache_ucache_clear()</a></span>
+       で明示的に削除するまでキャッシュに残り続けることを意味します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.wincache-ucache-add-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="simpara">
+   <i><tt class="parameter">key</tt></i> が文字列のときは、成功した場合に <i>TRUE</i>、失敗した場合に <i>FALSE</i> を返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">key</tt></i> が配列のときの返り値は、次のようになります。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      配列内のすべての name =&gt; value ペアが設定できた場合は、空の配列を返します。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      配列内の name =&gt; value ペアがひとつも設定できなかった場合は、<i>FALSE</i> を返します。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      成功したペアと失敗したペアがある場合は、ユーザキャッシュへの追加に失敗した name=&gt;value ペアを含む配列を返します。
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.wincache-ucache-add-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-511">
+    <p><b>例1 <span class="function"><b>wincache_ucache_add()</b></span> で <i><tt class="parameter">key</tt></i> を文字列にする例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'BAR'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_add</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_add</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_get</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+bool(true)
+bool(false)
+string(3) &quot;BAR&quot; 
+</pre></div>
+    </div>    
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-512">
+    <p><b>例2 <span class="function"><b>wincache_ucache_add()</b></span> で <i><tt class="parameter">key</tt></i> を配列にする例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$colors_array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'green'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'5'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Blue'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'6'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'yellow'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'7'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cyan'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'8'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_add</span><span style="color: #007700">(</span><span style="color: #0000BB">$colors_array</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_add</span><span style="color: #007700">(</span><span style="color: #0000BB">$colors_array</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_get</span><span style="color: #007700">(</span><span style="color: #DD0000">'Blue'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(0) { } 
+array(4) { 
+  [&quot;green&quot;]=&gt; int(-1) 
+  [&quot;Blue&quot;]=&gt; int(-1) 
+  [&quot;yellow&quot;]=&gt; int(-1) 
+  [&quot;cyan&quot;]=&gt; int(-1) 
+} 
+string(1) &quot;6&quot;
+</pre></div>
+    </div>    
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.wincache-ucache-add-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.wincache-ucache-set.html" class="function" rel="rdfs-seeAlso">wincache_ucache_set()</a> - 変数をユーザキャッシュに追加し、変数が既にキャッシュに存在する場合はそれを上書きする</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-get.html" class="function" rel="rdfs-seeAlso">wincache_ucache_get()</a> - ユーザキャッシュに格納された変数を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-delete.html" class="function" rel="rdfs-seeAlso">wincache_ucache_delete()</a> - 変数をユーザキャッシュから削除する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-clear.html" class="function" rel="rdfs-seeAlso">wincache_ucache_clear()</a> - ユーザキャッシュの中身全体を削除する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-exists.html" class="function" rel="rdfs-seeAlso">wincache_ucache_exists()</a> - 変数がユーザキャッシュに存在するかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_ucache_meminfo()</a> - ユーザキャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-info.html" class="function" rel="rdfs-seeAlso">wincache_ucache_info()</a> - ユーザキャッシュにキャッシュされたファイルについての情報を取得する</span></li>
+    <li class="member"><a href="language.oop5.magic.html#language.oop5.magic.sleep" class="link">__sleep()</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-scache-meminfo.html">wincache_scache_meminfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-ucache-cas.html">wincache_ucache_cas</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

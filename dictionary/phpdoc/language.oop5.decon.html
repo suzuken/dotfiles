@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>コンストラクタとデストラクタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.autoload.html">クラスのオートローディング</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.visibility.html">アクセス権</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.oop5.decon" class="sect1">
+ <h2 class="title">コンストラクタとデストラクタ</h2>
+
+ <div class="sect2" id="language.oop5.decon.constructor">
+  <h3 class="title">コンストラクタ</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>__construct</b></span>
+    ([ <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$args</tt></span>
+   [, <span class="methodparam"> <tt class="parameter">$...</tt></span>
+  ]] )</div>
+
+  <p class="para">
+   PHP 5 では、開発者がクラスのコンストラクタメソッドを宣言することが
+   できます。コンストラクタメソッドを有するクラスは、新たにオブジェクトが
+   生成される度にこのメソッドをコールします。これにより、
+   そのオブジェクトを使用する前に必要な初期化を行うことができます。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    子クラスがコンストラクタを有している場合、親クラスのコンストラクタが
+    暗黙の内にコールされることはありません。
+    親クラスのコンストラクタを実行するには、子クラスのコンストラクタの
+    中で <span class="function"><b>parent::__construct()</b></span> をコールすることが
+    必要です。
+   </span>
+  </p></blockquote>
+  <div class="example" id="example-169">
+   <p><b>例1 新しい統一されたコンストラクタを使用する</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">BaseClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"In&nbsp;BaseClass&nbsp;constructor\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">SubClass&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">BaseClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">__construct</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"In&nbsp;SubClass&nbsp;constructor\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">BaseClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SubClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">
+   下位互換性を維持するため、PHP 5 が指定されたクラスの
+   <span class="function"><b>__construct()</b></span> 関数をみつけられない場合には、
+   古い形式のコンストラクタ関数、つまり、そのクラスの名前と同じ関数が探されます。
+   実際、互換性の問題が発生する可能性があるのは、
+   そのクラスが <span class="function"><b>__construct()</b></span> という名前のメソッドを
+   有しており、それが異なる用途で使用されている場合です。
+  </p>
+   <p class="para">
+    他のメソッドと異なり、親の <span class="function"><b>__construct()</b></span>
+    と異なるパラメータで <span class="function"><b>__construct()</b></span>
+    をオーバーライドしても PHP は
+    <b><tt>E_STRICT</tt></b> エラーメッセージを出しません。
+   </p>
+   <p class="para">
+    PHP 5.3.3 以降、名前空間つきのクラス名の最後の部分と同じ名前のメソッドは
+    コンストラクタとみなされなくなりました。
+    名前空間を使っていないクラスは今までと変わりません。
+   </p>
+   <div class="example" id="example-170">
+    <p><b>例2 名前空間つきのクラスのコンストラクタ</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Bar&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">Bar</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0-5.3.2&nbsp;までは、これはコンストラクタとみなされました<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;PHP&nbsp;5.3.3&nbsp;以降は、これはコンストラクタにはなりません<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+ </div>
+
+ <div class="sect2" id="language.oop5.decon.destructor">
+  <h3 class="title">デストラクタ</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>__destruct</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para">
+   PHP 5 では、C++ のような他のオブジェクト指向言語に似た概念のデストラクタが
+   導入されました。デストラクタメソッドは、特定のオブジェクトへの全てのリファレンスが
+   削除された直後やオブジェクトが明示的に破棄された直後にコールされます。
+   あるいは、スクリプトの終了時にも順不同でコールされます。
+  </p>
+  <div class="example" id="example-171">
+   <p><b>例3 デストラクタの例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDestructableClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"In&nbsp;constructor\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"MyDestructableClass"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__destruct</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Destroying&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDestructableClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">
+   コンストラクタと同様、親クラスのデストラクタがエンジンにより暗黙のうちに
+   コールされるということはありません。親クラスのデストラクタを実行するには、
+   デストラクタの中で明示的に <span class="function"><b>parent::__destruct()</b></span>
+   をコールする必要があります。
+  </p>
+   <p class="para">
+    <span class="function"><a href="function.exit.html" class="function">exit()</a></span> でスクリプトの実行を止めた場合にもデストラクタはコールされます。
+    デストラクタの内部で <span class="function"><a href="function.exit.html" class="function">exit()</a></span> をコールすると、
+    それ以降のシャットダウンルーチンを実行しません。
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     スクリプトのシャットダウン時にデストラクタがコールされた場合は、
+     HTTP ヘッダはすでに送信されています。スクリプトのシャットダウン時の作業ディレクトリは、
+     SAPI によっては (たとえば Apache など) 異なります。
+    </p>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     デストラクタの中から (スクリプトの終了処理時に)
+     例外をスローしようとすると、致命的なエラーを引き起こします。
+    </p>
+   </p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.autoload.html">クラスのオートローディング</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.visibility.html">アクセス権</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

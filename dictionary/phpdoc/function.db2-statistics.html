@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インデックスの情報およびテーブルの統計情報を含む結果セットを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-special-columns.html">db2_special_columns</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-stmt-error.html">db2_stmt_error</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-statistics" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_statistics</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_statistics</span> &mdash; <span class="dc-title">
+   インデックスの情報およびテーブルの統計情報を含む結果セットを返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-statistics-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>db2_statistics</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$qualifier</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$schema</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$table-name</tt></span>
+   , <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$unique</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   インデックスの情報およびテーブルの統計情報を含む結果セットを返します。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-statistics-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       IBM DB2、Cloudscape あるいは Apache Derby データベースへの有効な接続。
+      </p>
+     </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">qualifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       OS/390 あるいは z/OS サーバ上で稼動している DB2 データベースの修飾子。
+       その他のデータベースの場合には <b><tt>NULL</tt></b> あるいは空の文字列を渡します。
+      </p>
+     </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">schema</tt></i></span>
+     <dd>
+
+      <p class="para">
+       対象となるテーブルを含むスキーマ。
+       このパラメータを <b><tt>NULL</tt></b> にすると、現在のユーザのスキーマについての
+       統計およびインデックスが返されます。
+      </p>
+     </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">table_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       テーブルの名前。
+      </p>
+     </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">unique</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返されるインデックスの型を表す整数値。
+       <dl>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">0</tt></i></span>
+         <dd>
+
+          <p class="para">
+           テーブルのユニークインデックスについての情報のみを返します。
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">1</tt></i></span>
+         <dd>
+
+          <p class="para">
+           テーブルのすべてのインデックスについての情報を返します。
+          </p>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+     </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-statistics-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したパラメータに一致するテーブルの統計およびインデックスを含む
+   ステートメントリソースを返します。
+   行の内容は、以下のカラムで構成されています。
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>カラム名</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">TABLE_CAT</td>
+       <td align="left">
+        テーブルを含むカタログの名前。テーブルがカタログを保持していない場合は <b><tt>NULL</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">TABLE_SCHEM</td>
+       <td align="left">テーブルを含むスキーマの名前。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">TABLE_NAME</td>
+       <td align="left">テーブルの名前。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">NON_UNIQUE</td>
+       <td align="left">
+        <p class="para">
+         インデックスが一意でなければならないかどうか、
+         あるいはその行がテーブルの統計情報であるかどうかを表す整数値。
+         <table class="doctable informaltable">
+          
+           <thead valign="middle">
+            <tr valign="middle">
+             <th>返り値</th>
+             <th>パラメータの型</th>
+            </tr>
+
+           </thead>
+
+           <tbody valign="middle" class="tbody">
+            <tr valign="middle">
+             <td align="left">0 (SQL_FALSE)</td>
+             <td align="left">インデックスは、重複した値をとることができます。</td>
+            </tr>
+
+            <tr valign="middle">
+             <td align="left">1 (SQL_TRUE)</td>
+             <td align="left">インデックスは、一意でなければなりません。</td>
+            </tr>
+
+            <tr valign="middle">
+             <td align="left"><b><tt>NULL</tt></b></td>
+             <td align="left">この行は、テーブル自身についての統計情報です。</td>
+            </tr>
+
+           </tbody>
+          
+         </table>
+
+        </p>
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">INDEX_QUALIFIER</td>
+       <td align="left">
+        インデックスの資格を満たすため、INDEX_NAME
+        の先頭に付加しなければならない修飾子を表す文字列。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">INDEX_NAME</td>
+       <td align="left">インデックスの名前を表す文字列。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">TYPE</td>
+       <td align="left">
+        <p class="para">
+         結果セットのこの行に含まれる情報の型を表す整数値。
+         <table class="doctable informaltable">
+          
+           <thead valign="middle">
+            <tr valign="middle">
+             <th>返り値</th>
+             <th>パラメータの型</th>
+            </tr>
+
+           </thead>
+
+           <tbody valign="middle" class="tbody">
+            <tr valign="middle">
+             <td align="left">0 (SQL_TABLE_STAT)</td>
+             <td align="left">この行は、テーブル自身の統計情報を含みます。</td>
+            </tr>
+
+            <tr valign="middle">
+             <td align="left">1 (SQL_INDEX_CLUSTERED)</td>
+             <td align="left">この行は、クラスタ化インデックスについての情報を含みます。</td>
+            </tr>
+
+            <tr valign="middle">
+             <td align="left">2 (SQL_INDEX_HASH)</td>
+             <td align="left">この行は、ハッシュインデックスについての情報を含みます。</td>
+            </tr>
+
+            <tr valign="middle">
+             <td align="left">3 (SQL_INDEX_OTHER)</td>
+             <td align="left">
+              この行は、クラスタ化もハッシュも行われていない
+              インデックスについての情報を含みます。
+             </td>
+            </tr>
+
+           </tbody>
+          
+         </table>
+
+        </p>
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">ORDINAL_POSITION</td>
+       <td align="left">
+        インデックス内の、1 から始まるカラムの位置。
+        その行がテーブル自身についての統計情報を含んでいる場合は <b><tt>NULL</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">COLUMN_NAME</td>
+       <td align="left">
+        インデックス内のカラムの名前。
+        その行がテーブル自身についての統計情報を含んでいる場合は <b><tt>NULL</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">ASC_OR_DESC</td>
+       <td align="left">
+        カラムの並び順が昇順の場合は <i>A</i>、
+        降順の場合は <i>D</i>、
+        その行がテーブル自身についての統計情報を含んでいる場合は <b><tt>NULL</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">CARDINALITY</td>
+       <td align="left">
+        <p class="para">
+         その行がインデックスの情報を含んでいる場合、このカラムには
+         インデックス内の一意な値の数を表す整数値が含まれます。
+        </p>
+        <p class="para">
+         その行がテーブル自身についての情報を含んでいる場合、
+         このカラムにはテーブルの行数を表す整数値が含まれます。
+        </p>
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">PAGES</td>
+       <td align="left">
+        <p class="para">
+         その行がインデックスの情報を含んでいる場合、このカラムには
+         インデックスを保存するために使用しているページ数を表す整数値が含まれます。
+        </p>
+        <p class="para">
+         その行がテーブル自身についての情報を含んでいる場合、このカラムには
+         テーブルを保存するために使用しているページ数を表す整数値が含まれます。
+        </p>
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">FILTER_CONDITION</td>
+       <td align="left">常に <b><tt>NULL</tt></b>。</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ 
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-statistics-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-column-privileges.html" class="function" rel="rdfs-seeAlso">db2_column_privileges()</a> - テーブルのカラムおよび関連する権限情報を含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-columns.html" class="function" rel="rdfs-seeAlso">db2_columns()</a> - テーブルのカラムおよび関連するメタデータを含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-foreign-keys.html" class="function" rel="rdfs-seeAlso">db2_foreign_keys()</a> - テーブルの外部キーを含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-primary-keys.html" class="function" rel="rdfs-seeAlso">db2_primary_keys()</a> - テーブルの主キーを含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-procedure-columns.html" class="function" rel="rdfs-seeAlso">db2_procedure_columns()</a> - ストアドプロシージャのパラメータを含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-procedures.html" class="function" rel="rdfs-seeAlso">db2_procedures()</a> - データベース内に登録されているストアドプロシージャの一覧を含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-special-columns.html" class="function" rel="rdfs-seeAlso">db2_special_columns()</a> - テーブルのユニーク行 ID カラムを含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-table-privileges.html" class="function" rel="rdfs-seeAlso">db2_table_privileges()</a> - データベース内のテーブルおよび関連する権限情報を含む結果セットを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-tables.html" class="function" rel="rdfs-seeAlso">db2_tables()</a> - データベース内のテーブルおよび関連するメタデータを含む結果セットを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-special-columns.html">db2_special_columns</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-stmt-error.html">db2_stmt_error</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

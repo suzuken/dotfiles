@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在のセッションに1つ以上の変数を登録する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-regenerate-id.html">session_regenerate_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-save-path.html">session_save_path</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.session-register" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">session_register</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">session_register</span> &mdash; <span class="dc-title">現在のセッションに1つ以上の変数を登録する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.session-register-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>session_register</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$...</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>session_register()</b></span> の引数の数は可変であり、
+   各引数は変数名を保持する文字列または変数名からなる配列
+   とすることが可能です。
+   各変数名が処理される毎に、<span class="function"><b>session_register()</b></span>
+   は、その変数名のグローバル変数を現在のセッションに登録します。
+  </p>
+  <p class="para">
+   配列 <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var> または
+   <var class="varname"><var class="varname">$HTTP_SESSION_VARS</var></var> (PHP &lt; 4.1.0)
+   の適当なメンバに設定をするだけでもセッション変数を作成することが可能です。
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;session_register()&nbsp;の使用は推奨されません。<br /></span><span style="color: #0000BB">$barney&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"A&nbsp;big&nbsp;purple&nbsp;dinosaur."</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">session_register</span><span style="color: #007700">(</span><span style="color: #DD0000">"barney"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;PHP&nbsp;4.1.0以降では$_SESSIONの使用が推奨されます。<br /></span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">"zim"</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"An&nbsp;invader&nbsp;from&nbsp;another&nbsp;planet."</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;古い手法としては&nbsp;$HTTP_SESSION_VARS&nbsp;があります。<br /></span><span style="color: #0000BB">$HTTP_SESSION_VARS</span><span style="color: #007700">[</span><span style="color: #DD0000">"spongebob"</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"He's&nbsp;got&nbsp;square&nbsp;pants."</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   この関数をコールする前に <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span>
+   をコールしていない場合、暗黙のうちに引数を付けずに
+   <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span> がコールされます。
+   <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var> を使う場合はこの動作とは違い、
+   使用前に必ず <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span> をコールする必要があります。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.session-register-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数名を含む文字列、
+       あるいは変数名や配列を含む配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">...</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.session-register-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.session-register-notes">
+  <h3 class="title">注意</h3>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+    を考慮することなくスクリプトを書きたい場合には、
+    <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var>
+    配列を代わりに使用する必要があります。
+    <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var> のエントリは自動的に登録されます。
+    スクリプトで <span class="function"><b>session_register()</b></span>
+    を使用している場合には、それは
+    <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+    を不可としている環境下では動作しません。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: <b>register_globals:
+重要な注意</b><br /><p class="para">PHP 4.2.0 以降、PHP ディレクティブ
+<a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+のデフォルト値は <em class="emphasis">off</em> となっています。
+PHP コミュニティは、ユーザがこのディレクティブの設定に依存せず、
+<a href="language.variables.predefined.html" class="link">superglobals</a> のような他の手段を使用することを推奨します。
+</p></p></blockquote>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    この関数は、<em class="emphasis">global</em>変数を登録します。
+    セッション変数を関数の内部で登録したい場合、
+    <a href="language.variables.scope.html" class="link"><strong class="command">global</strong></a>
+    キーワードあるいは <var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS[]</a></var></var>
+    配列を用いてその変数をグローバルとするか、下記のように
+    session 配列を使用してください。
+   </p>
+  </div>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var>
+    (あるいは <var class="varname"><var class="varname">$HTTP_SESSION_VARS</var></var>) を使用する場合は
+    <span class="function"><b>session_register()</b></span>、
+    <span class="function"><a href="function.session-is-registered.html" class="function">session_is_registered()</a></span> および
+    <span class="function"><a href="function.session-unregister.html" class="function">session_unregister()</a></span> を使用しないでください。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    セッションにリソース変数を登録することは現在できません。例えば、
+    データベースへの接続を生成し、接続IDをセッション変数として登録し、
+    セッションが回復された時点で、接続が有効であることを期待することはできません。
+    リソースを返すPHP関数は、その関数定義に
+    <i>resource</i>型の返り値を有することが示されている。
+    リソースを返す関数のリストは、付録
+    <a href="resource.html" class="link">リソース型の一覧</a> で見ることができます。
+   </p>
+   <p class="para">
+    <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var> (あるいは PHP 4.0.6 以前なら
+    <var class="varname"><var class="varname">$HTTP_SESSION_VARS</var></var>) を使用する場合は、値を
+    <var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var> に代入します。
+    たとえば $_SESSION[&#039;var&#039;] = &#039;ABC&#039;; などのようにします。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.session-register-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.session-is-registered.html" class="function" rel="rdfs-seeAlso">session_is_registered()</a> - 変数がセッションに登録されているかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.session-unregister.html" class="function" rel="rdfs-seeAlso">session_unregister()</a> - 現在のセッションから変数の登録を削除する</span></li>
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-regenerate-id.html">session_regenerate_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-save-path.html">session_save_path</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

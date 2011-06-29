@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ラージオブジェクトを読み込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-lo-read-all.html">pg_lo_read_all</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-lo-seek.html">pg_lo_seek</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-lo-read" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_lo_read</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_lo_read</span> &mdash; <span class="dc-title">ラージオブジェクトを読み込む</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-lo-read-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>pg_lo_read</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$large_object</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$len</tt><span class="initializer"> = 8192</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_lo_read()</b></span>は、ラージオブジェクトから最大
+   <i><tt class="parameter">len</tt></i> バイト分読み込み、文字列として返します。
+  </p>
+  <p class="para">
+   ラージオブジェクトインターフェースは、トランザクションブロックの中で
+   使用する必要があります。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、以前は <span class="function"><b>pg_loread()</b></span> と呼ばれていました。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-lo-read-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">large_object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.pg-lo-open.html" class="function">pg_lo_open()</a></span> によって返された
+       PostgreSQL ラージオブジェクト (LOB) リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">len</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返すデータの最大バイト数（オプション）。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-lo-read-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ラージオブジェクトから <i><tt class="parameter">len</tt></i> バイトのデータを
+   文字列で返します。エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-lo-read-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1737">
+    <p><b>例1 <span class="function"><b>pg_lo_read()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;$doc_oid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">189762345</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$database&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=jacarta"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"begin"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_lo_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$doc_oid</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_lo_read</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50000</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"commit"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div> 
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.pg-lo-read-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-lo-read-all.html" class="function" rel="rdfs-seeAlso">pg_lo_read_all()</a> - ラージオブジェクト全体を読み込みブラウザに直接送信する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-lo-read-all.html">pg_lo_read_all</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-lo-seek.html">pg_lo_seek</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

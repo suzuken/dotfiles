@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>接続された、区別できないソケットストリームの組を作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-socket-get-name.html">stream_socket_get_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-socket-recvfrom.html">stream_socket_recvfrom</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.stream-socket-pair" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">stream_socket_pair</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">stream_socket_pair</span> &mdash; <span class="dc-title">
+   接続された、区別できないソケットストリームの組を作成する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.stream-socket-pair-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>stream_socket_pair</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$domain</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$protocol</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>stream_socket_pair()</b></span> は、互いに接続されており区別できない
+   ソケットストリームの組を作成します。この関数は、一般に IPC
+   （Inter-Process Communication: プロセス間通信）で使用します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.stream-socket-pair-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">domain</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するプロトコルファミリー。<b><tt>STREAM_PF_INET</tt></b>、
+       <b><tt>STREAM_PF_INET6</tt></b> あるいは
+       <b><tt>STREAM_PF_UNIX</tt></b>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用する接続の型。
+       <b><tt>STREAM_SOCK_DGRAM</tt></b>、
+       <b><tt>STREAM_SOCK_RAW</tt></b>、
+       <b><tt>STREAM_SOCK_RDM</tt></b>、
+       <b><tt>STREAM_SOCK_SEQPACKET</tt></b> あるいは
+       <b><tt>STREAM_SOCK_STREAM</tt></b>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">protocol</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するプロトコル。<b><tt>STREAM_IPPROTO_ICMP</tt></b>、
+       <b><tt>STREAM_IPPROTO_IP</tt></b>、
+       <b><tt>STREAM_IPPROTO_RAW</tt></b>、
+       <b><tt>STREAM_IPPROTO_TCP</tt></b> あるいは
+       <b><tt>STREAM_IPPROTO_UDP</tt></b>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    各定数についての詳細な情報は
+    <a href="stream.constants.html" class="link">ストリーム定数の一覧</a>
+    を参照ください。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.stream-socket-pair-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に 2 つのソケットリソースの配列、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.stream-socket-pair-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数は、Windows プラットフォームでも使用可能となりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.stream-socket-pair-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3355">
+    <p><b>例1 <span class="function"><b>stream_socket_pair()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この例では、プロセス間通信に
+     <span class="function"><b>stream_socket_pair()</b></span> を使用する基本的な方法を示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$sockets&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_socket_pair</span><span style="color: #007700">(</span><span style="color: #0000BB">STREAM_PF_UNIX</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_SOCK_STREAM</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_IPPROTO_IP</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pcntl_fork</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">$pid&nbsp;</span><span style="color: #007700">==&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'フォークできません'</span><span style="color: #007700">);<br /><br />}&nbsp;else&nbsp;if&nbsp;(</span><span style="color: #0000BB">$pid</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;親プロセス&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"子プロセスの&nbsp;PID:&nbsp;</span><span style="color: #0000BB">$pid</span><span style="color: #DD0000">\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;子プロセス&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"子プロセスからのメッセージ\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">fgets</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$sockets</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+子プロセスの PID: 1378
+子プロセスからのメッセージ
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-socket-get-name.html">stream_socket_get_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-socket-recvfrom.html">stream_socket_recvfrom</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

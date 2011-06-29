@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>名前解決のルール</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.fallback.html">名前空間の使用法: グローバル関数/定数への移行</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.faq.html">FAQ: 名前空間について知っておくべきこと</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.namespaces.rules" class="sect1">
+  <h2 class="title">名前解決のルール</h2>
+  <p class="para">
+   名前解決のルールを説明するにあたって、いくつかの重要な定義を示しておきます。
+   <dl>
+
+    <strong class="title">名前空間名の定義</strong>
+    <dt>
+
+     <span class="term">非修飾名</span>
+     <dd>
+
+      <p class="para">
+       これは名前空間区切り文字を含まない識別子で、<i>Foo</i> のようなものです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">修飾名</span>
+     <dd>
+
+      <p class="para">
+       これは名前空間区切り文字を含む識別子で、<i>Foo\Bar</i> のようなものです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">完全修飾名</span>
+     <dd>
+
+      <p class="para">
+       これは名前空間区切り文字を含む識別子のうち先頭が名前空間区切り文字で始まるもので、
+       <i>\Foo\Bar</i> のようなものです。<i>namespace\Foo</i>
+       も完全修飾名です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <p class="para">
+   名前解決は、これらの解決ルールによって行われます。
+   <ol type="1">
+    <li class="listitem">
+     <span class="simpara">
+      完全修飾された関数、クラス、定数へのコールはコンパイル時に解決されます。
+      たとえば、<i>new \A\B</i> は <i>A\B</i> クラスと解釈されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      非修飾名および (完全修飾でない) 修飾名の変換は、現在のインポートルールに基づいてコンパイル時に行われます。
+      たとえば、名前空間 <i>A\B\C</i> が
+      <i>C</i> という名前でインポートされている場合、
+      <i>C\D\e()</i> へのコールは <i>A\B\C\D\e()</i>
+      と変換されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      名前空間内で、インポートルールによる変換が行われなかった修飾名は
+      現在の名前空間が先頭に付加されます。たとえば、
+      <i>C\D\e()</i> へのコールが名前空間 <i>A\B</i>
+      内で行われた場合、それは <i>A\B\C\D\e()</i> に変換されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      非修飾クラス名の変換は、現在のインポートルールに基づいてコンパイル時に行われます
+      (インポートされた短い名前がフルネームに置き換わります)。たとえば、
+      名前空間 <i>A\B\C</i> が C という名前でインポートされている場合、
+      <i>new C()</i> は <i>new A\B\C()</i> と変換されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      名前空間内 (ここでは A\B としましょう) で、非修飾な関数へのコールは実行時に解決されます。
+      関数 <i>foo()</i> のコールは、次のように解決されます。
+     </span>
+      <ol type="1">
+       <li class="listitem">
+        <span class="simpara">
+         まず現在の名前空間から関数
+         <i>A\B\foo()</i> を探します。
+        </span>
+       </li>
+       <li class="listitem">
+        <span class="simpara">
+         次に <em class="emphasis">グローバル</em> 関数
+         <i>foo()</i> を探します。
+        </span>
+       </li>
+      </ol>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      名前空間内 (ここでは <i>A\B</i> としましょう) で、
+      非修飾あるいは (完全修飾でない) 修飾なクラスへのコールは実行時に解決されます。
+      <i>new C()</i> や <i>new D\E()</i>
+      がどのように解決されるかを示します。
+      <i> new C()</i> の場合は、
+     </span>
+     <ol type="1">
+      <li class="listitem">
+       <span class="simpara">
+        まず現在の名前空間からクラス
+        <i>A\B\C</i> を探します。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        <i>A\B\C</i> を autoload します。
+       </span>
+      </li>
+     </ol>
+     <span class="simpara">
+      <i> new D\E()</i> の場合は、
+     </span>
+     <ol type="1">
+      <li class="listitem">
+       <span class="simpara">
+        現在の名前空間を先頭につけた
+        <i>A\B\D\E</i> を探します。
+       </span>
+      </li>
+      <li class="listitem">
+       <span class="simpara">
+        <i>A\B\D\E</i> を autoload します。
+       </span>
+      </li>
+     </ol>
+     <span class="simpara">
+      グローバル名前空間内のグローバルクラスを参照するには、完全修飾形式の
+      <i>new \C()</i> を使わなければなりません。
+     </span>
+    </li>
+   </ol>
+  </p>
+  <div class="example" id="example-231">
+   <p><b>例1 名前解決の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />use&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">\</span><span style="color: #0000BB">D</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">C</span><span style="color: #007700">\</span><span style="color: #0000BB">E&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">F</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;関数のコール<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;まず名前空間&nbsp;"A"&nbsp;で定義されている&nbsp;"foo"&nbsp;のコールを試み、<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;次にグローバル関数&nbsp;"foo"&nbsp;をコールします<br /><br /></span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルスコープで定義されている関数&nbsp;"foo"&nbsp;をコールします<br /><br /></span><span style="color: #0000BB">my</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A\my"&nbsp;で定義されている関数&nbsp;"foo"&nbsp;をコールします<br /><br /></span><span style="color: #0000BB">F</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;まず名前空間&nbsp;"A"&nbsp;で定義されている&nbsp;"F"&nbsp;のコールを試み、<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;次にグローバル関数&nbsp;"F"&nbsp;をコールします<br /><br />//&nbsp;クラスの参照<br /><br /></span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A"&nbsp;で定義されているクラス&nbsp;"B"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"A\B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">D</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;インポートルールを使用し、名前空間&nbsp;"B"&nbsp;で定義されているクラス&nbsp;"D"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"B\D"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">new&nbsp;</span><span style="color: #0000BB">F</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;インポートルールを使用し、名前空間&nbsp;"C"&nbsp;で定義されているクラス&nbsp;"E"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"C\E"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">new&nbsp;\</span><span style="color: #0000BB">B</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルスコープで定義されているクラス&nbsp;"B"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">new&nbsp;\</span><span style="color: #0000BB">D</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルスコープで定義されているクラス&nbsp;"D"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"D"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">new&nbsp;\</span><span style="color: #0000BB">F</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルスコープで定義されているクラス&nbsp;"F"&nbsp;のオブジェクトを作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;見つからない場合は、クラス&nbsp;"F"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br />//&nbsp;別の名前空間から使用する静的メソッド/関数<br /><br /></span><span style="color: #0000BB">B</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A\B"&nbsp;の関数&nbsp;"foo"&nbsp;をコールします<br /><br /></span><span style="color: #0000BB">B</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A"&nbsp;で定義されているクラス&nbsp;"B"&nbsp;のメソッド&nbsp;"foo"&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;クラス&nbsp;"A\B"&nbsp;が見つからない場合はクラス&nbsp;"A\B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #0000BB">D</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;インポートルールを使用し、名前空間&nbsp;"B"&nbsp;で定義されているクラス&nbsp;"D"&nbsp;のメソッド&nbsp;"foo"&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;クラス&nbsp;"B\D"&nbsp;が見つからない場合はクラス&nbsp;"B\D"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">\</span><span style="color: #0000BB">B</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"B"&nbsp;の関数&nbsp;"foo"&nbsp;をコールします<br /><br /></span><span style="color: #007700">\</span><span style="color: #0000BB">B</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルスコープのクラス&nbsp;"B"&nbsp;のメソッド&nbsp;"foo"&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;クラス&nbsp;"B"&nbsp;が見つからない場合はクラス&nbsp;"B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br />//&nbsp;現在の名前空間から使用する静的メソッド/関数<br /><br /></span><span style="color: #0000BB">A</span><span style="color: #007700">\</span><span style="color: #0000BB">B</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A\A"&nbsp;のクラス&nbsp;"B"&nbsp;のメソッド&nbsp;"foo"&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;クラス&nbsp;"A\A\B"&nbsp;が見つからない場合はクラス&nbsp;"A\A\B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /><br /></span><span style="color: #007700">\</span><span style="color: #0000BB">A</span><span style="color: #007700">\</span><span style="color: #0000BB">B</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;名前空間&nbsp;"A"&nbsp;のクラス&nbsp;"B"&nbsp;のメソッド&nbsp;"foo"&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;クラス&nbsp;"A\B"&nbsp;が見つからない場合はクラス&nbsp;"A\B"&nbsp;の&nbsp;autoload&nbsp;を試みます<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.fallback.html">名前空間の使用法: グローバル関数/定数への移行</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.faq.html">FAQ: 名前空間について知っておくべきこと</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

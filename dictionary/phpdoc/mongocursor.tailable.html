@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>このカーソルが、最後の結果を取得した後もオープンしたままにしておくかどうかを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.sort.html">MongoCursor::sort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.timeout.html">MongoCursor::timeout</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocursor.tailable" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCursor::tailable</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.4)</p><p class="refpurpose"><span class="refname">MongoCursor::tailable</span> &mdash; <span class="dc-title">このカーソルが、最後の結果を取得した後もオープンしたままにしておくかどうかを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongocursor.tailable-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="class.mongocursor.html" class="type MongoCursor">MongoCursor</a></span> <span class="methodname"><b>MongoCursor::tailable</b></span>
+    ([ <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$tail</tt><span class="initializer"> = true</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   Mongo には、追尾可能 (tailable) カーソルという機能があります。これは、Unix の
+   &quot;tail -f&quot; コマンドと似ています。
+  </p>
+  <p class="para">
+   追尾可能とは、最後のデータを取得した後もカーソルを閉じないということです。
+   カーソルは、最後のオブジェクトの位置を指したままとなります。
+   あとでそのカーソルを使い続けることもできます。もしその後さらにデータを取得したのなら、
+   カーソルが指す位置から処理を再開できます。
+  </p>
+  <p class="para">
+   他の &quot;潜在カーソル (latent cursor)&quot; 同様、カーソルはどこかで無効な状態になります。
+   参照しているオブジェクトがすべて削除された場合などです。
+   したがって、カーソルが <span class="function"><a href="mongocursor.dead.html" class="function">MongoCursor::dead()</a></span>
+   になったら再びクエリを実行できるようにしておかなければなりません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongocursor.tailable-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">tail</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       カーソルが追尾可能かどうか。
+      </p>
+     </dd>
+
+    </dt>
+   
+   </dl>
+
+  </p>
+ </div>
+ 
+
+ <div class="refsect1 returnvalues" id="refsect1-mongocursor.tailable-returnvalues">
+  <h3 class="title">返り値</h3>  
+  <p class="para">
+   このカーソルを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-mongocursor.tailable-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   このカーソルが反復処理を始めている場合に
+   <a href="class.mongocursorexception.html" class="classname">MongoCursorException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongocursor.tailable-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1390">
+   <p><b>例1 <span class="function"><b>MongoCursor::tailable()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">()-&gt;</span><span style="color: #0000BB">tailable</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$results&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /><br />while&nbsp;(</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasNext</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;すべての結果を読み終えたら終了します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dead</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;これまでのすべての結果を読み、さらに待ちます<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">sleep</span><span style="color: #007700">(</span><span style="color: #0000BB">10</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$results</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getNext</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.sort.html">MongoCursor::sort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.timeout.html">MongoCursor::timeout</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

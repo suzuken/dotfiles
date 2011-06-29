@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クッキーを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pfsockopen.html">pfsockopen</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.setrawcookie.html">setrawcookie</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.setcookie" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">setcookie</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">setcookie</span> &mdash; <span class="dc-title">クッキーを送信する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.setcookie-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>setcookie</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$expire</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$domain</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$secure</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$httponly</tt><span class="initializer"> = false</span></span>
+  ]]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>setcookie()</b></span> は、その他のヘッダ情報と共に
+   送信するクッキーを定義します。 ほかのヘッダ情報と同様に、
+   クッキーは、スクリプトによる他のあらゆる出力よりも<em class="emphasis">前に</em>
+   送信される必要があります（これはHTTPプロトコルの制約です）。
+   <i>&lt;html&gt;</i> や <i>&lt;head&gt;</i> タグはもちろん
+   空白も含め、あらゆる出力よりも前にこの関数をコールするようにしなければなりません。
+  </p>
+  <p class="para">
+   一度クッキーが送信されると、次のページのロードからは
+   <var class="varname"><var class="varname"><a href="reserved.variables.cookies.html" class="classname">$_COOKIE</a></var></var> や
+   <var class="varname"><var class="varname">$HTTP_COOKIE_VARS</var></var> 配列によってクッキーにアクセスできます。
+   <var class="varname"><var class="varname"><a href="reserved.variables.cookies.html" class="classname">$_COOKIE</a></var></var> のような
+   <a href="language.variables.superglobals.html" class="link">スーパーグローバル</a> は
+   PHP 4.1.0 以降で有効となることに注意してください。
+   クッキーの値は <var class="varname"><var class="varname"><a href="reserved.variables.request.html" class="classname">$_REQUEST</a></var></var>
+   配列からもアクセスできます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.setcookie-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <i><tt class="parameter">name</tt></i> 以外の全ての引数はオプションです。
+   全ての引数に関して引数の指定をスキップするために空文字列
+   (<em class="emphasis">&quot;&quot;</em>) とすることが可能です。
+   <i><tt class="parameter">expire</tt></i> および <i><tt class="parameter">secure</tt></i>
+   は数値なので、空文字列でスキップすることはできません。代わりにゼロ
+   (<em class="emphasis">0</em>) を使用してください。
+  </p>
+  <p class="para">
+   <span class="function"><b>setcookie()</b></span> の各パラメータがどのように作用するのかを知るには
+   <a href="http://www.faqs.org/rfcs/rfc2109" class="link external">&raquo; RFC 2109</a> を参照ください。
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーの値。この値はクライアントのコンピュータに保存されますので、
+       重要な情報は格納しないでください。
+       <i><tt class="parameter">name</tt></i> が <i>&#039;cookiename&#039;</i> だとすると、
+       その値は <var class="varname"><var class="varname"><a href="reserved.variables.cookies.html" class="classname">$_COOKIE['cookiename']</a></var></var> で取得することができます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">expire</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーの有効期限。これは Unix タイムスタンプなので
+       Epoch（1970 年 1 月 1 日）からの経過秒数となります。
+       <span class="function"><a href="function.time.html" class="function">time()</a></span> または
+       <span class="function"><a href="function.mktime.html" class="function">mktime()</a></span> 関数により
+       返された現在のUNIX標準時に、期限としたい必要な秒数を加算したものを
+       利用することができるでしょう。
+       <i>time()+60*60*24*30</i>
+       はクッキーの有効期限を 30 日後にセットします。
+       0 を設定したり省略したりした場合は、クッキーはセッションの最後
+       (つまりブラウザを閉じるとき) が有効期限となります。
+      </p>
+      <p class="para">
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         <i><tt class="parameter">expire</tt></i> パラメータには、<i>Wdy, DD-Mon-YYYY
+         HH:MM:SS GMT</i> といった形式ではなく Unix
+         タイムスタンプを渡していることにお気づきでしょうか。
+         これは、PHP の内部で自動的に変換を行っているからです。
+        </p>
+       </p></blockquote>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サーバ上での、クッキーを有効としたいパス
+       <i>&#039;/&#039;</i> をセットすると、クッキーは
+       <i><tt class="parameter">domain</tt></i> 配下の全てで有効となります。
+       <i>&#039;/foo/&#039;</i> をセットすると、クッキーは
+       <i>/foo/</i> ディレクトリとそのサブディレクトリ配下
+       (例えば <i>/foo/bar/</i>) で有効となります。
+       デフォルト値は、クッキーがセットされたときのカレントディレクトリです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">domain</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーが有効なドメイン。
+       exapmle.com の全てのサブドメイン (example.com 自身も含む) でクッキーを有効とするには
+       <i>&#039;.example.com&#039;</i> をセットします。
+       最初の <i>.</i> がなくてもクッキーを受け付けるブラウザもありますが、
+       <a href="http://www.faqs.org/rfcs/rfc2109" class="link external">&raquo; RFC 2109</a> では必ずつけなければならないことになっています。
+       <i>&#039;www.example.com&#039;</i> あるいは <i>&#039;.www.example.com&#039;</i>
+       クッキーは <i>www</i> サブドメインにおいてのみ有効となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">secure</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クライアントからのセキュアな HTTPS 接続の場合にのみクッキーが送信されるようにします。
+       <b><tt>TRUE</tt></b> を設定すると、セキュアな接続が存在する場合にのみクッキーを設定します。
+       サーバ側では、このようにセキュアな接続の場合にのみクッキーを送信するという処理は
+       プログラマの責任で行うことになります
+       (たとえば <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER["HTTPS"]</a></var></var> の内容を使用します)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">httponly</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> を設定すると、HTTP を通してのみクッキーにアクセスできるようになります。
+       つまり、JavaScript のようなスクリプト言語からはアクセスできなくなるということです。
+       この設定を使用すると、XSS 攻撃によって ID を盗まれる危険性を減らせます
+       (が、すべてのブラウザがこの設定をサポートしているというわけではありません)。
+       PHP 5.2.0 で追加されました。
+       <b><tt>TRUE</tt></b> あるいは <b><tt>FALSE</tt></b> で指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.setcookie-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   もしもこの関数をコールする前に何らかの出力がある場合には、
+   <span class="function"><b>setcookie()</b></span> は失敗し <b><tt>FALSE</tt></b> を返します。
+   <span class="function"><b>setcookie()</b></span> が正常に実行されると、<b><tt>TRUE</tt></b> を返します。
+   この関数では、ユーザがクッキーを受け入れたかどうかを判断することはできません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.setcookie-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   以下はクッキーを送信する例です。
+   <div class="example" id="example-3664">
+    <p><b>例1 <span class="function"><b>setcookie()</b></span> での送信の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'something&nbsp;from&nbsp;somewhere'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()+</span><span style="color: #0000BB">3600</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;有効期限は一時間です&nbsp;*/<br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()+</span><span style="color: #0000BB">3600</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/~rasmus/"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">".example.com"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   クッキーの value の部分は、クッキーの送信を行う際に自動的に
+   URL エンコードされ、またクッキーを受信した際は、自動的にデコード
+   されてクッキー名と同じ名前の変数に格納されることに注意してください。
+   この挙動が気に入らない場合、もし PHP 5 を使用しているなら
+   代わりに <span class="function"><a href="function.setrawcookie.html" class="function">setrawcookie()</a></span> を使ってください。
+   スクリプト内部で TestCookie の内容を見たい場合は、
+   以下のいずれかの例を使用します。
+  </p>
+  <p class="para">
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;個々のクッキーを表示します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">];<br />echo&nbsp;</span><span style="color: #0000BB">$HTTP_COOKIE_VARS</span><span style="color: #007700">[</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">];<br /><br /></span><span style="color: #FF8000">//&nbsp;デバッグ／テスト用には、全てのクッキーを見る方法があります。<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3665">
+    <p><b>例2 <span class="function"><b>setcookie()</b></span> による削除の例</b></p>
+    <div class="example-contents"><p>
+     クッキーを削除する場合には、ブラウザの削除機構を起動するために
+     必ず有効期限を過去に設定する必要があります。
+     次に、先ほどの例で送信したクッキーを削除する例を示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;有効期限を一時間前に設定します<br /></span><span style="color: #0000BB">setcookie&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()&nbsp;-&nbsp;</span><span style="color: #0000BB">3600</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setcookie&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"TestCookie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">()&nbsp;-&nbsp;</span><span style="color: #0000BB">3600</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/~rasmus/"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">".example.com"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3666">
+    <p><b>例3 <span class="function"><b>setcookie()</b></span> と配列</b></p>
+    <div class="example-contents"><p>
+     クッキー名で配列を記述することにより、クッキーの配列を設定することも可能です。
+     これにより配列要素と同数のクッキーを設定されますが、
+     クッキーがスクリプトに受信された際に、
+     値はクッキー名を有する配列に置きかえられます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;クッキーを設定します<br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"cookie[three]"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"cookiethree"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"cookie[two]"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"cookietwo"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">setcookie</span><span style="color: #007700">(</span><span style="color: #DD0000">"cookie[one]"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"cookieone"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ページを再読み込みした後に、表示します<br /></span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">'cookie'</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">'cookie'</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$name</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">htmlspecialchars</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">&nbsp;:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #DD0000">&nbsp;&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+three : cookiethree
+two : cookietwo
+one : cookieone
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.setcookie-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left">
+ <i><tt class="parameter">httponly</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.setcookie-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数をコールする前でも出力できるように、
+    スクリプトの全ての出力をサーバ内にバッファリングさせることができます。
+    そのためには、<span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> や <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span>
+    を使用するか、あるいは <var class="filename">php.ini</var> やサーバ設定ファイルの <i>output_buffering</i>
+    を使用します。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHPの <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+    ディレクティブが <i>on</i> になっている場合、
+    クッキーは変数にも登録されています。
+    以下の例では、<var class="varname"><var class="varname">$TestCookie</var></var> 変数が存在します。
+    <var class="varname"><var class="varname"><a href="reserved.variables.cookies.html" class="classname">$_COOKIE</a></var></var> の使用することを推奨します。
+   </p>
+  </p></blockquote>
+  <p class="para">
+   陥りやすい失敗
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      クッキーは、クッキーを有効にするために次にページをロードするまで
+      アクセスすることができません。クッキーが正常にセットされたか
+      テストするために、クッキーの有効期限が切れる前に次のページを
+      ロードしてクッキーをチェックしてください。
+      有効期限は <i><tt class="parameter">expire</tt></i> 引数でセットされます。
+      クッキーの利用についてデバッグするのに良い方法は
+      <i>print_r($_COOKIE);</i> をコールすることです。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      クッキーは設定されたものと同じパラメータで削除する必要があります。
+      値が空文字列あるいは <b><tt>FALSE</tt></b> で、その他の全ての引数が前に setcookie
+      をコールした時と同じである場合に、指定された名前のクッキーが
+      リモートクライアント上から削除されます。
+      内部的な動作として、これは値を &#039;deleted&#039; に変更した上で有効期限を
+      1 年前に設定しています。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      クッキーの値として <b><tt>FALSE</tt></b> を設定すると、クッキーを削除しようとします。
+      そのため、boolean 値は使用できません。その代わりとして、
+      <b><tt>FALSE</tt></b> ではなく <em class="emphasis">0</em>、そして <b><tt>TRUE</tt></b>
+      ではなく <em class="emphasis">1</em> を使用します。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      クッキー名で配列を記述することにより、
+      クッキーの配列を設定することも可能ですが、複数のクッキー
+      がユーザーのシステム上に保存されることになります。
+      <span class="function"><a href="function.explode.html" class="function">explode()</a></span> を使用して
+      ひとつのクッキー上に複数の名前と値をセットすることも
+      考慮してください。<span class="function"><a href="function.serialize.html" class="function">serialize()</a></span>
+      の使用はセキュリティーホールになり得るため、
+      この目的のために使用することはお勧めしません。
+     </span>
+    </li>
+   </ul>
+  </p>
+  <p class="simpara">
+   <span class="function"><b>setcookie()</b></span> を複数回コールした場合は、コールした順番で実行されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.setcookie-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.header.html" class="function" rel="rdfs-seeAlso">header()</a> - 生の HTTP ヘッダを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.setrawcookie.html" class="function" rel="rdfs-seeAlso">setrawcookie()</a> - 値を URL エンコードせずにクッキーを送信する</span></li>
+    <li class="member"><a href="features.cookies.html" class="link">クッキー</a></li>
+    <li class="member"><a href="http://curl.haxx.se/rfc/cookie_spec.html" class="link external">&raquo; Netscape による最初のクッキーの仕様</a></li>
+    <li class="member"><a href="http://www.faqs.org/rfcs/rfc2109" class="link external">&raquo; RFC 2109</a></li>
+    <li class="member"><a href="http://www.faqs.org/rfcs/rfc2965" class="link external">&raquo; RFC 2965</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pfsockopen.html">pfsockopen</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.setrawcookie.html">setrawcookie</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

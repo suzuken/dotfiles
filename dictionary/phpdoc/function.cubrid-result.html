@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Return the value of a specific field in a specific row</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.cubrid-real-escape-string.html">cubrid_real_escape_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-unbuffered-query.html">cubrid_unbuffered_query</a></div>
+ <div class="up"><a href="cubridmysql.cubrid.html">CUBRID MySQL Compatibility Functions</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.cubrid-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">cubrid_result</h1>
+  <p class="verinfo">(PECL CUBRID &gt;= 8.3.0)</p><p class="refpurpose"><span class="refname">cubrid_result</span> &mdash; <span class="dc-title">Return the value of a specific field in a specific row</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.cubrid-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>cubrid_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$row</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$field</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+    This function returns the value of a specific field in a specific row from
+    a result set. 
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.cubrid-result-parameters">
+ <h3 class="title">パラメータ</h3>
+ <p class="para">
+  <dl>
+
+    <dt>
+
+    <span class="term"><i><tt class="parameter">result</tt></i></span>
+    <dd>
+<p class="para"><i><tt class="parameter">result</tt></i> comes from a call to <span class="function"><a href="function.cubrid-execute.html" class="function">cubrid_execute()</a></span></p></dd>
+
+   </dt>
+
+     <dt>
+
+  <span class="term"><i><tt class="parameter">row</tt></i></span>
+  <dd>
+<p class="para">The row number from the result that is being retrieved. Row numbers start at 0.</p></dd>
+
+   </dt>
+
+   <dt>
+
+  <span class="term"><i><tt class="parameter">field</tt></i></span>
+  <dd>
+<p class="para">
+    The name or offset of the <i><tt class="parameter">field</tt></i> being retrieved. It
+    can be the field&#039;s offset, the field&#039;s name, or the field&#039;s table dot
+    field name (tablename.fieldname). If the column name has been aliased
+    (&#039;select foo as bar from...&#039;), use the alias instead of the column name.
+    If undefined, the first field is retrieved.
+  </p></dd>
+
+   </dt>
+
+  </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.cubrid-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   Value of a specific field, on success (NULL if value if null).
+  </p>
+   <p class="para">
+    <b><tt>FALSE</tt></b> on failure.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.cubrid-result-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1069">
+   <p><b>例1 <span class="function"><b>cubrid_result()</b></span> example</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">33000</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"demodb"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$req&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;*&nbsp;FROM&nbsp;code"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"f_name"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(1) &quot;X&quot;
+string(5) &quot;Mixed&quot;
+string(4) &quot;Gold&quot;
+</pre></div>
+    </div>
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.cubrid-real-escape-string.html">cubrid_real_escape_string</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-unbuffered-query.html">cubrid_unbuffered_query</a></div>
+ <div class="up"><a href="cubridmysql.cubrid.html">CUBRID MySQL Compatibility Functions</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

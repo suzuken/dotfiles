@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title></title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="image.examples-png.html"></a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="image.examples.merged-watermark.html"></a></div>
+ <div class="up"><a href="image.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="image.examples-watermark" class="section">
+  <p class="para">
+   <div class="example" id="example-2228">
+    <p><b>例1 アルファチャネルを使用した、画像へのすかしの追加</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;スタンプと、それをすかしとして適用する写真を読み込みます<br /></span><span style="color: #0000BB">$stamp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefrompng</span><span style="color: #007700">(</span><span style="color: #DD0000">'stamp.png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatefromjpeg</span><span style="color: #007700">(</span><span style="color: #DD0000">'photo.jpeg'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;スタンプの余白を設定し、スタンプ画像の幅と高さを取得します<br /></span><span style="color: #0000BB">$marge_right&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$marge_bottom&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$sx&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$stamp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sy&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$stamp</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;スタンプ画像を写真の上にコピーします。余白の値と<br />//&nbsp;写真の幅を元にスタンプの位置を決定します<br /></span><span style="color: #0000BB">imagecopy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$stamp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">$sx&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">$marge_right</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">$sy&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">$marge_bottom</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagesx</span><span style="color: #007700">(</span><span style="color: #0000BB">$stamp</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">imagesy</span><span style="color: #007700">(</span><span style="color: #0000BB">$stamp</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;出力し、メモリを開放します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;image/png'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-watermarks.png" alt="アルファチャネルを使用した、画像へのすかしの追加" width="320" height="240" />
+     </div>
+    </div>
+   </div>
+   この例は、すかしやスタンプを写真あるいは著作権つき画像に追加するための一般的な方法です。
+   スタンプ画像内のアルファチャネルのテキストはアンチエイリアス処理されることに注意しましょう。
+   画像をコピーしてもこれは残り続けます。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="image.examples-png.html"></a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="image.examples.merged-watermark.html"></a></div>
+ <div class="up"><a href="image.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果セットに含まれるフィールドの数を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-next-result.html">db2_next_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-num-rows.html">db2_num_rows</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-num-fields" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_num_fields</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_num_fields</span> &mdash; <span class="dc-title">
+   結果セットに含まれるフィールドの数を返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-num-fields-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>db2_num_fields</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stmt</tt></span>
+   )</div>
+
+
+
+  <p class="para rdfs-comment">
+   結果セットに含まれるフィールドの数を返します。動的に生成されたクエリが返す
+   結果セットを処理する場合、あるいはストアドプロシージャから返された結果セットを
+   処理する場合など、結果セットの使用法がアプリケーションにわからない場合に有用です。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-num-fields-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       結果セットを含む有効なステートメントリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-num-fields-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したステートメントリソースに関連付けられた結果セット内の
+   フィールドの数を表す整数値を返します。ステートメントリソースが
+   不正な値の場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-num-fields-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1171">
+    <p><b>例1 結果セットのフィールド数の取得</b></p>
+    <div class="example-contents"><p>
+     以下の例では、結果セットが返すフィールドの数を取得する方法を説明します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id,&nbsp;name,&nbsp;breed,&nbsp;weight&nbsp;FROM&nbsp;animals&nbsp;ORDER&nbsp;BY&nbsp;breed"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$columns&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_num_fields</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"結果セット内には&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$columns</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;つのカラムがあります。"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+結果セット内には 4 つのカラムがあります。
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-num-fields-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-execute.html" class="function" rel="rdfs-seeAlso">db2_execute()</a> - プリペアドステートメントを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-display-size.html" class="function" rel="rdfs-seeAlso">db2_field_display_size()</a> - カラムを表示するために必要な最大のバイト数を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-name.html" class="function" rel="rdfs-seeAlso">db2_field_name()</a> - 結果セット内のカラムの名前を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-num.html" class="function" rel="rdfs-seeAlso">db2_field_num()</a> - 結果セット内の指定したカラムの位置を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-precision.html" class="function" rel="rdfs-seeAlso">db2_field_precision()</a> - 結果セット内の指定したカラムの精度を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-scale.html" class="function" rel="rdfs-seeAlso">db2_field_scale()</a> - 結果セット内の指定したカラムの位取りを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-type.html" class="function" rel="rdfs-seeAlso">db2_field_type()</a> - 結果セット内の指定したカラムのデータ型を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-field-width.html" class="function" rel="rdfs-seeAlso">db2_field_width()</a> - 結果セット内の指定したカラムの現在値の幅を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-next-result.html">db2_next_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-num-rows.html">db2_num_rows</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

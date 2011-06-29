@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>セマフォ ID を得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sem-acquire.html">sem_acquire</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sem-release.html">sem_release</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sem-get" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sem_get</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">sem_get</span> &mdash; <span class="dc-title">セマフォ ID を得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.sem-get-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>sem_get</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$key</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$max_acquire</tt><span class="initializer"> = 1</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$perm</tt><span class="initializer"> = 0666</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$auto_release</tt><span class="initializer"> = 1</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>sem_get()</b></span> は、
+   System V セマフォを指定したキーでアクセスするために使用可能な
+   ID を返します。
+  </p>
+  <p class="para">
+   同じキーで <span class="function"><b>sem_get()</b></span> を 2 度コールした場合、
+   別のセマフォ ID が返されます。
+   しかし、どちらの ID も同じそのセマフォをアクセスします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sem-get-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">max_acquire</tt></i></span>
+     <dd>
+
+      <p class="para">
+       同時にセマフォを得ることが可能なプロセス数を
+       <i><tt class="parameter">max_acquire</tt></i> にセットします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">perm</tt></i></span>
+     <dd>
+
+      <p class="para">
+       セマフォのパーミッション。
+       実際には、この値はプロセスが現在そのセマフォに付随している
+       唯一のプロセスであることがわかった場合にのみセットされます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">auto_release</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リクエストの終了時に自動的にセマフォを開放するかどうかを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sem-get-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に正のセマフォ ID、エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.sem-get-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">auto_release</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sem-get-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sem-acquire.html" class="function" rel="rdfs-seeAlso">sem_acquire()</a> - セマフォを得る</span></li>
+    <li class="member"><span class="function"><a href="function.sem-release.html" class="function" rel="rdfs-seeAlso">sem_release()</a> - セマフォを解放する</span></li>
+    <li class="member"><span class="function"><a href="function.ftok.html" class="function" rel="rdfs-seeAlso">ftok()</a> - パス名とプロジェクト ID を、System V IPC キーに変換する</span></li>
+   </ul>
+  </p>
+ </div>
+  
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sem-acquire.html">sem_acquire</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sem-release.html">sem_release</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

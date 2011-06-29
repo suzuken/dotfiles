@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>gzip 圧縮された文字列を作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gzdeflate.html">gzdeflate</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gzeof.html">gzeof</a></div>
+ <div class="up"><a href="ref.zlib.html">Zlib 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.gzencode" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">gzencode</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5)</p><p class="refpurpose"><span class="refname">gzencode</span> &mdash; <span class="dc-title">gzip 圧縮された文字列を作成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.gzencode-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>gzencode</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$data</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$level</tt><span class="initializer"> = -1</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$encoding_mode</tt><span class="initializer"> = FORCE_GZIP</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、入力 <i><tt class="parameter">data</tt></i>を
+   <strong class="command">gzip</strong> プログラムの出力と互換性のある形式で圧縮
+   して返します。
+  </p>
+  <p class="para">
+   GZIPファイルフォーマットに関する詳細な情報については、次のドキュ
+   メントを参照ください。
+   <a href="http://www.faqs.org/rfcs/rfc1952" class="link external">&raquo; GZIP file format specification
+   version 4.3</a> (RFC 1952)
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.gzencode-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エンコードするデータを指定します
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">level</tt></i></span>
+     <dd>
+
+      <p class="para">
+       圧縮レベルを指定します。
+       圧縮をしない場合に 0、最大限の圧縮を行う場合に9を指定可能です。
+       指定されない場合のデフォルト圧縮レベルは、
+       zlib ライブラリのデフォルト圧縮レベルになります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">encoding_mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エンコーディングモードを指定します。
+       <b><tt>FORCE_GZIP</tt></b> (デフォルト) もしくは
+       <b><tt>FORCE_DEFLATE</tt></b> を指定可能です。
+      </p>
+      <p class="para">
+       もし <b><tt>FORCE_DEFLATE</tt></b> を使用した場合、
+       crc32 チェックサムが付加されていない gzip ファイルヘッダに続いて標準的な
+       zlib 収縮文字列 (zlib ヘッダを含む) を受け取るでしょう。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.gzencode-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エンコードされた文字列、もしくはエラー発生時に <b><tt>FALSE</tt></b>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.gzencode-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">encoding_mode</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.gzencode-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   結果データは標準的な .gz
+   ファイルを構成するための適当なヘッダとデータ構造を含みます。
+   <div class="example" id="example-827">
+    <p><b>例1 gzip ファイルの生成</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">file</span><span style="color: #007700">(</span><span style="color: #DD0000">"bigfile.txt"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$gzdata&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gzencode</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"bigfile.txt.gz"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$gzdata</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.gzencode-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.gzdecode.html" class="function" rel="rdfs-seeAlso">gzdecode()</a> - gzip 圧縮された文字列をデコードする</span></li>
+    <li class="member"><span class="function"><a href="function.gzdeflate.html" class="function" rel="rdfs-seeAlso">gzdeflate()</a> - 文字列を deflate 圧縮する</span></li>
+    <li class="member"><span class="function"><a href="function.gzinflate.html" class="function" rel="rdfs-seeAlso">gzinflate()</a> - deflate圧縮された文字列を解凍する</span></li>
+    <li class="member"><span class="function"><a href="function.gzuncompress.html" class="function" rel="rdfs-seeAlso">gzuncompress()</a> - 圧縮された文字列を解凍する</span></li>
+    <li class="member"><span class="function"><a href="function.gzcompress.html" class="function" rel="rdfs-seeAlso">gzcompress()</a> - 文字列を圧縮する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gzdeflate.html">gzdeflate</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gzeof.html">gzeof</a></div>
+ <div class="up"><a href="ref.zlib.html">Zlib 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

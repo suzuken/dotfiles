@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>declare</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="control-structures.switch.html">switch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.return.html">return</a></div>
+ <div class="up"><a href="language.control-structures.html">制御構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="control-structures.declare" class="sect1">
+ <h2 class="title"><i>declare</i></h2>
+ <p class="para">
+  <i>declare</i> 命令は、あるコードブロックの中に
+  実効命令をセットするために使用されます。<i>declare</i>
+  の文法は他の制御構造と似ています。
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="cdata"><pre>
+declare (命令)
+    文
+</pre></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+    <i>命令</i>の箇所で、セットされた<i>
+    declare</i>ブロックの挙動を指定することが出来ます。
+    現在のところ、使用できる命令は <i>ticks</i>
+    (<a href="control-structures.declare.html#control-structures.declare.ticks" class="link">
+    ticks</a>に関しては以下を参照してください) と
+    <i>encoding</i>
+    (<a href="control-structures.declare.html#control-structures.declare.encoding" class="link">encoding</a>
+    に関しては以下を参照ください) です。
+ </p>
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <span class="simpara">
+   encoding ディレクティブは PHP 5.3.0 で追加されました。
+  </span>
+ </p></blockquote>
+ <p class="para">
+  <i>declare</i>ブロックの<i>文</i>
+  の実行のされ方や実行時にどのような作用が起こるかについては
+  <i>命令</i>に何が指定されたかに依存します。
+ </p>
+ <p class="para">
+  <i>declare</i>構造はグローバルスコープしても使用され、
+  それはそれ以降のコード上の全てにおいて影響します
+  (しかし、<i>declare</i> を含むファイルがインクルードされた場合は、
+  親ファイルにはその影響は及びません)。
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;以下は同じ意味です<br /><br />//&nbsp;こうすることもできますし、<br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">ticks</span><span style="color: #007700">=</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ここにすべてのスクリプトを書きます<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #FF8000">//&nbsp;こうすることもできます<br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">ticks</span><span style="color: #007700">=</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ここにすべてのスクリプトを書きます<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+
+ <div class="sect2" id="control-structures.declare.ticks">
+  <h3 class="title">Ticks</h3>
+  <p class="para">tickとは<i>declare</i>ブロックの実行中にパーサが
+  <var class="varname"><var class="varname">N</var></var>個の低レベル tick 可能命令を実行するごとに
+  発生するイベントのことです。<var class="varname"><var class="varname">N</var></var>の値は
+  <i>declare</i>ブロックの<i>命令</i>の箇所で
+  <i>ticks=N</i>のように
+  指定します。
+ </p>
+ <p class="para">
+  すべての文が tick 可能なわけではありません。
+  たとえば条件式や引数式などは tick できません。
+ </p>
+ <p class="para">
+  tickごとに発生させるイベントは<span class="function"><a href="function.register-tick-function.html" class="function">register_tick_function()</a></span>
+  を使用して指定します。詳細は以下の例を参照してください。1回のtickで
+  複数のイベントが起こり得ることに注意してください。
+ </p>
+ <p class="para">
+  <div class="example" id="example-123">
+   <p><b>例1 Tick の使用例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">ticks</span><span style="color: #007700">=</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;tick&nbsp;イベントごとにコールされる関数<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"tick_handler()&nbsp;called\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">register_tick_function</span><span style="color: #007700">(</span><span style="color: #DD0000">'tick_handler'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /><br />if&nbsp;(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <div class="example" id="example-124">
+   <p><b>例2 Ticks の使用例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"tick_handler()&nbsp;called\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;print(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">tick_handler</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="simpara">
+  <span class="function"><a href="function.register-tick-function.html" class="function">register_tick_function()</a></span> および
+  <span class="function"><a href="function.unregister-tick-function.html" class="function">unregister_tick_function()</a></span> も参照ください。
+ </p>
+ </div>
+ <div class="sect2" id="control-structures.declare.encoding">
+  <h3 class="title">Encoding</h3>
+  <p class="para">
+    スクリプトのエンコーディングをスクリプトごとに指定するには
+    encoding ディレクティブを使用します。
+  <div class="example" id="example-125">
+   <p><b>例3 スクリプトのエンコーディングの宣言</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">encoding</span><span style="color: #007700">=</span><span style="color: #DD0000">'ISO-8859-1'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;ここにコードを書きます<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <div class="caution"><b class="caution">警告</b>
+   <p class="simpara">
+    名前空間と組み合わせて使用する場合、使用できる形式は
+    <i>declare(encoding=&#039;...&#039;);</i> のみです。<i>...</i>
+    にエンコーディングを指定します。<i>declare(encoding=&#039;...&#039;) {}</i>
+    は、名前空間と組み合わせるとパースエラーとなります。
+   </p>
+  </div>
+  <p class="para">
+   php を <i>--enable-zend-multibyte</i> つきでコンパイルしていない場合、
+   PHP 5.3 では encoding 宣言は無視されます。
+  </p>
+  <p class="para">
+   PHP が <i>--enable-zend-multibyte</i>
+   つきでコンパイルされているかどうかを知る方法は
+   <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> 以外に存在しないことに注意しましょう。
+  </p>
+   
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="control-structures.switch.html">switch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.return.html">return</a></div>
+ <div class="up"><a href="language.control-structures.html">制御構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

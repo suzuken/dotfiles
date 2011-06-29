@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>出力バッファを gzip 圧縮するための ob_start コールバック関数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-get-status.html">ob_get_status</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-implicit-flush.html">ob_implicit_flush</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ob-gzhandler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ob_gzhandler</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5)</p><p class="refpurpose"><span class="refname">ob_gzhandler</span> &mdash; <span class="dc-title">出力バッファを gzip 圧縮するための ob_start コールバック関数</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ob-gzhandler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>ob_gzhandler</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$buffer</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>ob_gzhandler()</b></span> は <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span>
+   用のコールバック関数として使用されることを意図したもので、
+   圧縮されたページをサポートしている web ブラウザに対して
+   gz エンコードされたデータを送信することを容易にします。
+   <span class="function"><b>ob_gzhandler()</b></span> は
+   実際に圧縮されたデータを送信する前にブラウザがサポートする content
+   encoding の種類(&quot;gzip&quot;、&quot;deflate&quot; またはなし)を調べ、それに基づいて
+   出力を返します。すべてのブラウザがサポートされています。
+   というのも、ブラウザは、
+   自分が圧縮されたページをサポートするかどうかを表す
+   適切なヘッダを送信することになっているからです。
+   圧縮されたページをブラウザがサポートしていない場合、
+   この関数は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ob-gzhandler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">buffer</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ob-gzhandler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.ob-gzhandler-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        <i><tt class="parameter">mode</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ob-gzhandler-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-471">
+    <p><b>例1 <span class="function"><b>ob_gzhandler()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />ob_start</span><span style="color: #007700">(</span><span style="color: #DD0000">"ob_gzhandler"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;<br /></span>&lt;html&gt;<br />&lt;body&gt;<br />&lt;p&gt;このページは圧縮されます。&lt;/p&gt;<br />&lt;/html&gt;<br />&lt;body&gt;</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.ob-gzhandler-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>ob_gzhandler()</b></span> は、<a href="ref.zlib.html" class="link">zlib</a>
+    拡張モジュールを必要とします。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>ob_gzhandler()</b></span> と
+    <a href="zlib.configuration.html#ini.zlib.output-compression" class="link">
+    zlib.output_compression</a> の両方を使用することはできません。
+    また、<a href="zlib.configuration.html#ini.zlib.output-compression" class="link">
+    zlib.output_compression</a> を使用すると、それは
+    <span class="function"><b>ob_gzhandler()</b></span>
+    よりも優先されることに注意してください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ob-gzhandler-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ob-start.html" class="function" rel="rdfs-seeAlso">ob_start()</a> - 出力のバッファリングを有効にする</span></li>
+    <li class="member"><span class="function"><a href="function.ob-end-flush.html" class="function" rel="rdfs-seeAlso">ob_end_flush()</a> - 出力用バッファをフラッシュ(送信)し、出力のバッファリングをオフにする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ob-get-status.html">ob_get_status</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-implicit-flush.html">ob_implicit_flush</a></div>
+ <div class="up"><a href="ref.outcontrol.html">出力制御 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

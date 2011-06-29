@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>保存した数値を増やす</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-fetch.html">apc_fetch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-load-constants.html">apc_load_constants</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apc-inc" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">apc_inc</h1>
+  <p class="verinfo">(PECL apc &gt;= 3.1.1)</p><p class="refpurpose"><span class="refname">apc_inc</span> &mdash; <span class="dc-title">保存した数値を増やす</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.apc-inc-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>apc_inc</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$step</tt><span class="initializer"> = 1</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter reference">&$success</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   保存した整数値を増やします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.apc-inc-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">key</tt></i></span>
+    <dd>
+
+     <p class="para">
+      増やしたい値のキー。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">step</tt></i></span>
+    <dd>
+
+     <p class="para">
+      増やしたい数。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">success</tt></i></span>
+    <dd>
+
+     <p class="para">
+      この参照渡しの変数に、成功したか失敗したかの結果が格納されます。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apc-inc-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <i><tt class="parameter">key</tt></i> の現在値を返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apc-inc-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-369">
+   <p><b>例1 <span class="function"><b>apc_inc()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Let's&nbsp;do&nbsp;something&nbsp;with&nbsp;success"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">apc_store</span><span style="color: #007700">(</span><span style="color: #DD0000">'anumber'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">42</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">'anumber'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">apc_inc</span><span style="color: #007700">(</span><span style="color: #DD0000">'anumber'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">apc_inc</span><span style="color: #007700">(</span><span style="color: #DD0000">'anumber'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">apc_inc</span><span style="color: #007700">(</span><span style="color: #DD0000">'anumber'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$success</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$success</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Now,&nbsp;let's&nbsp;fail"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">apc_store</span><span style="color: #007700">(</span><span style="color: #DD0000">'astring'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$ret&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">apc_inc</span><span style="color: #007700">(</span><span style="color: #DD0000">'astring'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$fail</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$ret</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$fail</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+42
+43
+53
+63
+bool(true)
+Now, let&#039;s fail
+
+bool(false)
+bool(false)
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apc-inc-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.apc-dec.html" class="function" rel="rdfs-seeAlso">apc_dec()</a> - 保存した数値を減らす</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-fetch.html">apc_fetch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-load-constants.html">apc_load_constants</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

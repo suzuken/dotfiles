@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="keyword.extends.html">extends</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="keyword.class" class="sect1">
+   <h2 class="title"><i>クラス</i></h2>
+   <p class="para">
+    クラスは、変数およびこれらの変数で動作する関数の集まりです。
+    変数は <i>var</i> で、そして関数は
+    <i>function</i> で定義します。
+    クラスは次のような構文により定義されます。
+   </p>
+   <p class="para">
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Cart<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$items</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;買い物カゴの中のアイテム<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;$num&nbsp;個の&nbsp;$artnr&nbsp;を買い物カゴに加えます<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">add_item&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">items</span><span style="color: #007700">[</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">]&nbsp;+=&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$num&nbsp;個の&nbsp;$artnr&nbsp;を買い物カゴから出します<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">remove_item&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">items</span><span style="color: #007700">[</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">]&nbsp;&gt;&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">items</span><span style="color: #007700">[</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">]&nbsp;-=&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">items</span><span style="color: #007700">[</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">]&nbsp;==&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">items</span><span style="color: #007700">[</span><span style="color: #0000BB">$artnr</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+ 
+   <p class="para">
+    この例は、買い物カゴの中の物の連想配列と、買い物カゴにアイテムを加えたり
+    除いたりする二つの関数からなる Cart という名前のクラスを
+    定義します。
+   </p>
+
+   <div class="warning"><b class="warning">警告</b>
+    <p class="simpara">
+     複数のファイルで分割してクラスを定義することは
+     <em class="emphasis">できません</em>。また、関数定義の内部分割されている
+     場合を除き、複数の PHP ブロックで分割してクラスを定義することも
+     <em class="emphasis">できません</em>。次の例は正しく動作しません:
+    </p>
+    <p class="para">
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">test&nbsp;</span><span style="color: #007700">{<br /></span><span style="color: #0000BB">?&gt;<br />&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    <p class="simpara">
+     しかし、次の例は許されます:
+    </p>
+    <p class="para">
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">test&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">?&gt;<br /></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">print&nbsp;</span><span style="color: #DD0000">'OK'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+   </div>
+
+   <p class="simpara">
+    以下の注意書きはPHP 4に関するものです。
+   </p>
+    
+   <div class="caution"><b class="caution">警告</b>
+    <p class="simpara">
+     名前<i>stdClass</i>は、Zendにより内部的に使用され、保
+     存されています。PHPで<i>stdClass</i>という名前のクラ
+     スを使用することはできません。
+    </p>
+   </div>
+    
+   <div class="caution"><b class="caution">警告</b>
+    <p class="simpara">
+     関数<i>__sleep</i>および<i>__wakeup</i>は、
+     PHPクラス内で使用される特殊な関数です。これらの関数に付随する特殊
+     な機能を使用する場合以外は、クラス内でこれらの名前を付けた関数を
+     使用することはできません。詳細な情報については、以下を参照ください。
+    </p>
+   </div>
+    
+   <div class="caution"><b class="caution">警告</b>
+    <p class="simpara">
+     PHP は、<i>__</i> で始まる全ての関数名を特殊な関数として予約しています。
+     ドキュメントに記載された特殊関数の機能を使用する場合以外は、<i>__</i>
+     を含む関数名を使用しないことを推奨します。
+    </p>
+   </div>
+
+   <p class="simpara">
+     PHP 4では、変数<i>var</i>については定数による初期化の
+     みが可能です。定数以外で初期化を行う場合には初期化関数が必要です。
+     この初期化関数は、オブジェクトがクラスから構築される際に自動的に
+     コールされます。このような関数はコンストラクタと呼ばれます。(以下
+     参照)
+   </p>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Cart<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;以下のコードはPHP&nbsp;4では動作しません。&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">var&nbsp;</span><span style="color: #0000BB">$todays_date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y-m-d"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$firstname</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$owner&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Fred&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'Jones'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;Arrays&nbsp;containing&nbsp;constant&nbsp;values&nbsp;will,&nbsp;though.&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">var&nbsp;</span><span style="color: #0000BB">$items&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"VCR"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"TV"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;以下に正しい方法を示します。&nbsp;*/<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Cart<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$todays_date</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$name</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$owner</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$items&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"VCR"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"TV"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">Cart</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">todays_date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y-m-d"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'firstname'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;等など.&nbsp;.&nbsp;.&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+
+   <p class="para">
+    クラスは型、つまり、実際の変数の雛型です。<i>new</i>演
+    算子により所望の型の変数を作成する必要があります。
+   </p>
+ 
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$cart&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Cart</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$cart</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add_item</span><span style="color: #007700">(</span><span style="color: #DD0000">"10"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$another_cart&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Cart</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$another_cart</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add_item</span><span style="color: #007700">(</span><span style="color: #DD0000">"0815"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+ 
+   <p class="para">
+    この例は、クラスCartのオブジェクト<var class="varname"><var class="varname">$cart</var></var>および
+    <var class="varname"><var class="varname">$another_cart</var></var>を作成します。
+    <var class="varname"><var class="varname">$cart</var></var>オブジェクトの関数 <i>add_idem()</i>
+    で、商品番号10の商品一つをカートに追加しています。
+    商品番号0815の商品3つが<var class="varname"><var class="varname">$another_cart</var></var>
+    に追加されています。
+   </p>
+   
+   <p class="para">
+    <var class="varname"><var class="varname">$cart</var></var>と<var class="varname"><var class="varname">$another_cart</var></var>は共に関数
+    <i>add_item()</i>、<i>remove_item()</i>
+    と変数 <var class="varname"><var class="varname">items</var></var> を有しています。これらは、異なる関数および変数です。
+    オブジェクトは、ファイルシステムのディレクトリに似たようなものであると
+    考えられます。ファイルシステムでは、別のディレクトリに置く限り、
+    二つの異なる<var class="filename">README.TXT</var>を保持することが可能です。
+    ディレクトリではトップディレクトリから各ファイルにアクセスするには、
+    フルパス名を入力する必要がありますが、これと全く同様にコールしたい
+    関数の完全な名前を指定する必要があります。PHPの用語では、最上位の
+    ディレクトリはグローバル名前空間であり、パス名のセパレータは、
+    <i>-&gt;</i> となります。つまり、<var class="varname"><var class="varname">$cart->items</var></var>
+    と <var class="varname"><var class="varname">$another_cart->items</var></var> は、二つの異なる変数です。
+    <var class="varname"><var class="varname">$cart->items</var></var>という名前の変数は、
+    <var class="varname"><var class="varname">$cart->$items</var></var>ではない、つまり、PHP の変数名は
+    ドル記号 (<i>$</i>) を一つだけ有することに注意してください。
+   </p>
+
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+//&nbsp;正しい、$は一つ<br />$cart-&gt;items&nbsp;&nbsp;=&nbsp;array("10"&nbsp;=&gt;&nbsp;1);&nbsp;<br /><br />//&nbsp;$cart-&gt;$items&nbsp;は、$cart-&gt;""&nbsp;になるため、正しくない。<br />$cart-&gt;$items&nbsp;=&nbsp;array("10"&nbsp;=&gt;&nbsp;1);<br /><br />//&nbsp;正しいが、意図しているかどうかによらず、<br />//&nbsp;$cart-&gt;$myvar&nbsp;は、&nbsp;$cart-&gt;items&nbsp;となる<br />$myvar&nbsp;=&nbsp;'items';<br />$cart-&gt;$myvar&nbsp;=&nbsp;array("10"&nbsp;=&gt;&nbsp;1);</span>
+</code></div>
+    </div>
+
+   </div>
+
+   <p class="para">
+    クラス定義の内部では、プログラムでアクセス可能なオブジェクト名を知ることはできません。
+    Cart クラスが書かれている時点では、そのオブジェクトの名前が後で
+    <var class="varname"><var class="varname">$cart</var></var> になるのか
+    <var class="varname"><var class="varname">$another_cart</var></var> になるのか、
+    それとも別のものになるのかはわかりません。
+    つまり、Cart クラスの中では <var class="varname"><var class="varname">$cart->items</var></var>
+    と書くことはできないのです。代わりに、
+    クラスの中からそのクラス内の関数や変数にアクセスするために、
+    疑似変数 <var class="varname"><var class="varname">$this</var></var> を使用することが可能です。
+    <var class="varname"><var class="varname">$this</var></var> は、「自分自身の」または「カレントのオブジェクト」
+    と読み変えることができます。つまり、
+    &#039;<var class="varname"><var class="varname">$this->items[$artnr]</var></var> += <var class="varname"><var class="varname">$num</var></var>&#039; は、
+    「同じクラス内の配列 items の <var class="varname"><var class="varname">$artnr</var></var> カウンタに
+    <var class="varname"><var class="varname">$num</var></var> を追加する」または「カレントオブジェクト内の配列
+    items の <var class="varname"><var class="varname">$artnr</var></var> カウンタに <var class="varname"><var class="varname">$num</var></var>
+    を追加する」と読み変えることが可能です。
+   </p>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     擬似変数 <var class="varname"><var class="varname">$this</var></var> は、メソッドが静的にコールされた場合に
+     常に定義されるわけではありません。しかし、はっきりしていることは: 
+     もしメソッドが別のオブジェクトから静的にコールされている場合は
+     <var class="varname"><var class="varname">$this</var></var> が定義されるということです。
+     この場合、<var class="varname"><var class="varname">$this</var></var> は呼び出し元のオブジェクトとなります。
+     これを説明したのが次の例です:
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(isset(</span><span style="color: #0000BB">$this</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'$this&nbsp;is&nbsp;defined&nbsp;('</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">")\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"\$this&nbsp;is&nbsp;not&nbsp;defined.\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">B<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">A</span><span style="color: #007700">::</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$b</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">B</span><span style="color: #007700">::</span><span style="color: #0000BB">bar</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>     
+      </div>
+
+      <p class="para">上の例の出力は以下となります。</p>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+$this is defined (a)
+$this is not defined.
+$this is defined (b)
+$this is not defined.
+</pre></div>
+      </div>
+     </div>
+    </p>
+   </p></blockquote>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     クラスとオブジェクトを処理する優れた関数がいくつかあります。
+    <a href="ref.classobj.html" class="link">クラス/オブジェクト関数</a>
+    をざっとみてみると良いでしょう。
+    </p>
+   </p></blockquote>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="keyword.extends.html">extends</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

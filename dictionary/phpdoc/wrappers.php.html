@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>さまざまな入出力ストリームへのアクセス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.ftp.html">FTP と FTPS</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.compression.html">zlib, bzip2 および zip</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="wrappers.php" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PHP 入出力</h1>
+  <p class="refpurpose"><span class="refname">PHP 入出力</span> &mdash; <span class="dc-title">さまざまな入出力ストリームへのアクセス</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-wrappers.php-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   <var class="filename">php://stdin</var>、<var class="filename">php://stdout</var> 
+   および <var class="filename">php://stderr</var> は、PHP プロセスの
+   対応する入出力ストリームへの直接アクセスを許可します。
+   これらのストリームは複製されたファイル記述子を参照します。そのため、
+   <var class="filename">php://stdin</var> をオープンしたあとでそれを閉じたとしても、
+   識別子のコピーが閉じられるだけです。<b><tt>STDIN</tt></b>
+   で参照される実際のストリームは何も影響を受けません。
+   PHP 5.2.1 より前のバージョンでは、これに関連する挙動にバグがあります。
+   これらのラッパーを使うのではなく、定数
+   <b><tt>STDIN</tt></b>, <b><tt>STDOUT</tt></b>
+   および <b><tt>STDERR</tt></b> を使用することを推奨します。
+  </p>
+  <p class="simpara">
+   <var class="filename">php://output</var> は、
+   <span class="function"><a href="function.print.html" class="function">print()</a></span> および <span class="function"><a href="function.echo.html" class="function">echo()</a></span>
+   と同じ方法での出力バッファへの書き込みを許可します。
+  </p>
+  <p class="simpara">
+   <var class="filename">php://input</var> は、リクエストの body 部から生のデータを読み込むことができます。
+   POST リクエストの場合は <var class="varname"><var class="varname"><a href="reserved.variables.httprawpostdata.html" class="classname">$HTTP_RAW_POST_DATA</a></var></var>
+   よりもこちらを使うのが望ましいでしょう。<var class="filename">php.ini</var> ディレクティブの設定に依存しないからです。
+   さらに、<var class="varname"><var class="varname"><a href="reserved.variables.httprawpostdata.html" class="classname">$HTTP_RAW_POST_DATA</a></var></var> がデフォルトで設定されない場合は、
+   <a href="ini.core.html#ini.always-populate-raw-post-data" class="link">always_populate_raw_post_data</a>
+   を有効にするよりも <var class="varname"><var class="varname"><a href="reserved.variables.httprawpostdata.html" class="classname">$HTTP_RAW_POST_DATA</a></var></var>
+   を使うほうがメモリの消費量が少なくなるでしょう。
+   <var class="filename">php://input</var> は、
+   <i>enctype=&quot;multipart/form-data&quot;</i> に対しては使用できません。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    <var class="filename">php://input</var> でオープンしたストリームは、は一度しか読み込めません。
+    また、このストリームは seek 操作をサポートしていません。
+    しかし、SAPI の実装によっては、別の <var class="filename">php://input</var>
+    ストリームをオープンして読み込みを再開できる可能性もあります。
+    これは、リクエストの body 部のデータが保存されている場合にのみ可能となります。
+    通常、POST リクエストの場合はそのようになりますが、
+    PUT や PROPFIND といった他のメソッドの場合は保存されません。
+   </span>
+  </p></blockquote>
+  <p class="simpara">
+   <var class="filename">php://stdin</var> および
+   <var class="filename">php://input</var> は読み込み専用で、
+   <var class="filename">php://stdout</var>、
+   <var class="filename">php://stderr</var> および
+   <var class="filename">php://output</var> は書き込み専用です。
+  </p>
+
+  <p class="simpara">
+   <var class="filename">php://fd</var> は、指定したファイル記述子に直接アクセスすることができます。
+   たとえば <var class="filename">php://fd/3</var> は、ファイル記述子 3 を指します。
+  </p>
+
+  <p class="simpara">
+   <var class="filename">php://filter</var> は、フィルタアプリケーションが
+   ストリームをオープンすることを許可するために設計されたメタラッパーです。
+   これは、<span class="function"><a href="function.readfile.html" class="function">readfile()</a></span>、<span class="function"><a href="function.file.html" class="function">file()</a></span>
+   および <span class="function"><a href="function.file-get-contents.html" class="function">file_get_contents()</a></span> のようなオールインワンの
+   ファイル関数とともに使用すると有用です。これらの関数には、コンテンツが
+   読み込まれる前にストリームにフィルタを適用する手段がありません。
+  </p>
+  <p class="simpara">
+   <var class="filename">php://filter</var> の対象は、以下のように
+   &#039;parameters&#039; を &#039;path&#039; の一部として保持します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 usage" id="refsect1-wrappers.php-usage"> 
+  <h3 class="title">オプション</h3>
+  <ul class="itemizedlist">
+   <li class="listitem"><span class="simpara"><var class="filename">php://stdin</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://stdout</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://stderr</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://output</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://input</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://filter</var> (PHP 5.0.0 以降で使用可能)</span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://memory</var> (PHP 5.1.0 以降で使用可能)</span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://temp</var> (PHP 5.1.0 以降で使用可能)</span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">php://fd</var> (PHP 5.3.6 以降で使用可能)</span></li>
+  </ul>
+ </div>
+ 
+
+ <div class="refsect1 options" id="refsect1-wrappers.php-options">
+  <h3 class="title">オプション</h3>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>
+     ラッパーの概要（<i>php://filter</i> については、
+     フィルタされる側のラッパーの概要を参照します）
+    </b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>属性</th>
+       <th>サポートの有無</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">allow_url_fopen</a> で制約される</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><a href="filesystem.configuration.html#ini.allow-url-include" class="link">allow_url_include</a> で制約される</td>
+       <td align="left">
+        <i>php://input</i>、
+        <i>php://stdin</i>、
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">読み込み許可</td>
+       <td align="left">
+        <i>php://stdin</i>、
+        <i>php://input</i>、
+        <i>php://fd</i>、
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">書き込み許可</td>
+       <td align="left">
+        <i>php://stdout</i>、
+        <i>php://stderr</i>、
+        <i>php://output</i>、
+        <i>php://fd</i>、
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">追加許可</td>
+       <td align="left">
+        <i>php://stdout</i>、
+        <i>php://stderr</i>、
+        <i>php://output</i>、
+        <i>php://fd</i>、
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ (書き込みと同じ)。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">同時読み書き許可</td>
+       <td align="left">
+        <i>php://fd</i>、
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.stat.html" class="function">stat()</a></span> のサポート</td>
+       <td align="left">
+        <i>php://memory</i> および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.unlink.html" class="function">unlink()</a></span> のサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rename.html" class="function">rename()</a></span> のサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.mkdir.html" class="function">mkdir()</a></span> のサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rmdir.html" class="function">rmdir()</a></span> のサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.stream-select.html" class="function">stream_select()</a></span> のサポート</td>
+       <td align="left">
+        <i>php://stdin</i>、
+        <i>php://stdout</i>、
+        <i>php://stderr</i>、
+        <i>php://fd</i>、および
+        <i>php://temp</i> のみ。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+ 
+
+ <div class="refsect1 examples" id="refsect1-wrappers.php-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-281">
+   <p><b>例1 /resource=&lt;フィルタの対象となるストリーム&gt; (<em class="emphasis">必須</em>)</b></p>
+   <div class="example-contents"><p>
+    このパラメータは、
+    <var class="filename">php://filter</var> 指定の最後に存在し、フィルタリング
+    したいストリームを指している必要があります。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;これは単純に以下と同じです。<br />&nbsp;&nbsp;&nbsp;readfile("http://www.example.com");<br />&nbsp;&nbsp;&nbsp;なぜなら、実際のところ何のフィルタ処理も行われないからです。&nbsp;*/<br /><br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-282">
+   <p><b>例2 /read=&lt;読み込みチェーンに適用するフィルタのリスト&gt; (<em class="emphasis">任意</em>)</b></p>
+   <div class="example-contents"><p>
+    このパラメータは 1 つ以上のフィルタ名を
+    パラメータとしてとり、それらはパイプ文字 <i>|</i> で区切られます。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;これは、www.example.com&nbsp;のすべての内容を<br />&nbsp;&nbsp;&nbsp;大文字に変換して出力します。&nbsp;*/<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper/resource=http://www.example.com"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;これは上の例と同じですが、それに加えて<br />&nbsp;&nbsp;&nbsp;ROT13&nbsp;エンコード処理を行います。&nbsp;*/<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/read=string.toupper|string.rot13/resource=http://www.example.com"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-283">
+   <p><b>例3 /write=&lt;書き込みチェーンに適用するフィルタのリスト&gt; (<em class="emphasis">任意</em>)</b></p>
+   <div class="example-contents"><p>
+    このパラメータは 1 つ以上のフィルタ名を
+    パラメータとしてとり、それらはパイプ文字 <i>|</i> で区切られます。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;これは、文字列&nbsp;"Hello&nbsp;World"<br />&nbsp;&nbsp;&nbsp;に対して&nbsp;rot13&nbsp;フィルタを適用し、カレントディレクトリの<br />&nbsp;&nbsp;&nbsp;example.txt&nbsp;に書き込みます。&nbsp;*/<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://filter/write=string.rot13/resource=example.txt"</span><span style="color: #007700">,</span><span style="color: #DD0000">"Hello&nbsp;World"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  
+  <p class="simpara">
+   <i>/&lt;両方のチェーンに適用するフィルタのリスト&gt;</i>
+  （<em class="emphasis">任意</em>）<i>read=</i> あるいは
+   <i>write=</i> の指定をされていないすべてのフィルタは、
+   読み込みチェーンと書き込みチェーンの両方に（適宜）適用されます。
+  </p>
+
+  <p class="simpara">
+   <var class="filename">php://memory</var> ラッパーは、データをメモリに保存します。
+   <var class="filename">php://temp</var> も同様ですが、メモリの制限
+   (デフォルトは 2 MB です) を超過した際にはテンポラリファイルを使用します。
+  </p>
+  <p class="simpara">
+   <var class="filename">php://temp</var> ラッパーは、次の
+   &#039;parameters&#039; を &#039;path&#039; の一部として受け付けます。
+  </p>
+  
+  <div class="example" id="example-284">
+   <p><b>例4 /maxmemory:&lt;バイト数&gt; (<em class="emphasis">任意</em>)</b></p>
+   <div class="example-contents"><p>
+    このパラメータは、メモリの制限 (データをテンポラリファイルに移動する閾値)
+    のデフォルト値を変更します。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fiveMBs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">1024&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">1024</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://temp/maxmemory:</span><span style="color: #0000BB">$fiveMBs</span><span style="color: #DD0000">"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r+'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">fputs</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hello\n"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;先ほど書き込んだデータを読み込みます。<br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">stream_get_contents</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.ftp.html">FTP と FTPS</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.compression.html">zlib, bzip2 および zip</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>php.ini オプション</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.updates.html">更新</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.security.html">セキュリティ</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.configuration" class="section">
+ <h2 class="title">php.ini オプション</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>Mongo 設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.native-long" class="link">mongo.native_long</a></td>
+      <td align="left">false<a href="mongo.configuration.html#ini.mongo.native-long" class="link">*</a></td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.long-as-object" class="link">mongo.long_as_object</a></td>
+      <td align="left">false</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.default-host" class="link">mongo.default_host</a></td>
+      <td align="left">&quot;localhost&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.default-port" class="link">mongo.default_port</a></td>
+      <td align="left">27017</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.auto-reconnect" class="link">mongo.auto_reconnect</a></td>
+      <td align="left">true</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.allow-persistent" class="link">mongo.allow_persistent</a></td>
+      <td align="left">true</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.chunk-size" class="link">mongo.chunk_size</a></td>
+      <td align="left">262144</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.cmd" class="link">mongo.cmd</a></td>
+      <td align="left">&quot;$&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.utf8" class="link">mongo.utf8</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mongo.configuration.html#ini.mongo.allow_empty_keys" class="link">mongo.allow_empty_keys</a></td>
+      <td align="left">false</td>
+      <td align="left">PHP_INI_ALL</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  PHP_INI_* モードの詳細および定義については
+<a href="configuration.changes.modes.html" class="xref">どこで設定を行うのか</a> を参照してください。
+ </p>
+
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+
+ <p class="para">
+  <dl>
+
+   <dt id="ini.mongo.native-long">
+    <span class="term">
+     <i><tt class="parameter">mongo.native-long</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      <em class="emphasis">
+       この項目のデフォルトは 2.0.0 からは <b><tt>TRUE</tt></b> に変わりました。
+       設定したい値 (おそらく <b><tt>TRUE</tt></b> でしょう) をきちんと設定しておくようにしましょう。
+       そうすれば、ドライバをアップグレードしたときにいきなり挙動が変わることがなくなります。
+      </em>
+     </p>
+     <p class="para">
+      64 ビットプラットフォームでは、<i>mongo.native_long</i>
+      を設定すれば 64 ビット整数値を MongoDB に格納できるようになります。
+      設定しなければ、保存できるのは 32 ビット整数値だけです。
+      この項目を設定したときに使われる MongoDB のデータ型は BSON LONG です。
+      この設定を off にしたときに使われるデータ型は BSON INT となります。
+     </p>
+     <p class="para">
+      この設定は、MongoDB から BSON LONG を読み込んだときの振る舞いにも影響します。
+      <i>mongo.native_long</i> を有効にしなければ、
+      ドライバは BSON LONG をすべて PHP の double 型に変換するので、精度が失われる可能性があります。
+     </p>
+     <p class="para">
+      32 ビットプラットフォームでは、<i>mongo.native_log</i>
+      の設定は整数値を MongoDB に格納する際には何の影響も及ぼしません。
+      整数値はこれまで通り BSON INT で格納されます。しかし、この設定を有効にして
+      BSON LONG を MongoDB から読み込むと
+      <a href="class.mongocursorexception.html" class="classname">MongoCursorException</a> がスローされ、
+      もとの精度のままではデータが読み込めないということを警告します。
+     </p>
+     <p class="para">
+      32 ビットシステム上では特に、この項目とあわせて
+      <i>mongo.long_as_object</i> を有効にしておくことを推奨します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.mongo.long-as-object">
+    <span class="term">
+     <i><tt class="parameter">mongo.long_as_object</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      BSON_LONG を、プリミティブ型ではなく <a href="class.mongoint64.html" class="classname">MongoInt64</a>
+      のインスタンスで返します。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.mongo.default-host">
+    <span class="term">
+     <i><tt class="parameter">mongo.default_host</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      コンストラクタに何も渡さなかったときに使う、デフォルトのホスト名。
+     </p>
+    </dd>
+
+   </dt>
+
+
+   <dt id="ini.mongo.default-port">
+    <span class="term">
+     <i><tt class="parameter">mongo.default_port</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      データベースサーバへの接続に使用する TCP ポート番号。
+      ポート番号が指定されなかった場合にこれを使用します。
+      データベースのデフォルトは <i>27017</i> です。
+     </p>
+    </dd>
+
+   </dt>
+
+  
+   <dt id="ini.mongo.auto-reconnect">
+    <span class="term">
+     <i><tt class="parameter">mongo.auto_reconnect</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      接続が切れた場合にデータベースに再接続するかどうか。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+   <dt id="ini.mongo.allow-persistent">
+    <span class="term">
+     <i><tt class="parameter">mongo.allow_persistent</tt></i>
+     <span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      持続的接続を許可するかどうか。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+   <dt id="ini.mongo.chunk-size">
+    <span class="term">
+     <i><tt class="parameter">mongo.chunk_size</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      チャンクあたりのバイト数。GridFS ファイルを分配する際に使用します。
+      この数値は、少なくとも 100 以上で 4 メガバイト未満 (最大値:
+      4194204)、そして小さめにすることを推奨します。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+   <dt id="ini.mongo.cmd">
+    <span class="term">
+     <i><tt class="parameter">mongo.cmd</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      修飾子や比較において $ のかわりに使う文字。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+   <dt id="ini.mongo.utf8">
+    <span class="term">
+     <i><tt class="parameter">mongo.utf8</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      非 UTF8 文字列に対して例外をスローするかどうか。
+      バージョン 1.0.4 になるまでは、PHP ドライバは非 UTF8 文字列を無視していました。
+      たとえそれが追加するつもりのなかったものであったとしてもです。
+      1.0.4 以降は、ドライバが
+      <a href="class.mongoexception.html" class="classname">MongoException</a> をスローするようになりました。
+      非 UTF8 文字列を追加するアプリケーションの移行時の手間を軽減するため、
+      このオプションをオフにすれば以前のように例外をスローしない設定にすることができます。
+      このオプションはバージョン 1.1.0 以降で廃止され、非 UTF8
+      文字列に対しては常に例外をスローするようになります。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+   <dt id="ini.mongo.allow_empty_keys">
+    <span class="term">
+     <i><tt class="parameter">mongo.allow_empty_keys</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type int">int</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      バージョン 1.0.11 で追加されました。
+     </p>
+     <p class="para">
+      空文字列 (&quot;&quot;) をキーの名前として許可するか否か。
+      デフォルトでは、データベースに空文字列のキーを渡そうとすると
+      ドライバが例外を発生させます。
+      ダブルクォートの中で $ 演算子を使う場合などに、
+      不注意で空文字列を渡してしまうことは非常にありがちです。
+      この設定はデフォルトのままにしておくことを推奨します。
+      しかし、空文字列のキーを保存する必要がある場合はこのオプションを true
+      にします。そうすると、ドライバが空文字列をそのままデータベースに送るようになります。
+     </p>
+    </dd>
+
+   </dt>
+  
+
+  </dl>
+
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.updates.html">更新</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.security.html">セキュリティ</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

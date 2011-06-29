@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>前の FrontBase 操作によるエラーメッセージの数値を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-drop-db.html">fbsql_drop_db</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-error.html">fbsql_error</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fbsql-errno" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fbsql_errno</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">fbsql_errno</span> &mdash; <span class="dc-title">前の FrontBase 操作によるエラーメッセージの数値を返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fbsql-errno-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>fbsql_errno</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   直近の FrontBase 操作からのエラーメッセージを表す数値を返します。
+  </p>
+  <p class="para">
+   fbsql データベースのバックエンドから返されるエラーは、警告を発生しません。
+   その代わりに、<span class="function"><b>fbsql_errno()</b></span> を使用してエラーコードを
+   取得します。この関数は、直近に実行した fbsql 関数
+   (<span class="function"><a href="function.fbsql-error.html" class="function">fbsql_error()</a></span> および <span class="function"><b>fbsql_errno()</b></span>
+   は除く) のエラーコードのみを返すことに注意しましょう。
+   もしこれを使用するつもりなら、他の fbsql 関数をコールする前に値を調べる必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fbsql-errno-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> あるいは
+<span class="function"><a href="function.fbsql-pconnect.html" class="function">fbsql_pconnect()</a></span> が返す FrontBase リンク ID。</p>
+<p class="para">指定しなかった場合は、この関数は FrontBase
+サーバでオープンしているリンクを探します。見つからないときは
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> に引数を指定せずにコールしたときと同様にして作成します。</p>
+</dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fbsql-errno-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   直近の fbsql 関数のエラー番号、あるいはエラーが発生しなかった場合に
+   <i>0</i> (ゼロ) を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fbsql-errno-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1092">
+    <p><b>例1 <span class="function"><b>fbsql_errno()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />fbsql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"marliesle"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">fbsql_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">":&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">fbsql_error</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">fbsql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">"nonexistentdb"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">fbsql_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">":&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">fbsql_error</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;*&nbsp;FROM&nbsp;nonexistenttable;"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">fbsql_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">":&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">fbsql_error</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fbsql-errno-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fbsql-error.html" class="function" rel="rdfs-seeAlso">fbsql_error()</a> - 前の FrontBase 操作によるエラーメッセージの文字列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-warnings.html" class="function" rel="rdfs-seeAlso">fbsql_warnings()</a> - FrontBase 警告を有効または無効にする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-drop-db.html">fbsql_drop_db</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-error.html">fbsql_error</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

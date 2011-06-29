@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>名前を指定して定数を定義する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.constant.html">constant</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.defined.html">defined</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.define" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">define</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">define</span> &mdash; <span class="dc-title">名前を指定して定数を定義する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.define-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>define</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$case_insensitive</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   実行時に、名前を指定して定数を定義します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.define-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       定数の名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       定数の値。スカラー値あるいは <span class="type"><a href="language.types.null.html" class="type null">null</a></span> 値のみを指定できます。
+       スカラー値とは <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> か
+       <span class="type"><a href="language.types.float.html" class="type float">float</a></span>、<span class="type"><a href="language.types.string.html" class="type string">string</a></span>、<span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+       のいずれかのことです。リソース定数を定義することもできますが、
+       推奨できません。予期せぬ振る舞いをする可能性があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">case_insensitive</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> を指定すると、定数は大文字小文字を区別しないようになります。
+       デフォルトでは大文字小文字を区別します。つまり
+       <i>CONSTANT</i> と <i>Constant</i>
+       は別の値を表すわけです。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        大文字小文字を区別しないときは、定数は小文字で格納されます。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.define-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.define-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3107">
+    <p><b>例1 定数の定義</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">"CONSTANT"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;world."</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">CONSTANT</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;"Hello&nbsp;world."&nbsp;を出力します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">Constant</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;"Constant"&nbsp;を出力し、警告が発生します<br /><br /></span><span style="color: #0000BB">define</span><span style="color: #007700">(</span><span style="color: #DD0000">"GREETING"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;you."</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">GREETING</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;"Hello&nbsp;you."&nbsp;を出力します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">Greeting</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;"Hello&nbsp;you."&nbsp;を出力します<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.define-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.defined.html" class="function" rel="rdfs-seeAlso">defined()</a> - 指定した名前の定数が存在するかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.constant.html" class="function" rel="rdfs-seeAlso">constant()</a> - 定数の値を返す</span></li>
+    <li class="member"><a href="language.constants.html" class="link">定数</a>の節</li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.constant.html">constant</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.defined.html">defined</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

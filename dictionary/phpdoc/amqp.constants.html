@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>定義済み定数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqp.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="amqp.examples.html">例</a></div>
+ <div class="up"><a href="book.amqp.html">AMQP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="amqp.constants" class="appendix">
+  <h1>定義済み定数</h1>
+
+  <p class="simpara">
+以下の定数が定義されています。
+この関数の拡張モジュールが PHP 組み込みでコンパイルされているか、
+実行時に動的にロードされている場合のみ使用可能です。
+</p>
+  <p class="para">
+    <dl>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_DURABLE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            永続的な exchange やキューはブローカを再起動しても生き残り、
+            データを保持したままとなります。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_PASSIVE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            受動的な exchange やキューは再宣言されませんが、
+            exchange やキューが存在しなければブローカはエラーとなります。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_EXCLUSIVE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            キューに対してのみ使えます。このフラグは、
+            このキューに対してはひとつのクライアントのみしかやりとりできないことを意味します。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_AUTODELETE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            exchange の場合、自動削除フラグの意味は、
+            バインドされているキューがなくなった時点で exchange が削除されるということです。
+            まだキューがバインドされていない場合、exchange は削除されません。
+          </span>
+          <span class="simpara">
+            キューの場合、自動削除フラグの意味は、
+            購読しているリスナーがなくなった時点でキューが削除されるということです。
+            まだアクティブな購読がない場合、キューは削除されません。
+          </span>
+          <span class="simpara">
+            注意: 排他的なキューは、クライアントからの接続が切断されると自動的に削除されます。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_INTERNAL</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            このフラグが定義された exchange に対して、クライアントからキューをバインドすることはできません。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_NOLOCAL</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            クラスタ環境でコンシューマメソッドに渡すときに、ローカルノードからは取得しません。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_NOACK</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            コンシューマメソッドに渡されたときに、メッセージに配送済みマークを付けません。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_IFEMPTY</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            キューの作成時にこのフラグを指定すると、キューが空になったときに削除されるようになります。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_IFUNUSED</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            キューあるいは exchange の作成時にこのフラグを指定すると、
+            そのキューあるいは exchange に接続するクライアントがなくなったときに削除されるようになります。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_MANDATORY</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            メッセージを公開するときに、このメッセージを有効なキューにルーティングするようにします。
+            失敗すると、エラーを返します。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_IMMEDIATE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            メッセージを公開するときに、このメッセージをすぐにブローカで処理するように
+            (優先度が高いものであると) マークします。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_MULTIPLE</tt></b>
+          (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            ?
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_EX_TYPE_DIRECT</tt></b>
+          (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            direct (exchange の型)。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_EX_TYPE_FANOUT</tt></b>
+          (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            fanout (exchange の型)。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_EX_TYPE_TOPIC</tt></b>
+          (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            topic (exchange の型)。
+          </span>
+        </dd>
+
+      </dt>
+
+      <dt>
+
+        <span class="term">
+          <b><tt>AMQP_EX_TYPE_HEADER</tt></b>
+          (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+        </span>
+        <dd>
+
+          <span class="simpara">
+            header (exchange の型)。
+          </span>
+        </dd>
+
+      </dt>
+
+    </dl>
+
+  </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqp.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="amqp.examples.html">例</a></div>
+ <div class="up"><a href="book.amqp.html">AMQP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

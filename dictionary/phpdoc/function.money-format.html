@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>数値を金額文字列にフォーマットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.metaphone.html">metaphone</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.nl-langinfo.html">nl_langinfo</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.money-format" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">money_format</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">money_format</span> &mdash; <span class="dc-title">数値を金額文字列にフォーマットする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.money-format-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>money_format</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$number</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>money_format()</b></span> は、<i><tt class="parameter">number</tt></i>
+   をフォーマットして返します。この関数は C のライブラリ関数
+   <span class="function"><b>strfmon()</b></span> をラップしたものですが、一度に
+   変換できる数値がひとつだけであるという点が異なります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.money-format-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フォーマット指定の書式は以下の順になります。
+       <ul class="itemizedlist">
+        <li class="listitem"><p class="para"><i>%</i> 文字</p></li>
+        <li class="listitem"><p class="para">フラグ(オプション)</p></li>
+        <li class="listitem"><p class="para">フィールドの幅(オプション)</p></li>
+        <li class="listitem"><p class="para">左精度(オプション)</p></li>
+        <li class="listitem"><p class="para">右精度(オプション)</p></li>
+        <li class="listitem"><p class="para">変換文字(必須)</p></li>
+       </ul>
+      </p>
+      <p class="formalpara">
+       <h5 class="title">フラグ</h5>
+       <p class="para">
+       以下のフラグのうちひとつあるいは複数が使用可能です。
+        <dl>
+
+         <dt>
+
+          <span class="term"><i>=</i><span class="replaceable">f</span></span>
+          <dd>
+
+           <p class="para">
+            文字 <i>=</i> の後に続く(シングルバイトの)文字
+            <span class="replaceable">f</span> が、数値埋め文字として使用されます。
+            デフォルトはスペース文字です。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>^</i></span>
+          <dd>
+
+           <p class="para">
+            グループ化文字(現在のロケールで定義されている)を使用しないようにします。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>+</i> あるいは <i>(</i></span>
+          <dd>
+
+           <p class="para">
+            正の数、負の数の書式を指定します。<i>+</i> が使用された場合、
+            <i>+</i> および <i>-</i> に該当する
+            そのロケールの符号マークが使用されます。<i>(</i>
+            が使用された場合、負の数は括弧で囲まれます。何も指定しなかった場合、
+            デフォルトは <i>+</i> です。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>!</i></span>
+          <dd>
+
+           <p class="para">
+            出力文字列から通貨記号を除きます。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>-</i></span>
+          <dd>
+
+           <p class="para">
+            指定した場合、すべてのフィールドを左詰め(右側に数値埋め文字が追加される)
+            にします。デフォルトはこれと反対で、すべてのフィールドを右詰め
+            (左側に数値埋め文字が追加される)にします。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </p>
+      </p>
+      <p class="formalpara">
+       <h5 class="title">フィールドの幅</h5>
+       <p class="para">
+        <dl>
+
+         <dt>
+
+          <span class="term"><span class="replaceable">w</span></span>
+          <dd>
+
+           <p class="para">
+            10 進の数値形式の文字列で、フィールドの幅の最小値を指定します。フラグ
+            <i>-</i> が使用されていない限り、フィールドは
+            右詰めとなります。デフォルト値は 0(ゼロ) です。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </p>
+      </p>
+      <p class="formalpara">
+       <h5 class="title">左精度</h5>
+       <p class="para">
+        <dl>
+
+         <dt>
+
+          <span class="term"><i>#</i><span class="replaceable">n</span></span>
+          <dd>
+
+           <p class="para">
+            10 進の基準文字(例: 小数点)より左側の最大の桁数
+            (<span class="replaceable">n</span>) を指定します。これは通常、
+            <span class="replaceable">n</span> より少ない桁数の数値に対して
+            数値埋め文字を使用することで、出力の桁位置をそろえるために
+            使用されます。実際の桁数が <span class="replaceable">n</span> より
+            大きい場合、この設定は無視されます。
+           </p>
+           <p class="para">
+            <i>^</i> フラグでグループ化文字が抑止されていない場合、
+            (もし存在するなら)数値埋め文字が追加される前にグループ化文字が
+            挿入されます。グループ化文字は数値埋め文字には適用されません。
+            たとえ数値埋め文字が数字であったとしても同様です。
+           </p>
+           <p class="para">
+            位置あわせを確実にするため、出力中の数値の前後に表れる文字(たとえば
+            通貨記号や符号など)は、必要に応じて(正の数と負の数の長さをそろえるなど
+            の理由で)スペース文字が付加されることがあります。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </p>
+      </p>
+      <p class="formalpara">
+       <h5 class="title">
+        右精度
+       </h5>
+       <p class="para">
+        <dl>
+
+         <dt>
+
+          <span class="term"><i>.</i><span class="replaceable">p</span></span>
+          <dd>
+
+           <p class="para">
+            ピリオドに続く数値(<span class="replaceable">p</span>)
+            で、10 進の基準文字以降の桁数を指定します。
+            <span class="replaceable">p</span> の値が 0(ゼロ)であった場合、基準文字と
+            それ以降の数値は省略されます。右精度が指定されていない場合、
+            使用中の現在のロケールからデフォルト値を検出します。
+            フォーマットされる数値は、フォーマット前にこの桁数に丸められます。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </p>
+      </p>
+      <p class="formalpara">
+       <h5 class="title">
+        変換文字
+       </h5>
+       <p class="para">
+        <dl>
+
+         <dt>
+
+          <span class="term"><i>i</i></span>
+          <dd>
+
+           <p class="para">
+            ロケールの国際通貨フォーマット(例: USA ロケールでは
+            USD 1,234.56)によってフォーマットします。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>n</i></span>
+          <dd>
+
+           <p class="para">
+            ロケールの国内通貨フォーマット(例: de_DE ロケールでは
+            EU1.234,56) によってフォーマットします。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term"><i>%</i></span>
+          <dd>
+
+           <p class="para">
+            <i>%</i> 文字を返します。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </p>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">number</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フォーマットする数値。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.money-format-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   フォーマットした文字列を返します。
+   フォーマット文字列の前後の文字は、そのまま返されます。
+   <i><tt class="parameter">number</tt></i> が非数値の場合は <b><tt>NULL</tt></b> を返し、
+   <b><tt>E_WARNING</tt></b> を発行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.money-format-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    システムで strfmon が使用可能な場合のみ <span class="function"><b>money_format()</b></span>
+    関数が定義されます。例えば、Windows では strfmon は使用できません。
+    そのため <span class="function"><b>money_format()</b></span> は Windows では
+    定義されていません。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    ロケール設定のうち、<b><tt>LC_MONETARY</tt></b> カテゴリの内容が
+    この関数の振る舞いに影響します。この関数を使用する前に、
+    <span class="function"><a href="function.setlocale.html" class="function">setlocale()</a></span> で適切なデフォルトロケールを
+    設定してください。
+   </p>
+  </p></blockquote>   
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.money-format-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3980">
+    <p><b>例1 <span class="function"><b>money_format()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この関数の使用法を詳しく説明するために、
+     さまざまなロケールおよびフォーマット指定を使用します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;en_US&nbsp;ロケールの国際フォーマットで表示します<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%i'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;USD&nbsp;1,234.56<br /><br />//&nbsp;イタリアの国内フォーマットで小数点以下&nbsp;2&nbsp;桁で表示します<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'it_IT'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%.2n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Eu&nbsp;1.234,56<br /><br />//&nbsp;負の数を使用します<br /></span><span style="color: #0000BB">$number&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">1234.5672</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;US&nbsp;の国際フォーマットで、負の数には&nbsp;()&nbsp;を使用して<br />//&nbsp;左精度を&nbsp;10&nbsp;桁にします<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_US'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%(#10n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;($&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1,234.57)<br /><br />//&nbsp;上と同じですが、それに加えて右精度を&nbsp;2&nbsp;桁<br />//&nbsp;数値埋め文字として&nbsp;'*'&nbsp;を使用します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*(#10.2n'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$number</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;($********1,234.57)<br /><br />//&nbsp;左詰め、幅&nbsp;14&nbsp;桁、左精度&nbsp;8&nbsp;桁、右精度&nbsp;2&nbsp;桁、グループ化文字なしで<br />//&nbsp;de_DE&nbsp;ロケールの国際フォーマットを使用します。<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'de_DE'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #DD0000">'%=*^-14#8.2i'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;Eu&nbsp;1234,56****<br /><br />//&nbsp;変換指定の前後に宣伝文句を追加します<br /></span><span style="color: #0000BB">setlocale</span><span style="color: #007700">(</span><span style="color: #0000BB">LC_MONETARY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'en_GB'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'The&nbsp;final&nbsp;value&nbsp;is&nbsp;%i&nbsp;(after&nbsp;a&nbsp;10%%&nbsp;discount)'</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">money_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;final&nbsp;value&nbsp;is&nbsp;&nbsp;GBP&nbsp;1,234.56&nbsp;(after&nbsp;a&nbsp;10%&nbsp;discount)<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.money-format-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.setlocale.html" class="function" rel="rdfs-seeAlso">setlocale()</a> - ロケール情報を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - フォーマット文字列に基づき入力を処理する</span></li>
+    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - フォーマットされた文字列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.printf.html" class="function" rel="rdfs-seeAlso">printf()</a> - フォーマット済みの文字列を出力する</span></li>
+    <li class="member"><span class="function"><a href="function.number-format.html" class="function" rel="rdfs-seeAlso">number_format()</a> - 数字を千位毎にグループ化してフォーマットする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.metaphone.html">metaphone</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.nl-langinfo.html">nl_langinfo</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

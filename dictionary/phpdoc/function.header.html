@@ -1,0 +1,373 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>生の HTTP ヘッダを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.header-remove.html">header_remove</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.headers-list.html">headers_list</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.header" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">header</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">header</span> &mdash; <span class="dc-title">生の HTTP ヘッダを送信する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.header-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>header</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$replace</tt><span class="initializer"> = true</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$http_response_code</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>header()</b></span> は、生の
+   <acronym title="Hypertext Transfer Protocol">HTTP</acronym> ヘッダを送信するために使用されます。
+   <acronym title="Hypertext Transfer Protocol">HTTP</acronym> ヘッダについての詳細な情報は
+   <a href="http://www.faqs.org/rfcs/rfc2616" class="link external">&raquo; HTTP/1.1 仕様</a>
+   を参照ください。
+  </p>
+  <p class="para">
+   覚えておいて頂きたいのは、<span class="function"><b>header()</b></span> 関数は、
+   通常の HTML タグまたは PHP からの出力にかかわらず、すべての実際の
+   出力の前にコールする必要があることです。
+   頻出するエラーとして、<span class="function"><a href="function.include.html" class="function">include()</a></span> または
+   <span class="function"><a href="function.require.html" class="function">require()</a></span> 関数、他のファイルをアクセスする関数に
+   空白または空行があり、<span class="function"><b>header()</b></span> の前に出力が
+   行われてしまうというものがあります。同じ問題は、単一の PHP/HTML
+   ファイルを使用している場合でも存在します。
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;html&gt;<br /><span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;これはエラーとなります。この上に出力があることに注目してください。<br />&nbsp;*&nbsp;それはheader()のコールより前であるということになります&nbsp;*/<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Location:&nbsp;http://www.example.com/'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.header-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ヘッダ文字列。
+      </p>
+      <p class="para">
+       特殊な header コールが 2 種類あります。最初のものは、
+       文字列 &quot;<i>HTTP/</i>&quot;
+       から始まる全てのヘッダ (大文字・小文字は区別されません) です。
+       このヘッダは、送信する HTTP ステータスコードを示すために使用されます。
+       例えば、存在しないファイルへのリクエストを処理するためにある PHP
+       スクリプトを使用するよう (<i>ErrorDocument</i>
+       ディレクティブにより) Apache を設定する場合、
+       そのスクリプトが正しいステータスコードを返すようにする必要があります。
+      </p>
+      <p class="para">
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"HTTP/1.0&nbsp;404&nbsp;Not&nbsp;Found"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+      <p class="para">
+       FastCGI の場合は、404 のレスポンスは次の形式でなければなりません。
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Status:&nbsp;404&nbsp;Not&nbsp;Found"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>         
+      </p>
+      <p class="para">
+       2 番目の特別なヘッダは、&quot;Location:&quot;
+       ヘッダです。このヘッダがブラウザに返されるだけではなく、
+       ブラウザに <i>REDIRECT</i> (302) ステータスコードを返します
+       (<i>201</i> や <i>3xx</i>
+       ステータスコードが既に送信されていない場合にのみ)。
+      </p>
+      <p class="para">
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location:&nbsp;http://www.example.com/"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*&nbsp;ブラウザをリダイレクトします&nbsp;*/<br /><br />/*&nbsp;リダイレクトする際に、これ以降のコードが実行されないことを確認してください&nbsp;*/<br /></span><span style="color: #007700">exit;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">replace</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションのパラメータ <i><tt class="parameter">replace</tt></i> は、ヘッダが
+       前に送信された類似のヘッダを置換するか、または、同じ形式の二番目の
+       ヘッダを追加するかどうかを指定します。デフォルトでは、この関数は
+       置換を行ないますが、二番目の引数に <b><tt>FALSE</tt></b> を指定すると、同じ型の
+       複数のヘッダを強制的に生成します。例えば、
+      </p>
+      <p class="para">
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate:&nbsp;Negotiate'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'WWW-Authenticate:&nbsp;NTLM'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">http_response_code</tt></i></span>
+     <dd>
+
+      <p class="para">
+       HTTP レスポンスコードを強制的に指定の値にします。このパラメータが意味をなすのは
+       <i><tt class="parameter">string</tt></i> が空文字列でないときだけであることに注意しましょう。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.header-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.header-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.4.2 および 5.1.2</td>
+       <td align="left">
+        この関数は一度に複数のヘッダを送信できないようになりました。
+        これは、ヘッダインジェクション攻撃への対策です。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">http_response_code</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.4</td>
+       <td align="left">
+        <i><tt class="parameter">replace</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.header-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3655">
+    <p><b>例1 ダウンロードダイアログ</b></p>
+    <div class="example-contents"><p>
+     PDF ファイルを生成した場合など、
+     それをダウンロードするかの確認ダイアログを表示させたいことがあるでしょう。
+     そんな場合は、<a href="http://www.faqs.org/rfcs/rfc2183" class="link external">&raquo; Content-Disposition</a>
+     ヘッダを使用してファイル名を指定すると、ブラウザ側でダイアログを表示させることができます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;PDFを出力します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;application/pdf'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;downloaded.pdf&nbsp;という名前で保存させます<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-Disposition:&nbsp;attachment;&nbsp;filename="downloaded.pdf"'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;もとの&nbsp;PDF&nbsp;ソースは&nbsp;original.pdf&nbsp;です<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">'original.pdf'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3656">
+    <p><b>例2 キャッシュディレクティブ</b></p>
+    <div class="example-contents"><p>
+     PHP スクリプトはしばしば動的に HTML を生成するため、クライアント
+     ブラウザやサーバおよびクライアントブラウザの間でプロキシがキャッシュを
+     行ったりするべきではありません。多くのプロキシとクライアントでは、
+     以下のコードにより強制的にキャッシュを無効にできます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache-Control:&nbsp;no-cache,&nbsp;must-revalidate"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;HTTP/1.1<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Expires:&nbsp;Sat,&nbsp;26&nbsp;Jul&nbsp;1997&nbsp;05:00:00&nbsp;GMT"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;過去の日付<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       上記のヘッダを全て出力しなかったとしてもページのキャッシュが
+       行われない場合があることに気付くかもしれません。デフォルトの
+       ブラウザのキャッシュの動作をユーザが変更できる手段はいくつもあります。
+       上記のヘッダを送信することにより、スクリプトの出力がキャッシュされる
+       可能性がある設定を上書きするべきです。
+      </p>
+      <p class="para">
+       さらに、<span class="function"><a href="function.session-cache-limiter.html" class="function">session_cache_limiter()</a></span> および
+       設定 <i>session.cache_limiter</i> を用いると、
+       セッションが使用された際にキャッシュ関係の正しいヘッダを
+       自動的に生成させることもできます。
+      </p>
+     </p></blockquote>
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.header-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    出力のバッファリングを使用してこの問題を回避することができます。
+    この場合、ブラウザへの出力が送信するまでサーバに
+    全てバッファリングされるオーバーヘッドがあります。出力バッファリングは、
+    <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> と
+    <span class="function"><a href="function.ob-end-flush.html" class="function">ob_end_flush()</a></span> をスクリプトでコールするか
+    <var class="filename">php.ini</var> またはサーバ設定ファイルの設定ディレクティブ
+    <i>output_buffering</i> を設定することにより
+    行うことが可能です。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    実際に <span class="function"><b>header()</b></span> が最初にコールされたか
+    どうかにかかわらず、HTTP ステータスヘッダ行は
+    クライアントに対し常に最初に送信されます。
+    HTTP ヘッダが既に送信されていない限り、
+    <span class="function"><b>header()</b></span> をコールすることでステータスは
+    常に上書きされます。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Microsoft Internet Explorer 4.01 にはバグがあり、
+    この方法が動作しません。これを解決する方法はありません。
+    同様に Microsoft Internet Explorer 5.5 にもこれを妨げるバグがあります。
+    こちらは、サービスパック 2 以降にアップグレードすることで対応できます。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">セーフモード</a>が有効な場合は、
+    <i>WWW-Authenticate</i> ヘッダ (HTTP 認証に使用する)
+    を設定した際に、スクリプトの uid が <i>realm</i>
+    部に追加されます。
+   </span>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    HTTP/1.1 では、スキーム、ホスト名、絶対パスを含む絶対
+    <acronym title="Uniform Resource Identifier">URI</acronym> が <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.30" class="link external">&raquo; Location:</a>
+    の引数として必要ですが、相対 URI を受け付けるクライアントもあります。
+    通常は、相対 URI から絶対 URI を作成するためには
+    <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER['HTTP_HOST']</a></var></var>、
+    <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER['PHP_SELF']</a></var></var> および
+    <span class="function"><a href="function.dirname.html" class="function">dirname()</a></span> を使用できます。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;カレントディレクトリの別のページにリダイレクトします&nbsp;*/<br /></span><span style="color: #0000BB">$host&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'HTTP_HOST'</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$uri&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">rtrim</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'PHP_SELF'</span><span style="color: #007700">]),&nbsp;</span><span style="color: #DD0000">'/\\'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$extra&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'mypage.php'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Location:&nbsp;http://</span><span style="color: #0000BB">$host$uri</span><span style="color: #DD0000">/</span><span style="color: #0000BB">$extra</span><span style="color: #DD0000">"</span><span style="color: #007700">);<br />exit;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a>
+    が有効であったとしても、セッション ID が Location ヘッダとともに
+    渡されることはありません。<b><tt>SID</tt></b> 定数を使用して
+    手動で渡す必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.header-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.headers-sent.html" class="function" rel="rdfs-seeAlso">headers_sent()</a> - ヘッダが既に送信されているかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.setcookie.html" class="function" rel="rdfs-seeAlso">setcookie()</a> - クッキーを送信する</span></li>
+    <li class="member">
+     <a href="features.http-auth.html" class="link">HTTP
+     認証</a>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.header-remove.html">header_remove</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.headers-list.html">headers_list</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

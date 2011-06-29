@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソケットリソースを非ブロックモードに設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-set-block.html">socket_set_block</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-set-option.html">socket_set_option</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-set-nonblock" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_set_nonblock</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_set_nonblock</span> &mdash; <span class="dc-title">ソケットリソースを非ブロックモードに設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-set-nonblock-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>socket_set_nonblock</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$socket</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>socket_set_nonblock()</b></span> 関数は、
+   <i><tt class="parameter">socket</tt></i> パラメータで指定したソケットに
+   <b><tt>O_NONBLOCK</tt></b> フラグを設定します。
+  </p>
+  <p class="para">
+   受信や送信、接続、待機といった操作を非ブロックモードのソケットに対して行うと、
+   その処理が完了するか何らかのシグナルを受信するまではスクリプトは停止しません。
+   また、その操作がブロックされると、呼び出し元の関数は失敗します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-set-nonblock-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> あるいは <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span>
+       で作成したソケットリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-set-nonblock-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.socket-set-nonblock-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3755">
+    <p><b>例1 <span class="function"><b>socket_set_nonblock()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$socket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">socket_create_listen</span><span style="color: #007700">(</span><span style="color: #0000BB">1223</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">socket_set_nonblock</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">socket_accept</span><span style="color: #007700">(</span><span style="color: #0000BB">$socket</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     この例は、すべてのインターフェイス上でポート 1223
+     を待ち受けるソケットを作成し、それを <b><tt>O_NONBLOCK</tt></b>
+     モードに設定します。
+     <span class="function"><a href="function.socket-accept.html" class="function">socket_accept()</a></span> は、
+     その時点で待機中の接続がない場合はすぐに失敗します。
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-set-nonblock-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-set-block.html" class="function" rel="rdfs-seeAlso">socket_set_block()</a> - ソケットリソースをブロックモードに設定する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-set-option.html" class="function" rel="rdfs-seeAlso">socket_set_option()</a> - ソケットのオプションを設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-set-block.html">socket_set_block</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-set-option.html">socket_set_option</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

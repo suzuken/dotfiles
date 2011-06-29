@@ -1,0 +1,198 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>XMLファイルをパースし、オブジェクトに代入する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.simplexml-import-dom.html">simplexml_import_dom</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.simplexml-load-string.html">simplexml_load_string</a></div>
+ <div class="up"><a href="ref.simplexml.html">SimpleXML 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.simplexml-load-file" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">simplexml_load_file</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">simplexml_load_file</span> &mdash; <span class="dc-title">
+   XMLファイルをパースし、オブジェクトに代入する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.simplexml-load-file-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">object</span> <span class="methodname"><b>simplexml_load_file</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$class_name</tt><span class="initializer"> = &quot;SimpleXMLElement&quot;</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$ns</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$is_prefix</tt><span class="initializer"> = false</span></span>
+  ]]]] )</div>
+
+  <p class="para rdfs-comment">
+   指定したファイルの中の整形式 XML ドキュメントをオブジェクトに変換します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.simplexml-load-file-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       XML ファイルへのパス。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        Libxml 2 は URI をエスケープしませんので、例えば URI パラメータ
+        <i>a</i> に <i>b&amp;c</i> を渡したい場合、
+        <i>simplexml_load_file(rawurlencode(&#039;http://example.com/?a=&#039; .
+        urlencode(&#039;b&amp;c&#039;)))</i>
+        をしてコールする必要があります。PHP 5.1.0 以降では、これをする必要は
+        ありません。PHP が自動的に行います。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">class_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><b>simplexml_load_file()</b></span>
+       が指定されたクラスのオブジェクトを返すようにするために、
+       このオプションのパラメータを使用します。
+       このクラスは、<span class="type"><a href="class.simplexmlelement.html" class="type SimpleXMLElement">SimpleXMLElement</a></span>
+       クラスを継承していなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PHP 5.1.0 と Libxml 2.6.0 から、<a href="libxml.constants.html" class="link">追加の Libxml パラメータ</a>
+       を指定するために <i><tt class="parameter">options</tt></i>
+       を使用することもできます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ns</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">is_prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.simplexml-load-file-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="type"><a href="class.simplexmlelement.html" class="type SimpleXMLElement">SimpleXMLElement</a></span> クラスのオブジェクトを返します。
+   XML ドキュメント内のデータをプロパティに含みます。
+   エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 errors" id="refsect1-function.simplexml-load-file-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   XML データ内でエラーが見つかるたびに <b><tt>E_WARNING</tt></b>
+   エラーメッセージが発生します。
+  </p>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    <span class="function"><a href="function.libxml-use-internal-errors.html" class="function">libxml_use_internal_errors()</a></span> ですべての XML エラーを抑制し、
+    後から <span class="function"><a href="function.libxml-get-errors.html" class="function">libxml_get_errors()</a></span> で取得することもできます。
+   </p>
+  </div>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.simplexml-load-file-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4570">
+    <p><b>例1 XMLドキュメントをパースする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;The&nbsp;file&nbsp;test.xml&nbsp;contains&nbsp;an&nbsp;XML&nbsp;document&nbsp;with&nbsp;a&nbsp;root&nbsp;element<br />//&nbsp;and&nbsp;at&nbsp;least&nbsp;an&nbsp;element&nbsp;/[root]/title.<br /><br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.xml'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$xml&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">simplexml_load_file</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.xml'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$xml</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;exit(</span><span style="color: #DD0000">'Failed&nbsp;to&nbsp;open&nbsp;test.xml.'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     このスクリプトは成功時に以下のように出力します。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+SimpleXMLElement Object
+(
+  [title] =&gt; Example Title
+  ...
+)
+</pre></div>
+    </div>
+    <div class="example-contents"><p>
+     この時点で、<i>$xml-&gt;title</i> としたり、
+     他の全ての要素にアクセスすることができます。
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.simplexml-load-file-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.simplexml-load-string.html" class="function" rel="rdfs-seeAlso">simplexml_load_string()</a> - XML 文字列をオブジェクトに代入する</span></li>
+    <li class="member"> <span class="methodname"><a href="simplexmlelement.construct.html" class="methodname" rel="rdfs-seeAlso">SimpleXMLElement::__construct()</a> - 新しい SimpleXMLElement オブジェクトを作成する</span></li>
+    <li class="member"><a href="simplexml.examples-errors.html" class="xref">XML エラーの対応</a></li>
+    <li class="member"><span class="function"><a href="function.libxml-use-internal-errors.html" class="function" rel="rdfs-seeAlso">libxml_use_internal_errors()</a> - libxmlエラーを無効にし、ユーザが必要に応じてエラー情報を取得できるようにする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.simplexml-import-dom.html">simplexml_import_dom</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.simplexml-load-string.html">simplexml_load_string</a></div>
+ <div class="up"><a href="ref.simplexml.html">SimpleXML 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

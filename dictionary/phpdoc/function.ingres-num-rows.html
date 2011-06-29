@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリが変更したり返したりしたレコードの数を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-num-fields.html">ingres_num_fields</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-pconnect.html">ingres_pconnect</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ingres-num-rows" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ingres_num_rows</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5 &lt;= 5.0.5, PECL ingres &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">ingres_num_rows</span> &mdash; <span class="dc-title">クエリが変更したり返したりしたレコードの数を取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ingres-num-rows-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ingres_num_rows</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、主にデータベースで修正されたレコードの数を得る際に有用です。
+   しかし、SELECT 分で取得した行の数を取得するために使うこともできます。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="ingres.configuration.html#ini.ingres.scrollable" class="link">スクロール可能なカーソル</a>
+    が無効な状態でこの関数が <span class="function"><a href="function.ingres-fetch-array.html" class="function">ingres_fetch_array()</a></span>、
+    <span class="function"><a href="function.ingres-fetch-object.html" class="function">ingres_fetch_object()</a></span>、
+    <span class="function"><a href="function.ingres-fetch-row.html" class="function">ingres_fetch_row()</a></span> を使用する前にコールされた場合、
+    サーバは結果のデータを削除し、スクリプトは結果を得ることができなくなります。
+   </p>
+   <p class="para">
+    代わりにこれらの取得用関数のどれかをもう結果が残っていないという意味で
+    <b><tt>FALSE</tt></b> を返すまでループ処理を行い、結果のデータを取得する必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ingres-num-rows-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クエリ結果 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ingres-num-rows-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   delete, insert, update クエリの場合、
+   <span class="function"><b>ingres_num_rows()</b></span> は、そのクエリにより作用された行
+   (レコード)の数を返します。その他のクエリの場合、
+   <span class="function"><b>ingres_num_rows()</b></span> はクエリ結果のレコード数を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ingres-num-rows-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ingres-query.html" class="function" rel="rdfs-seeAlso">ingres_query()</a> - Ingres に SQL クエリを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-array.html" class="function" rel="rdfs-seeAlso">ingres_fetch_array()</a> - 1 行分の結果を配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-assoc.html" class="function" rel="rdfs-seeAlso">ingres_fetch_assoc()</a> - 1 行分の結果を連想配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-object.html" class="function" rel="rdfs-seeAlso">ingres_fetch_object()</a> - 1 行分の結果をオブジェクトとして取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-row.html" class="function" rel="rdfs-seeAlso">ingres_fetch_row()</a> - 1 行分の結果を数値添字配列として取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-num-fields.html">ingres_num_fields</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-pconnect.html">ingres_pconnect</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

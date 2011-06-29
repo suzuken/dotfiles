@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>関連づけられたすべてのホストの状態を更新する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.get.html">Mongo::__get</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.getslave.html">Mongo::getSlave</a></div>
+ <div class="up"><a href="class.mongo.html">Mongo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.getHosts" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Mongo::getHosts</h1>
+  <p class="verinfo">(PECL mongo &gt;=1.1.0)</p><p class="refpurpose"><span class="refname">Mongo::getHosts</span> &mdash; <span class="dc-title">関連づけられたすべてのホストの状態を更新する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongo.getHosts-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>Mongo::getHosts</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   このメソッドは、レプリカセットへの接続に対してのみ使えます。
+   レプリカセット内のすべてのホストの状態を返し、接続情報を更新
+   (ユーザからは見えません) します。
+  </p>
+
+  <p class="para">
+   このメソッドは、ドライバが 5 秒おきに自動的にコールします。
+  </p>
+
+  <p class="para">
+   読み込みのスレーブへの分散についての情報は、このマニュアルの
+   <a href="mongo.queries.html" class="link">問い合わせの節</a> を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongo.getHosts-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongo.getHosts-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   セット内のホストに関する情報の配列を返します。
+   各ホストのホスト名、セット内での id、健康状態 (1 が最高)、稼働時間、
+   そしてそのホストがプライマリの最新を反映しているかどうかが含まれます。
+   たとえば、ローカルで稼働しているメンバ 3 台のレプリカセットだとこのようになります。
+  </p>
+  <div class="example-contents screen">
+<div class="returnvaluescode"><pre class="returnvaluescode">Array
+(
+    [ubuntu:27017] =&gt; Array
+        (
+            [_id] =&gt; 0
+            [name] =&gt; ubuntu:27017
+            [health] =&gt; 1
+            [state] =&gt; 1
+            [stateStr] =&gt; PRIMARY
+            [optime] =&gt; MongoTimestamp Object
+                (
+                    [sec] =&gt; 1
+                    [inc] =&gt; 1291155754
+                )
+
+            [optimeDate] =&gt; MongoDate Object
+                (
+                    [sec] =&gt; 1291155754
+                    [usec] =&gt; 0
+                )
+
+            [self] =&gt; 1
+        )
+
+    [ubuntu:27019] =&gt; Array
+        (
+            [_id] =&gt; 2
+            [name] =&gt; ubuntu:27019
+            [health] =&gt; 1
+            [state] =&gt; 2
+            [stateStr] =&gt; SECONDARY
+            [uptime] =&gt; 91928
+            [optime] =&gt; MongoTimestamp Object
+                (
+                    [sec] =&gt; 1
+                    [inc] =&gt; 1291155754
+                )
+
+            [optimeDate] =&gt; MongoDate Object
+                (
+                    [sec] =&gt; 1291155754
+                    [usec] =&gt; 0
+                )
+
+            [lastHeartbeat] =&gt; MongoDate Object
+                (
+                    [sec] =&gt; 1291158846
+                    [usec] =&gt; 0
+                )
+
+        )
+
+    [ubuntu:27018] =&gt; Array
+        (
+            [_id] =&gt; 1
+            [name] =&gt; ubuntu:27018
+            [health] =&gt; 1
+            [state] =&gt; 2
+            [stateStr] =&gt; SECONDARY
+            [uptime] =&gt; 91944
+            [optime] =&gt; MongoTimestamp Object
+                (
+                    [sec] =&gt; 1
+                    [inc] =&gt; 1291155754
+                )
+
+            [optimeDate] =&gt; MongoDate Object
+                (
+                    [sec] =&gt; 1291155754
+                    [usec] =&gt; 0
+                )
+
+            [lastHeartbeat] =&gt; MongoDate Object
+                (
+                    [sec] =&gt; 1291158846
+                    [usec] =&gt; 0
+                )
+
+        )
+
+)</pre>
+</div>
+  </div>
+  <p class="para">
+   レプリカセットへの接続ではない場合や接続がまだ初期化されていない場合は
+   <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.get.html">Mongo::__get</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.getslave.html">Mongo::getSlave</a></div>
+ <div class="up"><a href="class.mongo.html">Mongo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

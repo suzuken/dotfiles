@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>あるオブジェクトが指定したクラスのサブクラスに属するかどうかを調べる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.is-a.html">is_a</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.method-exists.html">method_exists</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.is-subclass-of" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">is_subclass_of</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">is_subclass_of</span> &mdash; <span class="dc-title">あるオブジェクトが指定したクラスのサブクラスに属するかどうかを調べる</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.is-subclass-of-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>is_subclass_of</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$object</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$class_name</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した <i><tt class="parameter">object</tt></i> が、その親のひとつに
+   <i><tt class="parameter">class_name</tt></i> を持つかどうかを調べます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.is-subclass-of-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クラス名あるいはオブジェクトのインスタンス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">class_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クラス名。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.is-subclass-of-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は、オブジェクト <i><tt class="parameter">object</tt></i>
+   が <i><tt class="parameter">superclass</tt></i> のサブクラスであるクラスに属する場合に
+   <b><tt>TRUE</tt></b>、その他の場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.is-subclass-of-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.3</td>
+       <td align="left">
+        <i><tt class="parameter">object</tt></i> パラメータに文字列
+        (クラス名) を指定可能です。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.is-subclass-of-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4183">
+    <p><b>例1 <span class="function"><b>is_subclass_of()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;クラスを定義する<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">WidgetFactory<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$oink&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'moo'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;子クラスを定義する<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">WidgetFactory_Child&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">WidgetFactory<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$oink&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'oink'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;新規オブジェクトを生成する<br /></span><span style="color: #0000BB">$WF&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">WidgetFactory</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$WFC&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">WidgetFactory_Child</span><span style="color: #007700">();<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_subclass_of</span><span style="color: #007700">(</span><span style="color: #0000BB">$WFC</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'WidgetFactory'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"yes,&nbsp;\$WFC&nbsp;is&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"no,&nbsp;\$WFC&nbsp;is&nbsp;not&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}<br /><br /><br />if&nbsp;(</span><span style="color: #0000BB">is_subclass_of</span><span style="color: #007700">(</span><span style="color: #0000BB">$WF</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'WidgetFactory'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"yes,&nbsp;\$WF&nbsp;is&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"no,&nbsp;\$WF&nbsp;is&nbsp;not&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}<br /><br /><br /></span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.0.3&nbsp;以降で使用可能<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">is_subclass_of</span><span style="color: #007700">(</span><span style="color: #DD0000">'WidgetFactory_Child'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'WidgetFactory'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"yes,&nbsp;WidgetFactory_Child&nbsp;is&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"no,&nbsp;WidgetFactory_Child&nbsp;is&nbsp;not&nbsp;a&nbsp;subclass&nbsp;of&nbsp;WidgetFactory\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+yes, $WFC is a subclass of WidgetFactory
+no, $WF is not a subclass of WidgetFactory
+yes, WidgetFactory_Child is a subclass of WidgetFactory
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.is-subclass-of-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+<p class="para">この関数を使うと、未知のクラスに対しては登録済みの
+<a href="language.oop5.autoload.html" class="link">autoloader</a> を使用します。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.is-subclass-of-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.get-class.html" class="function" rel="rdfs-seeAlso">get_class()</a> - オブジェクトのクラス名を返す</span></li>
+    <li class="member"><span class="function"><a href="function.get-parent-class.html" class="function" rel="rdfs-seeAlso">get_parent_class()</a> - オブジェクトの親クラスの名前を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.is-a.html" class="function" rel="rdfs-seeAlso">is_a()</a> - オブジェクトがこのクラスのものであるか、このクラスをその親クラスのひとつとしているかどうかを調べる</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.is-a.html">is_a</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.method-exists.html">method_exists</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

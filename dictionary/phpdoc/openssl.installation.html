@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="openssl.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="openssl.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="openssl.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="openssl.installation" class="section">
+ <h2 class="title">インストール手順</h2>
+ <p class="para">
+  PHP の OpenSSL サポートを使用するには、<strong class="option configure">--with-openssl[=DIR]</strong>
+ を指定して PHP を
+  コンパイルする必要があります。
+ </p>
+ <p class="para">
+  OpenSSL ライブラリを動作させるためには、実行時にさらに必要なものがあります。
+  特に、OpenSSL から乱数 (あるいは疑似乱数) 生成器にアクセスできなければなりません。
+  たいていの Unix および Unix 系のプラットフォーム (Linux など) の場合、
+  <i>/dev/urandom</i> あるいは
+  <i>/dev/random</i> デバイスがこれにあたります。
+ </p>
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <b>Win32 ユーザへの注意</b><br />
+  <p class="para">
+   この拡張モジュールを動作させるには、
+Windows システムの <i>PATH</i> が通った場所に
+<acronym title="Dynamic Link Library">DLL</acronym> ファイルが存在する必要があります。
+<acronym title="Frequently Asked Questions">FAQ</acronym> の &quot;<a href="faq.installation.html#faq.installation.addtopath" class="link">Windows で PHP のディレクトリを
+PATH に追加するにはどうすればいいのですか?</a>&quot; で、その方法を説明しています。
+DLL ファイルを PHP のフォルダから Windows のシステムディレクトリにコピーしても動作します
+(システムディレクトリは、デフォルトで <i>PATH</i>
+に含まれるからです) が、これは推奨しません。
+<em class="emphasis">この拡張モジュールを使用するには、以下のファイルが
+<i>PATH</i> の通った場所にある必要があります。</em> 
+   <var class="filename">libeay32.dll</var>
+  </p>
+  <p class="para">
+   加えてキー生成およびサイン認証関数を使用する計画がある場合、
+   システムに 有効な <var class="filename">openssl.cnf</var> をインストールする
+   必要があります。PHP 4.3.0 以降では、
+   Win32 バイナリ配布版にサンプル設定ファイルが同梱することにしました。
+   PHP 4.3.x および 4.4.x の場合は
+   <var class="filename">openssl</var> ディレクトリ、
+   PHP 5.x および 6.x の場合は
+   <var class="filename">extras/openssl</var> ディレクトリにあります。
+   PHP 4.2.0 以降を使用しておりこのファイルがない場合は、
+   <a href="http://www.openssl.org/related/binaries.html" class="link external">&raquo; OpenSSL バイナリのページ</a>から入手するか、
+   あるいはより新しい版の PHP をダウンロードしてそこから設定ファイルを使用することができます。
+   Windows のエクスプローラは、拡張子 <var class="filename">.cnf</var>
+   をデフォルトで非表示とすることに注意しましょう。この拡張子のファイルの種類は
+   <i>短縮ダイヤル</i> と表示されます。
+  </p>
+  <p class="para">
+   PHP は、
+   以下のロジックにより <var class="filename">openssl.cnf</var> を探します。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      環境変数 <i>OPENSSL_CONF</i> が設定された場合、
+      設定ファイルの（ファイル名を含む）パスとして使用されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      環境変数 <i>SSLEAY_CONF</i> が設定された場合、
+      設定ファイルの（ファイル名を含む）パスとして使用されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      ファイル <var class="filename">openssl.cnf</var> はデフォルトの認証エリアに
+      あることが仮定され、openssl DLL がコンパイルされた時間で設定されます。
+      通常、デフォルトのファイル名が
+      <var class="filename">c:\usr\local\ssl\openssl.cnf</var> であることを
+      意味します。
+     </span>
+    </li>
+   </ul>
+  </p>
+  <span class="simpara">
+   インストール時に、設定ファイルを
+   <var class="filename">c:\usr\local\ssl\openssl.cnf</var> または
+   他の場所にインストールし、(例えば仮想ホスト毎に)環境変数に設定ファ
+   イルの場所を指定するかを選ぶ必要があります。
+   設定ファイルを必要とする関数の <i><tt class="parameter">configargs</tt></i> に
+   より、デフォルトのパスを上書きすることが可能であることに注意してください。
+  </span>
+ </p></blockquote>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="openssl.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="openssl.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="openssl.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

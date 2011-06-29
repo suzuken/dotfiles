@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>共有メモリブロックを作成またはオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.shmop-delete.html">shmop_delete</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.shmop-read.html">shmop_read</a></div>
+ <div class="up"><a href="ref.shmop.html">共有メモリ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.shmop-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">shmop_open</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4, PHP 5)</p><p class="refpurpose"><span class="refname">shmop_open</span> &mdash; <span class="dc-title">共有メモリブロックを作成またはオープンする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.shmop-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>shmop_open</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$flags</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$size</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>shmop_open()</b></span> は共有メモリブロックを作成または
+   オープンします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.shmop-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       共有メモリブロックのシステム ID であり、10 進数または
+       16 進数で指定することが可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フラグに設定できる内容は、次のとおりです。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          &quot;a&quot; アクセス用(shmat に SHM_RDONLY を設定する)
+          既存の共有メモリセグメントを読み込み専用でオープンする必要がある場合に
+          このフラグを使用してください。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          &quot;c&quot; 作成用(IPC_CREATE を設定する)
+          新規に共有メモリセグメントが必要な場合にこのフラグを使用してください。
+          もし同じキーのセグメントがすでに存在する場合、それを読み書きモードで
+          オープンしようと試みます。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          &quot;w&quot; 読み込み &amp; 書き込みアクセス用
+          共有メモリセグメントの読み込みや書き込みの必要がある場合にこのフラグを
+          使用してください。たいていの場合はこのフラグを使用します。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          &quot;n&quot; 新規メモリセグメントの作成用(IPC_CREATE|IPC_EXCL を設定する)
+          新規に共有メモリセグメントが必要で、もし同じフラグのセグメントが
+          存在するときには失敗させたい場合にこのフラグを使用してください。
+          セキュリティを確保するために、このフラグは有用です。これを使用する
+          ことで、条件の競合による問題を避けることが可能です。
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+         共有メモリセグメントに設定したい
+         許可属性で、ファイルに関する許可属性と同様なものです。許可属性は、
+         例えば <i>0644</i> のような 8 進数形式で渡す必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">size</tt></i></span>
+     <dd>
+
+      <p class="para">
+       作成したい共有メモリブロックの大きさをバイト数で指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     注意: 既存のメモリセグメントをオープンする場合には、3 番目および
+     4 番目の引数には 0 を指定する必要があります。成功時に
+    </p>
+   </p></blockquote>
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.shmop-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合は、<span class="function"><b>shmop_open()</b></span> は
+   作成した共有メモリセグメントにアクセスするために使用する ID を返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.shmop-open-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3075">
+    <p><b>例1 共有メモリブロックを新規に作成する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$shm_key&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftok</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'t'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$shm_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">shmop_open</span><span style="color: #007700">(</span><span style="color: #0000BB">$shm_key</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0644</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   この例は、<span class="function"><a href="function.ftok.html" class="function">ftok()</a></span> が返すシステム ID
+   の共有メモリブロックをオープンします。
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.shmop-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.shmop-close.html" class="function" rel="rdfs-seeAlso">shmop_close()</a> - 共有メモリブロックを閉じる</span></li>
+    <li class="member"><span class="function"><a href="function.shmop-delete.html" class="function" rel="rdfs-seeAlso">shmop_delete()</a> - 共有メモリブロックを削除する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.shmop-delete.html">shmop_delete</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.shmop-read.html">shmop_read</a></div>
+ <div class="up"><a href="ref.shmop.html">共有メモリ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

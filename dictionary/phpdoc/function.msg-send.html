@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メッセージキューにメッセージを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msg-remove-queue.html">msg_remove_queue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msg-set-queue.html">msg_set_queue</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.msg-send" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">msg_send</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">msg_send</span> &mdash; <span class="dc-title">メッセージキューにメッセージを送信する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.msg-send-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>msg_send</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$queue</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$msgtype</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$message</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$serialize</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$blocking</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$errorcode</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>msg_send()</b></span> は、<i><tt class="parameter">queue</tt></i>
+   で指定したメッセージキューに対して <i><tt class="parameter">msgtype</tt></i>
+   で指定した型 (0 より大きい数値である必要があります) のメッセージ
+   <i><tt class="parameter">message</tt></i> を送信します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.msg-send-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">queue</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">msgtype</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">message</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">serialize</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションのパラメータ <i><tt class="parameter">serialize</tt></i> は、
+       <i><tt class="parameter">message</tt></i> を送信する方法を制御します。
+       <i><tt class="parameter">serialize</tt></i> のデフォルト値は <b><tt>TRUE</tt></b> で、
+       この場合 <i><tt class="parameter">message</tt></i> が送信される前に
+       セッションモジュールと同じ方法でシリアライズされます。
+       これにより、配列やオブジェクトのような複雑な形式のデータを
+       他の PHP スクリプトに送信することが可能となります。
+       また、もし WDDX シリアライザを使用しているなら、あらゆる WDDX
+       互換クライアントに対して同じことが可能となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">blocking</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージがキューに収まらないほど大きい場合は、他のプロセスが
+       現在キューにあるメッセージを読み込んでキューの空き容量が確保されるまで
+       スクリプトの実行を待ち続けます。これをブロックモードといいます。
+       オプションのパラメータ <i><tt class="parameter">blocking</tt></i>
+       を <b><tt>FALSE</tt></b> に設定することでブロックモードではなくすることが可能で、
+       この場合、もしキューの空き容量よりも大きなメッセージを送信すると
+       <span class="function"><b>msg_send()</b></span> はすぐに <b><tt>FALSE</tt></b> を返します。
+       また、オプションのパラメータ <i><tt class="parameter">errorcode</tt></i>
+       を <b><tt>MSG_EAGAIN</tt></b> に設定すると、
+       少し時間をおいてメッセージを再度送信しなければならないことが戻り値からわかります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">errorcode</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.msg-send-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   処理が正常に完了すると、メッセージキューデータ構造体は以下のように更新されます。
+   <i><tt class="parameter">msg_lspid</tt></i> には呼び出し元のプロセス ID が
+   設定され、<i><tt class="parameter">msg_qnum</tt></i> が 1 増加し、
+   <i><tt class="parameter">msg_stime</tt></i> が現在の時刻に設定されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.msg-send-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.msg-remove-queue.html" class="function" rel="rdfs-seeAlso">msg_remove_queue()</a> - メッセージキューを破棄する</span></li>
+    <li class="member"><span class="function"><a href="function.msg-receive.html" class="function" rel="rdfs-seeAlso">msg_receive()</a> - メッセージキューからメッセージを受信する</span></li>
+    <li class="member"><span class="function"><a href="function.msg-stat-queue.html" class="function" rel="rdfs-seeAlso">msg_stat_queue()</a> - メッセージキューデータ構造体の情報を返す</span></li>
+    <li class="member"><span class="function"><a href="function.msg-set-queue.html" class="function" rel="rdfs-seeAlso">msg_set_queue()</a> - メッセージキューデータ構造体の情報を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+  
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msg-remove-queue.html">msg_remove_queue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msg-set-queue.html">msg_set_queue</a></div>
+ <div class="up"><a href="ref.sem.html">セマフォ関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>
