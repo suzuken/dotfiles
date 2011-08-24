@@ -420,17 +420,18 @@ if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 
-set rtp+=~/.vim/vundle.git/ 
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-filetype plugin indent on     " required!
+filetype off                   " required!
 
 "Plugin Installing
+Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'vim-refact'
 Bundle 'Gist.vim'
-Bundle 'git://github.com/Shougo/neocomplcache.git'
+Bundle 'Shougo/neocomplcache'
 Bundle 'Rainbow-Parenthesis'
 Bundle 'taglist.vim'
 Bundle 'unite.vim'
@@ -439,13 +440,15 @@ Bundle 'YankRing.vim'
 Bundle 'proc.vim'
 Bundle 'surround.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
-Bundle 'git://github.com/thinca/vim-quickrun.git'
-Bundle 'git://github.com/Shougo/vimshell.git'
-Bundle 'git://github.com/Shougo/vimproc.git'
-Bundle 'git://github.com/mattn/zencoding-vim.git'
-Bundle 'git://github.com/ujihisa/unite-colorscheme'
-Bundle 'git://github.com/h1mesuke/unite-outline.git'
+Bundle 'thinca/vim-quickrun'
+Bundle 'Shougo/vimshell'
+Bundle 'Shougo/vimproc'
+Bundle 'mattn/zencoding-vim'
+Bundle 'ujihisa/unite-colorscheme'
+Bundle 'h1mesuke/unite-outline'
+Bundle 'altercation/vim-colors-solarized'
 
+filetype plugin indent on     " required!
 
 "**************************
 "plugin
