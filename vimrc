@@ -6,7 +6,7 @@ filetype off                   " required!
 "==========================
 autocmd!
 set nocompatible
-set modelines=0
+set modelines=5
 
 "==========================
 "Tab Char
@@ -448,6 +448,7 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'ujihisa/unite-colorscheme'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'Modeliner'
 
 filetype plugin indent on     " required!
 
