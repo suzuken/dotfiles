@@ -359,6 +359,7 @@ set splitbelow "Window Split時に新windowを下に表示
 "Dictionary
 "==========================
 set dictionary=/usr/share/dict/words
+autocmd FileType php :set dictionary=~/.dictionary/phpdoc
 
 "==========================
 "File Type

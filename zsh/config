@@ -4,7 +4,7 @@
 # #
 # # PATH
 # #
-export PATH="$HOME/bin:$HOME/.bin:/usr/bin:/usr/local/homebrew/bin:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:/var/lib/gems/1.8/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.bin:/usr/local/bin:/usr/bin:/usr/local/homebrew/bin:/usr/local/sbin:/usr/local/mysql/bin:/usr/local/git/bin:/var/lib/gems/1.8/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export EDITOR=vim
 
@@ -38,6 +38,14 @@ case ${UID} in
         ;;
 esac
 
+## PROMPT内で変数展開・コマンド置換・算術演算を実行する。
+setopt prompt_subst
+## PROMPT内で「%」文字から始まる置換機能を有効にする。
+setopt prompt_percent
+
+# ==================
+# # moving directory
+# ==================
 # auto change directory
 #
 setopt auto_cd
@@ -45,6 +53,12 @@ setopt auto_cd
 # auto directory pushd that you can get dirs list by cd -[tab]
 #
 setopt auto_pushd
+
+## カレントディレクトリ中に指定されたディレクトリが見つからなかった場合に
+## 移動先を検索するリスト。
+cdpath=(~)
+## ディレクトリが変わったらディレクトリスタックを表示。
+chpwd_functions=($chpwd_functions dirs)
 
 # command correct edition before each completion attempt
 #
