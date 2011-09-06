@@ -1,6 +1,6 @@
 # TODO: Explain what some of this does..
 
-bindkey -e
+bindkey -v #vim key-bind
 bindkey '\ew' kill-region
 bindkey -s '\el' "ls\n"
 bindkey -s '\e.' "..\n"
@@ -49,3 +49,13 @@ bindkey "\e[3~" delete-char
 ## Fix weird sequence that rxvt produces
 #bindkey -s '^[[Z' '\t'
 #
+#
+# historical backward/forward search with linehead string binded to ^P/^N
+#
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
+bindkey "\\ep" history-beginning-search-backward-end
+bindkey "\\en" history-beginning-search-forward-end

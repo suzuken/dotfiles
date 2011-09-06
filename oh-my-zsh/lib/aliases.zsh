@@ -85,4 +85,3 @@ alias sc='screen'
 
 # commands starting with % for pasting from web
 alias %=' '
-
