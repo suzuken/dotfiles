@@ -382,7 +382,7 @@ autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.tpl
 if has('autocmd')
     autocmd FileType python setl autoindent
     autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-    autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+    autocmd FileType python setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 endif
 
 " Execute python script C-P 
@@ -449,6 +449,7 @@ Bundle 'ujihisa/unite-colorscheme'
 Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
+Bundle 'tsukkee/unite-tag'
 
 filetype plugin indent on     " required!
 
@@ -586,6 +587,9 @@ nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 " @see https://github.com/ujihisa/unite-colorscheme
 nnoremap [unite]l :<C-u>Unite -auto-preview colorscheme<CR>
+" @see https://github.com
+nnoremap <silent> [unite]t :<C-u>Unite -immediately -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
+
 
 autocmd FileType unite call s:unite_my_settings()
 function! s:unite_my_settings()
@@ -596,10 +600,11 @@ function! s:unite_my_settings()
   "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
 
   " Start insert.
-  let g:unite_enable_start_insert = 1
+  " let g:unite_enable_start_insert = 0
 endfunction
 
 let g:unite_source_file_mru_limit = 200
+let g:unite_enable_split_vertically = 1 "vertical split
 
 " =====================================================
 "" Templates Settings
