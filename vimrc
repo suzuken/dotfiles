@@ -450,6 +450,8 @@ Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tsukkee/unite-tag'
+" Bundle 'ujihisa/unite-font'
+" Bundle 'unite-font'
 
 filetype plugin indent on     " required!
 
@@ -587,8 +589,11 @@ nnoremap  [unite]f  :<C-u>Unite source<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 " @see https://github.com/ujihisa/unite-colorscheme
 nnoremap [unite]l :<C-u>Unite -auto-preview colorscheme<CR>
-" @see https://github.com
-nnoremap <silent> [unite]t :<C-u>Unite -immediately -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
+" @see https://github.com/tsukkee/unite-tag
+" searching tag by words on cursor.
+nnoremap <silent> [unite]u  :<C-u>Unite -immediately -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
+" show tags
+nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
 
 
 autocmd FileType unite call s:unite_my_settings()
@@ -604,7 +609,7 @@ function! s:unite_my_settings()
 endfunction
 
 let g:unite_source_file_mru_limit = 200
-let g:unite_enable_split_vertically = 1 "vertical split
+let g:unite_enable_split_vertically = 0 "vertical split
 
 " =====================================================
 "" Templates Settings
