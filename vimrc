@@ -31,11 +31,11 @@ nnoremap <C-t>k  gT
 "==========================
 "tags-and-searches
 "==========================
-nnoremap t  <Nop>
-nnoremap tt  <C-]>
-nnoremap tj  :<C-u>tag<CR>
-nnoremap tk  :<C-u>pop<CR>
-nnoremap tl  :<C-u>tags<CR>
+" nnoremap t  <Nop>
+" nnoremap tt  <C-]>
+" nnoremap tj  :<C-u>tag<CR>
+" nnoremap tk  :<C-u>pop<CR>
+" nnoremap tl  :<C-u>tags<CR>
 
 "==========================
 "view
@@ -77,12 +77,16 @@ nnoremap <leader><space> :noh<cr>
 
 "%の移動をtabでも可能に。
 nnoremap <tab> %
-vnoremap <tab> %
+
+"Visual ModeでのTab/shift+Tab indent/unindentをハイライトされたブロックに対し
+"て行う。
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 "検索パターン入力中は/および?をエスケープ
-"そのまま入力するには<C-v>{/?}で
+"そのま入力するには<C-v>{/?}で
 cnoremap <expr> /
-            \ getcmdtype() == '/' ? '\/' : '/'
+             getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?
             \ getcmdtype() == '?' ? '\?' : '?'
 
@@ -436,10 +440,10 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Rainbow-Parenthesis'
 Bundle 'taglist.vim'
 Bundle 'unite.vim'
+Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'YankRing.vim'
 Bundle 'proc.vim'
-Bundle 'surround.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'thinca/vim-quickrun'
 Bundle 'Shougo/vimshell'

@@ -85,3 +85,7 @@ alias sc='screen'
 
 # commands starting with % for pasting from web
 alias %=' '
+
+#@see http://d.hatena.ne.jp/mollifier/20101227/p1
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
