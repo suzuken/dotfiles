@@ -86,7 +86,7 @@ vnoremap <S-Tab> <gv
 "検索パターン入力中は/および?をエスケープ
 "そのま入力するには<C-v>{/?}で
 cnoremap <expr> /
-             getcmdtype() == '/' ? '\/' : '/'
+            \ getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?
             \ getcmdtype() == '?' ? '\?' : '?'
 
