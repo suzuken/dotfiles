@@ -40,7 +40,15 @@ nnoremap <C-t>k  gT
 "==========================
 "view
 "==========================
-colorscheme darkblue
+if has('gui_running')
+    set background = light
+else
+    set background=dark
+endif
+set t_Co=16
+let g:solarized_termcolors=16
+colorscheme solarized
+
 set number
 set title
 "set visualbell

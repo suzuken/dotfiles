@@ -29,3 +29,5 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+#
+source $HOME/.zshrc.mine
