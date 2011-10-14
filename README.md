@@ -108,3 +108,10 @@ Some small utilities is provided.
 * `<leader>n` to open NEWDTree.
 
         nnoremap <leader>n :NERDTree<CR>
+
+vimperator
+----------
+
+If you are vimmer, [Vimperator][] makes your web browsing faster and easier. Vimperator is one kind of add-ons for firefox.
+
+[Vimperator]: https://addons.mozilla.org/ja/firefox/addon/vimperator/   "Vimperator :: Add-ons for Firefox"
