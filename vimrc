@@ -1,3 +1,16 @@
+" ======================
+" vim configuration file
+" @author suzuken (https://github.com/suzuken)
+"
+" README file is here:
+"
+" suzuken/dotfiles - GitHub
+" https://github.com/suzuken/dotfiles
+"
+" Sorry for writing some comments in Japanese, and I'll translate to English
+" later.
+" ======================
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
@@ -104,7 +117,7 @@ cnoremap <expr> ?
 set wrap
 
 "横幅を79文字にする
-" set textwidth=79
+set textwidth=80
 
 set formatoptions=qrn1
 if v:version >= 730
