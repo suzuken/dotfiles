@@ -19,7 +19,7 @@ For using vim, you need to install vundle.vim.
 
     git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
-Launch vim, and :BundleInstall.
+Launch vim, and `:BundleInstall`.
 
 When writing, I always write with this vim.
 
@@ -56,55 +56,55 @@ Some small utilities is provided.
 
 * Reload and edit .vimrc
 
-    noremap <C-c><C-c> <C-c>
-    noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
-    noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
+        noremap <C-c><C-c> <C-c>
+        noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
+        noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
 
 * F1 to ESC, because I usually mistake it.
 
-    inoremap <F1> <ESC>
-    nnoremap <F1> <ESC>
-    vnoremap <F1> <ESC>
+        inoremap <F1> <ESC>
+        nnoremap <F1> <ESC>
+        vnoremap <F1> <ESC>
 
 * Semi-colon to Colon in normal mode.
 
-    nnoremap ; :
+        nnoremap ; :
 
 * 'jj' to switch normal mode in insert mode.
 
-    inoremap jj <ESC>
+        inoremap jj <ESC>
 
 * F2 to paste mode.
 
-    set pastetoggle=<F2>
+        set pastetoggle=<F2>
 
 * Moving splited tabs by Ctrl-hjkl.
 
-    nnoremap <C-h> <C-w>h
-    nnoremap <C-j> <C-w>j
-    nnoremap <C-k> <C-w>k
-    nnoremap <C-l> <C-w>l
+        nnoremap <C-h> <C-w>h
+        nnoremap <C-j> <C-w>j
+        nnoremap <C-k> <C-w>k
+        nnoremap <C-l> <C-w>l
 
 * Enter key always inserts new line.
 
-    map <S-Enter> O<ESC>
-    map <Enter> o<ESC>
+        map <S-Enter> O<ESC>
+        map <Enter> o<ESC>
 
 
 * Creating underline/overline headings for markup languages. Inspired by http://sphinx.pocoo.org/rest.html#sections .
 
-    nnoremap <leader>1 yyPVr=jyypVr=
-    nnoremap <leader>2 yyPVr*jyypVr*
-    nnoremap <leader>3 yyPVr-jyypVr-
-    nnoremap <leader>4 yypVr=
-    nnoremap <leader>5 yypVr-
-    nnoremap <leader>6 yypVr^
-    nnoremap <leader>7 yypVr"
+        nnoremap <leader>1 yyPVr=jyypVr=
+        nnoremap <leader>2 yyPVr*jyypVr*
+        nnoremap <leader>3 yyPVr-jyypVr-
+        nnoremap <leader>4 yypVr=
+        nnoremap <leader>5 yypVr-
+        nnoremap <leader>6 yypVr^
+        nnoremap <leader>7 yypVr"
 
 * <leader>t to open TagList.
 
-    nnoremap <leader>t :Tlist<CR>
+        nnoremap <leader>t :Tlist<CR>
 
 * <leader>n to open NEWDTree.
 
-    nnoremap <leader>n :NERDTree<CR>
+        nnoremap <leader>n :NERDTree<CR>
