@@ -54,38 +54,38 @@ Encoding is very serious problem for vim users. If you have iconv, your vim will
 
 Some small utilities is provided.
 
-* Reload and edit .vimrc
+* `<C-c><C-e>e` to edit, and `<C-c><C-e>s` to reload .vimrc in normal mode.
 
         noremap <C-c><C-c> <C-c>
         noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
         noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
 
-* F1 to ESC, because I usually mistake it.
+* `<F1>` to `<ESC>`, because I usually mistake it.
 
         inoremap <F1> <ESC>
         nnoremap <F1> <ESC>
         vnoremap <F1> <ESC>
 
-* Semi-colon to Colon in normal mode.
+* `;` to `:` in normal mode.
 
         nnoremap ; :
 
-* 'jj' to switch normal mode in insert mode.
+* `jj` to switch normal mode in insert mode.
 
         inoremap jj <ESC>
 
-* F2 to paste mode.
+* `<F2>` to paste mode.
 
         set pastetoggle=<F2>
 
-* Moving splited tabs by Ctrl-hjkl.
+* Moving splited tabs by `<C-h><C-j><C-k><C-l>`.
 
         nnoremap <C-h> <C-w>h
         nnoremap <C-j> <C-w>j
         nnoremap <C-k> <C-w>k
         nnoremap <C-l> <C-w>l
 
-* Enter key always inserts new line.
+* `<Enter>` always inserts new line.
 
         map <S-Enter> O<ESC>
         map <Enter> o<ESC>
@@ -101,10 +101,10 @@ Some small utilities is provided.
         nnoremap <leader>6 yypVr^
         nnoremap <leader>7 yypVr"
 
-* <leader>t to open TagList.
+* `<leader>t` to open TagList.
 
         nnoremap <leader>t :Tlist<CR>
 
-* <leader>n to open NEWDTree.
+* `<leader>n` to open NEWDTree.
 
         nnoremap <leader>n :NERDTree<CR>
