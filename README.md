@@ -25,19 +25,17 @@ When writing, I always write with this vim.
 
 ### Managing plugins
 
-For managing plugins for vim, Vundle is used here.
+For managing plugins for vim, [Vundle][] is used here.
 
-gmarik/vundle - GitHub
-https://github.com/gmarik/vundle
+[Vundle]:   https://github.com/gmarik/vundle "gmarik/vundle - GitHub"
 
 Vundle is very good choice for managing your plugins -- it's easy to install, search, clean up, and update for vim plugins.
 
 ### Browsing files
 
-@see unite.vim page on GitHub.
+@see [unite.vim][] page on GitHub.
 
-Shougo/unite.vim - GitHub
-https://github.com/Shougo/unite.vim
+[unite.vim]:  https://github.com/Shougo/unite.vim "Shougo/unite.vim - GitHub"
 
 And, "f" key is mapped to start using Unite for useful.
 
