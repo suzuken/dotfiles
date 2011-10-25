@@ -475,6 +475,7 @@ Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tsukkee/unite-tag'
+Bundle 'tpope/vim-fugitive'
 " Bundle 'ujihisa/unite-font'
 " Bundle 'unite-font'
 
