@@ -583,6 +583,23 @@ inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcach
 command! -nargs=* Nes NeoComplCacheEditSnippets
 
 
+" ========
+" Quickrun
+" ========
+" setting for PHPUnit
+" http://www.phpunit.de/manual/current/en/
+" see also http://d.hatena.ne.jp/ruedap/20110225/vim_php_phpunit_quickrun
+augroup QuickRunPHPUnit
+  autocmd!
+  " all *test.php files are defined filetype as phpunit.
+  autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
+augroup END
+
+" Initialization
+let g:quickrun_config = {}
+" PHPUnit
+let g:quickrun_config['php.unit'] = {'command': 'phpunit'}
+
 "==========================
 "NERDcommenter.vim
 "==========================
