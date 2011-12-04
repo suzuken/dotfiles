@@ -479,6 +479,7 @@ Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tsukkee/unite-tag'
+Bundle 'tpope/vim-fugitive'
 " Bundle 'ujihisa/unite-font'
 " Bundle 'unite-font'
 
@@ -560,7 +561,7 @@ inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
 " SuperTab like snippets behavior.
-" imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Recommended key-mappings.
 " <CR>: popupを削除
@@ -586,6 +587,23 @@ inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
 "Nesでスニペットを編集
 command! -nargs=* Nes NeoComplCacheEditSnippets
 
+
+" ========
+" Quickrun
+" ========
+" setting for PHPUnit
+" http://www.phpunit.de/manual/current/en/
+" see also http://d.hatena.ne.jp/ruedap/20110225/vim_php_phpunit_quickrun
+augroup QuickRunPHPUnit
+  autocmd!
+  " all *test.php files are defined filetype as phpunit.
+  autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
+augroup END
+
+" Initialization
+let g:quickrun_config = {}
+" PHPUnit
+let g:quickrun_config['php.unit'] = {'command': 'phpunit'}
 
 "==========================
 "NERDcommenter.vim
