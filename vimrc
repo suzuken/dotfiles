@@ -57,6 +57,7 @@ if has('gui_running')
     set t_Co=16
     let g:solarized_termcolors=16
     colorscheme solarized
+    call togglebg#map('<F5>')
 endif
 
 set number
@@ -150,6 +151,9 @@ let mapleader = ","
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
+inoremap <C-j> <ESC>
+nnoremap <C-j> <ESC>
+vnoremap <C-j> <ESC>
 
 "ノーマルモードではセミコロンをコロンに。
 nnoremap ; :
@@ -577,7 +581,7 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
 
 "オムニ補完
-inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_filename_complete()
+" inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_filename_complete()
 
 " =============
 " neocomplcache
@@ -679,10 +683,6 @@ nmap <C-g> :Gtags -g
 "nmap <C-k> :Gtags -r <C-r><C-w><CR>
 " nmap <C-n> :cn<CR>
 " nmap <C-p> :cp<CR>
-
-
-"jslint
-" let g:JSLintHighlightErrorLine = 0
 
 " =====================================================
 "" (ctags)
