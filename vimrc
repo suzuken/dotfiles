@@ -54,13 +54,10 @@ nnoremap <C-t>k  gT
 "view
 "==========================
 if has('gui_running')
-    set background = light
-else
-    set background=dark
+    set t_Co=16
+    let g:solarized_termcolors=16
+    colorscheme solarized
 endif
-set t_Co=16
-let g:solarized_termcolors=16
-colorscheme solarized
 
 set number
 set title
@@ -74,11 +71,17 @@ endif
 
 "vim 7.3~
 if v:version >= 730
-    set relativenumber  "相対的な行数の違いを表示してくれる。
+    set relativenumber  "showing relative column number
     set undofile    "<FILENAME>.un~ ファイルを生成する。
 endif
 set cmdheight=2
 
+" ======
+"  font
+" ======
+if has("gui_gnome")
+    set guifont=Ricty\ 12
+end
 
 "==========================
 "Searching and Moving
@@ -117,7 +120,7 @@ cnoremap <expr> ?
 set wrap
 
 "横幅を79文字にする
-set textwidth=80
+" set textwidth=80
 
 set formatoptions=qrn1
 if v:version >= 730
