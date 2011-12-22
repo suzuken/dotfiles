@@ -57,7 +57,7 @@ if has('gui_running')
     set t_Co=16
     let g:solarized_termcolors=16
     colorscheme solarized
-    call togglebg#map('<F5>')
+    " call togglebg#map('<F5>')
 endif
 
 set number
