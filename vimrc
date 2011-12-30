@@ -54,14 +54,11 @@ nnoremap <C-t>k  gT
 "view
 "==========================
 if has('gui_running')
-    set background = light
-else
-    set background=dark
+    set t_Co=16
+    let g:solarized_termcolors=16
+    colorscheme solarized
+    " call togglebg#map('<F5>')
 endif
-set t_Co=16
-let g:solarized_termcolors=16
-colorscheme solarized
-call togglebg#map('<F5>')
 
 set number
 set title
@@ -75,11 +72,17 @@ endif
 
 "vim 7.3~
 if v:version >= 730
-    set relativenumber  "相対的な行数の違いを表示してくれる。
+    set relativenumber  "showing relative column number
     set undofile    "<FILENAME>.un~ ファイルを生成する。
 endif
 set cmdheight=2
 
+" ======
+"  font
+" ======
+if has("gui_gnome")
+    set guifont=Ricty\ 12
+end
 
 "==========================
 "Searching and Moving
@@ -118,7 +121,7 @@ cnoremap <expr> ?
 set wrap
 
 "横幅を79文字にする
-set textwidth=80
+" set textwidth=80
 
 set formatoptions=qrn1
 if v:version >= 730
@@ -205,67 +208,7 @@ nnoremap <leader>n :NERDTree<CR>
 "==========================
 
 set encoding=utf-8
-
-if has('win32') && has('kaoriya')
-    set   ambiwidth=auto
-else
-    set   ambiwidth=double
-endif
-
-if has('iconv')
-    let s:enc_euc = 'euc-jp'
-    let s:enc_jis = 'iso-2022-jp'
-
-    if iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-        let s:enc_euc = 'euc-jisx0213,euc-jp'
-        let s:enc_jis = 'iso-2022-jp-3'
-    elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-        let s:enc_euc = 'euc-jisx0213'
-        let s:enc_jis = 'iso-2022-jp-3'
-    endif
-
-    if &encoding ==# 'utf-8'
-        let s:fileencodings_default = &fileencodings
-        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-        let &fileencodings = &fileencodings .','. s:fileencodings_default
-        unlet s:fileencodings_default
-
-               else
-        let &fileencodings = &fileencodings .','. s:enc_jis
-        set fileencodings+=utf-8,ucs-2le,ucs-2
-        if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-            set fileencodings+=cp932
-            set fileencodings-=euc-jp
-            set fileencodings-=euc-jisx0213
-            set fileencodings-=eucjp-ms
-            let &encoding = s:enc_euc
-            let &fileencoding = s:
-        else
-            let &fileencodings = &fileencodings .','. s:enc_euc
-        endif
-    endif
-
-    unlet s:enc_euc
-    unlet s:enc_jis
-endif
-
-"autocmdがかかっている場合、エンコーディングをチェックする。
-"iso-2022-jpで、文字化けしてたら、ファイルエンコーディングを指定したエンコーディング形式に切り替える
-if has('autocmd')
-    function! AU_ReCheck_FENC()
-        if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-            let &fileencoding=&encoding
-        endif
-    endfunction
-    autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-
-
-" if has('win32unix')
-    " set   termencoding=cp932
-" elseif !has('macunix')
-    " set   termencoding=euc-jp
-" endif
+source $HOME/.vim/encode.vim
 
 set fileformats=unix,dos,mac
 
@@ -467,11 +410,11 @@ Bundle 'taglist.vim'
 Bundle 'unite.vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
-Bundle 'YankRing.vim'
-Bundle 'proc.vim'
+" Bundle 'YankRing.vim'
+" Bundle 'proc.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'thinca/vim-quickrun'
-Bundle 'Shougo/vimshell'
+" Bundle 'Shougo/vimshell'
 Bundle 'Shougo/vimproc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ujihisa/unite-colorscheme'
@@ -480,6 +423,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tsukkee/unite-tag'
 Bundle 'tpope/vim-fugitive'
+" Bundle 'kakkyz81/evervim'
 " Bundle 'ujihisa/unite-font'
 " Bundle 'unite-font'
 

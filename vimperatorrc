@@ -1,57 +1,41 @@
-" vim: set ft=vim
+" vim :set ft=vim
 "======================================================================
-"キーマップ
-"上下左右
-"上下移動は半ページ 5jとかにしている人はどうしてだろう？何か理由があるのかな
+"keymaps
+========
+" extend move height for j, k
 nnoremap j <C-d>
 nnoremap k <C-u>
-"タブ移動
+" simply moving next and back tab
 nnoremap h <C-p>
 nnoremap l <C-n>
-"LDRizeとかが効いてるときのために
+" <C-j> and <C-k> sometimes used on other web application.
+" So, map them for moving.
 noremap <C-j> <C-d>
 noremap <C-k> <C-u>
-"行先頭・末尾へ
-inoremap <C-h> ^
-vnoremap <C-h> ^
-inoremap <C-l> $
-vnoremap <C-l> $
 
-"リンク関係はf(find)
-"新しいタブをデフォルトに
+" Click links. Opening new pages is always in the new tab.
 nnoremap f F
 nnoremap F f
-"連続オープン
+" <C-f> is also opening multiple tabs
 nnoremap <C-f> ;F
 
-"補完候補選択の上下移動を<C-n><C-p>で→やめた
-"cnoremap <C-n> <TAB>
-"cnoremap <C-p> <S-TAB>
-"inoremap <C-n> <Down>
-"inoremap <C-p> <Up>
-"nnoremap <C-n> <Down>
-"nnoremap <C-p> <Up>
-"<C-p>はどこでもペーストに割り当てることに
+"<C-p> is always for pasting.
 inoremap <C-p> <S-Insert>
 cnoremap <C-p> <S-Insert>
-"<C-n>はとりあえず無効化(いつか何かに割り当てるかも)
+" disable <C-n>
 inoremap <C-n> <Nop>
 cnoremap <C-n> <Nop>
-"<C-n><C-p>代わりとして<C-j><C-k>を割り当て(※normalモードではpagedown/pageup)
+"Instead of <C-n><C-p>, <C-j><C-k> is used.
+"(! for normal mode, they perform as pagedown/pageup)
 cnoremap <C-j> <TAB>
 cnoremap <C-k> <S-TAB>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 
-"検索関連はs(search)にした
-"google検索
+" searching s
+" google
 nnoremap s :tabopen<Space>google<Space>
-"ヴィジュアルモード時に選択中の語句で検索する
-"<S-Insert>がなぜかうまく機能しない
-"vnoremap s y<Esc><Esc>:tabopen<Space>google<Space><S-Insert>
-"これもうまくいかない
-"vnoremap s y<Esc><Esc>:tabopen<Space>google<Space><C-v><C-v>
-"仕方なしに上で設定した<C-p>貼り付けを使う
+" in visual mode, enable to searching with selected phase.
 vmap s y<Esc><Esc>:tabopen<Space>google<Space><C-p><CR>
 
 "タブの複製
