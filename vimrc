@@ -67,7 +67,7 @@ set scrolloff=5
 
 if v:version >= 700
     set cursorline
-    highlight CursorLine guibg=lightblue ctermbg=lightgray
+    " highlight CursorLine guibg=lightblue ctermbg=lightgray
 endif
 
 "vim 7.3~
@@ -401,7 +401,6 @@ filetype off                   " required!
 Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'vim-refact'
 Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
@@ -410,11 +409,8 @@ Bundle 'taglist.vim'
 Bundle 'unite.vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
-" Bundle 'YankRing.vim'
-" Bundle 'proc.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'thinca/vim-quickrun'
-" Bundle 'Shougo/vimshell'
 Bundle 'Shougo/vimproc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ujihisa/unite-colorscheme'
@@ -423,9 +419,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tsukkee/unite-tag'
 Bundle 'tpope/vim-fugitive'
-" Bundle 'kakkyz81/evervim'
-" Bundle 'ujihisa/unite-font'
-" Bundle 'unite-font'
+Bundle 'sudo.vim'
+Bundle 'smartchr'
 
 filetype plugin indent on     " required!
 
@@ -631,50 +626,10 @@ nmap <C-g> :Gtags -g
 set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
-" =====================================================
-"" srcexpl.vim
-" =====================================================
-" ソースエクスプローラの表示非表示切り替え
-nmap <F8> :SrcExplToggle<CR>
-"ソースエクスプローラの高さ
-let g:SrcExpl_winHeight = 8
-" プレビューを自動表示する(1: 自動起動, 2: 手動)
-let g:SrcExpl_refreshTime = 1
-" Set Enter key to jump into the exact definition context
-let g:SrcExpl_jumpKey = "<ENTER>"
-" Set Space key for back from the definition context
-let g:SrcExpl_gobackKey = "<SPACE>"
-
-" In order to Avoid conflicts, the Source Explorer should know what plugins 
-" are using buffers. And you need add their bufname into the list below
-" according to the command :buffers!"
-let g:SrcExpl_pluginList = [
-            \"__Tag_List__",
-            \"_NERD_tree_",
-            \"Source_Explorer"
-            \]
-
-" Enable/Disable the local definition searching, and note that this is not
-" guaranteed to work, the Source Explorer doesn't check the syntax for now.
-" It only searches for a match with the keyword according to command 'gd'
-let g:SrcExpl_searchLocalDef = 1
-
-" Do not let the Source Explorer update the tags file when opening
-let g:SrcExpl_isUpdateTags = 0
-
-" tagは自動的に生成
-let g:SrcExpl_UpdateTags = 1
-
-" Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
-" create/update a tags file
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-
-" Set <F12> key for updating the tags file artificially
-let g:SrcExpl_updateTagsKey = "<F12>"
-
 "----------------------------------------------------
 "" host specific 
 "----------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
