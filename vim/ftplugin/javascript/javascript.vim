@@ -15,3 +15,8 @@ let b:undo_ftplugin .= '
 \ | setlocal makeprg<
 \ | setlocal errorformat<
 \'
+
+" ================================
+" smartchr settings for JavaScript
+" ================================
+inoremap <buffer> <expr> \ smartchr#one_of('function(', '\')
