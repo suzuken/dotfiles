@@ -67,7 +67,7 @@ set scrolloff=5
 
 if v:version >= 700
     set cursorline
-    highlight CursorLine guibg=lightblue ctermbg=lightgray
+    " highlight CursorLine guibg=lightblue ctermbg=lightgray
 endif
 
 "vim 7.3~
@@ -426,6 +426,9 @@ Bundle 'tpope/vim-fugitive'
 " Bundle 'kakkyz81/evervim'
 " Bundle 'ujihisa/unite-font'
 " Bundle 'unite-font'
+Bundle 'mattn/learn-vimscript'
+Bundle 'ujihisa/neco-look'
+Bundle 'ynkdir/vim-paint'
 
 filetype plugin indent on     " required!
 
