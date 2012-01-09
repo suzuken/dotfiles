@@ -639,10 +639,10 @@ endif
 "----------------------------------------------------
 
 " 演算子の間に空白を入れる
-inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
-inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
 inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
-inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
 " inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
 " *はポインタで使うので、空白はいれない
 inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
