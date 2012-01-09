@@ -10,3 +10,8 @@ let g:pdv_cfg_License = "PHP Version 5.3 {@link http://www.php.net/license/5_3.t
 inoremap <C-P><C-P> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-P><C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P><C-P> :call PhpDocRange()<CR>
+
+" ===========================
+" smartchr settings for php
+" ===========================
+inoremap <buffer><expr> - smartchr#one_of(' - ', '->', '-')

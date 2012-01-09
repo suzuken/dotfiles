@@ -401,7 +401,6 @@ filetype off                   " required!
 Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-Bundle 'Source-Explorer-srcexpl.vim'
 Bundle 'vim-refact'
 Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
@@ -410,11 +409,8 @@ Bundle 'taglist.vim'
 Bundle 'unite.vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
-" Bundle 'YankRing.vim'
-" Bundle 'proc.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'thinca/vim-quickrun'
-" Bundle 'Shougo/vimshell'
 Bundle 'Shougo/vimproc'
 Bundle 'mattn/zencoding-vim'
 Bundle 'ujihisa/unite-colorscheme'
@@ -429,6 +425,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'mattn/learn-vimscript'
 Bundle 'ujihisa/neco-look'
 Bundle 'ynkdir/vim-paint'
+Bundle 'sudo.vim'
+Bundle 'smartchr'
 
 filetype plugin indent on     " required!
 
@@ -634,50 +632,47 @@ nmap <C-g> :Gtags -g
 set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
-" =====================================================
-"" srcexpl.vim
-" =====================================================
-" ソースエクスプローラの表示非表示切り替え
-nmap <F8> :SrcExplToggle<CR>
-"ソースエクスプローラの高さ
-let g:SrcExpl_winHeight = 8
-" プレビューを自動表示する(1: 自動起動, 2: 手動)
-let g:SrcExpl_refreshTime = 1
-" Set Enter key to jump into the exact definition context
-let g:SrcExpl_jumpKey = "<ENTER>"
-" Set Space key for back from the definition context
-let g:SrcExpl_gobackKey = "<SPACE>"
-
-" In order to Avoid conflicts, the Source Explorer should know what plugins 
-" are using buffers. And you need add their bufname into the list below
-" according to the command :buffers!"
-let g:SrcExpl_pluginList = [
-            \"__Tag_List__",
-            \"_NERD_tree_",
-            \"Source_Explorer"
-            \]
-
-" Enable/Disable the local definition searching, and note that this is not
-" guaranteed to work, the Source Explorer doesn't check the syntax for now.
-" It only searches for a match with the keyword according to command 'gd'
-let g:SrcExpl_searchLocalDef = 1
-
-" Do not let the Source Explorer update the tags file when opening
-let g:SrcExpl_isUpdateTags = 0
-
-" tagは自動的に生成
-let g:SrcExpl_UpdateTags = 1
-
-" Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
-" create/update a tags file
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-
-" Set <F12> key for updating the tags file artificially
-let g:SrcExpl_updateTagsKey = "<F12>"
-
 "----------------------------------------------------
 "" host specific 
 "----------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+"----------------------------------------------------
+"" smartchr
+" @see http://d.hatena.ne.jp/ampmmn/20080925/1222338972
+"----------------------------------------------------
+
+" 演算子の間に空白を入れる
+" inoremap <buffer><expr> < search('^#include\%#', 'bcn')? ' <': smartchr#one_of(' < ', ' << ', '<')
+" inoremap <buffer><expr> > search('^#include <.*\%#', 'bcn')? '>': smartchr#one_of(' > ', ' >> ', '>')
+inoremap <buffer><expr> + smartchr#one_of(' + ', '++', '+')
+" inoremap <buffer><expr> - smartchr#one_of(' - ', '--', '-')
+" inoremap <buffer><expr> / smartchr#one_of(' / ', '// ', '/')
+" *はポインタで使うので、空白はいれない
+inoremap <buffer><expr> & smartchr#one_of(' & ', ' && ', '&')
+inoremap <buffer><expr> % smartchr#one_of(' % ', '%')
+inoremap <buffer><expr> <Bar> smartchr#one_of(' <Bar> ', ' <Bar><Bar> ', '<Bar>')
+inoremap <buffer><expr> , smartchr#one_of(', ', ',')
+" 3項演算子の場合は、後ろのみ空白を入れる
+inoremap <buffer><expr> ? smartchr#one_of('? ', '?')
+inoremap <buffer><expr> : smartchr#one_of(': ', '::', ':')
+
+" =の場合、単純な代入や比較演算子として入力する場合は前後にスペースをいれる。
+" 複合演算代入としての入力の場合は、直前のスペースを削除して=を入力
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\) \%#', 'bcn')? '<bs>= '
+                \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+                \ : smartchr#one_of(' = ', ' == ', '=')
+
+" 下記の文字は連続して現れることがまれなので、二回続けて入力したら改行する
+inoremap <buffer><expr> } smartchr#one_of('}', '}<cr>')
+inoremap <buffer><expr> ; smartchr#one_of(';', ';<cr>')
+" 「->」は入力しづらいので、..で置換え
+" inoremap <buffer><expr> . smartchr#loop('.', '->', '...')
+" 行先頭での@入力で、プリプロセス命令文を入力
+inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#define', '#include', '#ifdef', '#endif', '@'): '@'
+
+inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
+" if文直後の(は自動で間に空白を入れる
+inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
