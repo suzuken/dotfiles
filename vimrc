@@ -14,11 +14,40 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"Plugin Installing
+Bundle 'gmarik/vundle'
+Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Commenter'
+Bundle 'vim-refact'
+Bundle 'Gist.vim'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Rainbow-Parenthesis'
+Bundle 'taglist.vim'
+Bundle 'unite.vim'
+Bundle 'surround.vim'
+Bundle 'ref.vim'
+Bundle 'PDV--phpDocumentor-for-Vim'
+Bundle 'thinca/vim-quickrun'
+Bundle 'Shougo/vimproc'
+Bundle 'mattn/zencoding-vim'
+Bundle 'ujihisa/unite-colorscheme'
+Bundle 'h1mesuke/unite-outline'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'Modeliner'
+Bundle 'tsukkee/unite-tag'
+Bundle 'tpope/vim-fugitive'
+Bundle 'sudo.vim'
+Bundle 'smartchr'
+
+filetype plugin indent on     " required!
+
 "==========================
 "init
 "==========================
 autocmd!
-set nocompatible
 set modelines=5
 
 "==========================
@@ -386,44 +415,6 @@ set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 
 
 
-"----------------------------------------------------
-"" host specific 
-"----------------------------------------------------
-if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-filetype off                   " required!
-
-"Plugin Installing
-Bundle 'gmarik/vundle'
-Bundle 'The-NERD-tree'
-Bundle 'The-NERD-Commenter'
-Bundle 'vim-refact'
-Bundle 'Gist.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Rainbow-Parenthesis'
-Bundle 'taglist.vim'
-Bundle 'unite.vim'
-Bundle 'surround.vim'
-Bundle 'ref.vim'
-Bundle 'PDV--phpDocumentor-for-Vim'
-Bundle 'thinca/vim-quickrun'
-Bundle 'Shougo/vimproc'
-Bundle 'mattn/zencoding-vim'
-Bundle 'ujihisa/unite-colorscheme'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Modeliner'
-Bundle 'tsukkee/unite-tag'
-Bundle 'tpope/vim-fugitive'
-Bundle 'sudo.vim'
-Bundle 'smartchr'
-
-filetype plugin indent on     " required!
-
 "**************************
 "plugin
 "**************************
@@ -445,11 +436,7 @@ let g:yankring_history_dir='$HOME/.vim'
 "==========================
 "ref.vim
 "==========================
-if has('win32') || has('win64')
-    let g:ref_phpmanual_path=$HOME . '/.dictionary/phpdoc/'
-else
-    let g:ref_phpmanual_path='~/.dictionary/phpdoc/'
-endif
+Let g:ref_phpmanual_path=$HOME . '/.dictionary/phpdoc/'
 "let g:ref_jquery_path=$HOME/dictionary/jquery
 let g:ref_phpmanual_cmd="w3c -dump %s"
 let g:ref_use_vimproc=0
@@ -488,7 +475,7 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " スニペットファイルの配置場所
-let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
+" let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
 
 " ==============
 " neocomplcache
@@ -670,3 +657,11 @@ inoremap <buffer><expr> @ search('^\(#.\+\)\?\%#','bcn')? smartchr#one_of('#defi
 inoremap <buffer><expr> " search('^#include\%#', 'bcn')? ' "': '"'
 " if文直後の(は自動で間に空白を入れる
 inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
+
+"----------------------------------------------------
+"" host specific 
+"----------------------------------------------------
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
