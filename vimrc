@@ -414,7 +414,6 @@ endif
 set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 
 
-
 "**************************
 "plugin
 "**************************
@@ -614,13 +613,6 @@ set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
 "----------------------------------------------------
-"" host specific 
-"----------------------------------------------------
-if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
-"----------------------------------------------------
 "" smartchr
 " @see http://d.hatena.ne.jp/ampmmn/20080925/1222338972
 "----------------------------------------------------
@@ -664,4 +656,3 @@ inoremap <buffer><expr> ( search('\<\if\%#', 'bcn')? ' (': '('
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
