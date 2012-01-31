@@ -280,6 +280,12 @@ liberator.globalVariables.copy_templates = [
 { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },                                                                   
 { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },                                                     
 { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },                                
+{ label: 'hiki',    value: 'copy for hiki',
+custom: function(){
+var title=content.document.title;
+var url = content.document.location.href;
+return "* " + title + "\n** " + url;
+}},
 { label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} }, 
     ];
 EOM
@@ -291,6 +297,7 @@ nnoremap yp :copy titleAndURL<CR>
 nnoremap yt :copy title<CR>
 nnoremap ys :copy selanchor<CR>
 nnoremap yq :copy htmlblockquote<CR>
+nnoremap yh :copy hiki<CR>
 
 "======================================================================
 " footerバー関連
