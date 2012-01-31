@@ -427,6 +427,8 @@ Bundle 'ujihisa/neco-look'
 Bundle 'ynkdir/vim-paint'
 Bundle 'sudo.vim'
 Bundle 'smartchr'
+Bundle 'mattn/webapi-vim'
+Bundle 'toritori0318/vim-redmine'
 
 filetype plugin indent on     " required!
 
