@@ -41,8 +41,17 @@ Bundle 'tsukkee/unite-tag'
 Bundle 'tpope/vim-fugitive'
 Bundle 'sudo.vim'
 Bundle 'smartchr'
+Bundle 'tsaleh/vim-align'
+Bundle 'SQLUtilities'
+Bundle 'Lokaltog/vim-powerline'
 
 filetype plugin indent on     " required!
+
+
+" ===========
+" " powerline
+" ===========
+let g:Powerline_symbols = 'fancy'
 
 "==========================
 "init
@@ -612,6 +621,20 @@ nmap <C-g> :Gtags -g
 set tags=tags
 let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
+
+"----------------------------------------------------
+"" SQL Utilities
+"----------------------------------------------------
+let g:sqlutil_load_default_maps = 0
+
+vmap <leader>sf        <Plug>SQLUFormatter<CR>
+" nmap <leader>scl       <Plug>SQLU_CreateColumnList<CR>
+" nmap <leader>scd       <Plug>SQLU_GetColumnDef<CR>
+" nmap <leader>scdt      <Plug>SQLU_GetColumnDataType<CR>
+" nmap <leader>scp       <Plug>SQLU_CreateProcedure<CR>
+
+"Set comma align
+let g:sqlutil_align_comma = 1
 
 "----------------------------------------------------
 "" host specific 
