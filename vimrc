@@ -636,6 +636,12 @@ vmap <leader>sf        <Plug>SQLUFormatter<CR>
 "Set comma align
 let g:sqlutil_align_comma = 1
 
+
+" =====
+" after
+" =====
+" 保存時に行末の空白を除去する
+autocmd BufWritePre * :%s/\s\+$//ge
 "----------------------------------------------------
 "" host specific 
 "----------------------------------------------------
