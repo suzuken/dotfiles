@@ -44,6 +44,7 @@ Bundle 'smartchr'
 Bundle 'tsaleh/vim-align'
 Bundle 'SQLUtilities'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'thinca/vim-guicolorscheme'
 
 filetype plugin indent on     " required!
 
@@ -307,7 +308,7 @@ set clipboard+=autoselect
 
 
 "==========================
-"special Key 
+"special Key
 "==========================
 set list
 set listchars=tab:>-,trail:-,extends:<,precedes:<
@@ -315,7 +316,7 @@ highlight specialKey ctermfg=darkgray
 
 
 "==========================
-"Input 
+"Input
 "==========================
 set backspace=indent,eol,start
 set formatoptions+=mM
@@ -395,7 +396,7 @@ if has('autocmd')
     autocmd FileType python setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 endif
 
-" Execute python script C-P 
+" Execute python script C-P
 function! s:ExecPy()
     exe "!" . &ft . " %"
 :endfunction
@@ -418,7 +419,7 @@ if has('autocmd')
 endif
 
 "==========================
-"help 
+"help
 "==========================
 set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 
@@ -553,7 +554,7 @@ let NERDShutUp = 1
 "
 "fc: list around about current dir
 "fb: list around buffer dir
-"fr: list register 
+"fr: list register
 "fo: list outline
 "ff: list unite source
 "fl: list colorscheme and selection
@@ -643,7 +644,7 @@ let g:sqlutil_align_comma = 1
 " 保存時に行末の空白を除去する
 autocmd BufWritePre * :%s/\s\+$//ge
 "----------------------------------------------------
-"" host specific 
+"" host specific
 "----------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
