@@ -45,6 +45,8 @@ Bundle 'tsaleh/vim-align'
 Bundle 'SQLUtilities'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'thinca/vim-guicolorscheme'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'thinca/vim-quickrun'
 
 filetype plugin indent on     " required!
 
