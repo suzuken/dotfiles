@@ -62,6 +62,10 @@ let g:Powerline_symbols = 'fancy'
 autocmd!
 set modelines=5
 
+"leaderを,に変更
+" leader is ,
+let mapleader = ","
+
 "==========================
 "Tab Char
 "==========================
@@ -114,7 +118,7 @@ endif
 "vim 7.3~
 if v:version >= 730
     set relativenumber  "showing relative column number
-    set undofile    "<FILENAME>.un~ ファイルを生成する。
+    set undofile    "creating <FILENAME>.un~
 endif
 set cmdheight=2
 
@@ -132,25 +136,30 @@ nnoremap / /\v
 vnoremap / /\v
 set ignorecase
 set smartcase
-set gdefault    " %s/hoge/foo/gを%s/hoge/foo/でできる。常にglobal。
+set gdefault    " always %s/hoge/foo/ means %s/hoge/foo/g
 set incsearch
 set showmatch
 set hlsearch
 set wrapscan
 
 "検索状態からすぐ抜ける
-nnoremap <leader><space> :noh<cr>
+" get back from search mode
+"
+nnoremap <leader><space> :noh<CR>
 
 "%の移動をtabでも可能に。
+" tab means %
 nnoremap <tab> %
 
 "Visual ModeでのTab/shift+Tab indent/unindentをハイライトされたブロックに対し
 "て行う。
+" In visual mode, tab means insert <tab> into highlighted block.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
 "検索パターン入力中は/および?をエスケープ
-"そのま入力するには<C-v>{/?}で
+"そのまま入力するには<C-v>{/?}で
+" always escape / and ? in search character.
 cnoremap <expr> /
             \ getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?
@@ -161,9 +170,6 @@ cnoremap <expr> ?
 "==========================
 set wrap
 
-"横幅を79文字にする
-" set textwidth=80
-
 set formatoptions=qrn1
 if v:version >= 730
     set colorcolumn=85 "色づけ
@@ -173,11 +179,13 @@ endif
 "Key Bind
 "==========================
 "vimrcをリローダブルにする
+" reload vimrc
 noremap <C-c><C-c> <C-c>
 noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
 noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
 
 " 検索箇所を真ん中に
+" when move to search results, move to center.
 noremap n nzz
 noremap N Nzz
 noremap * *zz
@@ -185,10 +193,9 @@ noremap # #zz
 noremap g* g*zz
 noremap g# g#zz
 
-"leaderを,に変更
-let mapleader = ","
 
 "F1もESCにする
+" F1 means ESC, too.
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
@@ -203,12 +210,15 @@ nnoremap ; :
 au FocusLost * :wa
 
 "insertモードでjj押せばノーマルモードに。
+" in insert mode, jj means <ESC>.
 inoremap jj <ESC>
 
 ",wで水平分割→アクティブに
+" <leader>w means split and activate.
 nnoremap <leader>w <C-w>v<C-w>l
 
 "F2でpasteモードに。pasteするときにインデントを無効化。
+" <F2> to paste mode.
 set pastetoggle=<F2>
 
 "splitの移動を簡単に。ctrl押しながらhjkl
@@ -218,6 +228,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 "Enterでいつでも一行挿入
+" <Enter> always means inserting line.
 map <S-Enter> O<ESC>
 map <Enter> o<ESC>
 
@@ -237,9 +248,11 @@ nnoremap <Space>m :<C-u>marks
 nnoremap <Space>r :<C-u>registers
 
 "BundleSearchへのショートカット
+" Shortcuts for BundleSearch
 nnoremap <Space>s :BundleSearch<Space>
 
 " TagListを表示
+" representing TagList.
 nnoremap <leader>t :Tlist<CR>
 " NERDTreeを表示
 nnoremap <leader>n :NERDTree<CR>
@@ -429,20 +442,6 @@ set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 "**************************
 "plugin
 "**************************
-"==========================
-"RainbowParenthesesToggle.vim
-"==========================
-nmap <leader>R :RainbowParenthesesToggle<CR>
-
-"==========================
-"yankring.vim
-"==========================
-nnoremap <silent> <F3> :YRShow<cr>
-inoremap <silent> <F3> <ESC>:YRShow<cr>
-
-let g:yankring_max_history=100
-let g:yankring_history_dir='$HOME/.vim'
-
 
 "==========================
 "ref.vim
