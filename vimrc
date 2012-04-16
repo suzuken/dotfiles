@@ -47,6 +47,7 @@ Bundle 'thinca/vim-guicolorscheme'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
+Bundle 'ack.vim'
 
 filetype plugin indent on     " required!
 
