@@ -21,7 +21,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
-Bundle 'vim-refact'
 Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Rainbow-Parenthesis'
