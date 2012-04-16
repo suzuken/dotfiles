@@ -79,7 +79,7 @@ set! ui.key.generalAccessKey=0
 "検索欄などにフォーカスするのを防ぐ
 set focuscontent
 
-"ポップアップの設定 参考：http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc 
+"ポップアップの設定 参考：http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
 "Google Readerで問題発生するので設定が必要
 set! dom.popup_maximum=1000
 set popups=2
@@ -97,11 +97,14 @@ set! ui.caretWidth=8
 "...ところだが、タブで開くと他のファイルも全て終了するまで変更を反映できないので、タブで開かない
 " set editor="D:/path/to/vim/gvim.exe -f"
 " for mac
-if has('macunix')
-    set editor='/usr/bin/mvim -f'
-else
-    set editor='/usr/bin/gvim -f'
-endif
+set editor='/usr/bin/gvim -f'
+
+js<<EOM
+    if (liberator.has("MacUnix")) {
+        liberator.execute("set editor=/Applications/MacVim.app/Contents/MacOS/MacVim");
+    }
+EOM
+
 
 "======================================================================
 ""コマンド
@@ -139,8 +142,8 @@ let g:ldrc_captureMappings = "['j','k','p','o','?']"
 
 
 "======================================================================
-"migrate_statusbar.js 
-"上からブックマーク星ボタン、フィードボタン、ファビコンをステータスラインに移動 
+"migrate_statusbar.js
+"上からブックマーク星ボタン、フィードボタン、ファビコンをステータスラインに移動
 javascript <<EOM
 liberator.globalVariables.migrate_elements = [
 {
@@ -200,7 +203,7 @@ autocmd LocationChange .* :fmapc
 " Gmail設定
 autocmd LocationChange mail\.google\.com/mail :fmap! -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
 
-" Google Reader設定 
+" Google Reader設定
 "参考:http://fifnel.com/2009/10/06/2947/
 ""autocmd LocationChange www\.google\.co\.jp/reader :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu u / ?
 autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey m A v r X O gh ga gs gt gu / ? <C-j>,<Pagedown> <C-k>,<Pageup>
@@ -236,7 +239,7 @@ let g:caret_hint_select_key = ''
 "選択した要素の後尾にキャレットを移動し、要素を選択する
 let g:caret_hint_select_tail_key = ''
 "VISUAL モード用のキーマッピング
-"キャレットの位置を交換する(先頭 <=> 後尾) 
+"キャレットの位置を交換する(先頭 <=> 後尾)
 let g:caret_hint_swap_key = 'c'
 "これらの値に空文字列を与えれば、マッピングやモードは有効にされません。
 
@@ -248,7 +251,7 @@ nnoremap <C-i> ;c
 "direct_bookmark.js
 "Google Bookmarkを使っているため、無念だが当面はタグが補完できるGmarksを使うことに
 let g:direct_sbm_use_services_by_post='d'
-let g:direct_sbm_use_services_by_tag = "hdl" 
+let g:direct_sbm_use_services_by_tag = "hdl"
 
 "======================================================================
 " lookupDictionary.js
@@ -275,18 +278,24 @@ autocmd VimperatorEnter .* :set complete=Ish
 "copy関係はyを割り当て。
 javascript <<EOM
 liberator.globalVariables.copy_templates = [
-{ label: 'titleAndURL',    value: '%TITLE%\n%URL%' },                                                                                
-{ label: 'title',          value: '%TITLE%', map: ',y' },                                                                            
-{ label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },                                                                   
-{ label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },                                                     
-{ label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },                                
+{ label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
+{ label: 'title',          value: '%TITLE%', map: ',y' },
+{ label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
+{ label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+{ label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
 { label: 'hiki',    value: 'copy for hiki',
 custom: function(){
 var title=content.document.title;
 var url = content.document.location.href;
 return "* " + title + "\n** " + url;
 }},
-{ label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} }, 
+{ label: 'markdown',    value: 'copy for markdown',
+custom: function(){
+var title = content.document.title;
+var url = content.document.location.href;
+return "* " + title + "\n\t** " + url;
+}},
+{ label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
     ];
 EOM
 "a:anchor p:plaintext t:title s:select q:blockquote
@@ -298,6 +307,7 @@ nnoremap yt :copy title<CR>
 nnoremap ys :copy selanchor<CR>
 nnoremap yq :copy htmlblockquote<CR>
 nnoremap yh :copy hiki<CR>
+nnoremap ym :copy markdown<CR>
 
 "======================================================================
 " footerバー関連
