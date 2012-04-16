@@ -470,14 +470,6 @@ let g:neocomplcache_enable_underbar_completion= 1 " _の補完を有効にする
 let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 let g:neocomplcache_lock_buffer_name_pattern= '\*ku\*' "neocomplcacheを自動的にロックするバッファ名のパターン
 
-" ファイルタイプ毎の辞書ファイルの場所
-" let g:NeoComplCache_DictionaryFileTypeLists = {
-            " \ 'default' : '',
-            " \ 'java' : $HOME.'/.vim/dict/j2se14.dict',
-            " \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
-            " \ 'php' : $HOME.'/.vim/dict/PHP.dict',
-            " \ }
-
 "Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
@@ -499,14 +491,13 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " SuperTab like snippets behavior.
 imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Recommended key-mappings.
 " <CR>: popupを削除
-" inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
@@ -593,29 +584,6 @@ endfunction
 
 let g:unite_source_file_mru_limit = 200
 let g:unite_enable_split_vertically = 0 "vertical split
-
-" =====================================================
-"" Templates Settings
-" =====================================================
-"autocommands and groups
-"augroup SkeletonAu
-"    autocmd!
-    " autocmd BufNewFile *.html 0r $HOME/runtime/templates/template.html
-    "autocmd BufNewFile *.html 0r $HOME/.vim/templates/template.html
-    " autocmd BufNewFile *.js 0r $HOME/runtime/templates/template.js
-    " autocmd BufNewFile *.js 0r $HOME/.vim/templates/template.js
-"augroup END
-
-" =====================================================
-"" GNU GLOBAL(gtags)
-" =====================================================
-nmap <C-q> <C-w><C-w><C-w>q
-nmap <C-g> :Gtags -g
-" nmap <C-l> :Gtags -f %<CR>
-" nmap <C-j> :Gtags <C-r><C-w><CR>
-"nmap <C-k> :Gtags -r <C-r><C-w><CR>
-" nmap <C-n> :cn<CR>
-" nmap <C-p> :cp<CR>
 
 " =====================================================
 "" (ctags)
