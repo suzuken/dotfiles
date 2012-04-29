@@ -151,10 +151,9 @@ set showmatch
 set hlsearch
 set wrapscan
 
-"検索状態からすぐ抜ける
 " get back from search mode
 "
-nnoremap <leader><space> :noh<CR>
+nnoremap <Esc><Esc> :nohlsearch<CR>
 
 "%の移動をtabでも可能に。
 " tab means %
