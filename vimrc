@@ -51,6 +51,7 @@ Bundle 'TwitVim'
 Bundle 'ack.vim'
 Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
+Bundle 'Lokaltog/vim-easymotion'
 
 filetype plugin indent on     " required!
 
