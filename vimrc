@@ -262,8 +262,19 @@ nnoremap <Space>s :BundleSearch<Space>
 " TagListを表示
 " representing TagList.
 nnoremap <leader>t :Tlist<CR>
+
 " NERDTreeを表示
+" representing NERDTree
 nnoremap <leader>n :NERDTree<CR>
+
+" default key-bind of opening comamnd-line window makes typo frequently.
+" So, using qqq prefix for those.
+nnoremap qqq: <Esc>q:
+nnoremap qqq/ <Esc>q/
+nnoremap qqq? <Esc>q?
+nnoremap q: <Nop>
+nnoremap q/ <Nop>
+nnoremap q? <Nop>
 
 "==========================
 "language
