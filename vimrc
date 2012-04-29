@@ -50,6 +50,7 @@ Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ack.vim'
 Bundle 'ShowMarks'
+Bundle 'YankRing.vim'
 
 filetype plugin indent on     " required!
 
