@@ -28,6 +28,13 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+if [ -x /usr/bin/rlwrap ]; then
+    alias mysql='/usr/bin/rlwrap -a -pRED mysql --pager='less -S''
+fi
+
+
+
 # Customize to your needs...
+#
 #
 source $HOME/.zshrc.mine
