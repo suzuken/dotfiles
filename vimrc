@@ -19,6 +19,7 @@ call vundle#rc()
 
 "Plugin Installing
 Bundle 'gmarik/vundle'
+Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
@@ -48,9 +49,14 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ack.vim'
+Bundle 'ShowMarks'
 
 filetype plugin indent on     " required!
 
+" =================
+" showmarks_include
+" =================
+let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 " ===========
 " " powerline
