@@ -3,6 +3,11 @@ Installation
 
     rake install
 
+or,
+
+    $ chmod +x install.sh
+    $ ./install.sh
+
 
 How to use
 ==========
@@ -15,7 +20,7 @@ I'm usually using oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh), so if y
 vim
 ---
 
-For using vim, you need to install vundle.vim. 
+For using vim, you need to install vundle.vim.
 
     git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
