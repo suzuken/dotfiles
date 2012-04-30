@@ -52,6 +52,7 @@ Bundle 'ack.vim'
 Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'mattn/benchvimrc-vim'
 
 filetype plugin indent on     " required!
 
@@ -113,6 +114,9 @@ if has('gui_running')
     colorscheme solarized
     " call togglebg#map('<F5>')
 endif
+
+" when running on terminal, modify colorscheme
+colorscheme slate
 
 set number
 set title
@@ -456,6 +460,12 @@ endif
 "help
 "==========================
 set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
+
+" open help page to vertical window
+nnoremap :h :vert h<space>
+nnoremap ;h :vert h<space>
+nnoremap :help :vert help<space>
+nnoremap ;help :vert help<space>
 
 
 "**************************
