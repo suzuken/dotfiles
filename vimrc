@@ -24,6 +24,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'Rainbow-Parenthesis'
 Bundle 'taglist.vim'
 Bundle 'Shougo/unite.vim'
@@ -506,7 +507,7 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " スニペットファイルの配置場所
-" let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
+let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
 
 " ==============
 " neocomplcache
