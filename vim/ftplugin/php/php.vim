@@ -11,6 +11,19 @@ inoremap <C-P><C-P> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-P><C-P> :call PhpDocSingle()<CR>
 vnoremap <C-P><C-P> :call PhpDocRange()<CR>
 
+" setting for PHPUnit
+" http://www.phpunit.de/manual/current/en/
+" see also http://d.hatena.ne.jp/ruedap/20110225/vim_php_phpunit_quickrun
+augroup QuickRunPHPUnit
+  autocmd!
+  " all *test.php files are defined filetype as phpunit.
+  autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
+  autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.unit
+augroup END
+" PHPUnit
+let g:quickrun_config['php.unit'] = {'command': 'phpunit'}
+
+
 " ===========================
 " smartchr settings for php
 " ===========================
