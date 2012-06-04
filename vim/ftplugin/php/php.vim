@@ -20,8 +20,37 @@ augroup QuickRunPHPUnit
   autocmd BufWinEnter,BufNewFile *test.php set filetype=php.unit
   autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.unit
 augroup END
-" PHPUnit
-let g:quickrun_config['php.unit'] = {'command': 'phpunit'}
+
+let g:quickrun_config = {}
+
+" quickrun.vimで実行したPHPUnitの結果にグリーンバーを出す - Inquisitive!
+" http://d.hatena.ne.jp/uk_oasis/20110928/1317217247
+" make outputter for coloring output message.
+let phpunit_outputter = quickrun#outputter#buffer#new()
+function! phpunit_outputter.init(session)
+  " call original process
+  call call(quickrun#outputter#buffer#new().init, [a:session], self)
+endfunction
+
+function! phpunit_outputter.finish(session)
+  " set color
+  highlight default PhpUnitOK         ctermbg=Green ctermfg=White
+  highlight default PhpUnitFail       ctermbg=Red   ctermfg=White
+  highlight default PhpUnitAssertFail ctermfg=Red
+  call matchadd("PhpUnitFail","^FAILURES.*$")
+  call matchadd("PhpUnitOK","^OK.*$")
+  call matchadd("PhpUnitAssertFail","^Failed.*$")
+  call call(quickrun#outputter#buffer#new().finish, [a:session], self)
+endfunction
+
+" regist outputter to quickrun
+call quickrun#register_outputter("phpunit_outputter", phpunit_outputter)
+
+" PHPUNIT
+let g:quickrun_config['php.unit'] = {
+      \ 'command': 'phpunit',
+      \ 'outputter': 'phpunit_outputter',
+      \ }
 
 
 " ===========================
