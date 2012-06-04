@@ -60,6 +60,7 @@ Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/benchvimrc-vim'
+Bundle 'scrooloose/syntastic'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
