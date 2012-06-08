@@ -32,7 +32,6 @@ Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'Rainbow-Parenthesis'
-Bundle 'taglist.vim'
 Bundle 'Shougo/unite.vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
@@ -61,6 +60,8 @@ Bundle 'YankRing.vim'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/benchvimrc-vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'majutsushi/tagbar'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -276,9 +277,8 @@ nnoremap <Space>r :<C-u>registers
 " Shortcuts for BundleSearch
 nnoremap <Space>s :BundleSearch<Space>
 
-" TagListを表示
-" representing TagList.
-nnoremap <leader>t :Tlist<CR>
+" representing Tagbar.
+nnoremap <leader>t :TagbarToggle<CR>
 
 " NERDTreeを表示
 " representing NERDTree
@@ -401,7 +401,6 @@ set history=10000
 set updatetime=500
 "set viminfo=""
 let g:svbfre = '.\+'
-"autocmd CursorHold * call NewUpdate()
 
 "==========================
 "Status Line
@@ -467,6 +466,14 @@ endif
 " ---
 if has('autocmd')
     autocmd FileType css :compiler css
+endif
+
+
+" ---
+" scala
+" ---
+if has('autocmd')
+    autocmd BufNewFile,BufRead *.scala set filetype=scala
 endif
 
 "==========================
@@ -623,8 +630,7 @@ let g:unite_enable_split_vertically = 0 "vertical split
 "" (ctags)
 " =====================================================
 set tags=tags
-let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
-
+" let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
 
 "----------------------------------------------------
 "" SQL Utilities
