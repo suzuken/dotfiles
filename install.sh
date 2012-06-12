@@ -17,7 +17,7 @@ fi
 # create symbolic link
 for dotfile in .?*
 do
-    if [ $dotfile != '..' ] && [ $dotfile != '.git' ] && [ $dotfile != '.gitignore' ]
+    if [ $dotfile != '..' ] && [ $dotfile != '.git' ] && [ $dotfile != '.gitignore' ] && [ $dotfile != '.gitmodules']
     then
         ln -Fis "$PWD/$dotfile" $HOME
     fi
