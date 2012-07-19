@@ -2,8 +2,8 @@
 cd $(dirname $0)
 
 # install vundle.git
-if [ ! -f "$PWD/.vim/bundle/vundle" ]; then
-    git clone http://github.com/gmarik/vundle.git "$PWD/.vim/bundle/vundle"
+if [ ! -f "$PWD/vim/bundle/vundle" ]; then
+    git clone http://github.com/gmarik/vundle.git "$PWD/vim/bundle/vundle"
 fi
 
 # update submodule
