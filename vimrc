@@ -512,12 +512,14 @@ nnoremap <space>rp :<C-u>Ref phpmanual<Space>
 "==========================
 
 let g:acp_enableAtStartup = 0 "AutoComplPopを無効化
-let g:neocomplcache_enable_at_startup = 1 "neocomplcacheを起動時に有効化
+let g:neocomplcache_enable_at_startup = 0 "neocomplcacheを起動時に有効化
 " let g:neocomplcache_enable_smart_case = 1 "大文字小文字を区別しない
 "let g:neocomplcache_enable_camel_case_completion= 1 "camel caseを有効化。大文字を区切りとしたワイルドカードみたいなもの
 let g:neocomplcache_enable_underbar_completion= 1 " _の補完を有効にする
 let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
 let g:neocomplcache_lock_buffer_name_pattern= '\*ku\*' "neocomplcacheを自動的にロックするバッファ名のパターン
+let g:neocomplcache_temporary_dir='/tmp/.neocon'
+let g:neocomplcache_max_list=20
 
 "Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
