@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>magic_quotes_runtime の現在アクティブな設定をセットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-include-path.html">set_include_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.set-time-limit.html">set_time_limit</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.set-magic-quotes-runtime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">set_magic_quotes_runtime</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">set_magic_quotes_runtime</span> &mdash; <span class="dc-title">magic_quotes_runtime の現在アクティブな設定をセットする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.set-magic-quotes-runtime-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>set_magic_quotes_runtime</b></span>
+    ( <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$new_setting</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <a href="info.configuration.html#ini.magic-quotes-runtime" class="link">magic_quotes_runtime</a>
+   の現在アクティブな設定をセットします。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.set-magic-quotes-runtime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">new_setting</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>FALSE</tt></b> はオフ、<b><tt>TRUE</tt></b> はオンを表します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.set-magic-quotes-runtime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.set-magic-quotes-runtime-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-456">
+    <p><b>例1 <span class="function"><b>set_magic_quotes_runtime()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;一時的なファイルポインタを作成します<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">tmpfile</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;データをポインタに書き込みます<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'\'PHP\'&nbsp;is&nbsp;a&nbsp;Recursive&nbsp;acronym'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;magic_quotes_runtime&nbsp;なしの場合<br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">set_magic_quotes_runtime</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Without&nbsp;magic_quotes_runtime:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">64</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;magic_quotes_runtime&nbsp;ありの場合<br /></span><span style="color: #0000BB">rewind</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">set_magic_quotes_runtime</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'With&nbsp;magic_quotes_runtime:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">64</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;後始末<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Without magic_quotes_runtime: &#039;PHP&#039; is a Recursive acronym
+With magic_quotes_runtime: \&#039;PHP\&#039; is a Recursive acronym
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.set-magic-quotes-runtime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.get-magic-quotes-gpc.html" class="function" rel="rdfs-seeAlso">get_magic_quotes_gpc()</a> - magic_quotes_gpc の現在の設定を得る</span></li>
+    <li class="member"><span class="function"><a href="function.get-magic-quotes-runtime.html" class="function" rel="rdfs-seeAlso">get_magic_quotes_runtime()</a> - magic_quotes_runtime の現在アクティブな設定値を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-include-path.html">set_include_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.set-time-limit.html">set_time_limit</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

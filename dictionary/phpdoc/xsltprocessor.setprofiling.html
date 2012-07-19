@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プロファイル情報の出力ファイルを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xsltprocessor.setparameter.html">XSLTProcessor::setParameter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xsltprocessor.transformtodoc.html">XSLTProcessor::transformToDoc</a></div>
+ <div class="up"><a href="class.xsltprocessor.html">XSLTProcessor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="xsltprocessor.setprofiling" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">XSLTProcessor::setProfiling</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">XSLTProcessor::setProfiling</span> &mdash; <span class="dc-title">プロファイル情報の出力ファイルを設定する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-xsltprocessor.setprofiling-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">bool</span> <span class="methodname"><b>XSLTProcessor::setProfiling</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+    )</div>
+
+  </div>
+  <p class="para">
+   スタイルシート処理時のプロファイル情報を出力するファイルを設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-xsltprocessor.setprofiling-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プロファイル情報を出力するファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-xsltprocessor.setprofiling-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-xsltprocessor.setprofiling-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4591">
+    <p><b>例1 プロファイル出力の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;XML&nbsp;ソースを読み込みます<br /></span><span style="color: #0000BB">$xml&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$xml</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'collection.xml'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$xsl&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$xsl</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">load</span><span style="color: #007700">(</span><span style="color: #DD0000">'collection.xsl'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;変換器を設定します<br /></span><span style="color: #0000BB">$proc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">XSLTProcessor</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$proc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setProfiling</span><span style="color: #007700">(</span><span style="color: #DD0000">'profiling.txt'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$proc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">importStyleSheet</span><span style="color: #007700">(</span><span style="color: #0000BB">$xsl</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;xsl&nbsp;ルールをアタッチします<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">trim</span><span style="color: #007700">(</span><span style="color: #0000BB">$proc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">transformToDoc</span><span style="color: #007700">(</span><span style="color: #0000BB">$xml</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">firstChild</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">wholeText</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     上のコードは、ファイルの処理時に次のような情報を出力します。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+number               match                name      mode  Calls Tot 100us Avg
+
+    0                   cd                                    2      3      1
+    1           collection                                    1      1      1
+
+                         Total                                3      4
+
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xsltprocessor.setparameter.html">XSLTProcessor::setParameter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xsltprocessor.transformtodoc.html">XSLTProcessor::transformToDoc</a></div>
+ <div class="up"><a href="class.xsltprocessor.html">XSLTProcessor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

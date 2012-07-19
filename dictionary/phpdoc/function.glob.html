@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>パターンにマッチするパス名を探す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fwrite.html">fwrite</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.is-dir.html">is_dir</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.glob" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">glob</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">glob</span> &mdash; <span class="dc-title">パターンにマッチするパス名を探す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.glob-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>glob</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>glob()</b></span> 関数は libc の glob()
+   関数で使われるルールに基づいて
+   <i><tt class="parameter">pattern</tt></i> にマッチする全てのパス名を検索します。
+   ルールは、一般のシェルで使われるルールと似ています。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.glob-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パターン。チルダの展開やパラメータ置換は行いません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       有効なフラグは次のとおりです。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_MARK</tt></b> - 各ディレクトリにスラッシュを追加します
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_NOSORT</tt></b> - ディレクトリに存在するファイルを返します
+          (ソートはされません)
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_NOCHECK</tt></b> -
+          検索パターンにマッチするファイルが見つからない場合に、
+          検索パターン自身を返します
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_NOESCAPE</tt></b> - バックスラッシュによるメタ文字のクォートを行いません
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_BRACE</tt></b> -
+          {a,b,c} を展開し「a」、「b」あるいは「c」のいずれかにマッチさせます
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_ONLYDIR</tt></b> - パターンにマッチするディレクトリのみを返します
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>GLOB_ERR</tt></b> - (ディレクトリが読めないなどの)
+          読み込みエラー時に停止します。デフォルトではエラーは無視されます。
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.glob-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   マッチするファイル／ディレクトリを含む配列を返します。
+   マッチするファイルがなかった場合には空の配列、
+   そして失敗した場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    システムによっては、何もマッチしなかった場合とエラーが発生した場合を区別できないものもあります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.glob-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        <b><tt>GLOB_ERR</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.3</td>
+       <td align="left">
+        <b><tt>GLOB_ONLYDIR</tt></b> が、
+        Windows やその他の GNU C ライブラリを使用しないシステムでも利用できるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.glob-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1927">
+    <p><b>例1 
+     <span class="function"><b>glob()</b></span> が <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span>
+     と関連する関数群の代替策になるかを示す簡便な方法
+    </b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">glob</span><span style="color: #007700">(</span><span style="color: #DD0000">"*.txt"</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$filename</span><span style="color: #DD0000">&nbsp;size&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #0000BB">$filename</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+funclist.txt size 44686
+funcsummary.txt size 267625
+quickref.txt size 137820
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.glob-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数では、
+<a href="features.remote-files.html" class="link">リモートファイル</a> を
+使用することはできません。これは、処理されるファイルがサーバの
+ファイルシステムによりアクセスできる必要があるためです。</span></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    この関数が使用できないシステムも存在します (例: 昔の Sun OS など)。
+   </span>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    <b><tt>GLOB_BRACE</tt></b> フラグは、Solaris
+    などの非 GNU システムでは動作しないことがあります。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.glob-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.opendir.html" class="function" rel="rdfs-seeAlso">opendir()</a> - ディレクトリハンドルをオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.readdir.html" class="function" rel="rdfs-seeAlso">readdir()</a> - ディレクトリハンドルからエントリを読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.closedir.html" class="function" rel="rdfs-seeAlso">closedir()</a> - ディレクトリハンドルをクローズする</span></li>
+    <li class="member"><span class="function"><a href="function.fnmatch.html" class="function" rel="rdfs-seeAlso">fnmatch()</a> - ファイル名がパターンにマッチするか調べる</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fwrite.html">fwrite</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.is-dir.html">is_dir</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

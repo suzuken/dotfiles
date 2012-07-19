@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>タイプライブラリを読み込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.com-isenum.html">com_isenum</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.com-load.html">com_load</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.com-load-typelib" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">com_load_typelib</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">com_load_typelib</span> &mdash; <span class="dc-title">タイプライブラリを読み込む</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.com-load-typelib-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>com_load_typelib</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$typelib_name</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$case_insensitive</tt><span class="initializer"> = true</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   タイプライブラリを読み込んで定数をエンジン内に登録し、それらが
+   <span class="function"><a href="function.define.html" class="function">define()</a></span> を使用して定義されているかのように
+   扱えるようにします。
+  </p>
+  <p class="para">
+   あまり融通の利く方法ではありませんが、
+   <a href="com.configuration.html#ini.com.typelib-file" class="xref"></a> 設定を利用して定数の
+   事前読み込みと登録をすませるほうがずっと効率的であることに
+   注意しましょう。
+  </p>
+  <p class="para">
+   <a href="com.configuration.html#ini.com.autoregister-typelib" class="xref"></a> を有効にすると、
+   PHP がインスタンス化した COM オブジェクトに関連付けられている定数を
+   自動的に登録しようと試みます。これは COM オブジェクト自身の提供する
+   インターフェースに依存し、常に可能であるとは限りません。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.com-load-typelib-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">typelib_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">typelib_name</tt></i> は、以下のいずれかの形式となります。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <i>.tlb</i> ファイル、あるいはタイプライブラリを含む
+          実行モジュールのファイル名。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          タイプライブラリの GUID の後にバージョン番号を続ける。たとえば
+          <i>{00000200-0000-0010-8000-00AA006D2EA4},2,0</i>
+          のような形式。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          タイプライブラリ名。たとえば <i>Microsoft OLE DB ActiveX Data
+          Objects 1.0 Library</i> のような形式。
+         </p>
+        </li>
+       </ul>
+       PHP は、この順序でタイプライブラリ名の解決を試みます。リストの下の
+       ほうにいくほど検索処理のコストが高くなります。タイプライブラリ名に
+       よる検索は、一致するものが見つかるまでレジストリを物理的に列挙していく
+       という方法をとっています。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">case_insensitive</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">case_insensitive</tt></i> は、
+       <span class="function"><a href="function.define.html" class="function">define()</a></span> 関数の同名のパラメータと同じ働きをします。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.com-load-typelib-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.com-isenum.html">com_isenum</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.com-load.html">com_load</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

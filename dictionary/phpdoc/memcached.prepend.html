@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>既存のアイテムの前にデータを付加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.increment.html">Memcached::increment</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.prependbykey.html">Memcached::prependByKey</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcached.prepend" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcached::prepend</h1>
+  <p class="verinfo">(PECL memcached &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">Memcached::prepend</span> &mdash; <span class="dc-title">既存のアイテムの前にデータを付加する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcached.prepend-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>Memcached::prepend</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcached::prepend()</b></span> は、指定した文字列
+   <i><tt class="parameter">value</tt></i> を既存のアイテムの前に付加します。
+   <i><tt class="parameter">value</tt></i> を文字列に強制変換する理由は、
+   異なる型を付加した場合の挙動が定義されていないからです。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <b><tt>Memcached::OPT_COMPRESSION</tt></b> が有効になっている場合は、
+    この操作は失敗して警告が発せられます。
+    すでに圧縮されている可能性のあるデータの先頭に圧縮したデータを付加することはできないからです。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcached.prepend-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       データを先頭に付加したいアイテムのキー。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       先頭に付加する文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcached.prepend-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+    <span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span> は、キーが存在しない場合に
+   <b><tt>Memcached::RES_NOTSTORED</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcached.prepend-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3601">
+    <p><b>例1 <span class="function"><b>Memcached::prepend()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setOption</span><span style="color: #007700">(</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">OPT_COMPRESSION</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'abc'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepend</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'def'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(6) &quot;defabc&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcached.prepend-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="memcached.prependbykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::prependByKey()</a> - 指定したサーバで既存のアイテムの前にデータを付加する</span></li>
+    <li class="member"> <span class="methodname"><a href="memcached.append.html" class="methodname" rel="rdfs-seeAlso">Memcached::append()</a> - データを既存のアイテムに追記する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.increment.html">Memcached::increment</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.prependbykey.html">Memcached::prependByKey</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

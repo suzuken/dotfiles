@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>簡易なファイルロックを行う</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgetss.html">SplFileObject::fgetss</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fpassthru.html">SplFileObject::fpassthru</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splfileobject.flock" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplFileObject::flock</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplFileObject::flock</span> &mdash; <span class="dc-title">簡易なファイルロックを行う</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splfileobject.flock-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>SplFileObject::flock</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$operation</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$wouldblock</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.flock.html" class="function">flock()</a></span> と同じ簡易な方法でファイルをロックもしくはロック解除する。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splfileobject.flock-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">operation</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">operation</tt></i> は次のいずれかです:
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          共有ロック (読み手) にするには <b><tt>LOCK_SH</tt></b>。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          排他ロック (書き手) にするには <b><tt>LOCK_EX</tt></b>。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          (共有もしくは排他) ロックを解除するには <b><tt>LOCK_UN</tt></b>。
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          ロック中にブロックしないようにするには <b><tt>LOCK_NB</tt></b> (Windows ではサポートされません)。
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">wouldblock</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ロックがブロックされる場合 (errno が EWOULDBLOCK である)、<b><tt>TRUE</tt></b> にセットします。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splfileobject.flock-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splfileobject.flock-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3277">
+    <p><b>例1  <span class="methodname"><b>SplFileObject::flock()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/lock.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">LOCK_EX</span><span style="color: #007700">))&nbsp;{&nbsp;</span><span style="color: #FF8000">//&nbsp;排他ロックを行う<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ftruncate</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ファイルを丸める<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #DD0000">"ここで何かを書き出します\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">flock</span><span style="color: #007700">(</span><span style="color: #0000BB">LOCK_UN</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ロックを解除する&nbsp;&nbsp;&nbsp;&nbsp;<br /></span><span style="color: #007700">}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"ロックを取得できませんでした！"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splfileobject.flock-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.flock.html" class="function" rel="rdfs-seeAlso">flock()</a> - 汎用のファイルロックを行う</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgetss.html">SplFileObject::fgetss</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.fpassthru.html">SplFileObject::fpassthru</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

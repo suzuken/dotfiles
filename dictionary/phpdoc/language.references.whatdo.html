@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>リファレンスが行うことは何ですか?</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.whatare.html">リファレンスとは?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.arent.html">リファレンスが行わないこと</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.references.whatdo" class="sect1">
+   <h2 class="title">リファレンスが行うことは何ですか?</h2>
+   <p class="para">
+    There are three basic operations performed using references:
+    <a href="language.references.whatdo.html#language.references.whatdo.assign" class="link">assigning by
+    reference</a>, <a href="language.references.whatdo.html#language.references.whatdo.pass" class="link">passing
+    by reference</a>,
+    and <a href="language.references.whatdo.html#language.references.whatdo.return" class="link">returning by
+    reference</a>. This section will give an introduction to these
+    operations, with links to further reading.
+   </p>
+   <div class="sect2" id="language.references.whatdo.assign">
+    <h3 class="title">Assign By Reference</h3>
+    <p class="para">
+     In the first of these, PHP references allow you to make two
+     variables refer to the same content. Meaning, when you do:
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+     この場合、<var class="varname"><var class="varname">$a</var></var> と <var class="varname"><var class="varname">$b</var></var>
+     は同じ内容を指します。
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <p class="para">
+       ここで、<var class="varname"><var class="varname">$a</var></var> と <var class="varname"><var class="varname">$b</var></var> は完全に
+       同じで、<var class="varname"><var class="varname">$a</var></var> が <var class="varname"><var class="varname">$b</var></var> を
+       指しているわけではなく、その逆でもありません。<var class="varname"><var class="varname">$a</var></var> と
+       <var class="varname"><var class="varname">$b</var></var> は同じ場所を指しているのです。
+      </p>
+     </p></blockquote>
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      未定義の変数のリファレンスに対して代入したり
+      渡したり返したりすると、そこで変数が作成されます。
+      <div class="example" id="example-247">
+       <p><b>例1 未定義の変数のリファレンスの使用</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)&nbsp;{&nbsp;}<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$a&nbsp;が作成され、null&nbsp;が代入されます<br /><br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">array_key_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'b'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /><br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">StdClass</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">d</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">$c</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'d'</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(true)<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </p>
+    </p></blockquote>
+    <p class="para">
+     リファレンスを返す関数や <i>new</i> 演算子でも
+     同じ構文が使用可能です (PHP 4.0.4 以降 PHP 5.0.0 未満まで)。
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">find_var</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+     PHP 5 以降、<a href="language.oop5.basic.html#language.oop5.basic.new" class="link">new</a>
+     は自動的にリファレンスを返すようになりました。そのため、この場面で
+     <i>=&amp;</i> を使用することは非推奨となりました。
+     PHP 5.3 以降では <b><tt>E_DEPRECATED</tt></b>、それより前のバージョンでは
+     <b><tt>E_STRICT</tt></b> レベルのメッセージが表示されます
+     (技術的な話をすると、PHP 5 以降では、リソース型のようなオブジェクト変数は
+     実際のデータへの単なるポインタとなりました。つまり、
+     オブジェクトのリファレンスはこれまでのような意味での &quot;リファレンス&quot;
+     つまりエイリアスとは異なります。
+     詳細な情報は <a href="language.oop5.references.html" class="link">
+     オブジェクトと参照</a> にあります)。
+    </p>
+    <div class="warning"><b class="warning">警告</b>
+     <p class="para">
+      関数の内部で <i>global</i> 宣言された変数にリファレンスを
+      代入すると、そのリファレンスは関数の内部でのみ参照可能となります。
+      これを避けるには、<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var> 配列を使用します。
+      <div class="example" id="example-248">
+       <p><b>例2 関数内でのグローバル変数の参照</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Example&nbsp;variable"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">global_references</span><span style="color: #007700">(</span><span style="color: #0000BB">$use_globals</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$var2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$use_globals</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;関数の内部でのみ参照可能<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">"var2"</span><span style="color: #007700">]&nbsp;=&amp;&nbsp;</span><span style="color: #0000BB">$var1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;関数の外部でも参照可能<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br /></span><span style="color: #0000BB">global_references</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"var2&nbsp;の値は&nbsp;'</span><span style="color: #0000BB">$var2</span><span style="color: #DD0000">'\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;var2&nbsp;の値は&nbsp;''<br /></span><span style="color: #0000BB">global_references</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"var2&nbsp;の値は&nbsp;'</span><span style="color: #0000BB">$var2</span><span style="color: #DD0000">'\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;var2&nbsp;の値は&nbsp;'Example&nbsp;variable'<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+      <i>global $var;</i> は、<i>$var
+      =&amp; $GLOBALS[&#039;var&#039;];</i> の短縮版だと考えてください。
+      これにより、他のリファレンスを <i>$var</i> に代入し、
+      ローカル変数のリファレンスのみを変更します。
+     </p>
+    </div>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      <a href="control-structures.foreach.html" class="link">foreach</a> ステートメントの内部でリファレンス変数に値を代入すると、リファレンスも変更されます。
+      <div class="example" id="example-249">
+       <p><b>例3 リファレンスと foreach ステートメント</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$ref&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$ref</span><span style="color: #007700">;<br />foreach&nbsp;(array(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;何かを実行します<br /></span><span style="color: #007700">}<br />echo&nbsp;</span><span style="color: #0000BB">$ref</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;3&nbsp;-&nbsp;配列の最後の要素<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </p>
+    </p></blockquote>
+    <p class="para">
+     厳密にリファレンスでの代入をしなくても、
+     <a href="function.array.html" class="link"><i>array()</i></a>
+     で作成した式は、配列の要素の先頭に <i>&amp;</i>
+     を追加したのと同じような動作をします。たとえば、次のようになります。
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;array(&amp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;&amp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;&amp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]++;&nbsp;</span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]++;&nbsp;</span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]++;<br /></span><span style="color: #FF8000">/*&nbsp;$a&nbsp;==&nbsp;2,&nbsp;$b&nbsp;==&nbsp;array(3,&nbsp;4);&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    <p class="para">
+     しかし、配列の内部のリファレンスは危険もあるということに気をつけましょう。
+     通常の (リファレンスではない) 代入の右辺にリファレンスを使っても
+     左辺はリファレンスには変わりませんが、配列の内部のリファレンスは通常の代入のままとなります。
+     これは、関数をコールする際に配列をリファレンスで渡すときも同じです。
+     たとえば、次のようになります。
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;スカラー変数への代入&nbsp;*/<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;$c&nbsp;はリファレンスではないので&nbsp;$a&nbsp;や&nbsp;$b&nbsp;の値は変わりません<br /><br />/*&nbsp;配列変数への代入&nbsp;*/<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">];&nbsp;</span><span style="color: #FF8000">//&nbsp;$a&nbsp;および&nbsp;$arr[0]&nbsp;は同じリファレンスセットになります<br /></span><span style="color: #0000BB">$arr2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$arr</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;これは、リファレンス代入ではありません!<br /></span><span style="color: #0000BB">$arr2</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]++;<br /></span><span style="color: #FF8000">/*&nbsp;$a&nbsp;==&nbsp;2,&nbsp;$arr&nbsp;==&nbsp;array(2)&nbsp;*/<br />/*&nbsp;$arr&nbsp;の内容は、たとえリファレンスでなくても変わります!&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+     言い換えると、配列内のリファレンスの挙動はその要素ごとに決まるということです。
+     個々の要素のリファレンスに関する動きは、
+     配列コンテナがリファレンスであるかどうかとは独立しています。
+    </p>
+   </div>
+   <div class="sect2" id="language.references.whatdo.pass">
+    <h3 class="title">リファレンス渡し</h3>
+    <p class="para">
+     リファレンスの第 2 の使用法は、変数のリファレンス渡しです。この場合、
+     関数でローカル変数が作成され、コール側の変数が、それと同じ内容への
+     リファレンスとなります。例を示します。
+     <div class="informalexample">
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)&nbsp;<br />{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">++;<br />}<br /><br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">=</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+     この結果、<var class="varname"><var class="varname">$a</var></var> は 6 となります。これは、関数
+     <var class="varname"><var class="varname">foo</var></var> の中では、変数 <var class="varname"><var class="varname">$var</var></var> は
+     <var class="varname"><var class="varname">$a</var></var> と同じ内容を指しているためです。
+     より詳細な説明は、
+     <a href="language.references.pass.html" class="link">リファレンス渡し</a>
+     を参照ください。
+    </p>
+   </div>
+   <div class="sect2" id="language.references.whatdo.return">
+    <h3 class="title">リファレンスによる返り値</h3>
+    <p class="para">
+     リファレンスの第 3 の使用法は、
+     <a href="language.references.return.html" class="link">リファレンスによる返り値
+     </a>です。
+    </p>
+   </div>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.whatare.html">リファレンスとは?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.arent.html">リファレンスが行わないこと</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

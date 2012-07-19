@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>データの比較にコールバック関数を用い、配列の共通項を計算する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-uintersect-uassoc.html">array_uintersect_uassoc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-unique.html">array_unique</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.array-uintersect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array_uintersect</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">array_uintersect</span> &mdash; <span class="dc-title">データの比較にコールバック関数を用い、配列の共通項を計算する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.array-uintersect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>array_uintersect</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$array1</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$array2</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$ ...</tt></span>
+   ], <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$data_compare_func</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   データの比較にコールバック関数を用い、配列の共通項を計算します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.array-uintersect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array1</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最初の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array2</tt></i></span>
+     <dd>
+
+      <p class="para">
+       2 番目の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data_compare_func</tt></i></span>
+     <dd>
+
+      <p class="para">
+       比較用のコールバック関数。
+      </p>
+      <p class="para">
+       比較は、ユーザが指定したコールバック関数を利用して行われます。
+       この関数は、1 つめの引数が 2 つめより小さい / 等しい / 大きい
+       場合にそれぞれ 負の数 / ゼロ / 正の数 を返す必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-uintersect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   他の全ての引数に存在する
+   <i><tt class="parameter">array1</tt></i> の値を全て有する配列を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.array-uintersect-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4117">
+    <p><b>例1 <span class="function"><b>array_uintersect()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$array1&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"green"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"b"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"brown"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"blue"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"red"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$array2&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"GREEN"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"B"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"brown"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"yellow"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"red"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_uintersect</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$array2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"strcasecmp"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [a] =&gt; green
+    [b] =&gt; brown
+    [0] =&gt; red
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.array-uintersect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-intersect.html" class="function" rel="rdfs-seeAlso">array_intersect()</a> - 配列の共通項を計算する</span></li>
+    <li class="member"><span class="function"><a href="function.array-intersect-assoc.html" class="function" rel="rdfs-seeAlso">array_intersect_assoc()</a> - 追加された添字の確認も含めて配列の共通項を確認する</span></li>
+    <li class="member"><span class="function"><a href="function.array-uintersect-assoc.html" class="function" rel="rdfs-seeAlso">array_uintersect_assoc()</a> - データの比較にコールバック関数を用い、
+  追加された添字の確認も含めて配列の共通項を計算する</span></li>
+    <li class="member"><span class="function"><a href="function.array-uintersect-uassoc.html" class="function" rel="rdfs-seeAlso">array_uintersect_uassoc()</a> - データと添字の比較にコールバック関数を用い、
+  追加された添字の確認も含めて配列の共通項を計算する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-uintersect-uassoc.html">array_uintersect_uassoc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-unique.html">array_unique</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

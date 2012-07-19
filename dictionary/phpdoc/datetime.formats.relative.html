@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>相対的な書式</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.formats.compound.html">複合的な書式</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="timezones.html">サポートされるタイムゾーンのリスト</a></div>
+ <div class="up"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.formats.relative" class="section">
+  <h2 class="title">相対的な書式</h2>
+
+  <table class="doctable table">
+   <caption><b>シンボル一覧</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>シンボル</th>
+      <th>書式</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><i>dayname</i></td>
+      <td align="left">&#039;sunday&#039; | &#039;monday&#039; | &#039;tuesday&#039; | &#039;wednesday&#039; | &#039;thursday&#039; |
+      &#039;friday&#039; | &#039;saturday&#039; | &#039;sun&#039; | &#039;mon&#039; | &#039;tue&#039; | &#039;wed&#039; | &#039;thu&#039; | &#039;fri&#039; |
+      &#039;sat&#039; | &#039;sun&#039;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>daytext</i></td>
+      <td align="left">&#039;weekday&#039; | &#039;weekdays&#039;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>number</i></td>
+      <td align="left">[+-]?[0-9]+</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>ordinal</i></td>
+      <td align="left">&#039;first&#039; | &#039;second&#039; | &#039;third&#039; | &#039;fourth&#039; | &#039;fifth&#039; | &#039;sixth&#039; |
+      &#039;seventh&#039; | &#039;eight&#039; | &#039;ninth&#039; | &#039;tenth&#039; | &#039;eleventh&#039; | &#039;twelfth&#039; |
+      &#039;next&#039; | &#039;last&#039; | &#039;previous&#039; | &#039;this&#039;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>reltext</i></td>
+      <td align="left">&#039;next&#039; | &#039;last&#039; | &#039;previous&#039; | &#039;this&#039;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>space</i></td>
+      <td align="left">[ \t]+</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>unit</i></td>
+      <td align="left">((&#039;sec&#039; | &#039;second&#039; | &#039;min&#039; | &#039;minute&#039; | &#039;hour&#039; | &#039;day&#039; |
+      &#039;fortnight&#039; | &#039;forthnight&#039; | &#039;month&#039; | &#039;year&#039;) &#039;s&#039;?) | &#039;weeks&#039; |
+      <i>daytext</i></td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+  <table class="doctable table">
+   <caption><b>日付に基づいた表記</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>書式</th>
+      <th>説明</th>
+      <th>例</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">&#039;yesterday&#039;</td>
+      <td align="left">昨日の00:00:00</td>
+      <td align="left">&quot;yesterday 14:00&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;midnight&#039;</td>
+      <td align="left">時刻を00:00:00にします</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;today&#039;</td>
+      <td align="left">時刻を00:00:00にします</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;now&#039;</td>
+      <td align="left">今 - 単に無視されます</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;noon&#039;</td>
+      <td align="left">時刻を12:00:00にします</td>
+      <td align="left">&quot;yesterday noon&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;tomorrow&#039;</td>
+      <td align="left">明日の00:00:00</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;back of&#039; <i>hour</i></td>
+      <td align="left">指定された時の15分前</td>
+      <td align="left">&quot;back of 7pm&quot;, &quot;back of 15&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;front of&#039; <i>hour</i></td>
+      <td align="left">指定された時の15分後</td>
+      <td align="left">&quot;front of 5am&quot;, &quot;front of 23&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;first day&#039; &#039; of&#039;?</td>
+      <td align="left">現在月の最初の日にします。
+      この書式に続けて月名を指定する使いかたが最適です。</td>
+      <td align="left">&quot;first day of January 2008&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;last day&#039; &#039; of&#039;?</td>
+      <td align="left">現在月の最後の日にします。
+      この書式に続いて月名を指定する使いかたが最適です。</td>
+      <td align="left">&quot;last day of next month&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>ordinal</i> <i>space</i> <i>dayname</i> <i>space</i> &#039;of&#039;</td>
+      <td align="left">現在月の<i>x</i>番目の曜日を計算します。</td>
+      <td align="left">&quot;first sat of July 2008&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;last&#039; <i>space</i> <i>dayname</i> <i>space</i> &#039;of&#039;</td>
+      <td align="left">現在月の <em class="emphasis">最後の</em> 曜日を計算します。</td>
+      <td align="left">&quot;last sat of July 2008&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>number</i> <i>space</i>? (<i>unit</i> | &#039;week&#039;)</td>
+      <td align="left">値を数値で指定するような、相対的な時間指定を処理します。</td>
+      <td align="left">&quot;+5 weeks&quot;, &quot;12 day&quot;, &quot;-7 weekdays&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>ordinal</i> <i>space</i> <i>unit</i></td>
+      <td align="left">値を英単語で指定するような、相対的な時間指定を処理します。</td>
+      <td align="left">&quot;fifth day&quot;, &quot;second month&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">&#039;ago&#039;</td>
+      <td align="left">直前に指定された相対的な時間指定について、正負反転します。</td>
+      <td align="left">&quot;2 days ago&quot;, &quot;8 days ago 14:00&quot;, &quot;2 months 5 days ago&quot;, &quot;2 months ago 5 days&quot;, &quot;2 days ago ago&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>dayname</i></td>
+      <td align="left">現在からみて次にやってくる、指定された曜日にします。</td>
+      <td align="left">&quot;Monday&quot;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><i>reltext</i> <i>space</i> &#039;week&#039;</td>
+      <td align="left">特別な書式 &quot;weekday + last/this/next week&quot; を処理します。</td>
+      <td align="left">&quot;Monday next week&quot;</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    相対的な記述は、相対的でない記述の <em class="emphasis">後で</em> 処理されます。
+    このため、 &quot;+1 week july 2008&quot; と &quot;july 2008 +1 week&quot; とは同一になります。
+   </p>
+   <p class="para">
+    ただし、 &quot;yesterday&quot;、 &quot;midnight&quot;、 &quot;today&quot;、 &quot;noon&quot; そして &quot;tomorrow&quot;
+    はこのルールの例外です。
+    つまり、 &quot;tomorrow 11:00&quot; と &quot;11:00 tomorrow&quot; は異なります。
+    たとえば、今日が2008年7月23日だとしましょう。
+    このときの1つ目の結果は &quot;2008-07-24 11:00&quot; ですが、
+    2つ目の方は &quot;2008-07-24 00:00&quot; となります。
+    このような結果になる理由は、
+    これら6つの記述（訳注:5つの間違いでしょう）が現在時刻に直接影響するためです。
+   </p>
+  </p></blockquote>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    日付/時刻文字列中の曜日指定が現在の曜日と同じ場合は、
+    以下の点に注意してください。
+    この場合、日付文字列中の曜日は、曜日を明示的に指定しなかった場合に
+    日付文字列の相対的でない部分から計算される曜日と同一ではありますが、
+    指定しなくても同じというわけではありません。
+   </p>
+   <ol type="1">
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>dayname</i>&quot; は、 日付を進め <em class="emphasis">ません</em> 。
+      (例: &quot;Wed July 23rd, 2008&quot; は &quot;2008-07-23&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>number</i> <i>dayname</i>&quot; は、
+      日付を進め<em class="emphasis">ません</em> 。
+      (例: &quot;1 wednesday july 23rd, 2008&quot; は &quot;2008-07-23&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>number</i> week <i>dayname</i>&quot; は、
+      指定された週を加算しますが、
+      さらに日付を進めることは<em class="emphasis">しません</em>。
+      この場合、&quot;<i>number</i> week&quot; と
+      &quot;<i>dayname</i>&quot; は 2 つの別個のブロックとなります。
+      (例: &quot;+1 week wednesday july 23rd, 2008&quot; は &quot;2008-07-30&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>ordinal</i> <i>dayname</i>&quot;
+      は、日付を別の日まで進め<em class="emphasis">ます</em>。
+      (例: &quot;first wednesday july 23rd, 2008&quot; は &quot;2008-07-30&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>number</i> week <i>ordinal</i>
+      <i>dayname</i>&quot; は、まず指定された週を加算し、
+      それから日付を別の日まで<em class="emphasis">進めます</em>。
+      この場合、 &quot;<i>number</i> week&quot; と
+      &quot;<i>ordinal</i> <i>dayname</i>&quot;
+      は2つの別個のブロックとなります。
+      (例: &quot;+1 week first wednesday july 23rd, 2008&quot; は &quot;2008-08-06&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      （訳注：この項目は項番4と同一のようです。おそらく編集上のミスでしょう）
+      &quot;<i>ordinal</i> <i>dayname</i>&quot; は、
+      日付を別の日まで進め<em class="emphasis">ます</em>。
+      (例: &quot;first wednesday july 23rd, 2008&quot; は &quot;2008-07-30&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>ordinal</i> <i>dayname</i> &#039;of&#039; &quot;
+      は日付を進め <em class="emphasis">ません</em> 。
+      (例: &quot;first wednesday of july 23rd, 2008&quot; は &quot;2008-07-02&quot; の意味です。
+      なぜなら、&#039;of&#039;を含む一連の語群 &#039;first wednesday of july&#039; が
+      相対的な書式として処理されることで
+      日付を同月の &#039;1&#039; 日にリセットしてしまい、&#039;23rd&#039; は無視されてしまうのです。)
+     </span>
+    </li>
+   </ol>
+   <p class="para">
+    また、書式 &quot;<i>ordinal</i>
+    <i>space</i> <i>dayname</i>
+    <i>space</i> &#039;of&#039; &quot; と &quot;&#039;last&#039; <i>space</i>
+    <i>dayname</i> <i>space</i> &#039;of&#039; &quot;
+    に含まれる &quot;of&quot; は少々特別扱いなので、注意してください。
+   </p>
+   <ol type="1">
+    <li class="listitem">
+     <span class="simpara">
+      日付を指定月の1日にします。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>ordinal</i> <i>dayname</i> &#039;of&#039; &quot;
+      は日付を進め <em class="emphasis">ません</em> 。
+      (例: &quot;first tuesday of july 2008&quot; は &quot;2008-07-01&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;<i>ordinal</i> <i>dayname</i> &quot;
+      は日付を進め <em class="emphasis">ます</em> 。
+      (例: &quot;first tuesday july 2008&quot; は &quot;2008-07-08&quot; の意味です。上記の項番4を参照。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;&#039;last&#039; <i>dayname</i> &#039;of&#039; &quot; は、
+      指定された曜日（<i>dayname</i>）の同月最後の日を返します。
+      (例: &quot;last wed of july 2008&quot; は &quot;2008-07-30&quot; の意味です。)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;&#039;last&#039; <i>dayname</i>&quot; は、
+      現在日付からみて直前の、指定された曜日（<i>dayname</i>）を返します。
+      (例: &quot;last wed july 2008&quot; は &quot;2008-06-25&quot; の意味です。
+      まず &quot;july 2008&quot; を処理して現在日付を &quot;2008-07-01&quot; とみなし、
+      次に &quot;last wed&quot; により直前の水曜日、つまり &quot;2008-06-25&quot; へと移動します。)
+     </span>
+    </li>
+   </ol>
+  </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.formats.compound.html">複合的な書式</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="timezones.html">サポートされるタイムゾーンのリスト</a></div>
+ <div class="up"><a href="datetime.formats.html">サポートする日付と時刻の書式</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

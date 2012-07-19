@@ -1,0 +1,388 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>適用可能な文字を全て HTML エンティティに変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.html-entity-decode.html">html_entity_decode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.htmlspecialchars-decode.html">htmlspecialchars_decode</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.htmlentities" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">htmlentities</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">htmlentities</span> &mdash; <span class="dc-title">適用可能な文字を全て HTML エンティティに変換する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.htmlentities-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>htmlentities</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt><span class="initializer"> = ENT_COMPAT</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$charset</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$double_encode</tt><span class="initializer"> = true</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は<span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>と同じですが、
+   HTML エンティティと等価な意味を有する文字をHTMLエンティティに変換します。
+  </p>
+  <p class="para">
+   もしデコード (逆の処理) をしたい場合、
+   <span class="function"><a href="function.html-entity-decode.html" class="function">html_entity_decode()</a></span> を使用することができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.htmlentities-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span> と同様に、シングルまたは
+       ダブルクオートに関する動作を示すオプションの第2の引数をとります。
+       これは 3 つの定数のうちの一つとなり、
+       デフォルトは <b><tt>ENT_COMPAT</tt></b> です。
+       また、PHP 5.3.0 以降では、これらを第 4 の定数 <b><tt>ENT_IGNORE</tt></b>
+       と組み合わせることもできます。
+       <table class="doctable table">
+        <caption><b>利用可能な <i><tt class="parameter">flags</tt></i> 定数</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>定数名</th>
+           <th>説明</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><b><tt>ENT_COMPAT</tt></b></td>
+           <td align="left">ダブルクオートのみを変換し、
+           シングルクオートをそのままにします</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>ENT_QUOTES</tt></b></td>
+           <td align="left">ダブルおよびシングルクオートを共に変換します</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>ENT_NOQUOTES</tt></b></td>
+           <td align="left">ダブルクオートおよびシングルクオートを共に変換しません</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>ENT_IGNORE</tt></b></td>
+           <td align="left">
+            無効なコードシーケンスが含まれる文字列を渡した場合に、
+            空の文字列を返すのではなく無効な部分を切り捨てます。
+            PHP 5.3.0 で追加されました。
+            これは、過去との互換性を確保するために用意されているものです。
+            セキュリティの問題があるので、使わないようにしましょう。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">charset</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.htmlspecialchars.html" class="function">htmlspecialchars()</a></span>と同様に、この関数はオプションの3番目の引数
+       <i><tt class="parameter">charset</tt></i> をとり、変換に使用される文字セットを指定可能です。
+       現在のところ、ISO-8859-1 文字セットがデフォルトの文字エンコーディングとして使用されます。
+      </p>
+      
+
+
+<p class="para">
+ PHP 4.3.0 以降では、以下の文字セットをサポートします。
+ <table class="doctable table">
+  <caption><b>サポートする文字セット</b></caption>
+  
+   <thead valign="middle">
+    <tr valign="middle">
+     <th>文字セット</th>
+     <th>エイリアス</th>
+     <th>説明</th>
+    </tr>
+
+   </thead>
+
+   <tbody valign="middle" class="tbody">
+    <tr valign="middle">
+     <td align="left">ISO-8859-1</td>
+     <td align="left">ISO8859-1</td>
+     <td align="left">
+      西欧、Latin-1
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">ISO-8859-15</td>
+     <td align="left">ISO8859-15</td>
+     <td align="left">
+      西欧、Latin-9 。Latin-1(ISO-8859-1) に欠けている
+      ユーロ記号やフランス・フィンランドの文字を追加したもの。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">UTF-8</td>
+     <td class="empty">&nbsp;</td>
+     <td align="left">
+      ASCII 互換のマルチバイト 8 ビット Unicode 。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">cp866</td>
+     <td align="left">ibm866, 866</td>
+     <td align="left">
+      DOS 固有のキリル文字セット。
+      4.3.2 以降でサポートされます。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">cp1251</td>
+     <td align="left">Windows-1251, win-1251, 1251</td>
+     <td align="left">
+      Windows 固有のキリル文字セット。
+      4.3.2 以降でサポートされます。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">cp1252</td>
+     <td align="left">Windows-1252, 1252</td>
+     <td align="left">
+      西欧のための Windows 固有の文字セット。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">KOI8-R</td>
+     <td align="left">koi8-ru, koi8r</td>
+     <td align="left">
+      ロシア語。4.3.2 以降でサポートされます。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">BIG5</td>
+     <td align="left">950</td>
+     <td align="left">
+      繁体字中国語。主に台湾で使用されます。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">GB2312</td>
+     <td align="left">936</td>
+     <td align="left">
+      簡体字中国語。国の標準文字セットです。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">BIG5-HKSCS</td>
+     <td class="empty">&nbsp;</td>
+     <td align="left">
+      Big5 に香港の拡張を含めたもの。繁体字中国語。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">Shift_JIS</td>
+     <td align="left">SJIS, 932</td>
+     <td align="left">
+      日本語。
+     </td>
+    </tr>
+
+    <tr valign="middle">
+     <td align="left">EUC-JP</td>
+     <td align="left">EUCJP</td>
+     <td align="left">
+      日本語。
+     </td>
+    </tr>
+
+   </tbody>
+  
+ </table>
+
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <span class="simpara">
+   これら以外の文字セットは理解できず、かわりに ISO-8859-1 を使用します。
+  </span>
+ </p></blockquote>
+</p>
+
+
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">double_encode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">double_encode</tt></i> をオフにすると、PHP
+       は既存の html エンティティをエンコードしません。
+       デフォルトでは、既存のエンティティも含めてすべてを変換します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.htmlentities-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エンコードした文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.htmlentities-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        定数 <b><tt>ENT_IGNORE</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.3</td>
+       <td align="left">
+        <i><tt class="parameter">double_encode</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.1.0</td>
+       <td align="left">
+        <i><tt class="parameter">charset</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.3</td>
+       <td align="left">
+        <i><tt class="parameter">flags</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.htmlentities-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3967">
+    <p><b>例1 <span class="function"><b>htmlentities()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"A&nbsp;'quote'&nbsp;is&nbsp;&lt;b&gt;bold&lt;/b&gt;"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;出力:&nbsp;A&nbsp;'quote'&nbsp;is&nbsp;&amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力:&nbsp;A&nbsp;&amp;#039;quote&amp;#039;&nbsp;is&nbsp;&amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_QUOTES</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-3968">
+    <p><b>例2 <b><tt>ENT_IGNORE</tt></b> の使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"\x8F!!!"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;出力:&nbsp;空の文字列<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_QUOTES</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力:&nbsp;"!!!"<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ENT_QUOTES&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">ENT_IGNORE</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"UTF-8"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.htmlentities-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.html-entity-decode.html" class="function" rel="rdfs-seeAlso">html_entity_decode()</a> - HTML エンティティを適切な文字に変換する</span></li>
+    <li class="member"><span class="function"><a href="function.get-html-translation-table.html" class="function" rel="rdfs-seeAlso">get_html_translation_table()</a> - htmlspecialchars および htmlentities で使用される変換テーブルを返す</span></li>
+    <li class="member"><span class="function"><a href="function.htmlspecialchars.html" class="function" rel="rdfs-seeAlso">htmlspecialchars()</a> - 特殊文字を HTML エンティティに変換する</span></li>
+    <li class="member"><span class="function"><a href="function.nl2br.html" class="function" rel="rdfs-seeAlso">nl2br()</a> - 改行文字の前に HTML の改行タグを挿入する</span></li>
+    <li class="member"><span class="function"><a href="function.urlencode.html" class="function" rel="rdfs-seeAlso">urlencode()</a> - 文字列を URL エンコードする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.html-entity-decode.html">html_entity_decode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.htmlspecialchars-decode.html">htmlspecialchars_decode</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

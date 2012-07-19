@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトをチェックインする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hwapi-attribute.html">hw_api_attribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hwapi-checkout.html">hw_api-&gt;checkout</a></div>
+ <div class="up"><a href="ref.hwapi.html">Hyperwave API 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.hwapi-checkin" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">hw_api->checkin</h1>
+  <p class="verinfo">(PHP 4, PHP 5 &lt; 5.2.0, PECL hwapi SVN)</p><p class="refpurpose"><span class="refname">hw_api-&gt;checkin</span> &mdash; <span class="dc-title">オブジェクトをチェックインする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.hwapi-checkin-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">bool</span> <span class="methodname"><b>hw_api::checkin</b></span>
+     ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$parameter</tt></span>
+    )</div>
+
+  </div>
+  <p class="para">
+   この関数は、オブジェクトあるいはオブジェクト階層の全体をチェックインします。
+   パラメータ配列の中には、必須要素 &#039;objectIdentifier&#039;
+   およびオプションの要素 &#039;version&#039;、&#039;comment&#039;、&#039;mode&#039;、&#039;objectQuery&#039;
+   が含まれます。&#039;version&#039; ではオブジェクトのバージョンを設定します。
+   これは、メジャーバージョンとマイナーバージョンをピリオドで区切ったものです。
+   version が設定されていない場合、マイナーバージョンがひとつ加算されます。
+   &#039;mode&#039; は以下の値のいずれかです。
+   <dl>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_NORMAL</span>
+     <dd>
+
+      <span class="simpara">
+       オブジェクトをチェックインし、コミットします。
+       オブジェクトは文書でなければなりません。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_RECURSIVE</span>
+     <dd>
+
+      <span class="simpara">
+       チェックインするオブジェクトがコレクションであった場合、
+       もし子要素が文書であればそれらもすべて再帰的にチェックインされます。
+       コレクションをチェックインしようとすると、エラーが発生することがあります。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_FORCE_VERSION_CONTROL</span>
+     <dd>
+
+      <span class="simpara">
+       バージョン管理されていないオブジェクトも強制的にチェックインします。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_REVERT_IF_NOT_CHANGED</span>
+     <dd>
+
+      <span class="simpara">
+       新しいバージョンが以前のバージョンと変わっているかどうかを調べます。
+       変わっている場合にのみオブジェクトがチェックインされます。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_KEEP_TIME_MODIFIED</span>
+     <dd>
+
+      <span class="simpara">
+       直近のオブジェクトの更新時刻を保持します。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">HW_API_CHECKIN_NO_AUTO_COMMIT</span>
+     <dd>
+
+      <span class="simpara">
+       オブジェクトのチェックイン時に、自動的なコミットは行われません。
+      </span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.hwapi-checkin-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parameter</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.hwapi-checkin-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.hwapi-checkin-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="function.hwapi-checkout.html" class="xref">hw_api-&gt;checkout</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hwapi-attribute.html">hw_api_attribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hwapi-checkout.html">hw_api-&gt;checkout</a></div>
+ <div class="up"><a href="ref.hwapi.html">Hyperwave API 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

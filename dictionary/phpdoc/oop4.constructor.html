@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>コンストラクタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="keyword.extends.html">extends</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="keyword.paamayim-nekudotayim.html">::</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oop4.constructor" class="sect1">
+   <h2 class="title">コンストラクタ</h2>
+
+   <p class="para">
+    コンストラクタは、<i>new</i>
+    によりクラスの新しいインスタンスを作成する際に自動的にコールされるクラス関数です。
+    ある関数が、クラス名と同じ名前を有している場合にコンストラクタになります。
+    コンストラクタが存在しない場合、
+    もし基底クラスのコンストラクタが存在すれば、それがコールされます。
+   </p>
+ 
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;PHP&nbsp;3&nbsp;および&nbsp;PHP&nbsp;4で動作します<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Auto_Cart&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">Cart<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">Auto_Cart</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add_item&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"10"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+ 
+   <p class="para">
+    この例は、Cart にコンストラクタを加えたクラス Auto_Cart を定義しています。
+    このコンストラクタは、&quot;<i>new</i>&quot; により新しい Auto_Cart が作成される度に
+    籠に10番の物を一つ保持するように初期化します。コンストラクタは、オ
+    プションとして引数をとります。これにより、コンストラクタは非常に便
+    利なものとなります。このクラスをパラメータが指定されない場合でも使
+    用できるようにするには、コンストラクタに指定する全てのパラメータに
+    デフォルト値を指定してください。
+   </p>
+ 
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Constructor_Cart&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">Cart<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">Constructor_Cart</span><span style="color: #007700">(</span><span style="color: #0000BB">$item&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"10"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">add_item&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$item</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$num</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;しつこいが、前の例と同じものを買う<br /></span><span style="color: #0000BB">$default_cart&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Constructor_Cart</span><span style="color: #007700">;<br />&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;実際に買うものをカゴに入れる...<br /></span><span style="color: #0000BB">$different_cart&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Constructor_Cart</span><span style="color: #007700">(</span><span style="color: #DD0000">"20"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">17</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+
+   <p class="para">
+    <i>@new</i>のようにコンストラクタで発生するエラーの
+    出力を抑制するために<i>@</i>演算子を使用することが
+    可能です。例：<i>@new</i>
+   </p>
+
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Aのコンストラクタです&lt;br&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"クラスAのBという名前の通常の関数&lt;br&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Aのコンストラクタではありません&lt;br&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">B&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">A<br /></span><span style="color: #007700">{<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;これにより、B()&nbsp;がコンストラクタとしてコールされます。<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">B</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   
+   <p class="para">
+    クラスAの関数 B() は、意図されていない場合でも突然クラスB の
+    コンストラクタになってしまいました。PHP 4 は、この関数が
+    クラスBで定義されているかとかその関数が継承されているかどうかは
+    考慮しません。
+   </p>
+   
+   <div class="caution"><b class="caution">警告</b>
+    <p class="simpara">
+     PHP では派生クラスのコンストラクタから基底クラスの
+     コンストラクタを自動的にコールすることはできません。
+     上流のコンストラクタを適切にコールするように伝播させることは
+     あなたの責任でやるべきことです。
+    </p>
+   </div>
+   
+   <p class="para">
+    デストラクタは、<span class="function"><a href="function.unset.html" class="function">unset()</a></span>またはスコープから
+    でることにより、オブジェクトが破棄される度に自動的にコールされる関数です。
+    PHPにはデストラクタはありません。デストラクタの機能の多くを
+    シミュレーションするには、代わりに
+     <span class="function"><a href="function.register-shutdown-function.html" class="function">register_shutdown_function()</a></span> を使用します。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="keyword.extends.html">extends</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="keyword.paamayim-nekudotayim.html">::</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

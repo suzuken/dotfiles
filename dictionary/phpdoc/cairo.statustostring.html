@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Retrieves the current status as string</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="cairo.availablesurfaces.html">Cairo::availableSurfaces</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="cairo.version.html">Cairo::version</a></div>
+ <div class="up"><a href="class.cairo.html">Cairo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="cairo.statustostring" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Cairo::statusToString</h1>
+  <h1 class="refname">cairo_status_to_string</h1>
+  <p class="verinfo">(PECL cairo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">Cairo::statusToString</span> -- <span class="refname">cairo_status_to_string</span> &mdash; <span class="dc-title">Retrieves the current status as string</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-cairo.statustostring-description">
+  <h3 class="title">説明</h3>
+  <p class="para">Object oriented style (method):</p>
+   <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="modifier">static</span> <span class="type">string</span> <span class="methodname"><b>Cairo::statusToString</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$status</tt></span>
+    )</div>
+
+  <p class="para rdfs-comment">Procedural style:</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>cairo_status_to_string</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$status</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Retrieves the current status as a readable string
+  </p>
+ 
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-cairo.statustostring-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">status</tt></i></span>
+     <dd>
+
+      <p class="para">
+       A valid status code given by <span class="function"><a href="cairopattern.status.html" class="function">cairo_status()</a></span> or  <span class="methodname"><a href="cairocontext.status.html" class="methodname">CairoContext::status()</a></span>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-cairo.statustostring-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   A string containing the current status of a <a href="class.cairocontext.html" class="classname">CairoContext</a> object
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-cairo.statustostring-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2491">
+    <p><b>例1 Object oriented style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$surface&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">CairoImageSurface</span><span style="color: #007700">(</span><span style="color: #0000BB">CairoFormat</span><span style="color: #007700">::</span><span style="color: #0000BB">ARGB32</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">CairoContext</span><span style="color: #007700">(</span><span style="color: #0000BB">$surface</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">Cairo</span><span style="color: #007700">::</span><span style="color: #0000BB">statusToString</span><span style="color: #007700">(</span><span style="color: #0000BB">$context</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">status</span><span style="color: #007700">()));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+string(7) &quot;success&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-2492">
+    <p><b>例2 Procedural style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$surface&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cairo_image_surface_create</span><span style="color: #007700">(</span><span style="color: #0000BB">CAIRO_FORMAT_ARGB32</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cairo_create</span><span style="color: #007700">(</span><span style="color: #0000BB">$surface</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">cairo_status_to_string</span><span style="color: #007700">(</span><span style="color: #0000BB">cairo_status</span><span style="color: #007700">(</span><span style="color: #0000BB">$context</span><span style="color: #007700">)));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+string(7) &quot;success&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-cairo.statustostring-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="cairocontext.status.html" class="methodname" rel="rdfs-seeAlso">CairoContext::status()</a> - The status purpose</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="cairo.availablesurfaces.html">Cairo::availableSurfaces</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="cairo.version.html">Cairo::version</a></div>
+ <div class="up"><a href="class.cairo.html">Cairo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

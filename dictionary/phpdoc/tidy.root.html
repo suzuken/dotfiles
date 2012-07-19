@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Tidy パースツリーのルートを表す tidyNode を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tidy.repairstring.html">tidy::repairString</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.tidynode.html">TidyNode</a></div>
+ <div class="up"><a href="class.tidy.html">Tidy</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tidy.root" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">tidy::root</h1>
+  <h1 class="refname">tidy_get_root</h1>
+  <p class="verinfo">(PHP 5, PECL tidy 0.5.2-1.0.0)</p><p class="refpurpose"><span class="refname">tidy::root</span> -- <span class="refname">tidy_get_root</span> &mdash; <span class="dc-title">Tidy パースツリーのルートを表す <a href="class.tidynode.html" class="classname">tidyNode</a> を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-tidy.root-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.tidynode.html" class="type tidyNode">tidyNode</a></span> <span class="methodname"><b>tidy::root</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.tidynode.html" class="type tidyNode">tidyNode</a></span> <span class="methodname"><b>tidy_get_root</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.tidy.html" class="type tidy">tidy</a></span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Tidy パースツリーのルートを表す <a href="class.tidynode.html" class="classname">tidyNode</a> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-tidy.root-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <a href="class.tidy.html" class="classname">Tidy</a> オブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-tidy.root-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <a href="class.tidynode.html" class="classname">tidyNode</a> オブジェクトを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-tidy.root-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3377">
+    <p><b>例1 <span class="function"><b>tidy::root()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$html&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;&nbsp;HTML<br /></span><span style="color: #DD0000">&lt;html&gt;&lt;body&gt;<br /><br />&lt;p&gt;paragraph&lt;/p&gt;<br />&lt;br/&gt;<br /><br />&lt;/body&gt;&lt;/html&gt;<br /></span><span style="color: #007700">HTML;<br /><br /></span><span style="color: #0000BB">$tidy&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">tidy_parse_string</span><span style="color: #007700">(</span><span style="color: #0000BB">$html</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">dump_nodes</span><span style="color: #007700">(</span><span style="color: #0000BB">$tidy</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">(),&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /><br />function&nbsp;</span><span style="color: #0000BB">dump_nodes</span><span style="color: #007700">(</span><span style="color: #0000BB">$node</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$indent</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if(</span><span style="color: #0000BB">$node</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasChildren</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach(</span><span style="color: #0000BB">$node</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">child&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$child</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">str_repeat</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$indent</span><span style="color: #007700">*</span><span style="color: #0000BB">2</span><span style="color: #007700">)&nbsp;.&nbsp;(</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">?&nbsp;</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'"'</span><span style="color: #007700">.</span><span style="color: #0000BB">$child</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value</span><span style="color: #007700">.</span><span style="color: #DD0000">'"'</span><span style="color: #007700">).&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">dump_nodes</span><span style="color: #007700">(</span><span style="color: #0000BB">$child</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$indent</span><span style="color: #007700">+</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+..html
+....head
+......title
+....body
+......p
+........&quot;paragraph&quot;
+......br
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-tidy.root-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、Zend Engine 2、つまり、PHP
+&gt;= 5.0.0でのみ利用可能です。</span></p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tidy.repairstring.html">tidy::repairString</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.tidynode.html">TidyNode</a></div>
+ <div class="up"><a href="class.tidy.html">Tidy</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

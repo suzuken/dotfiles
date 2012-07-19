@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>A comparison of mysqlnd plugins with MySQL Proxy</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.obtaining.html">Obtaining the mysqlnd plugin API</a></div>
+ <div class="up"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqlnd.plugin.mysql-proxy" class="section">
+  <h2 class="title">A comparison of mysqlnd plugins with MySQL Proxy</h2>
+  <p class="para">
+   <i>Mysqlnd</i> plugins and MySQL Proxy are different
+   technologies using different approaches. Both are valid tools for
+   solving a variety of common tasks such as load balancing, monitoring,
+   and performance enhancements. An important difference is that MySQL
+   Proxy works with all MySQL clients, whereas
+   <i>mysqlnd</i> plugins are specific to PHP applications.
+  </p>
+  <p class="para">
+   As a PHP Extension, a <i>mysqlnd</i> plugin gets
+   installed on the PHP application server, along with the rest of PHP.
+   MySQL Proxy can either be run on the PHP application server or can be
+   installed on a dedicated machine to handle multiple PHP application
+   servers.
+  </p>
+  <p class="para">
+   Deploying MySQL Proxy on the application server has two advantages:
+  </p>
+  <ol type="1">
+   <li class="listitem">
+    <p class="para">
+     No single point of failure
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Easy to scale out (horizontal scale out, scale by client)
+    </p>
+   </li>
+  </ol>
+  <p class="para">
+   MySQL Proxy (and <i>mysqlnd</i> plugins) can solve
+   problems easily which otherwise would have required changes to
+   existing applications.
+  </p>
+  <p class="para">
+   However, MySQL Proxy does have some disadvantages:
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     MySQL Proxy is a new component and technology to master and deploy.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     MySQL Proxy requires knowledge of the Lua scripting language.
+    </p>
+   </li>
+  </ul>
+  <p class="para">
+   MySQL Proxy can be customized with C and Lua programming. Lua is the
+   preferred scripting language of MySQL Proxy. For most PHP experts Lua
+   is a new language to learn. A <i>mysqlnd</i> plugin can
+   be written in C. It is also possible to write plugins in PHP using
+   <a href="http://pecl.php.net/package/mysqlnd_uh" class="link external">&raquo; PECL/mysqlnd_uh</a>.
+  </p>
+  <p class="para">
+   MySQL Proxy runs as a daemon - a background process. MySQL Proxy can
+   recall earlier decisions, as all state can be retained. However, a
+   <i>mysqlnd</i> plugin is bound to the request-based
+   lifecycle of PHP. MySQL Proxy can also share one-time computed
+   results among multiple application servers. A
+   <i>mysqlnd</i> plugin would need to store data in a
+   persistent medium to be able to do this. Another daemon would need to
+   be used for this purpose, such as Memcache. This gives MySQL Proxy an
+   advantage in this case.
+  </p>
+  <p class="para">
+   MySQL Proxy works on top of the wire protocol. With MySQL Proxy you
+   have to parse and reverse engineer the MySQL Client Server Protocol.
+   Actions are limited to those that can be achieved by manipulating the
+   communication protocol. If the wire protocol changes (which happens
+   very rarely) MySQL Proxy scripts would need to be changed as well.
+  </p>
+  <p class="para">
+   <i>Mysqlnd</i> plugins work on top of the C API, which
+   mirrors the <i>libmysql</i> client and Connector/C APIs.
+   This C API is basically a wrapper around the MySQL Client Server
+   protocol, or wire protocol, as it is sometimes called. You can
+   intercept all C API calls. PHP makes use of the C API, therefore you
+   can hook all PHP calls, without the need to program at the level of
+   the wire protocol.
+  </p>
+  <p class="para">
+   <i>Mysqlnd</i> implements the wire protocol. Plugins can
+   therefore parse, reverse engineer, manipulate and even replace the
+   communication protocol. However, this is usually not required.
+  </p>
+  <p class="para">
+   As plugins allow you to create implementations that use two levels (C
+   API and wire protocol), they have greater flexibility than MySQL
+   Proxy. If a <i>mysqlnd</i> plugin is implemented using
+   the C API, any subsequent changes to the wire protocol do not require
+   changes to the plugin itself.
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.obtaining.html">Obtaining the mysqlnd plugin API</a></div>
+ <div class="up"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

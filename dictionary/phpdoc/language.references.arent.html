@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>リファレンスが行わないこと</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.whatdo.html">リファレンスが行うことは何ですか?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.pass.html">リファレンス渡し</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.references.arent" class="sect1">
+   <h2 class="title">リファレンスが行わないこと</h2>
+   <p class="para">
+    これまでに説明したように、リファレンスはポインタではありません。このため、
+    次の例は期待通りに動作しません。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">"baz"</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);&nbsp;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="simpara">
+    ここでの動作としては、関数 <var class="varname"><var class="varname">foo</var></var> の
+    <var class="varname"><var class="varname">$var</var></var> はコール側の <var class="varname"><var class="varname">$bar</var></var>
+    と関連付けられますが、<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS["baz"]</a></var></var>
+    に再結合されるといったものになります。<var class="varname"><var class="varname">$bar</var></var>
+    は関数 <var class="varname"><var class="varname">foo</var></var> で利用できないため、
+    リファレンス以外にはコール側の変数スコープにある
+    <var class="varname"><var class="varname">$bar</var></var> を何かに結合する手段はありません
+    （この変数は <var class="varname"><var class="varname">$var</var></var> として表されていますが、
+    <var class="varname"><var class="varname">$var</var></var> はその変数の内容のみを有しており、
+    コール側のシンボルテーブルで名前と変数を結合したものではありません）。
+    関数内で指定した変数を参照するには、<a href="language.references.return.html" class="link">リファレンス返し</a>
+    が使用可能です。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.whatdo.html">リファレンスが行うことは何ですか?</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.pass.html">リファレンス渡し</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトのシリアライズ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.references.html">オブジェクトと参照</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.changelog.html">変更履歴</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.oop5.serialization" class="sect1">
+  <h2 class="title">オブジェクトのシリアライズ</h2>
+  <h2 class="title">オブジェクトのシリアライズ - セッション内でのオブジェクト</h2>
+
+  <p class="para">
+   <span class="function"><a href="function.serialize.html" class="function">serialize()</a></span> は、
+   PHP で保存できるあらゆる値をバイトストリームで表した文字列を返します。
+   <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> を使うと、
+   この文字列から元の変数の値を取り出すことができます。
+   オブジェクトをシリアライズすると、オブジェクト内の変数もすべて保存されます。
+   オブジェクト内のメソッドは保存されません。
+   クラス名のみが保存されます。
+  </p>
+  
+  <p class="para">
+   オブジェクトを <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> するには、
+   そのオブジェクトのクラスが定義されている必要があります。
+   A クラスのオブジェクトをシリアライズしたのなら、
+   その文字列にはクラス A とその中のすべての変数の値が含まれています。
+   別のファイルでそれを復元してクラス A のオブジェクトを取り出すには、
+   まずそのファイル内にクラス A の定義が存在しなければなりません。
+   これを実現するには、たとえばクラス A の定義を別ファイルに書き出してそれを
+   include したり <span class="function"><a href="function.spl-autoload-register.html" class="function">spl_autoload_register()</a></span> 関数を使ったりします。
+  </p>
+  
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;classa.inc:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$one&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">one</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;page1.php:<br /><br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$s&nbsp;を、page2.php&nbsp;からみつけられるどこかに書き出します<br />&nbsp;&nbsp;</span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;page2.php:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;//&nbsp;シリアライズした文字列を復元するには、これが必要です<br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'store'</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">unserialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;これで、$a&nbsp;オブジェクトの&nbsp;show_one()&nbsp;が使えるようになりました<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  
+  <p class="para">
+   セッションを使っているアプリケーションで
+   <span class="function"><a href="function.session-register.html" class="function">session_register()</a></span> を使ってオブジェクトを登録した場合は、
+   PHP のページの終了時にオブジェクトが自動的にシリアライズされます。
+   そして、次のページが始まるときに自動的にそれが復元されるのです。
+   これによって、いちどセッションに登録したオブジェクトは
+   アプリケーションのどのページでも使えるようになります。
+   しかし <span class="function"><a href="function.session-register.html" class="function">session_register()</a></span> 関数は非推奨です。
+   この非推奨の機能は、<em class="emphasis">きっと</em> 
+将来 <em class="emphasis">削除</em> されるでしょう。
+  </p>
+  
+  <p class="para">
+   アプリケーション内でオブジェクトをシリアライズして再利用する場合のお勧めは、
+   そのクラスの定義をアプリケーション全体で include することです。
+   クラスの定義が存在しなければオブジェクトの復元に失敗してしまいます。
+   その場合、PHP は <b class="classname">__PHP_Incomplete_Class_Name</b>
+   クラスのオブジェクトを返します。このオブジェクトにはメソッドは一切なく、
+   使い道がなくなってしまいます。
+  </p>
+  
+  <p class="para">
+   つまり、もし上の例の <var class="varname"><var class="varname">$a</var></var> を
+   <i>session_register(&quot;a&quot;)</i> でセッションに格納するなら、
+   <var class="filename">page1.php</var> と <var class="filename">page2.php</var> だけではなく
+   すべてのページで <i>classa.inc</i> を include しなければなりません。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.references.html">オブジェクトと参照</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.changelog.html">変更履歴</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

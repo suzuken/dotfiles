@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>カーソルを閉じてステートメントを再実行できるようにする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.bindvalue.html">PDOStatement-&gt;bindValue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdostatement.columncount.html">PDOStatement-&gt;columnCount</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdostatement.closecursor" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDOStatement->closeCursor</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">PDOStatement-&gt;closeCursor</span> &mdash; <span class="dc-title">
+   カーソルを閉じてステートメントを再実行できるようにする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdostatement.closecursor-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDOStatement::closeCursor</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>PDOStatement::closeCursor()</b></span> は、
+   他の SQL ステートメントを発行できるようにサーバへの接続を解放しますが、
+   ステートメントは再実行可能な状態のまま残されます。
+  </p>
+  <p class="para">
+   このメソッドは以前に実行された PDOStatement
+   オブジェクトが行をまだフェッチしていない場合に PDOStatement
+   オブジェクトの実行をサポートしていないデータベースドライバに対して有用です。
+   もし使用しているデータベースドライバがこの制限を受ける場合、
+   out-of-sequence エラーが出力されます。
+  </p>
+  <p class="para">
+   <span class="function"><b>PDOStatement::closeCursor()</b></span> は、
+   オプションのドライバ固有のメソッド (最大の効率を得るため)
+   もしくはドライバ固有の関数がインストールされていない場合の汎用的な
+   PDO フォールバックとして実装されています。
+   汎用的な PDO フォールバックは、PHP
+   スクリプト中に以下のようなコードを書くことと意味的に等価です。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">do&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;;<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextRowset</span><span style="color: #007700">())<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br />}&nbsp;while&nbsp;(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdostatement.closecursor-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdostatement.closecursor-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-943">
+    <p><b>例1 <span class="function"><b>PDOStatement::closeCursor()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     以下の例では、PDOStatement オブジェクト <var class="varname"><var class="varname">$stmt</var></var>
+     は複数の行を返しますが、このアプリケーションは先頭行のみフェッチし、
+     PDOStatement オブジェクトをフェッチしていない行がある状態のままにします。
+     このアプリケーションがが全てのデータベースドライバで動作するよう、
+     PDOStatement オブジェクト <var class="varname"><var class="varname">$otherStmt</var></var> を実行する前に
+     <var class="varname"><var class="varname">$stmt</var></var> に対して
+     <span class="function"><b>PDOStatement::closeCursor()</b></span>
+     の呼び出しを挿入しています。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;PDOStatement&nbsp;オブジェクトを生成する&nbsp;*/<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;foo&nbsp;FROM&nbsp;bar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;第二の&nbsp;PDOStatement&nbsp;オブジェクトを生成する&nbsp;*/<br /></span><span style="color: #0000BB">$otherStmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;foobaz&nbsp;FROM&nbsp;foobar'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;最初の文を実行する&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;結果から先頭行のみフェッチする&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;続く&nbsp;closeCursor()&nbsp;のコールはいくつかのドライバでは必要となる&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">closeCursor</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;ここで第二の文を実行することができる&nbsp;*/<br /></span><span style="color: #0000BB">$otherStmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdostatement.closecursor-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - プリペアドステートメントを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.bindvalue.html">PDOStatement-&gt;bindValue</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdostatement.columncount.html">PDOStatement-&gt;columnCount</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

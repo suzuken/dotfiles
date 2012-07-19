@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソート条件を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-set-option.html">yaz_set_option</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-syntax.html">yaz_syntax</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.yaz-sort" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">yaz_sort</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.7, PECL yaz &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">yaz_sort</span> &mdash; <span class="dc-title">ソート条件を設定する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.yaz-sort-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>yaz_sort</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$id</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$criteria</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、ソート条件を設定して Z39.50 Sort を有効にします。
+  </p>
+  <p class="para">
+   この関数は、<span class="function"><a href="function.yaz-search.html" class="function">yaz_search()</a></span> の<em class="emphasis">前に</em>
+   コールします。この関数を単独で使用しても何も意味はありません。
+   <span class="function"><a href="function.yaz-search.html" class="function">yaz_search()</a></span> と組み合わせて使用した場合、
+   検索応答が受信されてから全ての Z39.50 Present で取得される前に Z39.50
+   Sort が送信されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.yaz-sort-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.yaz-connect.html" class="function">yaz_connect()</a></span> が返す接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">criteria</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="replaceable">field1 flags1 field2 flags2</span> のような
+       形式の文字列。field1 は最初にソートする属性を、そして field2
+       は 2 番目の属性を… のように指定します。
+      </p>
+      <p class="para">
+       フィールドは、カンマで区切られた 型 = 値 の組からなる数値属性の
+       組み合わせ（例 <i>1=4,2=1</i>）、または
+       文字列の方法を指定することも可能です（例 <i>title</i>）。
+       フラグは次の文字の並びからなり、空白により区切ることはありません。
+      </p>
+      <p class="para">
+       <dl>
+
+        <strong class="title">ソートフラグ</strong>
+        <dt>
+
+         <span class="term"><i>a</i></span>
+         <dd>
+
+          <p class="para">
+           昇順ソート
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i>d</i></span>
+         <dd>
+
+          <p class="para">
+           降順ソート
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i>i</i></span>
+         <dd>
+
+          <p class="para">
+           大文字小文字を区別しないソート
+          </p>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i>s</i></span>
+         <dd>
+
+          <p class="para">
+           大文字小文字を区別するソート
+          </p>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.yaz-sort-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.yaz-sort-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-3831">
+   <p><b>例1 ソート条件</b></p>
+   <div class="example-contents"><p>
+    Bib1 属性のタイトル（title）で大文字小文字を区別しない昇順のソートを
+    行うには、以下のソート方法を使用してください。
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">1=4 ia</pre>
+</div>
+    </div>
+   </p></div>
+   <div class="example-contents"><p>
+    2 番目のソート条件として著者（author）を指定し、大文字小文字を区別する
+    昇順のソートを行うには以下のようにします。
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">1=4 ia 1=1003 sa</pre>
+</div>
+    </div>
+   </p></div>
+  </div>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-set-option.html">yaz_set_option</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-syntax.html">yaz_syntax</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

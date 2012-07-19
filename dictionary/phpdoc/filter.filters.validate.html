@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>検証フィルタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="filter.filters.html">Types of filters</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="filter.filters.sanitize.html">除去フィルタ</a></div>
+ <div class="up"><a href="filter.filters.html">Types of filters</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="filter.filters.validate" class="section">
+  <h2 class="title">検証フィルタ</h2>
+   <p class="para">
+    <table class="doctable table">
+     <caption><b>検証用のフィルタの一覧</b></caption>
+     
+      <thead valign="middle">
+       <tr valign="middle">
+        <th>ID</th>
+        <th>名前</th>
+        <th>オプション</th>
+        <th>フラグ</th>
+        <th>説明</th>
+       </tr>
+
+      </thead>
+
+      <tbody valign="middle" class="tbody">
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_BOOLEAN</tt></b></td>
+        <td align="left">&quot;boolean&quot;</td>
+        <td class="empty">&nbsp;</td>
+        <td align="left">
+          <b><tt>FILTER_NULL_ON_FAILURE</tt></b>
+        </td>
+        <td align="left">
+         <p class="para">
+          &quot;1&quot;、&quot;true&quot;、&quot;on&quot; および &quot;yes&quot; の場合に <b><tt>TRUE</tt></b>、
+          それ以外の場合に <b><tt>FALSE</tt></b> を返します。
+         </p>
+         <p class="para">
+          <b><tt>FILTER_NULL_ON_FAILURE</tt></b> が設定されている場合は、
+          <b><tt>FALSE</tt></b> が返されるのは
+          &quot;0&quot;、&quot;false&quot;、&quot;off&quot;、&quot;no&quot; および &quot;&quot; の場合のみとなります。
+          boolean 以外の値については <b><tt>NULL</tt></b> を返します。
+         </p>
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_EMAIL</tt></b></td>
+        <td align="left">&quot;validate_email&quot;</td>
+        <td class="empty">&nbsp;</td>
+        <td class="empty">&nbsp;</td>
+        <td align="left">値が e-mail 形式であるかどうかを検証します。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_FLOAT</tt></b></td>
+        <td align="left">&quot;float&quot;</td>
+        <td align="left">
+         <i><tt class="parameter">decimal</tt></i>
+        </td>
+        <td align="left">
+         <b><tt>FILTER_FLAG_ALLOW_THOUSAND</tt></b>
+        </td>
+        <td align="left">値が float であるかどうかを検証します。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_INT</tt></b></td>
+        <td align="left">&quot;int&quot;</td>
+        <td align="left">
+         <i><tt class="parameter">min_range</tt></i>,
+         <i><tt class="parameter">max_range</tt></i>
+        </td>
+        <td align="left">
+         <b><tt>FILTER_FLAG_ALLOW_OCTAL</tt></b>,
+         <b><tt>FILTER_FLAG_ALLOW_HEX</tt></b>
+        </td>
+        <td align="left">値が整数であるかどうか、オプションで指定した範囲内にあるかどうかを検証します。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_IP</tt></b></td>
+        <td align="left">&quot;validate_ip&quot;</td>
+        <td class="empty">&nbsp;</td>
+        <td align="left">
+         <b><tt>FILTER_FLAG_IPV4</tt></b>,
+         <b><tt>FILTER_FLAG_IPV6</tt></b>,
+         <b><tt>FILTER_FLAG_NO_PRIV_RANGE</tt></b>,
+         <b><tt>FILTER_FLAG_NO_RES_RANGE</tt></b>
+        </td>
+        <td align="left">
+         値が IP アドレスであるかどうかを検証します。
+         オプションで IPv4 あるいは IPv6 のみの指定、
+         プライベートアドレスや予約済みアドレスではないことの指定もできます。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_REGEXP</tt></b></td>
+        <td align="left">&quot;validate_regexp&quot;</td>
+        <td align="left">
+         <i><tt class="parameter">regexp</tt></i>
+        </td>
+        <td class="empty">&nbsp;</td>
+        <td align="left">
+         値が、<a href="book.pcre.html" class="link">Perl 互換の</a>
+         正規表現 <i><tt class="parameter">regexp</tt></i> に一致するかどうかを検証します。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><b><tt>FILTER_VALIDATE_URL</tt></b></td>
+        <td align="left">&quot;validate_url&quot;</td>
+        <td class="empty">&nbsp;</td>
+        <td align="left">
+         <b><tt>FILTER_FLAG_PATH_REQUIRED</tt></b>,
+         <b><tt>FILTER_FLAG_QUERY_REQUIRED</tt></b>
+        </td>
+        <td align="left">
+         値が URL 形式である (<a href="http://www.faqs.org/rfcs/rfc2396" class="link external">&raquo; http://www.faqs.org/rfcs/rfc2396</a> に準拠している) かどうか、
+         オプションで、必須コンポーネントが含まれているかどうかを検証します。
+         この関数は、ASCII の URL のみを正しいとみなすことに注意しましょう。
+         国際化ドメイン名 (非 ASCII 文字を含むもの) は失敗します。
+         </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     +0 および -0 は integer としては無効ですが float としては有効と見なされます。
+    </p>
+   </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="filter.filters.html">Types of filters</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="filter.filters.sanitize.html">除去フィルタ</a></div>
+ <div class="up"><a href="filter.filters.html">Types of filters</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

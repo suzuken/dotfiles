@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>古い値を新しい値に更新する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-cache-info.html">apc_cache_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-clear-cache.html">apc_clear_cache</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apc-cas" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">apc_cas</h1>
+  <p class="verinfo">(PECL apc &gt;= 3.1.1)</p><p class="refpurpose"><span class="refname">apc_cas</span> &mdash; <span class="dc-title">古い値を新しい値に更新する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.apc-cas-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>apc_cas</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$old</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$new</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>apc_cas()</b></span> は、既に保存されている整数値が <i><tt class="parameter">old</tt></i>
+   パラメータにマッチする値のときに、それを <i><tt class="parameter">new</tt></i>
+   パラメータの値に更新します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.apc-cas-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">key</tt></i></span>
+    <dd>
+
+     <p class="para">
+      更新する値のキー。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">old</tt></i></span>
+    <dd>
+
+     <p class="para">
+      古い値 (現在保存されている値)。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term"><i><tt class="parameter">new</tt></i></span>
+    <dd>
+
+     <p class="para">
+      新しく更新したい値。
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apc-cas-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apc-cas-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-362">
+   <p><b>例1 <span class="function"><b>apc_cas()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />apc_store</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">'$foobar&nbsp;=&nbsp;2'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">'$foobar&nbsp;==&nbsp;1&nbsp;?&nbsp;2&nbsp;:&nbsp;1&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;(</span><span style="color: #0000BB">apc_cas</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'ok'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'fail'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">'$foobar&nbsp;==&nbsp;2&nbsp;?&nbsp;1&nbsp;:&nbsp;2&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;(</span><span style="color: #0000BB">apc_cas</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'ok'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'fail'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">'$foobar&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">'$f__bar&nbsp;==&nbsp;1&nbsp;?&nbsp;2&nbsp;:&nbsp;1&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;(</span><span style="color: #0000BB">apc_cas</span><span style="color: #007700">(</span><span style="color: #DD0000">'f__bar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'ok'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'fail'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">apc_store</span><span style="color: #007700">(</span><span style="color: #DD0000">'perfection'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'xyz'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">'$perfection&nbsp;==&nbsp;2&nbsp;?&nbsp;1&nbsp;:&nbsp;2&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;(</span><span style="color: #0000BB">apc_cas</span><span style="color: #007700">(</span><span style="color: #DD0000">'perfection'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'ok'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'epic&nbsp;fail'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">'$foobar&nbsp;=&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+$foobar = 2
+$foobar == 1 ? 2 : 1 = fail
+$foobar == 2 ? 1 : 2 = ok
+$foobar = 1
+$f__bar == 1 ? 2 : 1 = fail
+$perfection == 2 ? 1 : 2 = epic fail
+$foobar = 1
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apc-cas-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.apc-dec.html" class="function" rel="rdfs-seeAlso">apc_dec()</a> - 保存した数値を減らす</span></li>
+   <li class="member"><span class="function"><a href="function.apc-store.html" class="function" rel="rdfs-seeAlso">apc_store()</a> - 変数をデータ領域にキャッシュする</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-cache-info.html">apc_cache_info</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-clear-cache.html">apc_clear_cache</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

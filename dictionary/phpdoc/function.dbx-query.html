@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリを送信し、(ある場合には)結果を全て取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-fetch-row.html">dbx_fetch_row</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-sort.html">dbx_sort</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dbx-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dbx_query</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5 &lt;= 5.0.5, PECL dbx &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">dbx_query</span> &mdash; <span class="dc-title">クエリを送信し、(ある場合には)結果を全て取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dbx-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>dbx_query</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$link_identifier</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$sql_statement</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   クエリを送信し、すべての結果を取得します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dbx-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link_identifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.dbx-connect.html" class="function">dbx_connect()</a></span> が返す DBX リンクオブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">sql_statement</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQL 文。
+      </p>
+      <p class="para">
+       クエリ内のデータは <a href="function.dbx-escape-string.html" class="link">適切にエスケープ</a>
+       しておかなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> パラメータは、返される情報の量を制御する
+       ために使用されます。以下の定数の組み合わせを、論理 OR 演算子
+       (|) で連結したものとなります。DBX_COLNAMES_* フラグは <var class="filename">php.ini</var>
+       の dbx.colnames_case 設定を上書きします。
+       <dl>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_RESULT_INDEX</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           これは<em class="emphasis">常に</em>設定され、結果に二次元配列の
+           <span class="property">data</span> プロパティを含めます。たとえば
+           <i>data[2][3]</i> では <i>2</i> が行番号
+           （レコード番号）を表し、<i>3</i> がカラム番号
+           （フィールド番号）を表します。最初の行やカラムの番号は 0 です。
+          </span>
+          <span class="simpara">
+           <b><tt>DBX_RESULT_ASSOC</tt></b> が指定された場合、返される
+           オブジェクトには <b><tt>DBX_RESULT_INFO</tt></b> に関連する
+           情報が（指定していなくても）含まれます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_RESULT_INFO</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           カラムに関する情報、つまりフィールド名とフィールドの型を含めます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_RESULT_ASSOC</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           返されるオブジェクトの <span class="property">data</span> プロパティの
+           キーとして、関連するカラム名の値がアクセスされます。
+          </span>
+          <span class="simpara">
+           関連付けられた結果は数値添字となっているので、
+           <i>data[0][0]</i> を変更すると
+           <i>data[0][&#039;最初のカラムのフィールド名&#039;]</i> も同様に
+           変更されます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_RESULT_UNBUFFERED</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           このフラグは <span class="property">data</span> プロパティを作成せず、
+           <span class="property">rows</span> プロパティの初期値を 0 に設定します。
+           結果セットが大きくなる場合にこのフラグを使用し、
+           <span class="function"><a href="function.dbx-fetch-row.html" class="function">dbx_fetch_row()</a></span> を使用して結果を 1 行ごとに
+           取得してください。
+          </span>
+          <span class="simpara">
+           <span class="function"><a href="function.dbx-fetch-row.html" class="function">dbx_fetch_row()</a></span> 関数は、このクエリで設定した
+           フラグの内容を反映じた行を返します。また、この関数がコールされる
+           たびに <span class="property">rows</span> が更新されます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_COLNAMES_UNCHANGED</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           返されるカラム名の大文字小文字を変更しません。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_COLNAMES_UPPERCASE</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           返されるカラム名を大文字に変更します。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <b><tt>DBX_COLNAMES_LOWERCASE</tt></b>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           返されるカラム名を小文字に変更します。
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+       <i><tt class="parameter">flags</tt></i> パラメータの実際の値にかかわらず、常に
+       <b><tt>DBX_RESULT_INDEX</tt></b> が有効となることに注意しましょう。
+       つまり、結果的に使用可能なのは以下の組み合わせだけであるということです。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_RESULT_INDEX</tt></b>
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_RESULT_INDEX</tt></b> |
+          <b><tt>DBX_RESULT_INFO</tt></b>
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_RESULT_INDEX</tt></b> |
+          <b><tt>DBX_RESULT_INFO</tt></b> |
+          <b><tt>DBX_RESULT_ASSOC</tt></b> -
+          <i><tt class="parameter">flags</tt></i> を指定しなかった場合、これがデフォルトです。
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dbx-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>dbx_query()</b></span> は、成功した場合に オブジェクトあるいは
+   <i>1</i>、失敗した場合に <i>0</i> を返します。
+   結果オブジェクトが返されるのは、<i><tt class="parameter">sql_statement</tt></i>
+   で指定されたクエリが結果セットを生成する場合（例: SELECT クエリ。結果が
+   0 件の場合も含む）のみです。
+  </p>
+  <p class="para">
+   返されるオブジェクトは、<i><tt class="parameter">flags</tt></i>
+   の設定により 4 つまたは 5 つのプロパティを保持します。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <span class="property">handle</span>
+     </span>
+     <dd>
+
+      <p class="para">
+       接続したデータベースの有効なハンドルで、モジュール専用関数で
+       （必要ならば）使用されます。
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;table"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">mysql_field_len</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">handle</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">
+      <span class="property">cols</span> および <span class="property">rows</span>
+     </span>
+     <dd>
+
+      <p class="para">
+       これらは、それぞれカラム数（フィールド数）および行数（レコード数）
+       を表します。
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id&nbsp;FROM&nbsp;table'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rows</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;レコード数<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cols</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;フィールド数<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">
+      <span class="property">info</span> (オプション)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       <i><tt class="parameter">flags</tt></i> パラメータに
+       <b><tt>DBX_RESULT_INFO</tt></b> あるいは
+       <b><tt>DBX_RESULT_ASSOC</tt></b> が指定されている場合のみ
+       返されます。2 次元の配列で、2 つのキー（<i>name</i>
+       および <i>type</i>）を持ち、カラムの情報を取得するために
+       使用します。
+      </span>
+      <div class="example" id="example-893">
+       <p><b>例1 各フィールドの名前と型を一覧表示する</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id&nbsp;FROM&nbsp;table'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">DBX_RESULT_INDEX&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">DBX_RESULT_INFO</span><span style="color: #007700">);<br /><br />for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cols</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++&nbsp;)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">info</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">][</span><span style="color: #0000BB">$i</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">info</span><span style="color: #007700">[</span><span style="color: #DD0000">'type'</span><span style="color: #007700">][</span><span style="color: #0000BB">$i</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">
+      <span class="property">data</span>
+     </span>
+     <dd>
+
+      <span class="simpara">
+       このプロパティには結果のデータが含まれます。<i><tt class="parameter">flags</tt></i>
+       の設定によってはこのデータはカラム名と関連付けられているでしょう。
+       <b><tt>DBX_RESULT_ASSOC</tt></b> が設定されていた場合、
+       <i>$result-&gt;data[2][&quot;field_name&quot;]</i> のように使用可能です。
+      </span>
+      <div class="example" id="example-894">
+       <p><b>例2 data プロパティの内容を HTML テーブルで表示する</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id,&nbsp;parentid,&nbsp;description&nbsp;FROM&nbsp;table'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"&lt;table&gt;\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">data&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;tr&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$field</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;td&gt;</span><span style="color: #0000BB">$field</span><span style="color: #DD0000">&lt;/td&gt;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;/tr&gt;\n"</span><span style="color: #007700">;<br />}<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;/table&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+      <div class="example" id="example-895">
+       <p><b>例3 UNBUFFERED クエリの処理法</b></p>
+       <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id,&nbsp;parentid,&nbsp;description&nbsp;FROM&nbsp;table'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DBX_RESULT_UNBUFFERED</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"&lt;table&gt;\n"</span><span style="color: #007700">;<br />while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;tr&gt;\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$field</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;td&gt;</span><span style="color: #0000BB">$field</span><span style="color: #DD0000">&lt;/td&gt;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&lt;/tr&gt;\n"</span><span style="color: #007700">;<br />}<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;/table&gt;\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.dbx-query-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <b><tt>DBX_RESULT_UNBUFFERED</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        Introduced <b><tt>DBX_COLNAMES_UNCHANGED</tt></b>,
+        <b><tt>DBX_COLNAMES_UPPERCASE</tt></b> および
+        <b><tt>DBX_COLNAMES_LOWERCASE</tt></b> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dbx-query-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-896">
+    <p><b>例4 返り値を処理する方法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">DBX_ODBC</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できませんでした"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;id,&nbsp;parentid,&nbsp;description&nbsp;FROM&nbsp;table'</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">is_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)&nbsp;)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...&nbsp;ここで何かを行います。詳細は以下の例で示します。&nbsp;...<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;まず、フィールド名とデータ型を表示します。<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;次に、返されたフィールド値をもとに表を作成します。<br /></span><span style="color: #007700">}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;exit(</span><span style="color: #DD0000">"クエリに失敗しました"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">dbx_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.dbx-query-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    モジュール固有のドキュメントも参照ください。
+   </p>
+   <p class="para">
+    Oracle データベースでは、クエリ結果のカラム名は小文字で返されます。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dbx-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dbx-escape-string.html" class="function" rel="rdfs-seeAlso">dbx_escape_string()</a> - SQL ステートメントで安全に使用できるように文字列をエスケープする</span></li>
+    <li class="member"><span class="function"><a href="function.dbx-fetch-row.html" class="function" rel="rdfs-seeAlso">dbx_fetch_row()</a> - DBX_RESULT_UNBUFFERED フラグを指定した
+  クエリ結果から、行を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.dbx-connect.html" class="function" rel="rdfs-seeAlso">dbx_connect()</a> - 接続/データベースをオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-fetch-row.html">dbx_fetch_row</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-sort.html">dbx_sort</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

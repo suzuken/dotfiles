@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果に関連するエラーメッセージを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-result-error-field.html">pg_result_error_field</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-result-seek.html">pg_result_seek</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-result-error" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_result_error</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_result_error</span> &mdash; <span class="dc-title">
+   結果に関連するエラーメッセージを取得する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-result-error-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>pg_result_error</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_result_error()</b></span> は、結果リソース
+   (<i><tt class="parameter">result</tt></i>)に関連したエラーメッセージを返します。
+   このため、ユーザーが <span class="function"><a href="function.pg-last-error.html" class="function">pg_last_error()</a></span> よりも適切な
+   エラーメッセージを得る可能性があります。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.pg-result-error-field.html" class="function">pg_result_error_field()</a></span> は、
+   <span class="function"><b>pg_result_error()</b></span> よりもさらに詳細なエラー情報を
+   返します。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span> はクエリが失敗した場合に <b><tt>FALSE</tt></b> を返すので、
+   結果ハンドルを取得するには <span class="function"><a href="function.pg-send-query.html" class="function">pg_send_query()</a></span> および
+   <span class="function"><a href="function.pg-get-result.html" class="function">pg_get_result()</a></span> を使用する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-result-error-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.pg-query.html" class="function">pg_query()</a></span>, <span class="function"><a href="function.pg-query-params.html" class="function">pg_query_params()</a></span>
+       あるいは <span class="function"><a href="function.pg-execute.html" class="function">pg_execute()</a></span> から返される PostgreSQL の
+       クエリ結果リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-result-error-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">result</tt></i> パラメータに関連付けられたエラーがある場合は
+   それを文字列で返し、それ以外の場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-result-error-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1756">
+    <p><b>例1 <span class="function"><b>pg_result_error()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できませんでした"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">pg_connection_busy</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">pg_send_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"select&nbsp;*&nbsp;from&nbsp;doesnotexist;"</span><span style="color: #007700">);<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_get_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">);<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">pg_result_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$res1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pg-result-error-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-result-error-field.html" class="function" rel="rdfs-seeAlso">pg_result_error_field()</a> - エラー報告の各フィールドを返す</span></li>
+    <li class="member"><span class="function"><a href="function.pg-query.html" class="function" rel="rdfs-seeAlso">pg_query()</a> - クエリを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-send-query.html" class="function" rel="rdfs-seeAlso">pg_send_query()</a> - 非同期クエリを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-get-result.html" class="function" rel="rdfs-seeAlso">pg_get_result()</a> - 非同期クエリの結果を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-last-error.html" class="function" rel="rdfs-seeAlso">pg_last_error()</a> - 特定の接続から直近のエラーメッセージ文字列を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.pg-last-notice.html" class="function" rel="rdfs-seeAlso">pg_last_notice()</a> - PostgreSQL サーバからの直近の通知メッセージを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-result-error-field.html">pg_result_error_field</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-result-seek.html">pg_result_seek</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

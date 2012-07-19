@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PHP の設定情報を出力する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpcredits.html">phpcredits</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.phpversion.html">phpversion</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.phpinfo" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">phpinfo</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">phpinfo</span> &mdash; <span class="dc-title">PHP の設定情報を出力する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.phpinfo-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>phpinfo</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$what</tt><span class="initializer"> = INFO_ALL</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   現在の PHP の状態に関する、多くの情報を出力します。出力される情報には、
+   PHP コンパイルオプションと拡張機能、PHP のバージョン、
+   サーバ情報と環境（モジュールとしてコンパイルされた場合）、
+   PHP の環境、OS バージョン情報、パス、構成オプションのマスター
+   およびローカルの値、HTTP ヘッダ、PHP License などがあります。
+  </p>
+  <p class="para">
+   システムの設定はそれぞれ違うため、<a href="configuration.html" class="link">実行時設定</a> や
+   利用できる <a href="language.variables.predefined.html" class="link">定義済みの変数</a>
+   を調べるために <span class="function"><b>phpinfo()</b></span> がよく使われます。
+  </p>
+  <p class="para">
+   また、<span class="function"><b>phpinfo()</b></span> には
+   EGPCS (Environment, GET, POST, Cookie, Server)
+   の情報が含まれているため、デバッグツールとしても便利です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.phpinfo-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">what</tt></i></span>
+     <dd>
+
+      <p class="para">
+       以下にある<em class="emphasis">constants</em>ビット値をひとつまたは
+       複数個を加算して、オプションの<i><tt class="parameter">what</tt></i>引数に
+       渡すことによって出力をカスタマイズできます。
+       それぞれの定数やビット値を<a href="language.operators.bitwise.html" class="link">or</a>演算子
+       で結んで渡すこともできます。
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><b><span class="function"><b>phpinfo()</b></span> のオプション</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>名前(定数)</th>
+           <th>値</th>
+           <th>説明</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">INFO_GENERAL</td>
+           <td align="left">1</td>
+           <td align="left">
+            configure オプション、<var class="filename">php.ini</var> の場所、ビルド日時、
+            Web サーバ、オペレーティングシステム等。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_CREDITS</td>
+           <td align="left">2</td>
+           <td align="left">
+            PHP クレジット。<span class="function"><a href="function.phpcredits.html" class="function">phpcredits()</a></span> も参照ください。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_CONFIGURATION</td>
+           <td align="left">4</td>
+           <td align="left">
+            ローカルおよびマスタの、現在の PHP ディレクティブの値。
+            <span class="function"><a href="function.ini-get.html" class="function">ini_get()</a></span> も参照ください。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_MODULES</td>
+           <td align="left">8</td>
+           <td align="left">
+            ロードされているモジュールと、それぞれの設定。
+            <span class="function"><a href="function.get-loaded-extensions.html" class="function">get_loaded_extensions()</a></span> も参照ください。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_ENVIRONMENT</td>
+           <td align="left">16</td>
+           <td align="left">
+            <var class="varname"><var class="varname"><a href="reserved.variables.environment.html" class="classname">$_ENV</a></var></var> で取得できる環境変数の情報。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_VARIABLES</td>
+           <td align="left">32</td>
+           <td align="left">
+            EGPCS（環境変数・GET・POST・クッキー・サーバ変数）から
+            すべての <a href="language.variables.predefined.html" class="link">
+            定義済みの変数</a>を表示します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_LICENSE</td>
+           <td align="left">64</td>
+           <td align="left">
+            PHP ライセンス情報。<a href="http://www.php.net/license/" class="link external">&raquo; ライセンス FAQ</a> も参照ください。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">INFO_ALL</td>
+           <td align="left">-1</td>
+           <td align="left">
+            上記のすべてを表示します。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.phpinfo-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.phpinfo-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.2</td>
+       <td align="left">
+        &quot;Loaded Configuration File&quot; 情報が追加されました。これまでは
+        &quot;Configuration File (php.ini) Path&quot; しかありませんでした。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.phpinfo-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-449">
+    <p><b>例1 <span class="function"><b>phpinfo()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;すべての情報を表示します。デフォルトは&nbsp;INFO_ALL&nbsp;です。<br /></span><span style="color: #0000BB">phpinfo</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;モジュール情報だけを表示します。<br />//&nbsp;phpinfo(8)&nbsp;としても同じです。<br /></span><span style="color: #0000BB">phpinfo</span><span style="color: #007700">(</span><span style="color: #0000BB">INFO_MODULES</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.phpinfo-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="ini.core.html#ini.expose-php" class="link">expose_php</a> が
+    <i>off</i> の場合、一部の情報は表示されません。
+    これにはPHPとZendのロゴ、そしてクレジットが含まれます。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    CLI モードを利用している場合、<span class="function"><b>phpinfo()</b></span>
+    は HTML ではなくプレーンテキストで結果を出力します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.phpinfo-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.phpversion.html" class="function" rel="rdfs-seeAlso">phpversion()</a> - 現在の PHP バージョンを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.phpcredits.html" class="function" rel="rdfs-seeAlso">phpcredits()</a> - PHP に関するクレジットを出力する</span></li>
+    <li class="member"><span class="function"><a href="function.php-logo-guid.html" class="function" rel="rdfs-seeAlso">php_logo_guid()</a> - ロゴの guid を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ini-get.html" class="function" rel="rdfs-seeAlso">ini_get()</a> - 設定オプションの値を得る</span></li>
+    <li class="member"><span class="function"><a href="function.ini-set.html" class="function" rel="rdfs-seeAlso">ini_set()</a> - 設定オプションの値を設定する</span></li>
+    <li class="member"><span class="function"><a href="function.get-loaded-extensions.html" class="function" rel="rdfs-seeAlso">get_loaded_extensions()</a> - コンパイル/ロードされている全てのモジュールの名前を配列として返す</span></li>
+    <li class="member"><a href="language.variables.predefined.html" class="link">定義済みの変数</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.phpcredits.html">phpcredits</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.phpversion.html">phpversion</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

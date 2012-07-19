@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>フォーマッタが使用するパターンを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="messageformatter.parse.html">MessageFormatter::parse</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.intldateformatter.html">IntlDateFormatter</a></div>
+ <div class="up"><a href="class.messageformatter.html">MessageFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="messageformatter.setpattern" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MessageFormatter::setPattern</h1>
+  <h1 class="refname">msgfmt_set_pattern</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">MessageFormatter::setPattern</span> -- <span class="refname">msgfmt_set_pattern</span> &mdash; <span class="dc-title">フォーマッタが使用するパターンを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-messageformatter.setpattern-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   オブジェクト指向型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><b>MessageFormatter::setPattern</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   手続き型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><b>msgfmt_set_pattern</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.messageformatter.html" class="type MessageFormatter">MessageFormatter</a></span> <tt class="parameter">$fmt</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   フォーマッタが使用するパターンを設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-messageformatter.setpattern-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージのフォーマッタ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このメッセージフォーマッタで使用するパターン文字列。
+       パターンには、&#039;アポストロフィに優しい&#039; 構文を使用します。
+       <a href="http://www.icu-project.org/apiref/icu4c/umsg_8h.html#9da796210146ff51d395affe4928f0b7" class="link external">&raquo; umsg_autoQuoteApostrophe</a> 
+       を通してから解釈が行われます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 returnvalues" id="refsect1-messageformatter.setpattern-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-messageformatter.setpattern-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2113">
+   <p><b>例1 <span class="function"><b>msgfmt_set_pattern()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">msgfmt_create</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"en_US"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,&nbsp;number}&nbsp;monkeys&nbsp;on&nbsp;{1,&nbsp;number}&nbsp;trees"&nbsp;</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Default&nbsp;pattern:&nbsp;'"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">msgfmt_get_pattern</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"'\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Formatting&nbsp;result:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">msgfmt_format</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">456</span><span style="color: #007700">)&nbsp;)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">msgfmt_set_pattern</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,&nbsp;number}&nbsp;trees&nbsp;hosting&nbsp;{1,&nbsp;number}&nbsp;monkeys"&nbsp;</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"New&nbsp;pattern:&nbsp;'"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">msgfmt_get_pattern</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt&nbsp;</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"'\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Formatted&nbsp;number:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">msgfmt_format</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">456</span><span style="color: #007700">)&nbsp;)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-2114">
+   <p><b>例2 オブジェクト指向の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MessageFormatter</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"en_US"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"{0,&nbsp;number}&nbsp;monkeys&nbsp;on&nbsp;{1,&nbsp;number}&nbsp;trees"&nbsp;</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Default&nbsp;pattern:&nbsp;'"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getPattern</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"'\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Formatting&nbsp;result:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(array(</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">456</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setPattern</span><span style="color: #007700">(</span><span style="color: #DD0000">"{0,&nbsp;number}&nbsp;trees&nbsp;hosting&nbsp;{1,&nbsp;number}&nbsp;monkeys"&nbsp;</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"New&nbsp;pattern:&nbsp;'"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getPattern</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"'\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"Formatted&nbsp;number:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">format</span><span style="color: #007700">(array(</span><span style="color: #0000BB">123</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">456</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+Default pattern: &#039;{0,number} monkeys on {1,number} trees&#039;
+Formatting result: 123 monkeys on 456 trees
+New pattern: &#039;{0,number} trees hosting {1,number} monkeys&#039;
+Formatted number: 123 trees hosting 456 monkeys
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-messageformatter.setpattern-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="messageformatter.create.html" class="function" rel="rdfs-seeAlso">msgfmt_create()</a> - 新しいメッセージフォーマッタを作成する</span></li>
+    <li class="member"><span class="function"><a href="messageformatter.getpattern.html" class="function" rel="rdfs-seeAlso">msgfmt_get_pattern()</a> - フォーマッタが使用するパターンを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="messageformatter.parse.html">MessageFormatter::parse</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.intldateformatter.html">IntlDateFormatter</a></div>
+ <div class="up"><a href="class.messageformatter.html">MessageFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,448 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>DB2 データベースサーバの情報をプロパティに保持するオブジェクトを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-rollback.html">db2_rollback</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-set-option.html">db2_set_option</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-server-info" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_server_info</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.1.1)</p><p class="refpurpose"><span class="refname">db2_server_info</span> &mdash; <span class="dc-title">
+   DB2 データベースサーバの情報をプロパティに保持するオブジェクトを返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-server-info-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">object</span> <span class="methodname"><b>db2_server_info</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   この関数は、IBM DB2、Cloudscape あるいは Apache Derby
+   データベースサーバについての情報を
+   読み取り専用のプロパティに保持するオブジェクトを返します。
+   以下の表は、データベースサーバのプロパティの一覧です。
+   <table class="doctable table">
+    <caption><b>データベースサーバのプロパティ</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>プロパティ名</th>
+       <th>返り値の型</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">DBMS_NAME</td>
+       <td align="left">string</td>
+       <td align="left">
+        接続中のデータベースサーバの名前。DB2 サーバの場合は、
+        <i>DB2</i> の後にサーバが稼動している OS
+        の名前が続きます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">DBMS_VER</td>
+       <td align="left">string</td>
+       <td align="left">
+        データベースサーバのバージョン。&quot;MM.mm.uuuu&quot; という形式の文字列で、
+        <var class="varname"><var class="varname">MM</var></var> がメジャーバージョン、
+        <var class="varname"><var class="varname">mm</var></var> がマイナーバージョン、
+        そして <var class="varname"><var class="varname">uuuu</var></var> がアップデートを表します。
+        例えば &quot;08.02.0001&quot; は
+        メジャーバージョン 8、マイナーバージョン 2、アップデート 1
+        を表します。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">DB_CODEPAGE</td>
+       <td align="left">int</td>
+       <td align="left">接続中のデータベースのコードページ。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">DB_NAME</td>
+       <td align="left">string</td>
+       <td align="left">接続中のデータベースの名前。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">DFT_ISOLATION</td>
+       <td align="left">string</td>
+       <td align="left">サーバがサポートしているデフォルトのトランザクション分離レベル。
+        <dl>
+
+         <dt>
+
+          <span class="term">UR</span>
+          <dd>
+
+           <p class="para">
+            非コミット読み取り: 変更内容は、他のトランザクションからも
+            すぐに見えるようになります。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">CS</span>
+          <dd>
+
+           <p class="para">
+            カーソル固定: あるトランザクションで読み込まれた行を、
+            別のトランザクションから変更してコミットすることができます。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">RS</span>
+          <dd>
+
+           <p class="para">
+            読み取り固定: 検索条件あるいは実行中のトランザクションに
+            一致する行を、トランザクションから追加したり削除したりできます。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">RR</span>
+          <dd>
+
+           <p class="para">
+            反復可能読み取り: 実行中のトランザクションに影響を受けるデータは、
+            他のトランザクションからは見えません。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">NC</span>
+          <dd>
+
+           <p class="para">
+            コミット不可: 変更内容は、操作が終了した時点で見えるようになります。
+            明示的なコミットやロールバックはできません。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">IDENTIFIER_QUOTE_CHAR</td>
+       <td align="left">string</td>
+       <td align="left">識別子を区切るための文字。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">INST_NAME</td>
+       <td align="left">string</td>
+       <td align="left">データベースを含むデータベースサーバのインスタンス名。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">ISOLATION_OPTION</td>
+       <td align="left">array</td>
+       <td align="left">
+        データベースサーバがサポートする分離オプション。
+        分離オプションについては DFT_ISOLATION プロパティの説明を参照ください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">KEYWORDS</td>
+       <td align="left">array</td>
+       <td align="left">データベースサーバの予約語の配列。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">LIKE_ESCAPE_CLAUSE</td>
+       <td align="left">bool</td>
+       <td align="left">
+        データベースサーバがワイルドカード文字
+        <i>%</i> および <i>_</i>
+        の使用をサポートしている場合に <b><tt>TRUE</tt></b>、
+        これらのワイルドカードをサポートしていない場合に <b><tt>FALSE</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_COL_NAME_LEN</td>
+       <td align="left">int</td>
+       <td align="left">データベースサーバがサポートするカラム名の最大バイト数。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_IDENTIFIER_LEN</td>
+       <td align="left">int</td>
+       <td align="left">データベースサーバがサポートする SQL 識別子の最大文字数。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_INDEX_SIZE</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートするインデックスつきカラムの最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_PROC_NAME_LEN</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートするプロシージャ名の最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_ROW_SIZE</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートするベーステーブルの行の最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_SCHEMA_NAME_LEN</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートするスキーマ名の最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_STATEMENT_LEN</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートする SQL 文の最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">MAX_TABLE_NAME_LEN</td>
+       <td align="left">int</td>
+       <td align="left">
+        データベースサーバがサポートするテーブル名の最大バイト数。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">NON_NULLABLE_COLUMNS</td>
+       <td align="left">bool</td>
+       <td align="left">
+        データベースサーバがカラムの NOT NULL 定義をサポートしている場合に
+        <b><tt>TRUE</tt></b>、サポートしていない場合に <b><tt>FALSE</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">PROCEDURES</td>
+       <td align="left">bool</td>
+       <td align="left">
+        データベースサーバがストアドプロシージャをコールするための
+        CALL 文をサポートしている場合に <b><tt>TRUE</tt></b>、サポートしていない場合に
+        <b><tt>FALSE</tt></b>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">SPECIAL_CHARS</td>
+       <td align="left">string</td>
+       <td align="left">
+        識別子として使用可能な文字のうち、
+        a-Z、0-9 およびアンダースコア以外の文字。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">SQL_CONFORMANCE</td>
+       <td align="left">string</td>
+       <td align="left">
+        データベースサーバの ANSI/ISO SQL-92 仕様への対応レベル。
+        <dl>
+
+         <dt>
+
+          <span class="term">ENTRY</span>
+          <dd>
+
+           <p class="para">
+            SQL-92 エントリレベルに準拠しています。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">FIPS127</span>
+          <dd>
+
+           <p class="para">
+            FIPS-127-2 transitional に準拠しています。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">FULL</span>
+          <dd>
+
+           <p class="para">
+            SQL-92 完全レベルに準拠しています。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">INTERMEDIATE</span>
+          <dd>
+
+           <p class="para">
+            SQL-92 中間レベルに準拠しています。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-server-info-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アクティブな DB2 クライアント接続を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-server-info-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にオブジェクト、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+
+
+ 
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-server-info-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1178">
+    <p><b>例1 <span class="function"><b>db2_server_info()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     サーバの情報を取得するには、有効なデータベース接続リソースを
+     <span class="function"><b>db2_server_info()</b></span> に渡す必要があります。
+    </p></div>
+    <div class="example-contents"><div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'sample'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'db2inst1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ibmdb2'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$server&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_server_info</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$conn&nbsp;</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$server</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"DBMS_NAME:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">DBMS_NAME&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"DBMS_VER:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">DBMS_VER&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"DB_CODEPAGE:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">DB_CODEPAGE&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"DB_NAME:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">DB_NAME&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"INST_NAME:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">INST_NAME&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"SPECIAL_CHARS:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">SPECIAL_CHARS&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"KEYWORDS:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">sizeof</span><span style="color: #007700">(</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">KEYWORDS</span><span style="color: #007700">)&nbsp;);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"DFT_ISOLATION:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">DFT_ISOLATION&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"ISOLATION_OPTION:&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$il&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ISOLATION_OPTION&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$opt&nbsp;</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$il&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #0000BB">$opt</span><span style="color: #007700">.</span><span style="color: #DD0000">"&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$il&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"SQL_CONFORMANCE:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">SQL_CONFORMANCE&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"PROCEDURES:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">PROCEDURES&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"IDENTIFIER_QUOTE_CHAR:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">IDENTIFIER_QUOTE_CHAR&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"LIKE_ESCAPE_CLAUSE:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">LIKE_ESCAPE_CLAUSE&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_COL_NAME_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_COL_NAME_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_ROW_SIZE:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_ROW_SIZE&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_IDENTIFIER_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_IDENTIFIER_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_INDEX_SIZE:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_INDEX_SIZE&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_PROC_NAME_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_PROC_NAME_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_SCHEMA_NAME_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_SCHEMA_NAME_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_STATEMENT_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_STATEMENT_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"MAX_TABLE_NAME_LEN:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">MAX_TABLE_NAME_LEN&nbsp;</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"NON_NULLABLE_COLUMNS:&nbsp;"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$server</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">NON_NULLABLE_COLUMNS&nbsp;</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div></div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen"><div class="cdata"><pre>DBMS_NAME: string(9) &quot;DB2/LINUX&quot;
+DBMS_VER: string(10) &quot;08.02.0000&quot;
+DB_CODEPAGE: int(1208)
+DB_NAME: string(6) &quot;SAMPLE&quot;
+INST_NAME: string(8) &quot;db2inst1&quot;
+SPECIAL_CHARS: string(2) &quot;@#&quot;
+KEYWORDS: int(179)
+DFT_ISOLATION: string(2) &quot;CS&quot;
+ISOLATION_OPTION: string(12) &quot;UR CS RS RR &quot;
+SQL_CONFORMANCE: string(7) &quot;FIPS127&quot;
+PROCEDURES: bool(true)
+IDENTIFIER_QUOTE_CHAR: string(1) &quot;&quot;&quot;
+LIKE_ESCAPE_CLAUSE: bool(true)
+MAX_COL_NAME_LEN: int(30)
+MAX_ROW_SIZE: int(32677)
+MAX_IDENTIFIER_LEN: int(18)
+MAX_INDEX_SIZE: int(1024)
+MAX_PROC_NAME_LEN: int(128)
+MAX_SCHEMA_NAME_LEN: int(30)
+MAX_STATEMENT_LEN: int(2097152)
+MAX_TABLE_NAME_LEN: int(128)
+NON_NULLABLE_COLUMNS: bool(true)</pre></div></div>
+   </div>
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-server-info-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-client-info.html" class="function" rel="rdfs-seeAlso">db2_client_info()</a> - DB2 データベースクライアントの情報をプロパティに保持するオブジェクトを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-rollback.html">db2_rollback</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-set-option.html">db2_set_option</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

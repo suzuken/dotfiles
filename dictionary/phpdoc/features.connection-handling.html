@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>接続処理</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.remote-files.html">リモートファイルの使用</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.persistent-connections.html">持続的データベース接続</a></div>
+ <div class="up"><a href="features.html">機能</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="features.connection-handling" class="chapter">
+  <h1>接続処理</h1>
+
+
+  <p class="para">
+  PHP 内部で、接続ステータスが保持されます。
+  これは、次の 3 つの状態をとりえます。
+   <ul class="itemizedlist">
+    <li class="listitem"><span class="simpara">0 - NORMAL</span></li>
+    <li class="listitem"><span class="simpara">1 - ABORTED</span></li>
+    <li class="listitem"><span class="simpara">2 - TIMEOUT</span></li>
+   </ul>
+  </p>
+
+  <p class="simpara">
+  通常 PHP が実行されている場合、NORMAL 状態がアクティブになります。
+  リモートクライアントが接続を切った場合、ABORTED 状態フラグが有効になります。
+  通常、リモートクライアントの接続断は、STOP ボタンを押すことにより発生します。
+  PHP 側の時間制限 (<span class="function"><a href="function.set-time-limit.html" class="function">set_time_limit()</a></span> 参照) にかかった場合、
+  TIMEOUT 状態フラグが有効になります。</p>
+
+  <p class="simpara">
+   スクリプトを終了させるためにクライアントとの接続を切断するかどうかを
+   決めることが出来ます。
+   時々、出力がどのリモートブラウザにも受信されない場合でも、
+   常にスクリプトの実行完了まで実行する方が便利であることがあります。
+   しかし、デフォルトの動作はリモートクライアントとの接続が断となった際にスクリプト
+   の実行は破棄されます。
+   この動作は、<var class="filename">php.ini</var> ディレクティブ ignore_user_abort にて 
+   設定できます。
+   同様に同じ意味を有する Apache <var class="filename">httpd.conf</var> ディレクティブ
+   <i>php_value ignore_user_abort</i> または
+   <span class="function"><a href="function.ignore-user-abort.html" class="function">ignore_user_abort()</a></span> 関数にて設定することも可能です。
+   PHP にユーザーによる破棄を無視するように設定していない場合、
+   ユーザが破棄した場合、スクリプトの実行は終了します。
+   一つの例外は、<span class="function"><a href="function.register-shutdown-function.html" class="function">register_shutdown_function()</a></span> を用いて
+   シャットダウン関数を定義した場合です。
+   シャットダウン関数を定義した場合、リモートユーザーが STOP ボタンを押した後、
+   次にスクリプトが何か出力を行おうとした場合、PHP は接続が破棄されたことを検知し、
+   シャットダウン関数がコールされます。
+   このシャットダウン関数は、スクリプトが正常に終了した
+   際にもコールされます。
+   このため、クライアントが接続を切断した場合に別の動作をさせたい場合に
+   は、<span class="function"><a href="function.connection-aborted.html" class="function">connection_aborted()</a></span> 関数を使用することが
+   可能です。
+   この関数は、接続が破棄された場合に、<b><tt>TRUE</tt></b> を返します。
+  </p>
+
+  <p class="simpara">
+   スクリプトは、組み込みのスクリプトタイマーによっても終了することが
+   できます。デフォルトのタイムアウトは、30 秒です。
+   これは、<var class="filename">php.ini</var>ディレクティブ <strong class="option unknown">max_execution_time</strong>
+
+   または同義の
+   Apache <var class="filename">httpd.conf</var> ディレクティブ <i>php_value max_execution_time</i>
+   を <span class="function"><a href="function.set-time-limit.html" class="function">set_time_limit()</a></span> 関数と同様に用いることにより
+   変更することが可能です。タイマーが切れた時、スクリプトは中断されます。
+   上記のクライアントが接続を切るケースのように
+   シャットダウン関数が登録されている場合、この関数がコールされます。
+   このシャットダウン関数の中では、
+   <span class="function"><a href="function.connection-status.html" class="function">connection_status()</a></span> 関数のコールにより
+   タイムアウトがシャットダウン関数のコールを生じさせるかどうかを
+   確認することができます。
+   この関数は、タイムアウトによりシャットダウン関数がコールされた
+   場合に 2 を返します。
+  </p>
+
+  <p class="simpara">
+   もう一つ注意すべき点は、状態 ABORTED および TIMEOUT
+   は同時にアクティブにできるということです。
+   これは、PHP をユーザーによる中断を無視するよう設定した場合に
+   可能です。
+   PHP は、ユーザーが接続を破棄しているが、スクリプトは
+   実行しつづけるということがある可能性があることに注意する
+   必要があります。
+   時間制限にかかって中断される場合、もしあればシャットダウン関数が
+   コールされます。
+   ここで、<span class="function"><a href="function.connection-status.html" class="function">connection_status()</a></span> は 3 を返します。
+  </p>
+
+ </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.remote-files.html">リモートファイルの使用</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.persistent-connections.html">持続的データベース接続</a></div>
+ <div class="up"><a href="features.html">機能</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

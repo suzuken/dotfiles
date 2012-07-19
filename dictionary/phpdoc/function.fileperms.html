@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルのパーミッションを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fileowner.html">fileowner</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.filesize.html">filesize</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fileperms" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fileperms</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">fileperms</span> &mdash; <span class="dc-title">ファイルのパーミッションを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fileperms-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>fileperms</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定したファイルのパーミッションを取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fileperms-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fileperms-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルのパーミッションを返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fileperms-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1907">
+    <p><b>例1 八進形式でのパーミッションの表示</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">'%o'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">fileperms</span><span style="color: #007700">(</span><span style="color: #DD0000">'/tmp'</span><span style="color: #007700">)),&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">'%o'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">fileperms</span><span style="color: #007700">(</span><span style="color: #DD0000">'/etc/passwd'</span><span style="color: #007700">)),&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+1777
+0644
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-1908">
+    <p><b>例2 完全なパーミッションの表示</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$perms&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fileperms</span><span style="color: #007700">(</span><span style="color: #DD0000">'/etc/passwd'</span><span style="color: #007700">);<br /><br />if&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0xC000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0xC000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ソケット<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'s'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0xA000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0xA000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;シンボリックリンク<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'l'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x8000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0x8000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;通常のファイル<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x6000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0x6000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ブロックスペシャルファイル<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x4000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0x4000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ディレクトリ<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'d'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x2000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0x2000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;キャラクタスペシャルファイル<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'c'</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x1000</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">0x1000</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;FIFO&nbsp;パイプ<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'p'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;不明<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'u'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;所有者<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0100</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'r'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0080</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'w'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0040</span><span style="color: #007700">)&nbsp;?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0800</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'s'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'x'&nbsp;</span><span style="color: #007700">)&nbsp;:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0800</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'S'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;グループ<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0020</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'r'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0010</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'w'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0008</span><span style="color: #007700">)&nbsp;?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0400</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'s'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'x'&nbsp;</span><span style="color: #007700">)&nbsp;:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0400</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'S'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;全体<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0004</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'r'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0002</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'w'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$info&nbsp;</span><span style="color: #007700">.=&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0001</span><span style="color: #007700">)&nbsp;?<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0200</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'t'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'x'&nbsp;</span><span style="color: #007700">)&nbsp;:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((</span><span style="color: #0000BB">$perms&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">0x0200</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'T'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">));<br /><br />echo&nbsp;</span><span style="color: #0000BB">$info</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+-rw-r--r--
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.fileperms-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+失敗したときは <b><tt>E_WARNING</tt></b> が発生します。
+</p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.fileperms-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数の結果は
+キャッシュされます。詳細は、<span class="function"><a href="function.clearstatcache.html" class="function">clearstatcache()</a></span>
+を参照してください。</span></p></blockquote>
+  <div class="tip"><b class="tip">ヒント</b><p class="simpara">
+<i>PHP 5.0.0</i> 以降、この関数は、
+<em class="emphasis">何らかの</em> URL ラッパーと組合せて使用することができます。
+どのラッパーが <span class="function"><a href="function.stat.html" class="function">stat()</a></span> ファミリーをサポートしているか
+のリストについては、<a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a> を参照してください。</p></div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fileperms-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.chmod.html" class="function" rel="rdfs-seeAlso">chmod()</a> - ファイルのモードを変更する</span></li>
+    <li class="member"><span class="function"><a href="function.is-readable.html" class="function" rel="rdfs-seeAlso">is_readable()</a> - ファイルが存在し、読み込み可能であるかどうかを知る</span></li>
+    <li class="member"><span class="function"><a href="function.stat.html" class="function" rel="rdfs-seeAlso">stat()</a> - ファイルに関する情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fileowner.html">fileowner</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.filesize.html">filesize</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

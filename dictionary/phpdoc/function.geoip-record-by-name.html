@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>GeoIP データベースで見つかった詳細な都市情報を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.geoip-org-by-name.html">geoip_org_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.geoip-region-by-name.html">geoip_region_by_name</a></div>
+ <div class="up"><a href="ref.geoip.html">GeoIP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.geoip-record-by-name" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">geoip_record_by_name</h1>
+  <p class="verinfo">(PECL geoip &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">geoip_record_by_name</span> &mdash; <span class="dc-title">GeoIP データベースで見つかった詳細な都市情報を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.geoip-record-by-name-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>geoip_record_by_name</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$hostname</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>geoip_record_by_name()</b></span> 関数は、
+   ホスト名あるいは IP アドレスに対応するレコード情報を返します。
+  </p>
+  <p class="para">
+   この関数は、GeoLite City Edition および商用の GeoIP
+   City Edition のどちらでも使用可能です。
+   適切なデータベースが見つからない場合には警告が発生します。
+  </p>
+  <p class="para">
+   返される連想配列には、以下のようなさまざまな名前のキーが含まれます。
+  </p>
+  <p class="para">
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      &quot;continent_code&quot; -- 二文字の大陸コード (バージョン 1.0.4 以降で
+      libgeoip 1.4.3 以降を使用した場合)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;country_code&quot; -- 二文字の国コード
+      (<span class="function"><a href="function.geoip-country-code-by-name.html" class="function">geoip_country_code_by_name()</a></span> を参照ください)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;country_code3&quot; -- 三文字の国コード
+      (<span class="function"><a href="function.geoip-country-code3-by-name.html" class="function">geoip_country_code3_by_name()</a></span> を参照ください)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;country_name&quot; -- 国名
+      (<span class="function"><a href="function.geoip-country-name-by-name.html" class="function">geoip_country_name_by_name()</a></span> を参照ください)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;region&quot; -- 地域コード (例: カリフォルニアなら CA)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;city&quot; -- 市
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;postal_code&quot; -- 郵便番号、FSA あるいは Zip コード
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;latitude&quot; -- 緯度 (符号付き浮動小数点形式)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;longitude&quot; -- 経度 (符号付浮動小数点形式)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;dma_code&quot; -- Designated Market Area コード (アメリカおよびカナダのみ)
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      &quot;area_code&quot; -- PSTN エリアコード (例: 212)
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.geoip-record-by-name-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hostname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       レコードを探す対象となるホスト名あるいは IP アドレス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.geoip-record-by-name-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合には連想配列、
+   アドレスがデータベースで見つからない場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.geoip-record-by-name-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">1.0.4</td>
+       <td align="left">
+        continent_code が GeoIP Library 1.4.3 以降でのみ使えるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1.0.3</td>
+       <td align="left">
+        country_code3 および country_name が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.geoip-record-by-name-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3091">
+    <p><b>例1 <span class="function"><b>geoip_record_by_name()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     これは、ホスト example.com のレコードを含む連想配列を表示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$record&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">geoip_record_by_name</span><span style="color: #007700">(</span><span style="color: #DD0000">'www.example.com'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$record</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$record</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [continent_code] =&gt; NA
+    [country_code] =&gt; US
+    [country_code3] =&gt; USA
+    [country_name] =&gt; United States
+    [region] =&gt; CA
+    [city] =&gt; Marina Del Rey
+    [postal_code] =&gt; 
+    [latitude] =&gt; 33.9776992798
+    [longitude] =&gt; -118.435096741
+    [dma_code] =&gt; 803
+    [area_code] =&gt; 310
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.geoip-org-by-name.html">geoip_org_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.geoip-region-by-name.html">geoip_region_by_name</a></div>
+ <div class="up"><a href="ref.geoip.html">GeoIP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトのシリアル化 - セッションでのオブジェクト</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="keyword.parent.html">親クラス</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oop4.magic-functions.html">特殊関数__sleep および
+    __wakeup</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="oop4.serialization" class="sect1">
+  <h2 class="title">オブジェクトのシリアル化 - セッションでのオブジェクト</h2>
+
+  <p class="para">
+    <span class="function"><a href="function.serialize.html" class="function">serialize()</a></span> は、PHPで保存可能な全ての値のバイト
+    ストリーム表現を有する文字列を返します。
+    <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> は、この文字列を使用して元の変数
+    値を再生することが可能です。オブジェクトを保存するためにシリアル化
+    を行うと、オブジェクトの全ての変数が保存されます。オブジェクトの関
+    数は保存されません。クラス名だけが保存されます。
+  </p>
+  
+  <p class="para">
+   オブジェクトの <span class="function"><a href="function.unserialize.html" class="function">unserialize()</a></span> を可能とするために、
+   そのオブジェクトのクラスが定義される必要があります。つまり、クラス
+   Aのオブジェクト<var class="varname"><var class="varname">$a</var></var>を <var class="filename">page1.php</var> で定義し、
+   これをシリアル化した場合、
+   クラスAを指す文字列が得られ、そこには、$aに含まれる変数の全ての値
+   が含まれます。<var class="filename">page2.php</var> でこの文字列を非シリアル化したい場合、クラ
+   スAの<var class="varname"><var class="varname">$a</var></var>を再生します。クラスAの定義が、<var class="filename">page2.php</var> に
+   現れます。これは、
+   例えば、クラスAのクラス定義をインクルードファイルの中に保存し、
+   <var class="filename">page1.php</var> および <var class="filename">page2.php</var> の中で共にこのファイルを読み込むことに
+   より実行可能です。
+  </p>
+  
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;classa.inc:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">A&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$one&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">one</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;<br /></span><span style="color: #FF8000">//&nbsp;page1.php:<br /><br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">A</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">serialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;page2.phpが見付られる場所に$sを保存<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"store"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;page2.php:<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;//&nbsp;これは非シリアル化が正しく動作するために必要<br />&nbsp;&nbsp;</span><span style="color: #007700">include(</span><span style="color: #DD0000">"classa.inc"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">$s&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">implode</span><span style="color: #007700">(</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;@</span><span style="color: #0000BB">file</span><span style="color: #007700">(</span><span style="color: #DD0000">"store"</span><span style="color: #007700">));<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">unserialize</span><span style="color: #007700">(</span><span style="color: #0000BB">$s</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;オブジェクト$aの関数show_one()を使用する<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">show_one</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  
+  <p class="para">
+   セッションを使用している場合に、オブジェクトを登録するために
+   <span class="function"><a href="function.session-register.html" class="function">session_register()</a></span>を使用すると、これらのオブジェ
+   クトは各PHPページの最後で自動的にシリアル化され、次のページで自動
+   的に非シリアル化されます。これは、基本的に、これらのオブジェクトが
+   一旦セッション変数となると、全てのページに現れることを意味します。
+  </p>
+  
+  <p class="para">
+   全てのページでこれらのクラスを実際には使用しない場合でも、
+   全てのページでこのような登録された全てのオブジェクトのクラス定義を読み込むことを強く推奨します。
+   これを行わずに、クラス定義が存在しない状態でオブジェクトが非シリアル化された場合、
+   クラスの相関が失われてすべての関数が利用できなくなるため、
+   <b class="classname">__PHP_Incomplete_Class_Name</b>
+   クラスのオブジェクトは利用価値がかなり低くなります。
+  </p>
+  
+  <p class="para">
+    このため、上の例で、<i>session_register(&quot;a&quot;)</i>を実行
+    することにより $a がセッションの一部となった場合、<var class="filename">page1.php</var> および
+    <var class="filename">page2.php</var> だけでなく、全てのページでファイル
+    <i>classa.inc</i> を読み込むべきです。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="keyword.parent.html">親クラス</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="oop4.magic-functions.html">特殊関数__sleep および
+    __wakeup</a></div>
+ <div class="up"><a href="oop4.html">クラスとオブジェクト (PHP 4)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

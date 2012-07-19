@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>変数をデータ領域にキャッシュする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-bin-dump.html">apc_bin_dump</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apc-add" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">apc_add</h1>
+  <p class="verinfo">(PECL apc &gt;= 3.0.13)</p><p class="refpurpose"><span class="refname">apc_add</span> &mdash; <span class="dc-title">
+   変数をデータ領域にキャッシュする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.apc-add-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>apc_add</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$var</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$ttl</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>apc_add</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$values</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$unused</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$ttl</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   まだ保存されていない場合にのみ、変数をデータ領域にキャッシュします。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    PHP の他の多くの仕組みと異なり、<span class="function"><b>apc_add()</b></span> 
+    を用いて格納された変数はリクエストを超えて
+    （その値がキャッシュから取り除かれるまで）持続します。
+   </span>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.apc-add-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       この名前を用いて変数を格納します。<i><tt class="parameter">key</tt></i> は
+       キャッシュ内で一意です。そのため、<span class="function"><b>apc_add()</b></span>
+       を使用して同一の <i><tt class="parameter">key</tt></i> 
+       で新しい値を格納しようとしても、それは保存されません。
+       かわりに <b><tt>FALSE</tt></b> が返されます (これが、<span class="function"><b>apc_add()</b></span>
+       と <span class="function"><a href="function.apc-store.html" class="function">apc_store()</a></span> の唯一の相違点です)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">var</tt></i></span>
+     <dd>
+
+      <p class="para">
+       格納する変数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ttl</tt></i></span>
+     <dd>
+
+      <p class="para">
+       有効期間。<i><tt class="parameter">var</tt></i> は、キャッシュに
+       <i><tt class="parameter">ttl</tt></i> 秒間だけ格納されます。
+       <i><tt class="parameter">ttl</tt></i> が経過すると、格納されている変数は
+       （次のリクエスト時に）キャッシュから削除されます。
+       <i><tt class="parameter">ttl</tt></i> が指定されていない（あるいは
+       <i><tt class="parameter">ttl</tt></i> が <i>0</i> の場合）は、
+       キャッシュから手動で削除される・あるいはキャッシュに存在できなくなる
+       （clear, restart など）まで値が持続します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">values</tt></i></span>
+     <dd>
+
+      <p class="para">
+       名前をキー、変数を値に指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apc-add-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   二番目の構文は、エラーになったキーを含む配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apc-add-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-359">
+    <p><b>例1 <span class="function"><b>apc_add()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'BAR'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">apc_add</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'NEVER&nbsp;GETS&nbsp;SET'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">apc_add</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">apc_fetch</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(3) &quot;BAR&quot;
+string(3) &quot;BAR&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apc-add-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.apc-store.html" class="function" rel="rdfs-seeAlso">apc_store()</a> - 変数をデータ領域にキャッシュする</span></li>
+    <li class="member"><span class="function"><a href="function.apc-fetch.html" class="function" rel="rdfs-seeAlso">apc_fetch()</a> - 格納されている変数をキャッシュから取得する</span></li>
+    <li class="member"><span class="function"><a href="function.apc-delete.html" class="function" rel="rdfs-seeAlso">apc_delete()</a> - 格納されている変数をキャッシュから取り除く</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-bin-dump.html">apc_bin_dump</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>チュートリアル</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.connecting.html">接続</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.tutorial" class="section">
+ <h2 class="title">チュートリアル</h2>
+ <div class="section">
+  <h2 class="title">Introduction</h2>
+  <p class="para">
+   This is the 10gen-supported PHP driver for MongoDB.  
+  </p>
+  <p class="para">Here&#039;s a quick code sample that connects, inserts documents, queries for
+   documents, iterates through query results, and disconnects from MongoDB.  
+   There are more details on each step in the tutorial below.
+  </p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;connect<br /></span><span style="color: #0000BB">$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;select&nbsp;a&nbsp;database<br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">comedy</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;select&nbsp;a&nbsp;collection&nbsp;(analogous&nbsp;to&nbsp;a&nbsp;relational&nbsp;database's&nbsp;table)<br /></span><span style="color: #0000BB">$collection&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cartoons</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;add&nbsp;a&nbsp;record<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Calvin&nbsp;and&nbsp;Hobbes"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"author"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Bill&nbsp;Watterson"&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;add&nbsp;another&nbsp;record,&nbsp;with&nbsp;a&nbsp;different&nbsp;"shape"<br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"title"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"XKCD"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"online"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;find&nbsp;everything&nbsp;in&nbsp;the&nbsp;collection<br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;iterate&nbsp;through&nbsp;the&nbsp;results<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">[</span><span style="color: #DD0000">"title"</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+  <p class="para">
+   This would output:
+  </p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+Calvin and Hobbes
+XKCD
+</pre></div>
+  </div>
+ </div>
+ <div class="section">
+  <h2 class="title">接続の作成</h2>
+  <p class="para">
+   データベースサーバに接続するには、次のいずれかの方法を使います。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$connection&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;localhost:27017&nbsp;に接続します<br /></span><span style="color: #0000BB">$connection&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"example.com"&nbsp;</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;リモートホスト&nbsp;(デフォルトのポート)&nbsp;に接続します<br /></span><span style="color: #0000BB">$connection&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"example.com:65432"&nbsp;</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;リモートホストの指定したポートに接続します<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   You do not have to explicitly disconnect from the database.  When 
+   <i>$connection</i> goes out of scope, the connection will be 
+   closed automatically and any database resources it was using will be freed.
+  </p>
+  <div class="section">
+   <h2 class="title">See Also</h2>
+   <p class="para">
+    The manual chapter on <a href="mongo.connecting.html" class="link">connecting</a> 
+    covers different types of connections.  
+   </p>
+   <p class="para">
+    The API documentation on the <a href="class.mongo.html" class="classname">Mongo</a> class and 
+    <span class="function"><a href="mongo.construct.html" class="function">Mongo::__construct()</a></span> give a comprehensive look at all 
+    possible options with a number of examples.
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">データベースの取得</h2>
+  <p class="para">
+   データベースを選択するには次のようにします。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dbname</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   データベースを事前に作っておく必要はありません。
+   存在しないデータベースを選択すれば、新しいデータベースを作ることができます。
+   Typo には注意しましょう! 意図せずに新しいデータベースを作ってしまい、
+   エラーで悩まされる原因になります。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">mybiglongdbname</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;何かをします<br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">mybiglongdbnme</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">//&nbsp;これは別のデータベースに接続してしまいます!<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+   <div class="section">
+    <h2 class="title">See Also</h2>
+    <p class="para">
+     The API documentation on the <a href="class.mongodb.html" class="classname">MongoDB</a> class contains 
+     more information about database objects.
+    </p>
+   </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">コレクションの取得</h2>
+  <p class="para">
+   コレクションの取得は、データベースの取得と同じ構文で行えます。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$db&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">baz</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$collection&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foobar</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;あるいは、もうすこし簡潔に<br /></span><span style="color: #0000BB">$collection&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">baz</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">foobar</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+   <div class="section">
+    <h2 class="title">See Also</h2>
+    <p class="para">
+     The API documentation on the <a href="class.mongocollection.html" class="classname">MongoCollection</a> class 
+     contains more information about collection objects.
+    </p>
+   </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">ドキュメントの追加</h2>
+  <p class="para">
+   連想配列は、データベース内のコレクションに保存できる基本的なオブジェクトです。
+   何らかの &quot;ドキュメント&quot; はこのような形式になります。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"MongoDB"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"type"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"database"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"count"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"info"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;(object)array(&nbsp;</span><span style="color: #DD0000">"x"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">203</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"y"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">102</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"versions"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"0.9.7"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"0.9.8"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"0.9.9"</span><span style="color: #007700">)<br />);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   配列やオブジェクトをネストできることに注目しましょう。
+  </p>
+  <p class="para">
+   ドキュメントを追加するには <span class="function"><a href="mongocollection.insert.html" class="function">MongoCollection::insert()</a></span> を使います。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$doc&nbsp;</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+   <div class="section">
+    <h2 class="title">See Also</h2>
+    <p class="para">
+     The API documentation on <span class="function"><a href="mongocollection.insert.html" class="function">MongoCollection::insert()</a></span> 
+     contains more information about inserting data.
+    </p>
+   </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">
+   <span class="function"><a href="mongocollection.findone.html" class="function">MongoCollection::findOne()</a></span> によるドキュメントの検索
+  </h2>
+  <p class="para">
+    To show that the document we inserted in the previous step is there, we can 
+    do a simple <span class="function"><a href="mongocollection.findone.html" class="function">MongoCollection::findOne()</a></span> operation to get a 
+    single document from the collection. This method is useful when there only is
+    one document matching the query or you are only interested in one result.
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$obj&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">findOne</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   結果は、このようになります。
+
+   <div class="example-contents">
+<div class="cdata"><pre>
+array(5) {
+  [&quot;_id&quot;]=&gt;
+  object(MongoId)#6 (0) {
+  }
+  [&quot;name&quot;]
+  string(7) &quot;MongoDB&quot;
+  [&quot;type&quot;]=&gt;
+  string(8) &quot;database&quot;
+  [&quot;count&quot;]=&gt;
+  int(1)
+  [&quot;info&quot;]=&gt;
+  array (2) {
+    [&quot;x&quot;]=&gt;
+    int(203)
+    [&quot;y&quot;]=&gt;
+    int(102)
+  }
+  [&quot;versions&quot;]
+  array(3) {
+    [0]=&gt;
+    string(5) &quot;0.9.7&quot;
+    [1]=&gt;
+    string(5) &quot;0.9.8&quot;
+    [2]=&gt;
+    string(5) &quot;0.9.9&quot;
+  }
+}
+</pre></div>
+   </div>
+
+  </p>
+  <p class="para">
+    Note the <i>_id</i> field has been added automatically to your 
+    document. <i>_id</i> is the &quot;primary key&quot; field that is 
+    automatically populate for almost all documents in MongoDB.
+  </p>
+   <div class="section">
+    <h2 class="title">See Also</h2>
+    <p class="para">
+     The API documentation on <span class="function"><a href="mongocollection.findone.html" class="function">MongoCollection::findOne()</a></span> 
+     contains more information about finding data.
+    </p>
+   </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">複数のドキュメントの追加</h2>
+  <p class="para">
+   もう少し意味のある問い合わせをするために、複数のシンプルなドキュメントをコレクションに追加しましょう。
+   これから追加するドキュメントは次のようなものです。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">value&nbsp;</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   効率的に、ループで処理します。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">for(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">&lt;</span><span style="color: #0000BB">100</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">)&nbsp;);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+
+  <p class="para">
+   先ほどと同じコレクションに、別のキーを持つ配列を追加していることに注目しましょう。
+   MongoDB が「スキーマフリー」であると言われるのは、こういう側面があるからです。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">コレクション内のドキュメント数</h2>
+  <p class="para">
+   これで 101 件のドキュメントを追加したことになります
+   (先ほどのループで 100 件、そして最初の 1 件)。
+   本当にそうなっているか、<span class="function"><a href="mongocollection.count.html" class="function">MongoCollection::count()</a></span> メソッドで確認してみましょう。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">count</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   結果は 101 と表示されます。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">カーソルを使った全ドキュメントの取得</h2>
+  <p class="para">
+   コレクション内のすべてのドキュメントを取得するには
+   <span class="function"><a href="mongocollection.find.html" class="function">MongoCollection::find()</a></span> を使います。
+   find() メソッドは <a href="class.mongocursor.html" class="classname">MongoCursor</a> オブジェクトを返し、
+   これを使うとクエリにマッチしたドキュメントすべてに対する反復処理ができるようになります。
+   では、すべてのドキュメントを取得して表示させてみましょう。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">();<br />foreach&nbsp;(</span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$id&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$id</span><span style="color: #DD0000">:&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   これは、コレクション内の全 101 ドキュメントを表示します。
+   <i>$id</i> はドキュメントの <i>_id</i> フィールドで、
+   <i>$value</i> はドキュメントそのものです。
+  </p>
+   <div class="section">
+    <h2 class="title">See Also</h2>
+    <p class="para">
+     The API documentation on <span class="function"><a href="mongocollection.find.html" class="function">MongoCollection::find()</a></span> 
+     contains more information about finding data.
+    </p>
+   </div>
+ </div>
+
+ <div class="section">
+  <h2 class="title">問い合わせの条件の設定</h2>
+  <p class="para">
+   クエリを作って <span class="function"><a href="mongocollection.find.html" class="function">MongoCollection::find()</a></span> メソッドに渡せば、
+   コレクション内のドキュメントのサブセットを取得することができます。
+   たとえば、&quot;i&quot; フィールドの値が 71 であるドキュメントを探したいときは、
+   このようにします。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$query&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">71&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">);<br /><br />while(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasNext</span><span style="color: #007700">()&nbsp;)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getNext</span><span style="color: #007700">()&nbsp;);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   そうすると、ひとつのドキュメントだけが表示されます。
+
+   <div class="example-contents">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;_id&quot;]=&gt;
+  object(MongoId)#6 (0) {
+  }
+  [&quot;i&quot;]=&gt;
+  int(71)
+  [&quot;_ns&quot;]=&gt;
+  &quot;testCollection&quot;
+}
+</pre></div>
+   </div>
+
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">クエリによる複数ドキュメントの取得</h2>
+  <p class="para">
+   クエリを使って、コレクションからドキュメントのセットを取得することができます。
+   たとえば、&quot;i&quot; &gt; 50 であるすべてのドキュメントを取得したい場合は次のようにします。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$query&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">'$gt'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">50&nbsp;</span><span style="color: #007700">)&nbsp;);&nbsp;</span><span style="color: #FF8000">//&nbsp;'$gt'&nbsp;と、シングルクォートで囲んでいることに注意しましょう<br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$coll</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">);<br /><br />while(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasNext</span><span style="color: #007700">()&nbsp;)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getNext</span><span style="color: #007700">()&nbsp;);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   これは、i &gt; 50 であるドキュメントをすべて表示します。
+   また、20 &lt; i &lt;= 30 のような範囲を指定することもできます。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$query&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">"\$gt"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\$lte"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">30&nbsp;</span><span style="color: #007700">)&nbsp;);<br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$coll</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">);<br /><br />while(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasNext</span><span style="color: #007700">()&nbsp;)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getNext</span><span style="color: #007700">()&nbsp;);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   &quot;$&quot; をエスケープするのをつい忘れてしまいがちになるときは、
+   &#039;$&#039; 以外の文字を特殊文字として使うようにすることもできます。
+   キーの中にはあらわれないような特殊文字、たとえば &quot;:&quot;
+   をひとつ選び、php.ini に次の行を追加します。
+
+   <div class="example-contents">
+<div class="cdata"><pre>
+mongo.cmd = &quot;:&quot;
+</pre></div>
+   </div>
+
+
+   すると、先ほどの例を次のように書けるようになります。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$query&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">":gt"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">20</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">":lte"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">30&nbsp;</span><span style="color: #007700">)&nbsp;);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   これは、コードの中でも ini_set(&quot;mongo.cmd&quot;, &quot;:&quot;) のように変更することができます。
+   もちろん、単に $ を使うときはシングルクォートで囲むようにするだけでもかまいません。
+  </p>
+ </div>
+
+ <div class="section">
+  <h2 class="title">インデックスの作成</h2>
+  <p class="para">
+   MongoDB はインデックスをサポートしています。コレクションにインデックスを追加するのは簡単です。
+   インデックスを作るには、対象となるフィールドと並び順を指定します。
+   並び順は、昇順 (1) あるいは降順 (-1) のいずれかです。
+   この例では、&quot;i&quot; フィールドの昇順でインデックスを作成しています。
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$coll</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">)&nbsp;);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;"i"&nbsp;にインデックスを作ります<br /></span><span style="color: #0000BB">$coll</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ensureIndex</span><span style="color: #007700">(&nbsp;array(&nbsp;</span><span style="color: #DD0000">"i"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"j"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">)&nbsp;);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;"i"&nbsp;の降順、"j"&nbsp;の昇順でインデックスを作ります<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+  </div>
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.connecting.html">接続</a></div>
+ <div class="up"><a href="mongo.manual.html">マニュアル</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

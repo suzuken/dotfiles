@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>エンコード変換を行ってメールを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mb-regex-set-options.html">mb_regex_set_options</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mb-split.html">mb_split</a></div>
+ <div class="up"><a href="ref.mbstring.html">マルチバイト文字列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mb-send-mail" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mb_send_mail</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">mb_send_mail</span> &mdash; <span class="dc-title">エンコード変換を行ってメールを送信する</span></p>
+
+ </div>
+   
+ <div class="refsect1 description" id="refsect1-function.mb-send-mail-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>mb_send_mail</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$to</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$subject</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$message</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$additional_headers</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$additional_parameter</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   email を送信します。ヘッダと本文は <span class="function"><a href="function.mb-language.html" class="function">mb_language()</a></span>
+   の設定に基づき変換、エンコードされます。
+   これは <span class="function"><a href="function.mail.html" class="function">mail()</a></span> のラッパー関数です。詳細は、
+   <span class="function"><a href="function.mail.html" class="function">mail()</a></span> を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mb-send-mail-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">to</tt></i></span>
+     <dd>
+
+      <p class="para">
+       送信先のメールアドレス。
+       各アドレスをカンマで区切ると、複数の宛先を
+       <i><tt class="parameter">to</tt></i> に指定できます。
+       このパラメータは、自動的にはエンコードされません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">subject</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メールの件名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">message</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メールの本文。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">additional_headers</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">additional_headers</tt></i> は、
+       ヘッダの最後に挿入されます。これは通常、ヘッダを追加する際に使用されます。
+       改行 (&quot;\n&quot;) で区切ることにより複数のヘッダを指定可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">additional_parameter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">additional_parameter</tt></i> は、MTA へ渡す
+       コマンドライン引数です。sendmail を利用する際に正しい Return-Path
+       を設定するためなどに利用すると便利です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mb-send-mail-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.mb-send-mail-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        PHP 5.0.0 以降では、<i>Content-Type</i> および
+        <i>Content-Transfer-Encoding</i> ヘッダの内容が
+        再定義可能となりました。PHP 4 では、常に
+        <span class="function"><a href="function.mb-language.html" class="function">mb_language()</a></span> で定義された値が用いられていました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mb-send-mail-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mail.html" class="function" rel="rdfs-seeAlso">mail()</a> - メールを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.mb-encode-mimeheader.html" class="function" rel="rdfs-seeAlso">mb_encode_mimeheader()</a> - MIMEヘッダの文字列をエンコードする</span></li>
+    <li class="member"><span class="function"><a href="function.mb-language.html" class="function" rel="rdfs-seeAlso">mb_language()</a> - 現在の言語を設定あるいは取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mb-regex-set-options.html">mb_regex_set_options</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mb-split.html">mb_split</a></div>
+ <div class="up"><a href="ref.mbstring.html">マルチバイト文字列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

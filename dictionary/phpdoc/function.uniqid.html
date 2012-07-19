@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>一意な ID を生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.time-sleep-until.html">time_sleep_until</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.unpack.html">unpack</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.uniqid" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">uniqid</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">uniqid</span> &mdash; <span class="dc-title">一意な ID を生成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.uniqid-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>uniqid</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$prefix</tt><span class="initializer"> = &quot;&quot;</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$more_entropy</tt><span class="initializer"> = false</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   マイクロ秒単位の現在時刻にもとづいた、接頭辞つきの一意な ID を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.uniqid-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+       これが有用なのは、たとえば複数ホストで同時に ID
+       を生成するような場合です。このような場合、同じマイクロ秒で同じ ID
+       が生成されてしまう可能性があります。
+      </p>
+      <p class="para">
+       空の <i><tt class="parameter">prefix</tt></i> を指定すると、
+       返される文字列は 13 文字となります。
+       <i><tt class="parameter">more_entropy</tt></i> が <b><tt>TRUE</tt></b> の場合は
+       23 文字となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">more_entropy</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> にすると、<span class="function"><b>uniqid()</b></span> は
+       返り値の最後にさらに別のエントロピーを
+       (線形合同法を使用して) 追加します。これにより、結果がより一意になります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.uniqid-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   一意な識別子を文字列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.uniqid-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3123">
+    <p><b>例1 <span class="function"><b>uniqid()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;一意なID、たとえば&nbsp;4b3403665fea6&nbsp;*/<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"uniqid():&nbsp;%s\r\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">uniqid</span><span style="color: #007700">());<br /><br /></span><span style="color: #FF8000">/*&nbsp;IDに接頭辞をつけることもできます。これは次のように書くのと<br />&nbsp;*&nbsp;同じです<br />&nbsp;*<br />&nbsp;*&nbsp;$uniqid&nbsp;=&nbsp;$prefix&nbsp;.&nbsp;uniqid();<br />&nbsp;*&nbsp;$uniqid&nbsp;=&nbsp;uniqid($prefix);<br />&nbsp;*/<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"uniqid('php_'):&nbsp;%s\r\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">uniqid</span><span style="color: #007700">(</span><span style="color: #DD0000">'php_'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;more_entropy&nbsp;パラメータも使えます。Cygwin&nbsp;などのシステムで<br />&nbsp;*&nbsp;必要となるでしょう。これは、uniqid()&nbsp;が生成する値をたとえば<br />&nbsp;*&nbsp;4b340550242239.64159797&nbsp;のような形式にします。<br />&nbsp;*/<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"uniqid('',&nbsp;true):&nbsp;%s\r\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">uniqid</span><span style="color: #007700">(</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.uniqid-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">prefix</tt></i> が必須ではなくなりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.1</td>
+       <td align="left">
+        <i><tt class="parameter">prefix</tt></i> の制限が 114 文字までではなくなりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.uniqid-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Cygwin でこの関数を動作させるには、
+    <i><tt class="parameter">more_entropy</tt></i> を
+    <b><tt>TRUE</tt></b> にする必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.time-sleep-until.html">time_sleep_until</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.unpack.html">unpack</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

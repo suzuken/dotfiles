@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>phpize で共有 PECL 拡張モジュールをコンパイルする方法</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.pear.html">共有 PECL 拡張モジュールを、pecl コマンドを用いてコンパイルする</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.pecl.static.html">PECL 拡張モジュールを PHP に静的に組み込む</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.pecl.phpize" class="sect1">
+   <h2 class="title">phpize で共有 PECL 拡張モジュールをコンパイルする方法</h2>
+   <p class="simpara">
+    時には <i>pecl</i> インストーラを使用するという選択肢が使えない場合もあります。
+    たとえばファイアウォールの内部で作業をしている場合がそうですし、
+    まだリリースされていない SVN 版のように
+    PECL パッケージ形式になっていないものをインストールする場合も
+    それにあてはまります。このようなモジュールをビルドする必要がある場合は、
+    より低レベルなビルドツールを使用して手動でビルドします。
+   </p>
+   <p class="simpara">
+    PHP 拡張モジュールのビルド環境を準備するために、
+    <i>phpize</i> コマンドを使用します。以下の例では、
+    拡張モジュールのソースが <var class="filename">extname</var>
+    というディレクトリにあると仮定します。
+   </p>
+   <p class="para">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+$ cd extname
+$ phpize
+$ ./configure
+$ make
+# make install
+</pre></div>
+    </div>
+   </p>
+   <p class="simpara">
+    上手くいけば、<var class="filename">extname.so</var> が作成され、
+    それが PHP の
+    <a href="ini.core.html#ini.extension-dir" class="link">拡張モジュールディレクトリ</a>
+    に置かれます。
+    この拡張モジュールを使用する前に、<var class="filename">php.ini</var> に
+    <i>extension=extname.so</i> という行を追加する必要があります。
+   </p>
+  <p class="simpara">
+   コンパイル済みのパッケージ (RPM など) を使用している場合などで、もし
+   <i>phpize</i> コマンドが見つからない場合は、適切な
+   開発版の PHP パッケージをインストールしましょう。
+   PHP や拡張モジュールをビルドするために必要なヘッダファイルや
+   <i>phpize</i> コマンドは、このパッケージに含まれます。
+  </p>
+  <p class="simpara">
+   使用法についての詳細な情報を表示するには、
+   <strong class="command">phpize --help</strong> を実行します。
+  </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.pear.html">共有 PECL 拡張モジュールを、pecl コマンドを用いてコンパイルする</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.pecl.static.html">PECL 拡張モジュールを PHP に静的に組み込む</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

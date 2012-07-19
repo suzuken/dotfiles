@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルをコピーする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.clearstatcache.html">clearstatcache</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.delete.html">delete</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.copy" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">copy</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">copy</span> &mdash; <span class="dc-title">ファイルをコピーする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.copy-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>copy</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$source</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dest</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$context</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ファイル <i><tt class="parameter">source</tt></i> を <i><tt class="parameter">dest</tt></i> にコピーします。
+  </p>
+  <p class="para">
+   ファイルを移動したいならば、<span class="function"><a href="function.rename.html" class="function">rename()</a></span>
+   関数を使用してください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.copy-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">source</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー元ファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dest</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コピー先のパス。<i><tt class="parameter">dest</tt></i> が URL の場合、
+       既存ファイルへの上書きをラッパーがサポートしていない場合にはコピーが失敗します。
+      </p>
+      <div class="warning"><b class="warning">警告</b>
+       <p class="para">
+        コピー先のファイルが既に存在する場合、上書きされます。
+       </p>
+      </div>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">context</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.stream-context-create.html" class="function">stream_context_create()</a></span>
+       で作成した有効なコンテキストリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.copy-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.copy-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        コンテキストのサポートが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        &quot;fopen wrappers&quot; が有効の場合は
+        <i><tt class="parameter">source</tt></i> と <i><tt class="parameter">dest</tt></i>
+        のどちらにも URL を指定することができます。
+        詳細は <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> を参照ください。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.copy-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1881">
+    <p><b>例1 <span class="function"><b>copy()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'example.txt'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$newfile&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'example.txt.bak'</span><span style="color: #007700">;<br /><br />if&nbsp;(!</span><span style="color: #0000BB">copy</span><span style="color: #007700">(</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$newfile</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"failed&nbsp;to&nbsp;copy&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">...\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.copy-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.move-uploaded-file.html" class="function" rel="rdfs-seeAlso">move_uploaded_file()</a> - アップロードされたファイルを新しい位置に移動する</span></li>
+    <li class="member"><span class="function"><a href="function.rename.html" class="function" rel="rdfs-seeAlso">rename()</a> - ファイルをリネームする</span></li>
+    <li class="member">マニュアルの <a href="features.file-upload.html" class="link">ファイルアップロード処理</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.clearstatcache.html">clearstatcache</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.delete.html">delete</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

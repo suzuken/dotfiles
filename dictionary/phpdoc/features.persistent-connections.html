@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>持続的データベース接続</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.connection-handling.html">接続処理</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.safe-mode.html">セーフモード</a></div>
+ <div class="up"><a href="features.html">機能</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="features.persistent-connections" class="chapter">
+  <h1>持続的データベース接続</h1>
+
+
+  <p class="simpara">
+   持続的接続は、スクリプトの実行終了時にも閉じられないリンクです。
+   持続的接続が要求された時、PHPは(前もってオープンされたままになって
+   いる)同じ持続的接続が既にオープンされていないかどうかを確認します。
+   そして、存在する場合には、それを使用します。存在しない場合には、そ
+   のリンクを作成します。&#039;同じ&#039;接続とは、同じホスト、同じユーザー名、
+   同じパスワード(利用可能な場合)でオープンされた接続のことを意味しま
+   す。
+  </p>
+  <p class="simpara">
+   Webサーバーの動作及び負荷の分散に関して熟知していない人は、持続的接
+   続において何が行われないかに関してミスを犯す可能性があります。特に、
+   持続的接続は、同じリンクで&#039;ユーザーセッション&#039;をオープンする機能
+   やトランザクションを効率的に確立する機能やその他のあらゆる機能を提
+   供<em class="emphasis">しません</em>。つまり、言いたいことを極めて簡単に述べると、持続的接続
+   は非持続的接続で使用できない <em class="emphasis">いかなる</em> 機能も提
+   供しません。
+  </p>
+  <p class="simpara">
+   なぜ?
+  </p>
+  <p class="simpara">
+   これは、Webサーバーの動作により行われるべきものです。Webページを生
+   成するためにPHPを利用するWebサーバーには、3種類の方法があります。
+  </p>
+  <p class="simpara">
+   最初は、CGI &quot;ラッパー&quot;としてPHPを使用する方法です。このように実行し
+   た場合、PHPインタプリタのインスタンスは、Webサーバーに(PHPページに
+   関する)ページがリクエストされる度に生成され、破棄されます。リクエス
+   ト毎に破棄されるために、(SQLデータベースサーバーへのリンクのような)
+   必要な全てのリソースは破棄される際にクローズされます。この場合、持
+   続的接続を使用することから得るものは何もありません。持続的接続は持
+   続しないのです。
+  </p>
+  <p class="simpara">
+   2番目は、最も一般的ですが、PHPをマルチプロセスWebサーバー(現在は
+   Apacheのみが含まれます)のモジュールとして実行する方法です。マルチプ
+   ロセスサーバーは、通常、実際にWebページを送信する複数のプロセス(子)
+   を管理するプロセス(親)を有しています。リクエストがクライアントから
+   来ると、親プロセスは、他のクライアントにすでに送信を行っていないク
+   ライアントの一つに渡します。このため、同じクライアントが2番目のリク
+   エストをサーバーに送信した際に最初のではなく他の子プロセスにより送
+   信が行われる可能性があります。
+   持続的接続がオープンされているとき、SQL サービスにリクエストを行う
+   それぞれのページは SQL サーバへの確立された接続を再利用することが
+   できます。
+  </p>
+  <p class="simpara">
+   最後の方法は、PHPをマルチスレッドWebサーバーのプラグインとして使用する
+   方法です。現在、PHP 4 は、ISAPI, WSAPI, NSAPI を(Windows上で)サポー
+   トしており、Netscape FastTrack、Microsoftの Internet Information
+   Server (IIS)、O&#039;Reillyの WebSite Proのようなマルチスレッド型サーバ
+   のプラグインとしてPHPを使用することが可能です。この場合の動作は前記
+   のマルチプロセス型モデルと同様です。
+  </p>
+  <p class="simpara">
+   持続的接続が機能を全く付加しないとしたら、優れている点はなんでしょう?
+  </p>
+  <p class="simpara">
+   答えはかなり簡単です。効率です。持続的接続は、SQLサーバーへ接続する
+   オーバーヘッドが大きい場合には有効です。このオーバーヘッドが実際に
+   大きいがどうかは様々な要因に依存します。例えば、データベースの種類、
+   Webサーバーが動作するのと同じコンピューターで動作しているか、SQLサー
+   バーを動作させているマシンの負荷、等となります。肝心なのは、接続の
+   オーバーヘッドが高い場合、持続的接続は著しいということです。持続的
+   接続は、SQLサーバーへの接続を要求するページをリクエスト毎に処理する
+   代わりに子プロセスが動作中の間一回しかサーバーへの接続を行わないよ
+   うにします。このことは、持続的接続をオープンしたプロセス毎にサーバー
+   への持続的接続をオープンするということになります。例えば、20の異なっ
+   た子プロセスがSQLサーバーへの持続的接続を行うスクリプトを実行した場
+   合、各子プロセス毎にSQLサーバーへの20の異なった接続が行われます。
+  </p>
+  <p class="simpara">
+   しかし、気をつけなければならないことが一つあります。それはデータ
+   ベースへの接続数を制限して使用している場合に、持続的な子プロセスの
+   接続数がその数を超えると問題が発生し得ることです。もしデータベース
+   の同時接続数の制限が16だとして、サーバに多くのアクセスがあったため
+   17個の子プロセスが接続しようとするとそのうちの一つは接続に失敗しま
+   す。もしスクリプトにコネクションをシャットダウンしないようなバグ(
+   例えば無限ループ)があると16程度の同時接続しか許容しないデータベース
+   はすぐにダメになってしまいます。使用しているデータベースが、中断さ
+   れた、もしくは使用されていないコネクションをどのように扱うかを確認
+   してみてください。
+  </p>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="simpara">
+    持続的接続を使用する際にはまだいくつか心に留めておく必要がある注意
+    点があります。一つは持続的接続でテーブルをロックする場合にスクリプト
+    が何らかの理由でロックを外し損ねると、それ以降に実行されるスクリプト
+    がその接続を使用すると永久にブロックしつづけてしまい、ウェブサーバか
+    データベースサーバを再起動しなければならなくなるということです。もう
+    一つはトランザクションを使用している場合に、トランザクションブロック
+    が終了する前にスクリプトが終了してしまうと、そのブロックは次に同じ接
+    続を使用して実行されるスクリプトに引き継がれる、ということです。
+    どちらの場合でも
+    <span class="function"><a href="function.register-shutdown-function.html" class="function">register_shutdown_function()</a></span>を使用してテーブルの
+    ロックを解除したりトランザクションをロールバックする簡単なクリーン
+    アップ関数を登録することができます。しかしそれよりも良い方法は、テー
+    ブルロックやトランザクションを使用するスクリプトでは持続的接続を使用
+    せず、問題を完全に避けて通ることです(他の箇所で使用する分には問題あ
+    りません)。
+   </p>
+  </div>
+  <p class="simpara">
+   重要なことをまとめます。持続的接続は、標準的な接続に1対1の割りつけ
+   を行うように設計されています。このことは、<em class="emphasis">常に</em>
+   持続的接続を非持続的接続で置きかえ、かつ動作を変更しないということ
+   ができることを意味します。持続的接続は、スクリプトの効率を変える
+   <em class="emphasis">かもしれません</em>(おそらく変えます)が、動作は変更しません!
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.fbsql-pconnect.html" class="function">fbsql_pconnect()</a></span>,
+   <span class="function"><a href="function.ibase-pconnect.html" class="function">ibase_pconnect()</a></span>, <span class="function"><a href="function.ifx-pconnect.html" class="function">ifx_pconnect()</a></span>,
+   <span class="function"><a href="function.ingres-pconnect.html" class="function">ingres_pconnect()</a></span>,
+   <span class="function"><a href="function.msql-pconnect.html" class="function">msql_pconnect()</a></span>, <span class="function"><a href="function.mssql-pconnect.html" class="function">mssql_pconnect()</a></span>,
+   <span class="function"><a href="function.mysql-pconnect.html" class="function">mysql_pconnect()</a></span>, <span class="function"><a href="function.ociplogon.html" class="function">ociplogon()</a></span>,
+   <span class="function"><a href="function.odbc-pconnect.html" class="function">odbc_pconnect()</a></span>, <span class="function"><a href="function.oci-pconnect.html" class="function">oci_pconnect()</a></span>,
+   <span class="function"><a href="function.pfsockopen.html" class="function">pfsockopen()</a></span>, <span class="function"><a href="function.pg-pconnect.html" class="function">pg_pconnect()</a></span>,
+   <span class="function"><a href="function.sybase-pconnect.html" class="function">sybase_pconnect()</a></span>も参照してください。
+  </p>
+
+ </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.connection-handling.html">接続処理</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.safe-mode.html">セーフモード</a></div>
+ <div class="up"><a href="features.html">機能</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

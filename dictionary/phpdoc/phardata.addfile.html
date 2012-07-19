@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルシステム上のファイルを tar/zip アーカイブに追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.addemptydir.html">PharData::addEmptyDir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.addfromstring.html">PharData::addFromString</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phardata.addfile" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PharData::addFile</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">PharData::addFile</span> &mdash; <span class="dc-title">ファイルシステム上のファイルを tar/zip アーカイブに追加する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-phardata.addfile-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><a href="phar.addfile.html" class="methodname">Phar::addFile</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$file</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$localname</tt></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   このメソッドを使用すると、任意のファイルあるいは URL を tar/zip アーカイブに追加することができます。
+   オプションの 2 番目のパラメータ <i>localname</i> を指定すると、
+   ファイルはその名前でアーカイブ内に格納されます。指定しなかった場合は、
+   <i>file</i> パラメータをアーカイブ内のパスとして使用します。
+   URL を使用する場合は、localname を指定しないと例外がスローされます。
+   このメソッドは <span class="function"><a href="function.ziparchive-addfile.html" class="function">ZipArchive::addFile()</a></span> と同じようなものです。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-phardata.addfile-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">file</tt></i></span>
+     <dd>
+
+      <p class="para">
+       phar アーカイブに追加したいディスク上のファイルへのフルパスあるいは相対パス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">localname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルをアーカイブ内に格納するときのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-phardata.addfile-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   返り値はありません。失敗時には例外をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phardata.addfile-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-722">
+    <p><b>例1 <span class="function"><b>PharData::addFile()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/my.tar'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'/full/path/to/file'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;格納したファイルを確認します<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'full/path/to/file'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">getContent</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'/full/path/to/file'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my/file.txt'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">[</span><span style="color: #DD0000">'my/file.txt'</span><span style="color: #007700">]-&gt;</span><span style="color: #0000BB">getContent</span><span style="color: #007700">();<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;URL&nbsp;の使用例<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'example.html'</span><span style="color: #007700">);<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ここでエラー処理をします<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-phardata.addfile-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="phardata.offsetset.html" class="function" rel="rdfs-seeAlso">PharData::offsetSet()</a> - tar/zip の内部のファイルに、外部ファイルあるいは文字列の内容を設定する</span></li>
+    <li class="member"><span class="function"><a href="phar.addfile.html" class="function" rel="rdfs-seeAlso">Phar::addFile()</a> - ファイルシステム上のファイルを phar アーカイブに追加する</span></li>
+    <li class="member"><span class="function"><a href="phardata.addfromstring.html" class="function" rel="rdfs-seeAlso">PharData::addFromString()</a> - ファイルシステム上のファイルを tar/zip アーカイブに追加する</span></li>
+    <li class="member"><span class="function"><a href="phardata.addemptydir.html" class="function" rel="rdfs-seeAlso">PharData::addEmptyDir()</a> - 空のディレクトリを tar/zip アーカイブに追加する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.addemptydir.html">PharData::addEmptyDir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.addfromstring.html">PharData::addFromString</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>WSDL の作成方法について理解する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.obtaining-wsdl.html">ウェブサービスとしてのサービスを提供する SCA コンポーネントの WSDL の取得</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.structures.html">データ構造の扱い</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.understanding-wsdl" class="section">
+  <h2 class="title">WSDL の作成方法について理解する</h2>
+  <p class="para"> 
+   SCA for PHP は、@service アノテーションの後に
+   @binding.soap アノテーションを含むコンポーネントについての
+   WSDL を作成します。WSDL を作成するために、SCA
+   はコンポーネントの情報を取得し、各 public メソッドの @param
+   アノテーションおよび @return アノテーションの内容を調べます。
+   また、コンポーネント内の @types アノテーションの内容も調べます。
+   @param アノテーションおよび @return アノテーションからの情報を基にして、
+   WSDL の &lt;types&gt; セクションを構築します。また、@types
+   アノテーションによる別のスキーマファイルの指定は、WSDL 内の
+   &lt;import&gt; 要素に変換されます。
+  </p>
+  
+  <div class="section" id="SCA.examples.understanding-wsdl.location">
+   <h2 class="title">&lt;service&gt; 要素の location 属性</h2>
+   <p class="para"> 
+    WSDL の最後は &lt;service&gt; 要素で、
+    この要素の location 属性によってサービスの URL を表します。
+    たとえば、次のようになります。
+   </p>
+   
+   <p class="para">
+    <div class="example" id="example-4347">
+     <p><b>例1 location 属性</b></p>
+     <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;service name=&quot;ConvertedStockQuote&quot;
+...
+location=&quot;http://localhost/ConvertedStockQuote/ConvertedStockQuote.php&quot;/&gt;</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    この location は、ウェブサーバのドキュメントルートからの相対位置であることに注意しましょう。
+    事前に解決することはできません。コンポーネントがウェブサーバ上の適切な場所に配置され、
+    ホスト名やポート番号がわかった時点ではじめて解決することができます。
+    WSDL を要求した URL からの情報を使用します。つまり、たとえば
+    http://www.example.com:1111/ConvertedStockQuote/ConvertedStockQuote.php?wsdl
+    へのリクエストの応答として WSDL が作成されたとすると、
+    WSDL の location 属性には
+    http://www.example.com:1111/ConvertedStockQuote/ConvertedStockQuote.php
+    が挿入されます。
+   </p>
+  </div>
+  
+    
+  <div class="section" id="SCA.examples.understanding-wsdl.positional-parameters"> 
+   <h2 class="title">WSDL および位置パラメータをラップするドキュメント/リテラル</h2>
+   <p class="para"> 
+    SCA for PHP が作成する WSDL は、ドキュメント/リテラル
+    でラップした形式となります。これは、パラメータを囲い込んで
+    &#039;ラッパー&#039; メソッド型として返すものです。この型は、
+    対応するメソッドの名前となります。WSDL の先頭にある
+    &lt;types&gt; 要素で、これらのラッパーを定義します。
+    ConvertedStockQuote のサンプルにおける
+    <span class="function"><b>getQuote()</b></span> メソッドを考えてみましょう。
+   </p>
+   
+   <p class="para">
+    <div class="example" id="example-4348">
+     <p><b>例2 ふたつの引数を持つメソッド</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;ティッカーシンボルと通貨を指定して、株価を取得する<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$ticker&nbsp;ティッカーシンボル。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;string&nbsp;$currency&nbsp;値を変換する通貨単位。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;float&nbsp;指定した通貨単位で表した株価。<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">getQuote</span><span style="color: #007700">(</span><span style="color: #0000BB">$ticker</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$currency</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$quote&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stock_quote</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuote</span><span style="color: #007700">(</span><span style="color: #0000BB">$ticker</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rate&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exchange_rate</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getRate</span><span style="color: #007700">(</span><span style="color: #0000BB">$currency</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;&nbsp;</span><span style="color: #0000BB">$rate&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">$quote</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        
+     </div>
+
+    </div>
+   </p>
+   
+   <p class="para">
+    このメソッドの WSDL は、メソッドとパラメータの名前を定義します。
+    また、パラメータに対応する XML スキーマ型を提供します。
+    WSDL の types セクションは、このようになります。
+   </p>
+   
+   <p class="para">
+    <div class="example" id="example-4349">
+     <p><b>例3 パラメータ名を表す types セクション</b></p>
+     <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;types&gt;
+    &lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
+      targetNamespace=&quot;http://ConvertedStockQuote&quot;&gt;
+      &lt;xs:element name=&quot;getQuote&quot;&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name=&quot;ticker&quot; type=&quot;xs:string&quot;/&gt;
+            &lt;xs:element name=&quot;currency&quot; type=&quot;xs:string&quot;/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+      &lt;xs:element name=&quot;getQuoteResponse&quot;&gt;
+        &lt;xs:complexType&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element name=&quot;getQuoteReturn&quot; type=&quot;xs:float&quot;/&gt;
+          &lt;/xs:sequence&gt;
+        &lt;/xs:complexType&gt;
+      &lt;/xs:element&gt;
+    &lt;/xs:schema&gt;
+  &lt;/types&gt;</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   
+   <p class="para">
+    インターフェイス内で順番に指定したパラメータと
+    soap リクエスト内の名前つきパラメータを含む XML を相互変換するために、
+    SCA ランタイムは特別な処理をします。この件について知るために、
+    さまざまなインターフェイスを使用する PHP スクリプトが
+    SOAP コールようのパラメータリストをどのように作成するのかを考えてみましょう。
+    たとえば PHP の SoapClient を使用する PHP スクリプトは、
+    &quot;ticker&quot; および &quot;currency&quot; の値を指定したひとつのパラメータを
+    SoapClient に渡す必要があります。おそらくこれは連想配列になるでしょう。
+    SCA コンポーネントがウェブサービス用にパラメータリストを作成する場合は、
+    相手がローカルであるかリモートであるかによって形式が異なります。
+    そのため、個別のアプローチが必要となります。
+   </p>
+   
+   <p class="para">
+    SCA が SCA コンポーネント用の WSDL を作成する際に、
+    その WSDL が SCA コンポーネントのインターフェイスであることを示すコメントを埋め込みます。
+    ある SCA コンポーネントが別のコンポーネントをウェブサービスとしてコールするとき、
+    呼び出し側の SCA ランタイムが受け取るパラメータは、
+    指定された順番に並べられたリストとなります。
+    これを、soap メッセージの名前つきパラメータにひとつひとつ割り当てるわけです。
+    たとえば、上で定義した <span class="function"><b>getQuote()</b></span>
+    メソッドに値 &#039;IBM&#039; および &#039;USD&#039; を渡す場合のコール方法は、このようになります。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$quote&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$remote_service</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuote</span><span style="color: #007700">(</span><span style="color: #DD0000">'IBM'</span><span style="color: #007700">,</span><span style="color: #DD0000">'USD'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p>
+   
+   <p class="para">
+    この結果は、次のような soap メッセージになります。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;getQuote&gt;
+  &lt;ticker&gt;IBM&lt;/ticker&gt;
+  &lt;currency&gt;USD&lt;/currency&gt;
+&lt;/getQuote&gt;</pre>
+</div>
+    </div>
+
+   </p>
+   
+   <p class="para">
+    サービス提供側の SCA コンポーネントは、soap メッセージから受け取った
+    名前つきパラメータをひとつひとつ受け取り、順番が指定されたパラメータリスト形式の
+    (&#039;IBM&#039;,&#039;USD&#039;) に再変換します。
+   </p>
+   
+   <div class="caution"><b class="caution">警告</b>
+    
+    <p class="para"> 
+     どちらの側の SCA ランタイムについても、
+     soap メッセージ内でのパラメータの登場順が
+     メソッドのパラメータリストの順序と一致していることを前提としています。
+     これは、@param アノテーションの順序によって決まります。
+     これが、WSDL 内でのパラメータの登場順と
+     soap メッセージ内でのパラメータの登場順を定義しています。
+     したがって、@param アノテーションの順序は
+     メソッドのパラメータの順番と一致させておくことが必要不可欠です。
+    </p>
+   </div>
+   
+  </div>
+  
+    
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.obtaining-wsdl.html">ウェブサービスとしてのサービスを提供する SCA コンポーネントの WSDL の取得</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.structures.html">データ構造の扱い</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

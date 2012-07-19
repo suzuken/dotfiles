@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>置換文字を設定あるいは取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mb-strwidth.html">mb_strwidth</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mb-substr-count.html">mb_substr_count</a></div>
+ <div class="up"><a href="ref.mbstring.html">マルチバイト文字列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mb-substitute-character" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mb_substitute_character</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">mb_substitute_character</span> &mdash; <span class="dc-title">置換文字を設定あるいは取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mb-substitute-character-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>mb_substitute_character</b></span>
+    ([ <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$substrchar</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   入力文字エンコーディングが無効、
+   または出力文字エンコーディングに文字コードが存在しない場合の代替文字を指定します。
+   無効な文字は、<b><tt>NULL</tt></b> (出力しない)、文字列または整数値 (Unicode 文字コード値)
+   に置換することが可能です。
+  </p>
+  <p class="para">
+   この設定は、<span class="function"><a href="function.mb-convert-encoding.html" class="function">mb_convert_encoding()</a></span>、
+   <span class="function"><a href="function.mb-convert-variables.html" class="function">mb_convert_variables()</a></span>、
+   <span class="function"><a href="function.mb-output-handler.html" class="function">mb_output_handler()</a></span>、
+   および <span class="function"><a href="function.mb-send-mail.html" class="function">mb_send_mail()</a></span> に影響します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mb-substitute-character-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">substrchar</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Unicode 値の整数または文字列を以下のように指定します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          &quot;none&quot; : 出力しない
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          &quot;long&quot; : 文字コードの値 (例: U+3000, JIS+7E7E) を出力する
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          &quot;entity&quot; : 文字エンティティ (例: Ȁ) を出力する
+         </span>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mb-substitute-character-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">substchar</tt></i> が設定された場合、成功時に
+   <b><tt>TRUE</tt></b>、そうでない場合に
+   <b><tt>FALSE</tt></b> を返します。
+   <i><tt class="parameter">substchar</tt></i> が設定されない場合、Unicode 値または
+   &quot;<i>none</i>&quot; あるいは &quot;<i>long</i>&quot;
+   を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mb-substitute-character-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2204">
+    <p><b>例1 <span class="function"><b>mb_substitute_character()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;Unicode&nbsp;U+3013&nbsp;(ゲタ記号)を設定&nbsp;*/<br /></span><span style="color: #0000BB">mb_substitute_character</span><span style="color: #007700">(</span><span style="color: #0000BB">0x3013</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;HEX&nbsp;フォーマットを設定&nbsp;*/<br /></span><span style="color: #0000BB">mb_substitute_character</span><span style="color: #007700">(</span><span style="color: #DD0000">"long"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;現在の設定を表示&nbsp;*/<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">mb_substitute_character</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mb-strwidth.html">mb_strwidth</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mb-substr-count.html">mb_substr_count</a></div>
+ <div class="up"><a href="ref.mbstring.html">マルチバイト文字列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

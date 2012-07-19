@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルの構文ハイライト表示</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.halt-compiler.html">__halt_compiler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.highlight-string.html">highlight_string</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.highlight-file" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">highlight_file</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">highlight_file</span> &mdash; <span class="dc-title">ファイルの構文ハイライト表示</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.highlight-file-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>highlight_file</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$return</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">filename</tt></i> の中のコードを構文ハイライト表示して
+   出力します。色は、PHP 組込の構文ハイライタで定義されているものを使用します。
+  </p>
+  <p class="para">
+   多くのサーバでは、拡張子が <em class="emphasis">phps</em> のファイルは
+   自動的に構文ハイライト表示されるように設定されています。例えば
+   <var class="filename">example.phps</var> のようなファイルは、構文ハイライト
+   したソースファイルとして表示されます。これを有効にするには、
+   <var class="filename">httpd.conf</var> に以下のような行を追加します。
+  </p>
+  <div class="example-contents screen">
+<div class="descriptioncode"><pre class="descriptioncode">AddType application/x-httpd-php-source .phps</pre>
+</div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.highlight-file-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ハイライト表示する PHP ファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">return</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータを <b><tt>TRUE</tt></b> にすると、この関数はハイライトされたコードを返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.highlight-file-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">return</tt></i> が <b><tt>TRUE</tt></b> の場合は、
+   ハイライトされたコードを文字列として返し、表示しません。
+   それ以外の場合は、成功した場合に <b><tt>TRUE</tt></b>、
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.highlight-file-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.2.1</td>
+       <td align="left">
+        この関数は <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">safe_mode</a> および <a href="ini.core.html#ini.open-basedir" class="link">open_basedir</a> の影響を受けます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.2.0</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">return</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.highlight-file-notes">
+  <h3 class="title">注意</h3>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    <span class="function"><b>highlight_file()</b></span> 関数を使用する場合には、
+    パスワードやその他潜在的なセキュリティ上の危険を生む類の重要な
+    情報を不注意で公開してしまわないように注意する必要があります。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">この関数は、
+このパラメータに対して内部的に出力バッファリングを使用しています。
+そのため、<span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span>
+コールバック関数の中で使用することはできません。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.highlight-file-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.highlight-string.html" class="function" rel="rdfs-seeAlso">highlight_string()</a> - 文字列の構文ハイライト表示</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.halt-compiler.html">__halt_compiler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.highlight-string.html">highlight_string</a></div>
+ <div class="up"><a href="ref.misc.html">その他の関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

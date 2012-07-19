@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したディレクトリの詳細なファイル一覧を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-raw.html">ftp_raw</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-rename.html">ftp_rename</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ftp-rawlist" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ftp_rawlist</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ftp_rawlist</span> &mdash; <span class="dc-title">指定したディレクトリの詳細なファイル一覧を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ftp-rawlist-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>ftp_rawlist</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$ftp_stream</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$directory</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$recursive</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>ftp_rawlist()</b></span> は、FTP <strong class="command">LIST</strong>
+   コマンドを実行し、結果を配列として返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ftp-rawlist-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ftp_stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       FTP 接続のリンク ID 。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">directory</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ディレクトリのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">recursive</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> を設定した場合、発行されるコマンドは <strong class="command">LIST -R</strong>
+       となります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ftp-rawlist-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   各要素が 1 行分のテキストに対応する配列を返します。
+  </p>
+  <p class="para">
+   出力に関する処理は全く行われません。結果の解釈の仕方を定義するために
+   <span class="function"><a href="function.ftp-systype.html" class="function">ftp_systype()</a></span> から返されるシステム型 ID 
+   を使用することができます。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ftp-rawlist-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3483">
+    <p><b>例1 <span class="function"><b>ftp_rawlist()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;接続を確立する<br /></span><span style="color: #0000BB">$conn_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp_server</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ユーザ名とパスワードでログインする<br /></span><span style="color: #0000BB">$login_result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_login</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_pass</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;/&nbsp;のファイル一覧を得る<br /></span><span style="color: #0000BB">$buff&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_rawlist</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;接続を閉じる<br /></span><span style="color: #0000BB">ftp_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;バッファの内容を出力する<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$buff</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [0]=&gt;
+  string(65) &quot;drwxr-x---   3 vincent  vincent      4096 Jul 12 12:16 public_ftp&quot;
+  [1]=&gt;
+  string(66) &quot;drwxr-x---  15 vincent  vincent      4096 Nov  3 21:31 public_html&quot;
+  [2]=&gt;
+  string(73) &quot;lrwxrwxrwx   1 vincent  vincent        11 Jul 12 12:16 www -&gt; public_html&quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.ftp-rawlist-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">recursive</tt></i> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ftp-rawlist-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ftp-nlist.html" class="function" rel="rdfs-seeAlso">ftp_nlist()</a> - 指定したディレクトリのファイルの一覧を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-raw.html">ftp_raw</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-rename.html">ftp_rename</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

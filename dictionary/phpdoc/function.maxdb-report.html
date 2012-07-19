@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>内部のレポート関数を有効あるいは無効にする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-real-query.html">maxdb_real_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-rollback.html">maxdb_rollback</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.maxdb-report" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">maxdb_report</h1>
+  <p class="verinfo">(PECL maxdb 1.0)</p><p class="refpurpose"><span class="refname">maxdb_report</span> &mdash; <span class="dc-title">内部のレポート関数を有効あるいは無効にする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.maxdb-report-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>maxdb_report</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+   )</div>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.maxdb-report-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>MAXDB_REPORT_XXX</i> 定数のいずれか。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.maxdb-report-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.maxdb-report-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1289">
+   <p><b>例1 手続き型</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;レポートを有効にします&nbsp;*/<br /></span><span style="color: #0000BB">maxdb_report</span><span style="color: #007700">(</span><span style="color: #0000BB">MAXDB_REPORT_ERROR</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">maxdb_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"MONA"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"RED"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DEMODB"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を調べます&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">maxdb_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"接続に失敗しました:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">maxdb_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;このクエリはエラーを報告します&nbsp;*/<br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">maxdb_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,</span><span style="color: #DD0000">"SELECT&nbsp;Name&nbsp;FROM&nbsp;Nonexistingtable&nbsp;WHERE&nbsp;population&nbsp;&gt;&nbsp;50000"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">maxdb_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は、
+たとえば以下のようになります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+Warning: maxdb_query(): -4004 POS(18) Unknown table name:NONEXISTINGTABLE &lt;...&gt;
+</pre></div>
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-real-query.html">maxdb_real_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-rollback.html">maxdb_rollback</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

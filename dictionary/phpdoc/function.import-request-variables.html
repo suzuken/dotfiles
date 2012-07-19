@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>GET/POST/Cookie 変数をグローバルスコープにインポートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gettype.html">gettype</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.intval.html">intval</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.import-request-variables" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">import_request_variables</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">import_request_variables</span> &mdash; <span class="dc-title">GET/POST/Cookie 変数をグローバルスコープにインポートする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.import-request-variables-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>import_request_variables</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$types</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$prefix</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   GET/POST/Cookie 変数をグローバルスコープにインポートします。
+   この関数は、<a href="ini.core.html#ini.register-globals" class="link">register_globals</a>
+   を無効としているが、いくつかの変数をグローバルスコープで参照したいといった場合に有用です。
+  </p>
+  <p class="para">
+   <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var> のような他の変数をグローバルスコープへインポートすることを考えている場合には、
+   <span class="function"><a href="function.extract.html" class="function">extract()</a></span> の使用を検討してください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.import-request-variables-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">types</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">types</tt></i> パラメータを使用すると、インポートする
+       リクエスト変数の種類を指定可能です。文字 &#039;G&#039;、&#039;P&#039;、&#039;C&#039; がそれぞれ
+       GET、POST、Cookie を表します。これらは大文字小文字を区別しないため、
+       &#039;g&#039;、&#039;p&#039;、&#039;c&#039; の組み合せも使用することが可能です。
+       POST には、アップロードされたファイルに関する情報も含まれます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        文字の順番には注意してください。
+        &quot;<i>GP</i>&quot; とすると、POST 変数は同名の GET
+        変数を上書きします。GPC 以外の文字は無視されます。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">prefix</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変数名の接頭辞として使用され、
+       グローバルスコープにインポートされる全ての変数名の前に付加されます。
+       このため、&quot;<i>userid</i>&quot; という名前の GET 値があり、
+       接頭辞 &quot;<i>pref_</i>&quot; を指定した場合、
+       <var class="varname"><var class="varname">$pref_userid</var></var> という名前のグローバル変数が作成されます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <i><tt class="parameter">prefix</tt></i> パラメータはオプションですが、
+        接頭辞を指定しないか接頭辞として空の文字列を指定した場合、
+        <a href="errorfunc.constants.html#errorfunc.constants.errorlevels.e-notice" class="link"><b><tt>E_NOTICE</tt></b></a>
+        レベルのエラーが発生します。
+        これは、セキュリティ上の問題を発生する可能性があります。
+        NOTICE レベルのエラーは、デフォルトの
+        <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error reporting</a>
+        レベルでは表示されません。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.import-request-variables-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.import-request-variables-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4297">
+    <p><b>例1 <span class="function"><b>import_request_variables()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;GET&nbsp;および&nbsp;POST&nbsp;変数を、接頭辞&nbsp;"rvar_"&nbsp;を付けて<br />//&nbsp;インポートします<br /></span><span style="color: #0000BB">import_request_variables</span><span style="color: #007700">(</span><span style="color: #DD0000">"gp"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"rvar_"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">$rvar_foo</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.import-request-variables-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.request.html" class="classname">$_REQUEST</a></var></var></li>
+    <li class="member"><a href="ini.core.html#ini.register-globals" class="link">register_globals</a></li>
+    <li class="member"><a href="language.variables.predefined.html" class="link">定義済みの変数</a></li>
+    <li class="member"><span class="function"><a href="function.extract.html" class="function" rel="rdfs-seeAlso">extract()</a> - 配列からシンボルテーブルに変数をインポートする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gettype.html">gettype</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.intval.html">intval</a></div>
+ <div class="up"><a href="ref.var.html">変数操作 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

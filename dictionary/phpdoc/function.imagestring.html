@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列を水平に描画する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagesettile.html">imagesettile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagestringup.html">imagestringup</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagestring" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagestring</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">imagestring</span> &mdash; <span class="dc-title">文字列を水平に描画する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagestring-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>imagestring</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$font</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$x</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$y</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$color</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した座標に文字列 <i><tt class="parameter">string</tt></i> を描画します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagestring-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+font</tt></i></span><dd>
+<p class="para">latin2 エンコーディングの組み込みのフォントの場合は
+1, 2, 3, 4, 5 のいずれか (数字が大きなほうが、より大きいフォントに対応します)、
+あるいは <span class="function"><a href="function.imageloadfont.html" class="function">imageloadfont()</a></span>
+で登録したフォントの識別子のいずれか。
+</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">x</tt></i></span>
+     <dd>
+
+      <p class="para">
+       左上隅の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">y</tt></i></span>
+     <dd>
+
+      <p class="para">
+       左上隅の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       書き出す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">color</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.imagecolorallocate.html" class="function">imagecolorallocate()</a></span>
+       で作成した色 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagestring-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagestring-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-2335">
+    <p><b>例1 <span class="function"><b>imagestring()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;100*30&nbsp;の画像を生成します<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreate</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">30</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;白色の背景と青色のテキスト<br /></span><span style="color: #0000BB">$bg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$textcolor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;左上に文字列を描画します<br /></span><span style="color: #0000BB">imagestring</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;world!"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$textcolor</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;画像を出力します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">"Content-type:&nbsp;image/png"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagestring.png" alt="出力例 : imagestring()" width="100" height="30" />
+     </div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.imagestring-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.imageloadfont.html" class="function" rel="rdfs-seeAlso">imageloadfont()</a> - 新しいフォントを読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.imagettftext.html" class="function" rel="rdfs-seeAlso">imagettftext()</a> - TrueType フォントを使用してテキストを画像に書き込む</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagesettile.html">imagesettile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imagestringup.html">imagestringup</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>C ライブラリの入出力ストリーム関数が許すよりも低レベルでファイルをオープンする
+   (必要ならファイルを作成する)</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dio-fcntl.html">dio_fcntl</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dio-read.html">dio_read</a></div>
+ <div class="up"><a href="ref.dio.html">ダイレクト IO 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dio-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dio_open</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5 &lt;= 5.0.5)</p><p class="refpurpose"><span class="refname">dio_open</span> &mdash; <span class="dc-title">
+   C ライブラリの入出力ストリーム関数が許すよりも低レベルでファイルをオープンする
+   (必要ならファイルを作成する)
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dio-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>dio_open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt><span class="initializer"> = 0</span></span>
+   ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>dio_open()</b></span> は、ファイルをオープンして
+   そのファイル記述子を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dio-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オープンするファイルのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> パラメータには、
+       以下のフラグの組み合わせを指定します。
+       この値は、<b><tt>O_RDONLY</tt></b>、<b><tt>O_WRONLY</tt></b>、
+       あるいは <b><tt>O_RDWR</tt></b> のいずれかでなければなりません。
+       さらに、このリストからその他の値を組み合わせることもできます。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_RDONLY</tt></b> - 読み込み専用でファイルをオープンします。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_WRONLY</tt></b> - 書き込み専用でファイルをオープンします。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_RDWR</tt></b> - 読み書き両用でファイルをオープンします。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_CREAT</tt></b> - ファイルが存在しなければ
+          新しいファイルを作成します。
+         </p>
+        </li> 
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_EXCL</tt></b> - <b><tt>O_CREAT</tt></b>
+          および <b><tt>O_EXCL</tt></b> をともに指定すると、
+          すでにファイルが存在する場合に <span class="function"><b>dio_open()</b></span>
+          が失敗します。
+         </p>
+        </li> 
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_TRUNC</tt></b> - すでにファイルが存在し、書き込み
+          アクセス用にオープンされている場合、ファイルの長さをゼロに切り詰めます。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_APPEND</tt></b> - 書き込み時は、ファイルの終端に
+          追記します。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_NONBLOCK</tt></b> - 非ブロッキングモードを指定します。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>O_NOCTTY</tt></b> - TTY デバイスファイルをオープンするときに、
+          オープンしたファイルをプロセスが自動的に制御端末としないようにします。
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> が <b><tt>O_CREAT</tt></b>
+       を含む場合に、<i><tt class="parameter">mode</tt></i> でファイルのモード
+       (作成許可) を指定します。<b><tt>O_CREAT</tt></b>
+       が指定されている場合には <i><tt class="parameter">Mode</tt></i>
+       が必須となり、それ以外の場合は無視されます。
+      </p>
+      <p class="para">
+       ファイルを作成したときに実際に設定されるモードは、プロセスの
+       <em class="emphasis">umask</em> 設定によって変わります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dio-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイル記述子を返します。エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dio-open-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1859">
+   <p><b>例1 ファイル記述子をオープンする</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$fd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dio_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'/dev/ttyS0'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">O_RDWR&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">O_NOCTTY&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">O_NONBLOCK</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">dio_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$fd</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>    
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dio-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dio-close.html" class="function" rel="rdfs-seeAlso">dio_close()</a> - fd で指定したファイル記述子を閉じる</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dio-fcntl.html">dio_fcntl</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dio-read.html">dio_read</a></div>
+ <div class="up"><a href="ref.dio.html">ダイレクト IO 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列内の現在の要素を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.count.html">count</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.each.html">each</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.current" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">current</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">current</span> &mdash; <span class="dc-title">配列内の現在の要素を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.current-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>current</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$array</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   各配列は、&quot;カレント&quot;の要素へのポインタを有しています。
+   このポインタは、その配列の最初の要素を指すように初期化されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.current-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       配列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.current-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>current()</b></span> 関数は、
+   単に内部ポインタが現在指している配列要素の値を返します。
+   この関数は、ポインタを全く移動しません。
+   内部ポインタが最終要素の次を指していたり
+   配列が空だったりした場合、
+   <span class="function"><b>current()</b></span> は <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は論理値
+<b><tt>FALSE</tt></b> を返す可能性がありますが、<b><tt>FALSE</tt></b> として評価される
+<i>0</i> や &quot;&quot; といった値を返す可能性もあります。
+詳細については <a href="language.types.boolean.html" class="link">論理値</a>の
+セクションを参照してください。この関数の返り値を調べるには
+<a href="language.operators.comparison.html" class="link">===演算子</a> を
+使用してください。</p></div>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.current-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4133">
+    <p><b>例1 <span class="function"><b>current()</b></span> と類似関数の使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$transport&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'foot'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bike'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'car'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'plane'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">current</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'foot';<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">next</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'bike';<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">current</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'bike';<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">prev</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'foot';<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">end</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'plane';<br /></span><span style="color: #0000BB">$mode&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">current</span><span style="color: #007700">(</span><span style="color: #0000BB">$transport</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;$mode&nbsp;=&nbsp;'plane';<br /><br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">current</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;bool(false)<br /><br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;array(array());<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">current</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;array(0)&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.current-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    配列中に <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span> <b><tt>FALSE</tt></b> の要素が含まれていると、
+    それを配列の終わりと区別することができません。<b><tt>FALSE</tt></b>
+    要素を含む配列を順に処理するには、<span class="function"><a href="function.each.html" class="function">each()</a></span>
+    関数を参照ください。
+   </span>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.current-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.end.html" class="function" rel="rdfs-seeAlso">end()</a> - 配列の内部ポインタを最終要素にセットする</span></li>
+    <li class="member"><span class="function"><a href="function.key.html" class="function" rel="rdfs-seeAlso">key()</a> - 配列からキーを取り出す</span></li>
+    <li class="member"><span class="function"><a href="function.each.html" class="function" rel="rdfs-seeAlso">each()</a> - 配列から現在のキーと値のペアを返して、カーソルを進める</span></li>
+    <li class="member"><span class="function"><a href="function.prev.html" class="function" rel="rdfs-seeAlso">prev()</a> - 内部の配列ポインタをひとつ前に戻す</span></li>
+    <li class="member"><span class="function"><a href="function.reset.html" class="function" rel="rdfs-seeAlso">reset()</a> - 配列の内部ポインタを先頭の要素にセットする</span></li>
+    <li class="member"><span class="function"><a href="function.next.html" class="function" rel="rdfs-seeAlso">next()</a> - 内部配列ポインタを進める</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.count.html">count</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.each.html">each</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,199 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>(IPv4) インターネットプロトコルドット表記のアドレスを、適当なアドレスを有する文字列に変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.inet-pton.html">inet_pton</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.long2ip.html">long2ip</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ip2long" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ip2long</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ip2long</span> &mdash; <span class="dc-title">(IPv4) インターネットプロトコルドット表記のアドレスを、適当なアドレスを有する文字列に変換する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ip2long-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ip2long</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$ip_address</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   関数 <span class="function"><b>ip2long()</b></span> は、インターネット標準形式
+   (ドット表記の文字列) 表現から IPv4 インターネットネットアドレスを生成します。
+  </p>
+  <p class="para">
+   <span class="function"><b>ip2long()</b></span> は不完全な形式の
+   IP アドレスに対しても動作します。詳しい情報は
+   <a href="http://publibn.boulder.ibm.com/doc_link/en_US/a_doc_lib/libs/commtrf2/inet_addr.htm" class="link external">&raquo; http://publibn.boulder.ibm.com/doc_link/en_US/a_doc_lib/libs/commtrf2/inet_addr.htm</a>
+   を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ip2long-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ip_address</tt></i></span>
+     <dd>
+
+      <p class="para">
+       標準形式のアドレス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ip2long-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   IPv4 アドレス、あるいは <i><tt class="parameter">ip_address</tt></i>
+   が不正な形式の場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.ip2long-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.10</td>
+       <td align="left">
+        このバージョンより前は、IPv4 のドット形式のアドレスでなくても
+        <span class="function"><b>ip2long()</b></span> が有効な数値を返すことがありました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        このバージョンより前は、<span class="function"><b>ip2long()</b></span>
+        が失敗したときの返り値は -1 でした。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ip2long-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3661">
+    <p><b>例1 <span class="function"><b>ip2long()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$ip&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gethostbyname</span><span style="color: #007700">(</span><span style="color: #DD0000">'www.example.com'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"以下の&nbsp;URL&nbsp;は同じ意味です:&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$out&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">'http://www.example.com/,&nbsp;http://'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/,&nbsp;そして&nbsp;http://'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">sprintf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%u"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #0000BB">$ip</span><span style="color: #007700">))&nbsp;.&nbsp;</span><span style="color: #DD0000">"/&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$out</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3662">
+    <p><b>例2 IP アドレスの表示</b></p>
+    <div class="example-contents"><p>
+     2 番目の例は、<span class="function"><a href="function.printf.html" class="function">printf()</a></span>
+     関数で変換されたアドレスを出力する方法を示すものです。
+     PHP 4 と PHP 5 のどちらでも使えます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$ip&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gethostbyname</span><span style="color: #007700">(</span><span style="color: #DD0000">'www.example.com'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$long&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #0000BB">$ip</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$long&nbsp;</span><span style="color: #007700">==&nbsp;-</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">||&nbsp;</span><span style="color: #0000BB">$long&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">FALSE</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'無効な&nbsp;IP&nbsp;です。もういちど確認してください。'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$ip&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;192.0.34.166<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$long&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;-1073732954<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%u\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #0000BB">$ip</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;3221234342<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3663">
+    <p><b>例3 IP の検証</b></p>
+    <div class="example-contents"><p>
+     <span class="function"><b>ip2long()</b></span> を、それ単体で
+     IP の検証に利用するべきではありません。<span class="function"><a href="function.long2ip.html" class="function">long2ip()</a></span>
+     と組み合わせて利用します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;IP&nbsp;が有効であることを確認します。また、不完全な形式の&nbsp;IP&nbsp;を<br />//&nbsp;以下で示すような正しい形式（ドットで&nbsp;4&nbsp;つに区切られている）に変換します。<br /></span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">long2ip</span><span style="color: #007700">(</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #DD0000">"127.0.0.1"</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;"127.0.0.1"<br /></span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">long2ip</span><span style="color: #007700">(</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #DD0000">"10.0.0"</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;"10.0.0.0"<br /></span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">long2ip</span><span style="color: #007700">(</span><span style="color: #0000BB">ip2long</span><span style="color: #007700">(</span><span style="color: #DD0000">"10.0.256"</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;"10.0.1.0"<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.ip2long-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP の整数型は符号付き形式であり、32 ビットアーキテクチャ上では
+    多くの IP アドレスが負の整数値になります。
+    そのため、符号なし IP アドレスを文字列形式で取得するには
+    <span class="function"><a href="function.sprintf.html" class="function">sprintf()</a></span> や <span class="function"><a href="function.printf.html" class="function">printf()</a></span> で &quot;%u&quot;
+    を使用する必要があります。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 5 &lt;= 5.0.2 では、IP <i>255.255.255.255</i>
+    に対して <span class="function"><b>ip2long()</b></span> が <b><tt>FALSE</tt></b> を返します。
+    これは PHP 5.0.3 で <i>-1</i> を返すように修正されています
+    (PHP 4 と同じ動作です)。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ip2long-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.long2ip.html" class="function" rel="rdfs-seeAlso">long2ip()</a> - (IPv4) インターネットアドレスをインターネット標準ドット表記に変換する</span></li>
+    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - フォーマットされた文字列を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.inet-pton.html">inet_pton</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.long2ip.html">long2ip</a></div>
+ <div class="up"><a href="ref.network.html">ネットワーク 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

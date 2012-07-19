@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>データ構造の扱い</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.understanding-wsdl.html">WSDL の作成方法について理解する</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.errorhandling.html">エラー処理</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.structures" class="section">
+  <h2 class="title">データ構造の扱い</h2>
+  <p class="para">
+   SCA コンポーネントが受け渡しできる PHP のスカラー型は
+   boolean、integer、float および string の四種類です。
+   それ以外のデータ構造を扱う際には、SCA コンポーネントは
+   Service Data Objects (SDO) を使用します。SDO についての詳細は、このマニュアルの
+   <a href="ref.sdo.html" class="link">SDO のページ</a> を参照ください。
+   SDO になじみのあるかたならご存知のとおり、
+   SDO は (XML のモデルのような) 構造化されたデータを扱うのに非常に適しています。
+   また、リモートコンポーネントやウェブサービスとのデータのやり取りの際に
+   ごく自然にシリアライズすることができます。
+   データ構造の受け渡しを行う手段としては、現在 SDO のみをサポートしています。
+   その他の PHP オブジェクトや配列を受け渡しすることはできません。
+  </p>
+  
+  <p class="para"> 
+   SCA ランタイムは、データを常に値渡しします。これはローカルコールでも同じです。
+   そのため、SCA ランタイムは、パラメータリスト中の SDO
+   のコピーを事前に作成します。これはスカラー型の場合と同じです。
+  </p>
+    
+  <div class="section" id="sca.examples.structures.defined">
+   <h2 class="title">データ構造を SCA コンポーネントで定義する方法</h2>
+   <p class="para"> 
+    現在、データ構造の定義の場所を指定する手段としては
+    XML スキーマファイルのでの型の指定しかありません。
+    しかし、将来的には別の方法も可能になるでしょう。
+    たとえば PHP のクラスやインターフェイスで定義したり、
+    連想配列で定義したりなどです。
+   </p>
+   
+   <p class="para">
+    SDO の使用法を説明するために、以下では新しいコンポーネント
+    PortfolioMangement サービスを使用します。
+    これは、指定した顧客のポートフォリオを表す SDO を返します。
+   </p>
+   
+   <p class="para">
+    <div class="example" id="example-4350">
+     <p><b>例1 データ構造を使用するコンポーネント</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">"SCA/SCA.php"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;顧客のポートフォリオを管理する<br />&nbsp;*<br />&nbsp;*&nbsp;@service<br />&nbsp;*&nbsp;@binding.soap<br />&nbsp;*<br />&nbsp;*&nbsp;@types&nbsp;http://www.example.org/Portfolio&nbsp;PortfolioTypes.xsd<br />&nbsp;*<br />&nbsp;*/<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">PortfolioManagement&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;指定した顧客のポートフォリオを取得する<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;integer&nbsp;$customer_id&nbsp;顧客&nbsp;ID<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;Portfolio&nbsp;http://www.example.org/Portfolio&nbsp;ポートフォリオ&nbsp;(銘柄と数量)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">getPortfolio</span><span style="color: #007700">(</span><span style="color: #0000BB">$customer_id</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;データベースから取得しているものとします<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$portfolio&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SCA</span><span style="color: #007700">::</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.org/Portfolio'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Portfolio'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$portfolio</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'holding'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ticker&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'AAPL'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">100.5</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$portfolio</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'holding'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ticker&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'INTL'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">100.5</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$portfolio</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'holding'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ticker&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'IBM'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$holding</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">100.5</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$portfolio</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   
+   <p class="para">
+    @types アノテーションは次のようになります。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">@</span><span style="color: #0000BB">types&nbsp;http</span><span style="color: #007700">:</span><span style="color: #FF8000">//www.example.org/Portfolio&nbsp;PortfolioTypes.xsd<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p>
+   
+   <p class="para">
+    これは、名前空間
+    http://www.example.org/Portfolio 内の型が、スキーマファイル
+    URI PortfolioTypes.xsd で見つかることを表します。
+    作成される WSDL では、この情報を次のような import ステートメントで再現します。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xs:import schemaLocation=&quot;PortfolioTypes.xsd&quot;
+                      namespace=&quot;http://www.example.org/Portfolio&quot;/&gt;</pre>
+</div>
+    </div>
+
+   </p>
+   
+   <p class="para">
+    つまり、この URI は、絶対 URI であろうが相対 URI
+    であろうが schemaLocation 属性で指定されたときに解決可能でなければなりません。
+   </p>
+   
+  </div>
+  
+    
+  <div class="section" id="sca.examples.structures.creating">
+   <h2 class="title">SDO の作成</h2>
+   <p class="para">
+    SDO になじみの深い方は、SDO は
+    認められている構造 (あるいは &#039;スキーマ&#039; や &#039;モデル&#039; と呼ばれることもあります)
+    でのみ作成されることをご存知でしょう。
+    また、&#039;new&#039; を使用するのではなくデータファクトリが必要となることもご存知でしょう。
+    たいていは、既存のデータオブジェクトをデータファクトリとして使用します。
+    しかし時には、特に最初のデータオブジェクトを取得するときなど、
+    何か別のものをデータファクトリとして使用する必要があります。
+   </p>
+   
+   <p class="para">
+    SCA では、SCA ランタイムクラスかあるいは (ローカルかリモートの)
+    サービスのプロキシを SDO のデータファクトリとして使用できます。
+    どれを使用するのか、そしていつ使用するのかについて、
+    次の二つの節で説明します。
+   </p>
+   <p class="para"> 
+    SDO の作成について説明するための新しい例を使用します。
+    サービスに SDO を渡し、そしてそのサービスから SDO を返すものです。
+   </p>
+  </div>
+  
+    
+  <div class="section" id="sca.examples.structures.services">
+   <h2 class="title">サービスに渡す SDO の作成</h2>
+   <p class="para">
+    サービスをコールする際にデータ構造が必要となる場合、
+    そのサービスへのプロキシを
+    対応する SDO 用のデータファクトリとして使用します。
+    たとえば、ローカルの AddressBook
+    コンポーネントが提供するサービスのプロキシとして使用するコンポーネントを考えて見ましょう。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;@reference<br />&nbsp;*&nbsp;@binding.local&nbsp;AddressBook.php<br />&nbsp;*/<br /></span><span style="color: #0000BB">$address_book</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p>
+   <p class="para"> 
+    コールしようとしている AddressBook コンポーネントの定義は、
+    次のようになります。
+   </p>
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />*&nbsp;@service<br />*&nbsp;@binding.soap<br />*&nbsp;@types&nbsp;http://addressbook&nbsp;../AddressBook/AddressBook.xsd<br />*/<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">AddressBook&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;personType&nbsp;$person&nbsp;http://addressbook&nbsp;(person&nbsp;オブジェクト)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@return&nbsp;addressType&nbsp;http://addressbook&nbsp;(その&nbsp;person&nbsp;オブジェクトに対応する&nbsp;address&nbsp;オブジェクト)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">lookupAddress</span><span style="color: #007700">(</span><span style="color: #0000BB">$person</span><span style="color: #007700">)&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p>
+   
+   <p class="para"> 
+    AddressBook コンポーネントは、
+    <span class="function"><b>lookupAddress()</b></span> という名前のサービスメソッドを提供します。
+    これは、http://addressbook 名前空間の型を使用します。
+    lookupAddress メソッドは、personType 型のデータを受け取って
+    addressType 型のデータを返します。それぞれの型は、スキーマファイル
+    addressbook.xsd で定義されています。
+   </p>
+   
+   <p class="para"> 
+    AddressBook コンポーネントを使用するコンポーネントを作成すると、
+    インスタンス変数 <var class="varname"><var class="varname">$address_book</var></var>
+    にサービスへのプロキシが設定されます。
+    呼び出し元のコンポーネントは、<var class="varname"><var class="varname">$address_book</var></var>
+    に格納されたプロキシを使用して SDO を作成します。実際の例を以下に示します。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$william_shakespeare&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$address_book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://addressbook'</span><span style="color: #007700">,</span><span style="color: #DD0000">'personType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$william_shakespeare&nbsp;</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"William&nbsp;Shakespeare"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$address_book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lookupAddress</span><span style="color: #007700">(</span><span style="color: #0000BB">$william_shakespeare</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </p>
+   
+   <p class="para"> 
+    このようにしてプロキシから SDO を作成する方法は、
+    SCA コンポーネントに限った話ではないことに注意しましょう。
+    サービスが一般の PHP スクリプトからコールされ、
+    プロキシを <span class="function"><b>getService()</b></span>
+    で取得した場合にも同様の方法を使用します。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$address_book&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SCA</span><span style="color: #007700">::</span><span style="color: #0000BB">getService</span><span style="color: #007700">(</span><span style="color: #DD0000">'AddressBook.php'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$william_shakespeare&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$address_book</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://addressbook'</span><span style="color: #007700">,</span><span style="color: #DD0000">'personType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       
+    </div>
+
+   </p>
+   
+  </div>
+  
+
+  <div class="section" id="sca.examples.structures.services.returning">
+   <h2 class="title">コンポーネントから返す SDO の作成</h2>
+   <p class="para"> 
+    データオブジェクトを作成して呼び出し元に返す必要のあるコンポーネントは、
+    データオブジェクトへのプロキシを使用しません。この場合は、
+    <var class="filename">SCA.php</var> の静的メソッド
+    <span class="function"><b>createDataObject()</b></span> を使用します。
+    したがって、もし先ほど説明した AddressBook
+    コンポーネントが <b class="classname">addressType</b>
+    型のオブジェクトを名前空間 http://addressbook に作成するのなら、
+    次のようになります。
+   </p>
+   
+   <p class="para">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$address&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">SCA</span><span style="color: #007700">::</span><span style="color: #0000BB">createDataObject</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://addressbook'</span><span style="color: #007700">,</span><span style="color: #DD0000">'addressType'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       
+    </div>
+
+   </p>
+  </div>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.understanding-wsdl.html">WSDL の作成方法について理解する</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.errorhandling.html">エラー処理</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

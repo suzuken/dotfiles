@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQLiteデータベースへの持続的ハンドルをオープンする。存在しない場合
+   には、データベースを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-open.html">sqlite_open</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-prev.html">sqlite_prev</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sqlite-popen" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sqlite_popen</h1>
+  <p class="verinfo">(PHP 5, PECL sqlite &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">sqlite_popen</span> &mdash; <span class="dc-title">
+   SQLiteデータベースへの持続的ハンドルをオープンする。存在しない場合
+   には、データベースを作成する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.sqlite-popen-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>sqlite_popen</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt><span class="initializer"> = 0666</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$error_message</tt></span>
+  ]] )</div>
+
+  <p class="simpara">
+   この関数は<span class="function"><a href="function.sqlite-open.html" class="function">sqlite_open()</a></span>と同じように動作しますが、
+   PHPの持続的リソース機能を使用するところが異なります。
+   パラメータの意味に関する詳細については、マニュアルの
+   <span class="function"><a href="function.sqlite-open.html" class="function">sqlite_open()</a></span> を参照してください。
+  </p>
+  <p class="para">
+   <span class="function"><b>sqlite_popen()</b></span> は、まず、持続的ハンドルが指定し
+   た<i><tt class="parameter">filename</tt></i>に関してすでにオープンされているか
+   どうかを調べます。みつかった場合には、スクリプトのそのハンドルを返
+   し、それ以外は、データベースのハンドルを新規にオープンします。
+  </p>
+  <p class="para">
+   この手法の利点は、持続性のあるWebサーバ SAPI(通常のCGIまたはCLI以外
+   の全てのSAPI)により処理される各ページについてデータベースやインデッ
+   クススキーマを再読み込みする性能上のコストを払うことがないことです。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    持続的ハンドルを使用している時にデータベースが(crontab等の)バック
+    グラウンドプロセスにより更新され、このプロセスが上書きすることによ
+    り(消去して、再構築するか、カレントのバージョンを置換するために更
+    新後のバージョンを移動)データベースを再生成する場合、
+    古いバージョンのデータベースに関する持続的ハンドルが再利用されると
+    いった予測できない動作を引き起こす可能性があります。
+   </span>
+   <span class="simpara">
+    この問題を回避するために、バックグラウンドプロセスが同じデータベー
+    スファイルをオープンするようにし、更新をトランザクションで行うよう
+    にしてください。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sqlite-popen-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite データベースのファイル名。もしこのファイルが存在しない場合、
+       SQLite はファイルを生成しようとします。
+       データを挿入したり、データベーススキーマを変更、
+       もしくはデータベースが存在しない場合にデータベースを生成する場合、
+       PHP はファイルに対する書き込み権限を持っている必要があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルのモード。読み込み専用モードでデータベースをオープンするために
+       使用することを目的としています。現在、このパラメータは SQLite
+       ライブラリに無視されます。このモードのデフォルト値は、
+       8 進数値 <i>0666</i> で、これは推奨される値です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">error_message</tt></i></span>
+     <dd>
+
+      <p class="para">
+       参照として渡され、エラーが発生した場合に
+       データベースがオープンできなかった原因を説明する
+       記述的なエラーメッセージを保持するために設定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sqlite-popen-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功時にリソース (データベースハンドル)、失敗時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sqlite-popen-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sqlite-open.html" class="function" rel="rdfs-seeAlso">sqlite_open()</a> - SQLiteデータベースをオープンする。データベースが存在しない場合は作
+   成する</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-close.html" class="function" rel="rdfs-seeAlso">sqlite_close()</a> - オープンされたSQLiteデータベースを閉じる</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-factory.html" class="function" rel="rdfs-seeAlso">sqlite_factory()</a> - SQLite データベースをオープンし、SQLiteDatabse オブジェクトを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-open.html">sqlite_open</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-prev.html">sqlite_prev</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

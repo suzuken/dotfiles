@@ -1,0 +1,619 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したスキーマ情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-cubrid.connection.html">PDO_CUBRID DSN</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-dblib.html">MS SQL Server (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-cubrid.html">CUBRID (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pdo-cubrid_schema" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::cubrid_schema</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">PDO::cubrid_schema</span> &mdash; <span class="dc-title">指定したスキーマ情報を取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.pdo-cubrid_schema-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>PDO::cubrid_schema</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$schema_type</tt></span>  
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$table_name</tt></span> 
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$col_name</tt></span>  
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   指定したスキーマ情報をデータベースから取得します。
+   テーブルの情報を知りたい場合は <i><tt class="parameter">table_name</tt></i> を指定しなければなりません。また、
+   カラムの情報を知りたければ <i><tt class="parameter">col_name</tt></i> を指定しなければなりません
+   (PDO::CUBRID_SCH_COL_PRIVILEGE とともにしか使えません)。
+  </p>
+
+  <p class="para">
+  この関数の返す結果は二次元の配列になります (column
+  (associative array) * row (numeric array))。
+  次の表は、スキーマの型と返り値の構造を示したものです。
+  </p>
+
+  <p class="para">
+  <table class="doctable table">
+   <caption><b>型ごとの返り値の構造</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>スキーマ</th>
+       <th>カラム番号</th>
+       <th>カラム名</th>
+       <th>値</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_TABLE</td>
+       <td align="left">1</td>
+       <td align="left">NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">TYPE</td>
+       <td align="left">0:システムテーブル 1:ビュー 2:テーブル</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_VIEW</td>
+       <td align="left">1</td>
+       <td align="left">NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">TYPE</td>
+       <td align="left">1:ビュー</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_QUERY_SPEC</td>
+       <td align="left">1</td>
+       <td align="left">QUERY_SPEC</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_ATTRIBUTE / PDO::CUBRID_SCH_TABLE_ATTRIBUTE</td>
+       <td align="left">1</td>
+       <td align="left">ATTR_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">DOMAIN</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">SCALE</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">4</td>
+       <td align="left">PRECISION</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">5</td>
+       <td align="left">INDEXED</td>
+       <td align="left">1:インデックス</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">6</td>
+       <td align="left">NOT NULL</td>
+       <td align="left">1:not null</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">7</td>
+       <td align="left">SHARED</td>
+       <td align="left">1:共有</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">8</td>
+       <td align="left">UNIQUE</td>
+       <td align="left">1:unique</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">9</td>
+       <td align="left">DEFAULT</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">10</td>
+       <td align="left">ATTR_ORDER</td>
+       <td align="left">base:1</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">11</td>
+       <td align="left">CLASS_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">12</td>
+       <td align="left">SOURCE_CLASS</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">13</td>
+       <td align="left">IS_KEY</td>
+       <td align="left">1:キー</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_METHOD / PDO::CUBRID_SCH_TABLE_METHOD</td>
+       <td align="left">1</td>
+       <td align="left">NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">RET_DOMAIN</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">ARG_DOMAIN</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_METHOD_FILE</td>
+       <td align="left">1</td>
+       <td align="left">METHOD_FILE</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_SUPER_TABLE / PDO::CUBRID_SCH_DIRECT_SUPER_TABLE / PDO::CUBRID_SCH_SUB_TABLE</td>
+       <td align="left">1</td>
+       <td align="left">CLASS_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">TYPE</td>
+       <td align="left">0:システムテーブル 1:ビュー 2:テーブル</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_CONSTRAINT</td>
+       <td align="left">1</td>
+       <td align="left">TYPE</td>
+       <td align="left">0:unique 1:index 2:reverse unique 3:reverse index</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">ATTR_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">4</td>
+       <td align="left">NUM_PAGES</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">5</td>
+       <td align="left">NUM_KEYS</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">6</td>
+       <td align="left">PRIMARY_KEY</td>
+       <td align="left">1:主キー</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">7</td>
+       <td align="left">KEY_ORDER</td>
+       <td align="left">base:1</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_TRIGGER</td>
+       <td align="left">1</td>
+       <td align="left">NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">STATUS</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">EVENT</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">4</td>
+       <td align="left">TARGET_CLASS</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">5</td>
+       <td align="left">TARGET_ATTR</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">6</td>
+       <td align="left">ACTION_TIME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">7</td>
+       <td align="left">ACTION</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">8</td>
+       <td align="left">PRIORITY</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">9</td>
+       <td align="left">CONDITION_TIME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">10</td>
+       <td align="left">CONDITION</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_TABLE_PRIVILEGE / PDO::CUBRID_SCH_COL_PRIVILEGE</td>
+       <td align="left">1</td>
+       <td align="left">CLASS_NAME / ATTR_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">PRIVILEGE</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">GRANTABLE</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_PRIMARY_KEY</td>
+       <td align="left">1</td>
+       <td align="left">CLASS_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">ATTR_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">KEY_SEQ</td>
+       <td align="left">base:1</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">4</td>
+       <td align="left">KEY_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+
+      <tr valign="middle">
+       <td align="left">PDO::CUBRID_SCH_IMPORTED_KEYS / PDO::CUBRID_SCH_EXPORTED_KEYS / PDO::CUBRID_SCH_CROSS_REFERENCE</td>
+       <td align="left">1</td>
+       <td align="left">PKTABLE_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">2</td>
+       <td align="left">PKCOLUMN_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">3</td>
+       <td align="left">FKTABLE_NAME</td>
+       <td align="left">base:1</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">4</td>
+       <td align="left">FKCOLUMN_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">5</td>
+       <td align="left">KEY_SEQ</td>
+       <td align="left">base:1</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">6</td>
+       <td align="left">UPDATE_ACTION</td>
+       <td align="left">0:cascade 1:restrict 2:no action 3:set null</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">7</td>
+       <td align="left">DELETE_ACTION</td>
+       <td align="left">0:cascade 1:restrict 2:no action 3:set null</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">8</td>
+       <td align="left">FK_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td class="empty">&nbsp;</td>
+       <td align="left">9</td>
+       <td align="left">PK_NAME</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.pdo-cubrid_schema-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">schema_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       知りたいスキーマの型。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">table_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       スキーマを知りたいテーブル。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">col_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       スキーマを知りたいカラム。
+     </p>
+    </dd>
+
+   </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pdo-cubrid_schema-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+    処理に成功すると、スキーマ情報を含む配列を返します。
+  </p>
+  <p class="para">
+    処理に失敗した場合は FALSE を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pdo-cubrid_schema-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-969">
+    <p><b>例1 <span class="function"><b>PDO::cubrid_schema()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     これは、game テーブルの主キーと外部キーを取得する例です。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$pk_list&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cubrid_schema</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">CUBRID_SCH_PRIMARY_KEY</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"game"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$pk_list</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$fk_list&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">cubrid_schema</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">CUBRID_SCH_IMPORTED_KEYS</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"game"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$fk_list</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Result:
+Array
+(
+    [0] =&gt; Array
+        (
+            [CLASS_NAME] =&gt; game
+            [ATTR_NAME] =&gt; athlete_code
+            [KEY_SEQ] =&gt; 3
+            [KEY_NAME] =&gt; pk_game_host_year_event_code_athlete_code
+        )
+
+    [1] =&gt; Array
+        (
+            [CLASS_NAME] =&gt; game
+            [ATTR_NAME] =&gt; event_code
+            [KEY_SEQ] =&gt; 2
+            [KEY_NAME] =&gt; pk_game_host_year_event_code_athlete_code
+        )
+
+    [2] =&gt; Array
+        (
+            [CLASS_NAME] =&gt; game
+            [ATTR_NAME] =&gt; host_year
+            [KEY_SEQ] =&gt; 1
+            [KEY_NAME] =&gt; pk_game_host_year_event_code_athlete_code
+        )
+
+)
+Array
+(
+    [0] =&gt; Array
+        (
+            [PKTABLE_NAME] =&gt; athlete
+            [PKCOLUMN_NAME] =&gt; code
+            [FKTABLE_NAME] =&gt; game
+            [FKCOLUMN_NAME] =&gt; athlete_code
+            [KEY_SEQ] =&gt; 1
+            [UPDATE_RULE] =&gt; 1
+            [DELETE_RULE] =&gt; 1
+            [FK_NAME] =&gt; fk_game_athlete_code
+            [PK_NAME] =&gt; pk_athlete_code
+        )
+
+    [1] =&gt; Array
+        (
+            [PKTABLE_NAME] =&gt; event
+            [PKCOLUMN_NAME] =&gt; code
+            [FKTABLE_NAME] =&gt; game
+            [FKCOLUMN_NAME] =&gt; event_code
+            [KEY_SEQ] =&gt; 1
+            [UPDATE_RULE] =&gt; 1
+            [DELETE_RULE] =&gt; 1
+            [FK_NAME] =&gt; fk_game_event_code
+            [PK_NAME] =&gt; pk_event_code
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.pdo-cubrid.connection.html">PDO_CUBRID DSN</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-dblib.html">MS SQL Server (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-cubrid.html">CUBRID (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

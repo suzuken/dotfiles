@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL ステートメントを実行し、作用した行数を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.errorinfo.html">PDO::errorInfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.getattribute.html">PDO::getAttribute</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdo.exec" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::exec</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO::exec</span> &mdash; <span class="dc-title">
+   SQL ステートメントを実行し、作用した行数を返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdo.exec-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>PDO::exec</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$statement</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>PDO::exec()</b></span> は、一度の関数コールで SQL
+   文を実行し、文によって作用した行数を返します。
+  </p>
+  <p class="para">
+   <span class="function"><b>PDO::exec()</b></span> は SELECT 文からは結果を返しません。
+   プログラム中で一度だけ発行が必要になる SELECT 文に対しては、
+   <span class="function"><a href="pdo.query.html" class="function">PDO::query()</a></span> の発行を検討してください。
+   複数回発行が必要な文については、<span class="function"><a href="pdo.prepare.html" class="function">PDO::prepare()</a></span>
+   による PDOStatement オブジェクトの準備と
+   <span class="function"><a href="pdostatement.execute.html" class="function">PDOStatement::execute()</a></span> による文の発行を行ってください。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pdo.exec-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">statement</tt></i></span>
+      <dd>
+
+       <p class="para">
+        準備、実行する SQL ステートメントを指定します。
+       </p>
+       <p class="para">
+        クエリ内のデータは <a href="pdo.quote.html" class="link">適切にエスケープ</a>
+        する必要があります。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.exec-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>PDO::exec()</b></span> は、発行した SQL
+   ステートメントによって更新もしくは
+   削除された行数を返します。
+   1 行も作用しなかった場合、<span class="function"><b>PDO::exec()</b></span> は
+   <i>0</i> を返します。
+  </p>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は論理値
+<b><tt>FALSE</tt></b> を返す可能性がありますが、<b><tt>FALSE</tt></b> として評価される
+<i>0</i> や &quot;&quot; といった値を返す可能性もあります。
+詳細については <a href="language.types.boolean.html" class="link">論理値</a>の
+セクションを参照してください。この関数の返り値を調べるには
+<a href="language.operators.comparison.html" class="link">===演算子</a> を
+使用してください。</p></div>
+  <p class="para">
+   以下の例は <span class="function"><b>PDO::exec()</b></span>
+   の戻り値の使用法を間違っています。結果として一行も更新されなかった場合に
+   <span class="function"><a href="function.die.html" class="function">die()</a></span> がコールされてしまうからです。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">()&nbsp;or&nbsp;die(</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errorInfo</span><span style="color: #007700">(),&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdo.exec-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-927">
+    <p><b>例1 DELETE 文の発行</b></p>
+    <div class="example-contents"><p>
+     WHERE 句を伴う DELETE 文によって削除された行数をカウントします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'odbc:sample'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'db2inst1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ibmdb2'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;FRUIT&nbsp;テーブルから全ての行を削除する&nbsp;*/<br /></span><span style="color: #0000BB">$count&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DELETE&nbsp;FROM&nbsp;fruit&nbsp;WHERE&nbsp;colour&nbsp;=&nbsp;'red'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;削除された行数を返す&nbsp;*/<br /></span><span style="color: #007700">print(</span><span style="color: #DD0000">"Deleted&nbsp;</span><span style="color: #0000BB">$count</span><span style="color: #DD0000">&nbsp;rows.\n"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Deleted 1 rows.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.exec-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdo.prepare.html" class="function" rel="rdfs-seeAlso">PDO::prepare()</a> - 文を実行する準備を行い、文オブジェクトを返す</span></li>
+    <li class="member"><span class="function"><a href="pdo.query.html" class="function" rel="rdfs-seeAlso">PDO::query()</a> - SQL ステートメントを実行し、結果セットを PDOStatement オブジェクトとして返す</span></li>
+    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - プリペアドステートメントを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.errorinfo.html">PDO::errorInfo</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.getattribute.html">PDO::getAttribute</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

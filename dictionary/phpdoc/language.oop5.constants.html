@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクト定数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.properties.html">プロパティ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.autoload.html">クラスのオートローディング</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.oop5.constants" class="sect1">
+ <h2 class="title">オブジェクト定数</h2>
+ <p class="para">
+   値が変更できない定数をクラス内に定義することができます。
+   定数は、通常の変数とは異なり、定義または使用する際に
+   <var class="varname"><var class="varname">$</var></var> 記号を付けません。
+  </p>
+  <p class="para">
+   定義する値は定数表現である必要があり、(例えば)変数・プロパティ・
+   演算結果あるいは関数のコールなどであってはいけません。
+ </p>
+  <p class="para">
+   インターフェイスに <i>定数</i> を持たせることもできます。
+   <a href="language.oop5.interfaces.html" class="link">インターフェイスについてのドキュメント</a>
+   で例をごらんください。
+  </p>
+  <p class="para">
+   PHP 5.3.0 以降では、変数を用いてクラスを参照することも可能です。
+   変数の値に (<i>self</i> や <i>parent</i>、
+   <i>static</i> といった)
+   キーワードを指定することはできません。
+  </p>
+  <div class="example" id="example-163">
+   <p><b>例1 定数の定義と使用</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;const&nbsp;</span><span style="color: #0000BB">constant&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'constant&nbsp;value'</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">showConstant</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;&nbsp;</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">constant&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />echo&nbsp;</span><span style="color: #0000BB">MyClass</span><span style="color: #007700">::</span><span style="color: #0000BB">constant&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$classname&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"MyClass"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$classname</span><span style="color: #007700">::</span><span style="color: #0000BB">constant&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降で対応<br /><br /></span><span style="color: #0000BB">$class&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyClass</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$class</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">showConstant</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #0000BB">$class</span><span style="color: #007700">::</span><span style="color: #0000BB">constant</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降で対応<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+ </div>
+  
+  <div class="example" id="example-164">
+   <p><b>例2 静的なデータの例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降で対応<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">const&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;'EOT'<br /></span><span style="color: #DD0000">bar<br /></span><span style="color: #007700">EOT;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>
+    ヒアドキュメントとは異なり、nowdoc は静的データコンテキストでも使用することができます。
+   </p></div>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Nowdoc は PHP 5.3.0 以降で使用可能です。
+   </p>
+  </p></blockquote>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.properties.html">プロパティ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.autoload.html">クラスのオートローディング</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

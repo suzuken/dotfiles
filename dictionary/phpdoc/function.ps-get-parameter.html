@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>パラメータを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-get-buffer.html">ps_get_buffer</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-get-value.html">ps_get_value</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ps-get-parameter" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ps_get_parameter</h1>
+  <p class="verinfo">(PECL ps &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ps_get_parameter</span> &mdash; <span class="dc-title">パラメータを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ps-get-parameter-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>ps_get_parameter</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$psdoc</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type">float</span> <tt class="parameter">$modifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+    <span class="function"><a href="function.ps-set-parameter.html" class="function">ps_set_parameter()</a></span> で直接設定されたか、
+    あるいは他の関数で間接的に設定されたパラメータの値を取得します。
+    パラメータは文字列値として定義されます。この関数は、
+    同じく <span class="function"><a href="function.ps-set-parameter.html" class="function">ps_set_parameter()</a></span>
+    で設定されたリソースを取得するためには利用できません。
+  </p>
+  <p class="para">
+   パラメータ <i><tt class="parameter">name</tt></i> は、以下の値をとります。
+  </p>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i>fontname</i></span>
+     <dd>
+
+      <p class="para">
+       現在アクティブなフォント、
+       あるいはパラメータ <i><tt class="parameter">modifier</tt></i>
+       で指定された ID を持つフォントの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>fontencoding</i></span>
+     <dd>
+
+      <p class="para">
+       現在アクティブなフォントのエンコーディング。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>dottedversion</i></span>
+     <dd>
+
+      <p class="para">
+       元になる pslib ライブラリのバージョン。書式は
+       &lt;major&gt;.&lt;minor&gt;.&lt;subminor&gt;
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>scope</i></span>
+     <dd>
+
+      <p class="para">
+       現在の描画スコープ。object, document, null, page,
+       pattern, path, template, prolog, font, glyph。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>ligaturedisolvechar</i></span>
+     <dd>
+
+      <p class="para">
+       リゲチャを溶かす文字。たとえば、リゲチャ `ff&#039; を含むフォントで
+       `|&#039; がこの文字に指定されていた場合は、
+       `f|f&#039; はリゲチャ `ff&#039; ではなく 2 つの独立した `f&#039; となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>imageencoding</i></span>
+     <dd>
+
+      <p class="para">
+       画像の符号化に使用するエンコーディング。
+       <i>hex</i> あるいは <i>85</i>。
+       hex エンコーディングは、画像の各バイトを postscript ファイルの
+       2 バイトであらわします。85 は Ascii85 エンコーディングを表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>linenumbermode</i></span>
+     <dd>
+
+      <p class="para">
+       行番号を段落単位でつける場合は <i>paragraph</i>、
+       ボックス内でつける場合は <i>box</i>
+       を設定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>linebreak</i></span>
+     <dd>
+
+      <p class="para">
+       テキストを <span class="function"><a href="function.ps-show-boxed.html" class="function">ps_show_boxed()</a></span>
+       で出力する場合にのみ使用します。
+       <i>true</i> を設定すると、
+       改行時にキャリッジリターンが付加されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>parbreak</i></span>
+     <dd>
+
+      <p class="para">
+       テキストを <span class="function"><a href="function.ps-show-boxed.html" class="function">ps_show_boxed()</a></span>
+       で出力する場合にのみ使用します。
+       <i>true</i> を設定すると、
+       キャリッジリターンで新しい段落を開始します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>hyphenation</i></span>
+     <dd>
+
+      <p class="para">
+       テキストを <span class="function"><a href="function.ps-show-boxed.html" class="function">ps_show_boxed()</a></span>
+       で出力する場合にのみ使用します。
+       <i>true</i> を設定すると、
+       ハイフネーション辞書が設定されており存在する場合に、
+       段落のハイフネーション処理が行われます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i>hyphendict</i></span>
+     <dd>
+
+      <p class="para">
+       ハイフネーションパターンの辞書のファイル名。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ps-get-parameter-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にパラメータの値を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ps-get-parameter-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ps-set-parameter.html" class="function" rel="rdfs-seeAlso">ps_set_parameter()</a> - パラメータを設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-get-buffer.html">ps_get_buffer</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-get-value.html">ps_get_value</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

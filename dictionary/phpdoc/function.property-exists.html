@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトもしくはクラスにプロパティが存在するかどうかを調べる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.method-exists.html">method_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.classkit.html">Classkit</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.property-exists" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">property_exists</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">property_exists</span> &mdash; <span class="dc-title">
+   オブジェクトもしくはクラスにプロパティが存在するかどうかを調べる
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.property-exists-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>property_exists</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$class</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$property</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、与えられたプロパティ <i><tt class="parameter">property</tt></i> が
+   指定されたクラスに存在するかどうかを確認します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><a href="function.isset.html" class="function">isset()</a></span> とは対象的に、
+    プロパティの値が <b><tt>NULL</tt></b> の場合でも <span class="function"><b>property_exists()</b></span> は
+    <b><tt>TRUE</tt></b> を返します。
+   </p>
+  </p></blockquote>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.property-exists-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">class</tt></i></span>
+      <dd>
+
+       <p class="para">
+        確認するクラス名、もしくはクラスのオブジェクトを指定します。
+       </p>
+      </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">property</tt></i></span>
+      <dd>
+
+       <p class="para">
+        プロパティ名を指定します。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.property-exists-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   プロパティが存在している場合は <b><tt>TRUE</tt></b>、存在していない場合に <b><tt>FALSE</tt></b>、
+   エラー時には <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.property-exists-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+<p class="para">この関数を使うと、未知のクラスに対しては登録済みの
+<a href="language.oop5.autoload.html" class="link">autoloader</a> を使用します。</p></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>property_exists()</b></span> 関数は、マジックメソッド <a href="language.oop5.overloading.html#language.oop5.overloading.members" class="link"><i>__get</i></a>
+    を使ってアクセスするプロパティを検出することはできません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.property-exists-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数は、アクセス権に依存せずにプロパティの存在確認を行うようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.property-exists-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4186">
+    <p><b>例1 <span class="function"><b>property_exists()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">myClass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$mine</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;</span><span style="color: #0000BB">$xpto</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;protected&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'myClass'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'xpto'</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//true<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'myClass'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'mine'</span><span style="color: #007700">));&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//true<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">myClass</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'mine'</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//true<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'myClass'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'xpto'</span><span style="color: #007700">));&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//PHP&nbsp;5.3.0&nbsp;以降では&nbsp;true<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'myClass'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">));&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//false<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">property_exists</span><span style="color: #007700">(</span><span style="color: #DD0000">'myClass'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test'</span><span style="color: #007700">));&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//PHP&nbsp;5.3.0&nbsp;以降では&nbsp;true<br /></span><span style="color: #0000BB">myClass</span><span style="color: #007700">::</span><span style="color: #0000BB">test</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.property-exists-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.method-exists.html" class="function" rel="rdfs-seeAlso">method_exists()</a> - クラスメソッドが存在するかどうかを確認する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.method-exists.html">method_exists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.classkit.html">Classkit</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

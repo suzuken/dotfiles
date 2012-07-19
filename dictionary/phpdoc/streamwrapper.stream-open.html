@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルあるいは URL をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="streamwrapper.stream-lock.html">streamWrapper::stream_lock</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="streamwrapper.stream-read.html">streamWrapper::stream_read</a></div>
+ <div class="up"><a href="class.streamwrapper.html">streamWrapper</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="streamwrapper.stream-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">streamWrapper::stream_open</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.2, PHP 5)</p><p class="refpurpose"><span class="refname">streamWrapper::stream_open</span> &mdash; <span class="dc-title">ファイルあるいは URL をオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-streamwrapper.stream-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>streamWrapper::stream_open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$mode</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$opened_path</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   このメソッドは、ラッパーが初期化された
+   (たとえば <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> や <span class="function"><a href="function.file-get-contents.html" class="function">file_get_contents()</a></span>)
+   直後にコールされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-streamwrapper.stream-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       元の関数に渡す URL を指定します。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <span class="function"><a href="function.parse-url.html" class="function">parse_url()</a></span> でこの URL が壊れることがあります。
+        :// で区切った URL のみをサポートしていることに注意しましょう。
+        : や :/ も技術的な面では妥当な URL ですが、サポートしていません。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルをオープンする際のモード。詳細は <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> を参照ください。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        指定した <i><tt class="parameter">path</tt></i> に対して
+        <i><tt class="parameter">mode</tt></i> が有効かどうかの確認を忘れないようにしましょう。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ストリーム API が設定する追加のフラグ。次の値を OR で連結して指定します。
+       <table class="doctable informaltable">
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>フラグ</th>
+           <th>説明</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><b><tt>STREAM_USE_PATH</tt></b></td>
+           <td align="left"><i><tt class="parameter">path</tt></i> が相対パスの場合は、
+            include_path を用いてリソースを探します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>STREAM_REPORT_ERRORS</tt></b></td>
+           <td align="left">このフラグが設定されている場合、
+            ストリームのオープン時のエラーを <span class="function"><a href="function.trigger-error.html" class="function">trigger_error()</a></span>
+            で報告しなければなりません。フラグが設定されていない場合は、
+            エラーを一切報告してはいけません。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">opened_path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">path</tt></i> のオープンに成功し、
+       <b><tt>STREAM_USE_PATH</tt></b> が <i><tt class="parameter">options</tt></i>
+       に設定されていた場合、
+       <i><tt class="parameter">opened_path</tt></i> には実際にオープンしたファイル/リソース
+       のフルパスを設定しなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-streamwrapper.stream-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-streamwrapper.stream-open-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">このメソッドのコールに
+(未実装などの理由で) 失敗した場合、
+<b><tt>E_WARNING</tt></b> を発行します。</p>
+ </div>
+
+ 
+
+
+
+ <div class="refsect1 notes" id="refsect1-streamwrapper.stream-open-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">有効なコンテキストがコール元関数に渡された場合に
+<var class="varname"><var class="varname">streamWrapper->context</var></var>
+プロパティが更新されます。</p></p></blockquote>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-streamwrapper.stream-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fopen.html" class="function" rel="rdfs-seeAlso">fopen()</a> - ファイルまたは URL をオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.parse-url.html" class="function" rel="rdfs-seeAlso">parse_url()</a> - URL を解釈し、その構成要素を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="streamwrapper.stream-lock.html">streamWrapper::stream_lock</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="streamwrapper.stream-read.html">streamWrapper::stream_read</a></div>
+ <div class="up"><a href="class.streamwrapper.html">streamWrapper</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

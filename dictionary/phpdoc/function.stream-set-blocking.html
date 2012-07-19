@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ストリームのブロックモードを有効にする / 解除する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-select.html">stream_select</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-set-read-buffer.html">stream_set_read_buffer</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.stream-set-blocking" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">stream_set_blocking</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">stream_set_blocking</span> &mdash; <span class="dc-title">ストリームのブロックモードを有効にする / 解除する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.stream-set-blocking-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>stream_set_blocking</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stream</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">stream</tt></i> のモードをブロックあるいは非ブロックに設定します。
+  </p>
+  <p class="para">
+   この関数は、非ブロックモードをサポートするすべてのストリーム
+   (現在は、通常のファイルストリームとソケットストリームのみ)
+   において利用可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.stream-set-blocking-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ストリーム。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">mode</tt></i> が 0 の時、ストリームは
+       非ブロックモードに切り替えられ、1 の場合は、
+       ブロックモードに切り替えられます。このモードの違いは、
+       <span class="function"><a href="function.fgets.html" class="function">fgets()</a></span> や <span class="function"><a href="function.fread.html" class="function">fread()</a></span>
+       といった、ストリームからデータを読む関数に影響します。
+       非ブロックモードにおいては <span class="function"><a href="function.fgets.html" class="function">fgets()</a></span> を呼び出すと
+       どんな場合でもただちに呼び出し元に戻りますが、ブロックモードの場合では、
+       ストリームがデータを読み出せる状態になるまで待ちつづけます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.stream-set-blocking-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.stream-set-blocking-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        PHP 4.3.0 より前のバージョンでは、この関数はソケットベースのストリーム上でのみ動作します。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.stream-set-blocking-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は以前は
+    <span class="function"><a href="function.set-socket-blocking.html" class="function">set_socket_blocking()</a></span> という名前で後に
+    <span class="function"><a href="function.socket-set-blocking.html" class="function">socket_set_blocking()</a></span> に変わりましたが、
+    この使用法は廃止されました。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.stream-set-blocking-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><span class="function"><a href="function.stream-select.html" class="function" rel="rdfs-seeAlso">stream_select()</a> - select() システムコールと同等の操作を、
+   ストリームの配列に対して tv_sec と tv_usec で指定されたタイムアウト時間をもって行う</span></li>
+  </ul>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.stream-select.html">stream_select</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.stream-set-read-buffer.html">stream_set_read_buffer</a></div>
+ <div class="up"><a href="ref.stream.html">ストリーム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

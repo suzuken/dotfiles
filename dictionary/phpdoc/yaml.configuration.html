@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="yaml.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="yaml.resources.html">リソース型</a></div>
+ <div class="up"><a href="yaml.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="yaml.configuration" class="section">
+  <h2 class="title">実行時設定</h2>
+  <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+  <p class="para">
+    <table class="doctable table">
+      <caption><b>Yaml 設定オプション</b></caption>
+      
+        <thead valign="middle">
+          <tr valign="middle">
+            <th>名前</th>
+            <th>デフォルト</th>
+            <th>変更可能</th>
+            <th>変更履歴</th>
+          </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+            <td align="left">yaml.decode_binary</td>
+            <td align="left">0</td>
+            <td align="left">PHP_INI_ALL</td>
+            <td align="left"></td>
+          </tr>
+
+          <tr valign="middle">
+            <td align="left">yaml.decode_timestamp</td>
+            <td align="left">0</td>
+            <td align="left">PHP_INI_ALL</td>
+            <td align="left"></td>
+          </tr>
+
+          <tr valign="middle">
+            <td align="left">yaml.output_canonical</td>
+            <td align="left">0</td>
+            <td align="left">PHP_INI_ALL</td>
+            <td align="left"></td>
+          </tr>
+
+          <tr valign="middle">
+            <td align="left">yaml.output_indent</td>
+            <td align="left">2</td>
+            <td align="left">PHP_INI_ALL</td>
+            <td align="left"></td>
+          </tr>
+
+          <tr valign="middle">
+            <td align="left">yaml.output_width</td>
+            <td align="left">80</td>
+            <td align="left">PHP_INI_ALL</td>
+            <td align="left"></td>
+          </tr>
+
+        </tbody>
+      
+    </table>
+
+  </p>
+
+  <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+
+  <p class="para">
+    <dl>
+
+      <dt id="ini.yaml.decode-binary">
+        <span class="term">
+          <i><tt class="parameter">yaml.decode_binary</tt></i>
+          <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+        </span>
+        <dd>
+
+          <p class="para">
+            デフォルトではオフです。オンにすると、明示的にタグ
+            &quot;tag:yaml.org,2002:binary&quot; がつけられた
+            base64 バイナリエンコード形式のエンティティをデコードします。
+          </p>
+        </dd>
+
+      </dt>
+
+      <dt id="ini.yaml.decode-timestamp">
+        <span class="term">
+          <i><tt class="parameter">yaml.decode_timestamp</tt></i>
+          <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+        </span>
+        <dd>
+
+          <p class="para">
+            YAML ドキュメントストリームにおける暗黙的なスカラー、
+            および明示的に &quot;tag:yaml.org,2002:timestamp&quot; がつけられたスカラーの
+            デコードを制御します。デフォルト設定は <i>0</i>
+            で、これはなにもデコードしません。
+            <i>1</i> を設定すると、<span class="function"><a href="function.strtotime.html" class="function">strtotime()</a></span>
+            を使って timestamp 値を Unix タイムスタンプに変換します。
+            <i>2</i> を設定すると、<span class="function"><a href="function.date-create.html" class="function">date_create()</a></span>
+            を使って timestamp 値を <span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> オブジェクトに変換します。
+          </p>
+        </dd>
+
+      </dt>
+
+      <dt id="ini.yaml.output-canonical">
+        <span class="term">
+          <i><tt class="parameter">yaml.output_canonical</tt></i>
+          <span class="type"><a href="language.types.boolean.html" class="type boolean">boolean</a></span>
+        </span>
+        <dd>
+
+          <p class="para">
+            デフォルトではオフです。オンにすると、標準形式の出力となります。
+          </p>
+        </dd>
+
+      </dt>
+
+      <dt id="ini.yaml.output-indent">
+        <span class="term">
+          <i><tt class="parameter">yaml.output_indent</tt></i>
+          <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+        </span>
+        <dd>
+
+          <p class="para">
+            セクションの字下げに使うスペースの数。
+            <i>1</i> から <i>10</i>
+            までの間の値でなければなりません。
+          </p>
+        </dd>
+
+      </dt>
+
+      <dt id="ini.yaml.output-width">
+        <span class="term">
+          <i><tt class="parameter">yaml.output_width</tt></i>
+          <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+        </span>
+        <dd>
+
+          <p class="para">
+            行の長さの推奨値。<i>-1</i> は、無制限を意味します。
+          </p>
+        </dd>
+
+      </dt>
+
+    </dl>
+
+  </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="yaml.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="yaml.resources.html">リソース型</a></div>
+ <div class="up"><a href="yaml.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

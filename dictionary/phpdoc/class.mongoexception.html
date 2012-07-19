@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MongoException クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongocursorexception.html">MongoCursorException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.mongoexception" class="reference">
+
+ <h1 class="title">MongoException クラス</h1>
+ 
+
+ <div class="partintro">
+
+  
+  <div class="section" id="mongoexception.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    Mongo のデフォルトの例外です。
+   </p>
+
+   <p class="para">
+    さまざまなエラー条件を扱います。最終的にはより詳細な例外にたどり着きますが、
+    それらもすべて <b class="classname">MongoException</b> を継承しています。
+   </p>
+
+   <ul class="itemizedlist">
+
+    <li class="listitem">
+     <p class="para">
+      <i>The MongoSomething object has not been correctly initialized by its constructor</i>
+     </p>
+     <p class="para">
+      コード: 0
+     </p>
+     <p class="para">
+      おそらく、Mongo オブジェクトがデータベースに接続していないものと思われます。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>zero-length keys are not allowed, did you use $ with double quotes?</i>
+     </p>
+     <p class="para">
+      コード: 1
+     </p>
+     <p class="para">
+      キーとして &quot;&quot; を使おうとしました。一般的に、これはしていはいけないことです。
+      &quot;&quot; を使うとサブオブジェクトへのアクセスが煩雑になり、またこのキーは MongoDB
+      が内部的に使ってもいます。しかし、どうしても使いたい場合は、php.ini ファイルで
+      <a href="mongo.configuration.html#ini.mongo.allow_empty_keys" class="link">mongo.allow_empty_keys</a>
+      に true を設定すればこのチェックを回避できます。
+      回避するよう設定した場合は、エラーチェックをより厳密に行って
+      文字列書き込みエラーを防ぐことを推奨します。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>&#039;.&#039; not allowed in key: &lt;key&gt;</i>
+     </p>
+     <p class="para">
+      コード: 2
+     </p>
+     <p class="para">
+      &#039;.&#039; を含むキーに書き込もうとしました。これは禁じられています。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>insert too large: &lt;size&gt;, max: &lt;max&gt;</i>
+     </p>
+     <p class="para">
+      コード: 3
+     </p>
+     <p class="para">
+      長すぎるデータをデータベースに一度に送ろうとしました。データベースがデータの追加を受け付けるのは、
+      ある特定の大きさ (現在は 16 MB) までです。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>no elements in doc</i>
+     </p>
+     <p class="para">
+      コード: 4
+     </p>
+     <p class="para">
+      フィールドを持たないドキュメントを保存しようとしました。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>size of BSON doc is &lt;size&gt; bytes, max &lt;max&gt;MB</i>
+     </p>
+     <p class="para">
+      コード: 5
+     </p>
+     <p class="para">
+      MongoDB で保存可能な長さを超えるドキュメントを保存しようとしました。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>no documents given</i>
+     </p>
+     <p class="para">
+      コード: 6
+     </p>
+     <p class="para">
+      空のドキュメントの配列を一括追加しようとしました。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>MongoCollection::group takes an array, object, or MongoCode key</i>
+     </p>
+     <p class="para">
+      コード: 7
+     </p>
+     <p class="para">
+      間違った型パラメータを <span class="function"><a href="mongocollection.group.html" class="function">MongoCollection::group()</a></span> に送信しました。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>field names must be strings</i>
+     </p>
+     <p class="para">
+      コード: 8
+     </p>
+     <p class="para">
+      フィールドセレクタの書式は
+      <i>array(&quot;field1&quot; =&gt; 1, &quot;field2&quot; =&gt; 1, ..., &quot;fieldN&quot; =&gt; 1)</i>
+      としなければなりません。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>invalid regex</i>
+     </p>
+     <p class="para">
+      コード: 8
+     </p>
+     <p class="para">
+      <a href="class.mongoregex.html" class="classname">MongoRegex</a> に渡した正規表現が正しい形式ではありません。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>MongoDBRef::get: $ref field must be a string</i>
+     </p>
+     <p class="para">
+      コード: 10
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>MongoDBRef::get: $db field must be a string</i>
+     </p>
+     <p class="para">
+      コード: 11
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>non-utf8 string: &lt;str&gt;</i>
+     </p>
+     <p class="para">
+      コード: 12
+     </p>
+     <p class="para">
+      このエラーが発生するのは、非 utf8 文字列をデータベースに送信しようとしたときです。
+      データベースに送る文字列はすべて UTF8 でなければなりません。
+      この例外を発生させなくする移行用オプションは、php.ini のオプションを参照ください。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>mutex error: &lt;err&gt;</i>
+     </p>
+     <p class="para">
+      コード: 13
+     </p>
+     <p class="para">
+      マルチスレッド環境では、ドライバはリクエストとレスポンスの同期にミューテックスを使います。
+      これはきわめて深刻なエラーで、スタックトレースもないかもしれません。
+      めったに発生しないエラーなので、システムの情報と可能な限りの再現手順を添えてメンテナに報告しましょう。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>index name too long: &lt;len&gt;, max &lt;max&gt; characters</i>
+     </p>
+     <p class="para">
+      コード: 14
+     </p>
+     <p class="para">
+      128 文字を超える名前のインデックスは作れません。このエラーが発生した場合は、
+      <span class="function"><a href="mongocollection.ensureindex.html" class="function">MongoCollection::ensureIndex()</a></span> の &quot;name&quot;
+      オプションを使って短いインデックス名をつけなければなりません。
+     </p>
+    </li>
+
+   </ul>
+  </div>
+  
+
+  <div class="section" id="mongoexception.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+   
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+    
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <span class="modifier">extends</span>
+      <a href="class.exception.html" class="classname">Exception</a>
+     </span>
+     {</div>
+    
+    
+   }</div>
+   
+
+  </div>
+
+ </div>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongocursorexception.html">MongoCursorException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

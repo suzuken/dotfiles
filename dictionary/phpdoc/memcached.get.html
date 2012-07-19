@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アイテムを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.flush.html">Memcached::flush</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.getbykey.html">Memcached::getByKey</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcached.get" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcached::get</h1>
+  <p class="verinfo">(PECL memcached &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">Memcached::get</span> &mdash; <span class="dc-title">アイテムを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcached.get-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>Memcached::get</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$cache_cb</tt></span>
+   [, <span class="methodparam"><span class="type">float</span> <tt class="parameter reference">&$cas_token</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcached::get()</b></span> は、キー
+   <i><tt class="parameter">key</tt></i> に格納されたアイテムを返します。
+   アイテムが存在して <i><tt class="parameter">cas_token</tt></i> が指定されていた場合には、
+   そのアイテムの CAS トークンの値がそこに格納されます。CAS トークンの使用法は
+    <span class="methodname"><a href="memcached.cas.html" class="methodname">Memcached::cas()</a></span> を参照ください。<a href="memcached.callbacks.html" class="link">Read-through キャッシュコールバック</a>
+   は <i><tt class="parameter">cache_cb</tt></i> パラメータで指定します。
+  </p>
+  <p class="para">
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcached.get-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       取得したいアイテムのキー。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cache_cb</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Read-through キャッシュコールバック、あるいは <b><tt>NULL</tt></b>。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cas_token</tt></i></span>
+     <dd>
+
+      <p class="para">
+       CAS トークンを格納する変数。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcached.get-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   キャッシュに格納された値、あるいは <b><tt>FALSE</tt></b> を返します。
+   キーが存在しない場合、
+    <span class="methodname"><a href="memcached.getresultcode.html" class="methodname">Memcached::getResultCode()</a></span> は
+   <b><tt>Memcached::RES_NOTFOUND</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcached.get-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3588">
+    <p><b>例1 <span class="function"><b>Memcached::get()</b></span> の例 #1</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+int(100)
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-3589">
+    <p><b>例2 <span class="function"><b>Memcached::get()</b></span> の例 #2</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br />if&nbsp;(!(</span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">)))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getResultCode</span><span style="color: #007700">()&nbsp;==&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">::</span><span style="color: #0000BB">RES_NOTFOUND</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ip&nbsp;</span><span style="color: #007700">=&nbsp;array();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">set</span><span style="color: #007700">(</span><span style="color: #DD0000">'ip_block'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ip</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;エラーをログに記録します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcached.get-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="memcached.getbykey.html" class="methodname" rel="rdfs-seeAlso">Memcached::getByKey()</a> - 指定したサーバからアイテムを取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="memcached.getmulti.html" class="methodname" rel="rdfs-seeAlso">Memcached::getMulti()</a> - 複数のアイテムを取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="memcached.getdelayed.html" class="methodname" rel="rdfs-seeAlso">Memcached::getDelayed()</a> - 複数のアイテムを要求する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.flush.html">Memcached::flush</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.getbykey.html">Memcached::getByKey</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

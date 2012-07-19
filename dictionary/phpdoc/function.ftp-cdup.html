@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>親ディレクトリに移動する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-alloc.html">ftp_alloc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-chdir.html">ftp_chdir</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ftp-cdup" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ftp_cdup</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ftp_cdup</span> &mdash; <span class="dc-title">親ディレクトリに移動する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ftp-cdup-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ftp_cdup</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$ftp_stream</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment"> 
+   親ディレクトリに移動します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ftp-cdup-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ftp_stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       FTP 接続のリンク ID 。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ftp-cdup-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ftp-cdup-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3456">
+    <p><b>例1 <span class="function"><b>ftp_cdup()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;接続を確立する<br /></span><span style="color: #0000BB">$conn_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp_server</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ユーザ名とパスワードでログインする<br /></span><span style="color: #0000BB">$login_result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_login</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_pass</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;html&nbsp;ディレクトリに移動する<br /></span><span style="color: #0000BB">ftp_chdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'html'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">ftp_pwd</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;/html&nbsp;<br /><br />//&nbsp;親ディレクトリに戻る<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">ftp_cdup</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">))&nbsp;{&nbsp;<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"cdup&nbsp;successful\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"cdup&nbsp;not&nbsp;successful\n"</span><span style="color: #007700">;<br />}<br /><br />echo&nbsp;</span><span style="color: #0000BB">ftp_pwd</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;/<br /><br /></span><span style="color: #0000BB">ftp_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ftp-cdup-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ftp-chdir.html" class="function" rel="rdfs-seeAlso">ftp_chdir()</a> - FTP サーバ上でディレクトリを移動する</span></li>
+    <li class="member"><span class="function"><a href="function.ftp-pwd.html" class="function" rel="rdfs-seeAlso">ftp_pwd()</a> - カレントのディレクトリ名を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-alloc.html">ftp_alloc</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-chdir.html">ftp_chdir</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

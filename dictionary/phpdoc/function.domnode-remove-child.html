@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>子ノードのリストから子ノードを削除する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.domnode-previous-sibling.html">DomNode-&gt;previous_sibling</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.domnode-replace-child.html">DomNode-&gt;replace_child</a></div>
+ <div class="up"><a href="ref.domxml.html">DOM XML (PHP 4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.domnode-remove-child" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DomNode->remove_child</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0)</p><p class="refpurpose"><span class="refname">DomNode-&gt;remove_child</span> &mdash; <span class="dc-title">
+   子ノードのリストから子ノードを削除する
+  </span></p>
+
+ </div>
+ <div class="refsect1 unknown" id="refsect1-function.domnode-remove-child-unknown">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.domtext.html" class="type domtext">domtext</a></span> <span class="methodname"><b>DomNode-&gt;remove_child</b></span>
+    ( <span class="methodparam"><span class="type"><a href="class.domtext.html" class="type domtext">domtext</a></span> <tt class="parameter">$oldchild</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、子ノードのリストから子ノードを削除します。
+   もし子ノードが削除できなかった、もしくは子ノードではない場合、この関数は
+   <b><tt>FALSE</tt></b> を返します。子ノードが削除できた場合、
+   この関数は古い子ノードを返します。
+  </p>
+  <p class="para">
+   <div class="example" id="example-4489">
+    <p><b>例1 子ノードを削除する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">include(</span><span style="color: #DD0000">"example.inc"</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$dom&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">domxml_open_mem</span><span style="color: #007700">(</span><span style="color: #0000BB">$xmlstr</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Error&nbsp;while&nbsp;parsing&nbsp;the&nbsp;document\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;exit;<br />}<br /><br /></span><span style="color: #0000BB">$elements&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dom</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get_elements_by_tagname</span><span style="color: #007700">(</span><span style="color: #DD0000">"tbody"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$element&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$elements</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">$children&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$element</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">child_nodes</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$child&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$element</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">remove_child</span><span style="color: #007700">(</span><span style="color: #0000BB">$children</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"&lt;PRE&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$xmlfile&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dom</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">dump_mem</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$xmlfile</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"&lt;/PRE&gt;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.domnode-append-child.html" class="function">domnode_append_child()</a></span>
+   も参照ください。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.domnode-previous-sibling.html">DomNode-&gt;previous_sibling</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.domnode-replace-child.html">DomNode-&gt;replace_child</a></div>
+ <div class="up"><a href="ref.domxml.html">DOM XML (PHP 4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

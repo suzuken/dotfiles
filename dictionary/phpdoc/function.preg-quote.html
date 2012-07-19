@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>正規表現文字をクオートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.preg-match.html">preg_match</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.preg-replace-callback.html">preg_replace_callback</a></div>
+ <div class="up"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.preg-quote" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">preg_quote</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">preg_quote</span> &mdash; <span class="dc-title">正規表現文字をクオートする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.preg-quote-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>preg_quote</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$str</tt></span>
+  [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$delimiter</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>preg_quote()</b></span> は、<i><tt class="parameter">str</tt></i> 
+   を引数とし、正規表現構文の特殊文字の前にバックスラッシュを挿入します。
+   この関数は、実行時に生成される文字列をパターンとしてマッチングを行う必要があり、
+   その文字列には正規表現の特殊文字が含まれているかも知れない場合に有用です。
+  </p>
+  <p class="para">
+   正規表現の特殊文字は、次のものです。
+   <i>. \ + * ? [ ^ ] $ ( ) { } = ! &lt; &gt; | : -</i>
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.preg-quote-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">str</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">delimiter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの <i><tt class="parameter">delimiter</tt></i> を指定すると、
+       ここで指定した文字もエスケープされます。これは、PCRE 関数が使用する
+       デリミタをエスケープする場合に便利です。&#039;/&#039; がデリミタとしては
+       最も一般的に使用されています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.preg-quote-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   クォートされた文字列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.preg-quote-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        <i>-</i> 文字がクォートされるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.preg-quote-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3924">
+    <p><b>例1 <span class="function"><b>preg_quote()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$keywords&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'$40&nbsp;for&nbsp;a&nbsp;g3/400'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$keywords&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_quote</span><span style="color: #007700">(</span><span style="color: #0000BB">$keywords</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$keywords</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;\$40&nbsp;for&nbsp;a&nbsp;g3\/400&nbsp;を返します<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3925">
+    <p><b>例2 テキスト内の単語の斜体変換</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;この例では、preg_quote($word)&nbsp;を使って、アスタリスクが<br />//&nbsp;正規表現での特殊な意味を帯びないようにしています<br /><br /></span><span style="color: #0000BB">$textbody&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"This&nbsp;book&nbsp;is&nbsp;*very*&nbsp;difficult&nbsp;to&nbsp;find."</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$word&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"*very*"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$textbody&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_replace&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"/"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">preg_quote</span><span style="color: #007700">(</span><span style="color: #0000BB">$word</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"/"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"&lt;i&gt;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$word&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&lt;/i&gt;"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$textbody</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.preg-quote-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数はバイナリデータに対応しています。
+</span></p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.preg-match.html">preg_match</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.preg-replace-callback.html">preg_replace_callback</a></div>
+ <div class="up"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

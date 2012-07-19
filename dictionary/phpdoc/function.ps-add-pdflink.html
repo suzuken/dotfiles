@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>別の PDF ドキュメントのページへのリンクを追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-add-note.html">ps_add_note</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-add-weblink.html">ps_add_weblink</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ps-add-pdflink" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ps_add_pdflink</h1>
+  <p class="verinfo">(PECL ps &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ps_add_pdflink</span> &mdash; <span class="dc-title">別の PDF ドキュメントのページへのリンクを追加する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ps-add-pdflink-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ps_add_pdflink</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$psdoc</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$llx</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$lly</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$urx</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$ury</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$page</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dest</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+    指定した位置に、別の PDF ドキュメントへのハイパーリンクを設定します。
+    リンクをクリックすると、そのドキュメントの指定されたページに移動します。
+    ドキュメントの最初のページのページ番号は 1 です。
+  </p>
+  <p class="para">
+    ハイパーリンクのリンク元は矩形で表され、その左下の座標は
+    (<i><tt class="parameter">llx</tt></i>, <i><tt class="parameter">lly</tt></i>)、
+    そして右上の座標が (<i><tt class="parameter">urx</tt></i>, <i><tt class="parameter">ury</tt></i>)
+    となります。この矩形はデフォルトでは細い青線で表されます。
+  </p>
+  <p class="para">注釈は、
+ドキュメントを印刷したり表示したりするときには表示されません。
+しかし、Acrobat Distiller™ あるいは Ghostview
+でドキュメントを pdf に変換すると表示されます。</p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ps-add-pdflink-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">psdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ps-new.html" class="function">ps_new()</a></span> が返す、postscript
+       ファイルのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">llx</tt></i></span>
+     <dd>
+
+      <p class="para">
+       左下角の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">lly</tt></i></span>
+     <dd>
+
+      <p class="para">
+       左下角の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">urx</tt></i></span>
+     <dd>
+
+      <p class="para">
+       右上角の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ury</tt></i></span>
+     <dd>
+
+      <p class="para">
+       右上角の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リンクがクリックされた際に開かれる PDF ドキュメントの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">page</tt></i></span>
+     <dd>
+
+      <p class="para">
+       対象 PDF ドキュメントのページ番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dest</tt></i></span>
+     <dd>
+
+      <p class="para">
+        <i><tt class="parameter">dest</tt></i> は、ドキュメントがどのように
+        表示されるかを指定します。とりうる値は
+        <i>fitpage</i> または <i>fitwidth</i>、
+        <i>fitheight</i>、<i>fitbbox</i>
+        のいずれかです。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+<div class="refsect1 returnvalues" id="refsect1-function.ps-add-pdflink-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ps-add-pdflink-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ps-add-launchlink.html" class="function" rel="rdfs-seeAlso">ps_add_launchlink()</a> - ファイルを実行するためのリンクを追加する</span></li>
+    <li class="member"><span class="function"><a href="function.ps-add-locallink.html" class="function" rel="rdfs-seeAlso">ps_add_locallink()</a> - 同一ドキュメント内のページへのリンクを追加する</span></li>
+    <li class="member"><span class="function"><a href="function.ps-add-weblink.html" class="function" rel="rdfs-seeAlso">ps_add_weblink()</a> - Web 上の場所へのリンクを追加する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-add-note.html">ps_add_note</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-add-weblink.html">ps_add_weblink</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

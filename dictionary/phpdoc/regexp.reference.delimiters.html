@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>デリミタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.introduction.html">導入</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.meta.html">メタ文字</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.delimiters" class="section">
+     <h2 class="title">デリミタ</h2>
+     <p class="para">
+      PCRE 関数を使うときには、パターンを
+      <em class="emphasis">delimiters</em> で囲まなければなりません。
+      英数字、バックスラッシュ、空白文字以外の任意の文字をデリミタとして使うことができます。
+     </p>
+     <p class="para">
+      デリミタとしてよく使われる文字は、スラッシュ (<i>/</i>)、
+      ハッシュ記号 (<i>#</i>) およびチルダ (<i>~</i>) です。
+      次に示す例は、どれも正しいデリミタです。
+      <div class="informalexample">
+       <div class="example-contents">
+<div class="cdata"><pre>
+/foo bar/
+#^[^0-9]$#
++php+
+%[a-zA-Z0-9_-]%
+</pre></div>
+       </div>
+
+      </div>
+     </p>
+     <p class="para">
+      パターンの中でデリミタ文字をマッチさせたい場合は、バックスラッシュでエスケープしなければなりません。
+      パターン内でデリミタが頻繁にあらわれる場合は、
+      デリミタを別の文字に変更したほうが読みやすくなります。
+      <div class="informalexample">
+       <div class="example-contents">
+<div class="cdata"><pre>
+/http:\/\//
+#http://#
+</pre></div>
+       </div>
+
+      </div>
+      <span class="function"><a href="function.preg-quote.html" class="function">preg_quote()</a></span> 関数を使うと、パターンに使う文字列をエスケープすることができます。
+      オプションの二番目のパラメータで、エスケープするデリミタを指定します。
+     </p>
+     <p class="para">
+      前述のデリミタのほかに、角括弧形式のデリミタを使うこともできます。
+      これは、開き角括弧と閉じ角括弧がそれぞれ開始デリミタ、終了デリミタを表す形式です。
+      <div class="informalexample">
+       <div class="example-contents">
+<div class="cdata"><pre>
+{this is a pattern}
+</pre></div>
+       </div>
+
+      </div>
+     </p>
+     <p class="para">
+      終了デリミタの後に <a href="reference.pcre.pattern.modifiers.html" class="link">
+      パターン修飾子</a> を付加することもできます。次の例は、大文字小文字を区別しないマッチを行うものです。
+      <div class="informalexample">
+       <div class="example-contents">
+<div class="cdata"><pre>
+#[a-z]#i
+</pre></div>
+       </div>
+
+      </div>
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.introduction.html">導入</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.meta.html">メタ文字</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

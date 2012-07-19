@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在実行されている (phar 形式の) ファイルを読み込み、その内容を登録する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.loadphar.html">Phar::loadPhar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.mount.html">Phar::mount</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.mapphar" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Phar::mapPhar</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">Phar::mapPhar</span> &mdash; <span class="dc-title">現在実行されている (phar 形式の) ファイルを読み込み、その内容を登録する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-phar.mapphar-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>Phar::mapPhar</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$alias</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$dataoffset</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+
+  <p class="para rdfs-comment">
+   この静的メソッドは、直接実行されたときや
+   他のスクリプトからインクルードされたときに
+   Phar アーカイブのローダスタブ内で使用され、
+   phar を初期化します。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-phar.mapphar-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">alias</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このアーカイブを参照する際にフルパスのかわりに使用する、
+       <i>phar://</i> 形式の URL。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dataoffset</tt></i></span>
+     <dd>
+
+      <p class="para">
+       未使用。PEAR の PHP_Archive との互換性のために用意しています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phar.mapphar-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-phar.mapphar-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   PHP から直接コールされなかった場合、
+   ソースファイル内に __HALT_COMPILER(); トークンがなかった場合、
+   あるいはファイルを読み込みモードでオープンできなかった場合に
+   <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phar.mapphar-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-704">
+    <p><b>例1 <span class="function"><b>Phar::mapPhar()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     mapPhar は、phar のローダスタブ内でのみ使用します。
+     外部の phar をメモリに読み込むには、loadPhar を使用します。
+    </p></div>
+    <div class="example-contents"><p>
+     mapPhar を使用する Phar ローダスタブの例は、このようになります。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">__autoload</span><span style="color: #007700">(</span><span style="color: #0000BB">$class</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">'phar://me.phar/'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">str_replace</span><span style="color: #007700">(</span><span style="color: #DD0000">'_'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$class</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br />}<br />try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mapPhar</span><span style="color: #007700">(</span><span style="color: #DD0000">'me.phar'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">'phar://me.phar/startup.php'</span><span style="color: #007700">;<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">PharException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Phar&nbsp;を初期化できません'</span><span style="color: #007700">);<br />}<br />__HALT_COMPILER();</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-phar.mapphar-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="phar.loadphar.html" class="function" rel="rdfs-seeAlso">Phar::loadPhar()</a> - 任意の phar アーカイブを、エイリアスを指定して読み込む</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.loadphar.html">Phar::loadPhar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.mount.html">Phar::mount</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

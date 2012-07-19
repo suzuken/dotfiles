@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQLite データベースをオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite3.loadextension.html">SQLite3::loadExtension</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite3.prepare.html">SQLite3::prepare</a></div>
+ <div class="up"><a href="class.sqlite3.html">SQLite3</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sqlite3.open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SQLite3::open</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">SQLite3::open</span> &mdash; <span class="dc-title">SQLite データベースをオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-sqlite3.open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>SQLite3::open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt><span class="initializer"> = SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$encryption_key</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   SQLite 3 データベースをオープンします。
+   暗号化込みでビルドされている場合は、キーの使用を試みます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-sqlite3.open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite データベースへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite データベースのオープン方法を指定するフラグ。
+       デフォルトでは <i>SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE</i>
+       を使用してオープンします。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <i>SQLITE3_OPEN_READONLY</i>:
+          データベースを読み込み専用でオープンする
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>SQLITE3_OPEN_READWRITE</i>:
+          データベースを読み書き共用でオープンする
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>SQLITE3_OPEN_CREATE</i>:
+          データベースが存在しない場合は作成する
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">encryption_key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの暗号キー。SQLite データベースの暗号化と復号に使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-sqlite3.open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   データベースのオープンに成功した場合に <b><tt>TRUE</tt></b>、失敗した場合に <b><tt>FALSE</tt></b>
+   を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-sqlite3.open-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1803">
+    <p><b>例1 <span class="function"><b>SQLite3::open()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;SQLite3&nbsp;クラスを継承して&nbsp;__construct&nbsp;を変更し、<br />&nbsp;*&nbsp;open&nbsp;メソッドで&nbsp;DB&nbsp;を初期化します<br />&nbsp;*/<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDB&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">SQLite3<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysqlitedb.db'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDB</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">'CREATE&nbsp;TABLE&nbsp;foo&nbsp;(bar&nbsp;STRING)'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;foo&nbsp;(bar)&nbsp;VALUES&nbsp;('This&nbsp;is&nbsp;a&nbsp;test')"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;bar&nbsp;FROM&nbsp;foo'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetchArray</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite3.loadextension.html">SQLite3::loadExtension</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite3.prepare.html">SQLite3::prepare</a></div>
+ <div class="up"><a href="class.sqlite3.html">SQLite3</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

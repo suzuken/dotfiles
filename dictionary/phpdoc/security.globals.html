@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>グローバル変数の登録機能の使用法</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.errors.html">エラーのレポート</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.variables.html">ユーザが投稿したデータ</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="security.globals" class="chapter">
+   <h1>グローバル変数の登録機能の使用法</h1>
+
+   <div class="warning"><b class="warning">警告</b><p class="simpara">この機能は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+   <p class="para">
+    <acronym title="PHP: Hypertext Preprocessor">PHP</acronym>の変更点で最も議論の対象となったのは、おそらく、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>
+    <a href="http://www.php.net/releases/4_2_0.php" class="link external">&raquo; 4.2.0</a>において
+    <acronym title="PHP: Hypertext Preprocessor">PHP</acronym>のディレクティブ
+    <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>が
+    デフォルトでONからOFFに変更された時でしょう。
+    当時、このディレクティブに依存することが一般的であり、多くの人は、
+    このパラメータの存在すら知らず、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>の動作そのものであるというよう
+    に考えていました。このページは、このディレクティブにより安全でな
+    いコードを書く可能性があるということをこのページで説明しますが、
+    このディレクティブそのものが安全でないわけではなく、これを誤って使
+    用することが安全でないということを念頭においていてください。
+   </p>
+   <p class="para">
+    register_globalsをonとした場合、この機能により、<acronym title="Hyper Text Markup Language">HTML</acronym>フォームから投
+    稿される変数と同時に、あらゆる種類の変数がスクリプトに注入される
+    ことになります。これは、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>においては変数の初期化が不
+    要であるということにも関係し、安全でないコードを書くことが極めて容
+    易になるということを意味します。困難な変更でしたが、<acronym title="PHP: Hypertext Preprocessor">PHP</acronym>コミュニティ
+    は、このディレクティブをデフォルトで無効とすることを決定しました。
+    onとした場合、どこから来たのかが不明であり、出処を仮定するしかない
+    変数を使用することになります。スクリプト自体で定義される内部変数は、
+    ユーザにより送信されたリクエストデータと混ざってしまいますが、
+    register_globals を無効とすることでこれを回避することができます。
+    以下にregister_globalsの誤った使用例を示しましょう。
+   </p>
+   <p class="para">
+    <div class="example" id="example-306">
+     <p><b>例9 register_globals = on の誤った使用例</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ユーザが認証された場合のみ&nbsp;$authorized&nbsp;=&nbsp;true&nbsp;を定義する<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">authenticated_user</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$authorized&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;最初に$authorizedをfalseとして初期化していないため、<br />//&nbsp;以下のコードにより、GET&nbsp;auth.php?authorized=1&nbsp;のように<br />//&nbsp;register_globals機能により定義される可能性があります。<br />//&nbsp;このため、誰でも認証されたようにみせることができます!<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$authorized</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;</span><span style="color: #DD0000">"/highly/sensitive/data.php"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    register_globals = onとした場合、上記のロジックは破綻する可能性が
+    あります。offの場合、<var class="varname"><var class="varname">$authorized</var></var>はリクエストに
+    より設定することはできず、正しく動作します。しかし、一般に良いプロ
+    グラミング法は、変数を最初に初期化することです。例えば、上の例で
+    <i>$authorized = false</i>を先頭に置いておくことができ
+    ます。これにより、ユーザはデフォルトで認証されない状態となるため、
+    register_globalsのon/offによらず上記のコードは動作します。
+   </p>
+   <p class="para">
+    別の例は、 <a href="ref.session.html" class="link">セッション</a>に関するも
+    のです。register_globals = onとした場合、以下の例で
+    <var class="varname"><var class="varname">$username</var></var>を使用することもできますが、
+    (<acronym title="Uniform Resource Locator">URL</acronym>により)GETのような他の手段によっても
+    <var class="varname"><var class="varname">$username</var></var> を設定することができることに留意する
+    必要があります。
+   </p>
+   <p class="para">
+    <div class="example" id="example-307">
+     <p><b>例10 register_globals on またはoffの場合のセッションの使用例</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;$usernameの出処は不明だが、$_SESSIONがセッションデータであることは<br />//&nbsp;既知です。<br /></span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'username'</span><span style="color: #007700">]))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;&lt;b&gt;</span><span style="color: #007700">{</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'username'</span><span style="color: #007700">]}</span><span style="color: #DD0000">&lt;/b&gt;"</span><span style="color: #007700">;<br /><br />}&nbsp;else&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;&lt;b&gt;Guest&lt;/b&gt;&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Would&nbsp;you&nbsp;like&nbsp;to&nbsp;login?"</span><span style="color: #007700">;<br /><br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    偽造が試みられた時に警告するために予防的な計測を行うことも可能です。
+    ある変数の出処を前もって正確に知っている場合、
+    投稿されたデータが適切な投稿元からのものであるかを調べることができ
+    ます。これは、データが偽造されたものでないことを保証するわけではあ
+    りませんが、攻撃者による偽造の成立を限定的なものにすることができま
+    す。リクエストデータの出処を気にかけない場合、
+    <var class="varname"><var class="varname"><a href="reserved.variables.request.html" class="classname">$_REQUEST</a></var></var> を使用することができます。
+    この変数には、GET、POST、COOKIEが合わさって含まれています。
+    本マニュアルの
+    <a href="language.variables.external.html" class="link">外部から来る変数</a>
+    のセクションを参照してください。
+   </p>
+   <p class="para">
+    <div class="example" id="example-308">
+     <p><b>例11 簡単に変数汚染を検出する</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$_COOKIE</span><span style="color: #007700">[</span><span style="color: #DD0000">'MAGIC_COOKIE'</span><span style="color: #007700">]))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;MAGIC_COOKIE&nbsp;comes&nbsp;from&nbsp;a&nbsp;cookie.<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Be&nbsp;sure&nbsp;to&nbsp;validate&nbsp;the&nbsp;cookie&nbsp;data!<br /><br /></span><span style="color: #007700">}&nbsp;elseif&nbsp;(isset(</span><span style="color: #0000BB">$_GET</span><span style="color: #007700">[</span><span style="color: #DD0000">'MAGIC_COOKIE'</span><span style="color: #007700">])&nbsp;||&nbsp;isset(</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'MAGIC_COOKIE'</span><span style="color: #007700">]))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mail</span><span style="color: #007700">(</span><span style="color: #DD0000">"admin@example.com"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Possible&nbsp;breakin&nbsp;attempt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$_SERVER</span><span style="color: #007700">[</span><span style="color: #DD0000">'REMOTE_ADDR'</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Security&nbsp;violation,&nbsp;admin&nbsp;has&nbsp;been&nbsp;alerted."</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;exit;<br /><br />}&nbsp;else&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;MAGIC_COOKIE&nbsp;isn't&nbsp;set&nbsp;through&nbsp;this&nbsp;REQUEST<br /><br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   もちろん、register_globalsをoffにするだけでは、使用するコードが安
+   全であることを意味しません。投稿された全てのデータ毎に
+   他の手段で検証することも必要です。ユーザデータを常に検証し、
+   使用する変数を初期化してください!
+   初期化されていない変数を調べるには、
+   <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span>で
+   <b><tt>E_NOTICE</tt></b>レベルのエラーを有効にするように
+   してください。
+  </p>
+  <p class="para">
+   register_globalsをOnまたはOffのエミュレートに関数情報に
+   ついては、<a href="faq.misc.html#faq.misc.registerglobals" class="link">FAQ</a>を
+   参照してください。
+  </p>
+
+   <blockquote class="note"><p><b class="note">注意</b>: <b>スーパーグローバル:
+使用可能なバージョンに関する注意</b><br /><p class="para">PHP 4.1.0 以降、
+<var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET</a></var></var>, <var class="varname"><var class="varname"><a href="reserved.variables.post.html" class="classname">$_POST</a></var></var>,
+<var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER</a></var></var>
+等のスーパーグローバル配列が使用可能となっています。
+詳細な情報については、マニュアルの <a href="language.variables.predefined.html" class="link">superglobals</a>
+のセクションを参照してください。</p></p></blockquote>
+
+  </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.errors.html">エラーのレポート</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.variables.html">ユーザが投稿したデータ</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

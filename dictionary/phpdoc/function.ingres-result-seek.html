@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>データを取得する前に行の位置を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-query.html">ingres_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-rollback.html">ingres_rollback</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ingres-result-seek" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ingres_result_seek</h1>
+  <p class="verinfo">(PECL ingres &gt;= 2.1.0)</p><p class="refpurpose"><span class="refname">ingres_result_seek</span> &mdash; <span class="dc-title">データを取得する前に行の位置を設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ingres-result-seek-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ingres_result_seek</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$position</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数を使って、フェッチを実行する前に結果セットのカーソルを移動することができます。
+   <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+   が 0 の場合は最初の行が 0 番目、それ以外の場合は最初の行は 1 番目となります。
+   <span class="function"><b>ingres_result_seek()</b></span> は、
+   <a href="ingres.configuration.html#ini.ingres.scrollable" class="link">スクロール可能なカーソル</a>
+   を使ったクエリでのみ使うことができます。
+   <span class="function"><a href="function.ingres-unbuffered-query.html" class="function">ingres_unbuffered_query()</a></span> では使うことができません。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>関連する設定項目</b><br />
+   <p class="para">
+    <a href="ingres.configuration.html" class="link">実行時設定</a>での
+    <a href="ingres.configuration.html#ini.ingres.scrollable" class="link">ingres.scrollable</a> および
+    <a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+    の説明も参照ください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ingres-result-seek-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クエリの結果 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">position</tt></i></span>
+     <dd>
+
+      <p class="para">
+       カーソルを移動させる場所。<a href="ingres.configuration.html#ini.ingres.array-index-start" class="link">ingres.array_index_start</a>
+       が 0 の場合は最初の行が 0 番目、それ以外の場合は最初の行は 1 番目となります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ingres-result-seek-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ingres-result-seek-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1205">
+    <p><b>例1 3 行目へのカーソルの移動</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$result</span><span style="color: #007700">=</span><span style="color: #0000BB">ingres_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"select&nbsp;*&nbsp;from&nbsp;airport&nbsp;where&nbsp;ap_ccode&nbsp;=&nbsp;'ES'&nbsp;order&nbsp;by&nbsp;ap_place&nbsp;asc"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;3&nbsp;行目に移動します&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">ingres_result_seek</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">))<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">ingres_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;-&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">ingres_error&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">"i&nbsp;died"</span><span style="color: #007700">);<br />}<br />else<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$airport&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ingres_fetch_object&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$airport</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ap_iatacode&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"&nbsp;-&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;&nbsp;</span><span style="color: #0000BB">$airport</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">ap_name&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">ingres_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ingres-result-seek-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ingres-query.html" class="function" rel="rdfs-seeAlso">ingres_query()</a> - Ingres に SQL クエリを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-array.html" class="function" rel="rdfs-seeAlso">ingres_fetch_array()</a> - 1 行分の結果を配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-assoc.html" class="function" rel="rdfs-seeAlso">ingres_fetch_assoc()</a> - 1 行分の結果を連想配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-object.html" class="function" rel="rdfs-seeAlso">ingres_fetch_object()</a> - 1 行分の結果をオブジェクトとして取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-row.html" class="function" rel="rdfs-seeAlso">ingres_fetch_row()</a> - 1 行分の結果を数値添字配列として取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-query.html">ingres_query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-rollback.html">ingres_rollback</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

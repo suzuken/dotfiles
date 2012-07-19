@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>paradox データベースにレコードを挿入する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-get-value.html">px_get_value</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-new.html">px_new</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.px-insert-record" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">px_insert_record</h1>
+  <p class="verinfo">(PECL paradox &gt;= 1.4.0)</p><p class="refpurpose"><span class="refname">px_insert_record</span> &mdash; <span class="dc-title">paradox データベースにレコードを挿入する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.px-insert-record-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>px_insert_record</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$pxdoc</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$data</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   データベースに新しいレコードを挿入します。新しいレコードは、
+   必ずデータベースの最後に格納されるとは限りません。
+   最初に見つかった空きスロットの位置に格納されることになります。
+  </p>
+  <p class="para">
+   レコードのデータは、フィールド値の配列として渡します。
+   配列の要素がデータベースのフィールドに対応していなければなりません。
+   配列の要素数がデータベースのフィールド数より少ない場合は、
+   それ以降のフィールドには null が設定されます。
+  </p>
+  <p class="para">
+   ほとんどのフィールドは、その型に対応する PHP の型でデータを渡します。
+   例えば PX_FIELD_LONG、PX_FIELD_SHORT および PX_FIELD_AUTOINC
+   の場合は long 型、PX_FIELD_CURRENCy および PX_FIELD_NUMBER
+   の場合は double 型が使用されます。blob 型や alpha
+   型のフィールドには、文字列を使用します。
+  </p>
+  <p class="para">
+   PX_FIELD_TIME および PX_FIELD_DATE については long 型を指定します。
+   前者は深夜 0 時からの経過ミリ秒数、後者は 0000 年 1 月 1 日からの
+   経過日数を指定します。以下に、現在の日付および時刻を
+   paradox のフィールドで使用できる値に変換する例を 2 種類示します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、pxlib &gt;= 0.6.0 が使用されている場合にのみ有効です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.px-insert-record-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pxdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.px-new.html" class="function">px_new()</a></span> が返す
+       paradox データベースのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">data</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.px-retrieve-record.html" class="function">px_retrieve_record()</a></span> などが返す、
+       フィールド値を含む連想配列あるいは数値添字配列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.px-insert-record-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   失敗した場合には <b><tt>FALSE</tt></b>、成功した場合にはレコード数を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.px-insert-record-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1685">
+    <p><b>例1 
+     paradox データベースの日付/時刻フィールドに、現在の日付/時刻を設定する
+    </b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$px&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">px_new</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"test.db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w+"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">px_create_fp</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;array(array(</span><span style="color: #DD0000">"timestamp"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"@"</span><span style="color: #007700">),&nbsp;array(</span><span style="color: #DD0000">"time"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"T"</span><span style="color: #007700">),&nbsp;array(</span><span style="color: #DD0000">"date"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"D"</span><span style="color: #007700">)));<br /><br /></span><span style="color: #0000BB">$curdate&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getdate</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$jd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gregoriantojd</span><span style="color: #007700">(</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"mon"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"mday"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"year"</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$jd&nbsp;</span><span style="color: #007700">-&nbsp;</span><span style="color: #0000BB">1721425</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*&nbsp;紀元前&nbsp;4714&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日と&nbsp;0000&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日の差&nbsp;*/<br /></span><span style="color: #0000BB">$secs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"hours"</span><span style="color: #007700">]*</span><span style="color: #0000BB">3600&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"minutes"</span><span style="color: #007700">]*</span><span style="color: #0000BB">60&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$curdate</span><span style="color: #007700">[</span><span style="color: #DD0000">"seconds"</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">px_insert_record</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">$days</span><span style="color: #007700">*</span><span style="color: #0000BB">86400000.0&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$secs</span><span style="color: #007700">*</span><span style="color: #0000BB">1000.0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$secs</span><span style="color: #007700">*</span><span style="color: #0000BB">1000.0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$days</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$curtimestamp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">microtime</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">=&nbsp;(int)&nbsp;(</span><span style="color: #0000BB">$curtimestamp</span><span style="color: #007700">/</span><span style="color: #0000BB">86400</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$secs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$curtimestamp&nbsp;</span><span style="color: #007700">-&nbsp;(</span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">86400.0</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">+=&nbsp;</span><span style="color: #0000BB">2440588</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*&nbsp;紀元前&nbsp;4714&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日と&nbsp;1970&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日の差&nbsp;*/<br /></span><span style="color: #0000BB">$days&nbsp;</span><span style="color: #007700">-=&nbsp;</span><span style="color: #0000BB">1721425</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*&nbsp;紀元前&nbsp;4714&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日と&nbsp;0000&nbsp;年&nbsp;1&nbsp;月&nbsp;1&nbsp;日の差&nbsp;*/<br /></span><span style="color: #0000BB">px_insert_record</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">$days</span><span style="color: #007700">*</span><span style="color: #0000BB">86400000.0&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$secs</span><span style="color: #007700">*</span><span style="color: #0000BB">1000.0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$secs</span><span style="color: #007700">*</span><span style="color: #0000BB">1000.0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$days</span><span style="color: #007700">));<br />for(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">&lt;</span><span style="color: #0000BB">2</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rec&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">px_retrieve_record</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">px_timestamp2string</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rec</span><span style="color: #007700">[</span><span style="color: #DD0000">"timestamp"</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"n/d/Y&nbsp;H:i:s"</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">px_date2string</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$rec</span><span style="color: #007700">[</span><span style="color: #DD0000">"date"</span><span style="color: #007700">],&nbsp;</span><span style="color: #DD0000">"n/d/Y"</span><span style="color: #007700">).</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">px_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">px_delete</span><span style="color: #007700">(</span><span style="color: #0000BB">$px</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+2/21/2006 21:42:30
+2/21/2006
+2/21/2006 20:42:30
+2/21/2006
+</pre></div>
+    </div>
+   </div>
+  </p>
+
+  <p class="para">
+    <span class="function"><a href="function.jdtogregorian.html" class="function">jdtogregorian()</a></span> に渡すユリウス日は、
+    紀元前 4714 年 1 月 1 日を基準としており、paradox
+    ファイルで使用している値に変換するには
+    1721425 日ぶん加算しなければなりません。
+    日数をタイムスタンプに変換するのは簡単で、
+    日数に 86400000.0 を掛ければミリ秒数になります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.px-insert-record-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+    <span class="function"><a href="function.px-update-record.html" class="function" rel="rdfs-seeAlso">px_update_record()</a> - paradox データベースのレコードを更新する</span>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.px-get-value.html">px_get_value</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.px-new.html">px_new</a></div>
+ <div class="up"><a href="ref.paradox.html">Paradox 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

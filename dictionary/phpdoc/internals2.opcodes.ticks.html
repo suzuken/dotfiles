@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>TICKS</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.opcodes.throw.html">THROW</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.opcodes.unset-dim.html">UNSET_DIM</a></div>
+ <div class="up"><a href="internals2.opcodes.ops.html">オペコード一覧</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.opcodes.ticks" class="section">
+    <h2 class="title">TICKS</h2>
+    <div class="section" id="internals2.opcodes.ticks.code">
+     <h2 class="title">PHP code</h2>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;<br />&nbsp;*&nbsp;opcode&nbsp;number:&nbsp;105<br />&nbsp;*/<br />//&nbsp;A&nbsp;function&nbsp;that&nbsp;records&nbsp;the&nbsp;time&nbsp;when&nbsp;it&nbsp;is&nbsp;called<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">profile</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"profile&nbsp;function&nbsp;is&nbsp;called\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;Set&nbsp;up&nbsp;a&nbsp;tick&nbsp;handler<br /></span><span style="color: #0000BB">register_tick_function</span><span style="color: #007700">(</span><span style="color: #DD0000">"profile"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Initialize&nbsp;the&nbsp;function&nbsp;before&nbsp;the&nbsp;declare&nbsp;block<br /></span><span style="color: #0000BB">profile</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;Run&nbsp;a&nbsp;block&nbsp;of&nbsp;code,&nbsp;throw&nbsp;a&nbsp;tick&nbsp;every&nbsp;2nd&nbsp;statement<br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">ticks</span><span style="color: #007700">=</span><span style="color: #0000BB">2</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">;&nbsp;++</span><span style="color: #0000BB">$x</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"hello&nbsp;world\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    <div class="section" id="internals2.opcodes.ticks.listing">
+     <h2 class="title">PHP opcodes</h2>
+     <p class="simpara">Function name: (null)</p>
+     <p class="simpara">Compiled variables: !0=$x </p>
+     <table class="doctable informaltable">
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>line</th><th>#</th><th>op</th>
+         <th>fetch</th><th>ext</th><th>return</th>
+         <th>operands</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left">7</td><td align="left">0</td>
+         <td align="left">NOP</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left"> </td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">13</td><td align="left">1</td>
+         <td align="left">SEND_VAL</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">&#039;profile&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">2</td>
+         <td align="left">DO_FCALL</td><td align="left"> </td>
+         <td align="left">1</td><td align="left"> </td>
+         <td align="left">&#039;register_tick_function&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">16</td><td align="left">3</td>
+         <td align="left">DO_FCALL</td><td align="left"> </td>
+         <td align="left">0</td><td align="left"> </td>
+         <td align="left">&#039;profile&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">20</td><td align="left">4</td>
+         <td align="left">ASSIGN</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">!0,0</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">5</td>
+         <td align="left">IS_SMALLER</td><td align="left"> </td>
+         <td align="left"> </td><td align="left">~3</td>
+         <td align="left">!0,10</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">6</td>
+         <td align="left">JMPZNZ</td><td align="left"> </td>
+         <td align="left">9</td><td align="left"> </td>
+         <td align="left">~3,-&gt;13</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">7</td>
+         <td align="left">PRE_INC</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">!0</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">8</td>
+         <td align="left">JMP</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">-&gt;5</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">21</td><td align="left">9</td>
+         <td align="left">ECHO</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">&#039;hello+world%0A&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">10</td>
+         <td align="left">TICKS</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">2</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">22</td><td align="left">11</td>
+         <td align="left">TICKS</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">2</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">12</td>
+         <td align="left">JMP</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">-&gt;7</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"> </td><td align="left">13</td>
+         <td align="left">TICKS</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">2</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">23</td><td align="left">14</td>
+         <td align="left">TICKS</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">2</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">24</td><td align="left">15</td>
+         <td align="left">RETURN</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">1</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+     <p class="simpara">Function name: profile</p>
+     <p class="simpara">Compiled variables: none </p>
+     <table class="doctable informaltable">
+      
+       <thead valign="middle">
+        <tr valign="middle">
+         <th>line</th><th>#</th><th>op</th>
+         <th>fetch</th><th>ext</th><th>return</th>
+         <th>operands</th>
+        </tr>
+
+       </thead>
+
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left">9</td><td align="left">0</td>
+         <td align="left">ECHO</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">&#039;profile+function+is+called%0A&#039;</td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left">10</td><td align="left">1</td>
+         <td align="left">RETURN</td><td align="left"> </td>
+         <td align="left"> </td><td align="left"> </td>
+         <td align="left">null</td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+    </div>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.opcodes.throw.html">THROW</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.opcodes.unset-dim.html">UNSET_DIM</a></div>
+ <div class="up"><a href="internals2.opcodes.ops.html">オペコード一覧</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

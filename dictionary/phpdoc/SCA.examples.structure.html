@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>サービスコンポーネントの構造</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sca.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.proxies.html">別のサービスコンポーネントへのプロキシの取得</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.structure" class="section">
+  <h2 class="title">サービスコンポーネントの構造</h2>
+  <p class="para"> 
+   サービスコンポーネントは、クラスとして実装します。
+   サービスコンポーネントであることを示すために、@service
+   アノテーションを使用します。SCA ランタイムは、
+   スクリプトのファイル名にもとづく規約でコンポーネント名を決定します。
+   したがって、クラス名とスクリプトのファイル名は同じにしておく必要があります。
+  </p>
+  
+  <p class="para"> 
+   PHP SCA コンポーネントは常にサービスを公開しています。
+   コンポーネントは、ウェブサービスへのリクエストの結果としてコールされるか
+   スクリプト内の別のコンポーネントから直接コールされるかのいずれかの方法でしか起動しません。
+   このため、有効な PHP SCA コンポーネントは常に @service
+   アノテーションを含んでおり、少なくともひとつの public メソッドを持っています。
+  </p>
+  
+  <p class="para"> 
+   各 SCA コンポーネントは、SCA.php をインクルードする必要があります。
+   ここには SCA クラスの定義が含まれているだけでなく、
+   スクリプトがコールされた際に実行される、
+   コンポーネントとして振舞うための PHP コードも含まれています。
+  </p>
+  
+  <div class="caution"><b class="caution">警告</b>
+   
+   <p class="para"> 
+    もし別のファイルもインクルードするのなら、それは
+    SCA.php をインクルードする前に行わなければなりません。
+    SCA.php の後で別のファイルをインクルードすると、
+    SCA ランタイムがクラスを処理する際に、
+    そのファイルの内容が処理されません。
+   </p>
+  </div>
+  
+  <p class="para"> 
+   以下の例で、これらすべての構造について説明します。
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-4338">
+    <p><b>例1 SCA for PHP のコンポーネントの構造</b></p>
+    
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;何かをインクルードします<br /><br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">"SCA/SCA.php"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/**<br />&nbsp;*&nbsp;@service<br />&nbsp;*/<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">ConvertedStockQuote&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;インスタンス変数、ビジネスロジック、そして最低ひとつの&nbsp;public&nbsp;メソッドを含めます<br /><br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sca.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.proxies.html">別のサービスコンポーネントへのプロキシの取得</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

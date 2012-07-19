@@ -1,0 +1,399 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>テキストをボックス内に出力する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-shfill.html">ps_shfill</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-show-xy2.html">ps_show_xy2</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ps-show-boxed" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ps_show_boxed</h1>
+  <p class="verinfo">(PECL ps &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ps_show_boxed</span> &mdash; <span class="dc-title">テキストをボックス内に出力する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ps-show-boxed-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ps_show_boxed</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$psdoc</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$text</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$left</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$bottom</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$width</tt></span>
+   , <span class="methodparam"><span class="type">float</span> <tt class="parameter">$height</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$hmode</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$feature</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   与えられたボックスの中にテキストを出力します。ボックスの左下の座標が
+   (<i><tt class="parameter">left</tt></i>, <i><tt class="parameter">bottom</tt></i>) となります。
+   必要に応じて改行が挿入されます。連続する空白文字は、ひとつとして扱われ、
+   タブ文字は空白文字として扱われます。
+  </p>
+  <p class="para">
+   パラメータ <i><tt class="parameter">hyphenation</tt></i> が
+   <i>true</i> に設定されており、またパラメータ
+   <i><tt class="parameter">hyphendict</tt></i>
+   に有効なハイフネーションファイルが設定されている場合に、
+   テキストのハイフネーションが行われます。
+   行間隔の設定は、値 <i>leading</i> で行います。
+   TeX と同様に、段落と段落の間には空行が挿入されます。
+   値 <i>parindent</i> が 0.0 より大きく設定されている場合、
+   最初の n 行は字下げされます。n の行数は、値 <i>numindentlines</i>
+   で設定します。
+   最初の m 段落を字下げしないようにするには、
+   値 <i>parindentskip</i> に正の数値を設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ps-show-boxed-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">psdoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ps-new.html" class="function">ps_new()</a></span> が返す、postscript
+       ファイルのリソース ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">text</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定したボックスの中に出力するテキスト。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">left</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ボックスの左下角の x 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">bottom</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ボックスの左下角の y 座標。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ボックスの幅。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">height</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ボックスの高さ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hmode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パラメータ <i><tt class="parameter">hmode</tt></i> は &quot;justify&quot;（均等割付）・
+       &quot;fulljustify&quot;（完全な均等割付）・&quot;right&quot;（右寄せ）・&quot;left&quot;（左寄せ）・
+       &quot;center&quot;（センタリング）のどれかの値を設定します。
+       &quot;justify&quot; と &quot;fulljustify&quot; の違いは、ボックスの最終行の処理です。
+       fulljustify モードでは、
+       段落の最後の行である場合を除いて最終行も均等割付をします。
+       justify モードでは、最終行は常に左寄せとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">feature</tt></i></span>
+     <dd>
+
+      <p class="para">
+       
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 unknown" id="refsect1-function.ps-show-boxed-unknown">
+  <h3 class="title">用いられるパラメータ</h3>
+  <p class="para">
+   <span class="function"><b>ps_show_boxed()</b></span> の出力は、パラメータや値
+   (それぞれ <span class="function"><a href="function.ps-set-parameter.html" class="function">ps_set_parameter()</a></span> や
+   <span class="function"><a href="function.ps-set-value.html" class="function">ps_set_value()</a></span> で設定されたもの) で設定できます。
+   テキスト出力に影響するパラメータや値のうち、以下のものが評価されます。
+   <dl>
+
+    <dt>
+
+     <span class="term">leading (value)</span>
+     <dd>
+
+      <p class="para">連続する 2 つの行の間隔です。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">linebreak (parameter)</span>
+     <dd>
+
+      <p class="para">
+        キャリッジリターンを、空白ではなく改行として扱いたい場合は &quot;true&quot;
+        に設定します。デフォルトは &quot;false&quot; です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">parbreak (parameter)</span>
+     <dd>
+
+      <p class="para">
+        単一行のデータ中のキャリッジリターンを、空白ではなく段落区切りとして
+        扱いたい場合は &quot;true&quot; に設定します。デフォルトは &quot;true&quot; です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">hyphenation (parameter)</span>
+     <dd>
+
+      <p class="para">
+        ハイフネーションを有効にする場合は &quot;true&quot; に設定します。
+        その際、パラメータ &quot;hyphendict&quot; に辞書を設定しておく必要があります。
+        デフォルトは &quot;false&quot; です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">hyphendict (parameter)</span>
+     <dd>
+
+      <p class="para">
+        ハイフネーションパターンの辞書ファイル名です（以下を参照）。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">hyphenminchar (value)</span>
+     <dd>
+
+      <p class="para">
+        ハイフンの前後に最低限必要な文字数です。つまり、少なくともこの値の
+        2 倍以上の文字数の単語でないとハイフネーションされないということです。
+        デフォルトは 3 です。値をゼロに設定すると、デフォルトの値が使われます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">parindent (value)</span>
+     <dd>
+
+      <p class="para">
+        段落の最初の m 行に対する字下げの量をピクセル単位で設定します。
+        m は、値 &quot;numindentlines&quot; で設定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">parskip (value)</span>
+     <dd>
+
+      <p class="para">
+        段落間の空白の追加量をピクセル単位で設定します。デフォルトは 0 で、
+        通常の行間設定をそのまま利用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">numindentlines (value)</span>
+     <dd>
+
+      <p class="para">
+        段落の最初の部分で字下げ対象となる行数です。デフォルトは 1 です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">parindentskip (value)</span>
+     <dd>
+
+      <p class="para">
+        字下げ処理を行わない段落数を設定します。デフォルトは 0 です。
+        この設定が便利に使えるのは、章の始めの段落・2 つのボックスにまたがる
+        テキストなどです。このような場合には値を 1 に設定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">linenumbermode (parameter)</span>
+     <dd>
+
+      <p class="para">
+        行番号のつけ方を設定します。&quot;box&quot; を設定するとボックス全体に
+        番号をつけ、&quot;paragraph&quot; を設定するとその中の段落単位で番号をつけます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">linenumberspace (value)</span>
+     <dd>
+
+      <p class="para">
+        行番号を表示するための、左側のスペースの幅です。行番号は、
+        このスペースに右詰めで表示されます。デフォルトは 20 です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">linenumbersep (value)</span>
+     <dd>
+
+      <p class="para">
+        行番号欄と行本文欄の間の空白です。デフォルトは 5 です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 unknown" id="refsect1-function.ps-show-boxed-unknown">
+  <h3 class="title">ハイフネーション</h3>
+  <p class="para">
+   パラメータ <i>hyphenation</i> が true に設定され、かつ
+   有効なハイフネーション辞書が設定されている場合に、テキストが
+   ハイフネーションされます。pslib は独自のハイフネーション辞書を持っておらず、
+   openoffice または scribus, koffice の辞書のうちひとつを利用します。
+   これらのソフトウェアがインストールされている環境では、さまざまな言語の辞書が
+   以下のディレクトリで見つけられます。
+   <ul class="simplelist">
+    <li class="member">
+     <var class="filename">/usr/share/apps/koffice/hyphdicts/</var>
+    </li>
+    <li class="member">
+     <var class="filename">/usr/lib/scribus/dicts/</var>
+    </li>
+    <li class="member">
+     <var class="filename">/usr/lib/openoffice/share/dict/ooo/</var>
+    </li>
+   </ul>
+   現時点では、scribus が最も完璧なハイフネーション辞書を持っているようです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ps-show-boxed-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   書くことができなかった文字数を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ps-show-boxed-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ps-continue-text.html" class="function" rel="rdfs-seeAlso">ps_continue_text()</a> - 次の行にテキストを続ける</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ps-shfill.html">ps_shfill</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ps-show-xy2.html">ps_show_xy2</a></div>
+ <div class="up"><a href="ref.ps.html">PS 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

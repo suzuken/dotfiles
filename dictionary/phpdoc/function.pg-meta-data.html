@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>テーブルからメタデータを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-lo-write.html">pg_lo_write</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-num-fields.html">pg_num_fields</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-meta-data" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_meta_data</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_meta_data</span> &mdash; <span class="dc-title">
+   テーブルからメタデータを取得する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-meta-data-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>pg_meta_data</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$table_name</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_meta_data()</b></span> は、<i>table_name</i>
+   のテーブル定義を配列として返します。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div> 
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-meta-data-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PostgreSQL データベースの接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">table_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       テーブルの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-meta-data-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   テーブル定義の配列を返します。エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.pg-meta-data-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1742">
+    <p><b>例1 テーブルのメタデータを得る</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$dbconn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"Could&nbsp;not&nbsp;connect"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">$meta&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbconn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'authors'</span><span style="color: #007700">);<br />&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$meta</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;pre&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$meta</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'&lt;/pre&gt;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+[&quot;author&quot;]=&gt;
+array(5) {
+  [&quot;num&quot;]=&gt;
+  int(1)
+  [&quot;type&quot;]=&gt;
+  string(7) &quot;varchar&quot;
+  [&quot;len&quot;]=&gt;
+  int(-1)
+  [&quot;not null&quot;]=&gt;
+  bool(false)
+  [&quot;has default&quot;]=&gt;
+  bool(false)
+}
+[&quot;year&quot;]=&gt;
+array(5) {
+  [&quot;num&quot;]=&gt;
+  int(2)
+  [&quot;type&quot;]=&gt;
+  string(4) &quot;int2&quot;
+  [&quot;len&quot;]=&gt;
+  int(2)
+  [&quot;not null&quot;]=&gt;
+  bool(false)
+  [&quot;has default&quot;]=&gt;
+  bool(false)
+}
+[&quot;title&quot;]=&gt;
+array(5) {
+  [&quot;num&quot;]=&gt;
+  int(3)
+  [&quot;type&quot;]=&gt;
+  string(7) &quot;varchar&quot;
+  [&quot;len&quot;]=&gt;
+  int(-1)
+  [&quot;not null&quot;]=&gt;
+  bool(false)
+  [&quot;has default&quot;]=&gt;
+  bool(false)
+}
+}
+</pre></div>
+    </div>
+   </div> 
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pg-meta-data-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-convert.html" class="function" rel="rdfs-seeAlso">pg_convert()</a> - 連想配列の値を、SQL 文として実行可能な形式に変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-lo-write.html">pg_lo_write</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-num-fields.html">pg_num_fields</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

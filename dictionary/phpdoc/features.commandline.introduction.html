@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>導入</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.commandline.differences.html">他の SAPI との違い</a></div>
+ <div class="up"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="features.commandline.introduction" class="section">
+  <h2 class="title">導入</h2>
+  
+  <p class="para">
+   PHP は、<acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> を PHP 4.3.0 以降でサポートしています。この
+   <acronym title="Server Application Programming Interface">SAPI</acronym> の主な目的は、シェルアプリケーションを PHP
+   で開発することです。<acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> とその他の
+   <acronym title="Server Application Programming Interface">SAPI</acronym> の間にはちょっとした違いがあり、
+   それを本章で説明します。<acronym title="Command Line Interpreter/Interface">CLI</acronym> と <acronym title="Common Gateway Interface">CGI</acronym>
+   は多くの共通点がありますが、別の <acronym title="Server Application Programming Interface">SAPI</acronym>
+   であるということも覚えておきましょう。
+  </p>
+  
+  <p class="para">
+   <acronym title="Command Line Interpreter/Interface">CLI</acronym> <acronym title="Server Application Programming Interface">SAPI</acronym> は、
+   <strong class="option configure">--enable-cli</strong>
+ でデフォルトで有効となっています。
+   <strong class="command">./configure</strong> の際に
+   <strong class="option configure">--disable-cli</strong>
+ オプションを指定して無効にすることもできます。
+  </p>
+  
+  <p class="para">
+   <acronym title="Command Line Interpreter/Interface">CLI</acronym>/<acronym title="Common Gateway Interface">CGI</acronym> バイナリの名前、位置、そして存在するかどうかは
+   PHP がどのようにインストールされているかによって異なります。デフォルトで
+   <strong class="command">make</strong> を実行したときには、<acronym title="Common Gateway Interface">CGI</acronym> と
+   <acronym title="Command Line Interpreter/Interface">CLI</acronym> が両方ビルドされて、それぞれ PHP ソースディレクトリの <var class="filename">sapi/cgi/php-cgi</var> と
+   <var class="filename">sapi/cli/php</var> にできあがります。
+   両方とも <var class="filename">php</var> という名前であることに注意しましょう。
+   <strong class="command">make install</strong> のときにどうなるかは、configure
+   行に依存します。
+   configure で例えば apxs のような <acronym title="Server Application Programming Interface">SAPI</acronym> モジュールが選択された場合、または
+   <strong class="option configure">--disable-cgi</strong>
+ が指定された場合、
+   <strong class="command">make install</strong> によって <acronym title="Command Line Interpreter/Interface">CLI</acronym> が <var class="filename">{PREFIX}/bin/php</var>
+   にコピーされます。さもなければ <acronym title="Common Gateway Interface">CGI</acronym> がそこにコピーされます。
+   つまり、たとえば configure で <strong class="option configure">--with-apxs </strong>
+
+   を指定すると、<strong class="command">make install</strong> での <acronym title="Command Line Interpreter/Interface">CLI</acronym> のコピー先は
+   <var class="filename">{PREFIX}/bin/php</var> となります。
+   既にインストールされている <acronym title="Common Gateway Interface">CGI</acronym> バイナリを上書きしたい場合には、
+   <strong class="command">make install</strong> の後に <strong class="command">make install-cli</strong>
+   を実行してください。あるいは configure で
+   <strong class="option configure">--disable-cgi</strong>
+ を指定することもできます。
+  </p>
+  
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <strong class="option configure">--enable-cli</strong>
+
+    と <strong class="option configure">--enable-cgi</strong>
+
+    の両方がデフォルトで有効になっています。そのため、configure で
+    <strong class="option configure">--enable-cli</strong>
+
+    を指定したからといって、<strong class="command">make install</strong> で
+    <var class="filename">{PREFIX}/bin/php</var> 
+    にコピーされるのが必ずしも <acronym title="Command Line Interpreter/Interface">CLI</acronym> になるとは限りません。
+   </p>
+  </p></blockquote>
+  
+  <p class="para">
+   PHP 5 以降、Windows 版の <acronym title="Command Line Interpreter/Interface">CLI</acronym> はメインフォルダ内で <var class="filename">php.exe</var>
+   という名前で配布されます。<acronym title="Common Gateway Interface">CGI</acronym> バージョンは、<var class="filename">php-cgi.exe</var>
+   として配布されます。さらに
+   PHP 5 では、configure で <strong class="option configure">--enable-cli-win32</strong>
+
+   を指定すると、新しく <var class="filename">php-win.exe</var> というファイルが配布されます。
+   これは <acronym title="Command Line Interpreter/Interface">CLI</acronym> バージョンとほぼ同じですが、何も出力しないため、コンソールを必要としません。
+  </p>
+  
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>自分の SAPI は何か?</b><br />
+   <p class="para">
+    シェルで <strong class="command">php -v</strong> をタイプすると、
+    <var class="filename">php</var> が <acronym title="Common Gateway Interface">CGI</acronym> なのか <acronym title="Command Line Interpreter/Interface">CLI</acronym> なのかわかります。
+    <span class="function"><a href="function.php-sapi-name.html" class="function">php_sapi_name()</a></span> と定数 <b><tt>PHP_SAPI</tt></b>
+    も参照してください。
+   </p>
+  </p></blockquote>
+  
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Unix の <i>man</i> ページは、
+    シェル環境から <strong class="command">man php</strong> とすれば見ることができます。
+   </p>
+  </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.commandline.differences.html">他の SAPI との違い</a></div>
+ <div class="up"><a href="features.commandline.html">コマンドラインの使用法</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

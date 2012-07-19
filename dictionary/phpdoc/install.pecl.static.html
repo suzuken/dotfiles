@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PECL 拡張モジュールを PHP に静的に組み込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.phpize.html">phpize で共有 PECL 拡張モジュールをコンパイルする方法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.problems.html">問題が起きた場合</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.pecl.static" class="sect1">
+   <h2 class="title">PECL 拡張モジュールを PHP に静的に組み込む</h2>
+   <p class="simpara">
+    PECL 拡張モジュールを PHP に静的に組み込みたいと思うこともあるでしょう。
+    そのためには、拡張モジュールのソースを <var class="filename">php-src/ext/</var>
+    ディレクトリに置き、PHP にその設定スクリプトを生成させる必要があります。
+   </p>
+   <p class="para">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+$ cd /your/phpsrcdir/ext
+$ pecl download extname
+$ gzip -d &lt; extname.tgz | tar -xvf -
+$ mv extname-x.x.x extname
+</pre></div>
+    </div>
+   </p>
+   <p class="simpara">
+    上記を行うと、以下のディレクトリが作成されます。
+   </p>
+   <p class="para">
+    <div class="example-contents screen"><br />
+     /your/phpsrcdir/ext/extname<br />
+    </div>
+   </p>
+   <p class="simpara">
+    これ以降、PHP に configure スクリプトを再実行させ、通常通りに
+    PHP をビルドします。
+   </p>
+   <p class="para">
+    <div class="example-contents screen"><br />
+$ cd /your/phpsrcdir<br />
+$ rm configure<br />
+$ ./buildconf --force<br />
+$ ./configure --help<br />
+$ ./configure --with-extname --enable-someotherext --with-foobar<br />
+$ make<br />
+$ make install<br />
+    </div>
+   </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     &#039;buildconf&#039; スクリプトを実行するためには、autoconf 2.13 と automake 1.4+
+     が必要です
+     (新しいバージョンの autoconf では動作するかも知れませんが、
+     サポートされていません)。
+    </span>
+   </p></blockquote>
+   <p class="simpara">
+    拡張モジュールによって、<i>--enable-extname</i>
+    もしくは <i>--with-extname</i> オプションを指定します。
+    外部ライブラリを使用しない拡張モジュールについては、
+    <i>--enable</i> が使われるのが一般的です。
+    buildconf の後で、以下を行うと確認できます。
+   </p>
+   <p class="para">
+    <div class="example-contents screen"><br />
+$ ./configure --help | grep extname<br />
+    </div>
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.phpize.html">phpize で共有 PECL 拡張モジュールをコンパイルする方法</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.problems.html">問題が起きた場合</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プロパティ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.basic.html">クラスの基礎</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.constants.html">オブジェクト定数</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.oop5.properties" class="sect1">
+  <h2 class="title">プロパティ</h2>
+
+  <p class="para">
+   クラスのメンバ変数のことを「プロパティ」といいます。
+   それ以外に「属性」「フィールド」などという呼びかたを見たことがあるかもしれません。
+   しかし、このマニュアルでは「プロパティ」と呼ぶことにします。
+   プロパティを定義するには <i>public</i>、<i>protected</i>
+   あるいは <i>private</i>
+   のいずれかのキーワードのあとに通常の変数の宣言を続けます。
+   宣言時に初期値を設定することもできますが、初期値は定数値でなければなりません。
+   つまり、コンパイル時に評価可能な値でなければならず、
+   実行時の情報がないと評価できない値であってはいけないということです。
+  </p>
+  <p class="para">
+   <i>public</i>、<i>protected</i>
+   そして <i>private</i> についての詳しい情報は
+   <a href="language.oop5.visibility.html" class="xref">アクセス権</a> を参照ください。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 4 との互換性を考慮して、PHP 5 でも <i>var</i>
+    を使ったプロパティの宣言が可能です。これは
+    <i>public</i> や <i>protected</i>、
+    <i>private</i> と組み合わせて使うこともできます。
+    しかし、もはや <i>var</i> は必須ではありません。
+    PHP 5.0 から 5.1.3 までのバージョンでは、
+    <i>var</i> の使用は非推奨とされており、
+    <b><tt>E_STRICT</tt></b> 警告が発生していました。
+    しかし PHP 5.1.3 以降は非推奨ではなくなり、警告も出なくなっています。
+   </p>
+   <p class="para">
+    <i>public</i> や <i>protected</i>、
+    <i>private</i> のかわりに <i>var</i>
+    を使ってプロパティを宣言した場合、PHP 5 はそれを
+    <i>public</i> と同等とみなします。
+   </p>
+  </p></blockquote>
+  <p class="para">
+   クラスメソッドからプロパティや定数、メソッドにアクセスするには
+   <var class="varname"><var class="varname">$this->property</var></var>
+   (<i>property</i> はプロパティの名前)
+   形式を使います。静的なクラスメソッドの中から静的なプロパティにアクセスする場合は
+   <var class="varname"><var class="varname">self::$property</var></var> 形式となります。
+   詳細な情報は <a href="language.oop5.static.html" class="link">static
+   キーワード</a> を参照ください。
+  </p>
+  <p class="para">
+   クラスメソッドがオブジェクトのコンテキストからコールされたときには、
+   擬似変数 <var class="varname"><var class="varname">$this</var></var> が常に使えます。
+   <var class="varname"><var class="varname">$this</var></var> は、呼び出し元のオブジェクト
+   (通常はそのメソッドが属するオブジェクトですが、別のオブジェクトになる可能性もあります。
+   別のオブジェクトのコンテキストから <a href="language.oop5.static.html" class="link">静的に</a>
+   コールされた場合などです) への参照となります。
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-161">
+    <p><b>例1 プロパティの宣言</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">SimpleClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;無効なプロパティ宣言<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hello&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'world'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var2&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;EOD<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var4&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">myStaticMethod</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var5&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$myVar</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;有効なプロパティ宣言<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var6&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">myConstant</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;public&nbsp;</span><span style="color: #0000BB">$var7&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;これは&nbsp;PHP&nbsp;5.3.0&nbsp;以降でのみ使える方式です<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$var8&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;'EOD'<br /></span><span style="color: #DD0000">hello&nbsp;world<br /></span><span style="color: #007700">EOD;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+   
+   </div>
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    クラスやオブジェクトを操作するための便利な関数が用意されています。
+    <a href="ref.classobj.html" class="link">クラス/オブジェクト関数</a>
+    を参照ください。
+   </p>
+  </p></blockquote>
+
+  <p class="para">
+   <a href="language.types.string.html#language.types.string.syntax.heredoc" class="link">ヒアドキュメント</a> とは異なり、
+   <a href="language.types.string.html#language.types.string.syntax.nowdoc" class="link">nowdocs</a>
+   は任意の静的データコンテキストで使えます。プロパティの宣言時にも使用可能です。
+   <div class="example" id="example-162">
+    <p><b>例2 nowdoc を使ったプロパティの初期化</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;'EOT'<br /></span><span style="color: #DD0000">bar<br /></span><span style="color: #007700">EOT;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    Nowdoc は PHP 5.3.0 以降で使用可能です。
+   </p>
+  </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.basic.html">クラスの基礎</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.constants.html">オブジェクト定数</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>数字を千位毎にグループ化してフォーマットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.nl2br.html">nl2br</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ord.html">ord</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.number-format" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">number_format</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">number_format</span> &mdash; <span class="dc-title">数字を千位毎にグループ化してフォーマットする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.number-format-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>number_format</b></span>
+    ( <span class="methodparam"><span class="type">float</span> <tt class="parameter">$number</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$decimals</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>number_format</b></span>
+    ( <span class="methodparam"><span class="type">float</span> <tt class="parameter">$number</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$decimals</tt><span class="initializer"> = 0</span></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dec_point</tt><span class="initializer"> = &#039;.&#039;</span></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$thousands_sep</tt><span class="initializer"> = &#039;,&#039;</span></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は 1 つか 2 つもしくは 4 つのパラメータを受け取ります
+   (3 つはありません) :
+  </p>
+  <p class="para">
+   パラメータが 1 つだけ渡された場合、
+   <i><tt class="parameter">number</tt></i> は千位毎にカンマ (&quot;,&quot;) が追加され、
+   小数なしでフォーマットされます。
+  </p>
+  <p class="para">
+   パラメータが 2 つ渡された場合、<i><tt class="parameter">number</tt></i>
+   は <i><tt class="parameter">decimals</tt></i> 桁の小数の前にドット (&quot;.&quot;) 、
+   千位毎にカンマ (&quot;,&quot;) が追加されてフォーマットされます。
+  </p>
+  <p class="para">
+   パラメータが 4 つ全て渡された場合、<i><tt class="parameter">number</tt></i>
+   はドット (&quot;.&quot;) の代わりに <i><tt class="parameter">dec_point</tt></i> が
+   <i><tt class="parameter">decimals</tt></i> 桁の小数の前に、千位毎にカンマ
+    (&quot;,&quot;) の代わりに <i><tt class="parameter">thousands_sep</tt></i>
+   が追加されてフォーマットされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.number-format-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">number</tt></i> をフォーマットした結果を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.number-format-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">number</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フォーマットする数値。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">decimals</tt></i></span>
+     <dd>
+
+      <p class="para">
+       小数点以下の桁数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dec_point</tt></i></span>
+     <dd>
+
+      <p class="para">
+       小数点を表す区切り文字。
+      </p>
+      <p class="para">
+       この関数は区切り文字の最初のバイトだけを使います。つまり、
+       マルチバイト文字を指定しても動作 <em class="emphasis">しない</em>
+       ということです。指定した場合、壊れたマルチバイトシーケンスになってしまいます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">thousands_sep</tt></i></span>
+     <dd>
+
+      <p class="para">
+       千位毎の区切り文字。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">thousands_sep</tt></i> は最初のバイトだけが使用されます。
+       例えば、数字の <i>1000</i> に対する
+       <i><tt class="parameter">thousands_sep</tt></i> として <i>&amp;amp;</i>
+       を使用した場合、<span class="function"><b>number_format()</b></span> は
+       <i>1&amp;000</i> を返します。
+      </p>
+      <p class="para">
+       上の <i><tt class="parameter">dec_point</tt></i> パラメータで説明したように、
+       この関数はマルチバイトに対応していません。マルチバイト文字を区切り文字に使うと、
+       壊れたマルチバイトシーケンスになってしまいます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.number-format-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3983">
+    <p><b>例1 <span class="function"><b>number_format()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     例えばフランスの表記法では、通常カンマ (&#039;,&#039;)
+     を小数の区切りとした二桁の小数と、千位毎の区切りとしてスペース
+      (&#039; &#039;) を用います。これを実現するには次のようにします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234.56</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;英語での表記&nbsp;(デフォルト)<br /></span><span style="color: #0000BB">$english_format_number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">number_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$number</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;1,235<br /><br />//&nbsp;フランスの表記<br /></span><span style="color: #0000BB">$nombre_format_francais&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">number_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$number</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">','</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&nbsp;'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;1&nbsp;234,56<br /><br /></span><span style="color: #0000BB">$number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1234.5678</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;千位毎の区切りがない英語での表記<br /></span><span style="color: #0000BB">$english_format_number&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">number_format</span><span style="color: #007700">(</span><span style="color: #0000BB">$number</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'.'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;1234.57<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.number-format-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.money-format.html" class="function" rel="rdfs-seeAlso">money_format()</a> - 数値を金額文字列にフォーマットする</span></li>
+    <li class="member"><span class="function"><a href="function.sprintf.html" class="function" rel="rdfs-seeAlso">sprintf()</a> - フォーマットされた文字列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.printf.html" class="function" rel="rdfs-seeAlso">printf()</a> - フォーマット済みの文字列を出力する</span></li>
+    <li class="member"><span class="function"><a href="function.sscanf.html" class="function" rel="rdfs-seeAlso">sscanf()</a> - フォーマット文字列に基づき入力を処理する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.nl2br.html">nl2br</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ord.html">ord</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

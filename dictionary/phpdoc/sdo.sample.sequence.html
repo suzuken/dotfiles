@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>シーケンスデータオブジェクトの使用</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.sample.getset.html">プロパティの値の設定および取得</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.sample.reflection.html">サービスデータオブジェクトへのリフレクション</a></div>
+ <div class="up"><a href="sdo.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo.sample.sequence" class="section">
+  <h2 class="title">シーケンスデータオブジェクトの使用</h2>
+  <p class="para">
+   シーケンスデータオブジェクトは、データオブジェクト内のさまざまな
+   プロパティの並び順を追跡する SDO です。ここには、非構造化
+   テキスト要素 (SDO のいずれのプロパティにも属さないテキスト要素)
+   を含めることも可能です。シーケンスデータオブジェクトは、
+   非構造化テキストを許可
+   (つまり、mixed=true である) したり、要素が交互に現れる
+   (<div class="cdata"><pre>&lt;A/&gt;&lt;B/&gt;&lt;A/&gt;</pre></div>) ような XML 文書を扱う場合に有用です。
+   これは、例えば order に choice を指定した複合型の要素に対して
+   スキーマで maxOccurs&gt;1 を定義している場合などに発生します。
+  </p>
+  <p class="para">
+   以下の例では、XML データアクセスサービスを使用して、
+   下のスキーマおよびインスタンスをもとに作成した SDO の使用を想定しています。
+  </p>
+  <p class="para">
+   このスキーマでは、手紙の書式を定義しています。letter (手紙) には
+   オプションで 3 つのプロパティ date (日付)、firstName (名前)、
+   および lastName (苗字) を含めることが可能です。このスキーマでは
+   <strong class="command">mixed=&quot;true&quot;</strong> としていますが、これは
+   3 つのプロパティの間に非構造化テキストをちりばめることが
+   できるということを意味します。
+  </p>
+  <p class="para">
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;xsd:schema xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot;
+  xmlns:letter=&quot;http://letterSchema&quot;
+  targetNamespace=&quot;http://letterSchema&quot;&gt;
+  &lt;xsd:element name=&quot;letters&quot; type=&quot;letter:FormLetter&quot;/&gt;
+  &lt;xsd:complexType name=&quot;FormLetter&quot; mixed=&quot;true&quot;&gt;
+    &lt;xsd:sequence&gt;
+      &lt;xsd:element name=&quot;date&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element name=&quot;firstName&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+      &lt;xsd:element name=&quot;lastName&quot; minOccurs=&quot;0&quot; type=&quot;xsd:string&quot;/&gt;
+    &lt;/xsd:sequence&gt;
+  &lt;/xsd:complexType&gt;
+&lt;/xsd:schema&gt;</pre>
+</div>
+   </div>
+
+  </p>
+
+  <p class="para">
+   以下が、手紙のインスタンスです。これには 3 つのプロパティ
+   date、firstName および lastName が含まれており、非構造化
+   テキスト要素として住所と本文が含まれています。
+  </p>
+  <p class="para">
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;letter:letters xmlns:letter=&quot;http://letterSchema&quot;&gt;
+  &lt;date&gt;March 1, 2005&lt;/date&gt;
+  Mutual of Omaha
+  Wild Kingdom, USA
+  Dear
+  &lt;firstName&gt;Casy&lt;/firstName&gt;
+  &lt;lastName&gt;Crocodile&lt;/lastName&gt;
+  Please buy more shark repellent.
+  Your premium is past due.
+&lt;/letter:letters&gt;</pre>
+</div>
+   </div>
+
+  </p>
+  <p class="para">
+   このインスタンスが読み込まれると、letter データオブジェクトの
+   シーケンス番号およびプロパティ番号は以下の表のようになります。
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>シーケンスのインデックス</th>
+       <th>プロパティのインデックス:名前</th>
+       <th>値</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">0</td>
+       <td align="left">0:date</td>
+       <td align="left">March 1, 2005</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1</td>
+       <td align="left">-</td>
+       <td align="left">Mutual of Omaha</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">2</td>
+       <td align="left">-</td>
+       <td align="left">Wild Kingdom, USA</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">3</td>
+       <td align="left">-</td>
+       <td align="left">Dear</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4</td>
+       <td align="left">1:firstName</td>
+       <td align="left">Casy</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5</td>
+       <td align="left">2:lastName</td>
+       <td align="left">Crocodile</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">6</td>
+       <td align="left">-</td>
+       <td align="left">Please buy more shark repellent.</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">7</td>
+       <td align="left">-</td>
+       <td align="left">Your premium is past due.</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+
+  <p class="para">
+   シーケンス番号の整合性を保つため、シーケンスデータオブジェクトの
+   操作には SDO_Sequence インターフェイスを使用しなければなりません。
+   これにより、データオブジェクトに対しての操作を
+   プロパティのインデックスではなくシーケンスのインデックスを使用して
+   行えるようになります (上の表を参照ください)。
+   以下の例では、letter のインスタンスが
+   データオブジェクト <strong class="command">$letter</strong> として
+   読み込まれているものと仮定します。
+   <div class="example" id="example-4514">
+    <p><b>例1 SDO_Sequence インターフェイスの取得</b></p>
+    <div class="example-contents"><p>
+     データオブジェクトのシーケンスを取得するには
+     <span class="function"><b>getSequence()</b></span> メソッドを使用します。
+     以下の例では、letter データオブジェクトのシーケンスを取得します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$letter_seq&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$letter</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSequence</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   これ以降の例では、letter データオブジェクトのシーケンスが
+   変数 <strong class="command">$letter_seq</strong> に代入されているものとします。
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4515">
+    <p><b>例2 シーケンスの値の取得/設定</b></p>
+    <div class="example-contents"><p>
+     シーケンスのインデックスを使用することで、(非構造化
+     テキストも含め) それぞれの値を取得したり設定したりすることが可能です。
+     以下の例では、ファーストネームを &#039;Snappy&#039; に変更して
+     シーケンスの最後の値 (非構造化テキスト
+     &#039;Your premium is past due.&#039;) を取得します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$letter_seq</span><span style="color: #007700">[</span><span style="color: #0000BB">4</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'Snappy'</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">[</span><span style="color: #0000BB">count</span><span style="color: #007700">(</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4516">
+    <p><b>例3 シーケンスの繰り返し処理</b></p>
+    <div class="example-contents"><p>
+     <a href="control-structures.foreach.html" class="link">foreach</a> を使用して、個々のシーケンス値について処理を繰り返すことが
+     できます。以下の例では、シーケンス順に個々の値を処理します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">foreach&nbsp;(</span><span style="color: #0000BB">$letter</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getSequence</span><span style="color: #007700">()&nbsp;as&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4517">
+    <p><b>例4 シーケンスとデータオブジェクトの比較</b></p>
+    <div class="example-contents"><p>
+     データオブジェクトのインターフェイスから設定した値は、シーケンスの
+     一部とはならないことがあります。データオブジェクト経由で値を
+     設定した場合、そのプロパティが既にシーケンスに組み込まれていた
+     場合にのみシーケンスからアクセス可能となります。
+     以下の例では、データオブジェクト経由で lastName を設定して
+     それをシーケンスから取得しています。これがうまくいくのは、
+     lastName が既にシーケンス内に存在するからです。もしこれが
+     事前に設定されていなかった場合、lastName には &#039;Smith&#039; が
+     設定されますが、それはシーケンスの一部とはなりません。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;$letter</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'Smith'</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$last_name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">[</span><span style="color: #0000BB">5</span><span style="color: #007700">];<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4518">
+    <p><b>例5 シーケンスへの追加</b></p>
+    <div class="example-contents"><p>
+     シーケンスに新しい値を追加するには
+     <a href="function.sdo-sequence-insert.html" class="link"><span class="function"><a href="function.sdo-sequence-insert.html" class="function">SDO_Sequence::insert()</a></span></a>
+     メソッドを使用します。以下の例では、プロパティ &#039;firstName&#039; および
+     &#039;lastName&#039; が最初に削除されているものと仮定します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;シーケンスに&nbsp;firstName&nbsp;を追加します<br />&nbsp;&nbsp;//&nbsp;値:&nbsp;'Smith'<br />&nbsp;&nbsp;//&nbsp;シーケンスのインデックス:&nbsp;NULL&nbsp;(追加)<br />&nbsp;&nbsp;//&nbsp;プロパティ&nbsp;ID:&nbsp;1&nbsp;(firtName&nbsp;プロパティのインデックス)<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">'Smith'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;シーケンスに&nbsp;lastName&nbsp;を追加します<br />&nbsp;&nbsp;//&nbsp;値:&nbsp;'Jones'<br />&nbsp;&nbsp;//&nbsp;シーケンスのインデックス:&nbsp;NULL&nbsp;(追加)<br />&nbsp;&nbsp;//&nbsp;プロパティ&nbsp;ID:&nbsp;'lastName'&nbsp;(lastName&nbsp;プロパティの名前)<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">'Jones'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'lastName'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;非構造化テキストを追加します<br />&nbsp;&nbsp;//&nbsp;値:&nbsp;'Cancel&nbsp;Subscription.'<br />&nbsp;&nbsp;//&nbsp;シーケンスのインデックス:&nbsp;省略&nbsp;(追加)<br />&nbsp;&nbsp;//&nbsp;プロパティ&nbsp;ID:&nbsp;省略&nbsp;(非構造化テキスト)<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">'Cancel&nbsp;Subscription.'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;非構造化テキストを間に挿入します。それ以降のシーケンス値は<br />&nbsp;&nbsp;//&nbsp;ひとつずれます。<br />&nbsp;&nbsp;//&nbsp;値:&nbsp;'Care&nbsp;of:'<br />&nbsp;&nbsp;//&nbsp;シーケンスのインデックス:&nbsp;1&nbsp;(2&nbsp;番目の要素として挿入する)<br />&nbsp;&nbsp;//&nbsp;プロパティ&nbsp;ID:&nbsp;省略&nbsp;(非構造化テキスト)<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(</span><span style="color: #DD0000">'Care&nbsp;of:'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-4519">
+    <p><b>例6 シーケンスからの削除</b></p>
+    <div class="example-contents"><p>
+     シーケンスに項目が登録されているかどうかを確かめたり
+     シーケンスから項目を削除したりする際には、それぞれ
+     <span class="function"><a href="function.isset.html" class="function">isset()</a></span>
+     および <span class="function"><a href="function.unset.html" class="function">unset()</a></span> 関数が使用可能です
+     (注意: <span class="function"><a href="function.unset.html" class="function">unset()</a></span> は、現時点では値を
+     データオブジェクト内に残します。しかし、この挙動はおそらく今後
+     変更され、データオブジェクトからもデータを削除することに
+     なるでしょう)。シーケンスの挙動は、リスト構造に似ています。
+     そのため、シーケンスの途中の項目を削除すると、それ以降の
+     インデックスがひとつずつ小さいほうにずれます。以下の例では、
+     インデックスの最初の要素が存在するかどうか調べ、存在する場合に
+     それを削除しています。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(isset(</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;unset(</span><span style="color: #0000BB">$letter_seq</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]);<br />&nbsp;&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.sample.getset.html">プロパティの値の設定および取得</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.sample.reflection.html">サービスデータオブジェクトへのリフレクション</a></div>
+ <div class="up"><a href="sdo.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

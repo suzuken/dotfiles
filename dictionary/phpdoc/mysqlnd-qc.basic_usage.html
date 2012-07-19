@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Basic usage</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd-qc.usage.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd-qc.per_query_ttl.html">Setting the TTL</a></div>
+ <div class="up"><a href="mysqlnd-qc.usage.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqlnd-qc.basic_usage" class="section">
+  <h2 class="title">Basic usage</h2>
+  <p class="para">
+      The Query Cache plugin supports caching of queries issued by the following user API calls:
+  </p>
+
+  <p class="para">
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      <a href="ref.mysqli.html" class="link">mysqli</a>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <span class="function"><a href="mysqli.query.html" class="function">mysqli_query()</a></span>
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <span class="function"><a href="mysqli.real-query.html" class="function">mysqli_real_query()</a></span> +
+         <span class="function"><a href="mysqli.store-result.html" class="function">mysqli_store_result()</a></span>
+        </p>
+       </li>
+      </ul>
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <a href="ref.pdo-mysql.html" class="link">PDO_MYSQL</a>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <span class="function"><a href="pdo.query.html" class="function">PDO::query()</a></span> if
+         <i>PDO::ATTR_EMULATE_PREPARES = 1</i> (default setting)
+        </p>
+       </li>
+      </ul>
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <a href="ref.mysql.html" class="link">mysql</a>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <span class="function"><a href="function.mysql-query.html" class="function">mysql_query()</a></span>
+        </p>
+       </li>
+      </ul>
+     </p>
+
+    </li>
+   </ul>
+  </p>
+
+  <p class="para">
+   A query which shall be cached must begin with the SQL hint
+   <i>/*qc=on*/</i>. It is recommended to use the PHP constant
+   <i>
+    <a href="mysqlnd-qc.constants.html" class="link">MYSQLND_QC_ENABLE_SWITCH</a>
+   </i> instead of using the string value.
+  </p>
+  <p class="para">
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      uncached:
+      <i>SELECT id FROM test</i>
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      cached:
+      <i>/*qc=on*/SELECT id FROM test</i>
+     </p>
+    </li>
+   </ul>
+  </p>
+  <p class="para">
+   Example using the most advanced PHP MySQL API, which is
+   <i>
+    <a href="ref.mysqli.html" class="link">mysqli</a>
+   </i>:
+  </p>
+  <p class="para">
+   <div class="example" id="example-1584">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;Enable&nbsp;collection&nbsp;of&nbsp;query&nbsp;cache&nbsp;statistics&nbsp;*/<br /></span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">"mysqlnd_qc.collect_statistics"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Connect,&nbsp;create&nbsp;and&nbsp;populate&nbsp;test&nbsp;table&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"host"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"schema"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"port"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"socket"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;IF&nbsp;EXISTS&nbsp;test"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;test(id&nbsp;INT)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;test(id)&nbsp;VALUES&nbsp;(1),&nbsp;(2)"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Will&nbsp;be&nbsp;cached&nbsp;because&nbsp;of&nbsp;the&nbsp;SQL&nbsp;hint:&nbsp;cache&nbsp;put&nbsp;and&nbsp;cache_miss&nbsp;*/<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"/*"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">MYSQLND_QC_ENABLE_SWITCH&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"*/"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;test&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;1"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">free</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;Will&nbsp;NOT&nbsp;be&nbsp;cached&nbsp;and&nbsp;will&nbsp;NOT&nbsp;hit&nbsp;the&nbsp;cache:&nbsp;no&nbsp;SQL&nbsp;hint&nbsp;*/<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;test&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;2"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">free</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;Display&nbsp;cache&nbsp;statistics&nbsp;*/<br /></span><span style="color: #0000BB">$stats&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqlnd_qc_get_core_stats</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache&nbsp;hit\t:&nbsp;%d\n"</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #0000BB">$stats</span><span style="color: #007700">[</span><span style="color: #DD0000">'cache_hit'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache&nbsp;miss\t:&nbsp;%d\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$stats</span><span style="color: #007700">[</span><span style="color: #DD0000">'cache_miss'</span><span style="color: #007700">]);<br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Cache&nbsp;put\t:&nbsp;%d\n"</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #0000BB">$stats</span><span style="color: #007700">[</span><span style="color: #DD0000">'cache_put'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [&quot;id&quot;]=&gt;
+  string(1) &quot;1&quot;
+}
+array(1) {
+  [&quot;id&quot;]=&gt;
+  string(1) &quot;2&quot;
+}
+Cache hit       : 0
+Cache miss      : 1
+Cache put       : 1
+</pre></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   The default invalidation strategy of the cache is Time-to-Live (
+   <i>TTL</i>). Cache entries are valid for a certain duration.
+   The default duration is set by the PHP configuration directive
+   <i>
+    <a href="mysqlnd-qc.configuration.html" class="link">mysqlnd_qc.tll</a>
+   </i>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd-qc.usage.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd-qc.per_query_ttl.html">Setting the TTL</a></div>
+ <div class="up"><a href="mysqlnd-qc.usage.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

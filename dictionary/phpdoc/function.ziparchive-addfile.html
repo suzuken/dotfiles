@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したパスからファイルを ZIP アーカイブに追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-addemptydir.html">ZipArchive::addEmptyDir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-addfromstring.html">ZipArchive::addFromString</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ziparchive-addfile" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ZipArchive::addFile</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ZipArchive::addFile</span> &mdash; <span class="dc-title">指定したパスからファイルを ZIP アーカイブに追加する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ziparchive-addfile-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ZipArchive::addFile</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$localname</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$start</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$length</tt><span class="initializer"> = 0</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   指定したパスから、ファイルを ZIP アーカイブに追加します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ziparchive-addfile-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       追加するファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">localname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定した場合は ZIP アーカイブ内部での名前となり、<i><tt class="parameter">filename</tt></i> を上書きします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">start</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータは使いませんが、<a href="class.ziparchive.html" class="classname">ZipArchive</a> を継承するためには必要です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">length</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータは使いませんが、<a href="class.ziparchive.html" class="classname">ZipArchive</a> を継承するためには必要です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ziparchive-addfile-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ziparchive-addfile-examples">
+  <h3 class="title">例</h3>
+    <p class="para">
+     この例は、ZIP ファイルアーカイブ <var class="filename">test.zip</var>
+     をオープンし、ファイル <var class="filename">/path/to/index.txt</var>
+     を <var class="filename">newname.txt</var> という名前で追加します。
+    </p>
+    <div class="example" id="example-797">
+     <p><b>例1 オープンおよび抽出</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$zip&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">)&nbsp;===&nbsp;</span><span style="color: #0000BB">TRUE</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFile</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/index.txt'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'newname.txt'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'成功'</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'失敗'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </div>
+
+ <div class="refsect1 notes" id="refsect1-function.ziparchive-addfile-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    アーカイブにファイルを追加するよう設定すると、PHP
+    はそのファイルのロックを試み、ZIP の操作が完了するまで解放しません。
+    つまり、アーカイブを閉じてからでないと、追加したファイルの削除はできないということです。
+   </p>
+  </p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-addemptydir.html">ZipArchive::addEmptyDir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-addfromstring.html">ZipArchive::addFromString</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

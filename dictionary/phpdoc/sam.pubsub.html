@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配信/購読およびトピックの購読</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.operations.html">メッセージング操作</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.errors.html">エラー処理</a></div>
+ <div class="up"><a href="sam.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sam.pubsub" class="section">
+  <h2 class="title">配信/購読およびトピックの購読</h2>
+  <p class="para">
+   SAM では、メッセージをキューに送信するか、あるいは WebSphere MQ および WPM
+   ではトピックに配信/購読することができます。
+   トピックを SAM に指定するには、場所を指定する際に
+   &#039;queue://AQUEUE&#039; ではなく &#039;topic://fred&#039; 形式を使用します。
+   配信/購読 機能を使用するには、正しいブローカ名を CAMConnect の
+   &quot;connect&quot; コール時に指定し、対象のトピックを SAMConnect の &quot;send&quot;
+   および &quot;receive&quot; コール時に指定する必要があります。
+   それ以外については、PHP のインターフェイスは point to point モデルと同じです。
+  </p>
+  <p class="para">
+   デフォルトでは、SAM は永続的でない購読を作成して配信/購読を行います。
+   つまり、メッセージをトピックに配信しているときにクライアントアプリケーションがアクティブでなくなると、
+   その後アプリケーションが再開しても受信処理は行われないということです。
+   WPM あるいは WebSphere MQ の配信/購読 を使用している場合は、
+   SAM でトピックへの永続的な購読を作成することができます。
+   こうすると、データの配信時にクライアントがアクティブでなかったとしても、
+   アプリケーションでデータを受信することができるようになります。
+  </p>
+  <p class="para">
+   永続的な購読を指定するには SAMConnect の &quot;subscribe&quot; コールを使用します。
+   このメソッドは、対象となるトピックを入力パラメータとして受け取り、
+   購読 ID を返します。この ID を使用して、&quot;receive&quot; コールを行います。
+   購読が不要になった場合は、SAMConnection の &quot;unsubscribe&quot;
+   メソッドを使用して購読を削除します。
+  </p>
+  <p class="para">
+   <div class="example" id="example-3680">
+    <p><b>例1 トピックに対する永続的な購読の作成</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$subName&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">subscribe</span><span style="color: #007700">(</span><span style="color: #DD0000">'topic://A'</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$subName</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"購読に失敗しました"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">#&nbsp;購読に成功しました<br />&nbsp;&nbsp;&nbsp;//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3681">
+    <p><b>例2 WebSphere Platform Messaging (WPM) サーバを使用したトピックの購読</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SAMConnection</span><span style="color: #007700">();<br /></span><span style="color: #FF8000">//&nbsp;注意:&nbsp;WPM&nbsp;での配信/購読では、永続的な購読を保持するメッセージングエンジン<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SAM_WPM_DUR_SUB_HOME)&nbsp;を接続の際に指定する必要があります<br /></span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">(</span><span style="color: #0000BB">SAM_WMQ</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">SAM_ENDPOINTS&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'localhost:7278:BootstrapBasicMessaging'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">SAM_BUS&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Bus1'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">SAM_TARGETCHAIN&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'InboundBasicMessaging'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">SAM_WPM_DUR_SUB_HOME&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'MyMachineNode01.server1-Bus1'</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$subName&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">subscribe</span><span style="color: #007700">(</span><span style="color: #DD0000">'topic://A'</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$subName</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"購読に失敗しました"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">#&nbsp;購読に成功しました<br />&nbsp;&nbsp;&nbsp;//&nbsp;...<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3682">
+    <p><b>例3 永続的な購読による、配信されたデータの受信</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">receive</span><span style="color: #007700">(</span><span style="color: #0000BB">$subName</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$msg</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"メッセージの受信に成功しました"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"受信に失敗しました"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3683">
+    <p><b>例4 トピックへの永続的な購読の削除</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">unsubscribe</span><span style="color: #007700">(</span><span style="color: #0000BB">$subName</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"購読解除に失敗しました"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.operations.html">メッセージング操作</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.errors.html">エラー処理</a></div>
+ <div class="up"><a href="sam.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

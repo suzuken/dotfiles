@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>memcached サーバへの持続的な接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.increment.html">Memcache::increment</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.replace.html">Memcache::replace</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcache.pconnect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcache::pconnect</h1>
+  <p class="verinfo">(PECL memcache &gt;= 0.4.0)</p><p class="refpurpose"><span class="refname">Memcache::pconnect</span> &mdash; <span class="dc-title">memcached サーバへの持続的な接続をオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcache.pconnect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>Memcache::pconnect</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeout</tt></span>
+  ]] )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcache::pconnect()</b></span> は
+   <span class="function"><a href="memcache.connect.html" class="function">Memcache::connect()</a></span> とほぼ同じですが、
+   確立する接続が持続的なものであるという点が違います。
+   この接続はスクリプトの実行が終了しても閉じられることはなく、
+   <span class="function"><a href="memcache.close.html" class="function">Memcache::close()</a></span> 関数を使用することで閉じられます。
+   <span class="function"><b>memcache_pconnect()</b></span> 関数を使用することも可能です。
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcache.pconnect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるホストを指定します。
+       このパラメータには別のトランスポート層を指定することもできます。たとえば
+       <i>unix:///path/to/memcached.sock</i>
+       のようにすると Unix ドメインソケットを使用できます。この場合、
+       <i><tt class="parameter">port</tt></i> は <i>0</i>
+       を指定しなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcached が接続を待ち受けるポートを指定します。
+       Unix ドメインソケットを使用する場合は、このパラメータを <i>0</i>
+       とします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デーモンへの接続の際に使用する値 (秒単位) です。
+       デフォルト値を 1 秒でも変更する前には十分注意してください。
+       接続が遅くなってしまうと、 キャッシュ処理のメリットが
+       なくなってしまいます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcache.pconnect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcache.pconnect-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3570">
+    <p><b>例1 <span class="function"><b>Memcache::pconnect()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;手続き型の&nbsp;API&nbsp;*/<br /></span><span style="color: #0000BB">$memcache_obj&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">memcache_pconnect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;オブジェクト指向の&nbsp;API&nbsp;*/<br /><br /></span><span style="color: #0000BB">$memcache_obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcache</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$memcache_obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">pconnect</span><span style="color: #007700">(</span><span style="color: #DD0000">'memcache_host'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcache.pconnect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="memcache.connect.html" class="function" rel="rdfs-seeAlso">Memcache::connect()</a> - memcached サーバへの接続をオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcache.increment.html">Memcache::increment</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcache.replace.html">Memcache::replace</a></div>
+ <div class="up"><a href="class.memcache.html">Memcache</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

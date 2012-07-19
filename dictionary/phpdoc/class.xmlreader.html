@@ -1,0 +1,1020 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>XMLReader クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xmlreader.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xmlreader.close.html">XMLReader::close</a></div>
+ <div class="up"><a href="book.xmlreader.html">XMLReader</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.xmlreader" class="reference">
+ <h1 class="title">XMLReader クラス</h1>
+ 
+ 
+ <div class="partintro">
+ 
+
+  <div class="section" id="xmlreader.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    XMLReader 拡張モジュールは、プル型の XML パーサです。ドキュメント
+    ストリーム内をカーソル風に進んでいき、その途中の各ノードで立ち止まります。
+   </p>
+  </div>
+
+ 
+  <div class="section" id="xmlreader.synopsis">
+   <h2 class="title">クラス概要</h2>
+ 
+
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+ 
+
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <b class="classname">XMLReader</b>
+     </span>
+     {</div>
+
+ 
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* 定数 */</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.none">XMLReader::NONE</a></var>
+      <span class="initializer"> = 0</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.element">XMLReader::ELEMENT</a></var>
+      <span class="initializer"> = 1</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.attribute">XMLReader::ATTRIBUTE</a></var>
+      <span class="initializer"> = 2</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.text">XMLReader::TEXT</a></var>
+      <span class="initializer"> = 3</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.cdata">XMLReader::CDATA</a></var>
+      <span class="initializer"> = 4</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.entity-ref">XMLReader::ENTITY_REF</a></var>
+      <span class="initializer"> = 5</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.entity">XMLReader::ENTITY</a></var>
+      <span class="initializer"> = 6</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.pi">XMLReader::PI</a></var>
+      <span class="initializer"> = 7</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.comment">XMLReader::COMMENT</a></var>
+      <span class="initializer"> = 8</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.doc">XMLReader::DOC</a></var>
+      <span class="initializer"> = 9</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.doc-type">XMLReader::DOC_TYPE</a></var>
+      <span class="initializer"> = 10</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.doc-fragment">XMLReader::DOC_FRAGMENT</a></var>
+      <span class="initializer"> = 11</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.notation">XMLReader::NOTATION</a></var>
+      <span class="initializer"> = 12</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.whitespace">XMLReader::WHITESPACE</a></var>
+      <span class="initializer"> = 13</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.significant-whitespace">XMLReader::SIGNIFICANT_WHITESPACE</a></var>
+      <span class="initializer"> = 14</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.end-element">XMLReader::END_ELEMENT</a></var>
+      <span class="initializer"> = 15</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.end-entity">XMLReader::END_ENTITY</a></var>
+      <span class="initializer"> = 16</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.xml-declaration">XMLReader::XML_DECLARATION</a></var>
+      <span class="initializer"> = 17</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.loaddtd">XMLReader::LOADDTD</a></var>
+      <span class="initializer"> = 1</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.defaultattrs">XMLReader::DEFAULTATTRS</a></var>
+      <span class="initializer"> = 2</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.validate">XMLReader::VALIDATE</a></var>
+      <span class="initializer"> = 3</span>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">const</span>
+      <span class="type">int</span>
+       <var class="fieldsynopsis_varname"><a href="class.xmlreader.html#xmlreader.constants.subst-entities">XMLReader::SUBST_ENTITIES</a></var>
+      <span class="initializer"> = 4</span>
+     ;</div>
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* プロパティ */</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">int</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.attributecount">$attributeCount</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.baseuri">$baseURI</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">int</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.depth">$depth</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">bool</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.hasattributes">$hasAttributes</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">bool</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.hasvalue">$hasValue</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">bool</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.isdefault">$isDefault</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">bool</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.isemptyelement">$isEmptyElement</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.localname">$localName</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.name">$name</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.namespaceuri">$namespaceURI</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">int</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.nodetype">$nodeType</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.prefix">$prefix</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.value">$value</a></var>
+     ;</div>
+
+     <div class="fieldsynopsis">
+      <span class="modifier">public</span>
+      <span class="modifier">readonly</span>
+      <span class="type">string</span>
+       <var class="varname"><a href="class.xmlreader.html#xmlreader.props.xmllang">$xmlLang</a></var>
+     ;</div>
+
+
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* メソッド */</div>
+    <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.close.html" class="methodname">close</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">DOMNode</span>
+    <span class="methodname"><a href="xmlreader.expand.html" class="methodname">expand</a></span>
+    ([ <span class="methodparam"><span class="type"><a href="class.domnode.html" class="type DOMNode">DOMNode</a></span> <tt class="parameter">$basenode</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="xmlreader.getattribute.html" class="methodname">getAttribute</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="xmlreader.getattributeno.html" class="methodname">getAttributeNo</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$index</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><a href="xmlreader.getattributens.html" class="methodname">getAttributeNs</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$localName</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$namespaceURI</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.getparserproperty.html" class="methodname">getParserProperty</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$property</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.isvalid.html" class="methodname">isValid</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.lookupnamespace.html" class="methodname">lookupNamespace</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$prefix</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.movetoattribute.html" class="methodname">moveToAttribute</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.movetoattributeno.html" class="methodname">moveToAttributeNo</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$index</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.movetoattributens.html" class="methodname">moveToAttributeNs</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$localName</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$namespaceURI</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.movetoelement.html" class="methodname">moveToElement</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.movetofirstattribute.html" class="methodname">moveToFirstAttribute</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.movetonextattribute.html" class="methodname">moveToNextAttribute</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.next.html" class="methodname">next</a></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$localname</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.open.html" class="methodname">open</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$URI</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$encoding</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.read.html" class="methodname">read</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><a href="xmlreader.readinnerxml.html" class="methodname">readInnerXML</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><a href="xmlreader.readouterxml.html" class="methodname">readOuterXML</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><a href="xmlreader.readstring.html" class="methodname">readString</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.setparserproperty.html" class="methodname">setParserProperty</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$property</tt></span>
+   , <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$value</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.setrelaxngschema.html" class="methodname">setRelaxNGSchema</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.setrelaxngschemasource.html" class="methodname">setRelaxNGSchemaSource</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$source</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><a href="xmlreader.setschema.html" class="methodname">setSchema</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="xmlreader.xml.html" class="methodname">xml</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$source</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$encoding</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+ 
+   }</div>
+
+ 
+  </div>
+ 
+
+  <div class="section" id="xmlreader.props">
+   <h2 class="title">プロパティ</h2>
+   <dl>
+
+    <dt id="xmlreader.props.attributecount">
+     <span class="term"><var class="varname"><var class="varname">attributeCount</var></var></span>
+     <dd>
+
+      <p class="para">
+       ノード上の属性の数
+      </p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.baseuri">
+     <span class="term"><var class="varname"><var class="varname">baseURI</var></var></span>
+     <dd>
+
+      <p class="para">ノードのベース URI</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.depth">
+     <span class="term"><var class="varname"><var class="varname">depth</var></var></span>
+     <dd>
+
+      <p class="para">ツリー内でのノードの階層 (0 から数える)</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.hasattributes">
+     <span class="term"><var class="varname"><var class="varname">hasAttributes</var></var></span>
+     <dd>
+
+      <p class="para">ノードが属性を保持しているかどうか</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.hasvalue">
+     <span class="term"><var class="varname"><var class="varname">hasValue</var></var></span>
+     <dd>
+
+      <p class="para">ノードがテキストの値を保持しているかどうか</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.isdefault">
+     <span class="term"><var class="varname"><var class="varname">isDefault</var></var></span>
+     <dd>
+
+      <p class="para">属性が DTD のデフォルトかどうか</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.isemptyelement">
+     <span class="term"><var class="varname"><var class="varname">isEmptyElement</var></var></span>
+     <dd>
+
+       <p class="para">ノードが空要素のタグかどうか</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.localname">
+     <span class="term"><var class="varname"><var class="varname">localName</var></var></span>
+     <dd>
+
+      <p class="para">ノードのローカル名</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.name">
+     <span class="term"><var class="varname"><var class="varname">name</var></var></span>
+     <dd>
+
+      <p class="para">ノードの限定名</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.namespaceuri">
+     <span class="term"><var class="varname"><var class="varname">namespaceURI</var></var></span>
+     <dd>
+
+      <p class="para">ノードに関連付けられた名前空間の URI</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.nodetype">
+     <span class="term"><var class="varname"><var class="varname">nodeType</var></var></span>
+     <dd>
+
+      <p class="para">ノードの型</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.prefix">
+     <span class="term"><var class="varname"><var class="varname">prefix</var></var></span>
+     <dd>
+
+      <p class="para">ノードに関連付けられた名前空間のプレフィックス</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.value">
+     <span class="term"><var class="varname"><var class="varname">value</var></var></span>
+     <dd>
+
+      <p class="para">ノードのテキスト値</p>
+     </dd>
+
+    </dt>
+
+
+    <dt id="xmlreader.props.xmllang">
+     <span class="term"><var class="varname"><var class="varname">xmlLang</var></var></span>
+     <dd>
+
+      <p class="para">ノードが存在する xml:lang スコープ</p>
+     </dd>
+
+    </dt>
+
+
+   </dl>
+
+  </div>
+
+ 
+  
+  <div class="section" id="xmlreader.constants">
+   <h2 class="title">定義済み定数</h2>
+   <div class="section" id="xmlreader.constants.types">
+    <h2 class="title">XMLReader ノード型</h2>
+    <dl>
+
+
+     <dt id="xmlreader.constants.none">
+      <span class="term"><b><tt>XMLReader::NONE</tt></b></span>
+      <dd>
+
+       <p class="para">ノード型なし</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.element">
+      <span class="term"><b><tt>XMLReader::ELEMENT</tt></b></span>
+      <dd>
+
+       <p class="para">開始要素</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.attribute">
+      <span class="term"><b><tt>XMLReader::ATTRIBUTE</tt></b></span>
+      <dd>
+
+       <p class="para">属性ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.text">
+      <span class="term"><b><tt>XMLReader::TEXT</tt></b></span>
+      <dd>
+
+       <p class="para">テキストノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.cdata">
+      <span class="term"><b><tt>XMLReader::CDATA</tt></b></span>
+      <dd>
+
+       <p class="para">CDATA ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.entity-ref">
+      <span class="term"><b><tt>XMLReader::ENTITY_REF</tt></b></span>
+      <dd>
+
+       <p class="para">エンティティ参照ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.entity">
+      <span class="term"><b><tt>XMLReader::ENTITY</tt></b></span>
+      <dd>
+
+       <p class="para">エンティティ宣言ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.pi">
+      <span class="term"><b><tt>XMLReader::PI</tt></b></span>
+      <dd>
+
+       <p class="para">処理命令 (Processing Instruction) ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.comment">
+      <span class="term"><b><tt>XMLReader::COMMENT</tt></b></span>
+      <dd>
+
+       <p class="para">コメントノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.doc">
+      <span class="term"><b><tt>XMLReader::DOC</tt></b></span>
+      <dd>
+
+       <p class="para">文書ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.doc-type">
+      <span class="term"><b><tt>XMLReader::DOC_TYPE</tt></b></span>
+      <dd>
+
+       <p class="para">文書型ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.doc-fragment">
+      <span class="term"><b><tt>XMLReader::DOC_FRAGMENT</tt></b></span>
+      <dd>
+
+       <p class="para">文書片ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.notation">
+      <span class="term"><b><tt>XMLReader::NOTATION</tt></b></span>
+      <dd>
+
+       <p class="para">記法ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.whitespace">
+      <span class="term"><b><tt>XMLReader::WHITESPACE</tt></b></span>
+      <dd>
+
+       <p class="para">Whitespace ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.significant-whitespace">
+      <span class="term"><b><tt>XMLReader::SIGNIFICANT_WHITESPACE</tt></b></span>
+      <dd>
+
+       <p class="para">Significant Whitespace ノード</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.end-element">
+      <span class="term"><b><tt>XMLReader::END_ELEMENT</tt></b></span>
+      <dd>
+
+       <p class="para">終了要素</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.end-entity">
+      <span class="term"><b><tt>XMLReader::END_ENTITY</tt></b></span>
+      <dd>
+
+       <p class="para">終了エンティティ</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.xml-declaration">
+      <span class="term"><b><tt>XMLReader::XML_DECLARATION</tt></b></span>
+      <dd>
+
+       <p class="para">XML 宣言ノード</p>
+      </dd>
+
+     </dt>
+
+
+    </dl>
+
+   </div>
+
+   <div class="section" id="xmlreader.constants.options">
+    <h2 class="title">XMLReader パーサオプション</h2>
+
+    <dl>
+
+
+     <dt id="xmlreader.constants.loaddtd">
+      <span class="term"><b><tt>XMLReader::LOADDTD</tt></b></span>
+      <dd>
+
+       <p class="para">DTD を読み込むが、妥当性は検証しない</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.defaultattrs">
+      <span class="term"><b><tt>XMLReader::DEFAULTATTRS</tt></b></span>
+      <dd>
+
+       <p class="para">DTD およびデフォルト属性を読み込むが、妥当性は検証しない</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.validate">
+      <span class="term"><b><tt>XMLReader::VALIDATE</tt></b></span>
+      <dd>
+
+       <p class="para">DTD を読み込み、パース時に妥当性を検証する</p>
+      </dd>
+
+     </dt>
+
+
+     <dt id="xmlreader.constants.subst-entities">
+      <span class="term"><b><tt>XMLReader::SUBST_ENTITIES</tt></b></span>
+      <dd>
+
+       <p class="para">エンティティを参照で置き換える</p>
+      </dd>
+
+     </dt>
+
+
+    </dl>
+
+   </div>
+  </div>
+
+ </div>
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+ 
+<h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="xmlreader.close.html">XMLReader::close</a> — XMLReader の入力を閉じる</li><li><a href="xmlreader.expand.html">XMLReader::expand</a> — 現在のノードのコピーを DOM オブジェクトとして返す</li><li><a href="xmlreader.getattribute.html">XMLReader::getAttribute</a> — 名前をもとに、属性の値を取得する</li><li><a href="xmlreader.getattributeno.html">XMLReader::getAttributeNo</a> — インデックスをもとに、属性の値を取得する</li><li><a href="xmlreader.getattributens.html">XMLReader::getAttributeNs</a> — 名前および URI をもとに、属性の値を取得する</li><li><a href="xmlreader.getparserproperty.html">XMLReader::getParserProperty</a> — 指定したプロパティが設定されているかどうかを示す</li><li><a href="xmlreader.isvalid.html">XMLReader::isValid</a> — パースしているドキュメントの妥当性を示す</li><li><a href="xmlreader.lookupnamespace.html">XMLReader::lookupNamespace</a> — プレフィックスから、名前空間を検索する</li><li><a href="xmlreader.movetoattribute.html">XMLReader::moveToAttribute</a> — 指定した名前の属性にカーソルを移動する</li><li><a href="xmlreader.movetoattributeno.html">XMLReader::moveToAttributeNo</a> — 指定したインデックスの属性にカーソルを移動する</li><li><a href="xmlreader.movetoattributens.html">XMLReader::moveToAttributeNs</a> — 指定した名前の属性にカーソルを移動する</li><li><a href="xmlreader.movetoelement.html">XMLReader::moveToElement</a> — 現在の属性の親要素にカーソルを移動する</li><li><a href="xmlreader.movetofirstattribute.html">XMLReader::moveToFirstAttribute</a> — 最初の属性にカーソルを移動する</li><li><a href="xmlreader.movetonextattribute.html">XMLReader::moveToNextAttribute</a> — 次の属性にカーソルを移動する</li><li><a href="xmlreader.next.html">XMLReader::next</a> — すべてのサブツリーを飛ばして、次のノードにカーソルを移動する</li><li><a href="xmlreader.open.html">XMLReader::open</a> — パースする XML を含む URI を設定する</li><li><a href="xmlreader.read.html">XMLReader::read</a> — ドキュメント内の次のノードに移動する</li><li><a href="xmlreader.readinnerxml.html">XMLReader::readInnerXML</a> — 現在のノードから XML を取得する</li><li><a href="xmlreader.readouterxml.html">XMLReader::readOuterXML</a> — 現在のノードから自分自身も含めた XML を取得する</li><li><a href="xmlreader.readstring.html">XMLReader::readString</a> — 現在のノードの内容を文字列で読み込む</li><li><a href="xmlreader.setparserproperty.html">XMLReader::setParserProperty</a> — パーサのオプションを設定または設定解除する</li><li><a href="xmlreader.setrelaxngschema.html">XMLReader::setRelaxNGSchema</a> — RelaxNG スキーマのファイル名あるいは URI を設定する</li><li><a href="xmlreader.setrelaxngschemasource.html">XMLReader::setRelaxNGSchemaSource</a> — RelaxNG スキーマを含むデータを設定する</li><li><a href="xmlreader.setschema.html">XMLReader::setSchema</a> — ドキュメントを XSD で検証する</li><li><a href="xmlreader.xml.html">XMLReader::XML</a> — パースする XML を含むデータを設定する</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="xmlreader.resources.html">リソース型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="xmlreader.close.html">XMLReader::close</a></div>
+ <div class="up"><a href="book.xmlreader.html">XMLReader</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

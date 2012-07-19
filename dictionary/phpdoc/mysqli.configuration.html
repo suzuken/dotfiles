@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli.resources.html">リソース型</a></div>
+ <div class="up"><a href="mysqli.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqli.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>MySQLi 設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更の可否</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">mysqli.allow_persistent</td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 5.3.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">mysqli.max_persistent</td>
+      <td align="left">&quot;-1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 5.3.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.max-links" class="link">mysqli.max_links</a></td>
+      <td align="left">&quot;-1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.default-port" class="link">mysqli.default_port</a></td>
+      <td align="left">&quot;3306&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.default-socket" class="link">mysqli.default_socket</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.default-host" class="link">mysqli.default_host</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.default-user" class="link">mysqli.default_user</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.default-pw" class="link">mysqli.default_pw</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td align="left">PHP 5.0.0 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.reconnect" class="link">mysqli.reconnect</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 4.3.5 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.allow-local-infile" class="link">mysqli.allow_local_infile</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 5.2.4 以降で使用可能です。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="mysqli.configuration.html#ini.mysqli.cache-size" class="link">mysqli.cache_size</a></td>
+      <td align="left">&quot;2000&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">PHP 5.3.0 以降で使用可能です。</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+ <p class="para">
+  これらの PHP_INI_* 定数の詳細と定義については、
+  <a href="configuration.changes.html" class="link">設定の変更</a>
+  を参照してください。 
+ </p>
+
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+
+ <p class="para">
+ <dl>
+
+  <dt id="ini.mysqli.allow-persistent">
+   <span class="term">
+    <i><tt class="parameter">mysqli.allow_persistent</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     <span class="function"><a href="function.mysqli-connect.html" class="function">mysqli_connect()</a></span> による持続的接続の作成機能を有効にします。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt id="ini.mysqli.max-persistent">
+   <span class="term">
+    <i><tt class="parameter">mysqli.max_persistent</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     作成できる持続的接続の最大数。0 を設定すると無制限となります。
+    </p>
+   </dd>
+
+  </dt>
+
+  <dt id="ini.mysqli.max-links">
+   <span class="term">
+    <i><tt class="parameter">mysqli.max_links</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     プロセス毎の MySQL 接続の最大数。
+    </p>
+   </dd>
+
+  </dt>
+
+   <dt id="ini.mysqli.default-port">
+   <span class="term">
+    <i><tt class="parameter">mysqli.default_port</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     他のポートが指定されない場合、データベースサーバ接続時に使用される
+     デフォルトの TCP ポート番号。デフォルトが指定されない場合は、
+     環境変数 <span class="envar">MYSQL_TCP_PORT</span>・
+     <var class="filename">/etc/services</var> の
+     <i>mysql-tcp</i>エントリ・コンパイル時の
+     <b><tt>MYSQL_PORT</tt></b> 定数の順番でポートが取得されます。
+     Win32 では、<b><tt>MYSQL_PORT</tt></b> 定数のみが使用されます。
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.default-socket">
+   <span class="term">
+    <i><tt class="parameter">mysqli.default_socket</tt></i>
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     他にソケット名が指定されない場合、ローカルな
+     データベースサーバに接続する時のデフォルトのソケット名。
+    </p>
+   </dd>
+
+  </dt>
+
+   <dt id="ini.mysqli.default-host">
+   <span class="term">
+    <i><tt class="parameter">mysqli.default_host</tt></i>
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     他のサーバ名が指定されない場合に、データベースサーバへの接続時に
+     使用されるデフォルトのサーバ名。 
+     <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">safe mode</a> では適用されません。 
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.default-user">
+   <span class="term">
+    <i><tt class="parameter">mysqli.default_user</tt></i>
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     他のユーザ名が指定されない場合に、データベースサーバへの接続時に
+     使用されるデフォルトのユーザ名。 
+     <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">safe mode</a> では適用されません。 
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.default-pw">
+   <span class="term">
+    <i><tt class="parameter">mysqli.default_password</tt></i>
+    <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     他のパスワードが指定されない場合に、データベースサーバへの接続時に
+     使用されるデフォルトのパスワード。 
+     <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">safe mode</a> では適用されません。 
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.reconnect">
+   <span class="term">
+    <i><tt class="parameter">mysqli.reconnect</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     接続が失われたときに自動的に再接続するかどうか。
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.allow-local-infile">
+   <span class="term">
+    <i><tt class="parameter">mysqli.allow_local_infile</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     
+    </p>
+   </dd>
+
+  </dt>
+
+  
+  <dt id="ini.mysqli.cache-size">
+   <span class="term">
+    <i><tt class="parameter">mysqli.cache_size</tt></i>
+    <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+   </span>
+   <dd>
+
+    <p class="para">
+     <a href="book.mysqlnd.html" class="link">mysqlnd</a> でのみ使用可能です。
+    </p>
+   </dd>
+
+  </dt>
+
+  
+ </dl>
+
+ </p>
+ <p class="para">
+   <i>MYSQL_OPT_READ_TIMEOUT</i> を、
+   API コールや実行時の設定で指定することはできません。
+   もしそんなことができてしまうと、<i>libmysql</i>
+   とストリームで <i>MYSQL_OPT_READ_TIMEOUT</i>
+   の値の解釈する方法が違ってしまう可能性があることに注意しましょう。
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli.resources.html">リソース型</a></div>
+ <div class="up"><a href="mysqli.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

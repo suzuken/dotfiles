@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>直近に発生した SQLSTATE エラーコードを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-error.html">ingres_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-escape-string.html">ingres_escape_string</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ingres-errsqlstate" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ingres_errsqlstate</h1>
+  <p class="verinfo">(PECL ingres &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ingres_errsqlstate</span> &mdash; <span class="dc-title">直近に発生した SQLSTATE エラーコードを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ingres-errsqlstate-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>ingres_errsqlstate</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   直近の SQLSTATE を文字列で返します。エラーが発生していない場合は
+   NULL を返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">link</tt></i> リソースが <span class="function"><b>ingres_errsqlstate()</b></span>
+   に渡された場合、そのリンクに記録された直近のエラーを返します。
+   リンクが渡されなかった場合、<span class="function"><b>ingres_errsqlstate()</b></span>
+   はデフォルトのリンクを使用して直近のエラーを返します。
+  </p>
+  <p class="para">
+   この関数 <span class="function"><b>ingres_errsqlstate()</b></span> は、
+   データベースクエリを実行した直後にコールしなければなりません。
+   <span class="function"><b>ingres_errsqlstate()</b></span> の前に他の関数がコールされると、
+   直近の Ingres 関数のコールで発生したエラーメッセージが書き換えられてしまいます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ingres-errsqlstate-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続リンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ingres-errsqlstate-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   直近の SQLSTATE を文字列で返します。エラーが発生していない場合は
+   NULL を返します。
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 examples" id="refsect1-function.ingres-errsqlstate-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1194">
+    <p><b>例1 直近の SQLSTATE エラーコードの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ingres_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ingres_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"select&nbsp;*&nbsp;from&nbsp;table"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$error_sqlstate&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ingres_errsqlstate</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">is_null</span><span style="color: #007700">(</span><span style="color: #0000BB">$error_sqlstate</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"エラーが発生しました&nbsp;-&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$error_sqlstate</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ingres-errsqlstate-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ingres-errno.html" class="function" rel="rdfs-seeAlso">ingres_errno()</a> - 直近に発生した ingres エラー番号を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-error.html" class="function" rel="rdfs-seeAlso">ingres_error()</a> - 直近に発生したエラーのエラーメッセージを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-next-error.html" class="function" rel="rdfs-seeAlso">ingres_next_error()</a> - 次の Ingres エラーを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-error.html">ingres_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-escape-string.html">ingres_escape_string</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

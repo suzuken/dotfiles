@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プリペアドクエリを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli-stmt.error.html">mysqli_stmt-&gt;error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli-stmt.fetch.html">mysqli_stmt::fetch</a></div>
+ <div class="up"><a href="class.mysqli-stmt.html">MySQLi_STMT</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqli-stmt.execute" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli_stmt::execute</h1>
+  <h1 class="refname">mysqli_stmt_execute</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">mysqli_stmt::execute</span> -- <span class="refname">mysqli_stmt_execute</span> &mdash; <span class="dc-title">プリペアドクエリを実行する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli-stmt.execute-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>mysqli_stmt::execute</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>mysqli_stmt_execute</b></span>
+    ( <span class="methodparam"><span class="type"><span class="type mysqli_stmt">mysqli_stmt</span></span> <tt class="parameter">$stmt</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   事前に <span class="function"><a href="mysqli.prepare.html" class="function">mysqli_prepare()</a></span> 関数で用意されたクエリを実行します。
+   パラメータマーカが存在する場合、その内容は自動的に適切なデータに置き換えられます。
+  </p>
+  <p class="para">
+   ステートメントが <i>UPDATE</i>、<i>DELETE</i>
+   あるいは <i>INSERT</i> であった場合、
+   変更された行の総数は <span class="function"><a href="mysqli-stmt.affected-rows.html" class="function">mysqli_stmt_affected_rows()</a></span>
+   関数を使用することで取得可能です。同様に、クエリが結果セットを返す場合は
+   <span class="function"><a href="mysqli-stmt.fetch.html" class="function">mysqli_stmt_fetch()</a></span> 関数を使用できます。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><b>mysqli_stmt_execute()</b></span> を使用した際には、
+    他のクエリを実行する前に <span class="function"><a href="mysqli-stmt.fetch.html" class="function">mysqli_stmt_fetch()</a></span>
+    関数を使用する必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli-stmt.execute-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+stmt</tt></i></span><dd>
+<p class="para">手続き型のみ:
+<span class="function"><a href="mysqli.stmt-init.html" class="function">mysqli_stmt_init()</a></span> が返すステートメント ID。</p></dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli-stmt.execute-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli-stmt.execute-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1552">
+   <p><b>例1 オブジェクト指向型</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続状況をチェックします&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;myCity&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;insert&nbsp;ステートメントを準備します&nbsp;*/<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;myCity&nbsp;(Name,&nbsp;CountryCode,&nbsp;District)&nbsp;VALUES&nbsp;(?,?,?)"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">bind_param</span><span style="color: #007700">(</span><span style="color: #DD0000">"sss"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val3</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Stuttgart'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'DEU'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Baden-Wuerttemberg'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを実行します&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$val1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Bordeaux'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'FRA'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Aquitaine'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを実行します&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを閉じます&nbsp;*/<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;myCity&nbsp;からすべての行を取得します&nbsp;*/<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;Name,&nbsp;CountryCode,&nbsp;District&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_row</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;(%s,%s)\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;結果セットを開放します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;テーブルを削除します&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;myCity"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を閉じます&nbsp;*/&nbsp;&nbsp;&nbsp;&nbsp;<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-1553">
+   <p><b>例2 手続き型</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"world"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続状況をチェックします&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Connect&nbsp;failed:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;myCity&nbsp;LIKE&nbsp;City"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;insert&nbsp;ステートメントを準備します&nbsp;*/<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;myCity&nbsp;(Name,&nbsp;CountryCode,&nbsp;District)&nbsp;VALUES&nbsp;(?,?,?)"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">mysqli_stmt_bind_param</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"sss"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val3</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Stuttgart'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'DEU'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Baden-Wuerttemberg'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを実行します&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Bordeaux'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'FRA'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$val3&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Aquitaine'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを実行します&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_stmt_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;ステートメントを閉じます&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_stmt_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;myCity&nbsp;からすべての行を取得します&nbsp;*/<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;Name,&nbsp;CountryCode,&nbsp;District&nbsp;FROM&nbsp;myCity"</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$query</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%s&nbsp;(%s,%s)\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;結果セットを開放します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mysqli_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;テーブルを削除します&nbsp;*/<br /></span><span style="color: #0000BB">mysqli_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;myCity"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を閉じます&nbsp;*/&nbsp;&nbsp;&nbsp;&nbsp;<br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+Stuttgart (DEU,Baden-Wuerttemberg)
+Bordeaux (FRA,Aquitaine)
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli-stmt.execute-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli.prepare.html" class="function" rel="rdfs-seeAlso">mysqli_prepare()</a> - 実行するための SQL ステートメントを準備する</span></li>
+    <li class="member"><span class="function"><a href="mysqli-stmt.bind-param.html" class="function" rel="rdfs-seeAlso">mysqli_stmt_bind_param()</a> - プリペアドステートメントのパラメータに変数をバインドする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli-stmt.error.html">mysqli_stmt-&gt;error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli-stmt.fetch.html">mysqli_stmt::fetch</a></div>
+ <div class="up"><a href="class.mysqli-stmt.html">MySQLi_STMT</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

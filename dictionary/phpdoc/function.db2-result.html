@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果セットの行からひとつのカラムを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-procedures.html">db2_procedures</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-rollback.html">db2_rollback</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_result</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_result</span> &mdash; <span class="dc-title">
+   結果セットの行からひとつのカラムを返す
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>db2_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stmt</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$column</tt></span>
+   )</div>
+
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>db2_result()</b></span> を使用して、
+   結果セットの現在の行から指定したカラムの値を取得します。
+   結果セットポインタの位置を指定するため、<span class="function"><b>db2_result()</b></span>
+   のコール前には <span class="function"><a href="function.db2-fetch-row.html" class="function">db2_fetch_row()</a></span>
+   をコールする必要があります。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-result-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmt</tt></i></span>
+      <dd>
+
+       <p class="para">
+        有効な <i>stmt</i> リソース。
+       </p>
+      </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">column</tt></i></span>
+      <dd>
+
+       <p class="para">
+        結果セット内のカラムの位置を表す 0 から始まるインデックス、
+        あるいはカラム名を表す文字列。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したフィールドが結果セットに存在する場合にそのフィールドの値を返します。
+   フィールドが存在しない場合には NULL を返し、警告を発生させます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-result-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1176">
+    <p><b>例1 <span class="function"><b>db2_result()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     以下の例では、<span class="function"><a href="function.db2-fetch-row.html" class="function">db2_fetch_row()</a></span> で結果セットを
+     順に処理し、<span class="function"><b>db2_result()</b></span> で結果セットから
+     カラムを取得する方法を説明します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;breed&nbsp;FROM&nbsp;animals&nbsp;WHERE&nbsp;weight&nbsp;&lt;&nbsp;?'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">db2_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">10</span><span style="color: #007700">));<br />while&nbsp;(</span><span style="color: #0000BB">db2_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$name&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$breed&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'BREED'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$name</span><span style="color: #DD0000">&nbsp;</span><span style="color: #0000BB">$breed</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+cat Pook
+gold fish Bubbles
+budgerigar Gizmo
+goat Rickety Ride
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.db2-result-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.db2-fetch-array.html" class="function" rel="rdfs-seeAlso">db2_fetch_array()</a> - 結果セット内の行を表す、カラム位置をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-assoc.html" class="function" rel="rdfs-seeAlso">db2_fetch_assoc()</a> - 結果セット内の行を表す、カラム名をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-both.html" class="function" rel="rdfs-seeAlso">db2_fetch_both()</a> - 結果セット内の行を表す、
+   カラム位置およびカラム名の両方をインデックスとする配列を返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-object.html" class="function" rel="rdfs-seeAlso">db2_fetch_object()</a> - 結果セット内の行を表す、カラムをプロパティとするオブジェクトを返す</span></li>
+    <li class="member"><span class="function"><a href="function.db2-fetch-row.html" class="function" rel="rdfs-seeAlso">db2_fetch_row()</a> - 結果セットポインタを次の行あるいは要求された行に設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-procedures.html">db2_procedures</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-rollback.html">db2_rollback</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

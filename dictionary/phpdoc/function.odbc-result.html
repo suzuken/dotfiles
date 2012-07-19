@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果データを得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-result-all.html">odbc_result_all</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-rollback.html">odbc_rollback</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.odbc-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">odbc_result</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">odbc_result</span> &mdash; <span class="dc-title">結果データを得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.odbc-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>odbc_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result_id</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$field</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   結果データを取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.odbc-result-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ODBC リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">field</tt></i></span>
+     <dd>
+
+      <p class="para">
+       取得するフィールド。
+       カラム番号を表す整数またはフィールド名を表す文字列のどちらを指定できます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.odbc-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   フィールドの内容を表す文字列を返します。エラー時には <b><tt>FALSE</tt></b>、NULL
+   データの場合は <b><tt>NULL</tt></b>、そしてバイナリデータの場合は <b><tt>TRUE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.odbc-result-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   最初の <span class="function"><b>odbc_result()</b></span> コールにより、クエリー結果の
+   現在のレコードにおける 3 番目のフィールドの値が返されます。
+   2 番目の <span class="function"><b>odbc_result()</b></span> コールにより、クエリーの
+   結果の現在のレコードにおける &quot;val&quot; というフィールド名のフィールドの
+   値を返します。あるフィールドのカラム番号パラメータが 1 より小さいか
+   現在のレコードのカラム(またはフィールド)の数を超える場合、
+   エラーを生じます。同様に、クエリーを行ったテーブルのフィールド名には
+   ない名前をフィールドとして指定した場合にもエラーを生じます。
+  </p>
+  <p class="para">
+   <div class="example" id="example-903">
+    <p><b>例1 <span class="function"><b>odbc_result()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$item_3&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">odbc_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$Query_ID</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$item_val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">odbc_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$Query_ID</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"val"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.odbc-result-notes">
+  <h3 class="title">注意</h3>
+  <p class="para">
+   フィールドインデックスは 1 から始まります。
+   バイナリまたはロングカラムデータの返し方に関しては、
+   <span class="function"><a href="function.odbc-binmode.html" class="function">odbc_binmode()</a></span> および 
+   <span class="function"><a href="function.odbc-longreadlen.html" class="function">odbc_longreadlen()</a></span> を参照ください。
+   
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-result-all.html">odbc_result_all</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-rollback.html">odbc_rollback</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

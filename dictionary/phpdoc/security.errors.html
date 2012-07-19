@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>エラーのレポート</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.database.sql-injection.html">SQLインジェクション</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.globals.html">グローバル変数の登録機能の使用法</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="security.errors" class="chapter">
+   <h1>エラーのレポート</h1>
+
+   <p class="para">
+    PHPのセキュリティに関して、2種類のエラー出力があります。一つは、セ
+    キュリティ向上に役立つものであり、もう一つは、セキュリティ上有害な
+    ものです。
+   </p>
+   <p class="para">
+    標準的な攻撃手法の中に不完全なデータをシステムに送信し、返されるエ
+    ラーの種類と内容を調べることにより、システムを調べるというものがあ
+    ります。これにより、システムのクラッカーがありうる弱点を調査するた
+    めにそのサーバに関する情報を調べることが可能になります。
+    例えば、ある攻撃者が事前のフォーム投稿の際にあるページに関して収集
+    した情報を持っている場合、変数を上書きしたり、修正したりしようとす
+    るかもしれません。
+    <div class="example" id="example-303">
+     <p><b>例6 カスタムHTMLページにより変数を攻撃する</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;form&nbsp;method="POST"&nbsp;action="attacktarget?username=badfoo&amp;password=badfoo"&gt;<br />&lt;input&nbsp;type="hidden"&nbsp;name="username"&nbsp;value="badfoo"&gt;<br />&lt;input&nbsp;type="hidden"&nbsp;name="password"&nbsp;value="badfoo"&gt;<br />&lt;/form&gt;</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    通常返されるPHPのエラーは、エラーを生じた関数やファイル、エラーを
+    発生したPHPファイル、エラーを発生した行番号のような情報が含まれて
+    おり、スクリプトをデバッグする開発者に非常に有用です。これらが調べ
+    ることができる情報の全てです。デバッグ目的でPHPの開発者が
+    <span class="function"><a href="function.show-source.html" class="function">show_source()</a></span>,
+    <span class="function"><a href="function.highlight-string.html" class="function">highlight_string()</a></span>,
+    <span class="function"><a href="function.highlight-file.html" class="function">highlight_file()</a></span> を使用することはまれではありま
+    せん。しかし、実用サイトでは、これは秘密の変数、未確認の構文、その
+    他の危険な情報を公開することになってしまいます。特に危険なのは、
+    組み込みのデバッグハンドラを有する既知のソースからのコードを実行して
+    いるか、一般的なデバッグ技法を使用している場合です。攻撃者が、使用し
+    ている一般的な技法を特定できた場合、次のようにあるページに様々な一般
+    的なデバッグ用文字列を送信することによりしらみつぶしに攻撃しようとす
+    るかもしれません。
+    <div class="example" id="example-304">
+     <p><b>例7 一般的なデバッグ変数を探す</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+&lt;form&nbsp;method="post"&nbsp;action="attacktarget?errors=Y&amp;amp;showerrors=1&amp;amp;debug=1"&gt;<br />&lt;input&nbsp;type="hidden"&nbsp;name="errors"&nbsp;value="Y"&gt;<br />&lt;input&nbsp;type="hidden"&nbsp;name="showerrors"&nbsp;value="1"&gt;<br />&lt;input&nbsp;type="hidden"&nbsp;name="debug"&nbsp;value="1"&gt;<br />&lt;/form&gt;</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    エラー処理の方法の方法のいかんによらず、エラーを調べる機能は、攻撃
+    者により多くの情報を与えることにつながります。
+   </p>
+   <p class="para">
+    例えば、多くの一般的なエラー形式では、システムはPHPを実行している
+    ことを示します。攻撃者が .html ページを調べ、(システムの既知の弱点
+    を探すために)誤ったデータを送信することによりバックエンドを調べた
+    いと思った場合、システムをPHPと共に構築されていることを知ることが
+    可能となる可能性があります。
+   </p>
+   <p class="para">
+    関数エラーは、システムが特定のデータベースエンジンが実行しているこ
+    と、または、Webページのプログラム内容や設計に関する鍵を示すことが
+    あります。これにより、データベースポートをオープンしたり、Webペー
+    ジに固有のバグや弱点を調べるといったより詳細な調査を行うことが可能
+    となります。例えば、異なった不正なデータを送信することにより、攻撃
+    者は、(エラー行番号から)そのスクリプトの異なる場所を調べることと同
+    時にそのスクリプトの認証の順番を定義することが可能です。
+   </p>
+   <p class="para">
+    ファイルシステムまたは一般的なPHPエラーは、Webサーバが有する許可属
+    性やWebサーバのファイル構造を示すことがあります。エラーコードを書
+    く開発者は、元は秘密の情報を容易に公開することにより、この問題を悪
+    化させる可能性があります。
+   </p>
+   <p class="para">
+    この問題に対しては3種類の対策があります。最初の対策は、全ての関数
+    をよく調べ、大部分のエラーの修正を試みることです。2番目は、実行す
+    るコードのエラーリポートを完全に無効にすることです。3番目は、
+    PHPのカスタムエラー処理関数を使用して独自のエラーハンドラを作成す
+    ることです。システムのセキュリティポリシーに基づき、これらの3種類
+    の対策が適用可能かどうかを判定します。
+   </p>
+   <p class="para">
+    この問題を事前に防止する手段の一つは、PHPに組み込まれている
+    <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span>機能を使用することです。これにより、
+    コードを安全にするための手がかりが得られ、危険と思われる変数が使用
+    されている部分をみつけることが可能です。実使用の前に <b><tt>E_ALL</tt></b>
+    を指定してコードをテストすることにより、変数が他の手段で汚染されたり、修正さ
+    れたりする可能性がある部分を簡単に見つけることが可能です。
+    実使用の準備ができた際には、あなたのコードをプローブから保護するために
+    <span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> を 0 に設定するか、<var class="filename">php.ini</var>
+    のオプション <i>display_errors</i> をオフに設定する、
+    のいずれかでエラーリポートを完全に無効にすべきです。
+    もし後者を選択した場合、加えて <i>error_log</i> ini
+    ディレクティブを使用する、あるいは <i>log_errors</i>
+    をオンにしてログファイルのパスを定義すべきです。
+    <div class="example" id="example-305">
+     <p><b>例8 E_ALLで危険な変数を見つける</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$username</span><span style="color: #007700">)&nbsp;{&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;使用前に初期化または確認されていない変数<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$good_login&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />}<br />if&nbsp;(</span><span style="color: #0000BB">$good_login&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;{&nbsp;</span><span style="color: #FF8000">//&nbsp;上のテストが失敗した場合、使用前に初期化または確認されていない<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">readfile&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"/highly/sensitive/data/index.html"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+  </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="security.database.sql-injection.html">SQLインジェクション</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="security.globals.html">グローバル変数の登録機能の使用法</a></div>
+ <div class="up"><a href="security.html">セキュリティ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

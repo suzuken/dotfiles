@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルから 1 行取り出し HTML タグを取り除く</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgets.html">SplFileObject::fgets</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.flock.html">SplFileObject::flock</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="splfileobject.fgetss" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SplFileObject::fgetss</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">SplFileObject::fgetss</span> &mdash; <span class="dc-title">ファイルから 1 行取り出し HTML タグを取り除く</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-splfileobject.fgetss-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><b>SplFileObject::fgetss</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$allowable_tags</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+			 <span class="methodname"><b>SplFileObject::fgetss()</b></span> attempts to strip 読み込むテキストから HTML と PHP タグを取り除こうとすること以外、 <span class="methodname"><a href="splfileobject.fgets.html" class="methodname">SplFileObject::fgets()</a></span> と同じです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-splfileobject.fgetss-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">allowable_tags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションとして 3 番目のパラメータを使用して、取り除きたくないタグを指定することができます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-splfileobject.fgetss-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   HTML と PHP コードが取り除かれたファイルの次の行を含む文字列、もしくは <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-splfileobject.fgetss-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3276">
+    <p><b>例1  <span class="methodname"><b>SplFileObject::fgetss()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;&lt;&lt;&lt;EOD<br /></span><span style="color: #DD0000">&lt;html&gt;&lt;body&gt;<br />&nbsp;&lt;p&gt;Welcome!&nbsp;Today&nbsp;is&nbsp;the&nbsp;&lt;?php&nbsp;echo(date('jS'));&nbsp;?&gt;&nbsp;of&nbsp;&lt;?=&nbsp;date('F');&nbsp;?&gt;.&lt;/p&gt;<br />&lt;/body&gt;&lt;/html&gt;<br />Text&nbsp;outside&nbsp;of&nbsp;the&nbsp;HTML&nbsp;block.<br /></span><span style="color: #007700">EOD;<br /></span><span style="color: #0000BB">file_put_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">"sample.php"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SplFileObject</span><span style="color: #007700">(</span><span style="color: #DD0000">"sample.php"</span><span style="color: #007700">);<br />while&nbsp;(!</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">eof</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fgetss</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+
+ Welcome! Today is the  of .
+
+Text outside of the HTML block.
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-splfileobject.fgetss-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fgetss.html" class="function" rel="rdfs-seeAlso">fgetss()</a> - ファイルポインタから 1 行取り出し、HTML タグを取り除く</span></li>
+    <li class="member"> <span class="methodname"><a href="splfileobject.fgets.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::fgets()</a> - ファイルから 1 行取り出す</span></li>
+    <li class="member"> <span class="methodname"><a href="splfileobject.fgetc.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::fgetc()</a> - ファイルから文字を取り出す</span></li>
+    <li class="member"> <span class="methodname"><a href="splfileobject.current.html" class="methodname" rel="rdfs-seeAlso">SplFileObject::current()</a> - ファイルの現在の行を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="splfileobject.fgets.html">SplFileObject::fgets</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="splfileobject.flock.html">SplFileObject::flock</a></div>
+ <div class="up"><a href="class.splfileobject.html">SplFileObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

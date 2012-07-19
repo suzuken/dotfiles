@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>大文字小文字を区別せずに正規表現によるマッチングを行う</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.eregi-replace.html">eregi_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.split.html">split</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.eregi" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">eregi</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">eregi</span> &mdash; <span class="dc-title">大文字小文字を区別せずに正規表現によるマッチングを行う</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.eregi-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>eregi</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$regs</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、アルファベット文字をマッチングさせる際に
+   大文字小文字の区別をしないこと以外は <span class="function"><a href="function.ereg.html" class="function">ereg()</a></span>
+   と同じです。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.eregi-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       大文字小文字を区別しない正規表現。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">regs</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">pattern</tt></i> の括弧でくくられた部分文字列に
+       マッチし、かつこの関数が 3 番目の引数 <i><tt class="parameter">regs</tt></i> を
+       指定してコールされた場合、マッチした部分が配列 <i><tt class="parameter">regs</tt></i>
+       に格納されます。
+      </p>
+      <p class="para">
+       $regs[1] は最初の左括弧が始まる部分文字列を保持、
+       $regs[2] は二番目の左括弧が始まる部分文字列を保持、
+       といったようになっています。$regs[0] は
+       マッチした文字列全体のコピーを保持しています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.eregi-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">string</tt></i> の中で <i><tt class="parameter">pattern</tt></i>
+   がマッチした場合にはマッチした文字列の長さを返し、マッチしなかった場合
+   またはエラーとなった場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   オプションのパラメータ <i><tt class="parameter">regs</tt></i> が渡されなかったり
+   マッチした文字列の長さが 0 だったりした場合は、この関数は 1 を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.eregi-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3944">
+    <p><b>例1 <span class="function"><b>eregi()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'XYZ'</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">eregi</span><span style="color: #007700">(</span><span style="color: #DD0000">'z'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$string</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"'</span><span style="color: #0000BB">$string</span><span style="color: #DD0000">'&nbsp;は、'z'&nbsp;または&nbsp;'Z'&nbsp;を含んでいます!"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.eregi-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">PHP 5.3.0 以降、
+regex 拡張モジュールは非推奨となりました。かわりに
+<a href="book.pcre.html" class="link">PCRE 拡張モジュール</a> を使うことが推奨されています。
+この関数をコールすると <b><tt>E_DEPRECATED</tt></b> が発生します。
+PCRE への変換についてのヘルプは <a href="reference.pcre.pattern.posix.html" class="link">
+相違点の一覧</a> を参照ください。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.eregi-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ereg.html" class="function" rel="rdfs-seeAlso">ereg()</a> - 正規表現によるマッチングを行う</span></li>
+    <li class="member"><span class="function"><a href="function.ereg-replace.html" class="function" rel="rdfs-seeAlso">ereg_replace()</a> - 正規表現による置換を行う</span></li>
+    <li class="member"><span class="function"><a href="function.eregi-replace.html" class="function" rel="rdfs-seeAlso">eregi_replace()</a> - 大文字小文字を区別せずに正規表現による置換を行う</span></li>
+    <li class="member"><span class="function"><a href="function.stripos.html" class="function" rel="rdfs-seeAlso">stripos()</a> - 大文字小文字を区別せずに文字列が最初に現れる位置を探す</span></li>
+    <li class="member"><span class="function"><a href="function.stristr.html" class="function" rel="rdfs-seeAlso">stristr()</a> - 大文字小文字を区別しない strstr</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.eregi-replace.html">eregi_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.split.html">split</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>未解決のトランザクションをコミットする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.oci-collection-trim.html">OCI-Collection-&gt;trim</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.oci-connect.html">oci_connect</a></div>
+ <div class="up"><a href="ref.oci8.html">OCI8 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.oci-commit" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">oci_commit</h1>
+  <p class="verinfo">(PHP 5, PECL OCI8 &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">oci_commit</span> &mdash; <span class="dc-title">未解決のトランザクションをコミットする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.oci-commit-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>oci_commit</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Oracle接続<i><tt class="parameter">connection</tt></i>
+   上の未解決なトランザクションをコミットします。
+   コミットすると、現在のトランザクションを終了してすべての変更を確定させます。
+   また、保持しているロックをすべて解放します。
+  </p>
+  <p class="para">
+   トランザクションが始まるのは、データを変更する最初の SQL 文が
+   <b><tt>OCI_NO_AUTO_COMMIT</tt></b> フラグつきで
+   <span class="function"><a href="function.oci-execute.html" class="function">oci_execute()</a></span> によって実行されたときです。
+   それ以降、他の文によるデータの変更も同じトランザクションの一部となります。
+   トランザクション内でのデータの変更は、
+   そのトランザクションがコミットあるいはロールバックされるまでは一時的なものとなります。
+   データベース上の他のユーザは、
+   トランザクションがコミットされるまでその変更内容を見ることができません。
+  </p>
+  <p class="para">
+   データを追加したり更新したりする際には、
+   リレーショナルデータの一貫性やパフォーマンスなどを考慮して
+   トランザクションを使うことを推奨します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.oci-commit-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.oci-connect.html" class="function">oci_connect()</a></span>、<span class="function"><a href="function.oci-pconnect.html" class="function">oci_pconnect()</a></span>
+       あるいは <span class="function"><a href="function.oci-new-connect.html" class="function">oci_new_connect()</a></span> が返す
+       Oracle 接続 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.oci-commit-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.oci-commit-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1617">
+    <p><b>例1 <span class="function"><b>oci_commit()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;複数のテーブルに挿入し、エラーが発生したときにはロールバックします<br /><br /></span><span style="color: #0000BB">$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'hr'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'welcome'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'localhost/XE'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;mysalary&nbsp;(id,&nbsp;name)&nbsp;VALUES&nbsp;(1,&nbsp;'Chris')"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;OCI_NO_AUTO_COMMIT&nbsp;フラグは、INSERT&nbsp;の直後にコミットしないよう&nbsp;Oracle&nbsp;に指示します<br />//&nbsp;PHP&nbsp;&lt;=&nbsp;5.3.1&nbsp;では&nbsp;OCI_DEFAULT&nbsp;フラグを使いましょう。どちらのフラグも同じ意味です<br /></span><span style="color: #0000BB">$r&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">OCI_NO_AUTO_COMMIT</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$r</span><span style="color: #007700">)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$e&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$e</span><span style="color: #007700">[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">]),&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">$stid&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_parse</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'INSERT&nbsp;INTO&nbsp;myschedule&nbsp;(startday)&nbsp;VALUES&nbsp;(12)'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$r&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">OCI_NO_AUTO_COMMIT</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$r</span><span style="color: #007700">)&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$e&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$stid</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">oci_rollback</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;両方のテーブルへの変更をロールバックします<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$e</span><span style="color: #007700">[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">]),&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;両方のテーブルへの変更をコミットします<br /></span><span style="color: #0000BB">$r&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_commit</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">r</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$e&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">oci_error</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">trigger_error</span><span style="color: #007700">(</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(</span><span style="color: #0000BB">$e</span><span style="color: #007700">[</span><span style="color: #DD0000">'message'</span><span style="color: #007700">]),&nbsp;</span><span style="color: #0000BB">E_USER_ERROR</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.oci-commit-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    トランザクションは接続を閉じたとき、
+    もしくはスクリプトの終了時のいずれの場合でも
+    すぐに自動的にロールバックされます。
+    トランザクションをコミットするには
+    <span class="function"><b>oci_commit()</b></span> をコールする必要があります。
+   </p>
+   <p class="para">
+    <b><tt>OCI_COMMIT_ON_SUCCESS</tt></b> モードを指定するか、
+    あるいはデフォルトの状態で <span class="function"><a href="function.oci-execute.html" class="function">oci_execute()</a></span> をコールすると、
+    それ以前の未コミットのトランザクションをコミットします。
+   </p>
+   <p class="para">
+    <i>CREATE</i> や <i>DROP</i> といった
+    Oracle の DDL は、未コミットのトランザクションを自動的にコミットします。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 5.0.0 より前のバージョンでは、かわりに
+    <span class="function"><a href="function.ocicommit.html" class="function">ocicommit()</a></span> を使用します。
+    現在のバージョンでは、古い関数名もまだ使えます。
+しかし、これは廃止予定であり非推奨です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.oci-commit-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.oci-execute.html" class="function" rel="rdfs-seeAlso">oci_execute()</a> - 文を実行する</span></li>
+    <li class="member"><span class="function"><a href="function.oci-rollback.html" class="function" rel="rdfs-seeAlso">oci_rollback()</a> - 未解決のデータベーストランザクションをロールバックする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.oci-collection-trim.html">OCI-Collection-&gt;trim</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.oci-connect.html">oci_connect</a></div>
+ <div class="up"><a href="ref.oci8.html">OCI8 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

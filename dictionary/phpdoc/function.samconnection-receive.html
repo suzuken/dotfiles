@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メッセージをキューあるいは購読から取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.samconnection-peekall.html">SAMConnection-&gt;peekAll</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.samconnection-remove.html">SAMConnection-&gt;remove</a></div>
+ <div class="up"><a href="ref.sam.html">SAM 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.samconnection-receive" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SAMConnection->receive</h1>
+  <p class="verinfo">(PECL sam &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">SAMConnection-&gt;receive</span> &mdash; <span class="dc-title">
+   メッセージをキューあるいは購読から取得する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.samconnection-receive-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">SAMMessage</span> <span class="methodname"><b>SAMConnection::receive</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$target</tt></span>
+    [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$properties</tt></span>
+   ] )</div>
+
+  </div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.samconnection-receive-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">target</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージを取得するキュー、トピックあるいは購読の識別子。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">properties</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの連想配列で、受信操作を制御するパラメータを指定します。
+       <table class="doctable informaltable">
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>プロパティ名</th>
+           <th>とりうる値</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">SAM_CORRELID</td>
+           <td align="left">
+            メッセージの相関 ID 文字列にもとづいて、
+            受信するメッセージを選択するために使用します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_MESSAGEID</td>
+           <td align="left">
+            メッセージのメッセージ ID 文字列にもとづいて、
+            受信するメッセージを選択するために使用します。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">SAM_WAIT</td>
+           <td align="left">
+            タイムアウトをミリ秒で指定します。この時間までメッセージの受信を待ち続け、
+            キューやトピックにメッセージがなかった場合に失敗とします。デフォルト値は 0
+            で、永遠に待ち続けます。この使用には注意が必要です。
+            メッセージが存在しない場合、PHP スクリプト自体が期限切れになるまで実行し続けます。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.samconnection-receive-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   このメソッドは SAMMessage オブジェクトを返します。
+   エラーが発生した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.samconnection-receive-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3699">
+    <p><b>例1 キューからのメッセージの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">receive</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue://receive/test'</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$msg</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;受信に失敗しました!<br />&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Receive&nbsp;failed&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno</span><span style="color: #DD0000">)&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3700">
+    <p><b>例2 オプションを指定して、キューからのメッセージの取得</b></p>
+    <div class="example-contents"><p>
+     この例では SAM_CORRELID オプションを使用して、
+     受信するメッセージを表すための相関 ID を指定します。
+     また、タイムアウトを 10 秒に指定します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">receive</span><span style="color: #007700">(</span><span style="color: #DD0000">'queue://receive/test'</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #0000BB">SAM_CORRELID&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$token</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SAM_WAIT&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">10000</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3701">
+    <p><b>例3 購読からのメッセージの取得</b></p>
+    <div class="example-contents"><p>
+     この例では、購読 ID からメッセージを受信する方法を示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$msg&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">receive</span><span style="color: #007700">(</span><span style="color: #0000BB">$subscriptionName</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$msg</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;受信に失敗しました!<br />&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Receive&nbsp;failed&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">errno</span><span style="color: #DD0000">)&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">error</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     $subscriptionName は、事前のコールで取得した購読 ID
+     であることに注意しましょう。
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.samconnection-receive-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="function.samconnection-send.html" class="xref">SAMConnection-&gt;send</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.samconnection-peekall.html">SAMConnection-&gt;peekAll</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.samconnection-remove.html">SAMConnection-&gt;remove</a></div>
+ <div class="up"><a href="ref.sam.html">SAM 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

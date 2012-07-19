@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルをリネームする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.realpath.html">realpath</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.rewind.html">rewind</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.rename" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">rename</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">rename</span> &mdash; <span class="dc-title">ファイルをリネームする</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.rename-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>rename</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$oldname</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$newname</tt></span>
+   [, <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$context</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">oldname</tt></i> を
+   <i><tt class="parameter">newname</tt></i> にリネームしようと試みます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.rename-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">oldname</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        変更前の名前。
+        <i><tt class="parameter">oldname</tt></i> で使用されるラッパーは、
+        <i><tt class="parameter">newname</tt></i> で使用するラッパーと適合
+        <em class="emphasis">している必要があります</em> 。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">newname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       変更後の名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">context</tt></i></span>
+     <dd>
+
+      <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">コンテキストのサポートは、
+PHP 5.0.0 で追加されました。<i>contexts</i> の説明に関しては、
+<a href="ref.stream.html" class="xref">ストリーム 関数</a> を参照してください。</span></p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.rename-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.rename-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.1</td>
+       <td align="left">
+        <span class="function"><b>rename()</b></span> は
+        Windows で別のドライブにリネームできるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <span class="function"><b>rename()</b></span> は
+        <em class="emphasis">いくつかの</em> URL ラッパーを併用することができるようになりました。
+        <span class="function"><b>rename()</b></span> をサポートしているラッパーの一覧については、
+        <a href="wrappers.html" class="xref">サポートするプロトコル/ラッパー</a> を参照ください。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.3</td>
+       <td align="left">
+        <span class="function"><b>rename()</b></span> は *nix ベースシステムで
+        パーティション越しにファイル名を変更できるようになりました。
+        適切なパーミッションが保持されます。
+        移動先のファイルシステムで <i>chown()</i>
+        あるいは <i>chmod()</i> といったシステムコールが実行できない場合
+        (移動先のファイルシステムが FAT である場合など)
+        は警告が発生します。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.rename-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1956">
+    <p><b>例1 <span class="function"><b>rename()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />rename</span><span style="color: #007700">(</span><span style="color: #DD0000">"/tmp/tmp_file.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/home/user/login/docs/my_file.txt"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.rename-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.copy.html" class="function" rel="rdfs-seeAlso">copy()</a> - ファイルをコピーする</span></li>
+    <li class="member"><span class="function"><a href="function.unlink.html" class="function" rel="rdfs-seeAlso">unlink()</a> - ファイルを削除する</span></li>
+    <li class="member"><span class="function"><a href="function.move-uploaded-file.html" class="function" rel="rdfs-seeAlso">move_uploaded_file()</a> - アップロードされたファイルを新しい位置に移動する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.realpath.html">realpath</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.rewind.html">rewind</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

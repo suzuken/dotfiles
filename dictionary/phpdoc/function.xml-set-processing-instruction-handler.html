@@ -1,0 +1,161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>処理命令 (PI) 用ハンドラを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xml-set-object.html">xml_set_object</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xml-set-start-namespace-decl-handler.html">xml_set_start_namespace_decl_handler</a></div>
+ <div class="up"><a href="ref.xml.html">XML パーサ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xml-set-processing-instruction-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xml_set_processing_instruction_handler</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">xml_set_processing_instruction_handler</span> &mdash; <span class="dc-title">
+   処理命令 (PI) 用ハンドラを設定する
+  </span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xml-set-processing-instruction-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>xml_set_processing_instruction_handler</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$parser</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$handler</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   XML パーサ <i><tt class="parameter">parser</tt></i>の処理命令 (PI) 用ハンドラ関数を設定します。
+  </p>
+  <p class="para">
+   処理命令は、次のフォーマットを有しています。
+   <div class="informalexample">
+    <div class="example-contents"><div class="cdata"><pre>&lt;?</pre></div><span class="replaceable">target</span> 
+     <span class="replaceable">data</span><div class="cdata"><pre>?&gt;
+    </pre></div></div>
+
+   </div>
+   このようなタグに PHP コードを入れることが可能ですが、一つの制約に
+   注意してください。XML PI において、PI 終了タグ
+   (<i>?&gt;</i>)は引用符で括ることができません。
+   このため、この文字の並びを XML ドキュメント中にPIにより埋め込んだ
+   PHP コードの中で使用することはできません。これを使用した場合、残りの
+   PHP コードは、&quot;真の&quot; PI 終了タグと同じく文字データとして処理
+   されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xml-set-processing-instruction-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parser</tt></i></span>
+     <dd>
+
+      <p class="para">
+       処理命令 (PI) ハンドラ関数を設定する XML パーサへの参照。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">handler</tt></i> は、
+       <i><tt class="parameter">parser</tt></i> に関して
+       <span class="function"><a href="function.xml-parse.html" class="function">xml_parse()</a></span> がコールされた際に必要な関数の名前を有する文字列です。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">handler</tt></i> という名前の関数は、
+       次の 3 つのパラメータを引数とする必要があります。
+       <div class="methodsynopsis dc-description">
+         <span class="methodname"><span class="replaceable">handler</span></span>
+         ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$parser</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$target</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$data</tt></span>
+        )</div>
+
+       <dl>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">parser</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           最初のパラメータ、<span class="replaceable">parser</span> は
+           ハンドラをコールする XML パーサへのリファレンスです。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">target</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           第 2 のパラメータ、<i><tt class="parameter">target</tt></i> は
+           PI のターゲットを有しています。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">data</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           第 3 のパラメータ、<i><tt class="parameter">data</tt></i> は、
+           PI のデータを有しています。
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+      <p class="para">
+       ハンドラ関数が空の文字列または、<b><tt>FALSE</tt></b> に設定されている場合、そのハンドラは無効となります。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">関数名の代わりに、オブジェクトへの
+リファレンスを格納した配列とメソッド名を指定することもできます。</span></p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xml-set-processing-instruction-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xml-set-object.html">xml_set_object</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xml-set-start-namespace-decl-handler.html">xml_set_start_namespace_decl_handler</a></div>
+ <div class="up"><a href="ref.xml.html">XML パーサ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

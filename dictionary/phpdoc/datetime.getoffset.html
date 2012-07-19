@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>タイムゾーンのオフセットを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.getlasterrors.html">DateTime::getLastErrors</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.gettimestamp.html">DateTime::getTimestamp</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetime.getoffset" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DateTime::getOffset</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">DateTime::getOffset</span> &mdash; <span class="dc-title">タイムゾーンのオフセットを返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-datetime.getoffset-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>DateTime::getOffset</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><a href="function.date-offset-get.html" class="methodname">date_offset_get</a></span>
+    ( <span class="methodparam"><span class="type"><a href="class.datetime.html" class="type DateTime">DateTime</a></span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   タイムゾーンのオフセットを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-datetime.getoffset-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+<span class="term"><i><tt class="parameter">
+object</tt></i></span><dd>
+<p class="para">手続き型のみ: <span class="function"><a href="function.date-create.html" class="function">date_create()</a></span>
+が返す <a href="class.datetime.html" class="classname">DateTime</a> オブジェクト</p></dd>
+</dt>
+
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-datetime.getoffset-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合には UTC からのタイムゾーンオフセット秒数、
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-datetime.getoffset-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-581">
+   <p><b>例1 <span class="function"><b>DateTime::getOffset()</b></span> の例</b></p>
+   <div class="example-contents"><p>オブジェクト指向型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$winter&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2010-12-21'</span><span style="color: #007700">,&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #DD0000">'America/New_York'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$summer&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">(</span><span style="color: #DD0000">'2008-06-21'</span><span style="color: #007700">,&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #DD0000">'America/New_York'</span><span style="color: #007700">));<br /><br />echo&nbsp;</span><span style="color: #0000BB">$winter</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getOffset</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$summer</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getOffset</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>手続き型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$winter&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'2010-12-21'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">timezone_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'America/New_York'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$summer&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">date_create</span><span style="color: #007700">(</span><span style="color: #DD0000">'2008-06-21'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">timezone_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'America/New_York'</span><span style="color: #007700">));<br /><br />echo&nbsp;</span><span style="color: #0000BB">$winter</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getOffset</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #0000BB">$summer</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getOffset</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+-18000
+-14400
+</pre></div>
+   </div>
+   <div class="example-contents"><p>
+    Note: -18000 = -5 hours, -14400 = -4 hours.
+   </p></div>
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetime.getlasterrors.html">DateTime::getLastErrors</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetime.gettimestamp.html">DateTime::getTimestamp</a></div>
+ <div class="up"><a href="class.datetime.html">DateTime</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

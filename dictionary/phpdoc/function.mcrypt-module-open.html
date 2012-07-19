@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>使用するアルゴリズムおよびモードのモジュールをオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mcrypt-module-is-block-mode.html">mcrypt_module_is_block_mode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mcrypt-module-self-test.html">mcrypt_module_self_test</a></div>
+ <div class="up"><a href="ref.mcrypt.html">Mcrypt 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mcrypt-module-open" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mcrypt_module_open</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5)</p><p class="refpurpose"><span class="refname">mcrypt_module_open</span> &mdash; <span class="dc-title">使用するアルゴリズムおよびモードのモジュールをオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mcrypt-module-open-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>mcrypt_module_open</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$algorithm</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$algorithm_directory</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$mode</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$mode_directory</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、使用するアルゴリズムおよびモードのモジュールをオープン
+   します。アルゴリズム名は、たとえば &quot;<i>twofish</i>&quot;
+   のように名前で指定するか定数 <b><tt>MCRYPT_暗号名</tt></b> のいずれかを使用して指定します。
+   ライブラリは <span class="function"><a href="function.mcrypt-module-close.html" class="function">mcrypt_module_close()</a></span> をコールする
+   ことによりクローズされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mcrypt-module-open-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">algorithm</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するアルゴリズム。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">algorithm_directory</tt></i></span>
+     <dd>
+
+      <p class="para">
+       暗号化モジュールの位置を指定する際には
+       <i><tt class="parameter">algorithm_directory</tt></i> を使います。
+       ディレクトリ名を指定した場合には、これが使用されます。
+       これらの一つに空の文字列(<i>&quot;&quot;</i>)を指定した場合、<var class="filename">php.ini</var> ディレクティブ
+       <i><tt class="parameter">mcrypt.algorithms_dir</tt></i> に設定された値を使います。
+       これらが設定されていない場合、libmcrypt をコンパイルした際の
+       デフォルトのディレクトリ (通常は<var class="filename">/usr/local/lib/libmcrypt</var>)
+       を使います。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するモード。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode_directory</tt></i></span>
+     <dd>
+
+      <p class="para">
+       暗号化モジュールの位置を指定する際には
+       <i><tt class="parameter">mode_directory</tt></i> を使います。
+       ディレクトリ名を指定した場合には、これが使用されます。
+       これらの一つに空の文字列(<i>&quot;&quot;</i>)を指定した場合、<var class="filename">php.ini</var> ディレクティブ
+       <i>mcrypt.modes_dir</i> に設定された値を使います。
+       これらが設定されていない場合、libmcrypt をコンパイルした際の
+       デフォルトのディレクトリ (通常は<var class="filename">/usr/local/lib/libmcrypt</var>)
+       を使います。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mcrypt-module-open-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   通常は暗号化記述子を返します。エラー時は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mcrypt-module-open-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-863">
+    <p><b>例1 <span class="function"><b>mcrypt_module_open()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;$td&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_module_open</span><span style="color: #007700">(</span><span style="color: #0000BB">MCRYPT_DES</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">MCRYPT_MODE_ECB</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/usr/lib/mcrypt-modes'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$td&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_module_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'rijndael-256'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ofb'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   上の例の最初の行では、デフォルトのディレクトリから <i>DES</i> 暗号化を、
+   そして <var class="filename">/usr/lib/mcrypt-modes</var> から <i>EBC</i> モードの
+   オープンを試みます。2 行目の例では暗号化形式とモードを文字列で
+   指定しています。これは、libmcrypt 2.4.x あるいは 2.5.x に対して
+   拡張モジュールがリンクされている場合にのみ使用可能です。
+  </p>
+
+  <p class="para">
+   <div class="example" id="example-864">
+    <p><b>例2 <span class="function"><b>mcrypt_module_open()</b></span> を暗号化で使用する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;暗号モジュールをオープンします&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$td&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_module_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'rijndael-256'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'ofb'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;IV&nbsp;を作成し、キー長を定義します。Windows&nbsp;では、かわりに<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;MCRYPT_RAND&nbsp;を使用します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$iv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_create_iv</span><span style="color: #007700">(</span><span style="color: #0000BB">mcrypt_enc_get_iv_size</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">MCRYPT_DEV_RANDOM</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ks&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_enc_get_key_size</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;キーを作成します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">md5</span><span style="color: #007700">(</span><span style="color: #DD0000">'very&nbsp;secret&nbsp;key'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ks</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;暗号化処理を初期化します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$iv</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;データを暗号化します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$encrypted&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mcrypt_generic</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'This&nbsp;is&nbsp;very&nbsp;important&nbsp;data'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;暗号化ハンドラを終了します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_deinit</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;復号用の暗号モジュールを初期化します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$iv</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;暗号化された文字列を復号します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$decrypted&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mdecrypt_generic</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$encrypted</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;復号ハンドルを終了し、モジュールを閉じます&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_generic_deinit</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">mcrypt_module_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$td</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;文字列を表示します&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">trim</span><span style="color: #007700">(</span><span style="color: #0000BB">$decrypted</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mcrypt-module-open-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.mcrypt-module-close.html" class="function" rel="rdfs-seeAlso">mcrypt_module_close()</a> - mcrypt モジュールを閉じる</span></li>
+    <li class="member"><span class="function"><a href="function.mcrypt-generic.html" class="function" rel="rdfs-seeAlso">mcrypt_generic()</a> - データを暗号化する</span></li>
+    <li class="member"><span class="function"><a href="function.mdecrypt-generic.html" class="function" rel="rdfs-seeAlso">mdecrypt_generic()</a> - データを復号する</span></li>
+    <li class="member"><span class="function"><a href="function.mcrypt-generic-init.html" class="function" rel="rdfs-seeAlso">mcrypt_generic_init()</a> - 暗号化に必要な全てのバッファを初期化する</span></li>
+    <li class="member"><span class="function"><a href="function.mcrypt-generic-deinit.html" class="function" rel="rdfs-seeAlso">mcrypt_generic_deinit()</a> - 暗号化モジュールを終了する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mcrypt-module-is-block-mode.html">mcrypt_module_is_block_mode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mcrypt-module-self-test.html">mcrypt_module_self_test</a></div>
+ <div class="up"><a href="ref.mcrypt.html">Mcrypt 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

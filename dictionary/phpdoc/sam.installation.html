@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="sam.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sam.installation" class="section">
+  <h2 class="title">インストール手順</h2>
+  <p class="para">
+   この PECL 拡張モジュールをインストールする方法は、
+マニュアルの <a href="install.pecl.html" class="link">
+PECL 拡張モジュールのインストール</a> という章にあります。
+新規リリース・ダウンロード・ソースファイル・管理者情報・CHANGELOG
+といった関連する情報については、次の場所にあります。
+   <a href="http://pecl.php.net/package/sam" class="link external">&raquo; http://pecl.php.net/package/sam</a>.
+  </p>
+  <p class="para">
+   SAM フレームワークおよび MQTT サポートをビルドして使用するためには、
+   特にその他の前提条件はありません。
+   MQTT 以外のプロトコルのサポートはライブラリとして提供されており、
+   クライアント側のコードの中にはは XMS を使用するものもあります。
+  </p>
+  <p class="para">
+   組み込みの MQTT サポートを使用したいだけである場合は、
+   SAM を拡張モジュールとしてビルドして設定するか、
+   あるいは単に <var class="filename">php_sam.php</var> を PHP スクリプトから <span class="function"><a href="function.require.html" class="function">require()</a></span>
+   あるいは <span class="function"><b>requires_once()</b></span> で読み込みます。この場合は、
+   コードをインストールするだけでよく、拡張モジュールをビルドする必要はありません。
+   これを行うには、pear インストーラで次のように指定します。
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+pecl install -B SAM
+</pre></div>
+   </div>
+  </p>
+
+  
+  <div class="section" id="sam.installation.linux">
+   <h2 class="title">Linux でのインストール手順</h2>
+   <p class="para">
+    SAM 拡張モジュールは PECL モジュールとして提供され、
+    次の手順でダウンロード、インストールすることができます。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+pecl install sam
+</pre></div>
+    </div>
+    (php の環境にもよりますが、おそらく root になる必要があるでしょう)
+   </p>
+   <p class="para">
+    このモジュールを PHP に読み込ませるために、
+    <var class="filename">php.ini</var> に以下を追加します。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=sam.so
+</pre></div>
+    </div>
+    XMS サポートを使用して IBM Messaging and Queuing family にアクセスしたい場合は、
+    SAM XMS 拡張モジュールも有効にしなければなりません。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=sam_xms.so
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    PEAR インストーラを使用できない場合は、
+    拡張モジュールをダウンロードして手動でビルドします。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+pear download sam          # sam-&lt;version&gt;.tgz をダウンロードします
+tar -xzf sam-&lt;version&gt;.tgz
+cd sam-&lt;version&gt;
+phpize
+./configure
+make
+make install               # おそらく root になる必要があるでしょう
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    最新のソースを使用したい場合は、SVN からソースを取得して、
+    上の手順で手動ビルドします。
+   </p>
+  </div>
+  
+  
+  <div class="section" id="sam.installation.windows">
+   <h2 class="title">Windows でのインストール手順</h2>
+   <p class="para">
+    SAM のウェブサイトにあるビルド済みバイナリは、非常に限られた範囲のものになっています。
+    そのため、おそらく自分でビルドすることになるでしょう。この拡張モジュールのビルド手順は、
+    Windows 上での標準的な拡張モジュールビルド手順と同じです。
+   </p>
+   <p class="para">
+    SAM 拡張モジュールを使用する予定の PHP と同じバージョンの、
+    PHP 自身のソースツリーが必要となります。これは php.net から取得します。
+    取得したソースを、どこかの作業ディレクトリに展開します。
+   </p>
+   <p class="para">
+    また、PHP 拡張モジュールが使用するライブラリやヘッダを
+    http://www.php.net/extra/win32build.zip から取得し、
+    作業ディレクトリの下に展開します。
+   </p>
+   <p class="para">
+    するとこのような状態になります。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+c:\php-build\-
+              |
+              |---php-5.0.5--|---build
+              |              |---ext
+              |              |--- ...
+              |
+              |---win32build--|---bin
+                              |---include
+                              |---lib
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    コンパイラが必要です。たとえば、フリーの Visual Studio C++
+    Express が Microsoft のウェブサイトから取得可能です。
+    また、Microsoft <i>SDK Microsoft Windows Platform</i>
+    も必要となります。これも Microsoft のウェブサイトからダウンロードできます。
+   </p>
+   <p class="para">
+    SAM 拡張モジュールのソースを、pear を使用して (pear download sam)
+    あるいは SVN から取得し、それを PHP ソースツリーの &quot;ext&quot; ディレクトリ内に作成した
+    &quot;sam&quot; ディレクトリに配置します。
+   </p>
+   <p class="para">
+    この拡張モジュールをビルドするには、ビルド環境を次の場所から開きます。
+    start <div class="example-contents screen">menu-&gt;all programs-&gt;microsoft platform SDK for windows-&gt;<br />
+    open build environment window-&gt;windows 200 build environment-&gt;<br />
+    set windows 2000 build environment (retail)</div>
+   </p>
+   <p class="para">
+    これは、コマンドプロンプトを開き、プラットフォーム SDK
+    などを使用するためのすべての環境変数を設定します。
+    次に、Visual Studio 用の環境変数を設定するために、このウィンドウでコマンド
+    <strong class="command">vcvars32.bat</strong> を実行します。
+   </p>
+   <p class="para">
+    cd <var class="filename">c:\php-build</var> などとして、作業ディレクトリに移動します。
+    そして win32build ツール群にアクセスできるよう、そのパスを環境変数
+    PATH に追加します。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+set PATH=..\win32build\bin;%PATH%
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    <strong class="command">buildconf.bat</strong> コマンドを実行します。これは
+    <var class="filename">configure.js</var> ファイルを作成します。
+   </p>
+   <p class="para">
+    cscript コマンドに適切なオプションをつけて実行します。
+    SAM 拡張モジュールフレームワークと MQTT サポートだけをビルドするのなら
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+cscript /nologo configure.js --with-sam
+</pre></div>
+    </div>
+    SAM フレームワークおよび XMS サポートをビルドするのなら
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+cscript /nologo configure.js --with-sam --with-sam_xms=&quot;c:\program files\ibm\xms&quot;
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    とします。sam_xms に渡している追加のパラメータは、XMS ライブラリやランタイムへのパスです。
+    これらは、このファイルの最初に書いてある前提条件によってインストールされているものです。
+   </p>
+   <p class="para">
+    <strong class="command">cscript</strong> のパラメータとして、
+    php のビルドオプションのうちお好みのものを追加したり削除することもできます。
+   </p>
+   <p class="para">
+    すべてがうまくいけば、あとは SAM フレームワーク用の make を実行するだけです!
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+nmake php_sam.dll
+</pre></div>
+    </div>
+    また、もし XML サポートを使用するのなら、sam_xms 拡張モジュールも make しなければなりません。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+nmake php_sam_xms.dll
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    Visual Studio 2005 を使用して DLL をビルドする場合は、
+    これ以降に進む前に次の追加手順を実行しなければなりません。
+   </p>
+   <p class="para">
+    作成された DLL (<var class="filename">php_sam.dll</var> およびオプションで
+    <var class="filename">php_sam_xms.dll</var>)
+    を、PHP をセットアップしたディレクトリ以下の適切な場所にコピーします。
+    このモジュールを PHP に読み込ませるために、次の行を
+    <var class="filename">php.ini</var> に追加しておきましょう。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=php_sam.dll
+</pre></div>
+    </div>
+    XMS サポートを使用して IBM Messaging and Queuing family
+    にアクセスしたい場合は SAM XMS 拡張モジュールも有効にする必要があります。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=php_sam_xms.dll
+</pre></div>
+    </div>
+   </p>
+  </div>
+  
+  
+  <div class="section" id="sam.installation.VS2005">
+   <h2 class="title">Visual Studio 2005 用の追加手順</h2>
+   <p class="para">
+    SAM 拡張モジュールを Microsoft Visual Studio 2005 のコンパイラでビルドしたい場合は、
+    さらに追加の手順が必要です。これにより、php_sam.dll が実行時に
+    C ランタイムライブラリとリンクできるようにします。
+    この追加手順では、依存性マニフェストを DLL に組み込みます。
+    php_sam.dll が作成されたディレクトリ (通常は、php ソースディレクトリ配下の
+    Release_TS あるいは Debug_TS) に移動し、次のように謎の呪文をとなえます。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+mt.exe -manifest php_sam.dll.manifest -outputresource:php_sam.dll;2
+</pre></div>
+    </div>
+    XMS 機能を使用する場合は、同様に
+    SAM XMS DLL も指定しなければなりません。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+mt.exe -manifest php_sam_xms.dll.manifest -outputresource:php_sam_xms.dll;2
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    SAM 拡張モジュールを Microsoft Visual Studio 2005 のコンパイラやライブラリでビルドした場合は、
+    ランタイムコンポーネントが SAM を使用する予定のシステムにインストールされている必要があります。
+    そのためには、そこに Visual Studio 2005 をインストールするか、あるいはフリーで配布されている
+    <a href="http://www.microsoft.com/downloads/details.aspx?familyid=32BC1BEE-A3F9-4C13-9C99-220B62A191EE&displaylang=en" class="link external">&raquo; ランタイムパッケージ</a> を使用します。
+   </p>
+  </div>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="sam.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

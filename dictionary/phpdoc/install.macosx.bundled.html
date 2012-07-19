@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バンドルされている PHP の使用法</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.macosx.packages.html">パッケージの使用</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.macosx.compile.html">Mac OS X 上での PHP のコンパイル</a></div>
+ <div class="up"><a href="install.macosx.html">Mac OS X へのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.macosx.bundled" class="sect1">
+ <h2 class="title">バンドルされている PHP の使用法</h2>
+ <p class="simpara">
+  PHP は、OS X バージョン 10.0.0 以降の Mac に標準添付されています。
+  デフォルトのウェブサーバで PHP を有効にするには、Apache 設定ファイル
+  <var class="filename">httpd.conf</var> で数行のコメントを解除する必要があります。
+  一方、<acronym title="Common Gateway Interface">CGI</acronym> や <acronym title="Command Line Interpreter/Interface">CLI</acronym>
+  はデフォルトで有効になっています (ターミナルから簡単に利用できます)。
+ </p>
+ <p class="simpara">
+  PHP を有効にするには以下の手順を使用してください。
+  これは、ローカルの開発環境を手早く設定する方法を示したものです。
+  常に PHP を最新バージョンに更新することを
+  <em class="emphasis">強く推奨</em>します。
+  多くのソフトウェアでは、新しいバージョンでは多くのバグが修正されています。
+  また機能追加もされています。PHP も同様です。
+  詳細は、適切な MAC OS X インストールドキュメントを参照ください。
+  以下の手順は初心者を対象としたもので、
+  まずデフォルトの設定で動作させるための手順を示しています。
+  すべてのユーザが、新しいパッケージ版をコンパイルしてインストールすることを推奨します。
+ </p>
+ <p class="simpara">
+  標準的なインストール方法は mod_php を使用するものです。Mac OS X 上の
+  Apache web server (デフォルトのウェブサーバで、System Preferences
+  からアクセスできます) 上に、mod_php を組み込むには次のようにします。
+ </p>
+ <p class="para">
+  <ol type="1">
+   <li class="listitem">
+    <span class="simpara">
+     Apache の設定ファイルを開きます。デフォルトでは
+     <var class="filename">/private/etc/apache2/httpd.conf</var> にあります。
+    </span>
+    <span class="simpara">
+     <i>Finder</i> あるいは <i>Spotlight</i>
+     を使用してこれを見つけることは難しいでしょう。
+     このファイルはプライベート設定されており、その所有者は
+     <i>root</i> ユーザだからです。
+    </span>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <span class="simpara">
+      Unix ベースのテキストエディタ、たとえば <i>nano</i>
+      を用いて、ターミナルでこのファイルを開きます。このファイルの所有者は
+      <i>root</i> なので、<i>sudo</i> コマンドを使用して
+      (<i>root</i> として) 開く必要があります。つまり、ターミナル上で
+      <i>sudo nano /private/etc/apache2/httpd.conf</i>
+      と入力します (その後、パスワードを聞かれます)。
+     </span>
+     <span class="simpara">
+      覚えておくべき nano コマンドは次のとおりです。<i>^w</i> (検索)、
+      <i>^o</i> (保存) そして <i>^x</i> (終了)。
+      ここで <i>^</i> は Ctrl キーを表します。
+     </span>
+    </p></blockquote> 
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <span class="simpara">
+      Mac OS X 10.5 より前のバージョンにバンドルされている
+      PHP および Apache は、バージョンが古いものです。その場合、Apache の設定ファイルは
+      <var class="filename">/etc/httpd/httpd.conf</var> となります。
+     </span>
+    </p></blockquote>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     テキストエディタで、次のような行 (これらのふたつの行は並んでいないこともあります。
+     それぞれをファイル中で探してください)
+     のコメントをはずします (# を削除します)。
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+# LoadModule php5_module libexec/httpd/libphp5.so
+
+# AddModule mod_php5.c
+</pre></div>
+     </div>
+     パスに注意しましょう。将来 PHP をビルドする際には
+     上のファイルは移動するかコメントアウトする必要があります。
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     指定した拡張子 (例: .php .html および .inc)
+     が PHP でパースされるようにします。
+    </p>
+    <p class="para">
+     以下のような行が
+     <var class="filename">httpd.conf</var> にあれば (Mac Panther 以降にはあります)、
+     PHP を有効にするだけで <var class="filename">.php</var>
+     ファイルが自動的に PHP で処理されます。
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;IfModule mod_php5.c&gt;
+    # If php is turned on, we respect .php and .phps files.
+    AddType application/x-httpd-php .php
+    AddType application/x-httpd-php-source .phps
+
+    # Since most users will want index.php to work we
+    # also automatically enable index.php
+    &lt;IfModule mod_dir.c&gt;
+        DirectoryIndex index.html index.php
+    &lt;/IfModule&gt;
+&lt;/IfModule&gt;
+</pre></div>
+     </div>
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      OS X 10.5 (Leopard) より前のバージョンには PHP 5 ではなく PHP 4
+      がバンドルされています。その場合は、ここまでの説明にある 5
+      という部分を 4 に読み替えてください。
+     </p>
+    </p></blockquote>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     DirectoryIndex でデフォルトインデックスファイルが読み込まれるようにします。
+    </span>
+    <span class="simpara">
+     これも <var class="filename">httpd.conf</var> で設定します。典型的なパターンは
+     <var class="filename">index.php</var> および <var class="filename">index.html</var>
+     でしょう。デフォルトでは <var class="filename">index.php</var>
+     が有効になります。上で見たような設定がすでにあるからです。
+     これを適切に調整しましょう。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <var class="filename">php.ini</var> の場所を設定するか、デフォルトを使用します。
+    </span>
+    <span class="simpara">
+     Mac OS X におけるデフォルトの場所は
+     <var class="filename">/usr/local/php/php.ini</var> で、
+     <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> をコールするとこの情報を表示します。
+     <var class="filename">php.ini</var> を使用しない場合は、PHP はすべてデフォルト値を使用します。
+     <a href="faq.installation.html#faq.installation.phpini" class="link">php.ini
+     ファイルはどこにおけばいいのですか?</a> が、関連する FAQ です。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <i>DocumentRoot</i> を配置あるいは設定します。
+    </span>
+    <span class="simpara">
+     これは、すべてのウェブファイルのルートディレクトリとなります。
+     このディレクトリ内のファイルはウェブサーバで処理されるようになるので、
+     PHP ファイルは PHP でパースしてからブラウザに出力されます。
+     典型的なデフォルトのパスは <var class="filename">/Library/WebServer/Documents</var>
+     ですが、これは <var class="filename">httpd.conf</var> で別の場所にすることができます。
+     また、各ユーザの <var class="filename">DocumentRoot</var> は
+     <var class="filename">/Users/yourusername/Sites</var> となります。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> ファイルを作成します。
+    </span>
+    <p class="para">
+     <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> 関数は、PHP についての情報を表示します。
+     DocumentRoot 内に、次のような PHP コードを含むファイルを作成してください。
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;phpinfo</span><span style="color: #007700">();&nbsp;</span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </p> 
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     Apache を再起動し、先ほど作成した PHP ファイルを読み込みます。
+    </span>
+    <span class="simpara">
+     再起動するには、シェルで <i>sudo apachectl graceful</i>
+     を実行するか、あるいは OS X System Preferences で
+     &quot;Personal Web Server&quot; オプションを使用して停止/起動します。
+     デフォルトでは、ローカルファイルをブラウザで読み込むには
+     <var class="filename">http://localhost/info.php</var> のような
+     <acronym title="Uniform Resource Locator">URL</acronym> を指定します。
+     あるいは、各ユーザディレクトリの DocumentRoot の場合は
+     <var class="filename">http://localhost/~yourusername/info.php</var>
+     のようになります。
+    </span>
+   </li>
+  </ol>
+ </p>
+ <p class="simpara">
+  <acronym title="Command Line Interpreter/Interface">CLI</acronym> (あるいは旧バージョンの <acronym title="Common Gateway Interface">CGI</acronym>)
+  は、<var class="filename">php</var> という名前で、おそらく
+  <var class="filename">/usr/bin/php</var> にあります。
+  ターミナルを開き、PHP マニュアルの
+  Open up the terminal, read the
+  <a href="features.commandline.html" class="link">PHP をコマンドラインから使用する</a>
+  を読んだうえで <i>php -v</i> を実行してみましょう。
+  これは、PHP バイナリのバージョンを表示します。
+  <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> をコールしても、この情報を取得できます。
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.macosx.packages.html">パッケージの使用</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.macosx.compile.html">Mac OS X 上での PHP のコンパイル</a></div>
+ <div class="up"><a href="install.macosx.html">Mac OS X へのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

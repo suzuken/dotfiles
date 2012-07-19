@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>行を配列として取り込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sybase-deadlock-retry-count.html">sybase_deadlock_retry_count</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sybase-fetch-assoc.html">sybase_fetch_assoc</a></div>
+ <div class="up"><a href="ref.sybase.html">Sybase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sybase-fetch-array" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sybase_fetch_array</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">sybase_fetch_array</span> &mdash; <span class="dc-title">行を配列として取り込む</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.sybase-fetch-array-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>sybase_fetch_array</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>sybase_fetch_array()</b></span> は
+   <span class="function"><a href="function.sybase-fetch-row.html" class="function">sybase_fetch_row()</a></span> の拡張版です。データを結果配列の
+   数値インデックスに保存するのに加えて、フィールド名をキーとした
+   連想インデックスにもデータを保存します。
+  </p>
+  <p class="para">
+   <span class="function"><b>sybase_fetch_array()</b></span> を使用した場合でも、
+   かなりの機能が付加されるにもかかわらず、
+   <span class="function"><a href="function.sybase-fetch-row.html" class="function">sybase_fetch_row()</a></span> を使用した場合に比べて著しく
+   遅くなるということはないということを重要なこととして記しておきます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sybase-fetch-array-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sybase-fetch-array-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   取り込んだ行を表す配列を返します。もう行がない場合には <b><tt>FALSE</tt></b>
+   を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    同じ名前のフィールドを選択する場合（たとえば join を行った場合など）、
+    連想インデックスは順に番号を付加します。
+    詳細は例を参照ください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.sybase-fetch-array-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1811">
+    <p><b>例1 同一フィールド名</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$dbh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sybase_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'SYBASE'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$q&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sybase_query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;*&nbsp;FROM&nbsp;p,&nbsp;a&nbsp;WHERE&nbsp;p.person_id=&nbsp;a.person_id'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">sybase_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$q</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">sybase_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     上の例の出力は以下のようになります（2 つのテーブルには、ともに
+     &quot;person_id&quot; という名前のカラムがあると仮定します）。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(4) {
+  [0]=&gt;
+  int(1)
+  [&quot;person_id&quot;]=&gt;
+  int(1)
+  [1]=&gt;
+  int(1)
+  [&quot;person_id1&quot;]=&gt;
+  int(1)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sybase-fetch-array-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sybase-fetch-row.html" class="function" rel="rdfs-seeAlso">sybase_fetch_row()</a> - 行を配列として取得する</span></li>
+    <li class="member"><span class="function"><a href="function.sybase-fetch-assoc.html" class="function" rel="rdfs-seeAlso">sybase_fetch_assoc()</a> - 結果の行を連想配列として取得する</span></li>
+    <li class="member"><span class="function"><a href="function.sybase-fetch-object.html" class="function" rel="rdfs-seeAlso">sybase_fetch_object()</a> - 行をオブジェクトとして取り込む</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sybase-deadlock-retry-count.html">sybase_deadlock_retry_count</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sybase-fetch-assoc.html">sybase_fetch_assoc</a></div>
+ <div class="up"><a href="ref.sybase.html">Sybase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

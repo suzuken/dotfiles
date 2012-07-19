@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Close the request handle</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.cubrid-close-prepare.html">cubrid_close_prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-col-get.html">cubrid_col_get</a></div>
+ <div class="up"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.cubrid-close-request" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">cubrid_close_request</h1>
+  <p class="verinfo">(PECL CUBRID &gt;= 8.3.0)</p><p class="refpurpose"><span class="refname">cubrid_close_request</span> &mdash; <span class="dc-title">Close the request handle </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.cubrid-close-request-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>cubrid_close_request</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$req_identifier</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+    The <span class="function"><b>cubrid_close_request()</b></span> function closes the request
+    handle given by the <i><tt class="parameter">req_identifier</tt></i> argument, and
+    releases the memory region related to the handle.
+  </p>
+ </div>
+
+
+  <div class="refsect1 parameters" id="refsect1-function.cubrid-close-request-parameters">
+ <h3 class="title">パラメータ</h3>
+ <p class="para">
+  <dl>
+
+    <dt>
+
+  <span class="term"><i><tt class="parameter">req_identifier</tt></i></span>
+  <dd>
+<p class="para">Request identifier.</p></dd>
+
+   </dt>
+
+  </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.cubrid-close-request-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+    <b><tt>TRUE</tt></b>, when process is successful.
+  </p>
+  <p class="para">
+    <b><tt>FALSE</tt></b>, when process is unsuccessful.
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.cubrid-close-request-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-999">
+   <p><b>例1 <span class="function"><b>cubrid_close_request()</b></span> example</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">33000</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"demodb"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$req&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_prepare&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;*&nbsp;FROM&nbsp;olympic&nbsp;WHERE&nbsp;host_year=?"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$host_year&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2004</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">cubrid_bind</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$host_year</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"number"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">cubrid_execute</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%-9s&nbsp;%-11s&nbsp;%-9s&nbsp;%-12s&nbsp;%-12s&nbsp;%-15s&nbsp;%-15s\n"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"host_year"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"host_nation"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"host_city"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"opening_date"</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"closing_date"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"mascot"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"slogan"</span><span style="color: #007700">);<br /><br />while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">cubrid_fetch_assoc</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"%-9s&nbsp;%-11s&nbsp;%-9s&nbsp;%-12s&nbsp;%-12s&nbsp;%-15s&nbsp;%-15s\n"</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"host_year"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"host_nation"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"host_city"</span><span style="color: #007700">],&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"opening_date"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"closing_date"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"mascot"</span><span style="color: #007700">],&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #DD0000">"slogan"</span><span style="color: #007700">]);<br />}<br /><br /></span><span style="color: #0000BB">cubrid_close_request</span><span style="color: #007700">(</span><span style="color: #0000BB">$req</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">cubrid_disconnect</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+host_year host_nation host_city opening_date closing_date mascot          slogan         
+2004      Greece      Athens    2004-8-13    2004-8-29    Athena  Phevos  Welcome Home   
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+  <div class="refsect1 seealso" id="refsect1-function.cubrid-close-request-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.cubrid-execute.html" class="function" rel="rdfs-seeAlso">cubrid_execute()</a> - Execute a prepared SQL statement</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.cubrid-close-prepare.html">cubrid_close_prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.cubrid-col-get.html">cubrid_col_get</a></div>
+ <div class="up"><a href="ref.cubrid.html">CUBRID 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

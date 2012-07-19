@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ディレクトリハンドルからエントリを読み込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.opendir.html">opendir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.rewinddir.html">rewinddir</a></div>
+ <div class="up"><a href="ref.dir.html">ディレクトリ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.readdir" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">readdir</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">readdir</span> &mdash; <span class="dc-title">ディレクトリハンドルからエントリを読み込む</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.readdir-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>readdir</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$dir_handle</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ディレクトリから次のファイルのファイル名を返します。
+   ファイル名はファイルシステム上に格納されている順番で返されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.readdir-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dir_handle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span> が事前にオープンした
+       ディレクトリハンドル<span class="type"><span class="type リソース">リソース</span></span>。
+       ディレクトリハンドルを指定しなかった場合は、
+       <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span> が最後にオープンしたものを使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.readdir-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にファイル名、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p> 
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は論理値
+<b><tt>FALSE</tt></b> を返す可能性がありますが、<b><tt>FALSE</tt></b> として評価される
+<i>0</i> や &quot;&quot; といった値を返す可能性もあります。
+詳細については <a href="language.types.boolean.html" class="link">論理値</a>の
+セクションを参照してください。この関数の返り値を調べるには
+<a href="language.operators.comparison.html" class="link">===演算子</a> を
+使用してください。</p></div>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.readdir-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1868">
+    <p><b>例1 ディレクトリ内の全てのファイルのリストを得る</b></p>
+    <div class="example-contents"><p>
+     以下の例で、<span class="function"><b>readdir()</b></span> の返り値をどのように調べているかに
+     注目してください。返り値が <b><tt>FALSE</tt></b> と一致することを、明示的に
+     （値が等しく、かつ型も等しい - 詳細は <a href="language.operators.comparison.html" class="link">
+     比較演算子</a> を参照ください）調べています。なぜなら、そうしないと
+     <b><tt>FALSE</tt></b> と評価されてしまうディレクトリエントリ
+     （例: &quot;0&quot; という名前のディレクトリ）があった場合にループが
+     とまってしまうからです。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">opendir</span><span style="color: #007700">(</span><span style="color: #DD0000">'/path/to/files'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Directory&nbsp;handle:&nbsp;</span><span style="color: #0000BB">$handle</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Files:\n"</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;ディレクトリをループする際の正しい方法です&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">!==&nbsp;(</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">readdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">)))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;ディレクトリをループする際の「間違った」方法です&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">readdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">closedir</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-1869">
+    <p><b>例2 
+     カレントディレクトリの全てのファイルを一覧する。ただし <i>.</i>
+     および <i>..</i> は取り除く
+    </b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$handle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">opendir</span><span style="color: #007700">(</span><span style="color: #DD0000">'.'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">false&nbsp;</span><span style="color: #007700">!==&nbsp;(</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">readdir</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">)))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #DD0000">"."&nbsp;</span><span style="color: #007700">&amp;&amp;&nbsp;</span><span style="color: #0000BB">$file&nbsp;</span><span style="color: #007700">!=&nbsp;</span><span style="color: #DD0000">".."</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">closedir</span><span style="color: #007700">(</span><span style="color: #0000BB">$handle</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.readdir-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.is-dir.html" class="function" rel="rdfs-seeAlso">is_dir()</a> - ファイルがディレクトリかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.glob.html" class="function" rel="rdfs-seeAlso">glob()</a> - パターンにマッチするパス名を探す</span></li>
+    <li class="member"><span class="function"><a href="function.opendir.html" class="function" rel="rdfs-seeAlso">opendir()</a> - ディレクトリハンドルをオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.scandir.html" class="function" rel="rdfs-seeAlso">scandir()</a> - 指定されたパスのファイルとディレクトリのリストを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.opendir.html">opendir</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.rewinddir.html">rewinddir</a></div>
+ <div class="up"><a href="ref.dir.html">ディレクトリ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

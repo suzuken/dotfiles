@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>リファレンス渡し</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.arent.html">リファレンスが行わないこと</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.return.html">リファレンスを返す</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.references.pass" class="sect1">
+   <h2 class="title">リファレンス渡し</h2>
+   <p class="para">
+    リファレンスにより関数に変数を渡すことが可能です。この場合、関数内で
+    その引数を修正可能になります。構文は次のようになります。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">++;<br />}<br /><br /></span><span style="color: #0000BB">$a</span><span style="color: #007700">=</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;$a&nbsp;はここでは&nbsp;6&nbsp;です<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <span class="simpara">
+      関数コールの際には、リファレンス記号がないことに注意してください。
+      関数定義にのみリファレンス記号があります。リファレンスで正しく引数を
+      渡すには、関数定義のみで十分です。以前のバージョンの PHP では
+      <i>foo(&amp;$a);</i> のような形式で &amp; を利用すると
+      &quot;Call-time pass-by-reference&quot; という警告が発生していましたが、
+      PHP 5.3.0 以降では警告は発生しません。
+     </span>
+    </p></blockquote>
+  </p>
+  <p class="para">
+    次のものはリファレンスで渡すことが可能です。
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <span class="simpara">
+       変数、すなわち、<i>foo($a)</i>
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       new 命令、すなわち、<i>foo(new foobar())</i>
+      </span>
+     </li>
+     <li class="listitem">
+      <p class="para">
+       関数から返されるリファレンスは、次のようになります。
+       <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">++;<br />}<br />function&nbsp;&amp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">bar</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+       </div>
+       <a href="language.references.return.html" class="link">リファレンスによる
+       返り値</a> に関する説明も参照ください。
+      </p>
+     </li>
+    </ul>
+   </p>
+   <p class="para">
+    他の式は、結果が未定義となるため、リファレンスで渡すべきではありません。
+    例えば、リファレンスで渡す次の例は、無効です。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">++;<br />}<br />function&nbsp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">()&nbsp;</span><span style="color: #FF8000">//&nbsp;&amp;&nbsp;がないことに注意<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">bar</span><span style="color: #007700">());&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.0.5&nbsp;以降、致命的なエラーが発生する<br /><br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;式、変数ではない<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">5</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;致命的なエラーが発生する<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    以上の説明は、PHP 4.0.4 以降用です。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.references.arent.html">リファレンスが行わないこと</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.references.return.html">リファレンスを返す</a></div>
+ <div class="up"><a href="language.references.html">リファレンスの説明</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

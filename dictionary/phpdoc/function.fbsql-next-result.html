@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>内部結果ポインタを次の結果に移動する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-list-tables.html">fbsql_list_tables</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-num-fields.html">fbsql_num_fields</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fbsql-next-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fbsql_next_result</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">fbsql_next_result</span> &mdash; <span class="dc-title">内部結果ポインタを次の結果に移動する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fbsql-next-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>fbsql_next_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   サーバに複数の SQL 文を送信したり、複数の結果を返す
+   ストアドプロシージャを実行したりすると、複数の結果セットが返されます。
+   この関数は、サーバからの追加の結果セットが存在するかどうかを調べます。
+   結果が存在した場合、現在の結果セットを開放して新しい結果セットを取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fbsql-next-result-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+result</tt></i></span><dd>
+<p class="para"> <span class="function"><a href="function.fbsql-query.html" class="function">fbsql_query()</a></span> あるいは
+<span class="function"><a href="function.fbsql-db-query.html" class="function">fbsql_db_query()</a></span> が返す結果 ID。</p></dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fbsql-next-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   追加の結果セットが使用可能な場合に <b><tt>TRUE</tt></b>、それ以外の場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fbsql-next-result-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1102">
+    <p><b>例1 <span class="function"><b>fbsql_next_result()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"_SYSTEM"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"secret"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fbsql_select_db</span><span style="color: #007700">(</span><span style="color: #DD0000">"MyDB"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$SQL&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Select&nbsp;*&nbsp;from&nbsp;table1;&nbsp;select&nbsp;*&nbsp;from&nbsp;table2;"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$rs&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$SQL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br />do&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_fetch_row</span><span style="color: #007700">(</span><span style="color: #0000BB">$rs</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}&nbsp;while&nbsp;(</span><span style="color: #0000BB">fbsql_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$rs</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fbsql_free_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$rs</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fbsql_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-list-tables.html">fbsql_list_tables</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-num-fields.html">fbsql_num_fields</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

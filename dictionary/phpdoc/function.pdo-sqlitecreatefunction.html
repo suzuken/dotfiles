@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL 文で使用するユーザ定義関数 (UDF) を登録する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pdo-sqlitecreateaggregate.html">PDO::sqliteCreateAggregate</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-4d.html">4D (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-sqlite.html">SQLite (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pdo-sqlitecreatefunction" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::sqliteCreateFunction</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo_sqlite &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">PDO::sqliteCreateFunction</span> &mdash; <span class="dc-title">
+   SQL 文で使用するユーザ定義関数 (UDF) を登録する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pdo-sqlitecreatefunction-description">
+  <h3 class="title">説明</h3>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">bool</span> <span class="methodname"><b>PDO::sqliteCreateFunction</b></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$function_name</tt></span>
+    , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$callback</tt></span>
+    [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$num_args</tt></span>
+   ] )</div>
+
+  </div>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+
+  <p class="para">
+   このメソッドを使用すると、
+   PHP の関数を、<acronym title="User Defined Functions">UDF</acronym> (User Defined Function:
+   ユーザ定義関数) として SQLite に登録できるようになります。
+   登録した関数は、SQL 文の中で使用することが可能です。
+  </p>
+  <p class="para">
+   UDF は、関数をコールできるあらゆる SQL 文
+   (SELECT および UPDATE 文、そしてトリガなど) で使用することが可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pdo-sqlitecreatefunction-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">function_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQL 文で使用する関数の名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">callback</tt></i></span>
+     <dd>
+
+      <p class="para">
+       定義した SQL 関数を処理するコールバック関数。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <span class="simpara">
+        コールバック関数の返す値は、SQLite が理解できる形式 (すなわち
+        <a href="language.types.intro.html" class="link">スカラー型</a>)
+        でなければなりません。
+       </span>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">num_args</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コールバック関数があらかじめ定義済みの引数を受け取る場合に、
+       SQLite のパーサに渡すヒント。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pdo-sqlitecreatefunction-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pdo-sqlitecreatefunction-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-988">
+    <p><b>例1 <span class="function"><b>PDO::sqliteCreateFunction()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">md5_and_reverse</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)&nbsp;<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">strrev</span><span style="color: #007700">(</span><span style="color: #0000BB">md5</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite:sqlitedb'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">sqliteCreateFunction</span><span style="color: #007700">(</span><span style="color: #DD0000">'md5rev'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'md5_and_reverse'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$rows&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;md5rev(filename)&nbsp;FROM&nbsp;files'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">fetchAll</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   この例では、文字列の md5 を計算してそれを反転させる関数を定義しています。
+   SQL 文が実行されると、filename をこの関数で変換した値が返されます。
+   <i><tt class="parameter">$rows</tt></i> に返されるデータの中に、処理結果が含まれます。
+  </p>
+  <p class="para">
+   この方法を使用すると、データを取得した後に <a href="control-structures.foreach.html" class="link">foreach</a>
+   で結果をひとつひとつ処理していく必要がなくなり、美しいコードが記述できます。
+  </p>
+  
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    <a href="function.pdo-sqlitecreatefunction.html" class="xref">PDO::sqliteCreateFunction</a> および
+    <a href="function.pdo-sqlitecreateaggregate.html" class="xref">PDO::sqliteCreateAggregate</a> を使用して、
+    SQLite のネイティブ SQL 関数を上書きすることができます。
+   </p>
+  </div>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    このメソッドは、SQLite2 ドライバでは使用できません。
+    代わりに、古い形式の sqlite API を使用してください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pdo-sqlitecreatefunction-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="function.pdo-sqlitecreateaggregate.html" class="xref">PDO::sqliteCreateAggregate</a></li>
+    <li class="member"><span class="function"><a href="function.sqlite-create-function.html" class="function" rel="rdfs-seeAlso">sqlite_create_function()</a> - SQLステートメントで使用するために&quot;通常の&quot;ユーザ定義関数を登録する</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-create-aggregate.html" class="function" rel="rdfs-seeAlso">sqlite_create_aggregate()</a> - SQLステートメントで使用する集約UDFを登録する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pdo-sqlitecreateaggregate.html">PDO::sqliteCreateAggregate</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ref.pdo-4d.html">4D (PDO)</a></div>
+ <div class="up"><a href="ref.pdo-sqlite.html">SQLite (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

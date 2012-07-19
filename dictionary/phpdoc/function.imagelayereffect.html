@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アルファブレンディングフラグを設定し、
+   libgd にバンドルされているレイヤ効果を使用する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagejpeg.html">imagejpeg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imageline.html">imageline</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.imagelayereffect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">imagelayereffect</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">imagelayereffect</span> &mdash; <span class="dc-title">
+   アルファブレンディングフラグを設定し、
+   libgd にバンドルされているレイヤ効果を使用する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.imagelayereffect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>imagelayereffect</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$image</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$effect</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   アルファブレンディングフラグを設定し、
+   libgd にバンドルされているレイヤ効果を使用します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.imagelayereffect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+image</tt></i></span><dd>
+<p class="para"><span class="function"><a href="function.imagecreatetruecolor.html" class="function">imagecreatetruecolor()</a></span>
+のような画像作成関数が返す画像リソース。</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">effect</tt></i></span>
+     <dd>
+
+      <p class="para">
+       以下の定数のいずれか。
+       <dl>
+
+        <dt>
+
+         <span class="term"><b><tt>IMG_EFFECT_REPLACE</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           ピクセルの置換を使用します
+           (<span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span> に <b><tt>TRUE</tt></b>
+           を渡すのと同じです)。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>IMG_EFFECT_ALPHABLEND</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           通常のピクセルブレンディングを使用します
+           (<span class="function"><a href="function.imagealphablending.html" class="function">imagealphablending()</a></span> に <b><tt>FALSE</tt></b>
+           を渡すのと同じです)。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>IMG_EFFECT_NORMAL</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           <b><tt>IMG_EFFECT_ALPHABLEND</tt></b> と同じです。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>IMG_EFFECT_OVERLAY</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+           オーバーレイを使用すると、背景の黒い部分は黒のまま。
+           一方背景の白い部分は白のままとなります。
+           背景のグレーな部分は、前景のピクセルの色となります。
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.imagelayereffect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.imagelayereffect-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2315">
+   <p><b>例1 <span class="function"><b>imagelayereffect()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;画像を準備します<br /></span><span style="color: #0000BB">$im&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">imagecreatetruecolor</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;背景を設定します<br /></span><span style="color: #0000BB">imagefilledrectangle</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">220</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">220</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">220</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;オーバーレイアルファブレンディングフラグを適用します<br /></span><span style="color: #0000BB">imagelayereffect</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">IMG_EFFECT_OVERLAY</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;2&nbsp;つのグレーの楕円を描画します<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">40</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">40</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">80</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">imagefilledellipse</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">80</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">50</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">imagecolorallocate</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">255</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">100</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;出力します<br /></span><span style="color: #0000BB">header</span><span style="color: #007700">(</span><span style="color: #DD0000">'Content-type:&nbsp;image/png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">imagepng</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">imagedestroy</span><span style="color: #007700">(</span><span style="color: #0000BB">$im</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="mediaobject">
+     
+     <div class="imageobject">
+      <img src="images/21009b70229598c6a80eef8b45bf282b-imagelayereffect.png" alt="出力例 : imagelayereffect()" width="100" height="100" />
+     </div>
+    </div>
+  </div>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.imagelayereffect-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、PHP がバンドル版の GD ライブラリで
+コンパイルされている場合のみ使用可能です。</span></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数は、GD 2.0.1 以降を必要とします (2.0.28 以降を推奨します)。</span></p></blockquote>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.imagejpeg.html">imagejpeg</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.imageline.html">imageline</a></div>
+ <div class="up"><a href="ref.image.html">GD および Image 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>再試行無しのサブパターン</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.assertions.html">言明</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.conditional.html">条件付きサブパターン</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.onlyonce" class="section">
+     <h2 class="title">再試行無しのサブパターン</h2>
+     <p class="para">
+     繰り返し回数の下限もしくは上限の指定をした場合、
+     〔繰り返しを指定した要素の〕続きがマッチに失敗すると、
+     繰り返し指定した要素が再評価され、繰り返し回数を変えた上で
+     残りのパターンがマッチするかどうか試されます。
+     マッチングを続けても無駄なことが明らかな場合、マッチングの性質を変え、
+     より速くマッチに失敗させるために、こうした動作を停止させることが
+     有用な場合があります。
+    </p>
+    <p class="para">
+     例えば、パターン \d+foo を
+     &quot;123456bar&quot;
+     という対象文字列に適用した場合を考えてみましょう。
+    </p>
+    <p class="para">
+     \d+ が 6 桁の数字すべてにマッチしますが、その後 &quot;foo&quot; 
+     とのマッチが失敗します。通常のマッチング処理の動作だと、5桁の数字のみが 
+     \d+ にマッチするとして再試行され、次いで 4 桁等々と続けられ、
+     最後には完全にマッチが失敗します。再試行無しのサブパターン 
+     (once-only subpattern) を用いると、パターンの一部が一度マッチしたら、
+     その後再評価されないよう指定することができます。つまり、最初に &quot;foo&quot; 
+     とのマッチに失敗した時点で、ただちにマッチングを取り止めることが
+     可能となります。表記には、
+     
+      <pre class="literallayout">
+      (?&gt;\d+)bar
+      </pre>
+     
+     のように、(?&gt; で始まる特別なカッコを用います。
+    </p>
+    <p class="para">
+     この種類のカッコは、一度マッチしたパターンの部分に鍵をかけ (lock up) 
+     ます。そのパターンへの再マッチは失敗し、バックトラック (backtrack) 
+     が起こらないようにします。それより前の要素に対するバックトラックは、
+     通常と同様に動作します。
+    </p>
+    <p class="para">
+     別の説明をすると、このタイプのサブパターンは、同一のスタンドアローンの
+     パターンが対象文字列のカレントの位置に固定されたかのように、
+     文字列とマッチします。
+    </p>
+    <p class="para">
+     再試行無しのサブパターンは、キャプチャ用サブパターンではありません
+     〔つまり、値のキャプチャは行われません〕。上の簡単な例では、
+     できるだけ多くのものを呑み込むよう繰り返しが最大化されました。つまり、
+     + や +? は残りのパターンがマッチするよう数字の桁数が調整されるのに
+     対して、 (?&gt;+) は数字の並び全体に対するマッチングだけしか行われません。
+    </p>
+    <p class="para">
+     この構文には、どんな複雑なものでも、任意のサブパターンを含むことができ、
+     ネストも可能です。
+    </p>
+    <p class="para">
+     再試行無しのサブパターンと戻り読み言明とを組み合わせると、
+     対象文字列の終端における効率的なマッチングを行うことができます。
+
+      <pre class="literallayout">
+      abcd$
+      </pre>
+       
+     というパターンを見てましょう。
+
+     マッチが成功しない長い文字列に適用した場合を考えます。
+     マッチングは左から右に行われるため、PCRE は対象文字列のすべての &quot;a&quot; を探し、
+     後に続く文字が残りのパターンにマッチするかどうか調べられます。
+     
+     パターンを
+
+      <pre class="literallayout">
+      ^.*abcd$
+      </pre>
+       
+     のように少し変更してみます。
+
+    この場合、最初の .* は、まず文字列全体にマッチします。
+    （&quot;a&quot; がその後に続かないので）マッチが失敗すると、最後の 1 文字を除く
+    文字列にマッチするようバックトラックが行なわれ、続いて最後の 2 文字を
+    除く文字列に、という風に動作します。 &quot;a&quot; の検索は、やはり文字列全体に
+    対して、右から左に、行われるため効率は良くありません。
+    
+    しかし、パターンを
+    
+      <pre class="literallayout">
+      ^(?&gt;.*)(?&lt;=abcd)
+      </pre>
+       
+     のようにしてみましょう。
+
+    要素 .* に対してバックトラックは行われず、文字列全体にのみマッチします。
+    続く戻り読み言明は、最後の 4 文字に対するテストを 1 回だけ行います。
+    テストが失敗すると、マッチはただちに失敗します。長い文字列に対しては、
+    この方法を用いると実行時間にかなりの差が生じます。
+    </p>
+    <p class="para">
+     パターン中にサブパターンがあって、その中に繰り返し数に
+     上限の無い要素があり、そのサブパターン自身も何回でも繰り返しが
+     可能な場合、マッチの失敗に非常に長い時間がかかってしまう事があります。
+     それを避ける唯一の方法は再試行無しのサブパターンを使うことです。
+     パターン
+
+      <pre class="literallayout">
+      (\D+|&lt;\d+&gt;)*[!?]
+      </pre>
+
+     は、非数字もしくは &lt;&gt; で括られた数字に ! または ? が続く
+     任意の長さの部分文字列にマッチします。マッチが成功するような
+     対象文字列に対しては、速く動作します。
+     しかし、これを
+
+      <pre class="literallayout">
+      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      </pre>
+
+    に適用すると、マッチが失敗するまでに長い時間がかかります。これは、
+    この対象文字列を分割するやり方が数多くあり、それらすべてに対し
+    マッチを試みられる事になるためです。
+    （この例で、終端に単一の文字ではなく [!?] を使っているのは、
+    PCRE と Perl の双方とも、〔終端に〕単一の文字が使われると、
+    より速く失敗と判定できるように最適化が行われる
+    〔ので、それを避ける〕ためです。マッチに必要な最後の一文字が記憶され、
+    文字列にその文字が無い場合、早期に失敗と判定されます。）
+    このパターンを
+
+      <pre class="literallayout">
+      ((?&gt;\D+)|&lt;\d+&gt;)*[!?]
+      </pre>
+       
+     のように変更した場合、非数字の部分が分割されることがなくなるので、
+     より速くマッチが失敗するようになります。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.assertions.html">言明</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.conditional.html">条件付きサブパターン</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

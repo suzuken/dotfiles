@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列をパースして、フィールドベースの時刻値にする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="intldateformatter.islenient.html">IntlDateFormatter::isLenient</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="intldateformatter.parse.html">IntlDateFormatter::parse</a></div>
+ <div class="up"><a href="class.intldateformatter.html">IntlDateFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="intldateformatter.localtime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">IntlDateFormatter::localtime</h1>
+  <h1 class="refname">datefmt_localtime</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">IntlDateFormatter::localtime</span> -- <span class="refname">datefmt_localtime</span> &mdash; <span class="dc-title">文字列をパースして、フィールドベースの時刻値にする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-intldateformatter.localtime-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   オブジェクト指向型
+  </p>
+   <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>IntlDateFormatter::localtime</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+   ] )</div>
+
+  <p class="para rdfs-comment">
+   手続き型
+  </p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>datefmt_localtime</b></span>
+   ( <span class="methodparam"><span class="type"><a href="class.intldateformatter.html" class="type IntlDateFormatter">IntlDateFormatter</a></span> <tt class="parameter">$fmt</tt></span>
+  , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+  [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   文字列 $value を変換し、フィールドベースの時刻値 (各フィールドを含む配列)
+   にします。$parse_pos からパースを開始し、入力値を可能な限り使用します。
+  </p> 
+  </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-intldateformatter.localtime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">fmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Formatter リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       時間に変換する文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">position</tt></i></span>
+     <dd>
+
+      <p class="para">
+       $value のパースを開始する位置 (ゼロから数えます)。
+       $value を処理する前にエラーが発生していない場合は
+       $parse_pos は -1 となります。それ以外の場合はパースが終了した位置となります
+       (そしてエラーが発生します)。
+       この変数には、パースが失敗した場合にその終了位置が含まれます。
+       $parse_pos &gt; strlen($value) の場合、パースは即時に失敗します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+   
+ 
+ <div class="refsect1 returnvalues" id="refsect1-intldateformatter.localtime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   Localtime 互換の、整数値の配列を返します。
+   tm_hour フィールド内の、24 時間制の時刻の値を含みます。
+   </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-intldateformatter.localtime-examples">
+  <h3 class="title">例</h3>
+   <div class="example" id="example-2137">
+    <p><b>例1 <span class="function"><b>datefmt_localtime()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">datefmt_create</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"en_US"&nbsp;</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">FULL</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">FULL</span><span style="color: #007700">,</span><span style="color: #DD0000">'America/Los_Angeles'</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">GREGORIAN&nbsp;&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">datefmt_localtime</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Wednesday,&nbsp;December&nbsp;31,&nbsp;1969&nbsp;4:00:00&nbsp;PM&nbsp;PT"</span><span style="color: #007700">,</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"First&nbsp;parsed&nbsp;output&nbsp;is&nbsp;"</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$key</span><span style="color: #DD0000">&nbsp;:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #DD0000">&nbsp;,&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-2138">
+    <p><b>例2 オブジェクト指向の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fmt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"en_US"&nbsp;</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">FULL</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">FULL</span><span style="color: #007700">,</span><span style="color: #DD0000">'America/Los_Angeles'</span><span style="color: #007700">,</span><span style="color: #0000BB">IntlDateFormatter</span><span style="color: #007700">::</span><span style="color: #0000BB">GREGORIAN&nbsp;&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$fmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">localtime</span><span style="color: #007700">(&nbsp;</span><span style="color: #DD0000">"Wednesday,&nbsp;December&nbsp;31,&nbsp;1969&nbsp;4:00:00&nbsp;PM&nbsp;PT"</span><span style="color: #007700">,</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"First&nbsp;parsed&nbsp;output&nbsp;is&nbsp;"</span><span style="color: #007700">;<br />if&nbsp;(</span><span style="color: #0000BB">$arr</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$key</span><span style="color: #DD0000">&nbsp;:&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #DD0000">&nbsp;,&nbsp;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+     <p class="para">上の例の出力は以下となります。</p>
+     <div class="example-contents screen">
+         <div class="cdata"><pre>
+First parsed output is tm_sec : 0 , tm_min : 0 , tm_hour : 16 , tm_year : 1969 , 
+tm_mday : 31 , tm_wday : 4 , tm_yday : 365 , tm_mon : 11 , tm_isdst : 0 , 
+</pre></div>
+     </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-intldateformatter.localtime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+    <ul class="simplelist">
+    <li class="member"><span class="function"><a href="intldateformatter.create.html" class="function" rel="rdfs-seeAlso">datefmt_create()</a> - Date Formatter を作成する</span></li>
+    <li class="member"><span class="function"><a href="intldateformatter.format.html" class="function" rel="rdfs-seeAlso">datefmt_format()</a> - 日付/時刻 の値を文字列としてフォーマットする</span></li>
+    <li class="member"><span class="function"><a href="intldateformatter.parse.html" class="function" rel="rdfs-seeAlso">datefmt_parse()</a> - 文字列をパースしてタイムスタンプにする</span></li>
+    <li class="member"><span class="function"><a href="intldateformatter.geterrorcode.html" class="function" rel="rdfs-seeAlso">datefmt_get_error_code()</a> - 直近の操作のエラーコードを取得する</span></li>
+    <li class="member"><span class="function"><a href="intldateformatter.geterrormessage.html" class="function" rel="rdfs-seeAlso">datefmt_get_error_message()</a> - 直近の操作のエラーテキストを取得する</span></li>
+    </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="intldateformatter.islenient.html">IntlDateFormatter::isLenient</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="intldateformatter.parse.html">IntlDateFormatter::parse</a></div>
+ <div class="up"><a href="class.intldateformatter.html">IntlDateFormatter</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

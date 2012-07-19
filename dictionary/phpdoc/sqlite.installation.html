@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="sqlite.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sqlite.installation" class="section">
+  <h2 class="title">インストール手順</h2>
+  <p class="para">
+   PHP 5 以降、この拡張モジュールはデフォルトで有効となりました。
+   無効にしない限り、そのままで使用可能です。
+  </p>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    PECL 版の拡張モジュールは使ってはいけません。
+    これは保守されていないからです。
+    たとえ共有モジュールとしてコンパイルされていたとしても、
+    PHP のソースに付属する SQLite 拡張モジュールを使いましょう。
+    ソースは <i>php-src-dir/ext/sqlite</i>
+    にあり、<a href="install.pecl.phpize.html" class="link">phpize</a>
+    方式でビルドすることができます。
+   </p>
+  </div>
+  <p class="para">
+   Windows ユーザがこれらの関数を使用するには、<var class="filename">php_sqlite.dll</var>
+   を <var class="filename">php.ini</var> で有効にしなければなりません。
+   この <acronym title="PHP Extension and Application Repository">PECL</acronym>
+拡張モジュールの <acronym title="Dynamic Link Library">DLL</acronym> は、現在存在しません。
+<a href="install.windows.building.html" class="link">Windows でのビルド</a>
+も参照ください
+  </p>
+  <p class="para">
+   Windows 版では PDO も有効にする必要があります。PHP 5.1.0 以降、
+   PDO に依存するようになったからです。つまり、最終的に
+   <var class="filename">php.ini</var> ファイルはこのようになります。
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="inicode"><pre class="inicode">extension=php_pdo.dll
+extension=php_sqlite.dll</pre>
+</div>
+    </div>
+
+   </div>
+   Linux あるいは Unix オペレーティングシステムでは、
+   もし PDO を共有モジュールとしてビルドしたのなら
+   SQLite も共有モジュールとしてビルドする必要があります。
+   そのためには、設定オプション
+   <strong class="command">--with-sqlite=shared</strong> を指定します。
+  </p>
+  <p class="para">
+   Windows 版の PHP 5.0.x ではこの拡張モジュールがデフォルトで有効となっており、
+   <acronym title="Dynamic Link Library">DLL</acronym> ファイルは不要です。
+  </p>
+  <p class="para">
+   SQLite 3 は、<a href="ref.pdo-sqlite.html" class="link">PDO SQLite</a> でサポートされます。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>権限を持たないアカウントに対する Windows 版のインストール</b><br />
+   <p class="para">
+    Windows オペレーティングシステムでは、権限のないアカウントは
+    デフォルトで設定される <var class="varname"><var class="varname">TMP</var></var> 環境変数を利用できません。
+    これにより SQLite は Windows
+    ディレクトリにテンポラリファイルを作成しますが、
+    望まれるものではありません。
+    そのため Web サーバもしくは Web
+    サーバが動作しているユーザーアカウントに対して <var class="varname"><var class="varname">TMP</var></var>
+    環境変数を設定すべきです。
+    もし、Apache を使用しているなら、<var class="filename">httpd.conf</var> ファイル内で
+    <strong class="command">SetEnv</strong> ディレクティブを使用することで実現可能です。
+    例えば、次のような感じです。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode">SetEnv TMP c:/temp</pre>
+</div>
+     </div>
+
+    </div>
+    もしサーバレベルでこの設定を行うことができないのであれば、
+    スクリプト内で設定することができます。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />putenv</span><span style="color: #007700">(</span><span style="color: #DD0000">'TMP=C:/temp'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+    この設定は Web サーバがファイルを生成した後で書き込んだり削除したりする
+    権限を持たせるディレクトリを指定する必要があります。
+    そうでない場合、次のようなエラーメッセージを受け取るでしょう。
+    <span class="computeroutput">
+     malformed database schema -
+     unable to open a temporary database file for storing temporary tables
+    </span>
+   </p>
+  </p></blockquote>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="sqlite.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

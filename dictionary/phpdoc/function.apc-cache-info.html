@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>APC のデータから、キャッシュされた情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-bin-loadfile.html">apc_bin_loadfile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-cas.html">apc_cas</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apc-cache-info" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">apc_cache_info</h1>
+  <p class="verinfo">(PECL apc &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">apc_cache_info</span> &mdash; <span class="dc-title">
+   APC のデータから、キャッシュされた情報を取得する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.apc-cache-info-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>apc_cache_info</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$cache_type</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$limited</tt><span class="initializer"> = false</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   APC のデータから、キャッシュされた情報およびメタデータを取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apc-cache-info-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   キャッシュされたデータ（およびメタデータ）の配列を返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    もし APC キャッシュのデータを取得できなかった場合、
+    <span class="function"><b>apc_cache_info()</b></span> は警告を発生します。これが起こるのは、
+    一般的には APC が有効になっていない場合などです。
+   </span>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.apc-cache-info-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cache_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">cache_type</tt></i> が &quot;<i>user</i>&quot;
+       の場合はユーザキャッシュの情報を返します。
+      </p>
+      <p class="para"> 
+       <i><tt class="parameter">cache_type</tt></i> が &quot;<i>filehits</i>&quot;
+       の場合は、現在のリクエストにおいて
+       バイトコードキャッシュから提供したファイルがどれなのかについての情報を返します。
+       この機能を使用するには、コンパイル時に
+       <strong class="option configure">--enable-filehits</strong>
+
+       を指定する必要があります。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">cache_type</tt></i> に無効な値を指定したり、
+       値を指定しなかったりした場合は、
+       システムキャッシュ (キャッシュされたファイル)
+       の情報を返します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">limited</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">limited</tt></i> が <b><tt>TRUE</tt></b> の場合は、
+       返り値にキャッシュエントリの個々の一覧が含まれません。
+       これは、統計情報の収集時に呼び出しを最適化したい場合などに有用です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.apc-cache-info-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">3.0.11</td>
+       <td align="left">
+        パラメータ <i><tt class="parameter">limited</tt></i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">3.0.16</td>
+       <td align="left">
+        &quot;<i>filehits</i>&quot; オプションが
+        <i><tt class="parameter">cache_type</tt></i> パラメータに追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apc-cache-info-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-361">
+    <p><b>例1 <span class="function"><b>apc_cache_info()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">apc_cache_info</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [num_slots] =&gt; 2000
+    [ttl] =&gt; 0
+    [num_hits] =&gt; 9
+    [num_misses] =&gt; 3
+    [start_time] =&gt; 1123958803
+    [cache_list] =&gt; Array
+        (
+            [0] =&gt; Array
+                (
+                    [filename] =&gt; /path/to/apc_test.php
+                    [device] =&gt; 29954
+                    [inode] =&gt; 1130511
+                    [type] =&gt; file
+                    [num_hits] =&gt; 1
+                    [mtime] =&gt; 1123960686
+                    [creation_time] =&gt; 1123960696
+                    [deletion_time] =&gt; 0
+                    [access_time] =&gt; 1123962864
+                    [ref_count] =&gt; 1
+                    [mem_size] =&gt; 677
+                )
+            [1] =&gt; Array (...iterates for each cached file)
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apc-cache-info-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="apc.configuration.html" class="link">APC 設定ディレクティブ</a></li>
+    <li class="member"> <span class="methodname"><a href="apciterator.gettotalsize.html" class="methodname" rel="rdfs-seeAlso">APCIterator::getTotalSize()</a> - キャッシュのサイズの合計を取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="apciterator.gettotalhits.html" class="methodname" rel="rdfs-seeAlso">APCIterator::getTotalHits()</a> - キャッシュヒットの総数を取得する</span></li>
+    <li class="member"> <span class="methodname"><a href="apciterator.gettotalcount.html" class="methodname" rel="rdfs-seeAlso">APCIterator::getTotalCount()</a> - 総数を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apc-bin-loadfile.html">apc_bin_loadfile</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apc-cas.html">apc_cas</a></div>
+ <div class="up"><a href="ref.apc.html">APC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

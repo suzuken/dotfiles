@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>導入</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.variables.html">変数の作成</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.variables.creating.html">変数の作成と値の設定</a></div>
+ <div class="up"><a href="internals2.variables.html">変数の作成</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.variables.intro" class="section">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    PHP コアで変数を扱うには、PHP で使われるさまざまな基本概念を身につける必要があります。
+    まず最初に、PHP は動的で弱い型付けの言語です。
+    次に、PHP は copy on write 方式と参照カウントを使ってメモリを管理しています。
+    参照カウント方式と参照の挙動についての詳細は <a href="features.gc.refcounting-basics.html" class="xref">参照カウント法の原理</a> の章を参照ください。
+   </p>
+   <p class="para">
+    PHP の変数は、二つの部分で構成されています。
+    シンボルテーブル内でのエントリとして用いられる「ラベル」と、
+    実際の値を格納する「変数コンテナ」です。ここでは、主に変数コンテナについて扱います。
+   </p>
+   <p class="para">
+    変数コンテナは実際のコードの中では <code class="code">zval</code> と呼ばれ、
+    変数を処理するために必要なすべてのデータを保持しています。
+    値そのもののほかにも、現在の型、そのコンテナを指すラベルのカウンタ、
+    ラベルを参照として扱うかコピーとして扱うかを示すフラグなどが含まれます。
+    PHP 5.3 では、それに関連する構造体が
+    <code class="code">Zend/zend.h</code> で次のように定義されています。
+   </p>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+typedef struct _zval_struct zval;
+
+typedef union _zvalue_value {
+    long lval;                 /* long value */
+    double dval;               /* double value */
+    struct {                   /* string type */
+        char *val;
+        int len;
+    } str;
+    HashTable *ht;             /* hash table value */
+    zend_object_value obj;
+} zvalue_value;
+ 
+struct _zval_struct {
+    /* Variable information */
+    zvalue_value value;        /* value */
+    zend_uint refcount__gc;
+    zend_uchar type;           /* active type */
+    zend_uchar is_ref__gc;
+};
+
+</pre></div>
+   </div>
+   <p class="para">
+    <code class="code">zvalue_value</code> を見れば、
+    内部的に使う型やフィールドがその名前とコメントから読み取れるでしょう。
+    PHP の配列が実際のところはハッシュテーブルであることなどもわかります。
+    とはいえ、PHP の型のなかでここに登場していないものもあります。
+    <code class="code">NULL</code> や <code class="code">boolean</code>、そして <code class="code">resources</code> です。
+    <code class="code">NULL</code> については値は不要です。<code class="code">NULL</code> がこの型の値となるからです。
+    <code class="code">boolean</code> と <code class="code">resource</code> については、PHP が
+    value フィールドを再利用します。
+    <code class="code">boolean</code> 型の場合、<code class="code">false</code> なら
+    <code class="code">0</code>、<code class="code">true</code> なら <code class="code">1</code> を保持します。
+    <code class="code">resource</code> 型の場合は、リソース id を保持します。
+   </p>
+   <p class="para">
+    良いお知らせです。このあたりの事情についての詳しい知識は不要です。
+    というのも、アクセス用のマクロがきちんと用意されているからです
+    (PHP にはよくあることでず)。
+    悪いお知らせです。マクロは膨大な数にのぼります。
+    <code class="code">zval</code> をいろいろな方面から使うマクロだけでなく
+    <code class="code">zval</code> へのポインタを扱うマクロもあり、さらには
+    <code class="code">zval</code> のポインタへのポインタを扱うためのマクロや
+    ポインタの参照先を操作するためのショートカットまで存在します。
+    これらのマクロが定義されているのは <code class="code">Zend/zend.h</code>、
+    <code class="code">Zend/zend_operators.h</code> そして <code class="code">Zend/zend_API.h</code>
+    です。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.variables.html">変数の作成</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.variables.creating.html">変数の作成と値の設定</a></div>
+ <div class="up"><a href="internals2.variables.html">変数の作成</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

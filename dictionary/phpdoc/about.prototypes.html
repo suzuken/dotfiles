@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>関数の定義(プロトタイプ)を読むには</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="about.notes.html">ユーザノートについて</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="about.phpversions.html">本マニュアルに記載された PHP のバージョン</a></div>
+ <div class="up"><a href="about.html">マニュアルについて</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="about.prototypes" class="sect1">
+    <h2 class="title">関数の定義(プロトタイプ)を読むには</h2>
+    <p class="para">
+     各関数についてクイックリファレンスが記述されているので、
+     マニュアルを読み理解するノウハウは PHP の利用をより簡単にしてくれます。
+     例示やカットアンドペーストに頼るより、関数の定義（プロトタイプ）を
+     読む方法を覚えるべきです。やってみましょう:
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <b>
+      前提条件: <a href="language.types.html" class="link">型</a>の基本的な理解
+     </b><br />
+     <p class="para">
+      PHP は型についてルーズな言語ですが、重要な意味があるので、
+      <a href="language.types.html" class="link">型</a>の基本を理解することは重要です。
+     </p>
+    </p></blockquote>
+    <p class="para">
+     関数の定義には<a href="functions.returning-values.html" class="link">返り値</a>が
+     どんな型であるかが示されています。最初の例として、
+     <span class="function"><a href="function.strlen.html" class="function">strlen()</a></span>の定義を考えてみましょう。
+    </p>
+    <p class="para">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+ strlen
+ 
+(PHP 4, PHP 5)
+ strlen -- 文字列の長さを得る
+ 
+ 説明
+int strlen ( string $string )
+ 
+指定した文字列の長さを返します
+</pre></div>
+     </div>
+    </p>
+    <p class="para">
+     <table class="doctable table">
+      <caption><b>関数の定義の説明</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>Part</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left">
+           strlen
+          </td>
+          <td align="left">
+           関数の名前
+          </td>
+         </tr>
+
+       <tr valign="middle">
+        <td align="left">
+          (PHP 4, PHP 5, PHP 6)
+        </td>
+        <td align="left">
+         strlen()は PHP 4、PHP 5 と PHP 6 のすべてのバージョンで使用できる
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">
+         int
+        </td>
+        <td align="left">
+         関数が戻す値の型。ここでは<span class="type"><span class="type 整数">整数</span></span>
+         (文字列の長さが数字で数えら得ている)
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">
+          ( string $string )
+        </td>
+        <td align="left">
+         strlen() 関数の最初の（この場合は唯一の）引数が
+         <i><tt class="parameter">string</tt></i>という名前であり
+         それは<span class="type"><span class="type 文字列">文字列</span></span>である
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+   <p class="para">
+    上の関数定義は、一般的な書き方では以下のようにも書けます。
+   </p>
+   <p class="para">
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+     returned type    function name    ( parameter type   parameter name )
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    多くの関数は複数の引数を取ります。例えば <span class="function"><a href="function.in-array.html" class="function">in_array()</a></span>。
+    このプロトタイプは次のようになります:
+   </p>
+   <p class="para">
+    <div class="example-contents screen">    
+<div class="cdata"><pre>
+      bool in_array ( mixed $needle, array $haystack [, bool $strict])
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    これは何を意味しているのでしょう？ in_array() は
+    <a href="language.types.boolean.html" class="link">boolean</a> の値を返します。
+    成功した場合は <b><tt>TRUE</tt></b>(<i><tt class="parameter">needle</tt></i> が
+      <i><tt class="parameter">haystack</tt></i> の中にある場合)、失敗した場合に <b><tt>FALSE</tt></b> を返します
+      (<i><tt class="parameter">needle</tt></i> が <i><tt class="parameter">haystack</tt></i>
+      の中にない場合)。最初の引数は <i><tt class="parameter">needle</tt></i>
+      と名づけられており、それは多くの違った<a href="language.types.html" class="link">
+      型</a>をとることができます。その場合&quot;<em class="emphasis">mixed</em>&quot;と
+      呼ばれます。
+      <i><tt class="parameter">needle</tt></i> (我々が探しているもの)はスカラー値（文字列,整数,
+      又は <a href="language.types.float.html" class="link">float</a>)でも、
+      <a href="language.types.array.html" class="link">配列</a>でもかまいません。
+      <i><tt class="parameter">haystack</tt></i> (対象を探す配列)は二番目の引数です。
+      三番目の<em class="emphasis">オプション</em>の引数は <i><tt class="parameter">strict</tt></i>
+      と名づけられています。全てのオプション引数は
+      <em class="emphasis">[</em> ブラケット <em class="emphasis">]</em>の中に表現されます。
+      <i><tt class="parameter">strict</tt></i> パラメータはデフォルトでは boolean の
+      <b><tt>FALSE</tt></b> であるとマニュアルに述べられています。機能の詳細については
+      各関数のマニュアルをご覧ください。
+   </p>
+   <p class="para">
+    より複雑なバージョンとの関係を有する関数もあります。以下が
+    <span class="function"><a href="function.html-entity-decode.html" class="function">html_entity_decode()</a></span> の例です。
+   </p>
+   <p class="para">
+    <div class="example-contents screen">    <br />
+     (PHP 4 &gt;= 4.3.0, PHP 5)<br />
+    </div>
+   </p>
+   <p class="para">
+    これは、この関数が
+    PHP 4.3.0 以降のバージョンでのみ利用可能であることを意味します。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="about.notes.html">ユーザノートについて</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="about.phpversions.html">本マニュアルに記載された PHP のバージョン</a></div>
+ <div class="up"><a href="about.html">マニュアルについて</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

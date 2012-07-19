@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定した単語の語幹を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.swishresult-getmetalist.html">SwishResult-&gt;getMetaList</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.swishresults-getparsedwords.html">SwishResults-&gt;getParsedWords</a></div>
+ <div class="up"><a href="ref.swish.html">Swish 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.swishresult-stem" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SwishResult->stem</h1>
+  <p class="verinfo">(PECL swish &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">SwishResult-&gt;stem</span> &mdash; <span class="dc-title">指定した単語の語幹を取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.swishresult-stem-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>SwishResult-&gt;stem</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$word</tt></span>
+   )</div>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+  <p class="para">
+   インデックス化の際に使用したファジーモードにもとづいて、
+   単語の語幹を取得します。各結果オブジェクトはインデックスにリンクされるので、
+   結果はこのインデックスに基づくものとなります。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.swishresult-stem-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">word</tt></i></span>
+     <dd>
+
+      <p class="para">
+       取り除く単語。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.swishresult-stem-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   単語の活用形を取り除いた配列を返します (通常はひとつだけです)。
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-function.swishresult-stem-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   エラー時に <b class="classname">SwishException</b> をスローします。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.swishresult-stem-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3852">
+    <p><b>例1 基本的な <span class="function"><b>SwishResult->stem()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">try&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$swish&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Swish</span><span style="color: #007700">(</span><span style="color: #DD0000">"ext/swish/tests/index.swish-e"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$results&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$swish</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"testing&nbsp;OR&nbsp;others"</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$results</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">nextResult</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stem</span><span style="color: #007700">(</span><span style="color: #DD0000">"testing"</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;この結果は、インデックスで使用している&nbsp;stemmer&nbsp;に依存します<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">stem</span><span style="color: #007700">(</span><span style="color: #DD0000">"others"</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">SwishException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Error:&nbsp;"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">(),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [0]=&gt;
+  string(4) &quot;test&quot;
+}
+array(1) {
+  [0]=&gt;
+  string(5) &quot;other&quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.swishresult-getmetalist.html">SwishResult-&gt;getMetaList</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.swishresults-getparsedwords.html">SwishResults-&gt;getParsedWords</a></div>
+ <div class="up"><a href="ref.swish.html">Swish 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

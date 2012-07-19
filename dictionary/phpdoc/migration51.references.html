@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>参照に関する処理の変更</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration51.changes.html">PHP 5.1.x における変更点</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration51.reading.html">[] の読み込み</a></div>
+ <div class="up"><a href="migration51.html">PHP 5.0.x から PHP 5.1.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="migration51.references" class="section">
+  <h2 class="title">参照に関する処理の変更</h2>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-overview" class="link">概要</a>
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-fails" class="link">PHP 4.3.x
+      では動作するものの、現在は動作しないコード</a>
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-error" class="link">PHP 4.3.x
+      では動作するものの、現在はエラーとなるコード</a>
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-works" class="link">PHP 4.3.x
+      では動作しなかったが、現在は動作するコード</a>
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-didnotwork" class="link">本来は
+      PHP 5.0.x で<i>正常に動作すべきだった</i>コード</a>
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <a href="migration51.references.html#migration51.references-warnings" class="link">現れて、
+      そしていなくなった警告</a>
+    </p>
+   </li>
+  </ul>
+
+  <div class="section" id="migration51.references-overview">
+   <h2 class="title">概要</h2>
+   <p class="para">
+    PHP スクリプトの開発者としての観点から見ると、
+    既存のコードに与える影響がもっとも大きいのは、
+    PHP 4.4.0 以降での参照に関する扱いの変更です。
+   </p>
+   <p class="para">
+    PHP 4.3 を含むそれ以前のバージョンでは、本来は値を返すべき場所、
+    たとえば定数・一時的な値 (例: 式の結果)・値を返す関数の結果
+    などで参照を使用することが可能でした。以下がその例です。
+   </p>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"123"</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">return_value</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$foo</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">return_value</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <p class="para">
+    このコードは PHP 4.3 以下では通常通り動作しますが、一般的に結果は未定義となります。
+    Zend エンジンはこれらの値を参照として正しく扱えません。このバグにより、
+    再現不可能な問題が数多く発生していました。特に大規模なコードになるほどこの問題は深刻でした。
+   </p>
+   <p class="para">
+    PHP 4.4.0、PHP 5.0.4 以降のリリースでは Zend エンジンが修正され、
+    参照を使用すべきでない場面で参照の操作が行われた場合はそれを「知る」
+    ことができるようになりました。今ではそのような場合には実際の値が使用されるようになり、
+    警告を発生するようになりました。この警告の形式は、
+    PHP 4.4.0 以降では <b><tt>E_NOTICE</tt></b>、
+    PHP 5.0.4 以降では <b><tt>E_STRICT</tt></b> となります。
+   </p>
+   <p class="para">
+    これまでメモリ破壊を起こす可能性のあったコードは、もはやその心配はなくなりました。
+    しかし、既存のコードの中にはこれまでと挙動が変わってしまうものもあります。
+   </p>
+  </div>
+
+  <div class="section" id="migration51.references-fails">
+   <h2 class="title">PHP 4.3.x では動作するものの、現在は動作しないコード</h2>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">func</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$arraykey</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$arraykey</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;関数は値を返します!<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'a'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'b'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'c'</span><span style="color: #007700">);<br />foreach&nbsp;(</span><span style="color: #0000BB">array_keys</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$y&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">func</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">[</span><span style="color: #0000BB">$key</span><span style="color: #007700">]);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$z</span><span style="color: #007700">[]&nbsp;=&amp;&nbsp;</span><span style="color: #0000BB">$y</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$z</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;<br /></span>&lt;</span>
+</code></div>
+    </div>
+
+    <p class="para">
+     参照に関する修正が行われる前の PHP で上のスクリプトを実行すると、このような結果になります。
+    </p>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [0]=&gt;
+  &amp;string(1) &quot;a&quot;
+  [1]=&gt;
+  &amp;string(1) &quot;b&quot;
+  [2]=&gt;
+  &amp;string(1) &quot;c&quot;
+}
+</pre></div>
+    </div>
+    <p class="para">
+     修正後は、同じコードの結果が次のようになります。
+    </p>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [0]=&gt;
+  &amp;string(1) &quot;c&quot;
+  [1]=&gt;
+  &amp;string(1) &quot;c&quot;
+  [2]=&gt;
+  &amp;string(1) &quot;c&quot;
+}
+</pre></div>
+    </div>
+   </div>
+   <p class="para">
+    理由は、今回の変更によって <i>func()</i>
+    の結果が値として代入されるようになったことです。
+    <var class="varname"><var class="varname">$y</var></var> の値は代入しなおされ、そして、<var class="varname"><var class="varname">$z</var></var>
+    では <var class="varname"><var class="varname">$y</var></var> への参照が残り続けます。
+    この修正が行われる前は、<i>func()</i> の結果が参照として代入され、
+    先頭の <var class="varname"><var class="varname">$y</var></var> は毎回代入されてしまっていました。
+    一時的な変数を参照で渡そうとすることが、メモリ破壊の原因となっていました。
+   </p>
+   <p class="para">
+    修正前のバージョンの PHP と修正後のバージョンの PHP とで、
+    このようなコードの挙動を同じにすることは可能です。
+    <i>func()</i> の定義を変更して参照を返すようにするか、あるいは
+    <i>func()</i> が返す結果を参照として代入する処理を取り除けばよいのです。
+   </p>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">func</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">'関数の返す値'</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'original&nbsp;value'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$y&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$x</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$y&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">func</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$x</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <p class="para">
+    PHP 4.3 では <var class="varname"><var class="varname">$x</var></var> は &#039;もとの値&#039; となりますが、
+    この変更以降のバージョンでは
+    &#039;関数の返す値&#039; となります。関数は参照を返さず、
+    値が直接代入されることを覚えておきましょう。もう一度いいます。
+    このような挙動の違いをなくすには、<i>func()</i> が参照を返すようにするか、
+    関数の返す値を直接参照として代入することをやめるかのどちらかを行います。
+   </p>
+  </div>
+
+  <div class="section" id="migration51.references-error">
+   <h2 class="title">PHP 4.3.x では動作するものの、現在はエラーとなるコード</h2>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">getThis</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">destroyThis</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$baz&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getThis</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">destroyThis</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <p class="para">
+    PHP 5.0.3 では、<var class="varname"><var class="varname">$bar</var></var> はオブジェクトを返さずに
+    <b><tt>NULL</tt></b> と評価されます。
+    なぜなら、<i>getThis()</i> が値を返しているにもかかわらず、
+    それを参照として代入しているからです。
+    現在ではこれは期待通りに動作しますが、実際のところこれは不正なコードです。
+    PHP 4.4 では <b><tt>E_NOTICE</tt></b>、
+    PHP 5.0.4 以降では <b><tt>E_STRICT</tt></b> をスローします。
+   </p>
+  </div>
+
+  <div class="section" id="migration51.references-works">
+   <h2 class="title">PHP 4.3.x では動作しなかったが、現在は動作するコード</h2>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;&amp;</span><span style="color: #0000BB">f</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$x&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$x</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$x</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return(</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />}<br /><br />for&nbsp;(</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$h&nbsp;</span><span style="color: #007700">=&nbsp;&amp;</span><span style="color: #0000BB">f</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <p class="para">
+     PHP 4.3 では <span class="function"><a href="function.var-dump.html" class="function">var_dump()</a></span> を 3 度目にコールした際に
+     <b><tt>NULL</tt></b> を返し、
+     初期化されていない値への参照を返すことでメモリの破壊を引き起こしてしまいます。
+     このコードは PHP 5.0.4 以降では動作しますが、
+     それより前のバージョンの PHP ではエラーとなります。
+    </p>
+   </div>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$arr&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'a1'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'alfa'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'ok'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$arr&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'a1'</span><span style="color: #007700">];<br />echo&nbsp;</span><span style="color: #DD0000">'-'</span><span style="color: #007700">.</span><span style="color: #0000BB">$arr</span><span style="color: #007700">[</span><span style="color: #DD0000">'alfa'</span><span style="color: #007700">].</span><span style="color: #DD0000">"-\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <p class="para">
+     PHP 5.0.5 より前のバージョンでは、
+     このようにして配列の要素に参照を代入することができませんでした。
+     現在はできるようになっています。
+    </p>
+   </div>
+  </div>
+
+  <div class="section" id="migration51.references-didnotwork">
+   <h2 class="title">本来は PHP 5.0.x で<i>正常に動作すべきだった</i>コード</h2>
+   <p class="para">
+    参照関連の修正が行われるより前の PHP 5.0 ではいくつかのバグが報告されていましたが、
+    それらは今では正常に「動作します」。しかし、いずれの場合についても PHP 5.1.x
+    ではエラーがスローされます。なぜなら、まず第一にそのコードが不正なものだからです。
+    現在では <i>self::</i>
+    を使用して値を参照で返すことができるようになりましたが、
+    <b><tt>E_STRICT</tt></b> レベルの警告をスローします。
+    また、オーバーロードされたオブジェクトに参照を代入しようとすると、
+    たとえ代入自体は正常に動作していても <b><tt>E_ERROR</tt></b>
+    に遭遇することになるでしょう。
+   </p>
+  </div>
+
+  <div class="section" id="migration51.references-warnings">
+   <h2 class="title">現れて、そしていなくなった警告</h2>
+   <p class="para">
+    参照を返す関数をネストしてコールすることは、PHP 4.3.x および PHP 5.1.x
+    のどちらでも有効です。しかし、それらの間のバージョンの PHP では、
+    <b><tt>E_NOTICE</tt></b> あるいは <b><tt>E_STRICT</tt></b>
+    が間違って発生してしまいます。
+   </p>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'ok'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">bar</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$a</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration51.changes.html">PHP 5.1.x における変更点</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration51.reading.html">[] の読み込み</a></div>
+ <div class="up"><a href="migration51.html">PHP 5.0.x から PHP 5.1.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

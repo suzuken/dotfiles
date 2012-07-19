@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>直近のデータベース操作でエラーが発生したかどうかを調べる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodb.getslaveokay.html">MongoDB::getSlaveOkay</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongodb.listcollections.html">MongoDB::listCollections</a></div>
+ <div class="up"><a href="class.mongodb.html">MongoDB</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongodb.lasterror" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoDB::lastError</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.5)</p><p class="refpurpose"><span class="refname">MongoDB::lastError</span> &mdash; <span class="dc-title">直近のデータベース操作でエラーが発生したかどうかを調べる</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongodb.lasterror-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>MongoDB::lastError</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   このメソッドは次のコードと同じ意味です。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">public&nbsp;function&nbsp;</span><span style="color: #0000BB">lastError</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">command</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'getlasterror'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongodb.lasterror-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongodb.lasterror-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エラーがあった場合はそれを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongodb.lasterror-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1352">
+   <p><b>例1 <span class="function"><b>MongoDB::lastError()</b></span> の <b><tt>NULL</tt></b> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">resetError</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastError</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [&quot;err&quot;]=&gt;
+  NULL
+  [&quot;n&quot;]=&gt;
+  int(0)
+  [&quot;ok&quot;]=&gt;
+  float(1)
+}
+</pre></div>
+   </div>
+  </div>
+  <div class="example" id="example-1353">
+   <p><b>例2 <span class="function"><b>MongoDB::lastError()</b></span> のキー重複の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$c&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">selectCollection</span><span style="color: #007700">(</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;同じ&nbsp;_id&nbsp;のふたつのドキュメントを追加します<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"_id"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"_id"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">lastError</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [&quot;err&quot;]=&gt;
+  string(64) &quot;E11000 duplicate key errorindex: foo.foo.$_id_  dup key: { : 1 }&quot;
+  [&quot;n&quot;]=&gt;
+  int(0)
+  [&quot;ok&quot;]=&gt;
+  float(1)
+}
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodb.getslaveokay.html">MongoDB::getSlaveOkay</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongodb.listcollections.html">MongoDB::listCollections</a></div>
+ <div class="up"><a href="class.mongodb.html">MongoDB</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

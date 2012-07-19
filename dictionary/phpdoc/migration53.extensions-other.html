@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>その他の拡張モジュールに対する変更</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration53.removed-extensions.html">削除された拡張モジュール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration53.classes.html">新しいクラス</a></div>
+ <div class="up"><a href="migration53.html">PHP 5.2.x から PHP 5.3.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="migration53.extensions-other" class="section">
+  <h2 class="title">その他の拡張モジュールに対する変更</h2>
+  <p class="simpara">
+   以下の拡張モジュールは configure スクリプトの実行中に無効にすることができなくなりました。
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.pcre.html" class="link">PCRE</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.reflection.html" class="link">Reflection</a>
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.spl.html" class="link">SPL</a>
+    </span>
+   </li>
+  </ul>
+  <p class="simpara">
+   拡張モジュールに対する振る舞いの変更や新機能は以下の通りです。
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.datetime.html" class="link">日付と時刻</a>
+     - TZ 環境変数はタイムゾーンを推測するのに使われなくなりました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.curl.html" class="link">cURL</a>
+     - cURL が SSHプロトコルをサポートするようになりました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.network.html" class="link">ネットワーク関数</a>
+     - <span class="function"><a href="function.dns-check-record.html" class="function">dns_check_record()</a></span> が、
+       追加の「エントリ」インデックスを返すようになりました。これには TXT 要素が含まれます。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.hash.html" class="link">Hash関数</a>
+     - SHA-224 と salsa ハッシュアルゴリズムがサポートされました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.mbstring.html" class="link">マルチバイト文字列関数(mbstring)</a>
+     - CP850 エンコーディングがサポートされました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.oci8.html" class="link">OCI8</a>
+     - <span class="function"><a href="function.oci-close.html" class="function">oci_close()</a></span>関数を持続的接続の途中で呼び出したり、 
+      持続的接続を参照している変数がスコープの外に出ると、
+      全てのコミットされていないトランザクションがロールバックされるようになりました。
+      ユーザーは明示的にコミットするか、ロールバックすることが必要です。 
+     <a href="oci8.configuration.html#ini.oci8.old-oci-close-semantics" class="link">oci8.old_oci_close_semantics=On</a> 
+     と設定することで以前の振る舞いを残すことができます。
+    </span>
+    <span class="simpara">
+     Database Resident Connection Pooling (DRCP), Fast
+     Application Notification (FAN) をサポートしました。
+    </span>
+    <span class="simpara">
+     Oracle External Authentication (Windowsでは未サポート) をサポートしました。
+    </span>
+    <span class="simpara">
+     <span class="function"><a href="function.oci-bind-by-name.html" class="function">oci_bind_by_name()</a></span>関数は引数のタイプとして
+     SQLT_AFC (CHAR データ型の別名) をサポートしています。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.openssl.html" class="link">OpenSSL</a>
+     - OpenSSL のダイジェストと暗号関数がサポートされました。
+       また、DSA, RSA, DH 鍵の内部値にもアクセスできるようになっています。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.session.html" class="link">Session</a>
+     - <a href="ini.core.html#ini.open-basedir" class="link">open_basedir</a> の制限が有効な場合、
+       <i>&quot;/tmp&quot;</i> を許可するパスに追加しない限り、セッションファイルを
+       <i>/tmp</i>ディレクトリに保存しなくなりました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.soap.html" class="link">SOAP</a>
+     ユーザー定義のHTTPヘッダを送信できるようになりました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.mysqli.html" class="link">MySQLi</a>
+     ホスト名に <i>&quot;p:&quot;</i> を追加することで持続的接続ができるようになりました。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     <a href="book.image.html" class="link">画像処理(GD)</a>
+     <span class="function"><a href="function.gd-info.html" class="function">gd_info()</a></span> 関数が返す &quot;JPG Support&quot; というインデックスが &quot;JPEG Support&quot; に変更されました。
+    </span>
+   </li>
+
+
+  </ul>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration53.removed-extensions.html">削除された拡張モジュール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration53.classes.html">新しいクラス</a></div>
+ <div class="up"><a href="migration53.html">PHP 5.2.x から PHP 5.3.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

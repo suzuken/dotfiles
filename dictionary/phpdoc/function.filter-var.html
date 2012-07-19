@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したフィルタでデータをフィルタリングする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.filter-var-array.html">filter_var_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.funchand.html">関数処理</a></div>
+ <div class="up"><a href="ref.filter.html">Filter 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.filter-var" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">filter_var</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">filter_var</span> &mdash; <span class="dc-title">指定したフィルタでデータをフィルタリングする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.filter-var-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>filter_var</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$variable</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$filter</tt><span class="initializer"> = FILTER_DEFAULT</span></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$options</tt></span>
+  ]] )</div>
+
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.filter-var-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">variable</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フィルタリングする値。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       適用するフィルタの ID。<a href="filter.filters.html" class="xref">Types of filters</a>
+       に、利用できるフィルタの一覧があります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションあるいはフラグの論理和の連想配列。
+       オプションを指定可能なフィルタの場合、この配列の &quot;flags&quot;
+       フィールドにフラグを指定します。
+       &quot;callback&quot; フィルタの場合は、<span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> 型を渡さなければなりません。
+       コールバックは、フィルタリングする値を引数として受け取り、
+       処理後の値を返すようにしなければなりません。
+      </p>
+      <p class="para">
+       <div class="example-contents">
+        <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;オプションを許可するフィルタは、このような形式となります<br /></span><span style="color: #0000BB">$options&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'options'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'default'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #FF8000">//&nbsp;フィルタが失敗した場合に返す値<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;その他のオプションをここに書きます<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'min_range'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'flags'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">FILTER_FLAG_ALLOW_OCTAL</span><span style="color: #007700">,<br />);<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'0755'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_INT</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;フラグのみを許可するフィルタは、それを直接記述します<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;フラグのみを許可するフィルタは、配列として渡すこともできます<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'oops'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'flags'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;コールバックフィルタ<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ret&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">stdClass</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$ret</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">value&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_BOOLEAN</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'flags'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">FILTER_NULL_ON_FAILURE</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$ret</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'yes'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_CALLBACK</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">'options'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'foo'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.filter-var-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   フィルタリングされたデータ、あるいは処理に失敗した場合に
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.filter-var-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4213">
+    <p><b>例1 <span class="function"><b>filter_var()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'bob@example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_EMAIL</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">filter_var</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_VALIDATE_URL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FILTER_FLAG_PATH_REQUIRED</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(15) &quot;bob@example.com&quot;
+bool(false)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.filter-var-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.filter-var-array.html" class="function" rel="rdfs-seeAlso">filter_var_array()</a> - 複数の変数を受け取り、オプションでそれらをフィルタリングする</span></li>
+    <li class="member"><span class="function"><a href="function.filter-input.html" class="function" rel="rdfs-seeAlso">filter_input()</a> - 指定した名前の変数を外部から受け取り、オプションでそれをフィルタリングする</span></li>
+    <li class="member"><span class="function"><a href="function.filter-input-array.html" class="function" rel="rdfs-seeAlso">filter_input_array()</a> - 外部から変数を受け取り、オプションでそれらをフィルタリングする</span></li>
+    <li class="member"><a href="filter.filters.html" class="xref">Types of filters</a></li>
+    <li class="member"><a href="language.pseudo-types.html#language.types.callback" class="link">callback</a> 型に関する情報</li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.filter-var-array.html">filter_var_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.funchand.html">関数処理</a></div>
+ <div class="up"><a href="ref.filter.html">Filter 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

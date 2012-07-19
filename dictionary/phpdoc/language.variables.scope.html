@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>変数のスコープ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.predefined.html">定義済みの変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.variable.html">可変変数</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.variables.scope" class="sect1">
+   <h2 class="title">変数のスコープ</h2>
+   
+   <p class="simpara">
+    変数のスコープは、その変数が定義されたコンテキストです。ほとんどの
+    PHP 変数は、スコープを1つだけ有しています。このスコープの範囲は、
+    includeやrequireにより読みこまれたファイルも含みます。例えば、
+   </p>
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />include&nbsp;</span><span style="color: #DD0000">'b.inc'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <p class="simpara">
+    この例で、変数<var class="varname"><var class="varname">$a</var></var>はインクルードされた
+    <var class="filename">b.inc</var> スクリプトの中でも利用可能です。しかし、
+    ユーザー定義の関数の中では変数の有効範囲はローカル関数の中となりま
+    す。関数の中で使用された変数はデフォルトで有効範囲が関数内部に制限
+    されます。例えば、
+   </p>    
+   <div class="informalexample">
+    <div class="example-contents"> 
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*&nbsp;グローバルスコープ&nbsp;*/&nbsp;<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">/*&nbsp;ローカルスコープ変数の参照&nbsp;*/&nbsp;<br /></span><span style="color: #007700">}&nbsp;<br /><br /></span><span style="color: #0000BB">test</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <p class="simpara">
+    このスクリプトは、出力を全く行いません。これは、echo 命令がローカ
+    ル版の <var class="varname"><var class="varname">$a</var></var> 変数を参照しているにもかかわらず、こ
+    のスコープでは値が代入されていないからです。この動作は、特にローカ
+    ルな定義で上書きしない限りグローバル変数が自動的に関数で使用可能で
+    ある C 言語と少々異なっていると気がつかれるかもしれません。C言語の
+    ような場合、グローバル変数を不注意で変更してしまうという問題を生じ
+    る可能性があります。PHP では、グローバル変数は、関数の内部で使用す
+    る場合、関数の内部でグローバルとして宣言する必要があります。
+   </p>
+
+   <div class="sect2" id="language.variables.scope.global">
+    <h3 class="title"><i>global</i> キーワード</h3>
+    <p class="simpara">
+     まず、<i>global</i>の使用例を示します。
+    </p>
+    <p class="para">
+     <div class="example" id="example-89">
+      <p><b>例1 <i>global</i> の使用</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">Sum</span><span style="color: #007700">()&nbsp;<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />}&nbsp;<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    
+    <p class="simpara">
+     上のスクリプトは、<i>3</i> を出力します。関数の内部で
+     <var class="varname"><var class="varname">$a</var></var>、<var class="varname"><var class="varname">$b</var></var>
+     をグローバル宣言を行うことにより、両変数への参照は、グローバル変数
+     の方を参照することになります。ある関数により操作できるグローバル変
+     数の数は無制限です。
+    </p>
+
+    <p class="simpara">
+     グローバルスコープから変数をアクセスする2番目の方法は、PHPが定義す
+     る配列<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var>を使用することです。先の例は、次
+     のように書き換えることができます。
+    </p>
+    <p class="para">
+     <div class="example" id="example-90">
+      <p><b>例2 globalのかわりに<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var>を使用する</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">Sum</span><span style="color: #007700">()&nbsp;<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'a'</span><span style="color: #007700">]&nbsp;+&nbsp;</span><span style="color: #0000BB">$GLOBALS</span><span style="color: #007700">[</span><span style="color: #DD0000">'b'</span><span style="color: #007700">];<br />}&nbsp;<br /><br /></span><span style="color: #0000BB">Sum</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+
+    <p class="simpara">
+     配列<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var>は連想配列であり、グローバル変数の
+     名前がキー、その変数の内容が配列要素の値となっています。
+     <var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var> は <a href="language.variables.superglobals.html" class="link">スーパーグローバル</a>
+     であるため、<var class="varname"><var class="varname"><a href="reserved.variables.globals.html" class="classname">$GLOBALS</a></var></var>は全てのスコープに存在します。
+     以下にスーパーグローバルの効果を示す例を示します。
+    </p>
+    <p class="para">
+     <div class="example" id="example-91">
+      <p><b>例3 スーパーグローバルとスコープの例</b></p>
+      <div class="example-contents">   
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test_global</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ほとんどの定義済み変数は"スーパー"ではなく、関数内の<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;ローカルスコープで有効とするには'global'をコールする必要があります。<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">global&nbsp;</span><span style="color: #0000BB">$HTTP_POST_VARS</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$HTTP_POST_VARS</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;スーパーグローバルはどのスコープでも有効であり<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;'global'をコールする必要がありません。<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;スーパーグローバルはPHP4.1.0以降で利用できます。<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;HTTP_POST_VARS&nbsp;は今や非推奨とされています。<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_POST</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">];<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     <i>global</i> キーワードを関数の外部で使ってもエラーにはなりません。
+     そのファイルが関数の内部からインクルードされたときに使うことができます。
+    </p>
+   </p></blockquote>
+   </div>
+
+   <div class="sect2" id="language.variables.scope.static">
+    <h3 class="title">静的変数の使用</h3>   
+    <p class="simpara">
+     変数のスコープに関する別の重要な機能は、<em class="emphasis">静的
+      (static)</em> 変数です。静的変数はローカル関数スコープのみに
+     存在しますが、プログラム実行がこのスコープの外で行われるようになっ
+     てもその値を失わないません。次の例を見てください。
+    </p>
+    <p class="para">
+     <div class="example" id="example-92">
+      <p><b>例4 静的変数が必要な場面の例</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    <p class="simpara">
+     この関数は、コールされる度に<var class="varname"><var class="varname">$a</var></var>を
+     <i>0</i>にセットし、<i>0</i> を出力するのでほとん
+     ど役にたちません。変数を1増やす $a++ は、関数から外に出ると変数
+     <var class="varname"><var class="varname">$a</var></var>が消えてしまうために目的を達成しません。現在
+     のカウントの追跡ができるようにカウント関数を使用できるようにするた
+     めには、変数<var class="varname"><var class="varname">$a</var></var>をstaticとして宣言します。
+    </p>
+    <p class="para">
+     <div class="example" id="example-93">
+      <p><b>例5 静的変数の使用例</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">++;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+
+    <p class="simpara">
+     こうすると、<var class="varname"><var class="varname">$a</var></var> は関数が最初にコールされたときにのみ初期化され、
+     <i>test()</i> 関数がコールされるたびに <var class="varname"><var class="varname">$a</var></var>
+     の値を出力してその値を増加させます。
+    </p>
+
+    <p class="simpara">
+     static変数は、再帰関数を実現する1つの手段としても使用されます。再帰
+     関数は、自分自身をコールする関数です。再帰関数を書くときには、無限
+     に再帰を行う可能性があるため、注意する必要があります。適当な方法に
+     より再帰を確実に終了させる必要があります。次の簡単な関数は、中止す
+     るタイミングを知るためにstatic変数<var class="varname"><var class="varname">$count</var></var>を用いて、
+     10 回まで再帰を行います。
+    </p>
+    <p class="para">
+     <div class="example" id="example-94">
+      <p><b>例6 再帰関数での静的変数の使用</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$count&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$count</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$count</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$count&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$count</span><span style="color: #007700">--;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     静的変数は、上の例に見られるような方法で宣言されます。
+     式の結果を静的変数に代入しようとすると、パースエラーが
+     発生します。
+    </p>
+    <p class="para">
+     <div class="example" id="example-95">
+      <p><b>例7 静的変数の宣言</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">(){<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;正しい<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">+</span><span style="color: #0000BB">2</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;間違い（式を代入しています）<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">static&nbsp;</span><span style="color: #0000BB">$int&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">sqrt</span><span style="color: #007700">(</span><span style="color: #0000BB">121</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;間違い（同じく式を代入しています）<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$int</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+       </div>
+
+      </div>
+     </p> 
+    </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     静的な宣言は、コンパイル時に解決されます。
+    </p>
+   </p></blockquote>
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     <i>global</i> キーワードを関数の外部で使ってもエラーにはなりません。
+     そのファイルが関数の内部からインクルードされたときに使うことができます。
+    </p>
+   </p></blockquote>
+   </div>
+   
+   <div class="sect2" id="language.variables.scope.references">
+    <h3 class="title">グローバル変数と静的変数のリファレンス</h3>
+    <p class="simpara">
+     <i>PHP4</i>を駆動するZend Engine 1では、
+     リファレンス変数の修正子
+     <i>static</i> および <i>global</i>
+     を実装しています。
+     例えば、関数スコープ内に<i>global</i>
+     命令により実際にインポートされた真のグローバル変数は、
+     実際にグローバル変数へのリファレンスを作成します。
+     これにより、以下の例が示すように予測できない動作を引き起こす可能性
+     があります。
+    </p>
+
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;&amp;new&nbsp;</span><span style="color: #0000BB">stdclass</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;</span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">stdclass</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">test_global_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">test_global_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+
+   <p class="para">上の例の出力は以下となります。</p>
+
+    <div class="example-contents screen"><br />
+NULL<br />
+object(stdClass)(0) {<br />
+}<br />
+   </div>
+
+   <p class="simpara">
+    類似の動作が<i>static</i>命令にも適用されます。
+    リファレンスは静的に保存することができません。
+   </p>
+   
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;&amp;</span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Static&nbsp;object:&nbsp;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Assign&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;static&nbsp;variable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;&amp;new&nbsp;</span><span style="color: #0000BB">stdclass</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;&amp;</span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Static&nbsp;object:&nbsp;'</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!isset(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Assign&nbsp;the&nbsp;object&nbsp;to&nbsp;the&nbsp;static&nbsp;variable<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">stdclass</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">property</span><span style="color: #007700">++;<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$obj1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_instance_ref</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$obj2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$still_obj2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">get_instance_noref</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+
+    <p class="simpara">
+     この例を実行すると以下の出力となります。
+    </p>
+
+    <div class="example-contents screen"><br />
+Static object: NULL<br />
+Static object: NULL<br />
+<br />
+Static object: NULL<br />
+Static object: object(stdClass)(1) {<br />
+  [&quot;property&quot;]=&gt;<br />
+  int(1)<br />
+}<br />
+    </div>
+
+    <p class="simpara">
+     この例は、static変数にリファレンスを代入した時に
+     <i>&amp;get_instance_ref()</i>関数を2回目に
+     コールした際に保持されていないことを示しています。
+    </p>
+   </div>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.predefined.html">定義済みの変数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.variable.html">可変変数</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

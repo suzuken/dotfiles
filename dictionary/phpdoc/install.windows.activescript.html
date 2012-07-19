@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ActiveScript</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.manual.html">手動でのインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.iis.html">Microsoft IIS</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.windows.activescript" class="sect1">
+    <h2 class="title">ActiveScript</h2>
+    <p class="para">
+     このセクションでは、ActiveScript で PHP を使用する場合について説明します。
+    </p>
+    <p class="para">
+     ActiveScript は Windows 独自の SAPI で、PHP スクリプトが
+     Windows Script Host, ASP/ASP.NET,
+     Windows Script Components や Microsoft Scriptlet control といった
+     ActiveScript 互換ホストで実行可能になります。
+    </p>
+    <p class="para">
+     PHP 5.0.1 の時点で、ActiveScript サポートは <a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> リポジトリに移動されました。
+     この <acronym title="PHP Extension and Application Repository">PECL</acronym>
+拡張モジュールの <acronym title="Dynamic Link Library">DLL</acronym> は、現在存在しません。
+<a href="install.windows.building.html" class="link">Windows でのビルド</a>
+も参照ください
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      まず始めに、<a href="install.windows.manual.html" class="link">マニュアルインストールの手順</a> 
+      をお読みください。
+     </p>
+    </p></blockquote>
+    <p class="para">
+     PHP をインストールした後、ActiveScript 用の DLL (<var class="filename">php5activescript.dll</var>) 
+     をダウンロードし、メイン PHP フォルダ (<var class="filename">C:\php</var> 等) へ置いてください。
+    </p>
+    <p class="para">
+     ファイルを設置できたら、システムに DLL を登録します。
+     （スタートメニューから）コマンドプロンプトを開き、
+     PHP のフォルダへ移動し（<i>cd C:\php</i> 等とする）、
+     <i>regsvr32 php5activescript.dll</i> と打ち込むと
+     DLL を登録できます。
+    </p>
+    <p class="para">
+     ActiveScript が動作しているかテストするには、<i>test.wsf</i>
+     という名前（拡張子名が重要）で新しいファイルを作成し、
+     以下のようにタイプしてください。
+     <div class="example-contents">
+<div class="cdata"><pre>
+&lt;job xml:id=&quot;test&quot;&gt;
+ 
+ &lt;script language=&quot;PHPScript&quot;&gt;
+  $WScript-&gt;Echo(&quot;Hello World!&quot;);
+ &lt;/script&gt;
+ 
+&lt;/job&gt;
+</pre></div>
+     </div>
+
+     保存した後、ファイルをダブルクリックして、ウインドウに
+     「Hello World!」 と表示されたら、上手く動作しています。
+    </p>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      PHP 4では、エンジンは「ActivePHP」と命名されました。
+      したがって、PHP 4を使用している場合、「PHPScript」を上記の例における
+      「ActivePHP」に取り替えるべきです。
+     </p>
+    </p></blockquote>
+    <blockquote class="note"><p><b class="note">注意</b>: 
+     <p class="para">
+      ActiveScript では、デフォルトの <var class="filename">php.ini</var> ファイルは使われません。
+      代わって、ロードする .exe ファイルと同じフォルダが探されます。
+      拡張モジュールを読み込みたい場合は、
+      <var class="filename">php-activescript.ini</var> ファイルを作成し、当該フォルダに
+      設置すると良いでしょう。
+     </p>
+    </p></blockquote>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.windows.manual.html">手動でのインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.windows.iis.html">Microsoft IIS</a></div>
+ <div class="up"><a href="install.windows.html">Windows システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

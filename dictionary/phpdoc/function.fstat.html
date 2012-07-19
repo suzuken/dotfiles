@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オープンしたファイルポインタからファイルに関する情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fseek.html">fseek</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftell.html">ftell</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fstat" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fstat</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">fstat</span> &mdash; <span class="dc-title">オープンしたファイルポインタからファイルに関する情報を取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fstat-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>fstat</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$handle</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ファイルポインタ<i><tt class="parameter">handle</tt></i>によりオープンされたファイルの統計情報を取得します。
+   この関数は関数<span class="function"><a href="function.stat.html" class="function">stat()</a></span>に似ていますが、
+   ファイル名の代わりにオープンされたファイルポインタを指定するところが異なります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fstat-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handle</tt></i></span>
+     <dd>
+
+      <p class="para"><span class="function"><a href="function.fopen.html" class="function">fopen()</a></span>
+を使用して作成したファイルシステムポインタリソース。</p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fstat-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ファイルの統計情報の配列を返します。配列のフォーマットについては
+   <span class="function"><a href="function.stat.html" class="function">stat()</a></span>のマニュアルをご覧ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fstat-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1923">
+    <p><b>例1 <span class="function"><b>fstat()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイルをオープンする<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"/etc/passwd"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;統計情報を収集する<br /></span><span style="color: #0000BB">$fstat&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fstat</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイルをクローズする<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;連想配列部のみ表示する<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_slice</span><span style="color: #007700">(</span><span style="color: #0000BB">$fstat</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">13</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [dev] =&gt; 771
+    [ino] =&gt; 488704
+    [mode] =&gt; 33188
+    [nlink] =&gt; 1
+    [uid] =&gt; 0
+    [gid] =&gt; 0
+    [rdev] =&gt; 0
+    [size] =&gt; 1114
+    [atime] =&gt; 1061067181
+    [mtime] =&gt; 1056136526
+    [ctime] =&gt; 1056136526
+    [blksize] =&gt; 4096
+    [blocks] =&gt; 8
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.fstat-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数では、
+<a href="features.remote-files.html" class="link">リモートファイル</a> を
+使用することはできません。これは、処理されるファイルがサーバの
+ファイルシステムによりアクセスできる必要があるためです。</span></p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fseek.html">fseek</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftell.html">ftell</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

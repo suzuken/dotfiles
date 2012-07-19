@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列の metaphone キーを計算する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.md5.html">md5</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.money-format.html">money_format</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.metaphone" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">metaphone</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">metaphone</span> &mdash; <span class="dc-title">文字列の metaphone キーを計算する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.metaphone-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>metaphone</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$str</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$phonemes</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">str</tt></i> の metaphone キーを計算します。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.soundex.html" class="function">soundex()</a></span> と同様に metaphone は、
+   発音が似た単語について同じキーを作成します。metaphone は、
+   英語の発音の基本的ルールを知っているので、
+   <span class="function"><a href="function.soundex.html" class="function">soundex()</a></span> よりも正確です。
+   metaphone が生成するキーは可変長です。
+  </p>
+  <p class="para">
+   metaphone は、Lawrence Philips &lt;lphilips at verity dot com&gt; により
+   開発されました。[&quot;Practical
+   Algorithms for Programmers&quot;, Binstock &amp; Rex, Addison Wesley,
+   1995] で解説されています。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.metaphone-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">str</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">phonemes</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータは、返される metaphone キーの長さを最大
+       <i><tt class="parameter">phonemes</tt></i> 文字までに制限します。
+       デフォルト値の <i>0</i> は、無制限であることを意味します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.metaphone-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   metaphone キーを文字列で返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.metaphone-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="metaphone.example.basic">
+    <p><b>例1 <span class="function"><b>metaphone()</b></span> の基本的な例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">metaphone</span><span style="color: #007700">(</span><span style="color: #DD0000">'programming'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">metaphone</span><span style="color: #007700">(</span><span style="color: #DD0000">'programmer'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(7) &quot;PRKRMNK&quot;
+string(6) &quot;PRKRMR&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="metaphone.example.phonemes">
+    <p><b>例2 <i><tt class="parameter">phonemes</tt></i> パラメータの使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">metaphone</span><span style="color: #007700">(</span><span style="color: #DD0000">'programming'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">metaphone</span><span style="color: #007700">(</span><span style="color: #DD0000">'programmer'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(5) &quot;PRKRM&quot;
+string(5) &quot;PRKRM&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.md5.html">md5</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.money-format.html">money_format</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Apacheリクエスト記号(note)を取得/設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apache-lookup-uri.html">apache_lookup_uri</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apache-request-headers.html">apache_request_headers</a></div>
+ <div class="up"><a href="ref.apache.html">Apache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.apache-note" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">apache_note</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">apache_note</span> &mdash; <span class="dc-title">Apacheリクエスト記号(note)を取得/設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.apache-note-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>apache_note</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$note_name</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$note_value</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、Apache の <i>table_get</i> および
+   <i>table_set</i> のラッパーです。
+   リクエスト中に存在する note のテーブルを編集します。
+   このテーブルは、Apache モジュール間の通信に用いるものです。
+  </p>
+  <p class="para">
+   <span class="function"><b>apache_note()</b></span> の主な使用法は、
+   同一リクエスト内でのモジュール間の情報のやりとりです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.apache-note-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">note_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       記号の名前
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">note_value</tt></i></span>
+     <dd>
+
+      <p class="para">
+       記号の値
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.apache-note-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   引数が1つだけ指定されてコールされた場合、
+   現在の記号の値<i>note_name</i>が返されます。
+   引数が2つ指定されてコールされた場合、記号<i>note_name</i>
+   の値を<i>note_value</i>にセットし、前の記号
+   <i>note_name</i>の値を返します。
+   もし記号が処理できない場合、<b><tt>FALSE</tt></b> が返されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.apache-note-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3890">
+    <p><b>例1 PHP と Perl との間での情報のやりとり</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />apache_note</span><span style="color: #007700">(</span><span style="color: #DD0000">'name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Fredrik&nbsp;Ekengren'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;perl&nbsp;スクリプトをコールします<br /></span><span style="color: #0000BB">virtual</span><span style="color: #007700">(</span><span style="color: #DD0000">"/perl/some_script.pl"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">apache_note</span><span style="color: #007700">(</span><span style="color: #DD0000">"resultdata"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents">
+<div class="perlcode"><pre class="perlcode"># Apache リクエストオブジェクトを取得します
+my $r = Apache-&gt;request()-&gt;main();
+
+# 受け取ったデータを取得します
+my $name = $r-&gt;notes(&#039;name&#039;);
+
+# 何らかの処理をします
+
+# 結果を PHP 側に戻します
+$r-&gt;notes(&#039;resultdata&#039;, $result);</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3891">
+    <p><b>例2 access.log への出力</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />apache_note</span><span style="color: #007700">(</span><span style="color: #DD0000">'sessionID'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">session_id</span><span style="color: #007700">());<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents">
+<div class="apachecode"><pre class="apachecode"># &quot;%{sessionID}n&quot; を LogFormat ディレクティブで使用できます</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.apache-note-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.virtual.html" class="function" rel="rdfs-seeAlso">virtual()</a> - Apache サブリクエストを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.apache-lookup-uri.html">apache_lookup_uri</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.apache-request-headers.html">apache_request_headers</a></div>
+ <div class="up"><a href="ref.apache.html">Apache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

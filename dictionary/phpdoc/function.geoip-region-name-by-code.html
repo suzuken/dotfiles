@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>国コードと地域コードから地域名を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.geoip-region-by-name.html">geoip_region_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.geoip-time-zone-by-country-and-region.html">geoip_time_zone_by_country_and_region</a></div>
+ <div class="up"><a href="ref.geoip.html">GeoIP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.geoip-region-name-by-code" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">geoip_region_name_by_code</h1>
+  <p class="verinfo">(PECL geoip &gt;= 1.0.4)</p><p class="refpurpose"><span class="refname">geoip_region_name_by_code</span> &mdash; <span class="dc-title">国コードと地域コードから地域名を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.geoip-region-name-by-code-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>geoip_region_name_by_code</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$country_code</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$region_code</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>geoip_region_name_by_code()</b></span> 関数は、
+   国コードと地域コードの組み合わせに対応する地域名を返します。
+  </p>
+  <p class="para">
+   アメリカの場合、地域コードは各州の名前を二文字で略したものとなります。
+   カナダの場合、地域コードは Canada Post による二文字の州コードに対応します。
+  </p>
+  <p class="para">
+   それ以外の場所では、GeoIP は FIPS 10-4 コードを用いて地域を表します。
+   FIPS 10-4 コードの詳細な一覧は
+   <a href="http://www.maxmind.com/app/fips10_4" class="link external">&raquo; http://www.maxmind.com/app/fips10_4</a> で確認できます。
+  </p>
+  <p class="para">
+   この関数は、GeoIP Library バージョン 1.4.1 以降を使っている場合に使用可能です。
+   データは直接 GeoIP Library から受け取り、データベースは使用しません。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.geoip-region-name-by-code-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">country_code</tt></i></span>
+     <dd>
+
+      <p class="para">
+       二文字の国コード
+       (<span class="function"><a href="function.geoip-country-code-by-name.html" class="function">geoip_country_code_by_name()</a></span> を参照ください)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">region_code</tt></i></span>
+     <dd>
+
+      <p class="para">
+       二文字 (あるいは二桁) の地域コード
+       (<span class="function"><a href="function.geoip-region-by-name.html" class="function">geoip_region_by_name()</a></span> を参照ください)。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.geoip-region-name-by-code-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合は地域名、国コードと地域コードの組に対応する地域が見つからなかった場合は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.geoip-region-name-by-code-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3093">
+    <p><b>例1 US/Canada の地域コードを使用した <span class="function"><b>geoip_region_name_by_code()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     これは、国 CA (カナダ)、地域 QC (ケベック) に対応する地域名を表示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$region&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">geoip_region_name_by_code</span><span style="color: #007700">(</span><span style="color: #DD0000">'CA'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'QC'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$region</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Region&nbsp;name&nbsp;for&nbsp;CA/QC&nbsp;is:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$region</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Region name for CA/QC is: Quebec
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-3094">
+    <p><b>例2 FIPS コードを使用した <span class="function"><b>geoip_region_name_by_code()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     これは、国 JP (日本)、地域 01 に対応する地域名を表示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$region&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">geoip_region_name_by_code</span><span style="color: #007700">(</span><span style="color: #DD0000">'JP'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'01'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$region</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Region&nbsp;name&nbsp;for&nbsp;JP/01&nbsp;is:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$region</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Region name for JP/01 is: Aichi
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.geoip-region-by-name.html">geoip_region_by_name</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.geoip-time-zone-by-country-and-region.html">geoip_time_zone_by_country_and_region</a></div>
+ <div class="up"><a href="ref.geoip.html">GeoIP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

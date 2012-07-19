@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>後で実行するためのクエリを準備する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-pconnect.html">ingres_pconnect</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-query.html">ingres_query</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ingres-prepare" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ingres_prepare</h1>
+  <p class="verinfo">(PECL ingres &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">ingres_prepare</span> &mdash; <span class="dc-title">後で実行するためのクエリを準備する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ingres-prepare-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>ingres_prepare</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.ingres-execute.html" class="function">ingres_execute()</a></span> で実行するためのクエリを準備します。
+  </p>
+  <p class="para">
+   クエリは、現在開いているトランザクションの一部となります。
+   開いているトランザクションがない場合は
+   <span class="function"><a href="function.ingres-query.html" class="function">ingres_query()</a></span> が新しいトランザクションを開きます。
+   トランザクションを閉じるには、<span class="function"><a href="function.ingres-commit.html" class="function">ingres_commit()</a></span>
+   をコールして変更をデータベースにコミットするか
+   <span class="function"><a href="function.ingres-rollback.html" class="function">ingres_rollback()</a></span> で変更をキャンセルします。
+   スクリプトが終了すると、開いているトランザクションはすべて
+   (<span class="function"><a href="function.ingres-rollback.html" class="function">ingres_rollback()</a></span> をコールして) ロールバックされます。
+   新しいトランザクションを開く前に
+   <span class="function"><a href="function.ingres-autocommit.html" class="function">ingres_autocommit()</a></span> をコールすると、
+   SQL を実行するたびにその場で自動的にコミットするようになります。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <b>関連する設定項目</b><br />
+   <p class="para">
+    <a href="ingres.configuration.html" class="link">実行時設定</a>での
+    <a href="ingres.configuration.html#ini.ingres.describe" class="link">ingres.describe</a>、
+    <a href="ingres.configuration.html#ini.ingres.scrollable" class="link">ingres.scrollable</a> および
+    <a href="ingres.configuration.html#ini.ingres.utf8" class="link">ingres.utf8</a>
+    の説明も参照ください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ingres-prepare-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続リンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Ingres のドキュメント (Ingres <i>SQL reference
+       guide</i> を参照ください) に書かれた正しい形式の SQL クエリ。
+       <span class="function"><b>ingres_prepare()</b></span> を使って実行できない SQL 文の一覧は、
+       <span class="function"><a href="function.ingres-query.html" class="function">ingres_query()</a></span> の
+       <a href="function.ingres-query.html#function.ingres-query.query" class="link">query</a> パラメータを参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ingres-prepare-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>ingres_prepare()</b></span> はクエリの結果 ID を返します。
+   <span class="function"><a href="function.ingres-execute.html" class="function">ingres_execute()</a></span> でクエリを実行するときに、これを使います。
+   エラーが発生したかどうかを知るには、<span class="function"><a href="function.ingres-errno.html" class="function">ingres_errno()</a></span>、
+   <span class="function"><a href="function.ingres-error.html" class="function">ingres_error()</a></span> あるいは
+   <span class="function"><a href="function.ingres-errsqlstate.html" class="function">ingres_errsqlstate()</a></span> を使います。
+  </p>
+ </div>
+
+
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ingres-prepare-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ingres-unbuffered-query.html" class="function" rel="rdfs-seeAlso">ingres_unbuffered_query()</a> - 未バッファ SQL クエリを Ingres に送信する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-array.html" class="function" rel="rdfs-seeAlso">ingres_fetch_array()</a> - 1 行分の結果を配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-assoc.html" class="function" rel="rdfs-seeAlso">ingres_fetch_assoc()</a> - 1 行分の結果を連想配列に取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-object.html" class="function" rel="rdfs-seeAlso">ingres_fetch_object()</a> - 1 行分の結果をオブジェクトとして取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-fetch-row.html" class="function" rel="rdfs-seeAlso">ingres_fetch_row()</a> - 1 行分の結果を数値添字配列として取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-commit.html" class="function" rel="rdfs-seeAlso">ingres_commit()</a> - トランザクションをコミットする</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-rollback.html" class="function" rel="rdfs-seeAlso">ingres_rollback()</a> - トランザクションをロールバックする</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-autocommit.html" class="function" rel="rdfs-seeAlso">ingres_autocommit()</a> - autocommit をオンまたはオフに切替える</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-set-environment.html" class="function" rel="rdfs-seeAlso">ingres_set_environment()</a> - 環境を設定して出力オプションを制御する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-errno.html" class="function" rel="rdfs-seeAlso">ingres_errno()</a> - 直近に発生した ingres エラー番号を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ingres-error.html" class="function" rel="rdfs-seeAlso">ingres_error()</a> - 直近に発生したエラーのエラーメッセージを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ingres-pconnect.html">ingres_pconnect</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ingres-query.html">ingres_query</a></div>
+ <div class="up"><a href="ref.ingres.html">Ingres 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列のキーと値を反転する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-filter.html">array_filter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-intersect-assoc.html">array_intersect_assoc</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.array-flip" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array_flip</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">array_flip</span> &mdash; <span class="dc-title">配列のキーと値を反転する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.array-flip-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>array_flip</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$trans</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>array_flip()</b></span> は、配列を反転して返します。
+   すなわち、<i><tt class="parameter">trans</tt></i> のキーが値となり、
+   <i><tt class="parameter">trans</tt></i> の値がキーとなります。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">trans</tt></i> の値は有効なキーを必要とすることに注意してください。
+   すなわち、キーは、<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> または
+   <span class="type"><a href="language.types.string.html" class="type string">string</a></span> である必要があります。ある値が間違った型である場合、
+   警告が出力され、問題のこのキー/値の組は逆順にされません。
+  </p>
+  <p class="para">
+   ある値が複数回出現した場合、最後のキーがその値として使用され、
+   その他の値は失われます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.array-flip-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">trans</tt></i></span>
+     <dd>
+
+      <p class="para">
+       反転を行うキー/値の組。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-flip-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に反転した配列、失敗した場合に <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.array-flip-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4073">
+    <p><b>例1 <span class="function"><b>array_flip()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$trans&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_flip</span><span style="color: #007700">(</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$original&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtr</span><span style="color: #007700">(</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4074">
+    <p><b>例2 <span class="function"><b>array_flip()</b></span> の例 : 衝突</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$trans&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"b"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$trans&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_flip</span><span style="color: #007700">(</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$trans</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     <var class="varname"><var class="varname">$trans</var></var> は次のようになります:
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [1] =&gt; b
+    [2] =&gt; c
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.array-flip-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-values.html" class="function" rel="rdfs-seeAlso">array_values()</a> - 配列の全ての値を返す</span></li>
+    <li class="member"><span class="function"><a href="function.array-keys.html" class="function" rel="rdfs-seeAlso">array_keys()</a> - 配列のキーすべて、あるいはその一部を返す</span></li>
+    <li class="member"><span class="function"><a href="function.array-reverse.html" class="function" rel="rdfs-seeAlso">array_reverse()</a> - 要素を逆順にした配列を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-filter.html">array_filter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-intersect-assoc.html">array_intersect_assoc</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

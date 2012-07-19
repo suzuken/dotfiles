@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ibm-db2.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ibm-db2.resources.html">リソース型</a></div>
+ <div class="up"><a href="ibm-db2.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="ibm-db2.configuration" class="section">
+ <h2 class="title">実行時設定</h2>
+ <p class="simpara">
+<var class="filename">php.ini</var> の設定により動作が変化します。
+</p>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>ibm_db2 設定オプション</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>名前</th>
+      <th>デフォルト</th>
+      <th>変更可能</th>
+      <th>変更履歴</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.binmode" class="link">ibm_db2.binmode</a></td>
+      <td align="left">&quot;1&quot;</td>
+      <td align="left">PHP_INI_ALL</td>
+      <td class="empty">&nbsp;</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.i5-all-pconnect" class="link">ibm_db2.i5_all_pconnect</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">ibm_db2 1.6.5 以降で利用可能。</td>
+     </tr>
+     
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.i5-allow-commit" class="link">ibm_db2.i5_allow_commit</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">ibm_db2 1.4.9 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.i5-dbcs-alloc" class="link">ibm_db2.i5_dbcs_alloc</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">ibm_db2 1.5.0 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.instance-name" class="link">ibm_db2.instance_name</a></td>
+      <td align="left">NULL</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">ibm_db2 1.0.2 以降で利用可能。</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><a href="ibm-db2.configuration.html#ini.ibm-db2.i5-ignore-userid" class="link">ibm_db2.i5_ignore_userid</a></td>
+      <td align="left">&quot;0&quot;</td>
+      <td align="left">PHP_INI_SYSTEM</td>
+      <td align="left">ibm_db2 1.8.0 以降で利用可能。</td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+
+ </p>
+ 
+ <p class="para">以下に設定ディレクティブに関する
+簡単な説明を示します。</p>
+ 
+ <p class="para">
+  <dl>
+
+   <dt id="ini.ibm-db2.binmode">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.binmode</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションは、バイナリデータを PHP アプリケーションで
+      使用する際のモードを制御します。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         1 (DB2_BINARY)
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         2 (DB2_CONVERT)
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         3 (DB2_PASSTHRU)
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.ibm-db2.i5-all-pconnect">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.i5_all_pconnect</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションは、PHP アプリケーションにおける
+      i5 <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> のオープンおよびクローズをオーバーライドします。
+      <i><tt class="parameter">ibm_db2.i5_all_pconnect</tt></i> = 1 の場合は、すべての db2 接続が持続的なもの
+      (<span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span>) となります。i5/OS 上での <span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span> は、
+      <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> よりはるかによいパフォーマンスを提供します。
+      このオプションは、PHP のソースコードを変更せずに
+      <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> を <span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span>
+      として動作させられるので便利です。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         0 <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> のデフォルトのオープンおよびクローズです。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         1 <span class="function"><a href="function.db2-connect.html" class="function">db2_connect()</a></span> は <span class="function"><a href="function.db2-pconnect.html" class="function">db2_pconnect()</a></span>
+         でオーバーライドされ、持続的な接続のみを使用します。
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+
+   </dt>
+   
+   <dt id="ini.ibm-db2.i5-allow-commit">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.i5_allow_commit</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションは、i5 スキーマコレクションで使用するコミットモードを
+      PHP アプリケーションで使用する際のモードを制御します。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         0 はコミットしません (オーバーライドについては <i><tt class="parameter">i5_commit</tt></i> を参照ください)。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         1 はコミットを許可します (オーバーライドについては <i><tt class="parameter">i5_commit</tt></i> を参照ください)。
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.ibm-db2.i5-dbcs-alloc">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.i5_dbcs_alloc</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションは、ラージ DBCS カラムバッファ用の内部 ibm_db2
+      アロケーションスキームを制御します。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         0 は拡張アロケーションを使用しません (オーバーライドについては <i><tt class="parameter">i5_dbcs_alloc</tt></i> を参照ください)。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         1 は拡張アロケーションを使用します (オーバーライドについては <i><tt class="parameter">i5_dbcs_alloc</tt></i> を参照ください)。
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.ibm-db2.instance-name">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.instance_name</tt></i>
+     <span class="type"><a href="language.types.string.html" class="type string">string</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      Linux および UNIX では、カタログデータベースへの接続に使用する
+      インスタンス名をこのオプションで指定します。
+      このオプションは、環境変数 DB2INSTANCE
+      の設定を上書きします。
+     </p>
+     <p class="para">
+      Windows では、このオプションは無視されます。
+     </p>
+    </dd>
+
+   </dt>
+
+   <dt id="ini.ibm-db2.i5-ignore-userid">
+    <span class="term">
+     <i><tt class="parameter">ibm_db2.i5_ignore_userid	</tt></i>
+     <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>
+    </span>
+    <dd>
+
+     <p class="para">
+      このオプションは、PHP アプリケーション内での
+      i5 db2_(p)connect のユーザ ID とパスワードをオーバーライドします。
+      <i><tt class="parameter">ibm_db2.i5_ignore_userid</tt></i> = 1 の場合は、
+      すべての db2 (p)connections がユーザ ID とパスワードに null を使用するようになります。
+      したがって、Apache のジョブは現在のプロファイル (NOBODY) で接続するようになります。
+      このオーバーライドを使用するのは、シンプルな DB2 ベースのウェブサイトで
+      プロファイルの切り替えが不要な場合のみです。これを使用すると、
+      サーバモードで追加の QSQSRVR ジョブを行うオーバーヘッドを回避できます。
+      これは、db2_(p)connect でユーザ ID とパスワードに null 値を設定するという作業を
+      PHP のソースコードを変更することなしに行えるようにするものです。
+      このオーバーライドは <i><tt class="parameter">ibm_db2.i5_all_pconnect</tt></i> = 1
+      でも使用することができます。
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         0 db2_(p)connect で、指定したユーザ ID とパスワードで接続します。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         1 db2_(p)connect は、ユーザ ID とパスワードを null でオーバーライドします。
+        </p>
+       </li>
+      </ul>
+     </p>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ibm-db2.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="ibm-db2.resources.html">リソース型</a></div>
+ <div class="up"><a href="ibm-db2.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Gets read timeout</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="stomp.error.html">Stomp::error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="stomp.getsessionid.html">Stomp::getSessionId</a></div>
+ <div class="up"><a href="class.stomp.html">Stomp</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="stomp.getreadtimeout" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Stomp::getReadTimeout</h1>
+  <h1 class="refname">stomp_get_read_timeout</h1>
+  <p class="verinfo">(PECL stomp &gt;= 0.3.0)</p><p class="refpurpose"><span class="refname">Stomp::getReadTimeout</span> -- <span class="refname">stomp_get_read_timeout</span> &mdash; <span class="dc-title">Gets read timeout</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-stomp.getreadtimeout-description">
+  <h3 class="title">説明</h3>
+  <p class="para">Object oriented style (method):</p>
+   <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>Stomp::getReadTimeout</b></span>
+    ( <span class="methodparam">void</span>
+    )</div>
+
+  <p class="para rdfs-comment">Procedural style:</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>stomp_get_read_timeout</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Gets read timeout
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-stomp.getreadtimeout-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">link</tt></i></span><dd>
+<p class="para">手続き型のみ: <span class="function"><a href="stomp.construct.html" class="function">stomp_connect()</a></span> が返す stomp リンク ID。</p></dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-stomp.getreadtimeout-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   Returns an array with 2 elements: sec and usec. 
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-stomp.getreadtimeout-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3797">
+    <p><b>例1 Object oriented style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$stomp&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Stomp</span><span style="color: #007700">(</span><span style="color: #DD0000">'tcp://localhost:61613'</span><span style="color: #007700">);<br />}&nbsp;catch(</span><span style="color: #0000BB">StompException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connection&nbsp;failed:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">());<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$stomp</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getReadTimeout</span><span style="color: #007700">());<br /><br /></span><span style="color: #FF8000">/*&nbsp;close&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">unset(</span><span style="color: #0000BB">$stomp</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;sec&quot;]=&gt;
+  int(2)
+  [&quot;usec&quot;]=&gt;
+  int(0)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3798">
+    <p><b>例2 Procedural style</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;connection&nbsp;*/<br /></span><span style="color: #0000BB">$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stomp_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'ssl://localhost:61612'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;check&nbsp;connection&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connection&nbsp;failed:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">stomp_connect_error</span><span style="color: #007700">());<br />}<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">stomp_get_read_timeout</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;close&nbsp;connection&nbsp;*/<br /></span><span style="color: #0000BB">stomp_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;sec&quot;]=&gt;
+  int(2)
+  [&quot;usec&quot;]=&gt;
+  int(0)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="stomp.error.html">Stomp::error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="stomp.getsessionid.html">Stomp::getSessionId</a></div>
+ <div class="up"><a href="class.stomp.html">Stomp</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

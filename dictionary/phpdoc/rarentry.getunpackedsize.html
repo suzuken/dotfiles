@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>展開後のエントリのサイズを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rarentry.getstream.html">RarEntry::getStream</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.getversion.html">RarEntry::getVersion</a></div>
+ <div class="up"><a href="class.rarentry.html">RarEntry</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="rarentry.getunpackedsize" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">RarEntry::getUnpackedSize</h1>
+  <p class="verinfo">(PECL rar &gt;= 0.1)</p><p class="refpurpose"><span class="refname">RarEntry::getUnpackedSize</span> &mdash; <span class="dc-title">展開後のエントリのサイズを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-rarentry.getunpackedsize-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>RarEntry::getUnpackedSize</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   展開後のアーカイブエントリのサイズを取得します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">調整数型が 32 ビットであるプラットフォーム (Windows
+    x64 など) では、返されるサイズの上限は 2 GiB となります。定数
+    <b><tt>PHP_INT_MAX</tt></b> をチェックしましょう。</p>
+  </p></blockquote>
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-rarentry.getunpackedsize-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-rarentry.getunpackedsize-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   展開後のサイズ、あるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+  <div class="refsect1 changelog" id="refsect1-rarentry.getunpackedsize-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">2.0.0</td>
+       <td align="left">
+        このメソッドは、64 ビット整数型のプラットフォームで 2 GiB
+        を超えるサイズを正しく返せるようになりました。
+        また、それ以外のプラットフォームでも負の値を返すことがなくなりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-rarentry.getunpackedsize-examples">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <div class="example" id="example-788">
+    <p><b>例1  <span class="methodname"><b>RarEntry::getUnpackedSize()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$rar_file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">rar_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'example.rar'</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"Rar&nbsp;アーカイブのオープンに失敗しました"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$entry&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">rar_entry_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$rar_file</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Dir/file.txt'</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"そのようなエントリは見つかりません"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"展開後の&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getName</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;のサイズ&nbsp;=&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getUnpackedSize</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;バイト"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rarentry.getstream.html">RarEntry::getStream</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.getversion.html">RarEntry::getVersion</a></div>
+ <div class="up"><a href="class.rarentry.html">RarEntry</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

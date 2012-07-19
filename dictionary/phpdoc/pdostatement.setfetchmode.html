@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>この文に対するデフォルトのフェッチモードを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.setattribute.html">PDOStatement-&gt;setAttribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.pdoexception.html">PDOException</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdostatement.setfetchmode" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDOStatement->setFetchMode</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">PDOStatement-&gt;setFetchMode</span> &mdash; <span class="dc-title">
+   この文に対するデフォルトのフェッチモードを設定する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdostatement.setfetchmode-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDOStatement::setFetchMode</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDOStatement::setFetchMode</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_COLUMN</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$colno</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDOStatement::setFetchMode</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_CLASS</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$classname</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$ctorargs</tt></span>
+   )</div>
+
+
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDOStatement::setFetchMode</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$PDO::FETCH_INTO</tt></span>
+   , <span class="methodparam"><span class="type">object</span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pdostatement.setfetchmode-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       フェッチモードは、<i>PDO::FETCH_*</i> 定数の 1
+       つでなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">colno</tt></i></span>
+     <dd>
+
+      <p class="para">
+       カラム番号。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+    <span class="term"><i><tt class="parameter">classname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クラス名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ctorargs</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コンストラクタの引数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オブジェクト。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdostatement.setfetchmode-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功時は <i>1</i>、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdostatement.setfetchmode-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-965">
+    <p><b>例1 フェッチモードを設定する</b></p>
+    <div class="example-contents"><p>
+     以下の例は <span class="function"><b>PDOStatement::setFetchMode()</b></span>
+     がどの様に PDOStatementオブジェクトに対するデフォルトのフェッチモードを
+     変更するかを例示しています。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$sql&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;name,&nbsp;colour,&nbsp;calories&nbsp;FROM&nbsp;fruit'</span><span style="color: #007700">;<br />try&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$sql</span><span style="color: #007700">);<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setFetchMode</span><span style="color: #007700">(</span><span style="color: #0000BB">PDO</span><span style="color: #007700">::</span><span style="color: #0000BB">FETCH_NUM</span><span style="color: #007700">);<br />&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\t"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\t"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">[</span><span style="color: #0000BB">2</span><span style="color: #007700">]&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;}<br />}<br />catch&nbsp;(</span><span style="color: #0000BB">PDOException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+apple   red     150
+banana  yellow  250
+orange  orange  300
+kiwi    brown   75
+lemon   yellow  25
+pear    green   150
+watermelon      pink    90
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ 
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdostatement.setattribute.html">PDOStatement-&gt;setAttribute</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.pdoexception.html">PDOException</a></div>
+ <div class="up"><a href="class.pdostatement.html">PDOStatement</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Sets a function to be called at regular intervals</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gupnp-context-set-subscription-timeout.html">gupnp_context_set_subscription_timeout</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gupnp-context-unhost-path.html">gupnp_context_unhost_path</a></div>
+ <div class="up"><a href="ref.gupnp.html">Gupnp 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.gupnp-context-timeout-add" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">gupnp_context_timeout_add</h1>
+  <p class="verinfo">(PECL gupnp &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">gupnp_context_timeout_add</span> &mdash; <span class="dc-title">Sets a function to be called at regular intervals</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.gupnp-context-timeout-add-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>gupnp_context_timeout_add</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$context</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timeout</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$callback</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$arg</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   Sets a function to be called at regular intervals.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.gupnp-context-timeout-add-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">context</tt></i></span>
+     <dd>
+
+      <p class="para">
+       A context identifier, returned by <span class="function"><a href="function.gupnp-context-new.html" class="function">gupnp_context_new()</a></span>.
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timeout</tt></i></span>
+     <dd>
+
+      <p class="para">
+       A timeout in miliseconds.
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">callback</tt></i></span>
+     <dd>
+
+      <p class="para">
+       The callback function calling every <i><tt class="parameter">timeout</tt></i> period of time. 
+       Typically, callback function takes on <i><tt class="parameter">arg</tt></i> parameter.
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">arg</tt></i></span>
+     <dd>
+
+      <p class="para">
+       User data for <i><tt class="parameter">callback</tt></i>.
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.gupnp-context-timeout-add-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.gupnp-context-timeout-add-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3498">
+    <p><b>例1 Create new UPnP context and set callback</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$user_data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"user&nbsp;data"</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">timeout_cb</span><span style="color: #007700">(</span><span style="color: #0000BB">$arg</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Call&nbsp;timeout_cb,&nbsp;user&nbsp;data:&nbsp;'%s'"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$arg</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Create&nbsp;the&nbsp;UPnP&nbsp;context&nbsp;*/<br /></span><span style="color: #0000BB">$context&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gupnp_context_new</span><span style="color: #007700">();<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$context</span><span style="color: #007700">)&nbsp;{<br />&nbsp;die(</span><span style="color: #DD0000">"Error&nbsp;creating&nbsp;the&nbsp;GUPnP&nbsp;context\n"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;Create&nbsp;root&nbsp;device&nbsp;*/<br /></span><span style="color: #0000BB">$dev&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">gupnp_root_device_new</span><span style="color: #007700">(</span><span style="color: #0000BB">$context</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/devicedesc.xml"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Set&nbsp;callback&nbsp;for&nbsp;timeout&nbsp;*/<br /></span><span style="color: #0000BB">gupnp_context_timeout_add</span><span style="color: #007700">(</span><span style="color: #0000BB">$context</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5000</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"timeout_cb"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user_data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;Run&nbsp;the&nbsp;main&nbsp;loop&nbsp;*/<br /></span><span style="color: #0000BB">gupnp_root_device_start</span><span style="color: #007700">(</span><span style="color: #0000BB">$dev</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.gupnp-context-timeout-add-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   Issues E_WARNING with not valid callback function. 
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.gupnp-context-timeout-add-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.gupnp-context-new.html" class="function" rel="rdfs-seeAlso">gupnp_context_new()</a> - Create a new context</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gupnp-context-set-subscription-timeout.html">gupnp_context_set_subscription_timeout</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gupnp-context-unhost-path.html">gupnp_context_unhost_path</a></div>
+ <div class="up"><a href="ref.gupnp.html">Gupnp 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

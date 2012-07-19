@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したオブジェクトの集約情報を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.objaggregation.html">オブジェクトの集約関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.aggregate-methods-by-list.html">aggregate_methods_by_list</a></div>
+ <div class="up"><a href="ref.objaggregation.html">オブジェクトの集約関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.aggregate-info" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">aggregate_info</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0)</p><p class="refpurpose"><span class="refname">aggregate_info</span> &mdash; <span class="dc-title">
+   指定したオブジェクトの集約情報を取得する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.aggregate-info-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>aggregate_info</b></span>
+    ( <span class="methodparam"><span class="type">object</span> <tt class="parameter">$object</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">object</tt></i> で指定したオブジェクトについての
+   集約情報を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.aggregate-info-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.aggregate-info-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   指定したオブジェクトに関する集約の情報を返します。返される値は、
+   メソッドとプロパティの配列を要素とする連想配列形式となります。
+   連想配列のキーは、集約されたクラス名となります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.aggregate-info-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4241">
+    <p><b>例1 <span class="function"><b>aggregate_info()</b></span> の使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">Slicer&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">Slicer</span><span style="color: #007700">(</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">vegetable&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">slice_it</span><span style="color: #007700">(</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Doing&nbsp;some&nbsp;simple&nbsp;slicing\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;何らかのスライス処理<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">Dicer&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$rotation_angle&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">90</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;角度<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">Dicer</span><span style="color: #007700">(</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">vegetable&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$vegetable</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">dice_it</span><span style="color: #007700">(</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"最初のカットを行います\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;何らかのカット処理<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rotate</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rotation_angle</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"別の向きのカットを行います\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;(</span><span style="color: #0000BB">$i</span><span style="color: #007700">=</span><span style="color: #0000BB">0</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i&nbsp;</span><span style="color: #007700">&lt;&nbsp;</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">;&nbsp;</span><span style="color: #0000BB">$i</span><span style="color: #007700">++)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;さらに何らかのカット処理<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">rotate</span><span style="color: #007700">(</span><span style="color: #0000BB">$deg</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #007700">{</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">vegetable</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;を&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$deg</span><span style="color: #007700">}</span><span style="color: #DD0000">&nbsp;度回転します\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">_secret_super_dicing</span><span style="color: #007700">(</span><span style="color: #0000BB">$num_cuts</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;企業秘密なので、ナイショです&nbsp;(^o^)<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Slicer</span><span style="color: #007700">(</span><span style="color: #DD0000">'タマネギ'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">aggregate</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Dicer'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">aggregate_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$obj</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+      <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+      <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [dicer] =&gt; Array
+        (
+            [methods] =&gt; Array
+                (
+                    [0] =&gt; dice_it
+                    [1] =&gt; rotate
+                )
+
+            [properties] =&gt; Array
+                (
+                    [0] =&gt; rotation_angle
+                )
+
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+   ごらんのとおり、<b class="classname">Dicer</b> クラスのすべての
+   プロパティとメソッドが新しいオブジェクトに集約されました。
+   ただし、クラスのコンストラクタと
+    <span class="methodname"><b>_secret_super_dicing()</b></span>
+   メソッドは集約されていません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.aggregate-info-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.aggregate.html" class="function" rel="rdfs-seeAlso">aggregate()</a> - メソッドおよびプロパティの動的なクラス/オブジェクト集約を行う</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-methods.html" class="function" rel="rdfs-seeAlso">aggregate_methods()</a> - クラスのメソッドを、動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-methods-by-list.html" class="function" rel="rdfs-seeAlso">aggregate_methods_by_list()</a> - 選択したクラスメソッドを、動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-methods-by-regexp.html" class="function" rel="rdfs-seeAlso">aggregate_methods_by_regexp()</a> - 正規表現を使用して選択したクラスメソッドを、
+   動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-properties.html" class="function" rel="rdfs-seeAlso">aggregate_properties()</a> - クラスのプロパティを、動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-properties-by-list.html" class="function" rel="rdfs-seeAlso">aggregate_properties_by_list()</a> - 選択したクラスプロパティを、動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.aggregate-properties-by-regexp.html" class="function" rel="rdfs-seeAlso">aggregate_properties_by_regexp()</a> - 正規表現を使用して選択したクラスプロパティを、
+   動的にオブジェクトに集約する</span></li>
+    <li class="member"><span class="function"><a href="function.deaggregate.html" class="function" rel="rdfs-seeAlso">deaggregate()</a> - 集約されたメソッドやプロパティをオブジェクトから取り除く</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.objaggregation.html">オブジェクトの集約関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.aggregate-methods-by-list.html">aggregate_methods_by_list</a></div>
+ <div class="up"><a href="ref.objaggregation.html">オブジェクトの集約関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

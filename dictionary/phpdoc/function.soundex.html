@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列の soundex キーを計算する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.similar-text.html">similar_text</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sprintf.html">sprintf</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.soundex" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">soundex</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">soundex</span> &mdash; <span class="dc-title">文字列の soundex キーを計算する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.soundex-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>soundex</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$str</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">str</tt></i> の soundex キーを計算します。
+  </p>
+  <p class="para">
+   soundex キーには、似たような発音の単語に関して同じ
+   soundex キーが生成されるという特性があります。
+   このため、発音は知っているが、スペルがわからない場合に、
+   データベースを検索することを容易にすることができます。
+   soundex 関数は、ある文字から始まる 4 文字の文字列を返します。
+  </p>
+  <p class="para">
+   この soundex 関数についての説明は、Donald Knuth の &quot;The Art Of Computer Programming,
+   vol. 3: Sorting And Searching&quot;, Addison-Wesley (1973), pp. 391-392
+   にあります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.soundex-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">str</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.soundex-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   soundex キーを文字列で返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.soundex-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3992">
+    <p><b>例1 Soundex の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Euler"</span><span style="color: #007700">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Ellery"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;E460<br /></span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Gauss"</span><span style="color: #007700">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Ghosh"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;G200<br /></span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Hilbert"</span><span style="color: #007700">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Heilbronn"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;H416<br /></span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Knuth"</span><span style="color: #007700">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Kant"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;K530<br /></span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Lloyd"</span><span style="color: #007700">)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Ladd"</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;L300<br /></span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Lukasiewicz"</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #0000BB">soundex</span><span style="color: #007700">(</span><span style="color: #DD0000">"Lissajous"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;L222<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.soundex-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.levenshtein.html" class="function" rel="rdfs-seeAlso">levenshtein()</a> - 二つの文字列のレーベンシュタイン距離を計算する</span></li>
+    <li class="member"><span class="function"><a href="function.metaphone.html" class="function" rel="rdfs-seeAlso">metaphone()</a> - 文字列の metaphone キーを計算する</span></li>
+    <li class="member"><span class="function"><a href="function.similar-text.html" class="function" rel="rdfs-seeAlso">similar_text()</a> - 二つの文字列の間の類似性を計算する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.similar-text.html">similar_text</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sprintf.html">sprintf</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

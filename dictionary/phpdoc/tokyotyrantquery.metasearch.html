@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>複数のクエリからレコードを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyrantquery.key.html">TokyoTyrantQuery::key</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyrantquery.next.html">TokyoTyrantQuery::next</a></div>
+ <div class="up"><a href="class.tokyotyrantquery.html">TokyoTyrantQuery</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tokyotyrantquery.metasearch" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">TokyoTyrantQuery::metaSearch</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">TokyoTyrantQuery::metaSearch</span> &mdash; <span class="dc-title">複数のクエリからレコードを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-tokyotyrantquery.metasearch-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>TokyoTyrantQuery::metaSearch</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$queries</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   複数のクエリをデータベース上で実行し、マッチするレコードを返します。
+   現在のオブジェクトは常に、検索結果の一番左側のオブジェクトとなります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-tokyotyrantquery.metasearch-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">queries</tt></i></span>
+     <dd>
+
+      <p class="para">
+       TokyoTyrantQuery オブジェクトの配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TokyoTyrant::RDBMS_*</tt></b> 定数のいずれか。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-tokyotyrantquery.metasearch-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   マッチする行を返します。エラー時には TokyoTyrantException をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-tokyotyrantquery.metasearch-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1851">
+    <p><b>例1  <span class="methodname"><b>TokyoTyrantQuery::metaSearch()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;テーブルデータベースに接続します&nbsp;*/<br /></span><span style="color: #0000BB">$tt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">TokyoTyrantTable</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1979</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;テストデータを追加します&nbsp;*/<br /></span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">'cherry'</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'color'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">'strawberry'</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">'color'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">'apple'</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'color'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'green'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #DD0000">'lemon'</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'color'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;最初のクエリ&nbsp;*/<br /></span><span style="color: #0000BB">$query&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuery</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$query</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addCond</span><span style="color: #007700">(</span><span style="color: #DD0000">'color'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">::</span><span style="color: #0000BB">RDBQC_STREQ</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">setOrder</span><span style="color: #007700">(</span><span style="color: #DD0000">'color'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">::</span><span style="color: #0000BB">RDBQO_STRASC</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;次のクエリ&nbsp;*/<br /></span><span style="color: #0000BB">$query1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getQuery</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$query1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addCond</span><span style="color: #007700">(</span><span style="color: #DD0000">'color'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">::</span><span style="color: #0000BB">RDBQC_STREQ</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'yellow'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;ふたつのクエリの和集合を取得します&nbsp;*/<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">metaSearch</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$query1</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">TokyoTyrant</span><span style="color: #007700">::</span><span style="color: #0000BB">RDBMS_UNION</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [&quot;cherry&quot;]=&gt;
+  array(1) {
+    [&quot;color&quot;]=&gt;
+    string(3) &quot;red&quot;
+  }
+  [&quot;strawberry&quot;]=&gt;
+  array(1) {
+    [&quot;color&quot;]=&gt;
+    string(3) &quot;red&quot;
+  }
+  [&quot;lemon&quot;]=&gt;
+  array(1) {
+    [&quot;color&quot;]=&gt;
+    string(6) &quot;yellow&quot;
+  }
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-tokyotyrantquery.metasearch-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="tokyotyrantquery.search.html" class="methodname" rel="rdfs-seeAlso">TokyoTyrantQuery::search()</a> - レコードを検索する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyrantquery.key.html">TokyoTyrantQuery::key</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyrantquery.next.html">TokyoTyrantQuery::next</a></div>
+ <div class="up"><a href="class.tokyotyrantquery.html">TokyoTyrantQuery</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

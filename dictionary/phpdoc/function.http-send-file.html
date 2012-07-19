@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.http-send-data.html">http_send_data</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.http-send-last-modified.html">http_send_last_modified</a></div>
+ <div class="up"><a href="ref.http.html">HTTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.http-send-file" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">http_send_file</h1>
+  <p class="verinfo">(PECL pecl_http &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">http_send_file</span> &mdash; <span class="dc-title">ファイルを送信する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.http-send-file-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>http_send_file</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$file</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   (複数の) range リクエストをサポートするファイルを送信します。
+  </p>
+  <p class="para">
+   この関数の振る舞いおよびその後の動作は、以下の
+   <a href="http.configuration.html" class="link">INI 設定</a> 
+   <a href="http.configuration.html#http.configuration.send.not-found-404" class="link">http.send.not_found_404</a>
+    そして <a href="http.configuration.html#http.configuration.log.not-found" class="link">http.log.not_found</a>
+   に依存します。
+  </p>
+  <p class="para">
+   <a href="http.configuration.html" class="link">INI 設定</a> <a href="http.configuration.html#http.configuration.send.not-found-404" class="link">http.send.not_found_404</a>
+   が有効で <a href="http.configuration.html" class="link">INI 設定</a> <a href="http.configuration.html#http.configuration.log.not-found" class="link">http.log.not_found</a>
+   が書き込み可能なファイルを指している場合は、<i><tt class="parameter">file</tt></i>
+   が見つからないときにそこにログメッセージが書き込まれます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.http-send-file-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">file</tt></i></span>
+     <dd>
+
+      <p class="para">
+       送信するファイル。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.http-send-file-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+
+
+ 
+
+
+ <div class="refsect1 examples" id="refsect1-function.http-send-file-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3534">
+    <p><b>例1 <span class="function"><b>http_send_file()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />http_send_content_disposition</span><span style="color: #007700">(</span><span style="color: #DD0000">"document.pdf"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">http_send_content_type</span><span style="color: #007700">(</span><span style="color: #DD0000">"application/pdf"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">http_throttle</span><span style="color: #007700">(</span><span style="color: #0000BB">0.1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2048</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">http_send_file</span><span style="color: #007700">(</span><span style="color: #DD0000">"../report.pdf"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+HTTP/1.1 206 Partial Content
+X-Powered-By: PHP/5.2.2
+Accept-Ranges: bytes
+Content-Length: 12345
+Content-Range: bytes 0-12344
+Content-Type: application/pdf
+Content-Disposition: inline; filename=&quot;document.pdf&quot;
+
+%PDF...
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 seealso" id="refsect1-function.http-send-file-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.http-send-data.html" class="function" rel="rdfs-seeAlso">http_send_data()</a> - 任意のデータを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.http-send-stream.html" class="function" rel="rdfs-seeAlso">http_send_stream()</a> - ストリームを送信する</span></li>
+    <li class="member"><span class="function"><a href="function.http-throttle.html" class="function" rel="rdfs-seeAlso">http_throttle()</a> - HTTP 抑止処理</span></li>
+    <li class="member"><span class="function"><a href="function.http-send-content-type.html" class="function" rel="rdfs-seeAlso">http_send_content_type()</a> - Content-Type を送信する</span></li>
+    <li class="member"><span class="function"><a href="function.http-send-content-disposition.html" class="function" rel="rdfs-seeAlso">http_send_content_disposition()</a> - Content-Disposition を送信する</span></li>
+    <li class="member">PHP 5.1.0 以降を使用している場合は <a href="class.httpresponse.html" class="link"><b class="classname">HttpResponse</b></a> クラス</li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.http-send-data.html">http_send_data</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.http-send-last-modified.html">http_send_last_modified</a></div>
+ <div class="up"><a href="ref.http.html">HTTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

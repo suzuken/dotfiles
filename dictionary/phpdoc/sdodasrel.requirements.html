@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>要件</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdodasrel.setup.html">インストール/設定</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdodasrel.installation.html">インストール手順</a></div>
+ <div class="up"><a href="sdodasrel.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdodasrel.requirements" class="section">
+  <h2 class="title">要件</h2>
+  <p class="para">
+   リレーショナル DAS を使用するには、SDO 拡張モジュールがインストール
+   されている必要があります。SDO 拡張モジュールを使用するには、
+   PHP 5.1 以降のバージョンが必要で、リレーショナル DAS を使用するには
+   より新しいバージョンが必要となります。これには PDO の重要な修正が
+   含まれています。PHP の要件についての最新情報は、PECL パッケージの
+   CHANGELOG を参照ください。これを書いている時点では、リレーショナル
+   DAS に必要なのは PHP 5.1 の最新のベータ版、すなわち PHP 5.1.0 です。
+  </p>
+  <p class="para">
+   リレーショナル DAS は、PDO を使用してリレーショナルデータベースに
+   アクセスします。そのため、さまざまなリレーショナルデータベースで
+   実行できなければなりません。これを書いている時点では、以下の環境で
+   テスト済みです。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      MySQL 4.1.14 の Windows 版。
+      リレーショナル DAS は、PHP 5.1.0 のビルド済みバイナリに
+      含まれる php_pdo_mysql ドライバで正常に動作します。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      MySQL 4.1.13 の Linux 版。
+      MySQL 用 PDO ドライバの最新版が必要です。これは PHP 5.1.0 に
+      組み込まれています。もし既に PECL から通常のドライバを
+      インストールしている場合は、
+      <strong class="command">pear uninstall pdo_mysql</strong>
+      でそれをアンインストールします。その後、
+      <strong class="command">--with-pdo-mysql</strong> オプションを指定して
+      PHP の configure を行います。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      DB2 8.2 Personal Edition の Windows 版。
+      リレーショナル DAS は、PHP 5.1.0 のビルド済みバイナリに
+      含まれる php_pdo_odbc ドライバで正常に動作します。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      DB2 8.2 Personal Developer&#039;s Edition の Linux 版。
+      PHP の configure およびビルドの際に必要なインクルードファイルが
+      含まれているため、Developer&#039;s Edition を使用しなければなりません。
+      <strong class="command">--with-pdo-odbc=ibm-db2</strong> オプションを指定して
+      PHP の configure を行います。
+     </p>
+    </li>
+   </ul>
+  </p>
+
+  <p class="para">
+   リレーショナル DAS は、変更をデータベースに適用する際に
+   トランザクションを使用します。つまり、変更を適用する前には
+   <span class="function"><a href="pdo.begintransaction.html" class="function">PDO::beginTransaction()</a></span> をコールし、変更が完了すると
+   <span class="function"><a href="pdo.commit.html" class="function">PDO::commit()</a></span>
+   あるいは
+   <span class="function"><a href="pdo.rollback.html" class="function">PDO::rollback()</a></span>
+   をコールします。どのデータベースを選択するにしても、そのデータベース
+   および PDO ドライバはこれらのコールをサポートしていなければなりません。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdodasrel.setup.html">インストール/設定</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdodasrel.installation.html">インストール手順</a></div>
+ <div class="up"><a href="sdodasrel.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

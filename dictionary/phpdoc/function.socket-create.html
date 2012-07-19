@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソケット（通信時の終端）を作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-create-pair.html">socket_create_pair</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-get-option.html">socket_get_option</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-create" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_create</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_create</span> &mdash; <span class="dc-title">ソケット（通信時の終端）を作成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-create-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>socket_create</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$domain</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$protocol</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   通信のエンドポイント(終端)と呼ばれることもあるソケットのリソースを作成し、
+   返します。典型的なネットワーク接続は、2つのソケットから成り立ちます。
+   このとき、片方はクライアント、もう片方はサーバの役割をします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-create-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">domain</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パラメータ <i><tt class="parameter">domain</tt></i> には、
+       ソケットが利用するプロトコルファミリーを指定します。
+      </p>
+      <table class="doctable table">
+       <caption><b>指定可能なアドレス/プロトコルファミリーの一覧</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>ドメイン</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left"><b><tt>AF_INET</tt></b></td>
+          <td align="left">
+           IPv4 インターネットプロトコル。
+           このプロトコルファミリーに属するプロトコルとしてよく知られているのは、
+           TCP や UDP です。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>AF_INET6</tt></b></td>
+          <td align="left">
+           IPv6 インターネットプロトコル。TCP と UDP
+           が、このプロトコルファミリーで一般的なプロトコルです。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>AF_UNIX</tt></b></td>
+          <td align="left">
+           ローカルでのコミュニケーションに用いられるプロトコルファミリーです。
+           高い効率と低いオーバーヘッドを誇るため、IPC (プロセス間通信)
+           でよく使われます。
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">type</tt></i> パラメータは、
+       ソケットが利用する通信方式を指定します。
+      </p>
+      <table class="doctable table">
+       <caption><b>利用できるソケットのタイプ</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>タイプ</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left"><b><tt>SOCK_STREAM</tt></b></td>
+          <td align="left">
+           このタイプでは、時系列的、高信頼性、全二重、接続型のバイトストリームが利用できます。
+           帯域外のデータ転送メカニズムがサポートされている場合もあります。
+           TCP プロトコルは、このソケットタイプに基づきます。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SOCK_DGRAM</tt></b></td>
+          <td align="left">
+           このタイプでは、データグラム(非接続型で、信頼性の高くない
+           固定バイト長のメッセージ) がサポートされます。
+           UDP プロトコルは、このソケットタイプに基づきます。
+          </td>
+         </tr>
+
+           <tr valign="middle">
+          <td align="left"><b><tt>SOCK_SEQPACKET</tt></b></td>
+          <td align="left">
+           このタイプでは、時系列的な、信頼性のある、
+           双方向の接続指向型の固定長データグラム転送が利用できます。
+           パケットを消費する側は、一つのパケット全部を一度の
+           read コールで読み込む必要があります。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SOCK_RAW</tt></b></td>
+          <td align="left">
+           このタイプでは、素のネットワークプロトコルを操作できます。
+           この特殊なソケットを使って、どのタイプのプロトコルでもユーザの手で構築することができます。
+           よくある使い方として、(ping のような) ICMP リクエストの作成があります。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><b><tt>SOCK_RDM</tt></b></td>
+          <td align="left">
+           このタイプでは、信頼に足る、非時系列的なデータグラム転送が利用できます。
+           ほとんどのオペレーティングシステムでは実装されていないでしょう。
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">protocol</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">protocol</tt></i> は、ソケット上の通信で使われる
+       <i><tt class="parameter">domain</tt></i> で指定されたファミリーに属するプロトコルを指定します。
+       正しい値は、<span class="function"><a href="function.getprotobyname.html" class="function">getprotobyname()</a></span>
+       を使うことで取得できます。利用したいプロトコルが、TCP または UDP
+       の場合は、定数 <b><tt>SOL_TCP</tt></b> と
+       <b><tt>SOL_UDP</tt></b> を指定することもできます。
+      </p>
+      <table class="doctable table">
+       <caption><b>一般的なプロトコルの一覧</b></caption>
+       
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>名称</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left">icmp</td>
+          <td align="left">
+           Internet Control Message Protocol は、主にゲートウェイやホストが、
+           データグラム通信におけるエラーを報告するのに使われます。
+           &quot;ping&quot; コマンド (最近のほとんどのオペーレーティングシステムに
+           搭載されています) が ICMP アプリケーションの一例です。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">udp</td>
+          <td align="left">
+           User Datagram Protocol は、非接続指向の、信頼性の高くない、
+           固定のレコード長を用いるプロトコルです。このような側面のおかげで、
+           UDP はプロトコルとして最小限のオーバーへッドしか要求しません。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left">tcp</td>
+          <td align="left">
+           Transmission Control Protocol は、信頼性の高い、接続指向かつ
+           ストリーム指向の全二重通信プロトコルです。TCP は、
+           すべてのパケットが、送信された順序で(時系列的に)受信されることを
+           保証します。もし、何らかの理由でパケットが通信中に失われた場合、
+           TCP では、送信先から通知があるまで、パケットが再送信されるように
+           なっています。信頼性とパフォーマンス上の理由から、TCP の実装は、
+           下層にあるデータグラム通信レイヤーのオクテット幅を
+           適当な長さに決定します。このため、TCP アプリケーションは、
+           レコードの全部が一度に転送されない場合も考慮しなければなりません。
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-create-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>socket_create()</b></span> は、
+   成功時にソケットリソース、失敗時に <b><tt>FALSE</tt></b> を返します。
+   実際のエラーコードは、<span class="function"><a href="function.socket-last-error.html" class="function">socket_last_error()</a></span> を
+   コールすることにより取得できます。このエラーコードをさらに
+   <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span>に渡すことにより、
+   エラーの内容を文字列で取得することが可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.socket-create-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        定数 <b><tt>AF_INET6</tt></b> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.socket-create-errors">
+  <h3 class="title">エラー / 例外</h3>
+   <p class="para">
+    <i><tt class="parameter">domain</tt></i> や <i><tt class="parameter">type</tt></i> に
+    不正な値が与えられた場合、<span class="function"><b>socket_create()</b></span> は、これらを
+    それぞれ <b><tt>AF_INET</tt></b> と <b><tt>SOCK_STREAM</tt></b>
+    であるとみなし、<b><tt>E_WARNING</tt></b> メッセージを出します。
+   </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-create-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-accept.html" class="function" rel="rdfs-seeAlso">socket_accept()</a> - ソケットへの接続を許可する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-bind.html" class="function" rel="rdfs-seeAlso">socket_bind()</a> - ソケットに名前をバインドする</span></li>
+    <li class="member"><span class="function"><a href="function.socket-connect.html" class="function" rel="rdfs-seeAlso">socket_connect()</a> - ソケット上の接続を初期化する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-listen.html" class="function" rel="rdfs-seeAlso">socket_listen()</a> - ソケット上で接続待ち(listen)する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-last-error.html" class="function" rel="rdfs-seeAlso">socket_last_error()</a> - ソケットの直近のエラーを返す</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - ソケットエラーの内容を文字列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-create-pair.html">socket_create_pair</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-get-option.html">socket_get_option</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

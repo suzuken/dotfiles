@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>導入</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.phar.html">Phar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="intro.phar" class="preface">
+  <h1 class="title">導入</h1>
+  <p class="para">
+   phar 拡張モジュールは、PHP アプリケーション全体をひとつの &quot;phar&quot; (PHP Archive)
+   ファイルにまとめてしまい、配布やインストールを容易にするためのものです。
+   それだけでなく、phar 拡張モジュールではファイルフォーマットを抽象化する機能も提供しており、
+   tar 形式や zip 形式のファイルを
+   <a href="class.PharData.html" class="classname">PharData</a> クラスで扱うことができます。ちょうど
+   PDO がさまざまなデータベースへの統一インターフェイスを用意しているのと同じようなものです。
+   PDO では異なるデータベース間の変換はできませんが、
+   phar では tar、zip、phar ファイルフォーマット間の変換がコード 1 行だけでできてしまいます。
+   例として <span class="function"><a href="phar.converttoexecutable.html" class="function">Phar::convertToExecutable()</a></span> を参照ください。
+  </p>
+  <p class="para">
+   Phar って何? Phar アーカイブは、複数のファイルをひとつにまとめるための便利な仕組みです。
+   Phar アーカイブを使用すれば、PHP のアプリケーションをひとつのファイルとして配布できるようになります。
+   また、それをディスク上に展開しなくてもそのまま実行できるのです。
+   さらに、他のファイルと同様に PHP から phar アーカイブを実行することができます。
+   コマンドラインとウェブサーバ経由のどちらでも実行可能です。
+   phar は、いわば PHP アプリケーションにおける thumb drive のようなものです。
+  </p>
+  <p class="para">
+   Phar はこの機能を実装するために <a href="book.stream.html" class="link">ストリームラッパー</a>
+   を使用しています。通常は、PHP スクリプトから外部のファイルを使用するには
+   <span class="function"><a href="function.include.html" class="function">include()</a></span> を用います。
+  </p>
+  <p class="para">
+   <div class="example" id="example-667">
+    <p><b>例1 外部ファイルの使用</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;</span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'/path/to/external/file.php'</span><span style="color: #007700">;<br />&nbsp;</span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   PHP は、実際には
+   <i>/path/to/external/file.php</i> をストリームラッパー
+   <i>file:///path/to/external/file.php</i> とみなし、
+   内部的にはファイルストリームラッパーのストリーム関数でローカルファイルにアクセスしています。
+  </p>
+  <p class="para">
+   Phar アーカイブ <i>/path/to/myphar.phar</i>
+   の中に含まれるファイル <i>file.php</i> を使用する場合に構文は、
+   先ほどの <i>file://</i> 構文と似ています。
+  </p>
+  <p class="para">
+   <div class="example" id="example-668">
+    <p><b>例2 Phar アーカイブ内のファイルの使用</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;</span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'phar:///path/to/myphar.phar/file.php'</span><span style="color: #007700">;<br />&nbsp;</span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   実際のところ、phar アーカイブは外部ディスクと同様に扱うことができます。
+   <span class="function"><a href="function.fopen.html" class="function">fopen()</a></span> 系の関数や <span class="function"><a href="function.opendir.html" class="function">opendir()</a></span>、そして
+   <span class="function"><a href="function.mkdir.html" class="function">mkdir()</a></span> 系の関数を使用して、
+   phar アーカイブ内のファイルの読み書きや新しいファイルの作成が可能です。
+   これにより、完全な PHP アプリケーションを単一のファイルで配布して
+   そのままの形式で直接実行できるようになるのです。
+  </p>
+  <p class="para">
+   Phar アーカイブのもっとも一般的な使用法は、
+   完全なアプリケーションをひとつのファイルにまとめて配布することです。
+   たとえば、PHP に同梱されている PEAR インストーラは
+   phar アーカイブとして配布されています。
+   このような形式の phar アーカイブを使用するには、
+   コマンドラインあるいはウェブサーバからアーカイブを実行します。
+  </p>
+  <p class="para">
+   Phar アーカイブの配布形式は <i>tar</i> アーカイブか
+   <i>zip</i> アーカイブ、あるいは専用の <i>phar</i>
+   独自ファイルフォーマットのいずれかとなります。
+   それぞれの形式には利点と欠点があります。
+   tar 形式や zip 形式は、他のツールからでも内容を読んだり展開したりできるという利点がありますが、
+   それを実行する環境にも phar 拡張モジュールが必要となります。
+   phar 独自フォーマットは phar 拡張モジュール独自の形式です。
+   phar 拡張モジュールか PEAR パッケージ
+   <a href="http://pear.php.net/package/PHP_Archive" class="link external">&raquo; PHP_Archive</a>
+   にしか作成できません。しかし、この形式で作成したアプリケーションは
+   phar 拡張モジュールのない環境でも動作するという利点があります。
+  </p>
+  <p class="para">
+   言い換えると、phar 拡張モジュールが無効になっている環境でも
+   phar アーカイブを実行できるということです。
+   しかし、phar アーカイブ内の個別のファイルにアクセスするには、
+   (PHP_Archive で作成したものでない限り)
+   phar 拡張モジュールが必要です。
+  </p>
+  <p class="para">
+   phar 拡張モジュールには、tar ファイルを zip 形式や
+   phar 形式に変換する機能もあります。
+  </p>
+  <p class="para">
+   <div class="example" id="example-669">
+    <p><b>例3 phar 形式から tar 形式への phar アーカイブの変換</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />&nbsp;$phar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #DD0000">'myphar.phar'</span><span style="color: #007700">);<br />&nbsp;</span><span style="color: #0000BB">$pgz&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">convertToExecutable</span><span style="color: #007700">(</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">TAR</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">GZ</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;myphar.phar.tar.gz&nbsp;を作成します<br />&nbsp;</span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   phar には、特定のファイルあるいはアーカイブ全体を
+   <a href="book.zlib.html" class="link">gzip</a> あるいは
+   <a href="book.bzip2.html" class="link">bzip2</a> で圧縮する機能があります。
+   また、アーカイブの整合性を <span class="function"><a href="function.md5.html" class="function">md5()</a></span>、
+   <span class="function"><a href="function.sha1.html" class="function">sha1()</a></span>、<span class="function"><b>sha256()</b></span> あるいは <span class="function"><b>sha512()</b></span>
+   シグネチャで自動的に検証します。
+  </p>
+  <p class="para">
+   最後に、phar 拡張モジュールはセキュリティにも注意を払っており、
+   実行可能な phar アーカイブへの書き込みアクセスはデフォルトで無効にしています。
+   phar アーカイブを作成したり変更したりするには、php.ini の設定
+   <i>phar.readonly</i> をシステムレベルで無効にする必要があります。
+   通常の、実行可能属性がない tar アーカイブや zip アーカイブは、常に
+   <a href="class.PharData.html" class="classname">PharData</a> クラスで作成、変更することができます。
+  </p>
+  <p class="para">
+   アプリケーションを配布したい場合は
+   <a href="phar.creating.html" class="link">Phar アーカイブのつくりかた</a>
+   を読みましょう。phar がサポートする各形式の違いをより詳しく知りたい場合は
+   <a href="phar.fileformat.html" class="link">Phar、Tar そして Zip</a>
+   を読みましょう。
+  </p>
+  <p class="para">
+   phar 形式のアプリケーションを使用したい場合は
+   <a href="phar.using.html" class="link">Phar アーカイブの使いかた</a>
+   が参考となるでしょう。
+  </p>
+  <p class="para">
+   <i>phar</i> という単語は <i>PHP</i> と
+   <i>Archive</i> を組み合わせたもので、
+   Java 開発者ならおなじみの <i>jar</i> (Java Archive)
+   を参考にしています。
+  </p>
+  <p class="para">
+   Phar アーカイブの実装は PEAR の
+   <a href="http://pear.php.net/package/PHP_Archive" class="link external">&raquo; PHP_Archive</a>
+   パッケージに基づいています。実装の詳細は同じですが、
+   Phar 拡張モジュールのほうがずっと強力です。
+   さらに、Phar 拡張モジュールで作成した PHP アプリケーションは
+   ほとんどの場合は何も修正せずに動かすことができます。
+   PHP_Archive で作った phar アーカイブは、
+   動かす前に多少手を入れなければならないことがよくあります。
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="book.phar.html">Phar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.setup.html">インストール/設定</a></div>
+ <div class="up"><a href="book.phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

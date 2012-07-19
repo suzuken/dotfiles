@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ベンダ固有の属性を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.radius-get-attr.html">radius_get_attr</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.radius-put-addr.html">radius_put_addr</a></div>
+ <div class="up"><a href="ref.radius.html">Radius 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.radius-get-vendor-attr" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">radius_get_vendor_attr</h1>
+  <p class="verinfo">(PECL radius &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">radius_get_vendor_attr</span> &mdash; <span class="dc-title">ベンダ固有の属性を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.radius-get-vendor-attr-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>radius_get_vendor_attr</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$data</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><a href="function.radius-get-attr.html" class="function">radius_get_attr()</a></span> が
+   <b><tt>RADIUS_VENDOR_SPECIFIC</tt></b> を返す場合に、
+   ベンダを特定するために <span class="function"><b>radius_get_vendor_attr()</b></span>
+   をコールします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.radius-get-vendor-attr-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   属性の型、ベンダおよびデータを含む連想配列か、エラー時には
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.radius-get-vendor-attr-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-558">
+    <p><b>例1 <span class="function"><b>radius_get_vendor_attr()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$resa&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">radius_get_attr</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">))&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$resa</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"属性取得エラー:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #0000BB">radius_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$attr&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$resa</span><span style="color: #007700">[</span><span style="color: #DD0000">'attr'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$resa</span><span style="color: #007700">[</span><span style="color: #DD0000">'data'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"属性を取得:%d&nbsp;%d&nbsp;Bytes&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$attr</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">bin2hex</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$attr&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">RADIUS_VENDOR_SPECIFIC</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$resv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">radius_get_vendor_attr</span><span style="color: #007700">(</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">is_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$resv</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$vendor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$resv</span><span style="color: #007700">[</span><span style="color: #DD0000">'vendor'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$attrv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$resv</span><span style="color: #007700">[</span><span style="color: #DD0000">'attr'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$datav&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$resv</span><span style="color: #007700">[</span><span style="color: #DD0000">'data'</span><span style="color: #007700">];&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"ベンダ属性を取得:%d&nbsp;%d&nbsp;Bytes&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$attrv</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$datav</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">bin2hex</span><span style="color: #007700">(</span><span style="color: #0000BB">$datav</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.radius-get-vendor-attr-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.radius-get-attr.html" class="function" rel="rdfs-seeAlso">radius_get_attr()</a> - 属性を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.radius-put-vendor-attr.html" class="function" rel="rdfs-seeAlso">radius_put_vendor_attr()</a> - ベンダ固有のバイナリ属性を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.radius-get-attr.html">radius_get_attr</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.radius-put-addr.html">radius_put_addr</a></div>
+ <div class="up"><a href="ref.radius.html">Radius 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

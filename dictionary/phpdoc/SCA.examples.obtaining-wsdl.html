@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ウェブサービスとしてのサービスを提供する SCA コンポーネントの WSDL の取得</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.deploy.html">SCA コンポーネントの配置</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.understanding-wsdl.html">WSDL の作成方法について理解する</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.obtaining-wsdl" class="section">
+  <h2 class="title">ウェブサービスとしてのサービスを提供する SCA コンポーネントの WSDL の取得</h2>
+  
+  <p class="para"> 
+   ウェブサービスのインターフェイスを公開している
+   (つまり、@binding.soap アノテーションを持っている)
+   SCA コンポーネントは、HTTP リクエストのパラメータに &quot;wsdl&quot;
+   を指定されるとその WSDL 定義を返します。
+   つまり、WSDL を取得する一般的な方法は、URL の最後に &quot;?wsdl&quot;
+   をつけることです。以下の例では、
+   <span class="function"><a href="function.file-get-contents.html" class="function">file_get_contents()</a></span>
+   を使用してサービスの WSDL を取得し、それをテンポラリファイルに書き出します。
+   それをもとにして、サービスへのプロキシを取得します。
+   もちろん、WSDL をブラウザやその他の方法で取得して、自分でそれを保存することも可能です。
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-4346">
+    <p><b>例1 作成された WSDL</b></p>
+    <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;?php
+$wsdl = file_get_contents(&#039;http://www.example.com/Services/Example.php?wsdl&#039;);
+file_put_contents(&quot;service.wsdl&quot;,$wsdl); // wsdl をファイルに書き出します
+$service = SCA::getService(&#039;service.wsdl&#039;); 
+?&gt;</pre>
+</div>
+    </div>
+
+   </div>
+  </p>
+  
+  <p class="para">
+   注意: wsdl が xsd をインポートしている場合は、
+   それを個別に取得する必要があります。
+  </p>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.deploy.html">SCA コンポーネントの配置</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.understanding-wsdl.html">WSDL の作成方法について理解する</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

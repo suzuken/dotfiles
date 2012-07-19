@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>表記法宣言ハンドラを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xml-set-external-entity-ref-handler.html">xml_set_external_entity_ref_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xml-set-object.html">xml_set_object</a></div>
+ <div class="up"><a href="ref.xml.html">XML パーサ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xml-set-notation-decl-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xml_set_notation_decl_handler</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">xml_set_notation_decl_handler</span> &mdash; <span class="dc-title">表記法宣言ハンドラを設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xml-set-notation-decl-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>xml_set_notation_decl_handler</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$parser</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$handler</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   XML パーサ <i><tt class="parameter">parser</tt></i> の表記法宣言用ハンドラ関数を設定します。
+  </p>
+  <p class="para">
+   表記法の宣言は、ドキュメントの DTD の一部であり、
+   次のようなフォーマットとなります。
+   <div class="example-contents">
+<div class="xmlcode"><pre class="xmlcode">&lt;!NOTATION &lt;parameter&gt;name&lt;/parameter&gt;
+{ &lt;parameter&gt;systemId&lt;/parameter&gt; | &lt;parameter&gt;publicId&lt;/parameter&gt;?&gt;</pre>
+</div>
+   </div>
+
+   表記法宣言の定義に関しては、
+   <a href="http://www.w3.org/TR/1998/REC-xml-19980210#Notations" class="link external">&raquo; XML 1.0 仕様の 4.7 節</a> 
+   を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xml-set-notation-decl-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parser</tt></i></span>
+     <dd>
+
+      <p class="para">
+       表記法宣言ハンドラ関数を設定する XML パーサへの参照。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">handler</tt></i> は、
+       <i><tt class="parameter">parser</tt></i> に関して <span class="function"><a href="function.xml-parse.html" class="function">xml_parse()</a></span> 
+       がコールされた際に必要な関数の名前を有する文字列です。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">handler</tt></i> という名前の関数は、5つのパラメータをとる必要があります。
+       <div class="methodsynopsis dc-description">
+         <span class="methodname"><span class="replaceable">handler</span></span>
+         ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$parser</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$notation_name</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$base</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$system_id</tt></span>
+        , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$public_id</tt></span>
+        )</div>
+
+       <dl>
+
+        <dt>
+
+         <span class="term">
+          <i><tt class="parameter">parser</tt></i>
+         </span> 
+         <dd>
+
+          <span class="simpara">
+           最初のパラメータ、<span class="replaceable">parser</span> は
+           ハンドラをコールする XML パーサへのリファレンスです。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">notation_name</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           これは、前記の表記用フォーマットに示すように表記法の
+           <i><tt class="parameter">名前</tt></i> です。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <i><tt class="parameter">base</tt></i>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           外部エンティティのシステムID(<i><tt class="parameter">systemId</tt></i>)を
+           取得する際の基本となります。現在、このパラメータは、常に空の
+           文字列に設定されています。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><i><tt class="parameter">system_id</tt></i></span>
+         <dd>
+
+          <span class="simpara">
+           外部表記用宣言のシステム ID
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term">
+          <i><tt class="parameter">public_id</tt></i>
+         </span>
+         <dd>
+
+          <span class="simpara">
+           外部表記用宣言のパブリック ID
+          </span>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+      <p class="para">
+       ハンドラ関数が空の文字列または <b><tt>FALSE</tt></b>
+       に設定されていた場合、そのハンドラは無効となります。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">関数名の代わりに、オブジェクトへの
+リファレンスを格納した配列とメソッド名を指定することもできます。</span></p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xml-set-notation-decl-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xml-set-external-entity-ref-handler.html">xml_set_external_entity_ref_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xml-set-object.html">xml_set_object</a></div>
+ <div class="up"><a href="ref.xml.html">XML パーサ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>elseif/else if</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="control-structures.else.html">else</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="control-structures.alternative-syntax.html">制御構造に関する別の構文</a></div>
+ <div class="up"><a href="language.control-structures.html">制御構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="control-structures.elseif" class="sect1">
+ <h2 class="title"><i>elseif</i>/<i>else if</i></h2>
+ <p class="para">
+  <i>elseif</i>は、その名前から分かるように、<i>if</i>
+  と<i>else</i>の組み合わせです。<i>elseif</i>は、
+  <i>else</i>のように、元の<i>if</i>式の値が
+  <b><tt>FALSE</tt></b>の場合に別の文を実行するように<i>if</i>
+  文を拡張します。
+  しかし、<i>else</i>とは異なり、<i>elseif</i>式が
+  <b><tt>TRUE</tt></b>の場合にのみ代わりの式を実行します。
+  例えば、次のコードは、<span class="computeroutput">aはbより大きい</span>、
+  <span class="computeroutput">aはbに等しい</span>、
+  <span class="computeroutput">aはbより小さい</span>を出力します。
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"aはbより大きい"</span><span style="color: #007700">;<br />}&nbsp;elseif&nbsp;(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"aはbと等しい"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"aはbより小さい"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="simpara">
+  複数の <i>elseif</i> を同じ <i>if</i>
+  文の中で使用することができます。
+  <b><tt>TRUE</tt></b> と評価された最初の <i>elseif</i>
+  式を実行します。PHP では、(単語二つで)&#039;else if&#039;と書くこともできます。
+  動作は(一単語の) &#039;elseif&#039;と同じです。文法的な意味はやや異なっています
+  (あなたが C 言語に詳しいとすると、C 言語のそれと同じ動作です)。
+  しかし、最終的な両者の動作は全く同じです。
+ </p>
+ <p class="simpara">
+  <i>elseif</i> 文は、前にある全ての <i>if</i> 文と
+  <i>elseif</i> の値が <b><tt>FALSE</tt></b> であり、
+  現在の <i>elseif</i> 式の値が <b><tt>TRUE</tt></b>
+  である場合にのみ実行されます。
+ </p>
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <span class="simpara">
+   上の例のように波括弧を使用する限り、
+   <i>elseif</i> と <i>else if</i>
+   はまったく同じだと考えてよいことに注意しましょう。コロンを使って
+   <i>if</i>/<i>elseif</i> 条件を指定する場合は、
+   <i>else if</i> のように分割してはいけません。
+   分割すると、パースエラーとなってしまいます。
+  </span>
+ </p></blockquote>
+ <p class="para">
+  <div class="informalexample">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;間違った方法&nbsp;*/<br /></span><span style="color: #007700">if(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">):<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"&nbsp;is&nbsp;greater&nbsp;than&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />else&nbsp;if(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">):&nbsp;</span><span style="color: #FF8000">//&nbsp;コンパイル不能<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"The&nbsp;above&nbsp;line&nbsp;causes&nbsp;a&nbsp;parse&nbsp;error."</span><span style="color: #007700">;<br />endif;<br /><br /><br /></span><span style="color: #FF8000">/*&nbsp;正しい方法&nbsp;*/<br /></span><span style="color: #007700">if(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">):<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"&nbsp;is&nbsp;greater&nbsp;than&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />elseif(</span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">):&nbsp;</span><span style="color: #FF8000">//&nbsp;二つの単語を分割せず組み合わせていることに注目<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"&nbsp;equals&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />else:<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"&nbsp;is&nbsp;neither&nbsp;greater&nbsp;than&nbsp;or&nbsp;equal&nbsp;to&nbsp;"</span><span style="color: #007700">.</span><span style="color: #0000BB">$b</span><span style="color: #007700">;<br />endif;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="control-structures.else.html">else</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="control-structures.alternative-syntax.html">制御構造に関する別の構文</a></div>
+ <div class="up"><a href="language.control-structures.html">制御構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

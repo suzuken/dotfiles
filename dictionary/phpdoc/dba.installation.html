@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>インストール手順</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="dba.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="dba.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="dba.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="dba.installation" class="section">
+ <h2 class="title">インストール手順</h2>
+ <p class="para">
+  設定オプション <strong class="option configure">--enable-dba=shared</strong>
+
+  を使用することにより、dbm 形式のデータベースをサポートする動的に
+  ロード可能なモジュールを有効にして PHP を構築することができます。
+  また、PHP の configure 行に設定スイッチ <i>--with-XXXX</i>
+  を指定することにより、少なくとも以下のハンドラの一つのサポートを
+  追加する必要があります。
+ </p>
+ <div class="warning"><b class="warning">警告</b>
+  <p class="para">
+   PHP の configuring とコンパイルを済ませたら、コマンドラインから次の
+   テストを実行する必要があります: <i>php run-tests.php ext/dba</i>
+   これは、指定したハンドラの組み合わせが動作するかどうかを調べます。
+   いちばん問題のあるのは <i>dbm</i> と <i>ndbm</i>
+   の組み合わせで、これらは多くの場合何らかの衝突を引き起こします。
+   その原因は、いくつかのシステムではこれらのライブラリが他のライブラリの
+   一部となっていることで。configure 時のテストでは個々のハンドラについての
+   設定不備は調べられますが、それらの組み合わせについてはテストできません。
+  </p>
+ </div>
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>サポートされるDBAハンドラ</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>ハンドラ</th>
+      <th>configure のスイッチ</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><i>dbm</i></td>
+      <td align="left">
+       dbm のサポートを有効にするには、
+       <strong class="option configure">--with-dbm[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         dbm は一般的にはラッパで、しばしば失敗を引き起こします。
+         その動作をしっかり把握しており、ほんとうにそれを必要とする場合のみ
+         dbm を使用するようにすべきです。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>ndbm</i></td>
+      <td align="left">
+       ndbm のサポートを有効にするには、
+       <strong class="option configure">--with-ndbm[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         ndbm は一般的にはラッパで、しばしば失敗を引き起こします。
+         その動作をしっかり把握しており、ほんとうにそれを必要とする場合のみ
+         ndbm を使用するようにすべきです。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>gdbm</i></td>
+      <td align="left">
+       gdbm のサポートを有効にするには、
+       <strong class="option configure">--with-gdbm[=DIR]</strong>
+ を追加します。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>db2</i></td>
+      <td align="left">
+       Oracle Berkeley DB のサポートを有効にするには、
+       <strong class="option configure">--with-db2[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         db2 は db3 および db4 とは同時に使えません。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>db3</i></td>
+      <td align="left">
+       Oracle Berkeley DB 3 のサポートを有効にするには、
+       <strong class="option configure">--with-db3[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         db3 は db2 および db4 とは同時に使えません。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>db4</i></td>
+      <td align="left">
+       Oracle Berkeley DB 4 あるいは 5 のサポートを有効にするには、
+       <strong class="option configure">--with-db4[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         db4 は db2 および db3 とは同時に使えません。
+        </p>
+       </p></blockquote>
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         この db4 オプションは PHP 4.3.2 で追加されました。これ以前のバージョンでは、
+         <strong class="option configure">--with-db3=DIR</strong>
+ を使用し、
+         DIR に db4 ライブラリのパスを指定する必要する必要があります。
+         バージョン 4.3.0 より前の PHP では、4.1 以降のバージョンの db
+         を使用することはできません。また、バージョン 4.1 から 4.1.24
+         までの db ライブラリは、どの PHP のバージョンでも利用できません。
+        </p>
+        <p class="para">
+         BDB 5 のサポートは PHP 5.3.3 で追加されました。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>cdb</i></td>
+      <td align="left">
+       cdb のサポートを有効にするには、
+       <strong class="option configure">--with-cdb[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         PHP 4.3.0 以降、付属する cdb ライブラリを使用するために DIR
+         を省略することができます。この場合、cdb_make ハンドラが追加されます。
+         これにより cdb ファイルを作成したり、PHPのストリームを用いて
+         ネットワーク上の cdb ファイルにアクセスできるようになります。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>flatfile</i></td>
+      <td align="left">
+       flatfile のサポートを有効にするには、
+       <strong class="option configure">--with-flatfile</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         これは、古い <i>dbm</i> 拡張モジュール
+         との互換性のために PHP 4.3.0 で追加されました。
+         このハンドラは、他のハンドラで必要とされるライブラリをひとつも
+         インストールすることができない場合、そして、付属する cdb
+         ハンドラを使用することができない場合にのみ使用してください。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>inifile</i></td>
+      <td align="left">
+       inifile のサポートを有効にするには、
+       <strong class="option configure">--with-inifile</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         これは PHP 5.0.0 で追加されました。これにより Microsoft 形式の
+         <var class="filename">.ini</var> ファイル（<var class="filename">php.ini</var> のような）を
+         読み書きできるようになります。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left"><i>qdbm</i></td>
+      <td align="left">
+       qdbm のサポートを有効にするには、
+       <strong class="option configure">--with-qdbm[=DIR]</strong>
+ を追加します。
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         qdbm は dbm および gdbm とは同時に使えません。
+        </p>
+       </p></blockquote>
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         これは PHP 5.0.0 で追加されました。qdbm ライブラリは
+         <a href="http://fallabs.com/qdbm/index.html" class="link external">&raquo; http://fallabs.com/qdbm/index.html</a>
+         にあります。
+        </p>
+       </p></blockquote>
+      </td>
+     </tr>
+
+
+    </tbody>
+   
+  </table>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 4.3.0 までは、db2 および db3 ハンドラの両方を追加することが
+    できましたが、内部的に使用できるのは片方だけでした。
+    これは、両方のファイル形式を使用することができないことを意味します。
+    PHP 5.0.0 以降、このような設定ミスを回避するよう設定の確認が行われます。
+   </p>
+  </p></blockquote>
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="dba.requirements.html">要件</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="dba.configuration.html">実行時設定</a></div>
+ <div class="up"><a href="dba.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

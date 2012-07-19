@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>mnoGoSearch セッションを確保する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.udm-alloc-agent-array.html">udm_alloc_agent_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.udm-api-version.html">udm_api_version</a></div>
+ <div class="up"><a href="ref.mnogosearch.html">mnoGoSearch 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.udm-alloc-agent" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">udm_alloc_agent</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.5, PHP 5 &lt;= 5.0.5, PECL mnogosearch &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">udm_alloc_agent</span> &mdash; <span class="dc-title">mnoGoSearch セッションを確保する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.udm-alloc-agent-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>udm_alloc_agent</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbaddr</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbmode</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   mnoGoSearch セッションを割り当てます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.udm-alloc-agent-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dbaddr</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">dbaddr</tt></i> - URL 形式のデータベース名。SQL
+       データベースへ接続する際のオプション (型、ホスト、データベース名、
+       ポート、ユーザ、パスワード)。
+       組み込みのテキストファイルサポートには関係ありません。
+       フォーマットは以下のようになります。
+       <i>DBType:[//[DBUser[:DBPass]@]DBHost[:DBPort]]/DBName/</i>
+       現在、サポートされている DBType の値は mysql,
+       pgsql, msql, solid, mssql, oracle, ibase です。
+       実際、ネーティブなライブラリのサポートは重要ではありません。しかし、
+       ODBC ユーザは、サポートされる値の一つを指定する必要があります。
+       使用するデータベース型がサポートされていない場合、<i>unknown</i>
+       を代わりに使用することも可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dbmode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">dbmode</tt></i> - 単語の記憶用 SQL データベース
+       モードを選択可能です。<i><tt class="parameter">dbmode</tt></i> でとりうる値は
+       <i>single</i>、<i>multi</i>、<i>crc</i>
+       あるいは <i>crc-multi</i> です。
+       <i>single</i> を指定した場合、全ての単語が同じ
+       テーブルに保存されます。<i>multi</i> を選択した場合、
+       単語はその長さに応じて別々のテーブルに保存されます。通常は &quot;multi&quot;
+       モードの方が通常高速ですが、データベース上でより多くのテーブルを
+       必要とします。&quot;crc&quot; モードが選択された場合、mnoGoSearch は、単語の
+       代わりに CRC32 アルゴリズムで計算された 32 ビット整数の単語 ID を
+       保存します。このモードで必要なディスク容量はより小さいですが、
+       &quot;single&quot; および &quot;multi&quot; モードと比較してより高速です。
+       <i>crc-multi</i> は、&quot;crc&quot; モードと同じ記憶構造を
+       使用しますが、&quot;multi&quot; モードのように単語長に応じて別々のデータベースに
+       単語を保存します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <i><tt class="parameter">dbaddr</tt></i> および
+    <i><tt class="parameter">dbmode</tt></i> は、インデックス作成時に使用される
+    これらの選択肢に一致している必要があります。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.udm-alloc-agent-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に mnogosearch エージェント ID、失敗した場合に <b><tt>FALSE</tt></b>
+   を返します。この関数は、データベースパラメータを有するセッションを
+   生成します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.udm-alloc-agent-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    実際、これらの関数はデータベースへの接続をオープンする必要はなく、
+    よって、ログイン名やパスワードを確認しません。実際のデータベースへの
+    接続およびログイン/パスワード認証は、
+    <span class="function"><a href="function.udm-find.html" class="function">udm_find()</a></span> で行われます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.udm-alloc-agent-array.html">udm_alloc_agent_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.udm-api-version.html">udm_api_version</a></div>
+ <div class="up"><a href="ref.mnogosearch.html">mnoGoSearch 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

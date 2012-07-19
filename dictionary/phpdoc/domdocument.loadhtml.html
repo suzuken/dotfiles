@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列から HTML を読み込む</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.load.html">DOMDocument::load</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.loadhtmlfile.html">DOMDocument::loadHTMLFile</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="domdocument.loadhtml" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DOMDocument::loadHTML</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">DOMDocument::loadHTML</span> &mdash; <span class="dc-title">
+   文字列から HTML を読み込む
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-domdocument.loadhtml-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>DOMDocument::loadHTML</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$source</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、文字列 <i><tt class="parameter">source</tt></i> に含まれる HTML を
+   パースします。XML を読み込む場合とは異なり、妥当な HTML でなくても
+   読み込むことができます。この関数をスタティックにコールすると、
+   読み込んだ内容をもとに <a href="class.domdocument.html" class="classname">DOMDocument</a>
+   オブジェクトを作成します。
+   読み込み前に <a href="class.domdocument.html" class="classname">DOMDocument</a> のプロパティを
+   設定する必要がない場合に、スタティックに実行することがあるでしょう。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-domdocument.loadhtml-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">source</tt></i></span>
+     <dd>
+
+      <p class="para">
+       HTML 文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-domdocument.loadhtml-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+   静的にコールされた場合には <a href="class.domdocument.html" class="classname">DOMDocument</a> を返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-domdocument.loadhtml-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   空の文字列を <i><tt class="parameter">source</tt></i> に渡すと、警告が発生します。
+   この警告は libxml が発するものではないので、libxml
+   のエラー処理関数では処理できません。
+  </p>
+  <p class="para">このメソッドは、静的にコールすることも
+<em class="emphasis">できはしますが</em>、<b><tt>E_STRICT</tt></b> エラーが発生します。</p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-domdocument.loadhtml-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4431">
+    <p><b>例1 ドキュメントを作成する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$doc&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DOMDocument</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">loadHTML</span><span style="color: #007700">(</span><span style="color: #DD0000">"&lt;html&gt;&lt;body&gt;Test&lt;br&gt;&lt;/body&gt;&lt;/html&gt;"</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$doc</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">saveHTML</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-domdocument.loadhtml-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="domdocument.loadhtmlfile.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::loadHTMLFile()</a> - ファイルから HTML を読み込む</span></li>
+    <li class="member"> <span class="methodname"><a href="domdocument.savehtml.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::saveHTML()</a> - 内部のドキュメントを HTML 形式の文字列として出力する</span></li>
+    <li class="member"> <span class="methodname"><a href="domdocument.savehtmlfile.html" class="methodname" rel="rdfs-seeAlso">DOMDocument::saveHTMLFile()</a> - 内部のドキュメントを HTML 形式でファイルに出力する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="domdocument.load.html">DOMDocument::load</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="domdocument.loadhtmlfile.html">DOMDocument::loadHTMLFile</a></div>
+ <div class="up"><a href="class.domdocument.html">DOMDocument</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

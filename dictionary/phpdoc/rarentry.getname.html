@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>エントリの名前を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rarentry.getmethod.html">RarEntry::getMethod</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.getpackedsize.html">RarEntry::getPackedSize</a></div>
+ <div class="up"><a href="class.rarentry.html">RarEntry</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="rarentry.getname" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">RarEntry::getName</h1>
+  <p class="verinfo">(PECL rar &gt;= 0.1)</p><p class="refpurpose"><span class="refname">RarEntry::getName</span> &mdash; <span class="dc-title">エントリの名前を取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-rarentry.getname-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">string</span> <span class="methodname"><b>RarEntry::getName</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   アーカイブエントリの名前 (パスつき) を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-rarentry.getname-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-rarentry.getname-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エントリ名を表す文字列、あるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+  <div class="refsect1 changelog" id="refsect1-rarentry.getname-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">2.0.0</td>
+       <td align="left">
+        バージョン 2.0.0 以降、返される文字列のエンコードは Unicode/UTF-8 となりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-rarentry.getname-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-785">
+    <p><b>例1  <span class="methodname"><b>RarEntry::getName()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;このサンプルは、ページが&nbsp;UTF-8&nbsp;でエンコードされていなくても安全です。<br />//&nbsp;UTF-8&nbsp;でエンコードされているページの場合は&nbsp;mb_convert_encoding&nbsp;は不要です。<br /><br /></span><span style="color: #0000BB">$rar_file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">rar_open</span><span style="color: #007700">(</span><span style="color: #DD0000">'example.rar'</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"Rar&nbsp;アーカイブのオープンに失敗しました"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$entry&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">rar_entry_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$rar_file</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Dir/file.txt'</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"そのようなエントリは見つかりません"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Entry&nbsp;name:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mb_convert_encoding</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">htmlentities</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$entry</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getName</span><span style="color: #007700">(),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">ENT_COMPAT</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"UTF-8"<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"HTML-ENTITIES"</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"UTF-8"<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="rarentry.getmethod.html">RarEntry::getMethod</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="rarentry.getpackedsize.html">RarEntry::getPackedSize</a></div>
+ <div class="up"><a href="class.rarentry.html">RarEntry</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

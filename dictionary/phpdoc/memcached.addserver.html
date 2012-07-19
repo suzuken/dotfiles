@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>サーバをサーバプールに追加する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.addbykey.html">Memcached::addByKey</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.addservers.html">Memcached::addServers</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcached.addserver" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Memcached::addServer</h1>
+  <p class="verinfo">(PECL memcached &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">Memcached::addServer</span> &mdash; <span class="dc-title">サーバをサーバプールに追加する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-memcached.addserver-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>Memcached::addServer</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$weight</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>Memcached::addServer()</b></span> は、指定したサーバをサーバプールに追加します。
+   この時点では、サーバへの接続は確立されません。しかし、一貫性のあるキー分散オプションを
+   (<b><tt>Memcached::DISTRIBUTION_CONSISTENT</tt></b> あるいは
+   <b><tt>Memcached::OPT_LIBKETAMA_COMPATIBLE</tt></b> で) 指定した場合は、
+   内部データ構造のうちの一部が更新されます。
+   したがって、もし複数のサーバを追加したい場合は、
+    <span class="methodname"><a href="memcached.addservers.html" class="methodname">Memcached::addServers()</a></span> を使用するほうがよいでしょう。
+   その場合、更新は一度しか発生しません。
+  </p>
+  <p class="para">
+   同じサーバがサーバプール内で複数回あらわれることもあります。
+   重複チェックはしていないからです。これは望ましい状態ではありません。
+   その代わりに <i><tt class="parameter">weight</tt></i> オプションを使用して、
+   このサーバを選択する重みを増やします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-memcached.addserver-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcache サーバのホスト名。ホスト名が無効な場合は、データ関連の操作の結果コードに
+       <b><tt>Memcached::RES_HOST_LOOKUP_FAILURE</tt></b> が設定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       memcache が動作しているポート。通常、これは
+       <i>11211</i> となります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">weight</tt></i></span>
+     <dd>
+
+      <p class="para">
+       プール内の全サーバにおけるそのサーバの重み。
+       これで、何か操作をしたときにそのサーバが選択される確率を制御します。
+       これは、一貫性のある分散オプションを使っている場合にのみ使用でき、
+       通常はそのサーバ上で memcache が使用できるメモリの量に対応したものとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-memcached.addserver-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-memcached.addserver-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3578">
+    <p><b>例1 <span class="function"><b>Memcached::addServer()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;2&nbsp;つのサーバを追加し、2&nbsp;番目のサーバが<br />&nbsp;&nbsp;&nbsp;最初のサーバの&nbsp;2&nbsp;倍の確率で選択されるようにします&nbsp;*/<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem1.domain.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">33</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'mem2.domain.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">67</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-memcached.addserver-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="memcached.addservers.html" class="methodname" rel="rdfs-seeAlso">Memcached::addServers()</a> - 複数のサーバをサーバプールに追加する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.addbykey.html">Memcached::addByKey</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.addservers.html">Memcached::addServers</a></div>
+ <div class="up"><a href="class.memcached.html">Memcached</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

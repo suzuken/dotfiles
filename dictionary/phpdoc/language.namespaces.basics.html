@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>名前空間の使用法: 基本編</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.definitionmultiple.html">同一ファイル内での複数の名前空間の定義</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.dynamic.html">名前空間と動的言語機能</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.namespaces.basics" class="sect1">
+  <h2 class="title">名前空間の使用法: 基本編</h2>
+  <p class="para">
+   名前空間の使い方についてあれこれ言う前に、まずは
+   PHP がどのようにしてコード中の要素の名前空間を知るのかを理解しておくことが重要です。
+   PHP の名前空間は、ファイルシステムにたとえて考えることができます。
+   たとえば、ファイルシステム内のファイルにアクセスするには次の 3 つの方法があります。
+   <ol type="1">
+    <li class="listitem">
+     <span class="simpara">
+      <i>foo.txt</i> のような相対ファイル名を使う。これは
+      <i>currentdirectory/foo.txt</i> と解釈されます。ここで、
+      currentdirectory は現在いるディレクトリを表します。したがって、カレントディレクトリが
+      <i>/home/foo</i> であった場合はこれは <i>/home/foo/foo.txt</i>
+      となります。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>subdirectory/foo.txt</i> のような相対パス名を使う。これは
+      <i>currentdirectory/subdirectory/foo.txt</i> と解釈されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>/main/foo.txt</i> のような絶対パス名を使う。これは
+      <i>/main/foo.txt</i> と解釈されます。
+     </span>
+    </li>
+   </ol>
+   PHP の名前空間内の要素についても同じ理屈があてはまります。
+   たとえば、クラス名を参照するには次の 3 つの方法があります。
+   <ol type="1">
+    <li class="listitem">
+     <span class="simpara">
+      <i>$a = new foo();</i> あるいは
+      <i>foo::staticmethod();</i> のような非修飾名
+      あるいはプレフィックスなしのクラス名。
+      現在の名前空間が <i>currentnamespace</i> である場合、これは
+      <i>currentnamespace\foo</i> と解釈されます。
+      名前空間に属さないグローバルなコードにおいては、これは
+      <i>foo</i> と解釈されます。
+     </span>
+     <span class="simpara">
+      注意: 修飾されていない関数や定数は、名前空間内にその関数や定数がなければ
+      グローバルな関数あるいは変数とみなされます。詳細は
+      <a href="language.namespaces.fallback.html" class="link">名前空間の使用法:
+      グローバルな関数/定数への移行</a> を参照ください。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>$a = new subnamespace\foo();</i> あるいは
+      <i>subnamespace\foo::staticmethod();</i> のような修飾名
+      あるいはプレフィックスつきクラス名。
+      現在の名前空間が <i>currentnamespace</i> である場合、これは
+      <i>currentnamespace\subnamespace\foo</i> と解釈されます。
+      名前空間に属さないグローバルなコードにおいては、これは
+      <i>subnamespace\foo</i> と解釈されます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i>$a = new \currentnamespace\foo();</i> あるいは
+      <i>\currentnamespace\foo::staticmethod();</i> のような完全修飾名
+      あるいはグローバルプレフィックス演算子つきのクラス名。
+      これは、常にコードで記述されたとおりの名前である
+      <i>currentnamespace\foo</i> と解釈されます。
+     </span>
+    </li>
+   </ol>
+  </p>
+  <p class="para">
+   これら 3 つの構文を実際のコードで使う例を次に示します。
+   <div class="informalexample">
+    <p class="simpara">file1.php</p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">FOO&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{}<br />class&nbsp;</span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">()&nbsp;{}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <p class="simpara">file2.php</p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">;<br />include&nbsp;</span><span style="color: #DD0000">'file1.php'</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">FOO&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />function&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">()&nbsp;{}<br />class&nbsp;</span><span style="color: #0000BB">foo<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">()&nbsp;{}<br />}<br /><br /></span><span style="color: #FF8000">/*&nbsp;非修飾名&nbsp;*/<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\foo&nbsp;関数と解釈されます<br /></span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\foo&nbsp;クラスの&nbsp;staticmethod&nbsp;メソッドと解釈されます<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;定数&nbsp;Foo\Bar\FOO&nbsp;と解釈されます<br /><br />/*&nbsp;修飾名&nbsp;*/<br /></span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\subnamespace\foo&nbsp;関数と解釈されます<br /></span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\subnamespace\foo&nbsp;クラスの<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;staticmethod&nbsp;メソッドと解釈されます<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">subnamespace</span><span style="color: #007700">\</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;定数&nbsp;Foo\Bar\subnamespace\FOO&nbsp;と解釈されます<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />/*&nbsp;完全修飾名&nbsp;*/<br /></span><span style="color: #007700">\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\foo&nbsp;関数と解釈されます<br /></span><span style="color: #007700">\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">foo</span><span style="color: #007700">::</span><span style="color: #0000BB">staticmethod</span><span style="color: #007700">();&nbsp;</span><span style="color: #FF8000">//&nbsp;Foo\Bar\foo&nbsp;クラスの&nbsp;staticmethod&nbsp;メソッドと解釈されます<br /></span><span style="color: #007700">echo&nbsp;\</span><span style="color: #0000BB">Foo</span><span style="color: #007700">\</span><span style="color: #0000BB">Bar</span><span style="color: #007700">\</span><span style="color: #0000BB">FOO</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;定数&nbsp;Foo\Bar\FOO&nbsp;と解釈されます<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   グローバルなクラス、関数あるいは定数にアクセスするには、完全修飾名を使用して
+   <span class="function"><b>\strlen()</b></span>、<b class="classname">\Exception</b> あるいは
+   <i>\INI_ALL</i> などとすることができます。
+   <div class="example" id="example-215">
+    <p><b>例1 グローバルなクラス、関数および定数への名前空間内からのアクセス</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foo</span><span style="color: #007700">;<br /><br />function&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">()&nbsp;{}<br />const&nbsp;</span><span style="color: #0000BB">INI_ALL&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Exception&nbsp;</span><span style="color: #007700">{}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;\</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #DD0000">'hi'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバル関数&nbsp;strlen&nbsp;をコールします<br /></span><span style="color: #0000BB">$b&nbsp;</span><span style="color: #007700">=&nbsp;\</span><span style="color: #0000BB">INI_ALL</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバル定数&nbsp;INI_ALL&nbsp;にアクセスします<br /></span><span style="color: #0000BB">$c&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;\</span><span style="color: #0000BB">Exception</span><span style="color: #007700">(</span><span style="color: #DD0000">'error'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルクラス&nbsp;Exception&nbsp;のインスタンスを作成します<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.definitionmultiple.html">同一ファイル内での複数の名前空間の定義</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.dynamic.html">名前空間と動的言語機能</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

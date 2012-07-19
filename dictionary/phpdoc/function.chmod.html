@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルのモードを変更する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.chgrp.html">chgrp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.chown.html">chown</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.chmod" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">chmod</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">chmod</span> &mdash; <span class="dc-title">ファイルのモードを変更する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.chmod-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>chmod</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$filename</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$mode</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定されたファイルのモードを
+   <i><tt class="parameter">mode</tt></i> で指定したものに変更しようと試みます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.chmod-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">filename</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mode</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">mode</tt></i>
+       は自動的には 8 進数と見なされないので注意してください。
+       このため、(&quot;g+w&quot; のような)文字列は正常に動作しません。
+       意図した操作を行うには、<i><tt class="parameter">mode</tt></i>
+       の前にゼロ(0)を付ける必要があります。
+      </p>
+      <p class="para">
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">755</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;10&nbsp;進数;&nbsp;おそらく間違い<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"u+rwx,go+rx"</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;文字列;&nbsp;正しくない<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0755</span><span style="color: #007700">);&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;8&nbsp;進数;&nbsp;正しいモードの値<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+      <p class="para">
+       <i><tt class="parameter">mode</tt></i> 引数は 3 つの 8 進法による数値で構成され、
+       所有者自身、所有者が属するグループ、その他のユーザーの順で
+       アクセス制限を設定します。一つ一つの数字はそのターゲットに対し
+       許可を与えます。1 は実行権限、2 はファイルに対する書き込み権限、
+       4 はファイルに対する読み込み権限を与えます。
+       必要な権限にあわせ数値を加算してください。
+       許可モードに関する詳細は Unix システムの
+       「<strong class="command">man 1 chmod</strong>」や「<strong class="command">man 2 chmod</strong>」をご覧ください。
+      </p>
+      <p class="para">
+       <div class="informalexample">
+        <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;所有者に読み込み、書き込みの権限を与え、その他には何も許可しない。<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0600</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;所有者に読み込み、書き込みの権限を与え、その他には読み込みだけ許可する。<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0644</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;所有者に全ての権限を与え、その他には読み込みと実行を許可する。<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0755</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;所有者に全ての権限を与え、所有者が属するグループに読み込みと実行を許可する。<br /></span><span style="color: #0000BB">chmod</span><span style="color: #007700">(</span><span style="color: #DD0000">"/somedir/somefile"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0750</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+        </div>
+
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.chmod-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.chmod-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    現在のユーザは PHP を実行しているユーザです。
+    これは普通のシェルや FTP アクセスでのユーザとはたいてい違います。
+    たいていのシステムでは、ファイルの所有者のみがそのモードを
+    変更可能です。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数では、
+<a href="features.remote-files.html" class="link">リモートファイル</a> を
+使用することはできません。これは、処理されるファイルがサーバの
+ファイルシステムによりアクセスできる必要があるためです。</span></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <a href="ini.sect.safe-mode.html#ini.safe-mode" class="link">セーフモード</a> が有効な場合、操作しようとしているファイルあるいは
+    ディレクトリの UID（所有者）がスクリプトの実行ユーザと同じかどうかを
+    PHP がチェックします。さらに、SUID・SGID や sticky ビットを
+    設定することはできません。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.chmod-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.chown.html" class="function" rel="rdfs-seeAlso">chown()</a> - ファイルの所有者を変更する</span></li>
+    <li class="member"><span class="function"><a href="function.chgrp.html" class="function" rel="rdfs-seeAlso">chgrp()</a> - ファイルのグループを変更する</span></li>
+    <li class="member"><span class="function"><a href="function.fileperms.html" class="function" rel="rdfs-seeAlso">fileperms()</a> - ファイルのパーミッションを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.stat.html" class="function" rel="rdfs-seeAlso">stat()</a> - ファイルに関する情報を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.chgrp.html">chgrp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.chown.html">chown</a></div>
+ <div class="up"><a href="ref.filesystem.html">ファイルシステム 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

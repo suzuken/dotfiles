@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>プロセスの出力がパターンに一致する・指定した時間が経過する・
+  あるいは EOF に達するのいずれかにあてはまるまで待ち続ける</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.expect.html">Expect 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.expect-popen.html">expect_popen</a></div>
+ <div class="up"><a href="ref.expect.html">Expect 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.expect-expectl" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">expect_expectl</h1>
+  <p class="verinfo">(PECL expect &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">expect_expectl</span> &mdash; <span class="dc-title">プロセスの出力がパターンに一致する・指定した時間が経過する・
+  あるいは <acronym title="End Of File">EOF</acronym> に達するのいずれかにあてはまるまで待ち続ける
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.expect-expectl-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>expect_expectl</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$expect</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$cases</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$match</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   プロセスの出力がパターンに一致する・指定した時間が経過する・
+   あるいは <acronym title="End Of File">EOF</acronym> に達するのいずれかにあてはまるまで待ち続けます。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">match</tt></i>
+   を指定すると、検索結果がそこに保存されます。
+   一致した文字列が <i><tt class="parameter">match[0]</tt></i> に保存され、
+   元のパターンの中の (括弧で囲まれた) 部分に一致する文字列が
+   <i><tt class="parameter">match[1]</tt></i>、<i><tt class="parameter">match[2]</tt></i>、
+   と順に、最大 <i><tt class="parameter">match[9]</tt></i> まで
+   (libexpect の制限です) 保存されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.expect-expectl-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">expect</tt></i></span>
+     <dd>
+
+      <p class="para">
+       事前に <span class="function"><a href="function.expect-popen.html" class="function">expect_popen()</a></span> でオープンした
+       Expect ストリーム。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">cases</tt></i></span>
+     <dd>
+
+      <p class="para">
+       expect case の配列。個々の expect case は数値添字の配列で、
+       以下のような形式となります。
+       <table class="doctable table">
+        <caption><b>Expect Case の配列</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>添字</th>
+           <th>値の型</th>
+           <th>説明</th>
+           <th>必須かどうか</th>
+           <th>デフォルト値</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">0</td>
+           <td align="left">string</td>
+           <td align="left">ストリームからの出力との比較対象となるパターン。</td>
+           <td align="left">yes</td>
+           <td class="empty">&nbsp;</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">1</td>
+           <td align="left">mixed</td>
+           <td align="left">パターンに一致した場合にこの関数が返す値。</td>
+           <td align="left">yes</td>
+           <td class="empty">&nbsp;</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">2</td>
+           <td align="left">integer</td>
+           <td align="left">
+            パターンの形式。
+            <a href="expect.constants.html#constants.expect.exp-glob" class="link"><b><tt>EXP_GLOB</tt></b></a>、
+            <a href="expect.constants.html#constants.expect.exp-exact" class="link"><b><tt>EXP_EXACT</tt></b></a>
+            あるいは
+            <a href="expect.constants.html#constants.expect.exp-regexp" class="link"><b><tt>EXP_REGEXP</tt></b></a>
+            のいずれかひとつです。
+           </td>
+           <td align="left">no</td>
+           <td align="left"><a href="expect.constants.html#constants.expect.exp-glob" class="link"><b><tt>EXP_GLOB</tt></b></a></td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.expect-expectl-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   一致したパターンに関連付けられた値を返します。
+  </p>
+  <p class="para">
+   この関数の実行に失敗した場合は、
+   <a href="expect.constants.html#constants.expect.exp-eof" class="link"><b><tt>EXP_EOF</tt></b></a>、
+   <a href="expect.constants.html#constants.expect.exp-timeout" class="link"><b><tt>EXP_TIMEOUT</tt></b></a>
+   あるいは
+   <a href="expect.constants.html#constants.expect.exp-fullbuffer" class="link"><b><tt>EXP_FULLBUFFER</tt></b></a>
+   を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.expect-expectl-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">0.2.1</td>
+       <td align="left">
+       バージョン 0.2.1 より前では、<i><tt class="parameter">match</tt></i>
+       パラメータに返されるのはマッチした文字列であり、
+       部分文字列の配列ではありませんでした。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.expect-expectl-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3035">
+    <p><b>例1 <span class="function"><b>expect_expectl()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;ファイルをリモートホストにコピーします<br /></span><span style="color: #0000BB">ini_set&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"expect.timeout"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">30</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen&nbsp;</span><span style="color: #007700">(</span><span style="color: #DD0000">"expect://scp&nbsp;user@remotehost:/var/log/messages&nbsp;/home/user/messages.txt"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$cases&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;array&nbsp;(</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"password:"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">PASSWORD</span><span style="color: #007700">),<br />&nbsp;&nbsp;array&nbsp;(</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"yes/no)?"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">YESNO</span><span style="color: #007700">)<br />);<br /><br />while&nbsp;(</span><span style="color: #0000BB">true</span><span style="color: #007700">)&nbsp;{<br />&nbsp;switch&nbsp;(</span><span style="color: #0000BB">expect_expectl&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$cases</span><span style="color: #007700">))<br />&nbsp;{<br />&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">PASSWORD</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">YESNO</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"yes\n"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;break;<br /><br />&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">EXP_TIMEOUT</span><span style="color: #007700">:<br />&nbsp;&nbsp;case&nbsp;</span><span style="color: #0000BB">EXP_EOF</span><span style="color: #007700">:<br />&nbsp;&nbsp;&nbsp;break&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;default:<br />&nbsp;&nbsp;&nbsp;die&nbsp;(</span><span style="color: #DD0000">"エラーが発生しました!\n"</span><span style="color: #007700">);<br />&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">fclose&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$stream</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.expect-expectl-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.expect-popen.html" class="function" rel="rdfs-seeAlso">expect_popen()</a> - Bourne シェル経由でコマンドを実行し、プロセスへの PTY
+  ストリームをオープンする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.expect.html">Expect 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.expect-popen.html">expect_popen</a></div>
+ <div class="up"><a href="ref.expect.html">Expect 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

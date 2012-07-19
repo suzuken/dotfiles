@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>メタデータを指定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.examples-crud.html">データの作成、取得、更新、削除</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.das.rel.examples.one-table.html">ひとつのテーブルによる例</a></div>
+ <div class="up"><a href="sdo.das.rel.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sdo.das.rel.metadata" class="section">
+  <h2 class="title">メタデータを指定する</h2>
+  <p class="para">
+   最初の少し長めの節では、データベースや SDO
+   モデルについて表したメタデータが、リレーショナル DAS
+   からどのように返されるのかを説明します。
+  </p>
+  <p class="para">
+   リレーショナル DAS のコンストラクタが実行される際に、
+   情報を受け取る必要があります。この情報は、
+   コンストラクタへの最初の引数として連想配列で渡します。
+   これにより、リレーショナル DAS に対して、
+   必要なデータベース情報を伝えます。
+   テーブル名、カラム、主キーや外部キーの情報がここに含まれます。
+   必要な内容を理解することはきわめて簡単でしょう。
+   一度書いてしまえば、それを PHP ファイルに保存して
+   必要に応じてインクルードすることができます。
+   コンストラクタの二番目、三番目の引数として、リレーショナル DAS
+   がオブジェクト間の関連やデータグラフの形式を知るために必要な情報を渡します。
+   これによって、最終的にデータベースのデータをグラフに正規化する方法が決まります。
+  </p>
+
+  <div class="section" id="sdo.das.rel.metadata.database">
+   <h2 class="title">データベースのメタデータ</h2>
+   <p class="para">
+    コンストラクタに対する最初の引数で、対象となる
+    リレーショナルデータベースを定義します。
+   </p>
+
+   <p class="para">
+    各テーブルは、最大で 4 つのキーからなる連想配列で表されます。
+    <table class="doctable informaltable">
+     
+      <thead valign="middle">
+       <tr valign="middle">
+        <th>キー</th>
+        <th>値</th>
+       </tr>
+
+      </thead>
+
+      <tbody valign="middle" class="tbody">
+       <tr valign="middle">
+        <td align="left">name</td>
+        <td align="left">テーブルの名前。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">columns</td>
+        <td align="left">
+         カラムの名前を含んだ配列。順不同。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">PK</td>
+        <td align="left">主キーとなるカラムの名前。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">FK</td>
+        <td align="left">
+         ふたつのエントリ &#039;from&#039; および &#039;to&#039; からなる配列で、
+         外部キーを含むカラムおよび外部キーが参照するテーブルを指定します。
+         テーブルに外部キーが存在しない場合には
+         &#039;FK&#039; を指定する必要はありません。指定できる外部キーの数は
+         ひとつだけです。また、外部キーが参照する先は、
+         そのテーブルの主キーでなければなりません。
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+   </p>
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*****************************************************************<br />*&nbsp;データベースを定義するメタデータ<br />******************************************************************/<br /></span><span style="color: #0000BB">$company_table&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'columns'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'name'</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #DD0000">'employee_of_the_month'</span><span style="color: #007700">),<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'PK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'FK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'from'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'employee_of_the_month'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'to'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'employee'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;&nbsp;);<br /></span><span style="color: #0000BB">$department_table&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'department'</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'columns'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'location'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'number'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'co_id'</span><span style="color: #007700">),<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'PK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'FK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'from'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'co_id'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'to'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;);<br /></span><span style="color: #0000BB">$employee_table&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'name'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'employee'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'columns'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'name'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'SN'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'manager'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'dept_id'</span><span style="color: #007700">),<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'PK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'id'</span><span style="color: #007700">,<br />&nbsp;&nbsp;</span><span style="color: #DD0000">'FK'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'from'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'dept_id'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'to'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'department'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;);<br /></span><span style="color: #0000BB">$database_metadata&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">$company_table</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$department_table</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$employee_table</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+
+   <p class="para">
+    このメタデータに対応するリレーショナルデータベースは、
+    例えば MySQL の場合は以下のように定義されます。
+   </p>
+   <div class="example-contents">
+<div class="sqlcode"><pre class="sqlcode">create table company (
+ id integer auto_increment,
+ name char(20),
+ employee_of_the_month integer,
+ primary key(id)
+);
+create table department (
+ id integer auto_increment,
+ name char(20),
+ location char(10),
+ number integer(3),
+ co_id integer,
+ primary key(id)
+);
+create table employee (
+ id integer auto_increment,
+ name char(20),
+ SN char(4),
+ manager tinyint(1),
+ dept_id integer,
+ primary key(id)
+);</pre>
+</div>
+   </div>
+
+   <p class="para">
+   あるいは DB2 なら以下のようになります。
+   </p>
+   <div class="example-contents">
+<div class="sqlcode"><pre class="sqlcode">create table company ( \
+  id integer not null generated by default as identity,  \
+  name varchar(20), \
+  employee_of_the_month integer, \
+  primary key(id) )
+create table department ( \
+  id integer not null generated by default as identity, \
+  name varchar(20), \
+  location varchar(10), \
+  number integer, \
+  co_id integer, \
+  primary key(id) )
+create table employee ( \
+  id integer not null generated by default as identity, \
+  name varchar(20), \
+  SN char(4), \
+  manager smallint, \
+  dept_id integer, \
+  primary key(id) )</pre>
+</div>
+   </div>
+
+   
+   <p class="para">
+    この例ではデータベースに外部キーが定義されておらず、
+    データベースには参照整合性が強制されていません。しかし、
+    department テーブルの <var class="varname"><var class="varname">co_id</var></var> カラム
+    および employee テーブルの <var class="varname"><var class="varname">dept_id</var></var> カラムは、
+    それぞれ company あるいは department レコードの主キーを含むように
+    意図されています。そのため、これらの 2 つのカラムは外部キーのように動作します。
+   </p>
+                  
+   <p class="para">
+    この例には 3 つめの外部キーがあります。それは company レコードの
+    <var class="varname"><var class="varname">employee_of_the_month</var></var> カラムが employee
+    テーブルのひとつの行をさすというものです。この外部キーと、
+    その他の 2 つのキーとの違いに注意しましょう。
+    <var class="varname"><var class="varname">employee_of_the_month</var></var>
+    カラムは単一の値をとる関係を表します。ある会社には、
+    「今月の従業員」はひとりしか存在しえません。
+    <var class="varname"><var class="varname">co_id</var></var> および <var class="varname"><var class="varname">dept_id</var></var>
+    は複数の値をとる関係を表します。会社には多くの部署がありますし、
+    ひとつの部署には多くの従業員が属しています。
+    この差は、
+    メタデータの残りの部分で company-department および department-employee
+    の関係を包含関係として扱う時に明らかになります。
+   </p>
+
+   <p class="para">
+    データベースのメタデータを作成する際に従わなければならない規則は
+    以下のとおりです。
+   </p>
+
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      すべてのテーブルには主キーが存在し、その主キーがメタデータで
+      指定されている必要があります。主キーがなければ、オブジェクトの
+      一意性を確保することができません。テーブルを作成する SQL
+      文を見てわかるように、主キーは自動生成することができます。
+      つまり、レコードが挿入される際に自動で値が設定されるということです。
+      この場合、自動生成された主キーはデータベースから取得可能で、
+      データベースに行が追加されると、すぐにデータオブジェクトに反映されます。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      データベースに存在するすべてのカラムについてメタデータで記述する必要はありません。
+      実際に使用するものだけを指定します。例えば、company テーブルの中に
+      SDO 経由でのアクセスを必要としないカラムがある場合、そのカラムを
+      メタデータに記述する必要はありません。一方、それを記述したとしても
+      何の問題もありません。アプリケーションから値を取得したり代入したり
+      することがなければ、未使用のカラムを記述していても何の影響も及ぼしません。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      データベースのメタデータで、外部キーの指し示す先として
+      カラム名ではなくテーブル名が指定されていることにお気づきでしょう。
+      厳密に言えば、リレーショナルモデルでは
+      主キー以外を対象とした外部キーを指定することも可能です。
+      しかし、SDO モデルを作成する際に使用できるのは
+      主キーを対象とした外部キーだけなので、
+      メタデータではテーブル名だけを指定します。
+      これにより、外部キーの指し示す先がそのテーブルの主キーであると解釈されます。
+     </p>
+    </li>
+   </ul>
+
+   <p class="para">
+    これらの規則に従い、データベースを定義する SQL
+    文があれば、データベースのメタデータを作成するのは簡単です。
+   </p>
+
+   <div class="section" id="sdo.das.rel.metadata.database.model">
+    <h2 class="title">リレーショナル DAS でのメタデータの扱い</h2>
+    <p class="para">
+     リレーショナル DAS は、データベースのメタデータを使用して
+     SDO モデルの大半を作成します。データベースのメタデータ内にある
+     各テーブルに対して、SDO 型が定義されます。
+     プリミティブ型を表すカラム (外部キーとして定義されていないカラム)
+     は、SDO 型のプロパティとして追加されます。
+    </p>
+    <p class="para">
+     すべてのプリミティブなプロパティは、SDO モデルにおいては
+     文字列型で表されます。これは、SQL での型が何であっても同じです。
+     データをデータベースに書き戻す際も、リレーショナル DAS
+     が作成する SQL 文では文字列として扱います。
+     そして、データベースがそれを適切な型に変換します。
+    </p>
+
+    <p class="para">
+     外部キーの扱いかたには二通りの方法があります。
+     どちらが使用されるかは、コンストラクタの第三引数
+     (SDO の包含関係について定義するもの) によって決まります。
+     そのため、これについては以下の
+     <a href="sdo.das.rel.metadata.html#sdo.das.rel.metadata.crels" class="link">
+      SDO の包含関係
+     </a> の節で改めて説明します。
+    </p>
+   </div>
+
+   <div class="section" id="sdo.das.rel.metadata.approottype">
+    <h2 class="title">アプリケーションのルート型の指定</h2>
+    <p class="para">
+     コンストラクタの二番目の引数に指定するのが、アプリケーションのルート型です。
+     各データグラフの真のルートとなるのは特別なルート型のオブジェクトで、
+     すべてのアプリケーションデータオブジェクトはその下のどこかに位置します。
+     SDO モデルのさまざまなアプリケーション型のなかで、
+     どれかひとつの型がデータグラフのルート直下にある必要があります。
+     データベースのメタデータ内にテーブルがひとつしかない場合は、
+     アプリケーションのルート型は推定できます。そのため、この引数は省略可能です。
+    </p>
+   </div>
+
+   <div class="section" id="sdo.das.rel.metadata.crels">
+    <h2 class="title">SDO 包含関係の指定</h2>
+
+    <p class="para">
+     コンストラクタの三番目の引数で、モデルの型をどのように連結して
+     グラフを構成するかを定義します。複数の型によってグラフが構成される場合に、
+     その親子関係を指定します。この関係は、
+     データ内の外部キーでサポートされている必要があります。
+     これについては後ほど説明します。
+    </p>
+
+    <p class="para">
+     メタデータは、ひとつあるいは複数の連想配列を含む配列となります。
+     個々の連想配列が親と子を表します。以下に
+     company (会社) と department (部署)、そして department (部署)
+     と employee (従業員) の親子関係の例を示します。
+     これらのそれぞれが SDO のプロパティとなり、
+     SDO モデルにおける「複数の値をとる包含関係」を定義するものになります。
+
+    </p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$department_containment&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">'parent'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'company'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'child'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'department'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$employee_containment&nbsp;</span><span style="color: #007700">=&nbsp;array(&nbsp;</span><span style="color: #DD0000">'parent'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'department'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'child'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'employee'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$SDO_containment_metadata&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">$department_containment</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$employee_containment</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+
+    <p class="para">
+     データベースのメタデータ内にある外部キーは、
+     複数の値を持つ包含関係のプロパティか
+     単一の値を持つ包含関係でないプロパティのいずれかと解釈されます。どちらになるかは、
+     対応する SDO の包含関係がメタデータ内で定義されているかどうかによって決まります。
+     この例では、department から company への外部キー
+     (department テーブルのカラム <var class="varname"><var class="varname">co_id</var></var>)
+     および employee から department への外部キー
+     (employee テーブルのカラム <var class="varname"><var class="varname">dept_id</var></var>)
+     が SDO の包含関係と解釈されます。
+     SDO の包含関係メタデータで示されているそれぞれの関連については、
+     対応するデータベースメタデータで外部キーが存在しなければなりません。
+     外部キー列の値は、データオブジェクト内には現れません。その代わりに、
+     親から子に対する包含関係として表されます。つまり、例えばデータベースの
+     department テーブルにあるカラム <var class="varname"><var class="varname">co_id</var></var>
+     は、department 型のプロパティにはなりません。その代わりに、
+     company 型のほうに <var class="varname"><var class="varname">department</var></var>
+     という名前の関係ができます。
+     ここで、外部キーと親子関係は向きが逆であることに注意しましょう。
+     外部キーは、department から company に対して指定しますが、
+     親子関係は company から department に向けて指定します。
+    </p>
+
+    <p class="para">
+     この例の三番目の外部キーである
+     <var class="varname"><var class="varname">employee_of_the_month</var></var>
+     は、異なる方法で処理されます。これは、SDO の包含関係メタデータとはならず、
+     もうひとつの方法で解釈されます。company オブジェクト上での
+     単一の値をとる包含関係でない参照となり、employee 型の
+     SDO データオブジェクトへの参照をそこに代入します。
+     これは、company 型が持つプロパティとなります。
+     SDO データグラフ内でこのプロパティに値を代入するには、
+     employee オブジェクトを含むグラフを取得し、そこに値を代入します。
+     この方法については、後の例で説明します。
+    </p>
+   </div>
+  </div> 
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sdo.das.rel.examples-crud.html">データの作成、取得、更新、削除</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sdo.das.rel.examples.one-table.html">ひとつのテーブルによる例</a></div>
+ <div class="up"><a href="sdo.das.rel.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したファイルの PharFileInfo オブジェクトを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.offsetexists.html">Phar::offsetExists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.offsetset.html">Phar::offsetSet</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.offsetget" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Phar::offsetGet</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">Phar::offsetGet</span> &mdash; <span class="dc-title">指定したファイルの <a href="class.PharFileInfo.html" class="classname">PharFileInfo</a> オブジェクトを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-phar.offsetget-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>Phar::offsetGet</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$offset</tt></span>
+   )</div>
+
+
+  <p class="para rdfs-comment">
+   これは <span class="interfacename"><a href="class.arrayaccess.html" class="interfacename">ArrayAccess</a></span> インターフェイスを実装したものです。
+   これにより、Phar アーカイブの内容に対して配列形式の角括弧を使用したアクセスが可能となります。
+    <span class="methodname"><b>Phar::offsetGet()</b></span> を使用して、Phar アーカイブからファイルを取得します。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-phar.offsetget-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">offset</tt></i></span>
+     <dd>
+
+      <p class="para">
+       Phar 内で探すファイル名 (相対パス)。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phar.offsetget-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <a href="class.PharFileInfo.html" class="classname">PharFileInfo</a> オブジェクトを返します。
+   これを使用して、ファイルの内容を順に処理したりファイルの情報を取得したりします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-phar.offsetget-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   そのファイルが Phar アーカイブ内に存在しない場合に、このメソッドは
+   <a href="class.badmethodcallexception.html" class="classname">BadMethodCallException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phar.offsetget-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-708">
+    <p><b>例1 <span class="function"><b>Phar::offsetGet()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     <a href="class.arrayaccess.html" class="classname">ArrayAccess</a> インターフェイスを実装した他のクラスと同様、
+      <span class="methodname"><b>Phar::offsetGet()</b></span> は
+     <i>[]</i> 演算子を使用した場合に自動的にコールされます。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$p&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">(</span><span style="color: #0000BB">dirname</span><span style="color: #007700">(</span><span style="color: #0000BB">__FILE__</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'/myphar.phar'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'myphar.phar'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'exists.txt'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">"file&nbsp;exists\n"</span><span style="color: #007700">;<br />try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;自動的に&nbsp;offsetGet()&nbsp;をコールします<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'exists.txt'</span><span style="color: #007700">];<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">[</span><span style="color: #DD0000">'doesnotexist.txt'</span><span style="color: #007700">];<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">BadMethodCallException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$e</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+file exists
+Entry doesnotexist.txt does not exist
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-phar.offsetget-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="phar.offsetexists.html" class="function" rel="rdfs-seeAlso">Phar::offsetExists()</a> - ファイルが phar 内に存在するかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="phar.offsetset.html" class="function" rel="rdfs-seeAlso">Phar::offsetSet()</a> - 内部ファイルに、外部ファイルの内容を設定する</span></li>
+    <li class="member"><span class="function"><a href="phar.offsetunset.html" class="function" rel="rdfs-seeAlso">Phar::offsetUnset()</a> - ファイルを phar から削除する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.offsetexists.html">Phar::offsetExists</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.offsetset.html">Phar::offsetSet</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

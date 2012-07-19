@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>バイナリ属性を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.radius-put-addr.html">radius_put_addr</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.radius-put-int.html">radius_put_int</a></div>
+ <div class="up"><a href="ref.radius.html">Radius 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.radius-put-attr" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">radius_put_attr</h1>
+  <p class="verinfo">(PECL radius &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">radius_put_attr</span> &mdash; <span class="dc-title">バイナリ属性を設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.radius-put-attr-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>radius_put_attr</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$radius_handle</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>      
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>            
+   )</div>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+現在のところ詳細な情報はありません。引数のリストのみが
+記述されています。</p></div>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.radius-put-attr-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.radius-put-attr-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-559">
+    <p><b>例1 <span class="function"><b>radius_put_attr()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />mt_srand</span><span style="color: #007700">(</span><span style="color: #0000BB">time</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$chall&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mt_rand</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$chapval&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">md5</span><span style="color: #007700">(</span><span style="color: #0000BB">pack</span><span style="color: #007700">(</span><span style="color: #DD0000">'Ca*'</span><span style="color: #007700">,</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'sepp'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$chall</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$pass&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pack</span><span style="color: #007700">(</span><span style="color: #DD0000">'CH*'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$chapval</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">radius_put_attr</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">RADIUS_CHAP_PASSWORD</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pass</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'RadiusError:'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">radius_strerror</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">).&nbsp;</span><span style="color: #DD0000">"\n&lt;br&nbsp;/&gt;"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.radius-put-attr-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.radius-get-attr.html" class="function" rel="rdfs-seeAlso">radius_get_attr()</a> - 属性を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.radius-get-vendor-attr.html" class="function" rel="rdfs-seeAlso">radius_get_vendor_attr()</a> - ベンダ固有の属性を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.radius-put-vendor-attr.html" class="function" rel="rdfs-seeAlso">radius_put_vendor_attr()</a> - ベンダ固有のバイナリ属性を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.radius-put-addr.html">radius_put_addr</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.radius-put-int.html">radius_put_int</a></div>
+ <div class="up"><a href="ref.radius.html">Radius 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>渡された配列の要素を再帰的に置き換える</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-reduce.html">array_reduce</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-replace.html">array_replace</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.array-replace-recursive" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array_replace_recursive</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">array_replace_recursive</span> &mdash; <span class="dc-title">渡された配列の要素を再帰的に置き換える</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.array-replace-recursive-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>array_replace_recursive</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$array</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$array1</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$array2</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$...</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>array_replace_recursive()</b></span> は、
+   最初の配列の値をそれ以降の配列の同じ要素の値で置き換えます。
+   最初の配列のキーと同じキーが 2 番目の配列にあれば、
+   2 番目の配列の値が最初の配列の値を上書きします。
+   2 番目の配列に存在するキーが最初の配列に存在しなければ、
+   そのキーが新たに最初の配列内に作られます。
+   最初の配列にしか存在しないキーについては何も変わりません。
+   置き換え用の配列が複数渡された場合は渡した順に処理を行い、
+   後から渡した配列の値のほうが優先されます。
+  </p>
+  <p class="para">
+   <span class="function"><b>array_replace_recursive()</b></span> は再帰的な処理を行います。
+   配列を再帰的にたどり、内部の値に対しても同じ手順で処理します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">array</tt></i> の値がスカラーの場合は、
+   <i><tt class="parameter">array1</tt></i> の値がスカラーであるか配列であるかにかかわらずそれで置き換えられます。
+   <i><tt class="parameter">array</tt></i> の値と <i><tt class="parameter">array1</tt></i>
+   の値が両方配列である場合は、<span class="function"><b>array_replace_recursive()</b></span>
+   が対応する値を再帰的に処理します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.array-replace-recursive-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       要素を置き換えたい配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array1</tt></i></span>
+     <dd>
+
+      <p class="para">
+       置き換えたい要素を含む配列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-replace-recursive-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   配列を返します。エラーが発生した場合は <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.array-replace-recursive-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4102">
+    <p><b>例1 <span class="function"><b>array_replace_recursive()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$base&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'citrus'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">"orange"</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">'berries'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"blackberry"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"raspberry"</span><span style="color: #007700">),&nbsp;);<br /></span><span style="color: #0000BB">$replacements&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'citrus'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'pineapple'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'berries'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'blueberry'</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$basket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_replace_recursive</span><span style="color: #007700">(</span><span style="color: #0000BB">$base</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$basket</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$basket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_replace</span><span style="color: #007700">(</span><span style="color: #0000BB">$base</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$basket</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [citrus] =&gt; Array
+        (
+            [0] =&gt; pineapple
+        )
+
+    [berries] =&gt; Array
+        (
+            [0] =&gt; blueberry
+            [1] =&gt; raspberry
+        )
+
+)
+Array
+(
+    [citrus] =&gt; Array
+        (
+            [0] =&gt; pineapple
+        )
+
+    [berries] =&gt; Array
+        (
+            [0] =&gt; blueberry
+        )
+
+)
+
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-4103">
+    <p><b>例2 <span class="function"><b>array_replace_recursive()</b></span> での再帰的な挙動の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$base&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'citrus'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"orange"</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">'berries'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"blackberry"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"raspberry"</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'others'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'banana'&nbsp;</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$replacements&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'citrus'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'pineapple'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'berries'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'blueberry'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'others'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'litchis'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$replacements2&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'citrus'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'pineapple'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'berries'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'blueberry'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'others'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'litchis'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$basket&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">array_replace_recursive</span><span style="color: #007700">(</span><span style="color: #0000BB">$base</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replacements</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$replacements2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$basket</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [citrus] =&gt; Array
+        (
+            [0] =&gt; pineapple
+        )
+
+    [berries] =&gt; Array
+        (
+            [0] =&gt; blueberry
+            [1] =&gt; raspberry
+        )
+
+    [others] =&gt; litchis
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.array-replace-recursive-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-replace.html" class="function" rel="rdfs-seeAlso">array_replace()</a> - 渡された配列の要素を置き換える</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-reduce.html">array_reduce</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array-replace.html">array_replace</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

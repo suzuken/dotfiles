@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>cURL のバージョンを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.curl-setopt.html">curl_setopt</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.fam.html">FAM</a></div>
+ <div class="up"><a href="ref.curl.html">cURL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.curl-version" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">curl_version</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.2, PHP 5)</p><p class="refpurpose"><span class="refname">curl_version</span> &mdash; <span class="dc-title">cURL のバージョンを返す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.curl-version-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>curl_version</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$age</tt><span class="initializer"> = CURLVERSION_NOW</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   cURL のバージョンについての情報を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.curl-version-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">age</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.curl-version-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   以下の要素からなる連想配列を返します。
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>インデックス</th>
+       <th>値の説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">version_number</td>
+       <td align="left">cURL の 24 ビットのバージョン番号</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">version</td>
+       <td align="left">cURL バージョン番号を表す文字列</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">ssl_version_number</td>
+       <td align="left">OpenSSL の 24 ビットのバージョン番号</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">ssl_version</td>
+       <td align="left">OpenSSL バージョン番号を表す文字列</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">libz_version</td>
+       <td align="left">zlib バージョンを表す文字列</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">host</td>
+       <td align="left">cURL をビルドしたホストについての情報</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">age</td>
+       <td class="empty">&nbsp;</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">features</td>
+       <td align="left">定数 <i>CURL_VERSION_XXX</i> のビットマスク</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">protocols</td>
+       <td align="left">cURL がサポートするプロトコル名の配列</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.curl-version-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3453">
+    <p><b>例1 <span class="function"><b>curl_version()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     この例では、cURL でどの機能が使えるのかを調べるために
+     <span class="function"><b>curl_version()</b></span> の返すビットマスク
+     &#039;features&#039; を使用します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;curl&nbsp;のバージョン配列を取得します<br /></span><span style="color: #0000BB">$version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">curl_version</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;ビットフィールドを使用して、<br />//&nbsp;curl&nbsp;の機能を調べます<br /></span><span style="color: #0000BB">$bitfields&nbsp;</span><span style="color: #007700">=&nbsp;Array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'CURL_VERSION_IPV6'</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'CURL_VERSION_KERBEROS4'</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'CURL_VERSION_SSL'</span><span style="color: #007700">,&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'CURL_VERSION_LIBZ'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">);<br /><br /><br />foreach(</span><span style="color: #0000BB">$bitfields&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$feature</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$feature&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">$version</span><span style="color: #007700">[</span><span style="color: #DD0000">'features'</span><span style="color: #007700">]&nbsp;&amp;&nbsp;</span><span style="color: #0000BB">constant</span><span style="color: #007700">(</span><span style="color: #0000BB">$feature</span><span style="color: #007700">)&nbsp;?&nbsp;</span><span style="color: #DD0000">'&nbsp;matches'&nbsp;</span><span style="color: #007700">:&nbsp;</span><span style="color: #DD0000">'&nbsp;does&nbsp;not&nbsp;match'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.curl-setopt.html">curl_setopt</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.fam.html">FAM</a></div>
+ <div class="up"><a href="ref.curl.html">cURL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

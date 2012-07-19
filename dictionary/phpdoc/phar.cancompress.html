@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>phar 拡張モジュールが zlib あるいは bzip2 による圧縮をサポートしているかどうかを返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.buildfromiterator.html">Phar::buildFromIterator</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.canwrite.html">Phar::canWrite</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.cancompress" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Phar::canCompress</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">Phar::canCompress</span> &mdash; <span class="dc-title">phar 拡張モジュールが zlib あるいは bzip2 による圧縮をサポートしているかどうかを返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-phar.cancompress-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>Phar::canCompress</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   これは、圧縮されたファイルを含む phar を読み込む前に、
+   圧縮が可能かどうかを調べるために使用します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-phar.cancompress-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i>Phar::GZ</i> あるいは <i>Phar::BZ2</i>
+       のいずれかを指定し、指定した圧縮アルゴリズムでの圧縮が可能かどうかを調べます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phar.cancompress-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   圧縮/展開 が可能な場合に <b><tt>TRUE</tt></b>、そうでない場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phar.cancompress-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-679">
+    <p><b>例1 <span class="function"><b>Phar::canCompress()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">canCompress</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar://compressedphar.phar/internal/file.txt'</span><span style="color: #007700">);<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'圧縮はできません'</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-phar.cancompress-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pharfileinfo.getcompressedsize.html" class="function" rel="rdfs-seeAlso">PharFileInfo::getCompressedSize()</a> - Phar アーカイブ内での実際のファイルの大きさ (圧縮された状態) を返す</span></li>
+    <li class="member"><span class="function"><a href="pharfileinfo.iscompressed.html" class="function" rel="rdfs-seeAlso">PharFileInfo::isCompressed()</a> - エントリが圧縮されているかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="pharfileinfo.compress.html" class="function" rel="rdfs-seeAlso">PharFileInfo::compress()</a> - 現在の Phar エントリを zlib あるいは bzip2 のいずれかで圧縮する</span></li>
+    <li class="member"><span class="function"><a href="pharfileinfo.decompress.html" class="function" rel="rdfs-seeAlso">PharFileInfo::decompress()</a> - phar 内の現在の Phar エントリの圧縮を解除する</span></li>
+    <li class="member"><span class="function"><a href="phar.iscompressed.html" class="function" rel="rdfs-seeAlso">Phar::isCompressed()</a> - phar アーカイブ全体が (.tar.gz/tar.bz などで) 圧縮されている場合に Phar::GZ あるいは PHAR::BZ2 を返す</span></li>
+    <li class="member"><span class="function"><a href="phar.compressfiles.html" class="function" rel="rdfs-seeAlso">Phar::compressFiles()</a> - 現在の Phar アーカイブ内のすべてのファイルを圧縮する</span></li>
+    <li class="member"><span class="function"><a href="phar.decompressfiles.html" class="function" rel="rdfs-seeAlso">Phar::decompressFiles()</a> - 現在の Phar アーカイブ内のすべてのファイルの圧縮を解除する</span></li>
+    <li class="member"><span class="function"><a href="phar.getsupportedcompression.html" class="function" rel="rdfs-seeAlso">Phar::getSupportedCompression()</a> - サポートする圧縮アルゴリズムの配列を返す</span></li>
+    <li class="member"><span class="function"><a href="phar.converttoexecutable.html" class="function" rel="rdfs-seeAlso">Phar::convertToExecutable()</a> - phar アーカイブを実行可能な別の phar アーカイブ形式に変換する</span></li>
+    <li class="member"><span class="function"><a href="phar.converttodata.html" class="function" rel="rdfs-seeAlso">Phar::convertToData()</a> - phar アーカイブを実行可能でない tar あるいは zip ファイルに変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.buildfromiterator.html">Phar::buildFromIterator</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.canwrite.html">Phar::canWrite</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

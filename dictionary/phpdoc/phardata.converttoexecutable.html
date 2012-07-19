@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行可能でない tar/zip アーカイブを実行可能な phar アーカイブ形式に変換する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.converttodata.html">PharData::convertToData</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.copy.html">PharData::copy</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phardata.converttoexecutable" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PharData::convertToExecutable</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">PharData::convertToExecutable</span> &mdash; <span class="dc-title">実行可能でない tar/zip アーカイブを実行可能な phar アーカイブ形式に変換する</span></p>
+
+ </div>
+
+
+ <div class="refsect1 description" id="refsect1-phardata.converttoexecutable-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type Phar">Phar</span></span> <span class="methodname"><b>PharData::convertToExecutable</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$format</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$compression</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$extension</tt></span>
+  ]]] )</div>
+
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">
+このメソッドは、<var class="filename">php.ini</var> の <i>phar.readonly</i>
+が <i>0</i> でないと <a href="class.Phar.html" class="classname">Phar</a>
+オブジェクトで動作しません。それ以外の場合は
+<a href="class.PharException.html" class="classname">PharException</a> がスローされます。</p></p></blockquote>
+  <p class="para">
+   このメソッドは、実行可能でない tar あるいは zip アーカイブを実行可能な
+   phar 形式に変換します。実行可能なファイル形式 3 種類 (phar, tar あるいは zip)
+   のどれでも使用することができ、アーカイブ全体の圧縮も行うことができます。
+  </p>
+  <p class="para">
+   何も変更しなかった場合、このメソッドは
+   <a href="class.badmethodcallexception.html" class="classname">BadMethodCallException</a> をスローします。
+  </p>
+  <p class="para">
+   成功した場合は、このメソッドはディスク上に新しいアーカイブを作成して
+   <a href="class.Phar.html" class="classname">Phar</a> オブジェクトを返します。
+   古いアーカイブは削除されずディスク上に残るので、
+   処理を終えたら手動で削除する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-phardata.converttoexecutable-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+       これは <i>Phar::PHAR</i>、<i>Phar::TAR</i>
+       あるいは <i>Phar::ZIP</i> のいずれかとなります。
+       <b><tt>NULL</tt></b> を指定すると、現在のファイル形式をそのまま保持します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">compression</tt></i></span>
+     <dd>
+
+      <p class="para">
+       アーカイブ全体の圧縮を行わない場合は <i>Phar::NONE</i>、
+       zlib による圧縮の場合は <i>Phar::GZ</i>、そして bzip による圧縮の場合は
+       <i>Phar::BZ2</i> のいずれかを指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extension</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータは、変換後のアーカイブのデフォルトのファイル拡張子を変更します。
+       実行可能でない tar や zip アーカイブのファイル名としては
+       <i>.phar</i> は使用できないことに注意しましょう。
+      </p>
+      <p class="para">
+       phar 形式のアーカイブに変換する場合、デフォルトの拡張子は圧縮形式によって
+       <i>.phar</i>、<i>.phar.gz</i> あるいは <i>.phar.bz2</i>
+       のいずれかとなります。tar 形式のアーカイブの場合、デフォルトの拡張子は
+       <i>.phar.tar</i>、<i>.phar.tar.gz</i>
+       および <i>.phar.tar.bz2</i> です。zip 形式のアーカイブの場合、
+       デフォルトの拡張子は <i>.phar.zip</i> となります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phardata.converttoexecutable-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   このメソッドは、成功した場合に <a href="class.Phar.html" class="classname">Phar</a>
+   オブジェクトを返します。失敗した場合は例外をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-phardata.converttoexecutable-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   圧縮ができない場合や無効な圧縮方式が指定された場合、あるいは
+   <span class="function"><a href="phar.startbuffering.html" class="function">Phar::startBuffering()</a></span> でバッファリングしたまま
+   <span class="function"><a href="phar.stopbuffering.html" class="function">Phar::stopBuffering()</a></span> を実行していないアーカイブを処理しようとした場合に
+   <a href="class.badmethodcallexception.html" class="classname">BadMethodCallException</a> をスローします。
+   また、書き込みサポートが無効な場合に
+   <a href="class.unexpectedvalueexception.html" class="classname">UnexpectedValueException</a>、
+   phar 作成中に何らかの問題が発生した場合に
+   <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phardata.converttoexecutable-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-731">
+    <p><b>例1 <span class="function"><b>PharData::convertToExecutable()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     PharData::convertToExecutable() の使用例です。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$tarphar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PharData</span><span style="color: #007700">(</span><span style="color: #DD0000">'myphar.tar'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;phar&nbsp;ファイル形式に変換します<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;myphar.tar&nbsp;は削除&nbsp;*されない*&nbsp;ことに注意しましょう<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$phar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$tarphar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">convertToExecutable</span><span style="color: #007700">(</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">PHAR</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;creates&nbsp;myphar.phar<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setStub</span><span style="color: #007700">(</span><span style="color: #0000BB">$phar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">createDefaultStub</span><span style="color: #007700">(</span><span style="color: #DD0000">'cli.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'web/index.php'</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;myphar.phar.tgz&nbsp;を作成します<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$compressed&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$tarphar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">convertToExecutable</span><span style="color: #007700">(</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">TAR</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">GZ</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'.phar.tgz'</span><span style="color: #007700">);<br />}&nbsp;catch&nbsp;(</span><span style="color: #0000BB">Exception&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;ここでエラー処理をします<br /></span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-phardata.converttoexecutable-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="phar.converttoexecutable.html" class="function" rel="rdfs-seeAlso">Phar::convertToExecutable()</a> - phar アーカイブを実行可能な別の phar アーカイブ形式に変換する</span></li>
+    <li class="member"><span class="function"><a href="phar.converttodata.html" class="function" rel="rdfs-seeAlso">Phar::convertToData()</a> - phar アーカイブを実行可能でない tar あるいは zip ファイルに変換する</span></li>
+    <li class="member"><span class="function"><a href="phardata.converttodata.html" class="function" rel="rdfs-seeAlso">PharData::convertToData()</a> - phar アーカイブを実行可能でない tar あるいは zip ファイルに変換する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phardata.converttodata.html">PharData::convertToData</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phardata.copy.html">PharData::copy</a></div>
+ <div class="up"><a href="class.PharData.html">PharData</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

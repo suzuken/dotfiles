@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソケット上で接続待ち(listen)する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-last-error.html">socket_last_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-read.html">socket_read</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.socket-listen" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">socket_listen</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5)</p><p class="refpurpose"><span class="refname">socket_listen</span> &mdash; <span class="dc-title">ソケット上で接続待ち(listen)する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.socket-listen-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>socket_listen</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$socket</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$backlog</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   ソケット <i><tt class="parameter">socket</tt></i> が
+   <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> を用いて作成され、
+   <span class="function"><a href="function.socket-bind.html" class="function">socket_bind()</a></span> で名前が付けられた後、
+   <i><tt class="parameter">socket</tt></i> 上の接続要求を待つための通信ができるようになります。
+  </p>
+  <p class="para">
+   <span class="function"><b>socket_listen()</b></span> は、ソケットが
+   <i>SOCK_STREAM</i> 型または
+   <i>SOCK_SEQPACKET</i> 型の場合のみ利用可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.socket-listen-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.socket-create.html" class="function">socket_create()</a></span> で作成したソケットリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">backlog</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最大 <i><tt class="parameter">backlog</tt></i> 個の接続を処理用の
+       キューで待ち受けることが可能です。もし待ちうけ用のキューが
+       いっぱいになった場合、クライアントでは <i>ECONNREFUSED</i>
+       の通知とともにエラーが発生します。あるいは、もし基盤となるプロトコルが
+       リクエストの再送をサポートしている場合、再試行が成功するまで
+       リクエストは無視されます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <i><tt class="parameter">backlog</tt></i> パラメータに指定できる値の最大値は
+        プラットフォームに大きく依存します。Linux では、最大値は
+        <b><tt>SOMAXCONN</tt></b> に切り詰められます。win32 では、
+        もし <b><tt>SOMAXCONN</tt></b> を渡した場合、backlog の
+        最大値を<em class="emphasis">適切な</em>値に設定する責任はサービスの
+        提供側が負います。
+        このプラットフォームでは、実際の backlog の値を見つける標準的な
+        手段が提供されていません。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.socket-listen-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。 エラーコードは <span class="function"><a href="function.socket-last-error.html" class="function">socket_last_error()</a></span>
+   で取得可能で、このコードを
+   <span class="function"><a href="function.socket-strerror.html" class="function">socket_strerror()</a></span> に指定することにより
+   エラーの内容を文字列として取得可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.socket-listen-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.socket-accept.html" class="function" rel="rdfs-seeAlso">socket_accept()</a> - ソケットへの接続を許可する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-bind.html" class="function" rel="rdfs-seeAlso">socket_bind()</a> - ソケットに名前をバインドする</span></li>
+    <li class="member"><span class="function"><a href="function.socket-connect.html" class="function" rel="rdfs-seeAlso">socket_connect()</a> - ソケット上の接続を初期化する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-create.html" class="function" rel="rdfs-seeAlso">socket_create()</a> - ソケット（通信時の終端）を作成する</span></li>
+    <li class="member"><span class="function"><a href="function.socket-strerror.html" class="function" rel="rdfs-seeAlso">socket_strerror()</a> - ソケットエラーの内容を文字列として返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.socket-last-error.html">socket_last_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.socket-read.html">socket_read</a></div>
+ <div class="up"><a href="ref.sockets.html">ソケット 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

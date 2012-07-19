@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリ用の文字列をクオートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.query.html">PDO::query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.rollback.html">PDO::rollBack</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdo.quote" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::quote</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.2.1)</p><p class="refpurpose"><span class="refname">PDO::quote</span> &mdash; <span class="dc-title">
+   クエリ用の文字列をクオートする
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-pdo.quote-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>PDO::quote</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$parameter_type</tt><span class="initializer"> = PDO::PARAM_STR</span></span>
+  ] )</div>
+
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>PDO::quote()</b></span> は入力文字列のまわりに引用符を付け
+   (必要であれば) 、
+   入力文字列にあるシングルクオートをエスケープします。その場合、
+   構成しているドライバに適したクオート形式が使用されます。
+  </p>
+  <p class="para">
+   この関数を SQL の構築に使用する場合、
+   SQL ステートメントにユーザーの入力値を埋め込むための
+   <span class="function"><b>PDO::quote()</b></span> を使用する代わりに、
+   バインドパラメータを用いて SQL を準備するための
+   <span class="function"><a href="pdo.prepare.html" class="function">PDO::prepare()</a></span>
+   を使用することが<em class="emphasis">強く</em>推奨されます。
+   バインドパラメータを用いるプリペアドステートメントは、
+   補間されたクエリした場合に比べ、
+   移植性や利便性に優れ、SQL インジェクションに対する免疫力を持つだけでなく
+   しばしばより高速で、サーバやクライアント側でコンパイル済みの形式でクエリを
+   キャッシュする事が可能です。
+  </p>
+  <p class="para">
+   全ての PDO ドライバがこのメソッドを実装しているわけではありません
+   (たとえば PDO_ODBC などの例があります)。
+   代わりにプリペアドステートメントを使用することを検討してください。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-pdo.quote-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+      <dd>
+
+       <p class="para">
+        クオートされる文字列を指定します。
+       </p>
+      </dd>
+
+     </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parameter_type</tt></i></span>
+      <dd>
+
+       <p class="para">
+        クオートするスタイルを変更するため、
+        ドライバにデータ型のヒントを提供します。
+       </p>
+      </dd>
+
+     </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.quote-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   理論上安全なクオートされた SQL ステートメントの文字列を返します。
+   ドライバがこの方法での引用符付けをサポートしていない場合は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ 
+
+ <div class="refsect1 examples" id="refsect1-pdo.quote-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-933">
+    <p><b>例1 通常の文字列をクオートする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite:/home/lynn/music.sql3'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;単純な文字列&nbsp;*/<br /></span><span style="color: #0000BB">$string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Nice'</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Unquoted&nbsp;string:&nbsp;</span><span style="color: #0000BB">$string</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Quoted&nbsp;string:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">quote</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Unquoted string: Nice
+Quoted string: &#039;Nice&#039;
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-934">
+    <p><b>例2 危険な文字列をクオートする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite:/home/lynn/music.sql3'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;危険な文字列&nbsp;*/<br /></span><span style="color: #0000BB">$string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'Naughty&nbsp;\'&nbsp;string'</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Unquoted&nbsp;string:&nbsp;</span><span style="color: #0000BB">$string</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Quoted&nbsp;string:"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">quote</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Unquoted string: Naughty &#039; string
+Quoted string: &#039;Naughty &#039;&#039; string&#039;
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-935">
+    <p><b>例3 複雑な文字列をクオートする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #DD0000">'sqlite:/home/lynn/music.sql3'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;複雑な文字列&nbsp;*/<br /></span><span style="color: #0000BB">$string&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"Co'mpl''ex&nbsp;\"st'\"ring"</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Unquoted&nbsp;string:&nbsp;</span><span style="color: #0000BB">$string</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />print&nbsp;</span><span style="color: #DD0000">"Quoted&nbsp;string:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$conn</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">quote</span><span style="color: #007700">(</span><span style="color: #0000BB">$string</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Unquoted string: Co&#039;mpl&#039;&#039;ex &quot;st&#039;&quot;ring
+Quoted string: &#039;Co&#039;&#039;mpl&#039;&#039;&#039;&#039;ex &quot;st&#039;&#039;&quot;ring&#039;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.quote-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdo.prepare.html" class="function" rel="rdfs-seeAlso">PDO::prepare()</a> - 文を実行する準備を行い、文オブジェクトを返す</span></li>
+    <li class="member"><span class="function"><a href="pdostatement.execute.html" class="function" rel="rdfs-seeAlso">PDOStatement::execute()</a> - プリペアドステートメントを実行する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo.query.html">PDO::query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.rollback.html">PDO::rollBack</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

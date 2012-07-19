@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したテーブルにあるカラム名のリストを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-columnprivileges.html">odbc_columnprivileges</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-commit.html">odbc_commit</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.odbc-columns" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">odbc_columns</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">odbc_columns</span> &mdash; <span class="dc-title">指定したテーブルにあるカラム名のリストを取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.odbc-columns-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>odbc_columns</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection_id</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$qualifier</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$schema</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$table_name</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$column_name</tt></span>
+  ]]]] )</div>
+
+  <p class="para rdfs-comment">
+   指定したテーブルにあるカラム名のリストを取得します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.odbc-columns-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection_id</tt></i></span>
+     <dd>
+
+      <p class="para">ODBC 接続 ID。詳細は
+<span class="function"><a href="function.odbc-connect.html" class="function">odbc_connect()</a></span> を参照ください。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">qualifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       修飾子。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">schema</tt></i></span>
+     <dd>
+
+      <p class="para">
+       所有者。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">table_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       テーブル名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">column_name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       カラム名。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <p class="para">
+   <i><tt class="parameter">schema</tt></i>, <i><tt class="parameter">table_name</tt></i> および
+   <i><tt class="parameter">column_name</tt></i> には検索パターン
+   (ゼロ以上の文字にマッチする &#039;%&#039; や単一の文字にマッチする &#039;_&#039;) を使用可能です。
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.odbc-columns-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ODBC 結果 ID を返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   結果セットは以下のカラムを有しています。
+   <ul class="itemizedlist">
+    <li class="listitem"><span class="simpara">TABLE_QUALIFIER</span></li>
+    <li class="listitem"><span class="simpara">TABLE_SCHEM</span></li>
+    <li class="listitem"><span class="simpara">TABLE_NAME</span></li>
+    <li class="listitem"><span class="simpara">COLUMN_NAME</span></li>
+    <li class="listitem"><span class="simpara">DATA_TYPE</span></li>
+    <li class="listitem"><span class="simpara">TYPE_NAME</span></li>
+    <li class="listitem"><span class="simpara">PRECISION</span></li>
+    <li class="listitem"><span class="simpara">LENGTH</span></li>
+    <li class="listitem"><span class="simpara">SCALE</span></li>
+    <li class="listitem"><span class="simpara">RADIX</span></li>
+    <li class="listitem"><span class="simpara">NULLABLE</span></li>
+    <li class="listitem"><span class="simpara">REMARKS</span></li>
+   </ul>
+  </p>
+  <p class="para">
+   結果セットは TABLE_QUALIFIER、TABLE_SCHEM、TABLE_NAME でソートされます。
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.odbc-columns-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">付随する権限を取得するには <span class="function"><a href="function.odbc-columnprivileges.html" class="function" rel="rdfs-seeAlso">odbc_columnprivileges()</a> - 指定したテーブルに関するカラムおよび付随する権限のリストを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-columnprivileges.html">odbc_columnprivileges</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.odbc-commit.html">odbc_commit</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>トランザクションを開始する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.pdo.html">PDO</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.commit.html">PDO::commit</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="pdo.begintransaction" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">PDO::beginTransaction</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0, PECL pdo &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">PDO::beginTransaction</span> &mdash; <span class="dc-title">
+   トランザクションを開始する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-pdo.begintransaction-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>PDO::beginTransaction</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   オートコミットモードをオフにします。オートコミットモードがオフの間、
+   PDO オブジェクトを通じてデータベースに加えた変更は
+   <span class="function"><a href="pdo.commit.html" class="function">PDO::commit()</a></span> をコールするまでコミットされません。
+   <span class="function"><a href="pdo.rollback.html" class="function">PDO::rollback()</a></span> をコールすると、
+   データベースへの全ての変更をロールバックし、
+   オートコミットモードに設定された接続を返します。
+  </p>
+  <p class="para">
+   MySQL を含むいくつかのデータベースでは、DROP TABLE や CREATE TABLE
+   のようなデータベース定義言語 (DDL) ステートメントがトランザクション中に
+   発行される場合、暗黙的なコミットが自動的に発行されます。
+   この暗黙的なコミットにより、そのトランザクション境界で
+   他のあらゆる変更をロールバックすることができなくなるでしょう。
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-pdo.begintransaction-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-pdo.begintransaction-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-920"><p><b>例1 トランザクションをロールバックする</b></p>
+    <div class="example-contents"><p>
+     以下の例は、トランザクションを開始し、
+     変更をロールバックする前にデータベースを修正する
+     2 つのステートメントを発行します。
+     しかしながら MySQL では、DROP TABLE ステートメントは
+     自動的にトランザクションをコミットするので、
+     トランザクション中のどの変更もロールバックされません。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;トランザクションを開始する。オートコミットがオフになる&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">beginTransaction</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;データベーススキーマとデータを変更する&nbsp;*/<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;fruit"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">exec</span><span style="color: #007700">(</span><span style="color: #DD0000">"UPDATE&nbsp;dessert<br />&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;name&nbsp;=&nbsp;'hamburger'"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;ミスに気づき、変更をロールバックする&nbsp;*/<br /></span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">rollBack</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;データベース接続はオートコミットモードに戻る&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-pdo.begintransaction-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="pdo.commit.html" class="function" rel="rdfs-seeAlso">PDO::commit()</a> - トランザクションをコミットする</span></li>
+    <li class="member"><span class="function"><a href="pdo.rollback.html" class="function" rel="rdfs-seeAlso">PDO::rollBack()</a> - トランザクションをロールバックする</span></li>
+    <li class="member"><a href="pdo.transactions.html" class="link">トランザクションおよび自動コミット</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.pdo.html">PDO</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo.commit.html">PDO::commit</a></div>
+ <div class="up"><a href="class.pdo.html">PDO</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

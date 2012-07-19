@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MaxDB サーバへの新しい接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-connect-error.html">maxdb_connect_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-data-seek.html">maxdb_data_seek</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.maxdb-connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">maxdb_connect</h1>
+  <h1 class="refname">maxdb::__construct</h1>
+  <p class="verinfo">(PECL maxdb &gt;= 1.0)</p><p class="refpurpose"><span class="refname">maxdb_connect</span> -- <span class="refname">maxdb::__construct</span> &mdash; <span class="dc-title">MaxDB サーバへの新しい接続をオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.maxdb-connect-description">
+  <h3 class="title">説明</h3>
+  <p class="para">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>maxdb_connect</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$username</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$passwd</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbname</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$socket</tt></span>
+  ]]]]]] )</div>
+
+  <p class="para rdfs-comment">オブジェクト指向型</p>
+  <div class="constructorsynopsis dc-description">
+    <span class="methodname"><b>maxdb::__construct()</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$username</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$passwd</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbname</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$socket</tt></span>
+  ]]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>maxdb_connect()</b></span> 関数は、<i><tt class="parameter">host</tt></i>
+   で稼動している MaxDB サーバへの接続をオープンしようと試みます。
+   <i><tt class="parameter">host</tt></i> にはホスト名あるいは IP アドレスが指定可能です。
+   &quot;localhost&quot; を渡すと、ローカルホストが使用されます。接続に成功すると、
+   <span class="function"><b>maxdb_connect()</b></span> はデータベースへの接続を表すリソースを返します。
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">username</tt></i> および <i><tt class="parameter">password</tt></i>
+   で、MaxDB サーバに接続する際のユーザ名およびパスワードを指定します。
+   パスワードが指定されなかった場合
+   (<b><tt>NULL</tt></b> が渡された場合) は、<var class="filename">php.ini</var> の <i><tt class="parameter">maxdb.default_pw</tt></i>
+   を使用して MaxDB サーバへの接続を試みます。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">dbname</tt></i> では、
+   クエリを実行する際のデフォルトのデータベースを指定します。
+   指定されなかった場合は、<var class="filename">php.ini</var> の
+   <i><tt class="parameter">maxdb.default_db</tt></i> エントリの内容が使用されます。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">port</tt></i> および <i><tt class="parameter">socket</tt></i>
+   は、MaxDB サーバでは無視されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.maxdb-connect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   MaxDB サーバへの接続を表す文字列、あるいは接続に失敗した場合に
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.maxdb-connect-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1226">
+   <p><b>例1 オブジェクト指向型</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$maxdb&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">maxdb</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"MONA"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"RED"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DEMODB"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を調べます&nbsp;*/&nbsp;<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">maxdb_connect_errno</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"接続に失敗しました:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">maxdb_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"ホスト情報:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$maxdb</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host_info</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を閉じます&nbsp;*/<br /></span><span style="color: #0000BB">$maxdb</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+  </div>
+
+  </div>
+  <div class="example" id="example-1227">
+   <p><b>例2 手続き型</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">maxdb_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"MONA"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"RED"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"DEMODB"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を調べます&nbsp;*/&nbsp;<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"接続に失敗しました:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">maxdb_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;exit();<br />}<br /><br /></span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"ホスト情報:&nbsp;%s\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">maxdb_get_host_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;接続を閉じます&nbsp;*/<br /></span><span style="color: #0000BB">maxdb_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は、
+たとえば以下のようになります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+ホスト情報: localhost
+</pre></div>
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.maxdb-connect-error.html">maxdb_connect_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.maxdb-data-seek.html">maxdb_data_seek</a></div>
+ <div class="up"><a href="ref.maxdb.html">MaxDB 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

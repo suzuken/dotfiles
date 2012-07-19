@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列から現在のキーと値のペアを返して、カーソルを進める</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.current.html">current</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.end.html">end</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.each" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">each</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">each</span> &mdash; <span class="dc-title">配列から現在のキーと値のペアを返して、カーソルを進める</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.each-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>each</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$array</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   配列から現在のキーと値のペアを返して、カーソルを進めます。
+  </p>
+  <p class="para">
+   <span class="function"><b>each()</b></span> を実行した後、配列カーソルは、
+   配列の次の要素に移動します。配列の最終要素にカーソルがある場合は、
+   最終要素にとどまります。再度 each を使用して配列を走査するには、
+   <span class="function"><a href="function.reset.html" class="function">reset()</a></span> を使用する必要があります。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.each-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.each-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   配列 <i><tt class="parameter">array</tt></i> から現在のキーと値のペアを返します。
+   このペアは 4 つの要素を持つ配列で、
+   それぞれの要素は <i>0</i>, <i>1</i>,
+   <i>key</i>, <i>value</i> というキーを有しています。
+   要素 <i>0</i>と<i>key</i>
+   の各々は配列要素のキー名称を保持しており、<i>1</i>
+   と <i>value</i> の各々はそのデータを保持しています。
+  </p>
+  <p class="para">
+   配列の内部ポインタが配列の最終要素以降を指す場合、
+   <span class="function"><b>each()</b></span> は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.each-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4134">
+    <p><b>例1 <span class="function"><b>each()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"bob"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"fred"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"jussi"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"jouni"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"egon"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"marliese"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">each</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     <i>$bar</i> は、ここでは以下のキー/値のペアを保持しています。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [1] =&gt; bob
+    [value] =&gt; bob
+    [0] =&gt; 0
+    [key] =&gt; 0
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"Robert"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Bob"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"Seppo"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"Sepi"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">each</span><span style="color: #007700">(</span><span style="color: #0000BB">$foo</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <p class="para">
+     <var class="varname"><var class="varname">$bar</var></var> は次のようなキー/値のペアを持つようになります。
+    </p>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [1] =&gt; Bob
+    [value] =&gt; Bob
+    [0] =&gt; Robert
+    [key] =&gt; Robert
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   通常 <span class="function"><b>each()</b></span> は、配列の走査をするために
+   <span class="function"><a href="function.list.html" class="function">list()</a></span> と共に使用します。
+   例えばこのようになります。
+   <div class="example" id="example-4135">
+    <p><b>例2 <span class="function"><b>each()</b></span> によって配列を走査する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fruit&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'a'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'apple'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'b'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'banana'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'c'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'cranberry'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">reset</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">);<br />while&nbsp;(list(</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">each</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruit</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$key</span><span style="color: #DD0000">&nbsp;=&gt;&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+a =&gt; apple
+b =&gt; banana
+c =&gt; cranberry
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    配列を他の変数に代入すると、もとの配列の内部ポインタがリセットされます。
+    そのため、上の例のループ内で <var class="varname"><var class="varname">$fruit</var></var>
+    を他の変数に代入すると、無限ループを引き起こしてしまいます。
+   </p>
+  </div>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="para">
+    <span class="function"><b>each()</b></span> をオブジェクトに対して使用することもできますが、
+    予期せぬ結果を返すことになるかもしれません。
+    オブジェクトのプロパティを <span class="function"><b>each()</b></span>
+    で反復処理することはおすすめしません。
+   </p>
+  </div>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.each-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.key.html" class="function" rel="rdfs-seeAlso">key()</a> - 配列からキーを取り出す</span></li>
+    <li class="member"><span class="function"><a href="function.list.html" class="function" rel="rdfs-seeAlso">list()</a> - 配列と同様の形式で、複数の変数への代入を行う</span></li>
+    <li class="member"><span class="function"><a href="function.current.html" class="function" rel="rdfs-seeAlso">current()</a> - 配列内の現在の要素を返す</span></li>
+    <li class="member"><span class="function"><a href="function.reset.html" class="function" rel="rdfs-seeAlso">reset()</a> - 配列の内部ポインタを先頭の要素にセットする</span></li>
+    <li class="member"><span class="function"><a href="function.next.html" class="function" rel="rdfs-seeAlso">next()</a> - 内部配列ポインタを進める</span></li>
+    <li class="member"><span class="function"><a href="function.prev.html" class="function" rel="rdfs-seeAlso">prev()</a> - 内部の配列ポインタをひとつ前に戻す</span></li>
+    <li class="member"><a href="control-structures.foreach.html" class="link">foreach</a></li>
+    <li class="member"><a href="language.oop5.iterations.html" class="link">オブジェクトのイタレーション</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.current.html">current</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.end.html">end</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

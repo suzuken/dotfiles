@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトの集約の例</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="objaggregation.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="objaggregation.examples2.html">例</a></div>
+ <div class="up"><a href="objaggregation.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="objaggregation.examples.association" class="section">
+  <h2 class="title">オブジェクトの集約の例</h2>
+    <p class="para">
+     <em class="emphasis">関連</em>は、独立に構築され、外部から
+     可視の部分を合成したものです。クラスまたはオブジェクトを
+     関連づける場合、各クラスは関連するクラスへのリファレンスを保持します。
+     複数のクラスを静的に関連づける場合は、クラスは他のクラスの
+     インスタンスへのリファレンスを含みます。例えば、
+     <div class="example" id="example-4237">
+      <p><b>例1 クラスの関連付け</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDateTime&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">DateTime</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;空のコンストラクタ<br />&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">now</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"Y-m-d&nbsp;H:i:s"</span><span style="color: #007700">);<br />&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">Report&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$_dt</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;その他のプロパティ&nbsp;...<br /><br />&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">Report</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_dt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDateTime</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;初期化コード&nbsp;...<br />&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">generateReport</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$dateTime&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_dt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">now</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;その他のコード&nbsp;...<br />&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;その他のメソッド&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$rep&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Report</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+     コンストラクタ (または他のメソッド) にリファレンスを渡すことにより
+     実行時に複数のインスタンスを関連づけることも可能です。
+     これにより、複数のオブジェクト間の関連を動的に変更することが
+     可能です。この例を示すために上の例を変更してみます。
+     <div class="example" id="example-4238">
+      <p><b>例2 オブジェクトの関連</b></p>
+      <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">MyDateTime&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;上の例と同じ<br /></span><span style="color: #007700">}<br /><br />class&nbsp;</span><span style="color: #0000BB">MyDateTimePlus&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$_format</span><span style="color: #007700">;<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">MyDateTimePlus</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">=</span><span style="color: #DD0000">"Y-m-d&nbsp;H:i:s"</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #007700">;<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">now</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_format</span><span style="color: #007700">);<br />&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">Report&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;var&nbsp;</span><span style="color: #0000BB">$_dt</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;MyDateTime&nbsp;へのリファレンスをここに保持<br />&nbsp;&nbsp;//&nbsp;その他のプロパティ&nbsp;...<br /><br />&nbsp;&nbsp;</span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">Report</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;初期化を行う<br />&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">setMyDateTime</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$dt</span><span style="color: #007700">)&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_dt&nbsp;</span><span style="color: #007700">=&amp;&nbsp;</span><span style="color: #0000BB">$dt</span><span style="color: #007700">;<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">generateReport</span><span style="color: #007700">()&nbsp;<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$dateTime&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">_dt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">now</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;その他のコード&nbsp;...<br />&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;その他のメソッド&nbsp;...<br /></span><span style="color: #007700">}<br /><br /></span><span style="color: #0000BB">$rep&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Report</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$dt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDateTime</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$dtp&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MyDateTimePlus</span><span style="color: #007700">(</span><span style="color: #DD0000">"l,&nbsp;F&nbsp;j,&nbsp;Y&nbsp;(h:i:s&nbsp;a,&nbsp;T)"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Web&nbsp;表示用に簡単な日付を付けたレポートを生成する<br /></span><span style="color: #0000BB">$rep</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMyDateTime</span><span style="color: #007700">(</span><span style="color: #0000BB">$dt</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$rep</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">generateReport</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;その他のコード&nbsp;...<br /><br />//&nbsp;かっこの良いレポートを生成する<br /></span><span style="color: #0000BB">$rep</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMyDateTime</span><span style="color: #007700">(</span><span style="color: #0000BB">$dtp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$output&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$rep</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">generateReport</span><span style="color: #007700">();<br /></span><span style="color: #FF8000">//&nbsp;データベースに&nbsp;$output&nbsp;を保存<br />//&nbsp;...&nbsp;等&nbsp;...&nbsp;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+      </div>
+
+     </div>
+    </p>
+    <p class="para">
+     一方、<em class="emphasis">集約</em>では、合成されたパーツのカプセル化
+     (隠蔽) が行われます。(静的な) 内部クラス (PHP はまだ内部クラスを
+     サポートしていません) を使用することにより、クラスを集約することが
+     できます。この場合、このクラスを含むクラスを通じる場合以外、集約された
+     クラスの定義にはアクセスできません。複数のインスタンスの集約
+     (オブジェクト集約) は、あるオブジェクトの内部にサブオブジェクトを
+     動的に作成することを意味し、この過程でこのオブジェクトのプロパティと
+     メソッドを拡張します。
+    </p>
+    <p class="para">
+     オブジェクトの集約は、(例えば、分子は原子を集約したものであるといった)
+     包含関係を表す際の自然な方法であり、サブクラスを複数の親クラス
+     およびそのインターフェイスに永続的にバインドすることなく、
+     多重継承と等価な機能を得るために使用できます。
+     実際、オブジェクトの集約はより柔軟に使用することができ、集約される
+     オブジェクトで継承するメソッドまたはプロパティを選択することが
+     できます。
+    </p>
+   </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="objaggregation.examples.html">例</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="objaggregation.examples2.html">例</a></div>
+ <div class="up"><a href="objaggregation.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

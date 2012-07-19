@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>設定ファイルの移行</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration5.cli-cgi.html">CLI と CGI</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration5.functions.html">新しい関数</a></div>
+ <div class="up"><a href="migration5.html">PHP 4 から PHP 5.0.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="migration5.configuration" class="section">
+   <h2 class="title">設定ファイルの移行</h2>
+   <p class="para">
+    SAPIモジュールの名前がphp4xxxからphp5xxxに変更されたため、
+    設定ファイルを変更する必要があります。
+    また、CLIおよびCGIのファイル名も変更されています。詳細については、
+    <a href="migration5.cli-cgi.html" class="link">対応するセクション</a>を
+    参照してください。
+   </p>
+   <p class="para">
+    Apache の設定の移行は非常に簡単です。必要な変更については、
+    以下の例を参照してください。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode"># change this line:    
+LoadModule php4_module /php/sapi/php4apache2.dll
+
+# with this one:
+LoadModule php5_module /php/php5apache2.dll</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    サーバ上でCGIモードでPHPを実行している場合、
+    CGI版の名前がphp.exeからphp-cgi.exeに変更されたことに注意する必要があります。
+    Apacheでは、以下のようにする必要があります。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="apache-confcode"><pre class="apache-confcode"># change this line:    
+Action application/x-httpd-php &quot;/php/php.exe&quot; 
+
+# with this one:
+Action application/x-httpd-php &quot;/php/php-cgi.exe&quot;</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    他のWebサーバの場合、CGIまたはSAPIモジュールのファイル名を変更する
+    必要があります。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="migration5.cli-cgi.html">CLI と CGI</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="migration5.functions.html">新しい関数</a></div>
+ <div class="up"><a href="migration5.html">PHP 4 から PHP 5.0.x への移行</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

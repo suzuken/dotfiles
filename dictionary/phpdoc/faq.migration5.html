@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PHP 4 から PHP 5 への移行</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="faq.languages.html">PHP と他の言語</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="faq.misc.html">その他の質問</a></div>
+ <div class="up"><a href="faq.html">FAQ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="faq.migration5" class="chapter">
+  <h1>PHP 4 から PHP 5 への移行</h1>
+
+  
+
+  <p class="para">
+   この章は、PHP 4 から PHP 5 への移行の助けになることでしょう。
+  </p>
+
+  <div class="qandaset"><ol class="qandaset_questions"><li><a href="#faq.migration5.php45">
+     
+      PHP 4 から PHP 5 への移行
+     
+    </a></li><li><a href="#faq.migration5.mysql">
+     
+      MySQL は PHP 5 で動きますか？ 見当たらないようなのですが。
+     
+    </a></li><li><a href="#faq.migration5.oop">
+     
+      PHP 5 ではまったく新しいオブジェクト指向モデルが採用されていると
+      聞きましたが、既存のオブジェクト指向なコードは動きますか？ 新しい
+      オブジェクト指向モデルについての情報はどこで得られますか？
+     
+    </a></li><li><a href="#faq.migration5.changes">
+     
+      新しいオブジェクト指向モデル以外に、PHP 5 で何が変わったのですか？ 
+      また、PHP 5 に特化した PHP のマニュアルはありますか？
+     
+    </a></li></ol></div>
+   <dl class="qandaentry" id="faq.migration5.php45">
+    <dt><strong>
+     
+      PHP 4 から PHP 5 への移行
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHP 5 では多くの新機能を提供してますが、以前のバージョンの PHP 
+      との互換性を可能な限り保っています。しかし、いくつかの機能について
+      は互換性が失われています。
+     </p>
+     <p class="para">
+      マニュアルの <a href="migration5.html" class="link">PHP 5 への移行に関する付録
+      の適切な箇所</a>を参照してください。PHP 5 への移行に関するさらに
+      重要な情報が得られます。
+     </p>
+    </dd>
+   </dl>
+   
+   <dl class="qandaentry" id="faq.migration5.mysql">
+    <dt><strong>
+     
+      MySQL は PHP 5 で動きますか？ 見当たらないようなのですが。
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      <a href="ref.mysql.html" class="link">MySQL</a> はサポートされています。
+      たったひとつこれまでと変わったところは、PHP 5 では MySQL のサポートが
+      <em class="emphasis">標準では</em> 有効になっていないということです。つまり、
+      <a href="configuration.html" class="link">configure</a> オプションに 
+      <strong class="option configure">--with-mysql</strong>
+ が含まれていないので、
+      PHP をコンパイルする際に手動でこのオプションを設定する必要があります。
+      Windows ユーザは、<var class="filename">php.ini</var> を編集して 
+      <var class="filename">php_mysql.dll</var> DLL を有効にします。PHP 4 では
+      このような DLL は存在しませんでした。この機能は PHP バイナリの中に
+      直接埋め込まれていたのです。
+     </p>
+     <p class="para">
+      また、MySQL クライアントライブラリは PHP には同梱されていません。
+      詳細については<a href="faq.databases.html#faq.databases.mysql.php5" class="link">この FAQ</a> に
+      記述されています。また MySQL のインストール方法については 
+      <a href="ref.mysql.html" class="link">MySQL 関数</a> を参照してください。 
+      configure 設定の例は <strong class="option configure">--with-mysql=/usr</strong>
+ 
+      のようになります。Windows ユーザは、 <var class="filename">libmySQL.dll</var> が
+      システムに存在する必要があります。
+     </p>
+    </dd>
+   </dl>
+
+   <dl class="qandaentry" id="faq.migration5.oop">
+    <dt><strong>
+     
+      PHP 5 ではまったく新しいオブジェクト指向モデルが採用されていると
+      聞きましたが、既存のオブジェクト指向なコードは動きますか？ 新しい
+      オブジェクト指向モデルについての情報はどこで得られますか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      PHP 5 での主要な変更点は新しいオブジェクト指向モデルであり、それは 
+      <em class="emphasis">Zend Engine 2.0</em> を用いています。 <a href="ini.core.html#ini.zend.ze1-compatibility-mode" class="link">
+      zend.ze1_compatibility_mode</a> ディレクティブを設定することで、
+      <i>Zend Engine 1.0</i> (PHP 4) との互換性を保つことができます。
+     </p>
+     <p class="para">
+      新しいオブジェクト指向モデルについては、<a href="language.oop5.html" class="link">
+      クラスとオブジェクト</a> と <a href="migration5.oop.html" class="link">新しい
+      オブジェクトモデル</a> の章に記述されています。
+     </p>
+    </dd>
+   </dl>
+   
+   <dl class="qandaentry" id="faq.migration5.changes">
+    <dt><strong>
+     
+      新しいオブジェクト指向モデル以外に、PHP 5 で何が変わったのですか？ 
+      また、PHP 5 に特化した PHP のマニュアルはありますか？
+     
+    </strong></dt>
+    <dd class="answer">
+     <p class="para">
+      それ以外の変更点はほとんどありません。詳細は
+      <a href="migration5.html" class="link">PHP 4 から PHP 5への移行</a> を参照して
+      ください。PHP 5 に特化されたマニュアルはありません。というのも、PHP の
+      大半の部分はこれまでと同じだからです。
+     </p>
+    </dd>
+   </dl>
+   
+  
+ </div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="faq.languages.html">PHP と他の言語</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="faq.misc.html">その他の質問</a></div>
+ <div class="up"><a href="faq.html">FAQ</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

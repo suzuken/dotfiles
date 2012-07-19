@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトレコード</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hw-getchilddoccollobj.html">hw_GetChildDocCollObj</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hw-getobjectbyquery.html">hw_GetObjectByQuery</a></div>
+ <div class="up"><a href="ref.hw.html">Hyperwave 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.hw-getobject" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">hw_GetObject</h1>
+  <p class="verinfo">(PHP 4)</p><p class="refpurpose"><span class="refname">hw_GetObject</span> &mdash; <span class="dc-title">オブジェクトレコード</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.hw-getobject-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>hw_getobject</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$connection</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$objectID</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   オブジェクトレコードを取得します。
+   二番目のパラメータが整数(スカラー)の場合、ID 
+   <i><tt class="parameter">objectID</tt></i> を有するオブジェクトの
+   オブジェクトレコードを返します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.hw-getobject-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       接続 ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">objectID</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オブジェクト ID、あるいは ID の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クエリー文字列は次の構文を有しています。
+       <div class="example-contents screen">
+<div class="parameterscode"><pre class="parameterscode">&lt;expr&gt; ::= &quot;(&quot; &lt;expr&gt; &quot;)&quot; |
+           &quot;!&quot; &amp;lt;expr&gt; |          /* NOT */
+           &lt;expr&gt; &quot;||&quot; &lt;expr&gt; |  /* OR */
+           &lt;expr&gt; &quot;&amp;amp;&amp;amp;&quot; &lt;expr&gt; |  /* AND */
+           &lt;attribute&gt; &lt;operator&gt; &lt;value&gt;
+
+&lt;attribute&gt; ::= /* 属性の名前 (Title, Author, DocumentType ...) */
+
+&lt;operator&gt; ::= &quot;=&quot; |    /* 等しい */
+               &quot;&lt;&quot; |    /* より小さい (文字列比較) */
+               &quot;&gt;&quot; |    /* より大きい (文字列比較) */
+               &quot;~&quot;      /* 正規表現によるマッチング */</pre>
+</div>
+       </div>
+       クエリーにより指定したオブジェクトのリストアら特定のオブジェクトを
+       選択することが可能となります。
+       他の関数とは異なり、このクエリーはインデックス付きの属性を使用しません。
+       返されるオブジェクトレコードの数は、クエリーおよび
+       オブジェクトにアクセス可能であるかどうかに依存します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.hw-getobject-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   二番目のパラメータが整数の場合、指定したオブジェクト ID 
+   を有するオブジェクトのオブジェクトレコードを返します。
+  </p>
+  <p class="para">
+   二番目のパラメータが整数の配列の場合、関数はオブジェクトレコードの
+   配列を返します。このような場合、最後のパラメータであるクエリー文字列も
+   評価されます。
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.hw-getobject-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.hw-getandlock.html" class="function" rel="rdfs-seeAlso">hw_getandlock()</a> - オブジェクトレコードを返しおよびオブジェクトをロックする</span></li>
+    <li class="member"><span class="function"><a href="function.hw-getobjectbyquery.html" class="function" rel="rdfs-seeAlso">hw_getobjectbyquery()</a> - オブジェクトを検索する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.hw-getchilddoccollobj.html">hw_GetChildDocCollObj</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.hw-getobjectbyquery.html">hw_GetObjectByQuery</a></div>
+ <div class="up"><a href="ref.hw.html">Hyperwave 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

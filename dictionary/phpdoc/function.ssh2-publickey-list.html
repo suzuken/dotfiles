@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>現在認証済みの公開鍵の一覧を表示する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-publickey-init.html">ssh2_publickey_init</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-publickey-remove.html">ssh2_publickey_remove</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ssh2-publickey-list" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ssh2_publickey_list</h1>
+  <p class="verinfo">(PECL ssh2 &gt;= 0.10)</p><p class="refpurpose"><span class="refname">ssh2_publickey_list</span> &mdash; <span class="dc-title">
+   現在認証済みの公開鍵の一覧を表示する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.ssh2-publickey-list-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>ssh2_publickey_list</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$pkey</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   現在認証済みの公開鍵の一覧を表示します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ssh2-publickey-list-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pkey</tt></i></span>
+     <dd>
+
+      <p class="para">
+       公開鍵サブシステムのリソース。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ssh2-publickey-list-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   鍵を、数値添字の配列で返します。
+   個々の要素は連想配列となっており、その内容は
+   name、blob、および attrs です。
+  </p>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>公開鍵の要素</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>配列のキー</th>
+       <th>意味</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">name</td>
+       <td align="left">
+        この公開鍵で使用しているアルゴリズムの名前。例:
+        <i>ssh-dss</i> あるいは <i>ssh-rsa</i>。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">blob</td>
+       <td align="left">生のバイナリデータとしての blob 形式の公開鍵。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">attrs</td>
+       <td align="left">
+        この公開鍵に割り当てる属性。
+        もっとも一般的な属性であり、バージョン 1 の公開鍵サーバが唯一サポートしている属性は
+        <i>comment</i> です。これは任意の書式の文字列です。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ssh2-publickey-list-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3768">
+    <p><b>例1 認証済みの鍵の一覧を <span class="function"><b>ssh2_publickey_list()</b></span> で表示する</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$ssh2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'shell.example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ssh2_auth_password</span><span style="color: #007700">(</span><span style="color: #0000BB">$ssh2</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'jdoe'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$pkey&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_publickey_init</span><span style="color: #007700">(</span><span style="color: #0000BB">$ssh2</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$list&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_publickey_list</span><span style="color: #007700">(</span><span style="color: #0000BB">$pkey</span><span style="color: #007700">);<br /><br />foreach(</span><span style="color: #0000BB">$list&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Key:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$key</span><span style="color: #007700">[</span><span style="color: #DD0000">'name'</span><span style="color: #007700">]}</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Blob:&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">chunk_split</span><span style="color: #007700">(</span><span style="color: #0000BB">base64_encode</span><span style="color: #007700">(</span><span style="color: #0000BB">$key</span><span style="color: #007700">[</span><span style="color: #DD0000">'blob'</span><span style="color: #007700">]),&nbsp;</span><span style="color: #0000BB">40</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Comment:&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$key</span><span style="color: #007700">[</span><span style="color: #DD0000">'attrs'</span><span style="color: #007700">][</span><span style="color: #DD0000">'comment'</span><span style="color: #007700">]}</span><span style="color: #DD0000">\n\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Key: ssh-rsa
+Blob: AAAAB3NzaC1yc2EAAAABIwAAAIEA5HVt6VqSGd5P
+TrLRdjNONxXH1tVFGn0Bd26BF0aCP9qyJRlvdJ3j
+4WBeX4ZmrveGrjMgkseSYc4xZ26sDHwfL351xjza
+Lpipu\BGRrw17mWVBhuCExo476ri5tQFzbTc54VE
+HYckxQ16CjSTibI5X69GmnYC9PNqEYq/1TP+HF10
+Comment: John&#039;s Key
+
+Key: ssh-rsa
+Blob: AAAAB3NzaHVt6VqSGd5C1yc2EAAAABIwA232dnJA
+AIEA5HVt6VqSGd5PTrLRdjNONxX/1TP+HF1HVt6V
+qSGd50H1tVFGn0BB3NzaC1yc2EAd26BF0aCP9qyJ
+RlvdJ3j4WBeX4ZmrveGrjMgkseSYc4xZ26HVt6Vq
+SGd5sDHwfL351xjzaLpipu\BGB3NzaC1yc2EA/1T
+Comment: Alice&#039;s Key
+
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.ssh2-publickey-list-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">
+この公開鍵サブシステムは、クライアントが認証 <em class="emphasis">済</em> の
+公開鍵をサーバ上で管理するために使用されます。
+公開鍵認証によりリモートシステムで認証を行うには、かわりに
+<span class="function"><a href="function.ssh2-auth-pubkey-file.html" class="function">ssh2_auth_pubkey_file()</a></span> 関数を使用してください。</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ssh2-publickey-list-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ssh2-publickey-init.html" class="function" rel="rdfs-seeAlso">ssh2_publickey_init()</a> - 公開鍵サブシステムを初期化する</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-publickey-add.html" class="function" rel="rdfs-seeAlso">ssh2_publickey_add()</a> - 認証済み公開鍵を追加する</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-publickey-remove.html" class="function" rel="rdfs-seeAlso">ssh2_publickey_remove()</a> - 認証済み公開鍵を取り除く</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-publickey-init.html">ssh2_publickey_init</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-publickey-remove.html">ssh2_publickey_remove</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

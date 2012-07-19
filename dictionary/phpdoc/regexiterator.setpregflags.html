@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>正規表現フラグを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexiterator.setmode.html">RegexIterator::setMode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.simplexmliterator.html">SimpleXMLIterator</a></div>
+ <div class="up"><a href="class.regexiterator.html">RegexIterator</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexiterator.setpregflags" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">RegexIterator::setPregFlags</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">RegexIterator::setPregFlags</span> &mdash; <span class="dc-title">正規表現フラグを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-regexiterator.setpregflags-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>RegexIterator::setPregFlags</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$preg_flags</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   正規表現フラグを設定します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-regexiterator.setpregflags-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">preg_flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       正規表現フラグ。利用できるフラグの概要は
+        <span class="methodname"><a href="regexiterator.construct.html" class="methodname">RegexIterator::__construct()</a></span>
+       を参照ください。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-regexiterator.setpregflags-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-regexiterator.setpregflags-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="regexiterator.setpregflags.example.basic">
+    <p><b>例1 <span class="function"><b>RegexIterator::setPregFlags()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+      新しい RegexIterator を作成します。これは、
+      配列のキーが &#039;test&#039; で始まるすべてのエントリを取り出します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$test&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(</span><span style="color: #DD0000">'test&nbsp;1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'another&nbsp;test'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test&nbsp;123'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$arrayIterator&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ArrayIterator</span><span style="color: #007700">(</span><span style="color: #0000BB">$test</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$regexIterator&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">RegexIterator</span><span style="color: #007700">(</span><span style="color: #0000BB">$arrayIterator</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/^test/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">RegexIterator</span><span style="color: #007700">::</span><span style="color: #0000BB">GET_MATCH</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$regexIterator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setPregFlags</span><span style="color: #007700">(</span><span style="color: #0000BB">PREG_OFFSET_CAPTURE</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$regexIterator&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$key&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [0]=&gt;
+  array(2) {
+    [0]=&gt;
+    string(4) &quot;test&quot;
+    [1]=&gt;
+    int(0)
+  }
+}
+array(1) {
+  [0]=&gt;
+  array(2) {
+    [0]=&gt;
+    string(4) &quot;test&quot;
+    [1]=&gt;
+    int(0)
+  }
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-regexiterator.setpregflags-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="regexiterator.getpregflags.html" class="methodname" rel="rdfs-seeAlso">RegexIterator::getPregFlags()</a> - 正規表現フラグを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexiterator.setmode.html">RegexIterator::setMode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.simplexmliterator.html">SimpleXMLIterator</a></div>
+ <div class="up"><a href="class.regexiterator.html">RegexIterator</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

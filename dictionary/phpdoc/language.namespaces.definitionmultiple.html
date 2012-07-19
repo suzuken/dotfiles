@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>同一ファイル内での複数の名前空間の定義</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.nested.html">サブ名前空間の宣言</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.basics.html">名前空間の使用法: 基本編</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.namespaces.definitionmultiple" class="sect1">
+  <h2 class="title">同一ファイル内での複数の名前空間の定義</h2>
+  <p class="para">
+   複数の名前空間を同一ファイル内で宣言することもあります。
+   この場合の構文は次の 2 通りです。
+  </p>
+  <p class="para">
+   <div class="example" id="example-211">
+    <p><b>例1 シンプルな組み合わせ方式による複数の名前空間の宣言</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br /><br />namespace&nbsp;</span><span style="color: #0000BB">AnotherProject</span><span style="color: #007700">;<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   この構文は、複数の名前空間をひとつのファイルに含める場合の方法としてはお勧めしません。
+   かわりに、次の波括弧構文を使うことを推奨します。
+  </p>
+  <p class="para">
+   <div class="example" id="example-212">
+    <p><b>例2 波括弧構文による複数の名前空間の宣言</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">MyProject&nbsp;</span><span style="color: #007700">{<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br />namespace&nbsp;</span><span style="color: #0000BB">AnotherProject&nbsp;</span><span style="color: #007700">{<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   ただ、複数の名前空間をひとつのファイルに記述するようなコーディングはできるだけ避けるべきです。
+   主な使い道としては、複数の PHP スクリプトをひとつのファイルにまとめるときくらいでしょう。
+  </p>
+  <p class="para">
+   名前空間に属さないグローバルなコードを名前空間つきのコードと組み合わせるときには、
+   波括弧構文しか使用できません。グローバルなコードは、名前空間の名前を指定しない
+   namespace 文で囲みます。たとえば次のようになります。
+   <div class="example" id="example-213">
+    <p><b>例3 複数の名前空間および名前空間に属さないコードの宣言</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">MyProject&nbsp;</span><span style="color: #007700">{<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br />namespace&nbsp;{&nbsp;</span><span style="color: #FF8000">//&nbsp;グローバルコード<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">\</span><span style="color: #0000BB">connect</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">\</span><span style="color: #0000BB">Connection</span><span style="color: #007700">::</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   namespace の波括弧の外側に書くことができる PHP コードは、最初の declare 文だけです。
+   <div class="example" id="example-214">
+    <p><b>例4 複数の名前空間および名前空間に属さないコードの宣言</b></p>
+    <div class="example-contents">
+     <div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">declare(</span><span style="color: #0000BB">encoding</span><span style="color: #007700">=</span><span style="color: #DD0000">'UTF-8'</span><span style="color: #007700">);<br />namespace&nbsp;</span><span style="color: #0000BB">MyProject&nbsp;</span><span style="color: #007700">{<br /><br />const&nbsp;</span><span style="color: #0000BB">CONNECT_OK&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br />class&nbsp;</span><span style="color: #0000BB">Connection&nbsp;</span><span style="color: #007700">{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;</span><span style="color: #007700">}<br />function&nbsp;</span><span style="color: #0000BB">connect</span><span style="color: #007700">()&nbsp;{&nbsp;</span><span style="color: #FF8000">/*&nbsp;...&nbsp;*/&nbsp;&nbsp;</span><span style="color: #007700">}<br />}<br /><br />namespace&nbsp;{&nbsp;</span><span style="color: #FF8000">//&nbsp;global&nbsp;code<br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">\</span><span style="color: #0000BB">connect</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">MyProject</span><span style="color: #007700">\</span><span style="color: #0000BB">Connection</span><span style="color: #007700">::</span><span style="color: #0000BB">start</span><span style="color: #007700">();<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.namespaces.nested.html">サブ名前空間の宣言</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.namespaces.basics.html">名前空間の使用法: 基本編</a></div>
+ <div class="up"><a href="language.namespaces.html">名前空間</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

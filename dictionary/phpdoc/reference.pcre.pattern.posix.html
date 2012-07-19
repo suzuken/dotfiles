@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>POSIX 正規表現との違い</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="reference.pcre.pattern.differences.html">Perl とは異なる点</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="up"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="reference.pcre.pattern.posix" class="article">
+ <h1>POSIX 正規表現との違い</h1>
+
+
+ <p class="para">
+  PHP 5.3.0 以降、<a href="book.regex.html" class="link">POSIX 正規表現</a>
+  拡張モジュールは非推奨となりました。POSIX の正規表現と
+  PCRE の正規表現にはさまざまな違いがあります。
+  このページでは、PCRE への移行の際に知っておくべきもっとも重要な違いをまとめます。
+ </p>
+
+ <p class="para">
+  <ol type="1">
+   <li class="listitem">
+    <span class="simpara">
+     PCRE 関数では、パターンを <a href="regexp.reference.delimiters.html" class="link">デリミタ</a> で囲まなければなりません。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     POSIX とは異なり、PCRE 拡張モジュールには大文字小文字を区別しないマッチング専用の関数がありません。
+     同等の機能は、/i <a href="reference.pcre.pattern.modifiers.html" class="link">パターン修飾子</a>
+     でサポートしています。それ以外にもパターン修飾子がいくつかあり、
+     マッチングの振る舞いを変えることができます。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     POSIX 関数は、いちばん左側にある最も長くマッチするパターンを探します。
+     しかし PCRE は、マッチするパターンが最初に見つかった時点で処理を終えます。
+     マッチするパターンがまったくない文字列の場合は何も相違はありませんが、
+     マッチするパターンがある場合は結果や処理速度に大きな影響が出る可能性があります。
+    </span>
+    <span class="simpara">
+     この違いを説明するために、Jeffrey Friedl の
+     &quot;Mastering Regular Expressions (「詳説 正規表現」)&quot; にある以下の例を考えてみましょう。
+     PCRE でパターン
+     <i>one(self)?(selfsufficient)?</i> を文字列
+     <i>oneselfsufficient</i> に適用すると
+     <i>oneself</i> にマッチしますが、
+     POSIX の場合は文字列全体 <i>oneselfsufficient</i> にマッチします。
+     どちらの結果も元の文字列にマッチしますが、POSIX の場合はもっとも長いものを結果とするのです。
+    </span>
+   </li>
+  </ol>
+ </p>
+
+ <p class="para">
+  <table class="doctable table">
+   <caption><b>関数の置き換え</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>POSIX</th>
+      <th>PCRE</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.ereg-replace.html" class="function">ereg_replace()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-replace.html" class="function">preg_replace()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.ereg.html" class="function">ereg()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-match.html" class="function">preg_match()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.eregi-replace.html" class="function">eregi_replace()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-replace.html" class="function">preg_replace()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.eregi.html" class="function">eregi()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-match.html" class="function">preg_match()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.split.html" class="function">split()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-split.html" class="function">preg_split()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.spliti.html" class="function">spliti()</a></span></td>
+      <td align="left"><span class="function"><a href="function.preg-split.html" class="function">preg_split()</a></span></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left"><span class="function"><a href="function.sql-regcase.html" class="function">sql_regcase()</a></span></td>
+      <td align="left"><em class="emphasis">No equivalent</em></td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="reference.pcre.pattern.differences.html">Perl とは異なる点</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="up"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

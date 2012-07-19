@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>FrontBase サーバで利用可能なデータベースの一覧を得る</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-insert-id.html">fbsql_insert_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-list-fields.html">fbsql_list_fields</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.fbsql-list-dbs" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">fbsql_list_dbs</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.6, PHP 5)</p><p class="refpurpose"><span class="refname">fbsql_list_dbs</span> &mdash; <span class="dc-title">FrontBase サーバで利用可能なデータベースの一覧を得る</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.fbsql-list-dbs-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>fbsql_list_dbs</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   fbsql デーモンで現在使用可能なデータベースを含む結果ポインタを返します。
+   この結果ポインタの内容を取得するには <span class="function"><a href="function.fbsql-tablename.html" class="function">fbsql_tablename()</a></span>
+   関数を使用します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.fbsql-list-dbs-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+link_identifier</tt></i></span><dd>
+<p class="para">
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> あるいは
+<span class="function"><a href="function.fbsql-pconnect.html" class="function">fbsql_pconnect()</a></span> が返す FrontBase リンク ID。</p>
+<p class="para">指定しなかった場合は、この関数は FrontBase
+サーバでオープンしているリンクを探します。見つからないときは
+<span class="function"><a href="function.fbsql-connect.html" class="function">fbsql_connect()</a></span> に引数を指定せずにコールしたときと同様にして作成します。</p>
+</dd>
+</dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.fbsql-list-dbs-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果ポインタあるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.fbsql-list-dbs-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1100">
+    <p><b>例1 <span class="function"><b>fbsql_list_dbs()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'myname'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'secret'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$db_list&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_list_dbs</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /><br />while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fbsql_fetch_object</span><span style="color: #007700">(</span><span style="color: #0000BB">$db_list</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">Database&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+database1
+database2
+database3
+...
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    上記のコードは、<span class="function"><a href="function.fbsql-fetch-row.html" class="function">fbsql_fetch_row()</a></span> または他の
+    類似の関数でも簡単に同じことが可能です。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.fbsql-list-dbs-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.fbsql-list-fields.html" class="function" rel="rdfs-seeAlso">fbsql_list_fields()</a> - FrontBase 結果フィールドの一覧を得る</span></li>
+    <li class="member"><span class="function"><a href="function.fbsql-list-tables.html" class="function" rel="rdfs-seeAlso">fbsql_list_tables()</a> - FrontBase データベースのテーブル一覧を得る</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.fbsql-insert-id.html">fbsql_insert_id</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.fbsql-list-fields.html">fbsql_list_fields</a></div>
+ <div class="up"><a href="ref.fbsql.html">FrontBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

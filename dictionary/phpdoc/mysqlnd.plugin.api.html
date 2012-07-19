@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>The mysqlnd plugin API</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.plugin.architecture.html">MySQL Native Driver Plugin Architecture</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.developing.html">Getting started building a mysqlnd plugin</a></div>
+ <div class="up"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqlnd.plugin.api" class="section">
+  <h2 class="title">The mysqlnd plugin API</h2>
+  <p class="para">
+   The following is a list of functions provided in the
+   <i>mysqlnd</i> plugin API:
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_register()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_count()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_get_plugin_connection_data()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_get_plugin_result_data()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_get_plugin_stmt_data()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_get_plugin_net_data()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_plugin_get_plugin_protocol_data()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_conn_get_methods()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_result_get_methods()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_result_meta_get_methods()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_stmt_get_methods()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_net_get_methods()
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     mysqlnd_protocol_get_methods()
+    </p>
+   </li>
+  </ul>
+  <p class="para">
+   There is no formal definition of what a plugin is and how a plugin
+   mechanism works.
+  </p>
+  <p class="para">
+   Components often found in plugins mechanisms are:
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     A plugin manager
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     A plugin API
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Application services (or modules)
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Application service APIs (or module APIs)
+    </p>
+   </li>
+  </ul>
+  <p class="para">
+   The <i>mysqlnd</i> plugin concept employs these features,
+   and additionally enjoys an open architecture.
+  </p>
+  <p class="para">
+   <em class="emphasis"> No Restrictions </em>
+  </p>
+  <p class="para">
+   A plugin has full access to the inner workings of
+   <i>mysqlnd</i>. There are no security limits or
+   restrictions. Everything can be overwritten to implement friendly or
+   hostile algorithms. It is recommended you only deploy plugins from a
+   trusted source.
+  </p>
+  <p class="para">
+   As discussed previously, plugins can use pointers freely. These
+   pointers are not restricted in any way, and can point into another
+   plugin&#039;s data. Simple offset arithmetic can be used to read another
+   plugin&#039;s data.
+  </p>
+  <p class="para">
+   It is recommended that you write cooperative plugins, and that you
+   always call the parent method. The plugins should always cooperate
+   with <i>mysqlnd</i> itself.
+  </p>
+  <p class="para">
+   <em class="emphasis">Issues: an example of chaining and
+   cooperation</em>
+  </p>
+  <table class="doctable informaltable">
+   
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">Extension</td>
+      <td align="left">mysqlnd.query() pointer</td>
+      <td align="left">call stack if calling parent</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">ext/mysqlnd</td>
+      <td align="left">mysqlnd.query()</td>
+      <td align="left">mysqlnd.query</td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">ext/mysqlnd_cache</td>
+      <td align="left">mysqlnd_cache.query()</td>
+      <td align="left"><ol type="1">
+        <li class="listitem">
+         <p class="para">
+          mysqlnd_cache.query()
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          mysqlnd.query
+         </p>
+        </li>
+       </ol></td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">ext/mysqlnd_monitor</td>
+      <td align="left">mysqlnd_monitor.query()</td>
+      <td align="left"><ol type="1">
+        <li class="listitem">
+         <p class="para">
+          mysqlnd_monitor.query()
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          mysqlnd_cache.query()
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          mysqlnd.query
+         </p>
+        </li>
+       </ol></td>
+     </tr>
+
+    </tbody>
+   
+  </table>
+
+  <p class="para">
+   In this scenario, a cache (<i>ext/mysqlnd_cache</i>) and
+   a monitor (<i>ext/mysqlnd_monitor</i>) plugin are loaded.
+   Both subclass <i>Connection::query()</i>. Plugin
+   registration happens at <i>MINIT</i> using the logic
+   shown previously. PHP calls extensions in alphabetical order by
+   default. Plugins are not aware of each other and do not set extension
+   dependencies.
+  </p>
+  <p class="para">
+   By default the plugins call the parent implementation of the query
+   method in their derived version of the method.
+  </p>
+  <p class="para">
+   <em class="emphasis"> PHP Extension Recap </em>
+  </p>
+  <p class="para">
+   This is a recap of what happens when using an example plugin,
+   <i>ext/mysqlnd_plugin</i>, which exposes the
+   <i>mysqlnd</i> C plugin API to PHP:
+  </p>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <p class="para">
+     Any PHP MySQL application tries to establish a connection to
+     192.168.2.29
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     The PHP application will either use <i>ext/mysql</i>,
+     <i>ext/mysqli</i> or <i>PDO_MYSQL</i>. All
+     three PHP MySQL extensions use <i>mysqlnd</i> to
+     establish the connection to 192.168.2.29.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>Mysqlnd</i> calls its connect method, which has been
+     subclassed by <i>ext/mysqlnd_plugin</i>.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>ext/mysqlnd_plugin</i> calls the userspace hook
+     <i>proxy::connect()</i> registered by the user.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     The userspace hook changes the connection host IP from 192.168.2.29
+     to 127.0.0.1 and returns the connection established by
+     <i>parent::connect()</i>.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>ext/mysqlnd_plugin</i> performs the equivalent of
+     <i>parent::connect(127.0.0.1)</i> by calling the
+     original <i>mysqlnd</i> method for establishing a
+     connection.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     <i>ext/mysqlnd</i> establishes a connection and returns
+     to <i>ext/mysqlnd_plugin</i>.
+     <i>ext/mysqlnd_plugin</i> returns as well.
+    </p>
+   </li>
+   <li class="listitem">
+    <p class="para">
+     Whatever PHP MySQL extension had been used by the application, it
+     receives a connection to 127.0.0.1. The PHP MySQL extension itself
+     returns to the PHP application. The circle is closed.
+    </p>
+   </li>
+  </ul>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqlnd.plugin.architecture.html">MySQL Native Driver Plugin Architecture</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqlnd.plugin.developing.html">Getting started building a mysqlnd plugin</a></div>
+ <div class="up"><a href="mysqlnd.plugin.html">MySQL Native Driver Plugin API</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

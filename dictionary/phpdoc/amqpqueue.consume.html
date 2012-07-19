@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>consume メソッド</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqpqueue.construct.html">AMQPQueue::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="amqpqueue.declare.html">AMQPQueue::declare</a></div>
+ <div class="up"><a href="class.amqpqueue.html">AMQPQueue</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="amqpqueue.consume" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">AMQPQueue::consume</h1>
+  <p class="verinfo">(PECL amqp &gt;= Unknown)</p><p class="refpurpose"><span class="refname">AMQPQueue::consume</span> &mdash; <span class="dc-title">consume メソッド</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-amqpqueue.consume-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>AMQPQueue::consume</b></span>
+    ([ <span class="methodparam"><span class="type">array</span> <tt class="parameter">$options</tt><span class="initializer"> = array()</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   
+  </p>
+  
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+現在のところ詳細な情報はありません。引数のリストのみが
+記述されています。</p></div>
+  
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-amqpqueue.consume-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">options</tt></i> はオプションの配列です。
+       この配列で使われるキーは min、max および ack で、
+       それ以外のキーは無視されます。
+      </p>
+      <p class="para">
+       オプションが設定されていない場合は ini 設定を確認します。それもなければデフォルト値を使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 returnvalues" id="refsect1-amqpqueue.consume-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   取得したメッセージを含む配列を返します。返されるメッセージ数は、最低でも
+   <i><tt class="parameter">options</tt></i> 配列の <i><tt class="parameter">min</tt></i> で指定した数となります。
+   <i><tt class="parameter">max</tt></i> で指定した数より多くなることはありません。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-amqpqueue.consume-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3431">
+    <p><b>例1 <span class="function"><b>AMQPQueue::consume()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">/*&nbsp;デフォルトの設定で接続を作成します&nbsp;*/<br /></span><span style="color: #0000BB">$connection&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">AMQPConnection</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$connection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">/*&nbsp;キューオブジェクトを作成します&nbsp;*/<br /></span><span style="color: #0000BB">$queue&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">AMQPQueue</span><span style="color: #007700">(</span><span style="color: #0000BB">$connection</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;キューを宣言します<br /></span><span style="color: #0000BB">$queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">declare</span><span style="color: #007700">(</span><span style="color: #DD0000">'myqueue'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$options&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;</span><span style="color: #DD0000">'min'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />&nbsp;</span><span style="color: #DD0000">'max'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">,<br />&nbsp;</span><span style="color: #DD0000">'ack'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;メッセージを取得します<br /></span><span style="color: #0000BB">$messages&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$queue</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">consume</span><span style="color: #007700">(</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /><br />foreach&nbsp;(</span><span style="color: #0000BB">$messages&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">)&nbsp;{<br />&nbsp;echo&nbsp;</span><span style="color: #0000BB">$message</span><span style="color: #007700">[</span><span style="color: #DD0000">'message_body'</span><span style="color: #007700">];<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="amqpqueue.construct.html">AMQPQueue::__construct</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="amqpqueue.declare.html">AMQPQueue::declare</a></div>
+ <div class="up"><a href="class.amqpqueue.html">AMQPQueue</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

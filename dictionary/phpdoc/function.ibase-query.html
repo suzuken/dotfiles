@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>InterBase データベースでクエリを実行する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-prepare.html">ibase_prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-restore.html">ibase_restore</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ibase-query" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ibase_query</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ibase_query</span> &mdash; <span class="dc-title">InterBase データベースでクエリを実行する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ibase-query-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>ibase_query</b></span>
+    ([ <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$link_identifier</tt></span>
+   ], <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$bind_args</tt></span>
+  ] )</div>
+
+  <p class="simpara">
+   InterBase データベース上でクエリを実行します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ibase-query-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">link_identifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       InterBase リンク ID。省略した場合は、
+       最後にオープンしたリンクを使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       InterBase クエリ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">bind_args</tt></i></span>
+     <dd>
+
+      <p class="para">
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ibase-query-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   クエリが失敗した場合、<b><tt>FALSE</tt></b> を返します。成功した場合、
+   (SELECT クエリのような) 結果の行がある場合、結果 ID を返します。
+   クエリが成功し、結果がない場合は <b><tt>TRUE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 5.0.0 以降では、INSERT・UPDATE・DELETE 文に対してはこの関数は
+    変更された行数を返します。後方互換性を確保するため、これらの文で
+    クエリが成功したものの 1 行も更新されなかった場合には <b><tt>TRUE</tt></b>
+    を返します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.ibase-query-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <span class="function"><b>ibase_query()</b></span> の実行後に
+   &quot;arithmetic exception, numeric overflow,
+   or string truncation. Cannot transliterate character between character
+   sets&quot; のようなエラーに遭遇した場合
+   (アクセント記号つきの文字を使用した場合などに起こります)、
+   文字セットを(ISO8859_1 あるいは現在の文字セットに)設定する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.ibase-query-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.1</td>
+       <td align="left">
+        成功した場合で変更された行がなかったときに <b><tt>TRUE</tt></b> を返すようになりました。
+        これまでは <i>0 </i>
+        (ゼロの後ろにスペースが続きます) を返していました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ibase-query-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1117">
+    <p><b>例1 <span class="function"><b>ibase_query()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$host&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'localhost:/path/to/your.gdb'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$username</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'SELECT&nbsp;*&nbsp;FROM&nbsp;tblname'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$sth&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ibase_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">)&nbsp;or&nbsp;die(</span><span style="color: #0000BB">ibase_errmsg</span><span style="color: #007700">());<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ibase-query-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ibase-errmsg.html" class="function" rel="rdfs-seeAlso">ibase_errmsg()</a> - エラーメッセージを返す</span></li>
+    <li class="member"><span class="function"><a href="function.ibase-fetch-row.html" class="function" rel="rdfs-seeAlso">ibase_fetch_row()</a> - InterBase データベースから 1 行分の結果を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.ibase-fetch-object.html" class="function" rel="rdfs-seeAlso">ibase_fetch_object()</a> - InterBase データベースからオブジェクトを得る</span></li>
+    <li class="member"><span class="function"><a href="function.ibase-free-result.html" class="function" rel="rdfs-seeAlso">ibase_free_result()</a> - 結果セットを解放する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ibase-prepare.html">ibase_prepare</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ibase-restore.html">ibase_restore</a></div>
+ <div class="up"><a href="ref.ibase.html">Firebird/InterBase 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

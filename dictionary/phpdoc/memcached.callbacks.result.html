@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Result コールバック</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.callbacks.html">コールバック</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.callbacks.read-through.html">Read-through キャッシュコールバック</a></div>
+ <div class="up"><a href="memcached.callbacks.html">コールバック</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="memcached.callbacks.result" class="section">
+  <h2 class="title">Result コールバック</h2>
+  <p class="para">
+   Result コールバックが起動されるのは、
+    <span class="methodname"><a href="memcached.getdelayed.html" class="methodname">Memcached::getDelayed()</a></span> あるいは
+    <span class="methodname"><a href="memcached.getdelayedbykey.html" class="methodname">Memcached::getDelayedBykey()</a></span>
+   メソッドで結果セットの各アイテムに対してコールしたときです。
+   このコールバックに渡されるのは、Memcached オブジェクトと、
+   アイテム情報を含む配列です。
+   このコールバックは何も返す必要がありません。
+  </p>
+  <div class="example" id="example-3576">
+   <p><b>例1 Result コールバックの例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Memcached</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">11211</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$items&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'key1'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'value1'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'key2'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'value2'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'key3'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'value3'<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setMulti</span><span style="color: #007700">(</span><span style="color: #0000BB">$items</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$m</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getDelayed</span><span style="color: #007700">(array(</span><span style="color: #DD0000">'key1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'key3'</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'result_cb'</span><span style="color: #007700">);<br /><br />function&nbsp;</span><span style="color: #0000BB">result_cb</span><span style="color: #007700">(</span><span style="color: #0000BB">$memc</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$item</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$item</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(3) {
+  [&quot;key&quot;]=&gt;
+  string(4) &quot;key1&quot;
+  [&quot;value&quot;]=&gt;
+  string(6) &quot;value1&quot;
+  [&quot;cas&quot;]=&gt;
+  float(49)
+}
+array(3) {
+  [&quot;key&quot;]=&gt;
+  string(4) &quot;key3&quot;
+  [&quot;value&quot;]=&gt;
+  string(6) &quot;value3&quot;
+  [&quot;cas&quot;]=&gt;
+  float(50)
+}
+</pre></div>
+   </div>
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="memcached.callbacks.html">コールバック</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="memcached.callbacks.read-through.html">Read-through キャッシュコールバック</a></div>
+ <div class="up"><a href="memcached.callbacks.html">コールバック</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

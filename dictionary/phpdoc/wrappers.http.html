@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>HTTP(s) URL へのアクセス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.file.html">Filesystem</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.ftp.html">FTP と FTPS</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="wrappers.http" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">HTTP と HTTPS</h1>
+  <p class="refpurpose"><span class="refname">HTTP と HTTPS</span> &mdash; <span class="dc-title">HTTP(s) URL へのアクセス</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-wrappers.http-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   HTTP 1.0 により HTTP GET メソッドを用いてファイル/リソースに読み込みのみの
+   アクセスが可能です。仮想ホストにホスト名でアクセスするために、
+   <i>Host:</i> ヘッダが送信されます。
+   <var class="filename">php.ini</var> ファイルまたはストリームコンテキストによって
+   <a href="filesystem.configuration.html#ini.user-agent" class="link">user_agent</a> 文字列を設定している場合、
+   それはリクエストの中にも含まれます。
+  </p>
+  <p class="simpara">
+   ストリームにより、リソースの <em class="emphasis">body</em> にアクセスすることが
+   できます。ヘッダは、<var class="varname"><var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var></var> 変数に保存されます。
+  </p>
+  <p class="simpara">
+   (全てのリダイレクトが処理された後に)ドキュメント取得元のリソースの URL を知ることが
+   重要な場合、ストリームから返された一連のレスポンスヘッダを処理する必要があります。
+  </p>
+  <p class="simpara">
+   <a href="filesystem.configuration.html#ini.from" class="link">from</a> ディレクティブが設定されており、かつそれが
+   <a href="context.html" class="xref">コンテキストオプションとパラメータ</a> で上書きされていない場合は、その値が
+   <i>From:</i> ヘッダとなります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 usage" id="refsect1-wrappers.http-usage"> 
+  <h3 class="title">オプション</h3>
+  <ul class="itemizedlist">
+   <li class="listitem"><span class="simpara"><var class="filename">http://example.com</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">http://example.com/file.php?var1=val1&amp;var2=val2</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">http://user:password@example.com</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">https://example.com</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">https://example.com/file.php?var1=val1&amp;var2=val2</var></span></li>
+   <li class="listitem"><span class="simpara"><var class="filename">https://user:password@example.com</var></span></li>
+  </ul>
+ </div>
+ 
+
+ <div class="refsect1 options" id="refsect1-wrappers.http-options">
+  <h3 class="title">オプション</h3>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>ラッパーの概要</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>属性</th>
+       <th>サポートの可否</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><a href="filesystem.configuration.html#ini.allow-url-fopen" class="link">allow_url_fopen</a> で制約される</td>
+       <td align="left">Yes</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">読み込み可</td>
+       <td align="left">Yes</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">書き込み可</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">追記可能</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">同時読み書き可</td>
+       <td align="left">N/A</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.stat.html" class="function">stat()</a></span> をサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.unlink.html" class="function">unlink()</a></span> をサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rename.html" class="function">rename()</a></span> をサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.mkdir.html" class="function">mkdir()</a></span> をサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><span class="function"><a href="function.rmdir.html" class="function">rmdir()</a></span> をサポート</td>
+       <td align="left">No</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+ 
+
+ <div class="refsect1 changelog" id="refsect1-wrappers.http-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.7</td>
+       <td align="left">
+        バグのある IIS サーバを検出し、<i>&quot;SSL: Fatal Protocol Error&quot;</i> エラーを回避するようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i>https://</i> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        リダイレクトをサポートするようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-wrappers.http-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="wrappers.http.example.basic">
+   <p><b>例1 リダイレクト後の URL の検出</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'http://www.example.com/redirecting_page.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #0000BB">$url</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$meta_data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">stream_get_meta_data</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br />foreach(</span><span style="color: #0000BB">$meta_data</span><span style="color: #007700">[</span><span style="color: #DD0000">'wrapper_data'</span><span style="color: #007700">]&nbsp;as&nbsp;</span><span style="color: #0000BB">$response</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;リダイレクトされているか?&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">strtolower</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">),&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">10</span><span style="color: #007700">)&nbsp;==&nbsp;</span><span style="color: #DD0000">'location:&nbsp;'</span><span style="color: #007700">)&nbsp;{<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/*&nbsp;$url&nbsp;をリダイレクト先に書き換える&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$url&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">substr</span><span style="color: #007700">(</span><span style="color: #0000BB">$response</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">18</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <div class="example" id="wrappers.http.example.custom.headers"> 
+   <p><b>例2 HTTP リクエストで独自のヘッダを送信する</b></p>
+   <div class="example-contents"><p>
+    HTTP リクエストで独自のヘッダを送信することができます。
+    これは INI 設定項目 <i>user_agent</i>
+    を処理する際の副作用によるものです。
+    <i>user_agent</i> に何らかの正常な文字列
+    (たとえばデフォルト設定の <i>PHP/version</i> など)
+    を指定し、さらに続けて
+    キャリッジリターン(\r) / ラインフィード(\n)
+    を置いた後に任意のヘッダを記述します。
+    この方法は、PHP 4 以降のバージョンで動作します。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'user_agent'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"PHP\r\nX-MyCustomHeader:&nbsp;Foo"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'http://www.example.com/index.php'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'r'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>送信されるリクエストは次のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+GET /index.php HTTP/1.0
+Host: www.example.com
+User-Agent: PHP
+X-MyCustomHeader: Foo
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-wrappers.http-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    HTTPS がサポートされるのは、<a href="book.openssl.html" class="link">openssl</a>
+    拡張モジュールが有効な場合のみです。
+   </span>
+  </p></blockquote>
+  <p class="simpara">
+   HTTP 接続は読み込みのみ可で、HTTP リソースにデータを書き込んだり
+   ファイルをコピーしたりすることはできません。
+  </p>
+  <p class="simpara">
+   たとえば <em class="emphasis">POST</em> および <em class="emphasis">PUT</em> リクエストを送信することも、
+   <a href="context.http.html" class="link">HTTP コンテキスト</a> を使えば可能です。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-wrappers.http-seealso">
+  <h3 class="title">参考</h3>
+  <ul class="simplelist">
+   <li class="member"><a href="context.http.html" class="xref">HTTP コンテキストオプション</a></li>
+   <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.httpresponseheader.html" class="classname">$http_response_header</a></var></var></li>
+   <li class="member"><span class="function"><a href="function.stream-get-meta-data.html" class="function" rel="rdfs-seeAlso">stream_get_meta_data()</a> - ヘッダーあるいはメタデータをストリームまたはファイルポインタから取得する</span></li>
+  </ul>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="wrappers.file.html">Filesystem</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="wrappers.ftp.html">FTP と FTPS</a></div>
+ <div class="up"><a href="wrappers.html">サポートするプロトコル/ラッパー</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>新しいデータベース接続オブジェクトを作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.connectutil.html">Mongo::connectUtil</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.dropdb.html">Mongo::dropDB</a></div>
+ <div class="up"><a href="class.mongo.html">Mongo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongo.construct" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Mongo::__construct</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.0)</p><p class="refpurpose"><span class="refname">Mongo::__construct</span> &mdash; <span class="dc-title">新しいデータベース接続オブジェクトを作成する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongo.construct-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+    <span class="methodname"><b>Mongo::__construct</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$server</tt><span class="initializer"> = &quot;mongodb://localhost:27017&quot;</span></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$options</tt><span class="initializer"> = array(&quot;connect&quot; =&gt; <b><tt>TRUE</tt></b>)</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   パラメータを省略した場合は、&quot;localhost:27017&quot; (あるいは php.ini の
+   <a href="mongo.configuration.html#ini.mongo.default-host" class="link">mongo.default_host</a> と
+   <a href="mongo.configuration.html#ini.mongo.default-port" class="link">mongo.default_port</a> で設定した場所)
+   に接続します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">server</tt></i> は次のような形式にしなければなりません。
+   <div class="example-contents">
+<div class="cdata"><pre>
+mongodb://[username:password@]host1[:port1][,host2[:port2:],...]/db
+</pre></div>
+   </div>
+
+  </p>
+  <p class="para">
+   接続文字列は常に <i>mongodb://</i> で始まります。
+   この部分が、接続文字列であることを表しています。
+  </p>
+  <p class="para">
+   <i>username</i> と <i>password</i>
+   を指定すれば、コンストラクタが接続を確立する際にデータベースへの認証を試みます。
+   ユーザ名とパスワードはオプションで、もし指定するならその後に
+   <i>@</i> を続けなければなりません。
+  </p>
+  <p class="para">
+   少なくともひとつのホストを指定しなければなりません
+   (ポートはオプションで、デフォルトは常に 27017 となります)。
+   そのあとに、接続させたいホストをいくつでも続けることができます。
+   ホスト名はカンマ区切りで並べ、少なくともひとつのホストへの接続が成功すれば
+   コンストラクタは正常な結果を返します。
+   どのホストにも接続できなかった場合は
+   <a href="class.mongoconnectionexception.html" class="classname">MongoConnectionException</a> をスローします。
+  </p>
+  <p class="para">
+   ユーザ名とパスワードを指定したときには、認証先のデータベースも指定することになるでしょう。
+   <i>db</i> を省略した場合は &quot;admin&quot; を使います。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongo.construct-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">server</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       サーバ名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">options</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       接続オプションの配列。現在使用できるオプションは次のとおりです。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;connect&quot;</i>
+         </p>
+         <p class="para">
+          コンストラクタで接続を行うか。デフォルトは
+          <b><tt>TRUE</tt></b>。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;persist&quot;</i>
+         </p>
+         <p class="para">
+          持続的な接続を行うかどうか。これを設定すると、接続が持続的なものとなります。
+          文字列の値を接続 ID として使うので、
+          <i>array(&quot;persist&quot; =&gt; &quot;foobar&quot;)</i> で初期化した
+          <a href="class.mongo.html" class="classname">Mongo</a> のインスタンスがふたつあれば、
+          それは同じデータベース接続をあらわします。一方、
+          <i>array(&quot;persist&quot; =&gt; &quot;barbaz&quot;)</i>
+          で初期化したインスタンスは別のデータベース接続を使います。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;timeout&quot;</i>
+         </p>
+         <p class="para">
+          ドライバがデータベースへの接続を試みる時間の長さ (ミリ秒単位)。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;replicaSet&quot;</i>
+         </p>
+         <p class="para">
+          指定したホストがレプリカセットのシードであるか否か。
+          シードである場合は、シードのデータベースコマンド
+          <i>ismaster</i> を使ってマスタを決定します。
+          ドライバは、リストに上がっていないサーバに接続することになるかもしれません。
+          詳細は、以下のレプリカセットの例を参照ください。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;username&quot;</i>
+         </p>
+         <p class="para">
+          ホスト名に含めるかわりに、ユーザ名をここで指定することができます。
+          ユーザ名に &quot;:&quot; を含む場合などに特に便利です。
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <i>&quot;password&quot;</i>
+         </p>
+         <p class="para">
+          ホスト名に含めるかわりに、パスワードをここで指定することができます。
+          パスワードに &quot;@&quot; を含む場合などに特に便利です。
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongo.construct-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   新しいデータベース接続オブジェクトを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-mongo.construct-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   指定したすべてのホスト名へのデータベースへの接続に失敗した場合に
+   <a href="class.mongoconnectionexception.html" class="classname">MongoConnectionException</a> をスローします。
+   指定したユーザ名やパスワードが間違っている場合にも
+   <b class="classname">MongoConnnectionException</b> をスローします。
+   一般的な例外とその原因については
+   <a href="class.mongoconnectionexception.html" class="classname">MongoConnectionException</a>
+   のドキュメントを参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mongo.construct-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">1.0.2</td>
+       <td align="left">
+        コンストラクタがオプションの配列を受け取るようになりました。
+        以前のバージョンでは、コンストラクタは以下のパラメータを受け取っていました。
+        <dl>
+
+         <dt>
+
+          <span class="term">
+           <i><tt class="parameter">server</tt></i>
+          </span>
+          <dd>
+
+           <p class="para">
+            サーバ名。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">
+           <i><tt class="parameter">connect</tt></i>
+          </span>
+          <dd>
+
+           <p class="para">
+            オプションの boolean パラメータで、
+            コンストラクタがデータベースに接続するかどうかを示します。
+            デフォルトは <b><tt>TRUE</tt></b> です。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">
+           <i><tt class="parameter">persistent</tt></i>
+          </span>
+          <dd>
+
+           <p class="para">
+            持続的な接続を行うかどうか。
+           </p>
+          </dd>
+
+         </dt>
+
+         <dt>
+
+          <span class="term">
+           <i><tt class="parameter">paired</tt></i>
+          </span>
+          <dd>
+
+           <p class="para">
+            ペア接続を行うかどうか。
+           </p>
+          </dd>
+
+         </dt>
+
+        </dl>
+
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1.0.9</td>
+       <td align="left">
+        <i>replicaSet</i> オプションが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">1.2.0</td>
+       <td align="left">
+        <i>username</i> および <i>password</i>
+        オプションが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongo.construct-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1335">
+   <p><b>例1 <span class="function"><b>Mongo::__construct()</b></span> でのレプリカセットの例</b></p>
+   <div class="example-contents"><p>
+    この例は、レプリカセットに接続する方法を示します。
+    このでは、次の三つのサーバ sf1.example.com、sf2.example.com および
+    ny1.example.com があるものと仮定します。
+    マスタは、これらのうちのいずれかひとつとなります。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;カンマ区切りのサーバ名をコンストラクタに渡します<br /></span><span style="color: #0000BB">$m1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://sf2.example.com,ny1.example.com"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"replicaSet"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;ひとつのシードを渡すだけで、ドライバがそこから完全なリストを取得して<br />//&nbsp;シードからマスタを探します<br /></span><span style="color: #0000BB">$m2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://ny1.example.com"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"replicaSet"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>
+    現在のマスタで処理に失敗した場合、
+    セカンダリサーバのうちのどれを新しいマスタにするかをドライバが判断し、
+    自動的にその接続を開始させます。この自動フェイルオーバー機能は、
+    <i>replicaSet</i> を指定しなければ正しく動作しません。
+   </p></div>
+   <div class="example-contents"><p>
+    シードリストの中の少なくともひとつのシードに接続できなければ、
+    ドライバからレプリカセットに接続することはできません。
+   </p></div>
+   <div class="example-contents"><p>
+    二つの別のレプリカセットからのシードを指定した場合の挙動は未定義です。
+   </p></div>
+   <div class="example-contents"><p>
+    レプリカセットに関する詳細な情報は
+    <a href="http://dochub.mongodb.org/core/rs" class="link external">&raquo; コアドキュメント</a>
+    を参照ください。
+   </p></div>
+  </div>
+  <div class="example" id="example-1336">
+   <p><b>例2 ドメインソケットへの接続</b></p>
+   <div class="example-contents"><p>
+    バージョン 1.0.9 以降では、ローカルで実行している MongoDB への接続に
+    UNIX ドメインソケットを使えるようになりました。これは、
+    ネットワーク経由で接続するよりもわずかに高速です。
+   </p></div>
+   <div class="example-contents"><p>
+    バージョン 1.5.0 では、MongoDB サーバは自動的に
+    /tmp/mongodb-&lt;port&gt;.sock でソケットをオープンします。
+    ここに接続するには、接続文字列でこのパスを指定します。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;MongoDB&nbsp;サーバが、ローカルのポート&nbsp;20000&nbsp;で起動しています<br /></span><span style="color: #0000BB">$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb:///tmp/mongodb-20000.sock"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>
+    これは、その他の接続とも組み合わせることができます。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;まずドメインソケットに接続し、失敗したときにはローカルホストへの接続を使います<br /></span><span style="color: #0000BB">$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDB</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb:///tmp/mongodb-27017.sock,localhost:27017"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-1337">
+   <p><b>例3 <span class="function"><b>Mongo::__construct()</b></span> での持続的接続の例</b></p>
+   <div class="example-contents"><p>
+    持続的な接続は、ひとつのリクエストだけでなく別のリクエストまでも持続します
+    (普通は…。どの程度続くかはサーバ次第です)。
+    接続の再利用ができ、おおきな時間の節約になります。
+    接続は、時間のかかる処理だからです。
+   </p></div>
+   <div class="example-contents"><p>
+    持続的な接続の識別は、サーバ文字列と ID 文字列で行います。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;持続的な接続を作成します<br /></span><span style="color: #0000BB">$m1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;$m1&nbsp;と同じ接続を使います<br /></span><span style="color: #0000BB">$m2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;新しい接続を作ります<br /></span><span style="color: #0000BB">$m3&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://127.0.0.1"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;新しい接続を作ります<br /></span><span style="color: #0000BB">$m4&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://127.0.0.1:27017"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;新しい接続を作ります<br /></span><span style="color: #0000BB">$m5&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;$m5&nbsp;の接続を使います<br /></span><span style="color: #0000BB">$m6&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://localhost"</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"persist"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <div class="example" id="example-1338">
+   <p><b>例4 <span class="function"><b>Mongo::__construct()</b></span> での認証の例</b></p>
+   <div class="example-contents"><p>
+    認証を使うには、admin データベースにユーザが存在しなければなりません。
+    Mongo シェルでユーザを作るには、次のようにします。
+   </p></div>
+   <div class="example-contents">
+<div class="cdata"><pre>
+&gt; use admin
+switched to db admin
+&gt; db.addUser(&quot;testUser&quot;, &quot;testPass&quot;);
+{
+        &quot;_id&quot; : ObjectId(&quot;4b21272fd9ab21611d19095c&quot;),
+        &quot;user&quot; : &quot;testUser&quot;,
+        &quot;pwd&quot; : &quot;03b9b27e0abf1865e2f6fcbd9845dd59&quot;
+}
+&gt;
+</pre></div>
+   </div>
+
+   <div class="example-contents"><p>
+    ユーザを作ったら、このユーザ名 &quot;testUser&quot; とパスワード
+    &quot;testPass&quot; で次のようにして認証させることができます。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$m&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">Mongo</span><span style="color: #007700">(</span><span style="color: #DD0000">"mongodb://testUser:testPass@localhost"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongo.connectutil.html">Mongo::connectUtil</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongo.dropdb.html">Mongo::dropDB</a></div>
+ <div class="up"><a href="class.mongo.html">Mongo</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

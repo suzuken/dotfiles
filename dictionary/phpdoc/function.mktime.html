@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>日付を Unix のタイムスタンプとして取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.microtime.html">microtime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strftime.html">strftime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mktime" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mktime</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">mktime</span> &mdash; <span class="dc-title">日付を Unix のタイムスタンプとして取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mktime-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>mktime</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$hour</tt><span class="initializer"> = date(&quot;H&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$minute</tt><span class="initializer"> = date(&quot;i&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$second</tt><span class="initializer"> = date(&quot;s&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$month</tt><span class="initializer"> = date(&quot;n&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$day</tt><span class="initializer"> = date(&quot;j&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$year</tt><span class="initializer"> = date(&quot;Y&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$is_dst</tt><span class="initializer"> = -1</span></span>
+  ]]]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   与えられた引数に従って UNIX のタイムスタンプを返します。
+   このタイムスタンプは、Unix epoch(1970年1月1日00:00:00 GMT)から
+   指定された時刻までの通算秒を表す長整数です。
+  </p>
+  <p class="para">
+   引数は右から順に省略することができます。省略された引数は、
+   ローカルの日付と時刻に従って、現在の値にセットされます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mktime-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    PHP 5.1 以降、引数なしでコールすると <span class="function"><b>mktime()</b></span>
+    は <b><tt>E_STRICT</tt></b> notice を発行するようになりました。かわりに
+    <span class="function"><a href="function.time.html" class="function">time()</a></span> 関数を使用しましょう。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mktime-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hour</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">month</tt></i>、<i><tt class="parameter">day</tt></i> と <i><tt class="parameter">year</tt></i>
+       で決まる日付の 0 時から数えた「時」。負の値は、その日の 0 時から前にさかのぼった時間を表します。
+       23 より大きい値は、その翌日以降の該当する時間を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">minute</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">hour</tt></i> 時 0 分から数えた「分」。
+       負の値は、その前の時刻を表します。
+       59 より大きい値は、その次の時間以降の該当する時間を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">second</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">minute</tt></i> 分 0 秒から数えた「秒」。
+       負の値は、その前の時刻を表します。
+       59 より大きい値は、その次の分以降の該当する時間を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">month</tt></i></span>
+     <dd>
+
+      <p class="para">
+       前年末から数えた月数。1 から 12 までの場合は、カレンダーどおりのその年の「月」を表します。
+       (負の値を含めた) 1 より小さい値は、前年の月を逆順でたどります。
+       つまり 0 なら 12 月、-1 なら 11 月になるということです。
+       12 より大きい値は、その翌年以降の該当する月を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">day</tt></i></span>
+     <dd>
+
+      <p class="para">
+       前月末から数えた日数。1 から 28、29、30、31 (月によって異なる) までの場合は、その月の「日」を表します。
+       (負の値を含めた) 1 より小さい値は、前月の日を逆順でたどります。
+       つまり 0 なら前月の末日、-1 ならそのさらに前日になるということです。
+       その月の日数より大きい値は、翌月以降の該当する日を表します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">year</tt></i></span>
+     <dd>
+
+      <p class="para">
+       年。2 桁または 4 桁の値を指定可能で、
+       0-69 の間の値は 2000-2069 に、70-100 は 1970-2000 にマップされます。
+       今日最も一般的なシステム、すなわち time_t が 32 ビットの符号付き整数である
+       システムでは <i><tt class="parameter">year</tt></i> として有効な範囲は 1901 から
+       2038 の間です。しかし、PHP 5.1.0 より前のバージョンではこの範囲が
+       1970 から 2038 に制限されているシステム (たとえば Windows) もありました。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">is_dst</tt></i></span>
+     <dd>
+
+      <p class="para">
+       このパラメータはサマータイム (DST) の時に1にセットされ、
+       そうでない時に0、サマータイムであるかどうかが不明である場合に-1
+       にセットされます。
+       不明な場合、PHP はサマータイムかどうか推測しようとします。
+       PHP を実行しているシステムで DST が有効になっている、もしくは
+       <i><tt class="parameter">is_dst</tt></i> が 1 にセットされている場合、
+       一部の時刻は有効になりません。
+       もし DST が有効で例えば 2:00 の場合、2:00 から 3:00 までの全ての時刻は
+       無効になり、<span class="function"><b>mktime()</b></span> は不確定な値 (通常は負数)
+       を返します。いくつかのシステム (例えば Solaris 8) は真夜中に DST
+       を有効にしますので、DST が有効なときの 0:30 は前日の 23:30
+       と評価されます。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        PHP 5.1.0 以降、このパラメータは廃止されました。その結果、
+        新しいタイムゾーン処理機能がかわりに使用されます。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mktime-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="function"><b>mktime()</b></span> は与えられた引数の Unix
+   タイムスタンプを返します。引数が不正な場合、
+   この関数は <b><tt>FALSE</tt></b> を返します（PHP 5.1 より前のバージョンでは
+   <i>-1</i> を返していました）。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.mktime-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+すべての日付/時刻関数は、
+有効なタイムゾーンが設定されていない場合に <b><tt>E_NOTICE</tt></b>
+を発生させます。また、システム設定のタイムゾーンあるいは環境変数
+<var class="varname"><var class="varname">TZ</var></var> を使用した場合には <b><tt>E_STRICT</tt></b>
+あるいは <b><tt>E_WARNING</tt></b> を発生させます。
+<span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span> も参照ください。</p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.mktime-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        <span class="function"><b>mktime()</b></span> は、
+        <i><tt class="parameter">is_dst</tt></i> パラメータを使用した場合に
+        <b><tt>E_DEPRECATED</tt></b> をスローするようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        <i><tt class="parameter">is_dst</tt></i> パラメータは廃止されました。
+        エラー時には <i>-1</i> ではなく <b><tt>FALSE</tt></b>
+        を返すようになりました。
+        年月日がすべてゼロとすることが可能になりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.1.0</td>
+       <td align="left">
+        引数なしでコールすると、<span class="function"><b>mktime()</b></span>
+        は <b><tt>E_STRICT</tt></b> notice を発行するようになりました。かわりに
+        <span class="function"><a href="function.time.html" class="function">time()</a></span> 関数を使用しましょう。
+       </td>
+      </tr>
+
+
+      <tr valign="middle"><td align="left">5.1.0</td><td align="left"><p class="para">
+タイムゾーンがおかしい場合に <b><tt>E_STRICT</tt></b> や
+<b><tt>E_NOTICE</tt></b> が発生するようになりました。</p></td></tr>
+
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.mktime-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-631">
+    <p><b>例1 <span class="function"><b>mktime()</b></span> の基本的な例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;デフォルトのタイムゾーンを設定します。PHP&nbsp;5.1&nbsp;以降で使用可能です<br /></span><span style="color: #0000BB">date_default_timezone_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'UTC'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力:&nbsp;July&nbsp;1,&nbsp;2000&nbsp;is&nbsp;on&nbsp;a&nbsp;Saturday<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"July&nbsp;1,&nbsp;2000&nbsp;is&nbsp;on&nbsp;a&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"l"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">7</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2000</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;出力例:&nbsp;2006-04-05T01:02:03+00:00<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'c'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2006</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-632">
+    <p><b>例2 <span class="function"><b>mktime()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     <span class="function"><b>mktime()</b></span> は入力日付の有効性を確認しており、
+     範囲外の入力を自動的に修正して計算してくれるので便利です。
+     例えば、以下の各行はいずれも文字列 &quot;Jan-01-1998&quot;を出力します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"M-d-Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">12</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">32</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1997</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"M-d-Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">13</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1997</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"M-d-Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1998</span><span style="color: #007700">));<br />echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">"M-d-Y"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">98</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-633">
+    <p><b>例3 次月の最後の日</b></p>
+    <div class="example-contents"><p>
+     指定した月の最後の日は次の月の -1 番目の日ではなく、&quot;0&quot; 番目の日
+     として表すことが可能です。以下の例はともに文字列&quot;The last day in
+     Feb 2000 is: 29&quot; を出力します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$lastday&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2000</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"Last&nbsp;day&nbsp;in&nbsp;Feb&nbsp;2000&nbsp;is:&nbsp;%d"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$lastday</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$lastday&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mktime</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">31</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2000</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">strftime</span><span style="color: #007700">(</span><span style="color: #DD0000">"Last&nbsp;day&nbsp;in&nbsp;Feb&nbsp;2000&nbsp;is:&nbsp;%d"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$lastday</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.mktime-notes">
+  <h3 class="title">注意</h3>
+  <div class="caution"><b class="caution">警告</b>
+   <p class="para">
+    PHP 5.1.0 より前のバージョンでは、負の値のタイムスタンプは Windows の
+    どのバージョンにおいてもサポートされていませんでした。
+    したがって、年の有効範囲は 1970 年から 2038 年の間のみに限定されていました。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mktime-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.checkdate.html" class="function" rel="rdfs-seeAlso">checkdate()</a> - グレゴリオ暦の日付/時刻の妥当性を確認します</span></li>
+    <li class="member"><span class="function"><a href="function.gmmktime.html" class="function" rel="rdfs-seeAlso">gmmktime()</a> - GMT 日付から Unix タイムスタンプを取得する</span></li>
+    <li class="member"><span class="function"><a href="function.date.html" class="function" rel="rdfs-seeAlso">date()</a> - ローカルの日付/時刻を書式化する</span></li>
+    <li class="member"><span class="function"><a href="function.time.html" class="function" rel="rdfs-seeAlso">time()</a> - 現在の Unix タイムスタンプを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.microtime.html">microtime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strftime.html">strftime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

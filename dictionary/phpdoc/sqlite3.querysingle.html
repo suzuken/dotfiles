@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クエリを実行し、単一の結果を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite3.query.html">SQLite3::query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite3.version.html">SQLite3::version</a></div>
+ <div class="up"><a href="class.sqlite3.html">SQLite3</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sqlite3.querysingle" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">SQLite3::querySingle</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0)</p><p class="refpurpose"><span class="refname">SQLite3::querySingle</span> &mdash; <span class="dc-title">クエリを実行し、単一の結果を返す</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-sqlite3.querysingle-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>SQLite3::querySingle</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$entire_row</tt><span class="initializer"> = false</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   クエリを実行し、単一の結果を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-sqlite3.querysingle-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       実行したい SQL クエリ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">entire_row</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デフォルトでは、<span class="function"><b>querySingle()</b></span> はクエリが返す結果の最初のカラムの値を返します。
+       <i><tt class="parameter">entire_row</tt></i> が <b><tt>TRUE</tt></b> の場合は、最初の行全体を配列で返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-sqlite3.querysingle-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果の最初のカラムの値あるいは最初の行全体の配列
+   (<i><tt class="parameter">entire_row</tt></i> が <b><tt>TRUE</tt></b> の場合) を返します。
+  </p>
+  <p class="para">
+   クエリ自体は有効であるけれども結果が返されなかった場合の返り値は、
+   <i><tt class="parameter">entire_row</tt></i> が <b><tt>FALSE</tt></b> なら <b><tt>NULL</tt></b>、
+   そうでなければ空の配列となります。
+  </p>
+  <p class="para">
+   クエリが無効な場合やクエリの実行に失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-sqlite3.querysingle-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1806">
+    <p><b>例1 <span class="function"><b>SQLite3::querySingle()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$db&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">SQLite3</span><span style="color: #007700">(</span><span style="color: #DD0000">'mysqlitedb.db'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">querySingle</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;username&nbsp;FROM&nbsp;user&nbsp;WHERE&nbsp;userid=1'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">querySingle</span><span style="color: #007700">(</span><span style="color: #DD0000">'SELECT&nbsp;username,&nbsp;email&nbsp;FROM&nbsp;user&nbsp;WHERE&nbsp;userid=1'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(5) &quot;Scott&quot;
+Array
+(
+    [username] =&gt; Scott
+    [email] =&gt; scott@example.com
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sqlite3.query.html">SQLite3::query</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sqlite3.version.html">SQLite3::version</a></div>
+ <div class="up"><a href="class.sqlite3.html">SQLite3</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

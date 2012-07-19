@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>デフォルトの書記素クラスタシーケンスをテキストバッファから取り出す関数。
+   テキストは UTF-8 でエンコードされている必要があります</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.intl.grapheme.html">Grapheme 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.grapheme-stripos.html">grapheme_stripos</a></div>
+ <div class="up"><a href="ref.intl.grapheme.html">Grapheme 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.grapheme-extract" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">grapheme_extract</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.3.0, PECL intl &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">grapheme_extract</span> &mdash; <span class="dc-title">デフォルトの書記素クラスタシーケンスをテキストバッファから取り出す関数。
+   テキストは UTF-8 でエンコードされている必要があります</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.grapheme-extract-description">
+  <h3 class="title">説明</h3>
+  <p class="para">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>grapheme_extract</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$haystack</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$size</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$extract_type</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$start</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$next</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   デフォルトの書記素クラスタシーケンスをテキストバッファから取り出す関数です。
+   テキストは UTF-8 でエンコードされている必要があります。
+  </p> 
+  </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.grapheme-extract-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">haystack</tt></i></span>
+     <dd>
+
+      <p class="para">
+       検索する文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">size</tt></i></span>
+     <dd>
+
+      <p class="para">
+       返す項目 ($extract_type に基づく) の最大数。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extract_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       $size パラメータの単位の形式を指定します。
+      </p>
+       <p class="para">
+        <ul class="simplelist">
+         <li class="member">GRAPHEME_EXTR_COUNT (default) - $size は、
+         抽出するデフォルト書記素クラスタの数です。</li>
+         <li class="member">GRAPHEME_EXTR_MAXBYTES - $size は、返すバイト数の最大値です。</li>
+         <li class="member">GRAPHEME_EXTR_MAXCHARS - $size は、返す UTF-8 文字数の最大値です。</li>
+        </ul>
+       </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">start</tt></i></span>
+     <dd>
+
+      <p class="para">
+       $haystack 内での開始位置をバイト数で指定します。
+       指定する場合は、0 から $haystack のバイト数までの値でなければなりません。
+       $start が指す位置が UTF-8 文字の先頭バイトでない場合は、
+       その次の文字の先頭から開始します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">next</tt></i></span>
+     <dd>
+
+      <p class="para">
+       次の開始位置への参照が設定されます。
+       この関数をコールすると、文字列の最後の部分の先頭バイトを指すことになります。
+      </p>
+     </dd>
+
+    </dt>
+
+ 
+   </dl>
+
+  </p>
+ </div>
+
+   
+ 
+ <div class="refsect1 returnvalues" id="refsect1-function.grapheme-extract-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   オフセット $start から始まり、
+   指定した $size と $extract_type を満たす、
+   デフォルトの書記素クラスタバウンダリで終わる文字列を返します。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.grapheme-extract-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-2161">
+   <p><b>例1 <span class="function"><b>grapheme_extract()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$char_a_ring_nfd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"a\xCC\x8A"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;'LATIN&nbsp;SMALL&nbsp;LETTER&nbsp;A&nbsp;WITH&nbsp;RING&nbsp;ABOVE'&nbsp;(U+00E5)&nbsp;normalization&nbsp;form&nbsp;"D"<br /></span><span style="color: #0000BB">$char_o_diaeresis_nfd&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"o\xCC\x88"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;'LATIN&nbsp;SMALL&nbsp;LETTER&nbsp;O&nbsp;WITH&nbsp;DIAERESIS'&nbsp;(U+00F6)&nbsp;normalization&nbsp;form&nbsp;"D"<br /><br /></span><span style="color: #007700">print&nbsp;</span><span style="color: #0000BB">urlencode</span><span style="color: #007700">(</span><span style="color: #0000BB">grapheme_extract</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">$char_a_ring_nfd&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$char_o_diaeresis_nfd</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">GRAPHEME_EXTR_COUNT</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+  <p class="para">上の例の出力は以下となります。</p>
+  <div class="example-contents screen">
+<div class="cdata"><pre>
+o%CC%88
+</pre></div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.grapheme-extract-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.grapheme-substr.html" class="function" rel="rdfs-seeAlso">grapheme_substr()</a> - 部分文字列を返す</span></li>
+     <li class="member">
+      <a href="http://unicode.org/reports/tr29/#Grapheme_Cluster_Boundaries" class="link external">&raquo; 
+       Unicode Text Segmentation: Grapheme Cluster Boundaries
+      </a>
+     </li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.intl.grapheme.html">Grapheme 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.grapheme-stripos.html">grapheme_stripos</a></div>
+ <div class="up"><a href="ref.intl.grapheme.html">Grapheme 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>パターン修飾子</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reference.pcre.pattern.differences.html">Perl とは異なる点</a></div>
+ <div class="up"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="reference.pcre.pattern.modifiers" class="article">
+ <h1>パターン修飾子</h1>
+
+ 
+    <p class="para">
+     現在使用可能な PCRE 修飾子の一覧を以下に示します。
+     括弧の中の名前は、これらの修飾子に関する PCRE 内部の名前です。
+     修飾子中での空白文字および改行は無視されます。他の文字はエラーになります。
+    </p>
+    <p class="para">
+     <blockquote class="blockquote">
+      <dl>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">i</em> (<i>PCRE_CASELESS</i>)</span>
+        <dd>
+
+         <span class="simpara">
+         この修飾子を設定すると、パターンの中の文字は
+         大文字にも小文字にもマッチします。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">m</em> (<i>PCRE_MULTILINE</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          デフォルトで、PCRE は、検索対象文字列を（実際には複数行からなる
+          場合でも）単一の行からなるとして処理します。
+          「行頭」メタ文字 (^) は、対象文字列の最初にしかマッチしません。
+          一方、「行末」メタ文字 ($) は、文字列の最後、または
+          （<em class="emphasis">D</em> 修飾子が設定されていない場合）
+          最後にある改行記号の前のみにしかマッチしません。
+          この動作は Perl と同じです。
+         </span>
+         <span class="simpara">
+          この修飾子を設定すると、「行頭」および「行末」メタ文字は
+          対象文字列において、文字列の最初と最後に加えて、
+          各改行の直前と直後にそれぞれマッチします。
+          この動作は、Perl の /m 修飾子と同じです。
+          対象文字列の中に &quot;\n&quot; 文字がない場合や、
+          またはパターンに ^ または $ がない場合は、
+          この修飾子を設定しても意味はありません。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">s</em> (<i>PCRE_DOTALL</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、パターン中のドットメタ文字は
+          改行を含む全ての文字にマッチします。
+          これを設定しない場合は、改行にはマッチしません。
+          この修飾子は、Perl の /s 修飾子と同じです。
+          [^a] のような否定の文字クラスは、
+          この修飾子の設定によらず、常に改行文字にマッチします。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">x</em> (<i>PCRE_EXTENDED</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、エスケープするか
+          文字クラスの内部を除き、
+          パターンの空白文字は完全に無視されます。
+          文字クラスの外にあって、かつエスケープされていない # 
+          と次の改行文字の間の文字も無視されます。
+          この動作は、Perl の /x 修飾子と同じであり、複雑なパターンの内部に
+          コメントを記述することが可能となります。
+          しかし、この修飾子は、データ文字にのみ適用されることに注意
+          してください。空白文字をパターンの特殊文字の並びの中、
+          例えば条件付きサブパターン (?( の内部に置くことはできません。 
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">e</em> (<i>PREG_REPLACE_EVAL</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、<span class="function"><a href="function.preg-replace.html" class="function">preg_replace()</a></span>
+          は、置換文字列において後方参照に関する通常の置換を行った後、
+          PHP コードとして評価し、検索文字列を置換するためにその結果を
+          使用します。
+          置換された後方参照においては、
+          単引用符や二重引用符、バックスラッシュ (<i>\</i>)および NULL 文字は
+          バックスラッシュでエスケープされます。
+         </span>
+       <div class="tip"><b class="tip">ヒント</b>
+        <p class="para">
+         <i><tt class="parameter">replacement</tt></i> が PHP のコードとして妥当な文字列であることを確認しましょう。
+         そうでない場合は、
+         <span class="function"><a href="function.preg-replace.html" class="function">preg_replace()</a></span> を含む行で PHP のパースエラーが発生します。
+        </p>
+       </div>
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         この修飾子を使用するのは、<span class="function"><a href="function.preg-replace.html" class="function">preg_replace()</a></span>のみです。
+         他の PCRE 関数では無視されます。
+        </p>
+       </p></blockquote>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">A</em> (<i>PCRE_ANCHORED</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、パターンは強制的に固定 (anchored) となります。
+          つまり、検索対象文字列の先頭でのみマッチするように制限されます。
+          パターン自体の中に適当な指定を行うことでも同様の効果を得ることが可能です。
+          Perl ではパターン中に指定する方法しか使用できません。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">D</em> (<i>PCRE_DOLLAR_ENDONLY</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、パターン内のドルメタ文字は、検索対象文字列の
+          終わりにのみマッチします。この修飾子を設定しない場合、ドル記号は、
+          検索対象文字列の最後の文字が改行文字であれば、その直前にもマッチします。
+          この修飾子は、<em class="emphasis">m</em> を設定している場合に無視されます。
+          Perl には、この修飾子に等価なものはありません。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">S</em></span>
+        <dd>
+
+         <span class="simpara">
+          あるパターンを複数回使用する場合は、マッチングにかかる時間を
+          高速化することを目的として、パターンの分析に幾分か時間をかけても
+          良いでしょう。この修飾子を設定すると、追加のパターン分析が
+          行われます。現在、パターン分析は、最初の文字が単一ではなく、
+          かつ固定でないパターンに対してのみ有用です。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">U</em> (<i>PCRE_UNGREEDY</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修飾子を設定すると、量指定子の「貪欲さ」が反転します。
+          つまり、量指定子は、デフォルトで貪欲でなく、
+          疑問符を後ろに付けてはじめて貪欲になるようになります。
+          この修飾子は Perl 互換では有りません。
+          同様の設定は、(<i>?U</i>) 修飾子を <a href="regexp.reference.internal-options.html" class="link">パターン内で設定</a>
+          するか、（<i>.*?</i> のように）量指定子の後に疑問符を
+          付けるかすることで行うこともできます。
+         </span>
+       <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+         通常は、非貪欲モードでは <a href="pcre.configuration.html#ini.pcre.backtrack-limit" class="link">pcre.backtrack_limit</a>
+         文字を超えるマッチができません。
+        </p>
+       </p></blockquote>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">X</em> (<i>PCRE_EXTRA</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修正子は、Perl 非互換な PCRE の機能を有効にします。
+          パターン内で後ろに文字が続くバックスラッシュで特別な意味がないものは、
+          将来的な拡張の際の互換性の維持のため、エラーになります。
+          デフォルトでは、Perl のように文字が後ろに続くバックスラッシュ
+          で特に意味がないものは、リテラルとして処理されます。
+          この修飾子により制御される機能は、現在の所、これだけです。
+       </span>
+      </dd>
+
+     </dt>
+
+     <dt>
+
+      <span class="term"><em class="emphasis">J</em> (<i>PCRE_INFO_JCHANGED</i>)</span>
+      <dd>
+
+       <span class="simpara">
+        (?J) 内部オプションは、ローカルのオプション <i>PCRE_DUPNAMES</i> の設定を変更します。
+        サブパターンで重複した名前を使用できるようになります。
+         </span>
+        </dd>
+
+       </dt>
+
+       <dt>
+
+        <span class="term"><em class="emphasis">u</em> (<i>PCRE8</i>)</span>
+        <dd>
+
+         <span class="simpara">
+          この修正子は、Perl 非互換な PCRE の機能を有効にします。パターン
+          文字列は、UTF-8 エンコードされた文字列として処理されます。
+          この修正子は、UNIX では PHP 4.1.0 以降、Win32 では PHP 4.2.3 以降で
+          使用可能です。
+          また、PHP 4.3.5 以降では、パターンの UTF-8 としての妥当性も確認されます。
+         </span>
+        </dd>
+
+       </dt>
+
+      </dl>
+
+     </blockquote>
+    </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="reference.pcre.pattern.differences.html">Perl とは異なる点</a></div>
+ <div class="up"><a href="pcre.pattern.html">PCRE のパターン</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

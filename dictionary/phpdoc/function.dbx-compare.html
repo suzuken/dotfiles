@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ソートするために二つのレコードを比較する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-close.html">dbx_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-connect.html">dbx_connect</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.dbx-compare" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">dbx_compare</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.1.0, PHP 5 &lt;= 5.0.5, PECL dbx &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">dbx_compare</span> &mdash; <span class="dc-title">ソートするために二つのレコードを比較する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.dbx-compare-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>dbx_compare</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$row_a</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$row_b</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$column_key</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt><span class="initializer"> = DBX_CMP_ASC | DBX_CMP_NATIVE</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>dbx_compare()</b></span> は
+   <span class="function"><a href="function.dbx-sort.html" class="function">dbx_sort()</a></span> のヘルパ関数で、
+   独自のソート関数を作成しやすくします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.dbx-compare-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">row_a</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最初の行。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">row_b</tt></i></span>
+     <dd>
+
+      <p class="para">
+       二番目の行。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">column_key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       比較するカラム。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> によって比較の方向を指定します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_CMP_ASC</tt></b> - 昇順
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_CMP_DESC</tt></b> - 降順
+         </span>
+        </li>
+       </ul>
+       また、比較の型についても指定します。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_CMP_NATIVE</tt></b> - 型の変換を行いません
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_CMP_TEXT</tt></b> - 文字列として比較します
+         </span>
+        </li>
+        <li class="listitem">
+         <span class="simpara">
+          <b><tt>DBX_CMP_NUMBER</tt></b> - 数値として比較します
+         </span>
+        </li>
+       </ul>
+       方向からひとつ、型の定数からひとつを選び、ビット OR 演算子 (|) で
+       組み合わせます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.dbx-compare-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i>row_a[$column_key]</i> が
+   <i>row_b[$column_key]</i> に等しい場合に <i>0</i>、
+   前者が後者より大きいかあるいは小さい場合にそれぞれ
+   <i>1</i> あるいは <i>-1</i>、
+   もし <b><tt>DBX_CMP_DESC</tt></b> が設定されていればその逆を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.dbx-compare-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-888">
+    <p><b>例1 <span class="function"><b>dbx_compare()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">user_re_order</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">)&nbsp;<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"parentid"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DBX_CMP_DESC</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">$rv</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$rv&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_compare</span><span style="color: #007700">(</span><span style="color: #0000BB">$a</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$b</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"id"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">DBX_CMP_NUMBER</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$rv</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">$link&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">DBX_ODBC</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"db"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"username"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;die(</span><span style="color: #DD0000">"接続できませんでした"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">dbx_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id,&nbsp;parentid,&nbsp;description&nbsp;FROM&nbsp;table&nbsp;ORDER&nbsp;BY&nbsp;id"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$result&nbsp;のデータは&nbsp;id&nbsp;で並べ替えられます<br /><br /></span><span style="color: #0000BB">dbx_sort</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"user_re_order"</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;$result&nbsp;のデータは、まず&nbsp;parentid&nbsp;の降順で並べ替えられ、次に&nbsp;id&nbsp;で並べ替えられます<br /><br /></span><span style="color: #0000BB">dbx_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.dbx-compare-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.dbx-sort.html" class="function" rel="rdfs-seeAlso">dbx_sort()</a> - カスタマイズされたソート関数により、dbx_query から結果をソートする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dbx-close.html">dbx_close</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.dbx-connect.html">dbx_connect</a></div>
+ <div class="up"><a href="ref.dbx.html">dbx 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ストアドプロシージャから、次の結果セットを要求する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-lob-read.html">db2_lob_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-num-fields.html">db2_num_fields</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.db2-next-result" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">db2_next_result</h1>
+  <p class="verinfo">(PECL ibm_db2 &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">db2_next_result</span> &mdash; <span class="dc-title">
+   ストアドプロシージャから、次の結果セットを要求する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.db2-next-result-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>db2_next_result</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$stmt</tt></span>
+   )</div>
+
+
+
+  <p class="para rdfs-comment">
+   ストアドプロシージャは、複数の結果セットを返すことができます。
+   単純な SELECT 文が返す結果を処理するのと同じように最初の結果セットを
+   扱った後でそれ以降の結果セットを処理する際には、
+   <span class="function"><b>db2_next_result()</b></span> 関数をコールして
+   その返り値を PHP 変数に代入しなければなりません。
+  </p>
+
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.db2-next-result-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">stmt</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.db2-exec.html" class="function">db2_exec()</a></span> あるいは
+       <span class="function"><a href="function.db2-execute.html" class="function">db2_execute()</a></span> から返されるプリペアドステートメント。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.db2-next-result-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   ストアドプロシージャが別の結果セットを返している場合には
+   次の結果セットを含む新しいステートメントリソース、
+   別の結果セットを返していない場合には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.db2-next-result-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1170">
+    <p><b>例1 複数の結果セットを返すストアドプロシージャをコールする</b></p>
+    <div class="example-contents"><p>
+     次の例では、3 つの結果セットを返すストアドプロシージャをコールします。
+     最初の結果セットは CALL 文を起動したのと同じステートメントリソースから
+     直接取得できますが、2 番目および 3 番目の結果セットは
+     <span class="function"><b>db2_next_result()</b></span>
+     が返すステートメントリソースから取得します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$database</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_exec</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'CALL&nbsp;multiResults()'</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"最初の結果セットを取得します\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"\n2&nbsp;番目の結果セットを取得します\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$res</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"\n3&nbsp;番目の結果セットを取得します\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;</span><span style="color: #0000BB">$res2&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_next_result</span><span style="color: #007700">(</span><span style="color: #0000BB">$stmt</span><span style="color: #007700">);<br />&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$res2</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">db2_fetch_array</span><span style="color: #007700">(</span><span style="color: #0000BB">$res2</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$row</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;</span><span style="color: #0000BB">db2_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+最初の結果セットを取得します
+array(2) {
+  [0]=&gt;
+  string(16) &quot;Bubbles         &quot;
+  [1]=&gt;
+  int(3)
+}
+array(2) {
+  [0]=&gt;
+  string(16) &quot;Gizmo           &quot;
+  [1]=&gt;
+  int(4)
+}
+
+2 番目の結果セットを取得します
+array(4) {
+  [0]=&gt;
+  string(16) &quot;Sweater         &quot;
+  [1]=&gt;
+  int(6)
+  [2]=&gt;
+  string(5) &quot;llama&quot;
+  [3]=&gt;
+  string(6) &quot;150.00&quot;
+}
+array(4) {
+  [0]=&gt;
+  string(16) &quot;Smarty          &quot;
+  [1]=&gt;
+  int(2)
+  [2]=&gt;
+  string(5) &quot;horse&quot;
+  [3]=&gt;
+  string(6) &quot;350.00&quot;
+}
+
+3 番目の結果セットを取得します
+array(1) {
+  [0]=&gt;
+  string(16) &quot;Bubbles         &quot;
+}
+array(1) {
+  [0]=&gt;
+  string(16) &quot;Gizmo           &quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+ 
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.db2-lob-read.html">db2_lob_read</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.db2-num-fields.html">db2_num_fields</a></div>
+ <div class="up"><a href="ref.ibm-db2.html">IBM DB2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>2 つのファイルのバイナリ diff を、Rabin の polynomial fingerprinting アルゴリズムで作成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xdiff-file-patch.html">xdiff_file_patch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xdiff-string-bdiff-size.html">xdiff_string_bdiff_size</a></div>
+ <div class="up"><a href="ref.xdiff.html">xdiff 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xdiff-file-rabdiff" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xdiff_file_rabdiff</h1>
+  <p class="verinfo">(PECL xdiff &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">xdiff_file_rabdiff</span> &mdash; <span class="dc-title">2 つのファイルのバイナリ diff を、Rabin の polynomial fingerprinting アルゴリズムで作成する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xdiff-file-rabdiff-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>xdiff_file_rabdiff</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$old_file</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$new_file</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dest</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ふたつのファイルのバイナリ diff を作成し、その結果をパッチファイルとして保存します。
+   この関数と <span class="function"><a href="function.xdiff-file-bdiff.html" class="function">xdiff_file_bdiff()</a></span> との違いは、
+   使用するアルゴリズムです。この関数のほうが実行速度が速く、より小さな diff を生成します。
+   この関数はテキストファイルとバイナリファイルの両方に適用可能です。
+   できあがったパッチファイルを後で適用するには
+   <span class="function"><a href="function.xdiff-file-bpatch.html" class="function">xdiff_file_bpatch()</a></span>/<span class="function"><a href="function.xdiff-string-bpatch.html" class="function">xdiff_string_bpatch()</a></span>
+   を使用します。
+  </p>
+  <p class="para">
+   アルゴリズムの違いについての詳細は、
+   <a href="http://www.xmailserver.org/xdiff-lib.html" class="link external">&raquo; libxdiff</a>
+   のウェブサイトを参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xdiff-file-rabdiff-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">old_file</tt></i></span>
+     <dd>
+
+      <p class="para">
+       最初のファイルへのパス。&quot;旧&quot; ファイルです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">new_file</tt></i></span>
+     <dd>
+
+      <p class="para">
+       2 番目のファイルへのパス。&quot;新&quot; ファイルです。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dest</tt></i></span>
+     <dd>
+
+      <p class="para">
+       結果のパッチファイルへのパス。
+       &quot;旧&quot; ファイルと &quot;新&quot; ファイルの差分がこのファイルの内容となります。
+       このファイルはバイナリフォーマットで、人間には読めない形式です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xdiff-file-rabdiff-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.xdiff-file-rabdiff-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1984">
+    <p><b>例1 <span class="function"><b>xdiff_file_rabdiff()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     以下のコードは 2 つのアーカイブのバイナリ diff を作成します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$old_version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'my_script_1.0.tgz'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$new_version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'my_script_1.1.tgz'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">xdiff_file_rabdiff</span><span style="color: #007700">(</span><span style="color: #0000BB">$old_version</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$new_version</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_script.bdiff'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.xdiff-file-rabdiff-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    両方のファイルがメモリに読み込まれるので、
+    memory_limit が十分大きな値に設定されていることを確認しましょう。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.xdiff-file-rabdiff-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.xdiff-file-bpatch.html" class="function" rel="rdfs-seeAlso">xdiff_file_bpatch()</a> - ファイルにバイナリ diff 形式のパッチを適用する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xdiff-file-patch.html">xdiff_file_patch</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xdiff-string-bdiff-size.html">xdiff_string_bdiff_size</a></div>
+ <div class="up"><a href="ref.xdiff.html">xdiff 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

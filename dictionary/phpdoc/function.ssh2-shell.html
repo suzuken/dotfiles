@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>対話式のシェルを要求する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-sftp.html">ssh2_sftp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-tunnel.html">ssh2_tunnel</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ssh2-shell" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ssh2_shell</h1>
+  <p class="verinfo">(PECL ssh2 &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">ssh2_shell</span> &mdash; <span class="dc-title">対話式のシェルを要求する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.ssh2-shell-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>ssh2_shell</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$session</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$term_type</tt><span class="initializer"> = &quot;vanilla&quot;</span></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$env</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$width</tt><span class="initializer"> = 80</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$height</tt><span class="initializer"> = 25</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$width_height_type</tt><span class="initializer"> = SSH2_TERM_UNIT_CHARS</span></span>
+  ]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   リモートエンド上のシェルをオープンし、そのためのストリームを割り当てます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.ssh2-shell-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">session</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.ssh2-connect.html" class="function">ssh2_connect()</a></span> のコールによって取得した
+       SSH 接続リンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">term_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">term_type</tt></i> は対象システムの
+       <i>/etc/termcap</i> に記載されたエントリの一つに相当します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">env</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">env</tt></i> には、
+       対象の環境に設定する名前/値の組の連想配列を渡すことができます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width</tt></i></span>
+     <dd>
+
+      <p class="para">
+       仮想端末の幅。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">height</tt></i></span>
+     <dd>
+
+      <p class="para">
+       仮想端末の高さ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">width_height_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">width_height_type</tt></i> は
+       <b><tt>SSH2_TERM_UNIT_CHARS</tt></b> あるいは
+       <b><tt>SSH2_TERM_UNIT_PIXELS</tt></b> のいずれかです。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ssh2-shell-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.ssh2-shell-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3781">
+    <p><b>例1 コマンドの実行</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$connection&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'shell.example.com'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">22</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">ssh2_auth_password</span><span style="color: #007700">(</span><span style="color: #0000BB">$connection</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'username'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'password'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$stream&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ssh2_shell</span><span style="color: #007700">(</span><span style="color: #0000BB">$connection</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'vt102'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">80</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">24</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">SSH2_TERM_UNIT_CHARS</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.ssh2-shell-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ssh2-exec.html" class="function" rel="rdfs-seeAlso">ssh2_exec()</a> - リモートサーバ上でコマンドを実行する</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-tunnel.html" class="function" rel="rdfs-seeAlso">ssh2_tunnel()</a> - リモートサーバを経由するトンネルをオープンする</span></li>
+    <li class="member"><span class="function"><a href="function.ssh2-fetch-stream.html" class="function" rel="rdfs-seeAlso">ssh2_fetch_stream()</a> - 拡張データストリームを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ssh2-sftp.html">ssh2_sftp</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ssh2-tunnel.html">ssh2_tunnel</a></div>
+ <div class="up"><a href="ref.ssh2.html">SSH2 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

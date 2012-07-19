@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>オブジェクトのクラス名を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-class-vars.html">get_class_vars</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.get-declared-classes.html">get_declared_classes</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.get-class" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">get_class</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">get_class</span> &mdash; <span class="dc-title">オブジェクトのクラス名を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.get-class-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>get_class</b></span>
+    ([ <span class="methodparam"><span class="type">object</span> <tt class="parameter">$object</tt><span class="initializer"> = <b><tt>NULL</tt></b></span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   指定した <i><tt class="parameter">object</tt></i> のクラス名を取得します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.get-class-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">object</tt></i></span>
+     <dd>
+
+      <p class="para">
+       調べるオブジェクト。クラスの内部ではこのパラメータを省略することもできます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.get-class-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   オブジェクト <i><tt class="parameter">object</tt></i> がインスタンス
+   であるクラスの名前を返します。<i><tt class="parameter">object</tt></i>
+   がオブジェクトでない場合には<b><tt>FALSE</tt></b>が返されます。
+  </p>
+  <p class="para">
+   クラスの内部で <i><tt class="parameter">object</tt></i> を省略すると、
+   そのクラスの名前を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-function.get-class-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   オブジェクト以外に対して <span class="function"><b>get_class()</b></span> をコールすると、
+   <b><tt>E_WARNING</tt></b> レベルのエラーが発生します。
+  </p>
+ </div>
+
+ <div class="refsect1 changelog" id="refsect1-function.get-class-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0 以降</td>
+       <td align="left">
+        <b><tt>NULL</tt></b> が <i><tt class="parameter">object</tt></i> のデフォルトとなりました。
+        したがって、<b><tt>NULL</tt></b> を <i><tt class="parameter">object</tt></i>
+        に渡すのは何も指定しないのと同じ意味ということになります。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0 以降</td>
+       <td align="left">
+        クラス名はその本来の表記で返されます。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.0.0 以降</td>
+       <td align="left">
+        <i><tt class="parameter">object</tt></i> パラメータは、
+        オブジェクトのメソッドからコールされた場合はオプションとなります。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.get-class-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4174">
+    <p><b>例1 <span class="function"><b>get_class()</b></span> の使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;function&nbsp;</span><span style="color: #0000BB">name</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"My&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;オブジェクトを生成<br /></span><span style="color: #0000BB">$bar&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;外部からコール<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"Its&nbsp;name&nbsp;is&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$bar</span><span style="color: #007700">)&nbsp;,&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;内部からコール<br /></span><span style="color: #0000BB">$bar</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">name</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Its name is foo
+My name is foo
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-4175">
+    <p><b>例2 <span class="function"><b>get_class()</b></span> のスーパークラスでの使用例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">abstract&nbsp;class&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">(</span><span style="color: #0000BB">$this</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">get_class</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">foo&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">bar&nbsp;</span><span style="color: #007700">{<br />}<br /><br />new&nbsp;</span><span style="color: #0000BB">foo</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+string(3) &quot;foo&quot;
+string(3) &quot;bar&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.get-class-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.get-called-class.html" class="function" rel="rdfs-seeAlso">get_called_class()</a> - &quot;静的遅延束縛&quot; のクラス名</span></li>
+    <li class="member"><span class="function"><a href="function.get-parent-class.html" class="function" rel="rdfs-seeAlso">get_parent_class()</a> - オブジェクトの親クラスの名前を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.gettype.html" class="function" rel="rdfs-seeAlso">gettype()</a> - 変数の型を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.is-subclass-of.html" class="function" rel="rdfs-seeAlso">is_subclass_of()</a> - あるオブジェクトが指定したクラスのサブクラスに属するかどうかを調べる</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.get-class-vars.html">get_class_vars</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.get-declared-classes.html">get_declared_classes</a></div>
+ <div class="up"><a href="ref.classobj.html">クラス/オブジェクト関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

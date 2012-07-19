@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>XSLT プロセッサ用のエラーハンドラを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-encoding.html">xslt_set_encoding</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xslt-set-log.html">xslt_set_log</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xslt-set-error-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xslt_set_error_handler</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.4)</p><p class="refpurpose"><span class="refname">xslt_set_error_handler</span> &mdash; <span class="dc-title"><acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサ用のエラーハンドラを設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xslt-set-error-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>xslt_set_error_handler</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$xh</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$handler</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">xh</tt></i> で指定した <acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサ用にエラーハンドラ関数を設定します。
+   この関数は、<acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> 変換においてエラーが発生する度にコールされます
+   (この関数は通知のためにもコールされます)。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xslt-set-error-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">xh</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.xslt-create.html" class="function">xslt_create()</a></span> で作成した
+       <acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサリンク ID。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ関数は 4 つのパラメータを受け取る必要があります:
+       <acronym title="eXtensible Stylesheet Language Transformations">XSLT</acronym> プロセッサ、エラーレベル、エラーコードとメッセージの配列です。
+       その関数は次のように表すことができます。
+       <div class="methodsynopsis dc-description">
+         <span class="methodname"><span class="replaceable">error_handler</span></span>
+         ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$xh</tt></span>
+        , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$error_level</tt></span>
+        , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$error_code</tt></span>
+        , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$messages</tt></span>
+        )</div>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xslt-set-error-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 examples" id="refsect1-function.xslt-set-error-handler-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-4603">
+   <p><b>例1 <span class="function"><b>xslt_set_error_handler()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;独自の&nbsp;XSLT&nbsp;エラーハンドラ<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">xslt_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$handler</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$errno</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$level</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$info</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;差し当たり、引数を見るだけにする<br />&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">func_get_args</span><span style="color: #007700">());<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;XML&nbsp;の内容&nbsp;:<br /></span><span style="color: #0000BB">$xml</span><span style="color: #007700">=</span><span style="color: #DD0000">'&lt;?xml&nbsp;version="1.0"?&gt;<br />&lt;para&gt;<br />&nbsp;oops,&nbsp;I&nbsp;misspelled&nbsp;the&nbsp;closing&nbsp;tag<br />&lt;/pata&gt;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;XSL&nbsp;の内容&nbsp;:<br /></span><span style="color: #0000BB">$xsl</span><span style="color: #007700">=</span><span style="color: #DD0000">'&lt;?xml&nbsp;version="1.0"?&gt;<br />&lt;xsl:stylesheet&nbsp;version="1.0"&nbsp;xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;<br />&lt;xsl:template&nbsp;match="/"&gt;<br />&nbsp;&nbsp;&nbsp;&lt;strong&gt;&lt;xsl:value-of&nbsp;select="para"/&gt;&lt;/strong&gt;<br />&lt;/xsl:template&gt;<br />&lt;/xsl:stylesheet&gt;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$xh&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">xslt_create</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">xslt_set_error_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"xslt_error_handler"</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">xslt_process</span><span style="color: #007700">(</span><span style="color: #0000BB">$xh</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'arg:/_xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'arg:/_xsl'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">NULL</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"/_xml"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$xml</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/_xsl"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">$xsl</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(4) {
+  [0]=&gt;
+  resource(1) of type (XSLT Processor)
+  [1]=&gt;
+  int(3)
+  [2]=&gt;
+  int(0)
+  [3]=&gt;
+  array(6) {
+    [&quot;msgtype&quot;]=&gt;
+    string(5) &quot;error&quot;
+    [&quot;code&quot;]=&gt;
+    string(1) &quot;2&quot;
+    [&quot;module&quot;]=&gt;
+    string(9) &quot;Sablotron&quot;
+    [&quot;URI&quot;]=&gt;
+    string(9) &quot;arg:/_xml&quot;
+    [&quot;line&quot;]=&gt;
+    string(1) &quot;4&quot;
+    [&quot;msg&quot;]=&gt;
+    string(34) &quot;XML parser error 7: mismatched tag&quot;
+  }
+}
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+ 
+ <div class="refsect1 seealso" id="refsect1-function.xslt-set-error-handler-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">オブジェクトメソッドをハンドラとして使用したい場合は
+     <span class="function"><a href="function.xslt-set-object.html" class="function" rel="rdfs-seeAlso">xslt_set_object()</a> - コールバック関数を解決するためのオブジェクトを設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xslt-set-encoding.html">xslt_set_encoding</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xslt-set-log.html">xslt_set_log</a></div>
+ <div class="up"><a href="ref.xslt.html">XSLT (PHP4) 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

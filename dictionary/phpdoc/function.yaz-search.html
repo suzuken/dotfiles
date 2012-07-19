@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>検索を準備する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-schema.html">yaz_schema</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-set-option.html">yaz_set_option</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.yaz-search" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">yaz_search</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.0.1, PECL yaz &gt;= 0.9.0)</p><p class="refpurpose"><span class="refname">yaz_search</span> &mdash; <span class="dc-title">検索を準備する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.yaz-search-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>yaz_search</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$id</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$type</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$query</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>yaz_search()</b></span> は、指定した接続で検索を行う準備をします。
+  </p>
+  <p class="para">
+   <span class="function"><a href="function.yaz-connect.html" class="function">yaz_connect()</a></span> と同様にこの関数は非ブロックモードで
+   動作し、後で <span class="function"><a href="function.yaz-wait.html" class="function">yaz_wait()</a></span> がコールされたときのために
+   検索の準備をするだけです。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.yaz-search-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">id</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <span class="function"><a href="function.yaz-connect.html" class="function">yaz_connect()</a></span> が返す接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クエリの型を表します。現在は <i>&quot;rpn&quot;</i> のみがサポート
+       されており、この場合 3 番目の引数には Type-1 クエリを前置表記で
+       指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">query</tt></i></span>
+     <dd>
+
+      <p class="para">
+       RPN クエリは、Z39.50 規格により定義された Type-1 クエリのテキスト
+       表現です。しかし、YAZ により使用されるテキスト表現では、演算子が
+       オペランドの前にある前置表記が使用されます。クエリ文字列はトークンの
+       並びであり、このトークンでは 2 重引用符で括られない限り空白文字は
+       無視されます。アットマーク(<i>@</i>)で始まるトークンは
+       演算子とみなされ、そうでない場合は検索項目として処理されます。
+      </p>
+      <table class="doctable table">
+       <caption><b>RPN 演算子</b></caption>
+       
+        <col align="left" width="1" />
+        <col align="left" width="2" />
+        <thead valign="middle">
+         <tr valign="middle">
+          <th>構文</th>
+          <th>説明</th>
+         </tr>
+
+        </thead>
+
+        <tbody valign="middle" class="tbody">
+         <tr valign="middle">
+          <td align="left"><i>@and</i> query1 query2</td>
+          <td align="left">
+           query1 および query2 の積集合
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>@or</i> query1 query2</td>
+          <td align="left">
+           query1 および query2 の和集合
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>@not</i> query1 query2</td>
+          <td align="left">
+           query1 であり、query2 でない
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>@set</i> name</td>
+          <td align="left">
+           結果セットへのリファレンス
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>@attrset</i> set query</td>
+          <td align="left">
+           クエリの属性セットを指定します。この構造が使用できるのは
+           全てのクエリの始めに一回だけです。
+          </td>
+         </tr>
+
+         <tr valign="middle">
+          <td align="left"><i>@attr</i> [set] type=value query</td>
+          <td align="left">
+           クエリに属性を適用します。型と値は属性型と属性値をそれぞれ指定する
+           整数です。この組みが指定された場合、属性の組を指定します。
+          </td>
+         </tr>
+
+        </tbody>
+       
+      </table>
+     
+      <p class="para">
+       属性についての情報は
+       <a href="http://www.loc.gov/z3950/agency/defns/bib1.html" class="link external">&raquo; Z39.50 Maintenance Agency</a>
+       サイトにあります。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        もう少しわかりやすい記法を利用したい場合は、CCL パーサ関数 -
+        <span class="function"><a href="function.yaz-ccl-conf.html" class="function">yaz_ccl_conf()</a></span> および
+        <span class="function"><a href="function.yaz-ccl-parse.html" class="function">yaz_ccl_parse()</a></span> を使用してください。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.yaz-search-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.yaz-search-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-3830">
+   <p><b>例1 クエリの例</b></p>
+   <div class="example-contents"><p>
+    単純な検索は以下のように行います。
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">computer</pre>
+</div>
+    </div>
+    は、&quot;computer&quot; を含む文書にマッチします。属性は指定されていません。
+   </p></div>
+   <div class="example-contents"><p>
+    クエリ
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">&quot;knuth donald&quot;</pre>
+</div>
+    </div>
+    は、&quot;knuth donald&quot; を含む文書にマッチします（サーバが複数の単語による
+    検索をサポートしている場合）。
+   </p></div>
+   <div class="example-contents"><p>
+    このクエリは、同じフレーズに対して 2 つの属性を適用しています。
+    <div class="example-contents screen">@attr 1=1003 @attr 4=1 &quot;knuth donald&quot;</div>
+    最初の属性は type 1 (Bib-1 use) で、その値は 1003
+    (Author) です。
+    2 番目の属性は type 4 (structure) で、その値は 1 (phrase)
+    です。つまりこれは、Donald Knuth が著者である文書にマッチする
+    ことになります。
+   </p></div>
+   <div class="example-contents"><p>
+    クエリ
+    <div class="example-contents screen">
+<div class="examplescode"><pre class="examplescode">@and @or a b @not @or c d e</pre>
+</div>
+    </div>
+    は、次のような意味になります。<i>(a or b) and ((c or d) not 
+    e)</i>
+   </p></div>
+   <div class="example-contents"><p>
+    さらに複雑な例です。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+@attrset gils @and @attr 1=4 art @attr 1=2000 company
+</pre></div>
+    </div>
+    このクエリは GILS 属性セットをすべて使用しています。このクエリは
+    表題（Title）に <i>art</i> が含まれ（GILS,BIB-1）、
+    配布者（Distributor）に <i>company</i> が含まれる（GILS）
+    文書にマッチします。
+   </p></div>
+  </div>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.yaz-schema.html">yaz_schema</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.yaz-set-option.html">yaz_set_option</a></div>
+ <div class="up"><a href="ref.yaz.html">YAZ 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

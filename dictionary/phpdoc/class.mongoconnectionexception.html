@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MongoConnectionException クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongocursortimeoutexception.html">MongoCursorTimeoutException</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongogridfsexception.html">MongoGridFSException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.mongoconnectionexception" class="reference">
+
+ <h1 class="title">MongoConnectionException クラス</h1>
+ 
+
+ <div class="partintro">
+
+  
+  <div class="section" id="mongoconnectionexception.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    ドライバがデータベースへの接続に失敗した場合にスローします。
+   </p>
+
+   <p class="para">
+    エラーメッセージにはさまざまなものがあり、
+    接続時にどんな問題が発生したのかを調べるために役立ちます。
+    以下にエラーメッセージの例を示します。
+   </p>
+
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      <i>No server name given.</i>
+     </p>
+     <p class="para">
+      このエラーが発生するのは、サーバ名に &quot;&quot; を渡した場合です。
+      考えられる原因は、文字列中での変数展開用の変数の書き間違い
+      (たとえば &quot;$server&quot; とすべきところを &quot;$servr&quot; にした) などです。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>
+       failed to get host [hostname] or port [portnum] 
+       from [server].
+      </i>
+     </p>
+     <p class="para">
+       このエラーがあらわすのは、サーバ文字列が不正な形式であるということです。
+       &quot;[hostname]&quot; および &quot;[portnum]&quot; の部分が、
+       ドライバがなんとかそれを判読した結果を示しています。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>Operation in progress</i>
+     </p>
+     <p class="para">
+      データベースへの接続がタイムアウトしました。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>Transport endpoint is not connected</i>
+     </p>
+     <p class="para">
+      一般的には、接続文字列が間違っていて
+      ドライバがデータベースサーバを見つけられなかったことを意味します。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t determine master</i>
+     </p>
+     <p class="para">
+      ペア接続のどちらのサーバもマスタではありません。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t get host info for [server]</i>
+     </p>
+     <p class="para">
+      これがあらわすのは、指定したサーバアドレスを DNS が解決できなかったということです。
+      打ち間違い
+      (&quot;$server&quot; と書くべきところを &quot;server&quot; とするなど) があると容易にこのエラーが発生します。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>Invalid Argument</i>
+     </p>
+     <p class="para">
+      これは、マシン自体は立ち上がっているもののデータベースは稼動していないマシンに接続しようとした場合などに発生します。
+      接続前に、データベースサーバが起動しているかどうか確認しておきましょう。
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <i>Permission denied</i>
+     </p>
+     <p class="para">
+      権限に関する問題があってソケットをオープンできなかったことをあらわします。
+      Red Hat 系の OS のデフォルト設定では Apache からネットワーク接続を作成できないようになっているので、
+      デフォルトでこれが発生します。この設定を書き換えるには、
+      <div class="example-contents">
+<div class="cdata"><pre>
+$ /usr/sbin/setsebool -P httpd_can_network_connect 1
+</pre></div>
+      </div>
+
+      を実行してから Apache を再起動します。
+     </p>
+    </li>
+   </ul>
+
+   <p class="para">  
+    これら以外のメッセージが出た場合、おそらくそれは C のソケットからのエラーです。
+    主な原因についてはウェブを検索して調べましょう。
+   </p>
+  </div>
+  
+
+  <div class="section" id="mongoconnectionexception.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+   
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+    
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <span class="modifier">extends</span>
+      <a href="class.mongoexception.html" class="classname">MongoException</a>
+     </span>
+     {</div>
+    
+    
+   }</div>
+   
+
+  </div>
+
+ </div>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongocursortimeoutexception.html">MongoCursorTimeoutException</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongogridfsexception.html">MongoGridFSException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

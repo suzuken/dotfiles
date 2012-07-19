@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したデータソースに保存されたテーブルの名前のリストを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-tableprivileges.html">odbc_tableprivileges</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.pdo.html">PDO</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.odbc-tables" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">odbc_tables</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">odbc_tables</span> &mdash; <span class="dc-title">指定したデータソースに保存されたテーブルの名前のリストを取得する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.odbc-tables-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>odbc_tables</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection_id</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$qualifier</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$owner</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$types</tt></span>
+  ]]]] )</div>
+
+  <p class="para rdfs-comment">
+   指定した範囲の全てのテーブルリストを得ます。
+  </p>
+  <p class="para">
+   限定子、所有者、テーブル名を数えるために、
+   <i><tt class="parameter">qualifier</tt></i>、<i><tt class="parameter">owner</tt></i>、
+   <i><tt class="parameter">name</tt></i>、<i><tt class="parameter">table_type</tt></i>
+   について以下のような特別な記号が使用可能です。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      <i><tt class="parameter">qualifier</tt></i> がパーセント記号 (%) のみで、
+      <i><tt class="parameter">owner</tt></i> および <i><tt class="parameter">name</tt></i>
+      が空文字列であった場合、結果にはそのデータソースに関する
+      有効な限定子のリスト (<b><tt>NULL</tt></b> を有する TABLE_QUALIFIER カラム以外の
+      全てのカラム)が含まれます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i><tt class="parameter">owner</tt></i> がパーセント記号 (%) のみで、
+      <i><tt class="parameter">qualifier</tt></i> および
+      <i><tt class="parameter">name</tt></i> が空文字列の場合、結果にはその
+      データソースに関する有効な所有者のリスト (<b><tt>NULL</tt></b> を有する
+      TABLE_OWNER カラム以外の全てのカラム) が含まれます。
+     </span>
+    </li>
+    <li class="listitem">
+     <span class="simpara">
+      <i><tt class="parameter">table_type</tt></i> がパーセント記号 (%) のみで、
+      <i><tt class="parameter">qualifier</tt></i>、<i><tt class="parameter">owner</tt></i>、
+      <i><tt class="parameter">name</tt></i> が空文字列の場合、結果にはそのデータソースに
+      関する有効なテーブル型のリスト (<b><tt>NULL</tt></b> を有する TABLE_TYPE
+      カラム以外の全てのカラム) が含まれます。
+     </span>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 parameters" id="refsect1-function.odbc-tables-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection_id</tt></i></span>
+     <dd>
+
+      <p class="para">ODBC 接続 ID。詳細は
+<span class="function"><a href="function.odbc-connect.html" class="function">odbc_connect()</a></span> を参照ください。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">qualifier</tt></i></span>
+     <dd>
+
+      <p class="para">
+       修飾子。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">owner</tt></i></span>
+     <dd>
+
+      <p class="para">
+       所有者。
+       検索パターン (ゼロ以上の文字にマッチする &#039;%&#039; や単一の文字にマッチする &#039;_&#039;)
+       を指定可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       名前。
+       検索パターン (ゼロ以上の文字にマッチする &#039;%&#039; や単一の文字にマッチする &#039;_&#039;)
+       を指定可能です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">types</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">table_type</tt></i> が空の文字列ではない場合、検索する型に
+       ついてカンマで区切った値のリストを指定する必要があります。
+       各値は、シングルクオート(&#039;)で括るかまたは括らない形で指定可能です。
+       例えば、&quot;&#039;TABLE&#039;,&#039;VIEW&#039;&quot; または &quot;TABLE, VIEW&quot; となります。データソースが
+       が指定したテーブル型をサポートしていない場合、
+       <span class="function"><b>odbc_tables()</b></span> はその型についていかなる結果も
+       返しません。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.odbc-tables-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   情報を含んでいる ODBC 結果 ID を返します。
+  失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+   結果セットのカラムは次のようになります。
+   <ul class="itemizedlist">
+    <li class="listitem"><span class="simpara">TABLE_QUALIFIER</span></li>
+    <li class="listitem"><span class="simpara">TABLE_OWNER</span></li>
+    <li class="listitem"><span class="simpara">TABLE_NAME</span></li>
+    <li class="listitem"><span class="simpara">TABLE_TYPE</span></li>
+    <li class="listitem"><span class="simpara">REMARKS</span></li>
+   </ul>
+  </p>
+  <p class="simpara">
+   結果セットは TABLE_TYPE、TABLE_QUALIFIER、TABLE_OWNER、TABLE_NAME
+   の順番になります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.odbc-tables-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.odbc-tableprivileges.html" class="function" rel="rdfs-seeAlso">odbc_tableprivileges()</a> - 各テーブルのリストおよび関連する権限のリストを取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.odbc-tableprivileges.html">odbc_tableprivileges</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.pdo.html">PDO</a></div>
+ <div class="up"><a href="ref.uodbc.html">ODBC 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

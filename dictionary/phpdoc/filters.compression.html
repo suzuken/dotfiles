@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>圧縮フィルタ</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="filters.convert.html">変換フィルタ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="filters.encryption.html">暗号化フィルタ</a></div>
+ <div class="up"><a href="filters.html">利用できるフィルタのリスト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="filters.compression" class="section">
+  <h2 class="title">圧縮フィルタ</h2>
+
+  <p class="simpara">
+   <a href="wrappers.compression.html" class="link">圧縮ストリーム</a> を用いれば
+   ローカルファイルシステム上に gzip や bz2 と互換性のある圧縮ファイルを
+   作成することができます。しかし、これはネットワーク越しの圧縮機能を
+   持っておらず、また非圧縮ストリームを圧縮されたストリームに変換することも
+   できません。その点、圧縮フィルタはどんなストリームリソースでもどんな場合
+   でも適用可能です。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    圧縮フィルタは、<i>gzip</i> のようなコマンドライン
+    ユーティリティで使われるヘッダを<em class="emphasis">生成しません</em>。
+    これらのフィルタは、（ヘッダ部を除いた）データストリームの本体のみを
+    圧縮・展開するものです。
+   </span>
+  </p></blockquote>
+
+  <p class="simpara">
+   <i>zlib.deflate</i> (圧縮) と
+   <i>zlib.inflate</i> (展開) は、
+   <a href="http://www.faqs.org/rfcs/rfc1951" class="link external">&raquo; RFC 1951</a> で述べられている圧縮方法を
+   実装したものです。<i>deflate</i> フィルタには、次の 3 つの
+   パラメータを連想配列形式で渡すことができます:
+
+   <i><tt class="parameter">level</tt></i> は、圧縮の度合いを 1から9 までで表した
+   ものです。数字が大きいほど圧縮後のサイズが小さくなりますが、そのぶん
+   処理時間が長くかかります。次の2つの値は特別な意味を持ちます。
+   0 (一切圧縮しない)、そして -1 (zlib のデフォルト設定 -- 現在は 6)。
+
+   <i><tt class="parameter">window</tt></i> は、圧縮用ループバックウィンドウのサイズを
+   （2 を底とする）対数で指定します。大きな値 (15 -- つまり 32768 バイトまで
+   引き上げる) を指定するとメモリをふんだんに利用してより小さく圧縮されます。
+   一方、小さな値 (9 -- つまり 512 バイトまで絞り込む) を指定すると、圧縮の
+   効率は落ちますがメモリの消費量を抑えられます。値を指定しなかった際の
+   <i><tt class="parameter">window</tt></i> の初期値は、現在 <b><tt>15</tt></b> です。
+
+   <i><tt class="parameter">memory</tt></i> は、作業用の一時メモリをどの程度割り当てるかを
+   指定します。1 (最小限) から 9 (最大限) の間で指定できます。この値は
+   圧縮の速度のみに影響し、圧縮後のデータのサイズには影響しません。
+  </p>
+
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <span class="simpara">
+    level は一番よく使われるパラメータなので、このパラメータについては
+    （配列形式ではなく）直接整数値として設定することも可能にしています。
+   </span>
+  </p></blockquote>
+
+  <p class="simpara">
+    zlib.* 圧縮フィルタが有効になるのは、PHP バージョン <i>5.1.0</i>
+    で <a href="ref.zlib.html" class="link">zlib</a> サポートが有効な場合です。
+    また、<a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> から
+    <a href="http://pecl.php.net/package/zlib_filter" class="link external">&raquo; zlib_filter</a>
+    パッケージをインストールすることで、バージョン <i>5.0.x</i>
+    でも利用可能になります。これらのフィルタは、PHP 4 では利用<em class="emphasis">できません</em>。
+  </p>
+
+  <div class="example" id="example-4684">
+   <p><b>例1 
+    <i>zlib.deflate</i> と
+    <i>zlib.inflate</i>
+   </b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$params&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'level'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">6</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'window'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">15</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'memory'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$original_text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"This&nbsp;is&nbsp;a&nbsp;test.\nThis&nbsp;is&nbsp;only&nbsp;a&nbsp;test.\nThis&nbsp;is&nbsp;not&nbsp;an&nbsp;important&nbsp;string.\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"もとのテキストの長さは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$original_text</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;文字です。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.deflated'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">stream_filter_append</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'zlib.deflate'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_FILTER_WRITE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$params</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$original_text</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"圧縮後のファイルの大きさは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.deflated'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;バイトです。\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"もとのテキストは:\n"</span><span style="color: #007700">;<br /></span><span style="color: #FF8000">/*&nbsp;readfile&nbsp;と&nbsp;zlib.inflate&nbsp;を利用し、メモリ上で展開します&nbsp;*/<br /></span><span style="color: #0000BB">readfile</span><span style="color: #007700">(</span><span style="color: #DD0000">'php://filter/zlib.inflate/resource=test.deflated'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;出力:<br /><br />もとのテキストの長さは&nbsp;70&nbsp;文字です。<br />圧縮後のファイルの大きさは&nbsp;56&nbsp;バイトです。<br />もとのテキストは:<br />This&nbsp;is&nbsp;a&nbsp;test.<br />This&nbsp;is&nbsp;only&nbsp;a&nbsp;test.<br />This&nbsp;is&nbsp;not&nbsp;an&nbsp;important&nbsp;string.<br /><br />&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <div class="example" id="example-4685">
+   <p><b>例2 
+    <i>zlib.deflate</i> のシンプルな例
+   </b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$original_text&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"This&nbsp;is&nbsp;a&nbsp;test.\nThis&nbsp;is&nbsp;only&nbsp;a&nbsp;test.\nThis&nbsp;is&nbsp;not&nbsp;an&nbsp;important&nbsp;string.\n"</span><span style="color: #007700">;<br />echo&nbsp;</span><span style="color: #DD0000">"もとのテキストの長さは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">strlen</span><span style="color: #007700">(</span><span style="color: #0000BB">$original_text</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;文字です。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.deflated'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">/*&nbsp;この&nbsp;"6"&nbsp;は、パラメータ&nbsp;"level"&nbsp;が&nbsp;6&nbsp;であるということ&nbsp;*/<br /></span><span style="color: #0000BB">stream_filter_append</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'zlib.deflate'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_FILTER_WRITE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">6</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$original_text</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"圧縮後のファイルの大きさは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.deflated'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;バイトです。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;出力:<br /><br />もとのテキストの長さは&nbsp;70&nbsp;文字です。<br />圧縮後のファイルの大きさは&nbsp;56&nbsp;バイトです。<br /><br />&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+  <p class="simpara">
+   <i>bzip2.compress</i> と
+   <i>bzip2.decompress</i>
+   は、上で示した zlib フィルタと同じような動作をします。
+
+   <i>bzip2.compress</i>  フィルタには、次の 2 つの
+   パラメータを連想配列形式で渡すことができます:
+
+   <i><tt class="parameter">blocks</tt></i> は 1 から 9 までの整数値を設定します。
+   これは一時領域として割り当てるメモリのサイズを 100kバイトブロックの
+   数で示したものです。
+   <i><tt class="parameter">work</tt></i> も整数値で、0 から 250 までの値を設定します。
+   これは、通常の圧縮方法がうまくいかなかった際に、どのくらい再試行した後で
+   速度の遅い（ただしより確実な）方法に切りかえるかを示します。
+   このパラメータは圧縮の速度のみに影響します。圧縮後のデータのサイズや
+   圧縮時のメモリ使用量は変わりません。0 を指定した場合は、bzip ライブラリの
+   初期設定値が利用されます。
+
+   <i>bzip2.decompress</i> フィルタには 1 つのパラメータを
+   渡すことができます。このパラメータは普通に論理型の値として渡すことも
+   できますし、連想配列形式で <i><tt class="parameter">small</tt></i> という名前の
+   要素として渡すこともできます。
+
+   <i><tt class="parameter">small</tt></i> を <b><tt>TRUE</tt></b> に設定した場合、bzip ライブラリは
+   メモリ使用量をできるだけ抑えるようになり、その分、処理速度は遅くなります。
+  </p>
+
+  <p class="simpara">
+    bzip2.* 圧縮フィルタが有効になるのは、PHP バージョン <i>5.1.0</i>
+    で <a href="ref.bzip2.html" class="link">bz2</a> サポートが有効な場合です。
+    また、<a href="http://pecl.php.net/" class="link external">&raquo; PECL</a> から
+    <a href="http://pecl.php.net/package/bz2_filter" class="link external">&raquo; bz2_filter</a>
+    パッケージをインストールすることで、バージョン <i>5.0.x</i>
+    でも利用可能になります。これらのフィルタは、PHP 4 では利用<em class="emphasis">できません</em>。
+  </p>
+
+  <div class="example" id="example-4686">
+   <p><b>例3 
+    <i>bzip2.compress</i> と
+    <i>bzip2.decompress</i>
+   </b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$param&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'blocks'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'work'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"もとのファイルの大きさは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #DD0000">'LICENSE'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;バイトです。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">'LICENSE.compressed'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'w'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">stream_filter_append</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bzip2.compress'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">STREAM_FILTER_WRITE</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$param</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(</span><span style="color: #DD0000">'LICENSE'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">"圧縮後のファイルの大きさは&nbsp;"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">filesize</span><span style="color: #007700">(</span><span style="color: #DD0000">'LICENSE.compressed'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"&nbsp;バイトです。\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">/*&nbsp;出力:<br /><br />もとのファイルの大きさは&nbsp;3288&nbsp;バイトです。<br />圧縮後のファイルの大きさは&nbsp;1488&nbsp;バイトです。<br /><br />&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="filters.convert.html">変換フィルタ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="filters.encryption.html">暗号化フィルタ</a></div>
+ <div class="up"><a href="filters.html">利用できるフィルタのリスト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

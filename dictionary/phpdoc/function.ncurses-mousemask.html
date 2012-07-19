@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>マウスオプションを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ncurses-mouseinterval.html">ncurses_mouseinterval</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ncurses-move-panel.html">ncurses_move_panel</a></div>
+ <div class="up"><a href="ref.ncurses.html">Ncurses 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ncurses-mousemask" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ncurses_mousemask</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.2.0, PHP 5 &lt; 5.3.0, PECL ncurses &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">ncurses_mousemask</span> &mdash; <span class="dc-title">マウスオプションを設定する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ncurses-mousemask-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>ncurses_mousemask</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$newmask</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$oldmask</tt></span>
+   )</div>
+
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は、
+<em class="emphasis">実験的</em> なものです。この関数の動作・
+名前・その他ドキュメントに書かれている事項は、予告なく、将来的な PHP
+のリリースにおいて変更される可能性があります。
+この関数は自己責任で使用してください。</p></div>
+  <p class="para">
+   報告されるマウスイベントを設定します。デフォルトでは、
+   どのマウスイベントについても報告されません。
+  </p>
+  <p class="para">
+   マウスイベントは、<span class="function"><a href="function.ncurses-wgetch.html" class="function">ncurses_wgetch()</a></span>
+   入力ストリーム内では <b><tt>NCURSES_KEY_MOUSE</tt></b> で表されます。
+   イベントデータを読み込んでキューからイベントを取り出すには、
+   <span class="function"><a href="function.ncurses-getmouse.html" class="function">ncurses_getmouse()</a></span> をコールします。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ncurses-mousemask-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">newmask</tt></i></span>
+     <dd>
+
+      <p class="para">
+       マウスマスクオプションには、以下の定義済み定数が指定可能です。
+       <ul class="itemizedlist">
+        <li class="listitem"><p class="para">NCURSES_BUTTON1_PRESSED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON1_RELEASED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON1_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON1_DOUBLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON1_TRIPLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON2_PRESSED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON2_RELEASED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON2_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON2_DOUBLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON2_TRIPLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON3_PRESSED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON3_RELEASED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON3_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON3_DOUBLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON3_TRIPLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON4_PRESSED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON4_RELEASED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON4_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON4_DOUBLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON4_TRIPLE_CLICKED</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON_SHIFT&gt;</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON_CTRL</p></li>
+        <li class="listitem"><p class="para">NCURSES_BUTTON_ALT</p></li>
+        <li class="listitem"><p class="para">NCURSES_ALL_MOUSE_EVENTS</p></li>
+        <li class="listitem"><p class="para">NCURSES_REPORT_MOUSE_POSITION</p></li>
+       </ul>
+      </p>
+      <p class="para">
+       副作用として、<i><tt class="parameter">newmask</tt></i> にゼロを設定すると
+       マウスポインタを消去します。ゼロ以外の値を設定すると
+       マウスポインタが表示されます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">oldmask</tt></i></span>
+     <dd>
+
+      <p class="para">
+       以前のマウスイベントマスクの値が設定されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ncurses-mousemask-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">newmask</tt></i> が指定するイベントを報告することが
+   できるマスクを返します。失敗した場合は 0 を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ncurses-mousemask-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-656">
+    <p><b>例1 <span class="function"><b>ncurses_mousemask()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$newmask&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">NCURSES_BUTTON1_CLICKED&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">NCURSES_BUTTON1_RELEASED</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$mask&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ncurses_mousemask</span><span style="color: #007700">(</span><span style="color: #0000BB">$newmask</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$oldmask</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$mask&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">$newmask</span><span style="color: #007700">){<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"All&nbsp;specified&nbsp;mouse&nbsp;options&nbsp;will&nbsp;be&nbsp;supported\n"</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.ncurses-mousemask-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.ncurses-getch.html" class="function" rel="rdfs-seeAlso">ncurses_getch()</a> - キーボードから 1 文字読み込む</span></li>
+    <li class="member"><span class="function"><a href="function.ncurses-getmouse.html" class="function" rel="rdfs-seeAlso">ncurses_getmouse()</a> - マウスイベントを読みこむ</span></li>
+    <li class="member"><span class="function"><a href="function.ncurses-ungetmouse.html" class="function" rel="rdfs-seeAlso">ncurses_ungetmouse()</a> - マウスイベントをキューにプッシュする</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ncurses-mouseinterval.html">ncurses_mouseinterval</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ncurses-move-panel.html">ncurses_move_panel</a></div>
+ <div class="up"><a href="ref.ncurses.html">Ncurses 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

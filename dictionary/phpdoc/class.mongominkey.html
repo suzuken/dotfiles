@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MongoMinKey クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodbref.isref.html">MongoDBRef::isRef</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongomaxkey.html">MongoMaxKey</a></div>
+ <div class="up"><a href="mongo.types.html">型</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.mongominkey" class="reference">
+
+ <h1 class="title">MongoMinKey クラス</h1>
+ 
+
+ <div class="partintro">
+
+
+  <div class="section" id="mongominkey.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    <b class="classname">MongoMinKey</b> はデータベースが使う特別な型で、
+    他のどんな型よりも小さいと評価されます。したがって、
+    特定のフィールドの昇順でクエリを並べ替えると、値が
+    <b class="classname">MongoMinKey</b> であるドキュメントが最初となります。
+   </p>
+   <p class="para">
+    <b class="classname">MongoMinKey</b> にはフィールドやメソッド、定数はありません。
+    データベースに追加するときに使う、単なる &quot;いちばん小さい&quot; ものです。
+   </p>
+  </div>
+
+
+  <div class="section" id="mongominkey.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <b class="classname">MongoMinKey</b>
+     </span>
+     {</div>
+
+   }</div>
+
+
+  </div>
+
+  <div class="section" id="mongominkey.example">
+   <h2 class="title"><b class="classname">MongoMinKey</b> の使用例</h2>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"task"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"lunch"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"do&nbsp;by"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoMinKey</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"task"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"staff&nbsp;meeting"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"do&nbsp;by"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoDate</span><span style="color: #007700">(</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">"+4&nbsp;days"</span><span style="color: #007700">))));<br /><br /></span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">()-&gt;</span><span style="color: #0000BB">sort</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"do&nbsp;by"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <p class="para">
+    このカーソルの中身は、まずlunchドキュメント、次にstaff meetingドキュメントとなります。
+    lunchドキュメントは、今後コレクションに何が追加されたとしても必ず最初になります
+    (&quot;do by&quot; フィールドが
+    <b class="classname">MongoMinKey</b> である別のドキュメントが追加されない限りは)。
+   </p>
+  </div>
+ </div>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongodbref.isref.html">MongoDBRef::isRef</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongomaxkey.html">MongoMaxKey</a></div>
+ <div class="up"><a href="mongo.types.html">型</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

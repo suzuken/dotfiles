@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Returns a backtrace for each query inspected by the query cache</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysqlnd_qc_get_handler.html">mysqlnd_qc_get_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysqlnd_qc_set_user_handlers.html">mysqlnd_qc_set_user_handlers</a></div>
+ <div class="up"><a href="ref.mysqlnd-qc.html">mysqlnd_qc 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.mysqlnd_qc_get_query_trace_log" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqlnd_qc_get_query_trace_log</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">mysqlnd_qc_get_query_trace_log</span> &mdash; <span class="dc-title">Returns a backtrace for each query inspected by the query cache</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.mysqlnd_qc_get_query_trace_log-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span>
+    <span class="methodname"><b>mysqlnd_qc_get_query_trace_log</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Returns a backtrace for each query inspected by the query cache.
+   The collection of the backtrace is disabled by default. To collect
+   the backtrace you have to set the PHP configuration directive
+   <i>mysqlnd_qc.collect_query_trace</i> to
+   <i>1</i>
+  </p>
+  <p class="para">
+   The maximum depth of the backtrace is limited to the depth set
+   with the PHP configuration directive
+   <i>mysqlnd_qc.query_trace_bt_depth</i>.
+  </p>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.mysqlnd_qc_get_query_trace_log-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.mysqlnd_qc_get_query_trace_log-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   An array of query backtrace. Every list entry contains
+   the query string, a backtrace and further detail information.
+  </p>
+
+  <table class="doctable informaltable">
+   
+    <col align="left" width="10" />
+    <col align="left" width="90" />
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>Key</th>
+      <th>Description</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+      <td align="left">
+       <i>query</i>
+      </td>
+      <td align="left">
+              Query string.
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>origin</i>
+      </td>
+      <td align="left">
+       Code backtrace.
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>run_time</i>
+      </td>
+      <td align="left">
+       Query run time in milliseconds. The collection of
+       all times and the necessary
+       <i>gettimeofday</i>
+       system calls can be disabled by setting the PHP configuration
+       directive
+       <i>mysqlnd_qc.time_statistics</i> to
+       <i>0</i>
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>store_time</i>
+      </td>
+      <td align="left">
+       Query result set store time in milliseconds. The collection of
+       all times and the necessary
+       <i>gettimeofday</i>
+       system calls can be disabled by setting the PHP configuration
+       directive
+       <i>mysqlnd_qc.time_statistics</i> to
+       <i>0</i>
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>eligible_for_caching</i>
+      </td>
+      <td align="left">
+       <i>TRUE</i> if query is cacheble otherwise
+       <i>FALSE</i>.
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>no_table</i>
+      </td>
+      <td align="left">
+       <i>TRUE</i> if the query has generated a result
+       set and at least one column from the result set has no table
+       name set in its metadata. This is usually the case with
+       queries which one probably do not want to cache such as
+       <i>SELECT SLEEP(1)</i>. By default any such query
+       will not be added to the cache. See also PHP configuration directive
+       <i>mysqlnd_qc.cache_no_table</i>.
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>was_added</i>
+      </td>
+      <td align="left">
+       <i>TRUE</i> if the query result has been put into
+       the cache, otherwise
+       <i>FALSE</i>.
+      </td>
+     </tr>
+
+     <tr valign="middle">
+      <td align="left">
+       <i>was_already_in_cache</i>
+      </td>
+      <td align="left">
+       <i>TRUE</i> if the query result would have been
+       added to the cache if it was not already in the cache (cache hit).
+       Otherwise
+       <i>FALSE</i>.
+      </td>
+     </tr>
+
+
+    </tbody>
+   
+  </table>
+
+ </div>
+
+
+
+ <div class="refsect1 examples" id="refsect1-function.mysqlnd_qc_get_query_trace_log-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1593">
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;Connect,&nbsp;create&nbsp;and&nbsp;populate&nbsp;test&nbsp;table&nbsp;*/<br /></span><span style="color: #0000BB">$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">"host"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"user"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"password"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"schema"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"port"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"socket"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"DROP&nbsp;TABLE&nbsp;IF&nbsp;EXISTS&nbsp;test"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"CREATE&nbsp;TABLE&nbsp;test(id&nbsp;INT)"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"INSERT&nbsp;INTO&nbsp;test(id)&nbsp;VALUES&nbsp;(1),&nbsp;(2)"</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;test&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;1"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">free</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"/*"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">MYSQLND_QC_ENABLE_SWITCH&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"*/"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;test&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;2"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">free</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #DD0000">"/*"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">MYSQLND_QC_ENABLE_SWITCH&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"*/"&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"SELECT&nbsp;id&nbsp;FROM&nbsp;test&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;2"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">$res</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">free</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [&quot;id&quot;]=&gt;
+  string(1) &quot;1&quot;
+}
+array(1) {
+  [&quot;id&quot;]=&gt;
+  string(1) &quot;2&quot;
+}
+array(1) {
+  [&quot;id&quot;]=&gt;
+  string(1) &quot;2&quot;
+}
+array(6) {
+  [0]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(25) &quot;DROP TABLE IF EXISTS test&quot;
+    [&quot;origin&quot;]=&gt;
+    string(85) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(7): mysqli-&gt;query(&#039;DROP TABLE IF E...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(0)
+    [&quot;store_time&quot;]=&gt;
+    int(0)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(false)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(false)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(false)
+  }
+  [1]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(25) &quot;CREATE TABLE test(id INT)&quot;
+    [&quot;origin&quot;]=&gt;
+    string(85) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(8): mysqli-&gt;query(&#039;CREATE TABLE te...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(0)
+    [&quot;store_time&quot;]=&gt;
+    int(0)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(false)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(false)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(false)
+  }
+  [2]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(36) &quot;INSERT INTO test(id) VALUES (1), (2)&quot;
+    [&quot;origin&quot;]=&gt;
+    string(85) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(9): mysqli-&gt;query(&#039;INSERT INTO tes...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(0)
+    [&quot;store_time&quot;]=&gt;
+    int(0)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(false)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(false)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(false)
+  }
+  [3]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(32) &quot;SELECT id FROM test WHERE id = 1&quot;
+    [&quot;origin&quot;]=&gt;
+    string(86) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(11): mysqli-&gt;query(&#039;SELECT id FROM ...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(0)
+    [&quot;store_time&quot;]=&gt;
+    int(15)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(false)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(false)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(false)
+  }
+  [4]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(41) &quot;/*qc=on*/SELECT id FROM test WHERE id = 2&quot;
+    [&quot;origin&quot;]=&gt;
+    string(86) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(15): mysqli-&gt;query(&#039;/*qc=on*/SELECT...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(340)
+    [&quot;store_time&quot;]=&gt;
+    int(3)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(true)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(true)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(false)
+  }
+  [5]=&gt;
+  array(8) {
+    [&quot;query&quot;]=&gt;
+    string(41) &quot;/*qc=on*/SELECT id FROM test WHERE id = 2&quot;
+    [&quot;origin&quot;]=&gt;
+    string(86) &quot;#0 /home/nixnutz/php/phpdoc/foo.php(19): mysqli-&gt;query(&#039;/*qc=on*/SELECT...&#039;)
+#1 {main}&quot;
+    [&quot;run_time&quot;]=&gt;
+    int(4)
+    [&quot;store_time&quot;]=&gt;
+    int(2)
+    [&quot;eligible_for_caching&quot;]=&gt;
+    bool(true)
+    [&quot;no_table&quot;]=&gt;
+    bool(false)
+    [&quot;was_added&quot;]=&gt;
+    bool(false)
+    [&quot;was_already_in_cache&quot;]=&gt;
+    bool(true)
+  }
+}
+</pre></div>
+   </div>
+
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.mysqlnd_qc_get_query_trace_log-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">
+     <a href="mysqlnd-qc.configuration.html" class="link">Runtime configuration</a>
+    </li>
+    <li class="member">
+     <a href="mysqlnd-qc.configuration.html#ini.mysqlnd-qc.collect-query-trace" class="link">mysqlnd_qc.collect_query_trace</a>
+    </li>
+    <li class="member">
+     <a href="mysqlnd-qc.configuration.html#ini.mysqlnd-qc.query-trace-bt-depth" class="link">mysqlnd_qc.query_trace_bt_depth</a>
+    </li>
+    <li class="member">
+     <a href="mysqlnd-qc.configuration.html#ini.mysqlnd-qc.time-statistics" class="link">mysqlnd_qc.time_statistics</a>
+    </li>
+    <li class="member">
+     <a href="mysqlnd-qc.configuration.html#ini.mysqlnd-qc.cache-no-table" class="link">mysqlnd_qc.cache_no_table</a>
+    </li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.mysqlnd_qc_get_handler.html">mysqlnd_qc_get_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.mysqlnd_qc_set_user_handlers.html">mysqlnd_qc_set_user_handlers</a></div>
+ <div class="up"><a href="ref.mysqlnd-qc.html">mysqlnd_qc 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

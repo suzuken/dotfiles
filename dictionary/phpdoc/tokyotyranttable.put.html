@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>行を格納する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyranttable.out.html">TokyoTyrantTable::out</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyranttable.putcat.html">TokyoTyrantTable::putCat</a></div>
+ <div class="up"><a href="class.tokyotyranttable.html">TokyoTyrantTable</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="tokyotyranttable.put" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">TokyoTyrantTable::put</h1>
+  <p class="verinfo">(PECL tokyo_tyrant &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">TokyoTyrantTable::put</span> &mdash; <span class="dc-title">行を格納する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-tokyotyranttable.put-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">int</span> <span class="methodname"><b>TokyoTyrantTable::put</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$key</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$columns</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   新しい行をデータベースに格納します。このメソッドのパラメータ <i><tt class="parameter">key</tt></i>
+   は行の主キーで、<b><tt>NULL</tt></b> を渡すと一意な id を新たに生成します。<i><tt class="parameter">value</tt></i>
+   は配列で、行の内容を表します。通常は、キーと値のペアとなります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-tokyotyranttable.put-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">key</tt></i></span>
+     <dd>
+
+      <p class="para">
+       行の主キー。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">columns</tt></i></span>
+     <dd>
+
+      <p class="para">
+       行の内容。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-tokyotyranttable.put-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に主キーを返します。エラー時には TokyoTyrantException をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-tokyotyranttable.put-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1842">
+    <p><b>例1  <span class="methodname"><b>TokyoTyrantTable::put()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;テーブルデータベースに接続します&nbsp;*/<br /></span><span style="color: #0000BB">$tt&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">TokyoTyrantTable</span><span style="color: #007700">(</span><span style="color: #DD0000">"localhost"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1979</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;null&nbsp;を渡して新しい&nbsp;uid&nbsp;を生成します&nbsp;*/<br /></span><span style="color: #0000BB">$index&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"column1"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"some&nbsp;data"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"column2"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"more&nbsp;data"</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;行を取得します&nbsp;*/<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #0000BB">$index</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;既存の行を変更します&nbsp;*/<br /></span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">put</span><span style="color: #007700">(</span><span style="color: #0000BB">$index</span><span style="color: #007700">,&nbsp;array(</span><span style="color: #DD0000">"column1"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"other&nbsp;data"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"column2"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"better&nbsp;data"</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">/*&nbsp;行を取得します&nbsp;*/<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$tt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">get</span><span style="color: #007700">(</span><span style="color: #0000BB">$index</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;column1&quot;]=&gt;
+  string(9) &quot;some data&quot;
+  [&quot;column2&quot;]=&gt;
+  string(9) &quot;more data&quot;
+}
+array(2) {
+  [&quot;column1&quot;]=&gt;
+  string(10) &quot;other data&quot;
+  [&quot;column2&quot;]=&gt;
+  string(11) &quot;better data&quot;
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-tokyotyranttable.put-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="tokyotyranttable.get.html" class="methodname" rel="rdfs-seeAlso">TokyoTyrantTable::get()</a> - 行を取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="tokyotyranttable.out.html">TokyoTyrantTable::out</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="tokyotyranttable.putcat.html">TokyoTyrantTable::putCat</a></div>
+ <div class="up"><a href="class.tokyotyranttable.html">TokyoTyrantTable</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

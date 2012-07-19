@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>スクリプト中の日付/時刻関数で使用されるデフォルトタイムゾーンを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.date-date-set.html">date_date_set</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.date-default-timezone-set.html">date_default_timezone_set</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.date-default-timezone-get" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">date_default_timezone_get</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.1.0)</p><p class="refpurpose"><span class="refname">date_default_timezone_get</span> &mdash; <span class="dc-title">
+   スクリプト中の日付/時刻関数で使用されるデフォルトタイムゾーンを取得する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.date-default-timezone-get-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>date_default_timezone_get</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、デフォルトのタイムゾーンを以下の優先順位で取得して返します。
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      <span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span> 関数を使用して
+      設定したタイムゾーン (もし何か設定されていれば) を読み込む
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <var class="varname"><var class="varname">TZ</var></var> 環境変数 (もし空白でなければ) を読み込む (PHP 5.3.0 より前のバージョンのみ)
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      <a href="datetime.configuration.html#ini.date.timezone" class="link">date.timezone</a> ini オプション
+      (設定されていれば) を読み込む
+     </p>
+    </li>
+    <li class="listitem">
+     <p class="para">
+      ホスト OS に問い合わせる (もし OS がそれに対応しており、許可されていれば)。
+      これは、タイムゾーンを<em class="emphasis">推測</em>するアルゴリズムを使います。
+      このアルゴリズムはあらゆる状況で正しく動作するとは限りません。
+      この段階に到達したときには警告が表示されます。
+      この推測が正しくなることに期待するのではなく、
+      <a href="datetime.configuration.html#ini.date.timezone" class="link">date.timezone</a>
+      に正しいタイムゾーンを設定するようにしましょう。
+     </p>
+    </li>
+   </ul>
+  </p>
+  <p class="para">
+   上のすべてが失敗した場合は、 <span class="methodname"><b>date_default_timezone_get()</b></span>
+   はデフォルトのタイムゾーンである <i>UTC</i> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.date-default-timezone-get-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <span class="type"><a href="language.types.string.html" class="type string">string</a></span> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.date-default-timezone-get-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        タイムゾーンの判定時に環境変数 <i>TZ</i>
+        を使わなくなりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.date-default-timezone-get-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-610">
+    <p><b>例1 デフォルトのタイムゾーンの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />date_default_timezone_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'Europe/London'</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">date_default_timezone_get</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'date_default_timezone_set:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date_default_timezone_get</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;'</span><span style="color: #007700">;<br />}<br /><br />if&nbsp;(</span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">'date.timezone'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'date.timezone:&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">ini_get</span><span style="color: #007700">(</span><span style="color: #DD0000">'date.timezone'</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+date_default_timezone_set: Europe/London
+date.timezone: Europe/London
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-611">
+    <p><b>例2 タイムゾーンの短縮名の取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />date_default_timezone_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'America/Los_Angeles'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">date_default_timezone_get</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">'&nbsp;=&gt;&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'e'</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'&nbsp;=&gt;&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'T'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+America/Los_Angeles =&gt; America/Los_Angeles =&gt; PST
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.date-default-timezone-get-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.date-default-timezone-set.html" class="function" rel="rdfs-seeAlso">date_default_timezone_set()</a> - スクリプト中の日付/時刻関数で使用されるデフォルトタイムゾーンを設定する</span></li>
+    <li class="member"><a href="timezones.html" class="xref">サポートされるタイムゾーンのリスト</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.date-date-set.html">date_date_set</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.date-default-timezone-set.html">date_default_timezone_set</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

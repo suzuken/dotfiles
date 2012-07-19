@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ユーザ定義の例外ハンドラ関数を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-error-handler.html">set_error_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.trigger-error.html">trigger_error</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.set-exception-handler" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">set_exception_handler</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">set_exception_handler</span> &mdash; <span class="dc-title">
+   ユーザ定義の例外ハンドラ関数を設定する
+  </span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.set-exception-handler-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <span class="methodname"><b>set_exception_handler</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$exception_handler</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   例外が try/catch ブロックの中でキャッチされなかった場合の
+   デフォルトの例外ハンドラを設定します。
+   例外は、<i><tt class="parameter">exception_handler</tt></i> がコールされた後に
+   停止します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.set-exception-handler-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">exception_handler</tt></i></span>
+     <dd>
+
+      <p class="para">
+       キャッチされない例外が発生した際にコールされる関数の名前。
+       この関数は、<span class="function"><b>set_exception_handler()</b></span>
+       をコールする前に定義する必要があります。
+       このハンドラ関数は、パラメータをひとつとる必要があります。
+       このパラメータは、スローされた例外オブジェクトとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.set-exception-handler-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   前に定義された例外ハンドラの名前、またはエラー発生時に <b><tt>NULL</tt></b> を返します。
+   前にハンドラが定義されていない場合にも <b><tt>NULL</tt></b> が返されます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.set-exception-handler-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-410">
+    <p><b>例1 <span class="function"><b>set_exception_handler()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">exception_handler</span><span style="color: #007700">(</span><span style="color: #0000BB">$exception</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Uncaught&nbsp;exception:&nbsp;"&nbsp;</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$exception</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getMessage</span><span style="color: #007700">(),&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">set_exception_handler</span><span style="color: #007700">(</span><span style="color: #DD0000">'exception_handler'</span><span style="color: #007700">);<br /><br />throw&nbsp;new&nbsp;</span><span style="color: #0000BB">Exception</span><span style="color: #007700">(</span><span style="color: #DD0000">'Uncaught&nbsp;Exception'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Not&nbsp;Executed\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.set-exception-handler-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.restore-exception-handler.html" class="function" rel="rdfs-seeAlso">restore_exception_handler()</a> - 以前の例外ハンドラ関数を回復する</span></li>
+    <li class="member"><span class="function"><a href="function.restore-error-handler.html" class="function" rel="rdfs-seeAlso">restore_error_handler()</a> - 以前のエラーハンドラ関数を回復する</span></li>
+    <li class="member"><span class="function"><a href="function.error-reporting.html" class="function" rel="rdfs-seeAlso">error_reporting()</a> - 出力する PHP エラーの種類を設定する</span></li>
+    <li class="member"><a href="language.pseudo-types.html#language.types.callback" class="link">callback</a> 型に関する情報</li>
+    <li class="member"><a href="language.exceptions.html" class="link">PHP 5 例外</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.set-error-handler.html">set_error_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.trigger-error.html">trigger_error</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

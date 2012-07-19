@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ローカルな時刻/日付を整数として整形する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gmstrftime.html">gmstrftime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.localtime.html">localtime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.idate" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">idate</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">idate</span> &mdash; <span class="dc-title">ローカルな時刻/日付を整数として整形する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.idate-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>idate</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$format</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp</tt><span class="initializer"> = time()</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   指定された引数 <i><tt class="parameter">timestamp</tt></i> を、
+   与えられたフォーマット文字列によりフォーマットし、日付数値を返します。
+   タイムスタンプが与えられない場合は、現在のローカル時刻が使われます。
+   つまり、<i><tt class="parameter">timestamp</tt></i> はオプションであり、
+   そのデフォルト値は <span class="function"><a href="function.time.html" class="function">time()</a></span> の値です。
+  </p>
+  <p class="para">
+   関数 <span class="function"><a href="function.date.html" class="function">date()</a></span> と異なり、<span class="function"><b>idate()</b></span>
+   は <i><tt class="parameter">format</tt></i> パラメータ中は一文字しか受け取りません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.idate-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">format</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <table class="doctable table">
+        <caption><b>以下の文字が <i><tt class="parameter">format</tt></i>
+        パラメータ文字列として認識されます</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th><i><tt class="parameter">format</tt></i> 文字</th>
+           <th>説明</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><i>B</i></td>
+           <td align="left">Swatch ビート/インターネット時間</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>d</i></td>
+           <td align="left">月の日</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>h</i></td>
+           <td align="left">時 (12 時間単位)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>H</i></td>
+           <td align="left">時 (24 時間単位)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>i</i></td>
+           <td align="left">分</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>I</i> (大文字の i)</td>
+           <td align="left">夏時間の適用中は <i>1</i>、
+            そうでなければ <i>0</i> を返す</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>L</i> (大文字の l)</td>
+           <td align="left">閏年なら <i>1</i>、
+            そうでなければ <i>0</i> を返す</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>m</i></td>
+           <td align="left">月数</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>s</i></td>
+           <td align="left">秒</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>t</i></td>
+           <td align="left">現在の月の日数</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>U</i></td>
+           <td align="left">Unix Epoch (January 1 1970 00:00:00 UTC) からの秒数。
+            これは <span class="function"><a href="function.time.html" class="function">time()</a></span> と同じです</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>w</i></td>
+           <td align="left">曜日 (日曜日は <i>0</i>)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>W</i></td>
+           <td align="left">ISO-8601 形式。月曜日から始まる年単位の週番号</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>y</i></td>
+           <td align="left">年 (1 桁あるいは 2 桁の数値 - 下の「注意」を確認ください)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>Y</i></td>
+           <td align="left">年 (4 桁)</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>z</i></td>
+           <td align="left">年間の通算日</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><i>Z</i></td>
+           <td align="left">タイムゾーンのオフセット秒数</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    
+    
+<dt>
+<span class="term"><i><tt class="parameter">timestamp</tt></i></span><dd>
+<p class="para">
+オプションのパラメータ <i><tt class="parameter">timestamp</tt></i> は、
+<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> 型の Unix タイムスタンプです。
+<i><tt class="parameter">timestamp</tt></i> が指定されなかった場合のデフォルト値は、
+現在の時刻です。言い換えると、デフォルトは
+<span class="function"><a href="function.time.html" class="function">time()</a></span> の返り値となります。
+</p></dd>
+</dt>
+
+      
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.idate-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   整数値を返します。
+  </p>
+  <p class="para">
+   <span class="function"><b>idate()</b></span> が返す値の型は常に <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> であり、
+   先頭に &quot;0&quot; がくることはありません。そのため、<span class="function"><b>idate()</b></span>
+   の返す結果が予想より少ない桁数になることもあります。以下の例を参照ください。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-function.idate-errors">
+  <h3 class="title">エラー / 例外</h3>
+   
+   <p class="para">
+すべての日付/時刻関数は、
+有効なタイムゾーンが設定されていない場合に <b><tt>E_NOTICE</tt></b>
+を発生させます。また、システム設定のタイムゾーンあるいは環境変数
+<var class="varname"><var class="varname">TZ</var></var> を使用した場合には <b><tt>E_STRICT</tt></b>
+あるいは <b><tt>E_WARNING</tt></b> を発生させます。
+<span class="function"><a href="function.date-default-timezone-set.html" class="function">date_default_timezone_set()</a></span> も参照ください。</p>
+ 
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.idate-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      
+      <tr valign="middle"><td align="left">5.1.0</td><td align="left"><p class="para">
+タイムゾーンがおかしい場合に <b><tt>E_STRICT</tt></b> や
+<b><tt>E_NOTICE</tt></b> が発生するようになりました。</p></td></tr>
+
+     
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.idate-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-627">
+    <p><b>例1 <span class="function"><b>idate()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$timestamp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strtotime</span><span style="color: #007700">(</span><span style="color: #DD0000">'1st&nbsp;January&nbsp;2004'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//1072915200<br /><br />//&nbsp;これは、年を&nbsp;2&nbsp;桁で表示します。<br />//&nbsp;しかし、ここでは年が&nbsp;"0"&nbsp;から始まるので、<br />//&nbsp;"4"&nbsp;だけが表示されます。<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">idate</span><span style="color: #007700">(</span><span style="color: #DD0000">'y'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$timestamp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.idate-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.date.html" class="function" rel="rdfs-seeAlso">date()</a> - ローカルの日付/時刻を書式化する</span></li>
+    <li class="member"><span class="function"><a href="function.getdate.html" class="function" rel="rdfs-seeAlso">getdate()</a> - 日付/時刻情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.time.html" class="function" rel="rdfs-seeAlso">time()</a> - 現在の Unix タイムスタンプを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.gmstrftime.html">gmstrftime</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.localtime.html">localtime</a></div>
+ <div class="up"><a href="ref.datetime.html">日付・時刻 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

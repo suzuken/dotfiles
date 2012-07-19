@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>持続的な mSQL 接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msql-numrows.html">msql_numrows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msql-query.html">msql_query</a></div>
+ <div class="up"><a href="ref.msql.html">mSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.msql-pconnect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">msql_pconnect</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">msql_pconnect</span> &mdash; <span class="dc-title">持続的な mSQL 接続をオープンする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.msql-pconnect-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">resource</span> <span class="methodname"><b>msql_pconnect</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$hostname</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment"> 
+   <span class="function"><b>msql_pconnect()</b></span> は
+   <span class="function"><a href="function.msql-connect.html" class="function">msql_connect()</a></span> とほぼ同じ動作をしますが、
+   大きな違いがふたつあります。
+  </p>
+  <p class="para"> 
+   ひとつめは、この関数は接続する際に同じホストにおいてすでに確立された
+   （持続的な）リンクを探そうとすることです。そのようなリンクが見つかった
+   場合、新たな接続をオープンするかわりにそのリンクの ID が返されます。
+  </p>
+  <p class="para"> 
+   ふたつめは、スクリプトの実行が終了しても SQL サーバへの接続が閉じられない
+   ということです。そのかわりに、次に利用するときのために
+   リンクが開かれたままとなります（<span class="function"><a href="function.msql-close.html" class="function">msql_close()</a></span>
+   はこの関数によって確立されたリンクを閉じません）。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.msql-pconnect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">hostname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ホスト名にはポート番号を含めることも可能です。例:
+       <i>hostname,port</i>
+      </p>
+      <p class="para">
+       指定されなかった場合、接続は Unix ドメインソケットで確立されます。
+       これは、ローカルホストへの TCP ソケット接続より効率的です。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <span class="simpara">
+        この関数はホスト名とポートの区切りとしてコロン（<i>:</i>）
+        も受け付けますが、カンマ（<i>,</i>）で区切るほうが
+        推奨されます。
+       </span>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.msql-pconnect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合には正の mSQL リンク IDを、エラー時には <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.msql-pconnect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.msql-connect.html" class="function" rel="rdfs-seeAlso">msql_connect()</a> - mSQL 接続を開く</span></li>
+    <li class="member"><span class="function"><a href="function.msql-close.html" class="function" rel="rdfs-seeAlso">msql_close()</a> - mSQL 接続を閉じる</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.msql-numrows.html">msql_numrows</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.msql-query.html">msql_query</a></div>
+ <div class="up"><a href="ref.msql.html">mSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

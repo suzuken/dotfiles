@@ -1,0 +1,632 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>zend_module 構造体</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.structure.basics.html">基本構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.structure.globals.html">拡張モジュールのグローバル変数</a></div>
+ <div class="up"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.structure.modstruct" class="sect1">
+  <h2 class="title">zend_module 構造体</h2>
+  <p class="para">
+   PHP 拡張モジュールのソースファイルの中には、
+   C プログラマにとって目新しいものがいくつか含まれています。
+   これらの中でも最も重要であり、
+   拡張モジュールを開発するにあたって最初にさわることになるのが
+   <i>zend_module</i> 構造体です。
+   この構造体には豊富な情報が格納されており、
+   その拡張モジュールの依存性やバージョン、コールバック、
+   その他重要なデータを Zend Engine に伝える役割を果たします。
+   この構造体の中身は、何度も大幅に変更されています。
+   ここでは、PHP 5.2 の時点の情報をもとにして説明します。
+   PHP 5.3 では少々変更されている点もあります。
+  </p>
+  
+  <p class="para">
+   <var class="filename">counter.c</var> での <i>zend_module</i>
+   の宣言は、次のようになります。これは、
+   <strong class="command">ext_skel --extname=counter</strong>
+   で生成したものをもとにして、既に存在しないいくつかの構造体を削除したものです。
+  </p>
+  
+  <div class="example" id="internals2.structure.modstruct.example-decl">
+   <p><b>例1 counter 拡張モジュールにおける zend_module の宣言部</b></p>
+   <div class="example-contents">
+<div class="ccode"><pre class="ccode">/* {{{ counter_module_entry
+ */
+zend_module_entry counter_module_entry = {
+    STANDARD_MODULE_HEADER,
+    &quot;counter&quot;,
+    counter_functions,
+    PHP_MINIT(counter),
+    PHP_MSHUTDOWN(counter),
+    PHP_RINIT(counter),        /* Replace with NULL if there&#039;s nothing to do at request start */
+    PHP_RSHUTDOWN(counter),    /* Replace with NULL if there&#039;s nothing to do at request end */
+    PHP_MINFO(counter),
+    &quot;0.1&quot;, /* Replace with version number for your extension */
+    STANDARD_MODULE_PROPERTIES
+};
+/* }}} */</pre>
+</div>
+   </div>
+
+  </div>
+  
+  <p class="para">
+   最初はちょっとひるむかも知れませんが、
+   大半の部分はよく見れば非常に単純です。
+   次に示すのは、PHP 5.3 の <var class="filename">zend_modules.h</var>
+   における <i>zend_module</i> の宣言部です。
+  </p>
+  
+  <div class="example" id="internals2.structure.modstruct.struct-defn">
+   <p><b>例2 PHP 5.3 における zend_module の定義</b></p>
+   <div class="example-contents">
+<div class="ccode"><pre class="ccode">struct _zend_module_entry {
+    unsigned short size;
+    unsigned int zend_api;
+    unsigned char zend_debug;
+    unsigned char zts;
+    const struct _zend_ini_entry *ini_entry;
+    const struct _zend_module_dep *deps;
+    const char *name;
+    const struct _zend_function_entry *functions;
+    int (*module_startup_func)(INIT_FUNC_ARGS);
+    int (*module_shutdown_func)(SHUTDOWN_FUNC_ARGS);
+    int (*request_startup_func)(INIT_FUNC_ARGS);
+    int (*request_shutdown_func)(SHUTDOWN_FUNC_ARGS);
+    void (*info_func)(ZEND_MODULE_INFO_FUNC_ARGS);
+    const char *version;
+    size_t globals_size;
+#ifdef ZTS
+    ts_rsrc_id* globals_id_ptr;
+#else
+    void* globals_ptr;
+#endif
+    void (*globals_ctor)(void *global TSRMLS_DC);
+    void (*globals_dtor)(void *global TSRMLS_DC);
+    int (*post_deactivate_func)(void);
+    int module_started;
+    unsigned char type;
+    void *handle;
+    int module_number;
+};</pre>
+</div>
+   </div>
+
+  </div>
+  
+  <p class="para">
+   これらのフィールドの多くは、決して拡張モジュールの作者が触ることはありません。
+   数多くのマクロが標準で用意されており、
+   そのマクロが適切な値を自動的に設定します。
+   <b><tt>STANDARD_MODULE_HEADER</tt></b> マクロは、
+   <var class="varname"><var class="varname">deps</var></var> フィールドまでのすべての内容を埋めます。
+   一方 <b><tt>STANDARD_MODULE_HEADER_EX</tt></b> は
+   <var class="varname"><var class="varname">deps</var></var> フィールドを空のままにしておき、
+   開発者が使えるようにします。<var class="varname"><var class="varname">name</var></var> から
+   <var class="varname"><var class="varname">version</var></var> までのすべてのフィールドは、開発者が設定する必要があります。
+   その後、<b><tt>STANDARD_MODULE_PROPERTIES</tt></b>
+   マクロで構造体の残りのフィールドを埋めます。あるいは
+   <b><tt>STANDARD_MODULE_PROPERTIES_EX</tt></b> マクロを使用すると、
+   extension global と post-deactivation function のフィールドを空のままにします。
+   いまどきの拡張モジュールのほとんどは、モジュールグローバルを使用します。
+  </p>
+  
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    ショートカットマクロに頼らず、構造体のフィールドをすべて自分で設定したい場合は、
+    この表の値を使用します。
+    <em class="emphasis">これはお勧めしません。</em>
+    そのフィールドの &quot;正しい&quot; 値は変わる可能性があります。
+    可能な限りマクロを使用するようにしましょう。
+   </p>
+  </p></blockquote>
+
+  <table id="internals2.structure.modstruct.struct-values" class="doctable table">
+   <caption><b>モジュール構造体のフィールドの値</b></caption>
+   
+    <thead valign="middle">
+     <tr valign="middle">
+      <th>フィールド</th>
+      <th>値</th>
+      <th>説明</th>
+     </tr>
+
+    </thead>
+
+    <tbody valign="middle" class="tbody">
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">size</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev" name="fninternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+        
+       
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMHE" name="fninternals2.structure.modstruct.struct-values.given-by-SMHE"><sup>[2]</sup></a>
+        
+       
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH" name="fninternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+        
+       
+      </td>
+      <td align="left"><code class="code">sizeof(zend_module_entry)</code></td>
+      <td align="left">
+       この構造体の大きさ (バイト数)。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">zend_api</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMHE"><sup>[2]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+      </td>
+      <td align="left"><b><tt>ZEND_MODULE_API_NO</tt></b></td>
+      <td align="left">
+       モジュールをコンパイルした Zend API のバージョン。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">zend_debug</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMHE"><sup>[2]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+      </td>
+      <td align="left"><b><tt>ZEND_DEBUG</tt></b></td>
+      <td align="left">
+       モジュールがデバッグモードでコンパイルされていることを示すフラグ。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">zts</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMHE"><sup>[2]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+      </td>
+      <td align="left"><b><tt>USING_ZTS</tt></b></td>
+      <td align="left">
+       モジュールが ZTS (TSRM) を有効にしてコンパイルされていることを示すフラグ
+       (<a href="internals2.memory.html" class="xref">メモリ管理</a> を参照ください)。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">ini_entry</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+      </td>
+      <td align="left"><b><tt>NULL</tt></b></td>
+      <td align="left">
+       このポインタは Zend の内部で用い、
+       モジュールで宣言した非ローカルの INI エントリへの参照を保持します。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">deps</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a>
+      </td>
+      <td align="left"><b><tt>NULL</tt></b></td>
+      <td align="left">
+       モジュールの依存性一覧へのポインタ。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">name</var></var>
+      </td>
+      <td align="left">&quot;mymodule&quot;</td>
+      <td align="left">
+       モジュールの名前。これは
+       &quot;spl&quot; あるいは &quot;standard&quot;
+       のような短い名前です。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">functions</var></var>
+      </td>
+      <td align="left">mymodule_functions</td>
+      <td align="left">
+       モジュールの関数テーブルへのポインタ。
+       Zend は、これを使用してモジュール内の関数をユーザ空間に公開します。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">module_startup_func</var></var>
+      </td>
+      <td align="left">PHP_MINIT(mymodule)</td>
+      <td align="left">
+       コールバック関数です。Zend は、特定の PHP インスタンスで
+       そのモジュールが最初にロードされるときにこれをコールします。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">module_shutdown_func</var></var>
+      </td>
+      <td align="left">PHP_MSHUTDOWN(mymodule)</td>
+      <td align="left">
+       コールバック関数です。Zend は、特定の PHP インスタンスから
+       そのモジュールがアンロードされるとき (通常は最後のシャットダウン時) にこれをコールします。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">request_startup_func</var></var>
+      </td>
+      <td align="left">PHP_RINIT(mymodule)</td>
+      <td align="left">
+       コールバック関数です。Zend は、各リクエストの開始時にこれをコールします。
+       これは、可能な限り短くするか <i>NULL</i> にしておかなければなりません。
+       リクエストのたびにこれをコールするコストがかかるからです。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">request_shutdown_func</var></var>
+      </td>
+      <td align="left">PHP_RSHUTDOWN(mymodule)</td>
+      <td align="left">
+       コールバック関数です。Zend は、各リクエストの終了時にこれをコールします。
+       これは、可能な限り短くするか <i>NULL</i> にしておかなければなりません。
+       リクエストのたびにこれをコールするコストがかかるからです。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">info_func</var></var>
+      </td>
+      <td align="left">PHP_MINFO(mymodule)</td>
+      <td align="left">
+       コールバック関数です。Zend は、<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+       関数がコールされたときにこれをコールします。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">version</var></var>
+      </td>
+      <td align="left"><b><tt>NO_VERSION_YET</tt></b></td>
+      <td align="left">
+       モジュールのバージョンを表す文字列。モジュールの作者が指定したものです。
+       バージョン番号の形式は、
+       version_compare() に対応したもの (たとえば &quot;1.0.5-dev&quot;) か
+       CVS や SVN のリビジョン番号 (たとえば &quot;$Rev: 301958 $&quot;)
+       にあわせたものにしておくことを推奨します。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">globals_size</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP" name="fninternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+        
+       
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-NMG" name="fninternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a>
+        
+       
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-PMG" name="fninternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a>
+        
+       
+      </td>
+      <td align="left">sizeof(zend_mymodule_globals)</td>
+      <td align="left">
+       このモジュール用のグローバル構造体が存在する場合のサイズ。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">globals_id_ptr</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.only-with-ZTS" name="fninternals2.structure.modstruct.struct-values.only-with-ZTS"><sup>[7]</sup></a>
+        
+       
+      </td>
+      <td align="left">&amp;mymodule_globals_id</td>
+      <td rowspan="2" align="left">
+       定数 <b><tt>USING_ZTS</tt></b> が <b><tt>TRUE</tt></b> かどうかによって、
+       これらふたつのフィールドのうちのいずれかひとつだけが存在します。
+       最初のほうはモジュールのグローバル用の TSRM アロケーションテーブルへのインデックス、
+       後のほうはグローバルへの直接のポインタとなります。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">globals_ptr</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.only-without-ZTS" name="fninternals2.structure.modstruct.struct-values.only-without-ZTS"><sup>[8]</sup></a>
+        
+       
+      </td>
+      <td align="left">&amp;mymodule_globals</td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">globals_ctor</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a>
+      </td>
+      <td align="left">PHP_GINIT(mymodule)</td>
+      <td align="left">
+       この関数は <var class="varname"><var class="varname">module_startup_func</var></var> の <em class="emphasis">前に</em>
+       コールされ、モジュールのグローバルを初期化します。
+      </td>
+     </tr>
+
+
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">globals_dtor</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a>
+      </td>
+      <td align="left">PHP_GSHUTDOWN(mymodule)</td>
+      <td align="left">
+       この関数は <var class="varname"><var class="varname">module_shutdown_func</var></var> の <em class="emphasis">後に</em>
+       コールされ、モジュールのグローバルを破棄します。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">post_deactivate_func</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+      </td>
+      <td align="left">ZEND_MODULE_POST_ZEND_DEACTIVATE_N(mymodule)</td>
+      <td align="left">
+       この関数は、リクエストの終了処理の後で Zend からコールされます。
+       めったに使われることはありません。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">module_started</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMPE" name="fninternals2.structure.modstruct.struct-values.given-by-SMPE"><sup>[9]</sup></a>
+        
+       
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+      </td>
+      <td align="left">0</td>
+      <td rowspan="4" align="left">
+       これらのフィールドは、Zend の内部管理用の情報を扱うために使用します。
+      </td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">type</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMPE"><sup>[9]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+      </td>
+      <td align="left">0</td>
+     </tr>
+
+     
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">handle</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMPE"><sup>[9]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+      </td>
+      <td align="left"><b><tt>NULL</tt></b></td>
+     </tr>
+
+    
+     <tr valign="middle">
+      <td align="left">
+       <var class="varname"><var class="varname">module_number</var></var>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMPE"><sup>[9]</sup></a>
+       <a href="#fnidinternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a>
+      </td>
+      <td align="left">0</td>
+     </tr>
+
+
+    </tbody>
+   
+  <tbody valign="middle" class="footnote"><tr valign="middle"><td colspan="3" align="left"><div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.not-for-dev" href="#fninternals2.structure.modstruct.struct-values.not-for-dev"><sup>[1]</sup></a><span class="para footnote">
+         このフィールドは、モジュール開発者が使うものではありません。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-SMHE" href="#fninternals2.structure.modstruct.struct-values.given-by-SMHE"><sup>[2]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>STANDARD_MODULE_HEADER_EX</tt></b> が設定します。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-SMH" href="#fninternals2.structure.modstruct.struct-values.given-by-SMH"><sup>[3]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>STANDARD_MODULE_HEADER</tt></b> が設定します。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-SMP" href="#fninternals2.structure.modstruct.struct-values.given-by-SMP"><sup>[4]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>STANDARD_MODULE_PROPERTIES</tt></b> が設定します。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-NMG" href="#fninternals2.structure.modstruct.struct-values.given-by-NMG"><sup>[5]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>NO_MODULE_GLOBALS</tt></b> が設定します。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-PMG" href="#fninternals2.structure.modstruct.struct-values.given-by-PMG"><sup>[6]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>PHP_MODULE_GLOBALS</tt></b> が設定します。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.only-with-ZTS" href="#fninternals2.structure.modstruct.struct-values.only-with-ZTS"><sup>[7]</sup></a><span class="para footnote">
+         このフィールドが存在するのは <b><tt>USING_ZTS</tt></b> が <b><tt>TRUE</tt></b>
+         のときだけです。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.only-without-ZTS" href="#fninternals2.structure.modstruct.struct-values.only-without-ZTS"><sup>[8]</sup></a><span class="para footnote">
+         このフィールドが存在するのは <b><tt>USING_ZTS</tt></b> が <b><tt>FALSE</tt></b>
+         のときだけです。
+        </span></div>
+<div class="footnote"><a name="fnidinternals2.structure.modstruct.struct-values.given-by-SMPE" href="#fninternals2.structure.modstruct.struct-values.given-by-SMPE"><sup>[9]</sup></a><span class="para footnote">
+         このフィールドは <b><tt>STANDARD_MODULE_PROPERTIES_EX</tt></b> が設定します。
+        </span></div>
+</td></tr>
+</tbody></table>
+
+
+  <div class="sect2" id="internals2.structure.modstruct.filling-it-in">
+   <h3 class="title">構造体の設定の実例</h3>
+
+   <p class="para">
+    これだけ多くのフィールドがあると、
+    どれが何のためのものなのかがなかなかわかりにくいものです。
+    ここで、サンプルの &quot;counter&quot; 拡張モジュールにおける
+    <i>zend_module</i> の定義の最終形を見てみましょう。
+   </p>
+   
+   <div class="example" id="internals2.structure.modstruct.filling-it-in.counter-mod-ex">
+    <p><b>例3 Counter 拡張モジュールの定義</b></p>
+    <div class="example-contents">
+<div class="ccode"><pre class="ccode">/* {{{ counter_module_entry
+ */
+zend_module_entry counter_module_entry = {
+    STANDARD_MODULE_HEADER,
+    &quot;counter&quot;,
+    counter_functions,
+    PHP_MINIT(counter),
+    PHP_MSHUTDOWN(counter),
+    PHP_RINIT(counter),
+    PHP_RSHUTDOWN(counter),
+    PHP_MINFO(counter),
+    NO_VERSION_YET,
+    PHP_MODULE_GLOBALS(counter),
+    PHP_GINIT(counter),
+    PHP_GSHUTDOWN(counter),
+    NULL,
+    STANDARD_MODULE_PROPERTIES_EX
+};
+/* }}} */</pre>
+</div>
+    </div>
+
+   </div>
+   
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <span class="simpara">
+      このモジュールは他の何にも依存していないので、
+      <b><tt>STANDARD_MODULE_HEADER</tt></b> を使用します。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      &quot;counter&quot; がこの拡張モジュールの名前で、
+      このモジュールが Zend に渡すさまざまなコールバック関数の名前がこれをもとに決まります。
+      &quot;counter&quot; は、モジュール、グローバル、そしてリクエスト単位の
+      初期化関数とシャットダウン関数を使用し、<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+      用の情報も提供します。したがって、7 つのコールバックをすべて定義することになります。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      モジュール定義を含むファイルの前のほうには
+      <span class="type"><span class="type zend_function_entry *">zend_function_entry *</span></span> 型の変数
+      <var class="varname"><var class="varname">counter_functions</var></var> が定義されているはずです。
+      この部分では、そのモジュールがユーザに公開する関数の一覧が見られます。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      <b><tt>NO_VERSION_YET</tt></b> は、そのモジュールにバージョンがないことを
+      Zend に教えてあげるうまいやりかたです。実際に使用するモジュールの場合は、
+      この部分には <i>&quot;1.0&quot;</i> などを入れることになるでしょう。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      &quot;counter&quot; はモジュール単位のグローバル変数を使用するので、
+      <b><tt>PHP_MODULE_GLOBALS</tt></b> を使用しています。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      このモジュールには後処理後の関数がないので、<b><tt>NULL</tt></b> を指定しています。
+     </span>
+    </li>
+    
+    <li class="listitem">
+     <span class="simpara">
+      このモジュールはグローバル変数を <em class="emphasis">使う</em> ので、
+      構造体の最後には
+      <b><tt>STANDARD_MODULE_PROPERTIES_EX</tt></b> を使用しています。
+     </span>
+    </li>
+   
+   </ul>
+
+  </div>
+
+  <div class="sect2" id="internals2.structure.modstruct.php53">
+   <h3 class="title">5.2 と 5.3 の違いは?</h3>
+   
+   <p class="simpara">
+    何もありません。
+    PHP 5.2 と PHP 5.3 での <i>zend_module</i>
+    構造体の唯一の違いは、いくつかの <span class="modifier">const</span> キーワードだけです。
+   </p>
+
+  </div>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.structure.basics.html">基本構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.structure.globals.html">拡張モジュールのグローバル変数</a></div>
+ <div class="up"><a href="internals2.structure.html">拡張モジュールの構造</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

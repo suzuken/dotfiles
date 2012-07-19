@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列を生成する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-walk.html">array_walk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.arsort.html">arsort</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.array" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">array</span> &mdash; <span class="dc-title">配列を生成する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.array-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>array</b></span>
+    ([ <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$...</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   配列を作成します。
+   配列に関するより詳しい情報は<a href="language.types.array.html" class="link">配列型</a>
+   のセクションをご覧ください。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.array-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">...</tt></i></span>
+     <dd>
+
+      <p class="para">
+       カンマで区切った構文 &quot;index =&gt; values&quot; で、インデックスと値を定義します。
+       インデックスは文字列または数値とすることが可能です。
+       インデックスが省略された場合、0から始まる整数インデックスが自動的に生成されます。
+       インデックスが整数の場合、次に生成されるインデックスは、
+       整数インデックスの最大値 + 1 となります。同じインデックスを二度定義した場合、
+       後の定義により最初の定義が上書きされることに注意してください。
+      </p>
+      <p class="para">
+       一般的ではありませんが、
+       最後に定義された配列エントリの後に続くカンマがある場合、
+       これは有効な構文です。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   パラメータの配列を返します。パラメータには、
+   <i>=&gt;</i>演算子によりインデックスを指定することもできます。
+   配列に関するより詳しい情報は<a href="language.types.array.html" class="link">配列型</a>
+   のセクションをご覧ください。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.array-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   以下の例では、二次元配列の生成方法、連想配列のキーの指定方法、
+   および通常の配列において添字番号をスキップし、
+   それに続く要素にアクセスする方法についてご紹介しています。
+   <div class="example" id="example-4124">
+    <p><b>例1 <span class="function"><b>array()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fruits&nbsp;</span><span style="color: #007700">=&nbsp;array&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"fruits"&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"orange"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"b"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"banana"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"apple"</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"numbers"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">6</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"holes"&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">"first"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"second"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"third"</span><span style="color: #007700">)<br />);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-4125">
+    <p><b>例2 <span class="function"><b>array()</b></span> における自動インデックス</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">8&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;&nbsp;</span><span style="color: #0000BB">4&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">19</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">13</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; 1
+    [1] =&gt; 1
+    [2] =&gt; 1
+    [3] =&gt; 13
+    [4] =&gt; 1
+    [8] =&gt; 1
+    [9] =&gt; 19
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   インデックス &#039;3&#039; は二度定義されており、後の値 13 が保持されることに注意してください。
+   インデックス 4 はインデックス 8 の後に定義され、
+   次に生成されるインデックス (値は 19) は、最大のインデックスが 8
+   であるため、9 となります。
+  </p>
+  <p class="para">
+   次の例は、1 から始まる配列を作成します。
+   <div class="example" id="example-4126">
+    <p><b>例3 <span class="function"><b>array()</b></span> で 1 から始まる配列を作成</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$firstquarter&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'January'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'February'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'March'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$firstquarter</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [1] =&gt; January
+    [2] =&gt; February
+    [3] =&gt; March
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   Perl では、ダブルクオートで囲まれた配列の値にアクセスすることができます。
+   しかしながら、PHP では配列を中括弧で囲む必要があります。
+   <div class="example" id="example-4127">
+    <p><b>例4 ダブルクオートで囲まれた配列にアクセスする</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$foo&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'bar'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'baz'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;</span><span style="color: #007700">{</span><span style="color: #0000BB">$foo</span><span style="color: #007700">[</span><span style="color: #DD0000">'bar'</span><span style="color: #007700">]}</span><span style="color: #DD0000">!"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;Hello&nbsp;baz!<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 notes" id="refsect1-function.array-notes">
+  <h3 class="title">注意</h3>
+  <p class="para">
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     <span class="function"><b>array()</b></span>は、実際にはリテラル配列を表現するための
+     言語構成要素であり、通常の関数ではありません。
+    </p>
+   </p></blockquote>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.array-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-pad.html" class="function" rel="rdfs-seeAlso">array_pad()</a> - 指定長、指定した値で配列を埋める</span></li>
+    <li class="member"><span class="function"><a href="function.list.html" class="function" rel="rdfs-seeAlso">list()</a> - 配列と同様の形式で、複数の変数への代入を行う</span></li>
+    <li class="member"><span class="function"><a href="function.count.html" class="function" rel="rdfs-seeAlso">count()</a> - 変数に含まれるすべての要素、
+  あるいはオブジェクトに含まれるプロパティの数を数える</span></li>
+    <li class="member"><span class="function"><a href="function.range.html" class="function" rel="rdfs-seeAlso">range()</a> - ある範囲の整数を有する配列を作成する</span></li>
+    <li class="member"><a href="control-structures.foreach.html" class="link">foreach</a></li>
+    <li class="member"><a href="language.types.array.html" class="link">array</a> 型</li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-walk.html">array_walk</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.arsort.html">arsort</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>コマンドライン引数のリストからオプションを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.getmyuid.html">getmyuid</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getrusage.html">getrusage</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.getopt" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">getopt</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">getopt</span> &mdash; <span class="dc-title">コマンドライン引数のリストからオプションを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.getopt-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>getopt</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$options</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$longopts</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   スクリプトに渡されたオプションをパースします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.getopt-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <span class="simpara">
+       この文字列の各文字をオプション文字として使用し、
+       スクリプトにハイフンひとつ (<i>-</i>)
+       で始まるオプションとして渡された内容とマッチさせます。
+      </span>
+      <span class="simpara">
+       たとえば、オプション文字列 <i>&quot;x&quot;</i> は
+       <i>-x</i> というオプションを認識します。
+      </span>
+      <span class="simpara">
+       a-z、A-Z および 0-9 のみを認識します。
+      </span>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">longopts</tt></i></span>
+     <dd>
+
+      <span class="simpara">
+       オプションの配列。
+       この配列の各要素をオプション文字列として使用し、
+       スクリプトにハイフンふたつ (<i>--</i>)
+       で始まるオプションとして渡された内容とマッチさせます。
+      </span>
+      <span class="simpara">
+       たとえば、longopts の要素 <i>&quot;opt&quot;</i> は
+       <i>--opt</i> というオプションを認識します。
+      </span>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <span class="simpara">
+        PHP5.3.0 より前のバージョンでは、
+        このパラメータは一部のシステムでしか使用できません。
+       </span>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <p class="para">
+   <i><tt class="parameter">options</tt></i> パラメータに含まれる要素には次のようなものがあります。
+   <ul class="simplelist">
+    <li class="member">単一の文字 (値を受け付けない)</li>
+    <li class="member">文字の後にコロンをひとつ続けたもの (値が必須であるパラメータ)</li>
+    <li class="member">文字の後にコロンをふたつ続けたもの (値がオプションであるパラメータ)</li>
+   </ul>
+   オプションの値は、文字列の後の最初の引数となります。
+   値の前に空白があるかどうかは関係ありません。
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <span class="simpara">
+     オプションの値で、<i>&quot; &quot;</i> (空白) を区切り文字として使用することはできません。
+    </span>
+   </p></blockquote>
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <i><tt class="parameter">options</tt></i> と
+    <i><tt class="parameter">longopts</tt></i> の書式はほぼ同じです。唯一の違いは、
+    <i><tt class="parameter">longopts</tt></i> はオプションの配列
+    (その各要素がオプションとなる) を受け取るけれども <i><tt class="parameter">options</tt></i>
+    は文字列 (その各文字がオプションとなる) を受け取るということです。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.getopt-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数はオプション/引数のペアを連想配列で返します。
+   失敗した場合は <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    オプション以外のものが見つかった時点でオプションのパースは終了し、
+    それ以降の内容は破棄されます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.getopt-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        &quot;=&quot; を引数/値の区切り文字として使用できるようになりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        オプションの値 (&quot;::&quot; で指定します) に対応しました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        この関数はシステムに依存しなくなり、
+        Windows でも動作するようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.getopt-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="getopt.examples-1">
+    <p><b>例1 <span class="function"><b>getopt()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$options&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getopt</span><span style="color: #007700">(</span><span style="color: #DD0000">"f:hp:"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     上のスクリプトを <i>php script.php -fvalue -h</i>
+     として実行すると、次のようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;f&quot;]=&gt;
+  string(5) &quot;value&quot;
+  [&quot;h&quot;]=&gt;
+  bool(false)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="getopt.examples-2">
+    <p><b>例2 <span class="function"><b>getopt()</b></span> の例 その2</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$shortopts&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">""</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$shortopts&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">"f:"</span><span style="color: #007700">;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値が必須<br /></span><span style="color: #0000BB">$shortopts&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">"v::"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;値がオプション<br /></span><span style="color: #0000BB">$shortopts&nbsp;</span><span style="color: #007700">.=&nbsp;</span><span style="color: #DD0000">"abc"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;これらのオプションは値を受け取りません<br /><br /></span><span style="color: #0000BB">$longopts&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"required:"</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値が必須<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"optional::"</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値がオプション<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"option"</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値なし<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"opt"</span><span style="color: #007700">,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;値なし<br /></span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$options&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getopt</span><span style="color: #007700">(</span><span style="color: #0000BB">$shortopts</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$longopts</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     上のスクリプトを <i>php script.php -f &quot;value for f&quot; -v
+     -a --required value --optional=&quot;optional value&quot; --option</i>
+     として実行すると、次のようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(6) {
+  [&quot;f&quot;]=&gt;
+  string(11) &quot;value for f&quot;
+  [&quot;v&quot;]=&gt;
+  bool(false)
+  [&quot;a&quot;]=&gt;
+  bool(false)
+  [&quot;required&quot;]=&gt;
+  string(5) &quot;value&quot;
+  [&quot;optional&quot;]=&gt;
+  string(14) &quot;optional value&quot;
+  [&quot;option&quot;]=&gt;
+  bool(false)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="getopt.examples-3">
+    <p><b>例3 <span class="function"><b>getopt()</b></span> の例 その3</b></p>
+    <div class="example-contents"><p>複数のオプションを一度に渡す例</p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$options&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">getopt</span><span style="color: #007700">(</span><span style="color: #DD0000">"abc"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$options</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     上のスクリプトを <i>php script.php -aaac</i>
+     として実行すると、次のようになります。
+    </p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(2) {
+  [&quot;a&quot;]=&gt;
+  array(3) {
+    [0]=&gt;
+    bool(false)
+    [1]=&gt;
+    bool(false)
+    [2]=&gt;
+    bool(false)
+  }
+  [&quot;c&quot;]=&gt;
+  bool(false)
+}
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.getmyuid.html">getmyuid</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.getrusage.html">getrusage</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

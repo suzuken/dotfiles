@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PDO および SQL 4D</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo-4d.sqltypes.html">PDO_4D および PHP で使う SQL の型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo-4d.examples.html">PDO_4D の例</a></div>
+ <div class="up"><a href="ref.pdo-4d.html">4D (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="ref.pdo-4d.sql4d" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">4D で使える SQL</h1>
+  <p class="verinfo">(バージョン情報なし。おそらく SVN 版にしか存在しないでしょう)</p><p class="refpurpose"><span class="refname">4D で使える SQL</span> &mdash; <span class="dc-title">PDO および SQL 4D</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-ref.pdo-4d.sql4d-description">
+  <h3 class="title">説明</h3>
+  <p class="para">
+   4D は ANSI 89 標準規格を厳密に実装しています。
+   使えるコマンドについて学ぶには 4D SQL ドキュメントを読むことを推奨します。
+   マニュアルの URL は <a href="http://doc.4d.com/" class="link external">&raquo; http://doc.4d.com/</a>
+   です。以下に 4D SQL 独特の特徴をまとめました。
+   包括的なものではありませんが、導入としては使えるでしょう。
+  </p>
+  <p class="para">
+   <table class="doctable table">
+    <caption><b>4D SQL 独特の特徴</b></caption>
+     
+      <thead valign="middle">
+       <tr valign="middle">
+        <th>特徴</th>
+        <th>代替策</th>
+        <th>注意</th>
+       </tr>
+
+      </thead>
+
+      <tbody valign="middle" class="tbody">
+       <tr valign="middle">
+        <td align="left">INTEGER</td>
+        <td align="left">INT を使うよう SQL を変更する</td>
+        <td align="left">4Dv12.0 で整数をサポートする型は INT です。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">CHAR</td>
+        <td align="left">かわりに VARCHAR を使う</td>
+        <td align="left">4Dv12.0 ではサポートしていません。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">UNION</td>
+        <td align="left">未サポート。クエリを分割する</td>
+        <td align="left">4Dv12.0 ではサポートしていません。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">SELECT 1 + 1;</td>
+        <td align="left">SELECT 1 + 1 FROM _USER_SCHEMAS;</td>
+        <td align="left">FROM は必須です。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">FLOAT</td>
+        <td align="left">FLOAT 値を SQL 4D 関数 (CAST, ROUND, TRUNC あるいは TRUNCATE) で FLOAT あるいは STRING にキャストする</td>
+        <td align="left">現在のバージョンの PDO_4D ドライバではサポートしていません。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">強い型付け</td>
+        <td align="left">SQL クエリの作成時に気をつけ、PHP のコードがきちんと期待通りの型のデータを渡すようにする</td>
+        <td align="left">
+         正しい型を 4D に渡さなければなりません。&#039;1&#039; (文字列) を INTEGER のカラムに挿入することはできません。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left"><span class="function"><b>PDO::execute($row)()</b></span> は、テーブルのすべてのカラムが TEXT 型あるいは VARCHAR 型のときのみ動作する</td>
+        <td align="left">プリペアドステートメントを使い、正しい型を渡す</td>
+        <td align="left">PDO 拡張モジュールは、execute() の実行時にすべての値を文字列へキャストします。そして SQL データベース側で値をパースさせようとします。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">SELECT NULL FROM TABLE</td>
+        <td align="left">定数 NULL を使わず、テーブルから取り出す</td>
+        <td align="left">select のリストに定数 NULL を使うことはできません。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">SELECT * FROM TABLE WHERE 1</td>
+        <td align="left">WHERE 1 = 1 を使う</td>
+        <td align="left">WHERE 句で定数を使うことはできません。</td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">SHOW TABLES</td>
+        <td align="left">システムテーブルを使う</td>
+        <td align="left">
+         テーブルやスキーマ、インデックスなどの一覧は、
+         <i>_USER_TABLES</i>,  <i>_USER_COLUMNS</i>,  
+         <i>_USER_INDEXES</i>,  <i>_USER_CONSTRAINTS</i>,  
+         <i>_USER_IND_COLUMNS</i>,  <i>_USER_CONS_COLUMNS</i>
+         および <i>_USER_SCHEMAS</i>
+         といったシステムテーブルから取得します。
+        </td>
+       </tr>
+
+       <tr valign="middle">
+        <td align="left">SQL 構文の区切り文字</td>
+        <td align="left">
+         次の関数を使って SQL の要素を保護する
+         function sqlEscapeElement(elem) {
+            return &#039;[&#039; . str_replace(&#039;]&#039;,&#039;]]&#039;, $elem) . &#039;]&#039;;
+         }
+        </td>
+        <td align="left">
+         SQL の要素名 (テーブル、フィールド、ユーザ、グループ、
+         スキーマ、主キーなど) をエスケープするには、
+         識別子全体を角括弧で囲み、さらに閉じ角括弧
+         &#039;]&#039; は二重にしておかなければなりません。
+        </td>
+       </tr>
+
+      </tbody>
+     
+    </table>
+
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="pdo-4d.sqltypes.html">PDO_4D および PHP で使う SQL の型</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="pdo-4d.examples.html">PDO_4D の例</a></div>
+ <div class="up"><a href="ref.pdo-4d.html">4D (PDO)</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

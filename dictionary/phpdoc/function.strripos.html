@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>文字列中で、特定の(大文字小文字を区別しない)文字列が最後に現れた位置を探す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strrev.html">strrev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strrpos.html">strrpos</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strripos" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strripos</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">strripos</span> &mdash; <span class="dc-title">文字列中で、特定の(大文字小文字を区別しない)文字列が最後に現れた位置を探す</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.strripos-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>strripos</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$haystack</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$needle</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$offset</tt><span class="initializer"> = 0</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   文字列の中で、
+   大文字小文字を区別しないある文字列が最後に現れた位置を返します。
+   <span class="function"><a href="function.strrpos.html" class="function">strrpos()</a></span> と異なり、<span class="function"><b>strripos()</b></span>
+   は大文字小文字を区別しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strripos-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">haystack</tt></i></span>
+     <dd>
+
+      <p class="para">
+       検索を行う文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">needle</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">needle</tt></i> は 1 文字あるいは複数の文字からなる
+       文字列であることに注意してください。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">offset</tt></i></span>
+     <dd>
+
+      <p class="para">
+       パラメータ <i><tt class="parameter">offset</tt></i> を指定すると、
+       文字列中の任意の位置から検索を始めることができます。
+      </p>
+      <p class="para">
+       負の offset 値を指定すると、文字列の<em class="emphasis">最初</em>
+       から数えて <i><tt class="parameter">offset</tt></i> 文字目から検索を始めます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strripos-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">needle</tt></i> が最後に現れた位置を返します。
+   文字列の位置は 0 から始まるのであって、
+   1 からではないことに注意してください。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">needle</tt></i> が見つからない場合、<b><tt>FALSE</tt></b> が返されます。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は論理値
+<b><tt>FALSE</tt></b> を返す可能性がありますが、<b><tt>FALSE</tt></b> として評価される
+<i>0</i> や &quot;&quot; といった値を返す可能性もあります。
+詳細については <a href="language.types.boolean.html" class="link">論理値</a>の
+セクションを参照してください。この関数の返り値を調べるには
+<a href="language.operators.comparison.html" class="link">===演算子</a> を
+使用してください。</p></div>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strripos-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4029">
+    <p><b>例1 単純な <span class="function"><b>strripos()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$haystack&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'ababcd'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$needle&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'aB'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$pos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strripos</span><span style="color: #007700">(</span><span style="color: #0000BB">$haystack</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$needle</span><span style="color: #007700">);<br /><br />if&nbsp;(</span><span style="color: #0000BB">$pos&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"ごめんなさい、(</span><span style="color: #0000BB">$needle</span><span style="color: #DD0000">)&nbsp;が&nbsp;(</span><span style="color: #0000BB">$haystack</span><span style="color: #DD0000">)&nbsp;の中に見つかりませんでした。"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"おめでとう!\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"(</span><span style="color: #0000BB">$needle</span><span style="color: #DD0000">)&nbsp;が最後に&nbsp;(</span><span style="color: #0000BB">$haystack</span><span style="color: #DD0000">)&nbsp;に現れた位置は&nbsp;(</span><span style="color: #0000BB">$pos</span><span style="color: #DD0000">)&nbsp;です。"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+   おめでとう!
+   (aB) が最後に (ababcd) に現れた位置は (2) です。
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strripos-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.strpos.html" class="function" rel="rdfs-seeAlso">strpos()</a> - 文字列が最初に現れる場所を見つける</span></li>
+    <li class="member"><span class="function"><a href="function.stripos.html" class="function" rel="rdfs-seeAlso">stripos()</a> - 大文字小文字を区別せずに文字列が最初に現れる位置を探す</span></li>
+    <li class="member"><span class="function"><a href="function.strrchr.html" class="function" rel="rdfs-seeAlso">strrchr()</a> - 文字列中に文字が最後に現れる場所を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.substr.html" class="function" rel="rdfs-seeAlso">substr()</a> - 文字列の一部分を返す</span></li>
+    <li class="member"><span class="function"><a href="function.stristr.html" class="function" rel="rdfs-seeAlso">stristr()</a> - 大文字小文字を区別しない strstr</span></li>
+    <li class="member"><span class="function"><a href="function.strstr.html" class="function" rel="rdfs-seeAlso">strstr()</a> - 文字列が最初に現れる位置を見つける</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strrev.html">strrev</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strrpos.html">strrpos</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

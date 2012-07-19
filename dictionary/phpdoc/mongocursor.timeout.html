@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>このクエリのクライアント側のタイムアウトを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.tailable.html">MongoCursor::tailable</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.valid.html">MongoCursor::valid</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocursor.timeout" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCursor::timeout</h1>
+  <p class="verinfo">(PECL mongo &gt;=1.0.3)</p><p class="refpurpose"><span class="refname">MongoCursor::timeout</span> &mdash; <span class="dc-title">このクエリのクライアント側のタイムアウトを設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongocursor.timeout-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type"><a href="class.mongocursor.html" class="type MongoCursor">MongoCursor</a></span> <span class="methodname"><b>MongoCursor::timeout</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$ms</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   タイムアウトはいつでも設定可能で、同じカーソルでのそれ以降のクエリに影響を及ぼします。
+   また、データベースからのさらなる結果の取得にもこれは影響します。
+   たとえば、最初のレスポンスはずっと待ち続けるけれども
+   それ以降の結果は 100 ミリ秒でタイムアウトさせたいというときは、このようにします。
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;$cursor-&gt;hasNext()&nbsp;はクエリを実行します。タイムアウトが設定されていなければ<br />//&nbsp;レスポンスが得られるまでずっと待ち続けます<br /><br /></span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">hasNext</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">timeout</span><span style="color: #007700">(</span><span style="color: #0000BB">100</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;タイムアウトが設定されました。カーソルからデータベースにさらに<br />&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;結果を問い合わせるときは、データベースからのレスポンスを&nbsp;100&nbsp;ミリ秒しか待ちません<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">try&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$cursor</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getNext</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;catch(</span><span style="color: #0000BB">MongoCursorTimeoutException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"query&nbsp;took&nbsp;too&nbsp;long!"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </p>
+  <p class="para">
+   タイムアウトに 0 (あるいは負の数) を指定するとずっと待ち続けるようになります。
+   いったん設定したタイムアウトを取り消すときにこれを使うことができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongocursor.timeout-parameters">
+  <h3 class="title">パラメータ</h3>
+  <dl>
+
+   <dt>
+
+    <span class="term">
+     <i><tt class="parameter">ms</tt></i>
+    </span>
+    <dd>
+
+     <p class="para">
+      カーソルがレスポンスを待つミリ秒数。
+      デフォルトではいつまでも待ち続けます。
+     </p>
+    </dd>
+
+   </dt>
+   
+  </dl>
+
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongocursor.timeout-returnvalues">
+  <h3 class="title">返り値</h3>  
+  <p class="para">
+   このカーソルを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongocursor.timeout-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1391">
+   <p><b>例1 <span class="function"><b>MongoCursor::timeout()</b></span> の例</b></p>
+   <div class="example-contents"><p>
+    このクエリは、レスポンスを 1 秒間待ち続けます。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$cursor&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">find</span><span style="color: #007700">()-&gt;</span><span style="color: #0000BB">timeout</span><span style="color: #007700">(</span><span style="color: #0000BB">1000</span><span style="color: #007700">);<br /><br />try&nbsp;{<br />&nbsp;&nbsp;foreach&nbsp;(</span><span style="color: #0000BB">$cursor&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$value</span><span style="color: #007700">);<br />&nbsp;&nbsp;}<br />}<br />catch(</span><span style="color: #0000BB">MongoCursorTimeoutException&nbsp;$e</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"query&nbsp;took&nbsp;too&nbsp;long!"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-mongocursor.timeout-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   指定したミリ秒数を超える長さのクエリを実行すると
+   <a href="class.mongocursortimeoutexception.html" class="classname">MongoCursorTimeoutException</a> をスローします。
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocursor.tailable.html">MongoCursor::tailable</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocursor.valid.html">MongoCursor::valid</a></div>
+ <div class="up"><a href="class.mongocursor.html">MongoCursor</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

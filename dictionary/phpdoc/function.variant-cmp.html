@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>2 つの variant を比較する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.variant-cat.html">variant_cat</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.variant-date-from-timestamp.html">variant_date_from_timestamp</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.variant-cmp" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">variant_cmp</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">variant_cmp</span> &mdash; <span class="dc-title">2 つの variant を比較する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.variant-cmp-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>variant_cmp</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$left</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$right</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$lcid</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">left</tt></i> と <i><tt class="parameter">right</tt></i>
+   を比較します。
+  </p>
+  <p class="para">
+   この関数はスカラー値のみを比較します。配列や variant レコードは比較しません。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.variant-cmp-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">left</tt></i></span>
+     <dd>
+
+      <p class="para">
+       左オペランド。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">right</tt></i></span>
+     <dd>
+
+      <p class="para">
+       右オペランド。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">lcid</tt></i></span>
+     <dd>
+
+      <p class="para">
+       文字列の比較に使用する有効なロケール識別子です
+       (これは文字列の比較に影響します)。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> は、以下のひとつあるいは複数の値を
+       OR で組み合わせたもので、文字列の比較に影響します。
+       <table class="doctable table">
+        <caption><b>Variant の比較フラグ</b></caption>
+        
+         <thead valign="middle">
+          <tr valign="middle">
+           <th>値</th>
+           <th>意味</th>
+          </tr>
+
+         </thead>
+
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNORECASE</tt></b></td>
+           <td align="left">大文字小文字を区別せずに比較する</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNORENONSPACE</tt></b></td>
+           <td align="left">非スペーシング文字を無視する</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNORESYMBOLS</tt></b></td>
+           <td align="left">記号を無視する</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNOREWIDTH</tt></b></td>
+           <td align="left">全角半角を区別しない</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNOREKANATYPE</tt></b></td>
+           <td align="left">ひらがなカタカナを区別しない</td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left"><b><tt>NORM_IGNOREKASHIDA</tt></b></td>
+           <td align="left">アラビア語の kashida 文字を無視する</td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+<p class="para">
+ variant に関するすべての計算用関数と同様、この関数のパラメータには
+ PHP のネイティブ型 (整数、文字列、浮動小数点数、boolean あるいは
+ <b><tt>NULL</tt></b>) あるいは COM、VARIANT、DOTNET クラスのインスタンスが使用できます。
+ PHP のネイティブ型は、<a href="class.variant.html" class="xref">VARIANT</a>
+ クラスのコンストラクタと同じ方法で variant に変換されます。
+ COM オブジェクトおよび DOTNET オブジェクトはデフォルトプロパティの値を持っており、
+ これを variant の値として使用します。
+</p>
+<p class="para">
+ variant に関する計算関数は、COM ライブラリの同名の関数のラッパーです。
+ これらの関数についての詳細な情報は、MSDN ライブラリでご確認ください。
+ PHP での関数名は微妙に異なります。たとえば、PHP での関数
+ <span class="function"><a href="function.variant-add.html" class="function">variant_add()</a></span> に対応する関数は、MSDN のドキュメントでは
+ <i>VarAdd()</i> となります。
+</p>
+</p></blockquote>
+
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.variant-cmp-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   以下のいずれかを返します。
+   <table class="doctable table">
+    <caption><b>Variant の比較結果</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>値</th>
+       <th>意味</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><b><tt>VARCMP_LT</tt></b></td>
+       <td align="left"><i><tt class="parameter">left</tt></i> は
+        <i><tt class="parameter">right</tt></i> より小さい
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><b><tt>VARCMP_EQ</tt></b></td>
+       <td align="left"><i><tt class="parameter">left</tt></i> は
+        <i><tt class="parameter">right</tt></i> と等しい
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><b><tt>VARCMP_GT</tt></b></td>
+       <td align="left"><i><tt class="parameter">left</tt></i> は
+        <i><tt class="parameter">right</tt></i> より大きい
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><b><tt>VARCMP_NULL</tt></b></td>
+       <td align="left"><i><tt class="parameter">left</tt></i> と
+        <i><tt class="parameter">right</tt></i> のいずれか、あるいは両方が <b><tt>NULL</tt></b>
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.variant-cat.html">variant_cat</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.variant-date-from-timestamp.html">variant_date_from_timestamp</a></div>
+ <div class="up"><a href="ref.com.html">COM関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

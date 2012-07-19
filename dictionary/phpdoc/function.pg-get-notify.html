@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL NOTIFY メッセージを取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-free-result.html">pg_free_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-get-pid.html">pg_get_pid</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.pg-get-notify" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">pg_get_notify</h1>
+  <p class="verinfo">(PHP 4 &gt;= 4.3.0, PHP 5)</p><p class="refpurpose"><span class="refname">pg_get_notify</span> &mdash; <span class="dc-title">SQL NOTIFY メッセージを取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.pg-get-notify-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>pg_get_notify</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$connection</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>pg_get_notify()</b></span>は、<i>NOTIFY</i> SQL
+   コマンドにより送信された通知メッセージを取得します。
+   通知メッセージを取得するには、<i>LISTEN</i> SQL
+   コマンドを発行する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.pg-get-notify-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">connection</tt></i></span>
+     <dd>
+
+      <p class="para">
+       PostgreSQL データベースの接続リソース。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">result_type</tt></i> は、返り値の形式を制御する
+       オプションのパラメータです。<i><tt class="parameter">result_type</tt></i>
+       は定数であり、次の値のどれかとすることが可能です。
+       <b><tt>PGSQL_ASSOC</tt></b>、<b><tt>PGSQL_NUM</tt></b>
+       および <b><tt>PGSQL_BOTH</tt></b>。
+       <b><tt>PGSQL_NUM</tt></b> を使用すると、<span class="function"><b>pg_get_notify()</b></span>
+       は数値添字の配列を返します。また、<b><tt>PGSQL_ASSOC</tt></b>
+       を使用すると連想配列形式で返します。<b><tt>PGSQL_BOTH</tt></b>
+       がデフォルト設定で、これは数値添字の配列と連想配列の両方を返します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.pg-get-notify-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i>NOTIFY</i> メッセージ名とバックエンドの PID を含む
+   配列を返します。もし待ち受ける <i>NOTIFY</i> が存在しない
+   場合は then <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.pg-get-notify-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1723">
+    <p><b>例1 PostgreSQL NOTIFY メッセージ</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;<br />$conn&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_pconnect</span><span style="color: #007700">(</span><span style="color: #DD0000">"dbname=publisher"</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$conn</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"An&nbsp;error&nbsp;occured.\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;exit;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;他のプロセスからの&nbsp;'author_updated'&nbsp;メッセージを監視する<br /></span><span style="color: #0000BB">pg_query</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'LISTEN&nbsp;author_updated;'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$notify&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">pg_get_notify</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn</span><span style="color: #007700">);<br />if&nbsp;(!</span><span style="color: #0000BB">$notify</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"No&nbsp;messages\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$notify</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.pg-get-notify-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.pg-get-pid.html" class="function" rel="rdfs-seeAlso">pg_get_pid()</a> - バックエンドのプロセス ID を得る</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.pg-free-result.html">pg_free_result</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.pg-get-pid.html">pg_get_pid</a></div>
+ <div class="up"><a href="ref.pgsql.html">PostgreSQL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

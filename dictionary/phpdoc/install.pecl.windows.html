@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PHP 拡張モジュールの Windows へのインストール</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.downloads.html">PECL 拡張モジュールをダウンロードする</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.pecl.pear.html">共有 PECL 拡張モジュールを、pecl コマンドを用いてコンパイルする</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.pecl.windows" class="sect1">
+  <h2 class="title">PHP 拡張モジュールの Windows へのインストール</h2>
+  <p class="para">
+   Windows では、PHP の拡張モジュールを読み込む方法は 2 通りあります。
+   コンパイル時に PHP に組み込む方法と、DLL として読む込む方法です。
+   コンパイル済みの拡張モジュールを読み込む方法のほうが簡単で、おすすめです。
+  </p>
+  <p class="para">
+   拡張モジュールを読み込むには、&quot;.dll&quot; ファイルをシステム上に用意する必要があります。
+   すべての拡張モジュールは、PHP Group によって定期的に自動コンパイルされています
+   (ダウンロード先は次の節を参照ください)。
+  </p>
+  <p class="para">
+   コンパイル時に拡張モジュールを PHP に組み込む方法については、
+   <a href="install.windows.building.html" class="link">ソースからのビルド</a>
+   に関するドキュメントを参照ください。
+  </p>
+  <p class="para">
+   単体の拡張モジュール (DLL ファイル) をコンパイルする方法については
+   <a href="install.windows.building.html" class="link">ソースからのビルド</a>
+   に関するドキュメントを参照ください。
+   PHP の配布パッケージにも PECL にも DLL ファイルが存在しなければ、
+   まずコンパイルをしないとその拡張モジュールは使えないでしょう。
+  </p>
+
+  <div class="sect2" id="install.pecl.windows.find">
+   <h3 class="title">拡張モジュールの探し方は？</h3>
+   <p class="para">
+    PHP の拡張モジュールは、通常は &quot;php_*.dll&quot; (* の部分に拡張モジュールの名前が入ります)
+    という名前で &quot;PHP\ext&quot; (PHP4 の場合は &quot;PHP\extensions&quot;) フォルダに存在します。
+   </p>
+   <p class="para">
+    PHP には、大半の開発者にとって有用である拡張モジュールが同梱されています。
+    これらは &quot;コア&quot; 拡張モジュールと呼ばれます。
+   </p>
+   <p class="para">
+    しかし、コア拡張モジュールに含まれない機能が必要となった場合はそのモジュールを
+    PECL で探す必要があります。
+    The PHP Extension Community Library (PECL) は PHP
+    拡張モジュール用のリポジトリで、すべての拡張モジュールの一覧機能や
+    PHP 拡張モジュールのダウンロードの仕組みを提供します。
+   </p>
+   <p class="para">
+    自分で拡張モジュールの開発をしている方は、
+    それを PECL で公開して他の人たちにも使ってもらいたいと思われることでしょう。
+    そうすれば、彼らからフィードバックを得たり (うまくいけば)
+    感謝の言葉をもらえたり、バグレポートやバグ修正パッチをもらえたりするかもしれません。
+    自作の拡張モジュールを PECL で公開したい場合は
+    http://pecl.php.net/package-new.php を参照ください。
+   </p>
+  </div>
+
+  <div class="sect2" id="install.pecl.windows.which">
+   <h3 class="title">どれをダウンロードすればいいの？</h3>
+   <p class="para">
+    <em class="emphasis">各 DLL について、いくつかのバージョンが見つかることがあります。</em>
+    <ul class="itemizedlist">
+     <li class="listitem">
+      <span class="simpara">
+       バージョン番号が異なるもの (少なくとも先頭の 2 つの数字は一致している)
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       スレッドセーフの設定が異なるもの
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       プロセッサのアーキテクチャ (x86, 64 bits...) が異なるもの
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       デバッグ設定が異なるもの
+      </span>
+     </li>
+     <li class="listitem">
+      <span class="simpara">
+       <i>その他</i>
+      </span>
+     </li>
+    </ul>
+   </p>
+   <p class="para">
+    注意して欲しいのは、拡張モジュールの設定とそれを動かす
+    PHP 実行ファイルの設定をそろえておかなければならないということです。
+    次の PHP スクリプトを実行すると、PHP に関する
+    <em class="emphasis">すべての</em> 設定を取得することができます。
+   </p>
+   <p class="para">
+    <div class="example" id="example-61">
+     <p><b>例1 <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> のコール</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />phpinfo</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    あるいは、コマンドラインから次のように実行します。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+drive:\\path\to\php\executable\php.exe -i
+</pre></div>
+    </div>
+   </p>
+  </div>
+
+  <div class="sect2" id="install.pecl.windows.loading">
+   <h3 class="title">拡張モジュールの読み込み</h3>
+   <p class="para">
+    PHP の拡張モジュールを読み込む方法として最も一般的なのは、設定ファイル
+    <var class="filename">php.ini</var> に書き込むことです。多くの拡張モジュールはすでに
+    <var class="filename">php.ini</var> 上に存在し、
+    あとはセミコロンを取り除くだけで有効にできるようになっています。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+;extension=php_extname.dll
+</pre></div>
+    </div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+extension=php_extname.dll
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    しかし、ウェブサーバによっては少し迷うことがあるかもしれません。
+    というのも、<var class="filename">php.ini</var> が PHP 実行ファイルとは別の場所にあることもあるからです。
+    実際に使われている <var class="filename">php.ini</var> の場所を見つけるには、
+    <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> で次のような行を探します。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Configuration File (php.ini) Path  C:\WINDOWS
+</pre></div>
+    </div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Loaded Configuration File   C:\Program Files\PHP\5.2\php.ini
+</pre></div>
+    </div>
+   </p>
+   <p class="para">
+    拡張モジュールを有効にしたら、<var class="filename">php.ini</var>
+    を保存してウェブサーバを再起動し、もういちど
+    <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span> を確認します。
+    新しい拡張モジュールについての情報がそこに追加されているはずです。
+   </p>
+  </div>
+
+  <div class="sect2" id="install.pecl.windows.problemsolving">
+   <h3 class="title">問題の解決</h3>
+   <p class="para">
+    もし拡張モジュールの情報が <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+    に出てこなかった場合は、ログをチェックして何が起こったのかを調べなければなりません。
+   </p>
+   <p class="para">
+    PHP をコマンドライン (CLI) で使用している場合は、
+    拡張モジュールの読み込み時のエラーは直接画面に表示されます。
+   </p>
+   <p class="para">
+    PHP をウェブサーバ上で使用している場合は、ログの場所や書式はソフトウェアによって異なります。
+    ウェブサーバのドキュメントを読んでログを見つけましょう。
+    ログの場所については、PHP 自体とは特に関係のないことです。
+   </p>
+   <p class="para">
+    DLL の場所がおかしい、<var class="filename">php.ini</var> の
+    &quot;<a href="ini.core.html#ini.extension-dir" class="link">extension_dir</a>&quot; がおかしい、
+    コンパイル時の設定が違うなどが、よくある問題です。
+   </p>
+   <p class="para">
+    コンパイル時の設定が違うことが原因だった場合は、おそらく間違った DLL
+    をダウンロードしてしまったのでしょう。
+    もういちど、正しい設定の拡張モジュールをダウンロードしましょう。
+    正しい設定とは？ 改めて言います。<span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>
+    を参考にしましょう。
+   </p>
+  </div>
+
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.pecl.downloads.html">PECL 拡張モジュールをダウンロードする</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.pecl.pear.html">共有 PECL 拡張モジュールを、pecl コマンドを用いてコンパイルする</a></div>
+ <div class="up"><a href="install.pecl.html">PECL 拡張モジュールのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

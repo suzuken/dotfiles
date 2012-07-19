@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>最初の引数で指定したユーザ関数をコールする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.call-user-func-array.html">call_user_func_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.create-function.html">create_function</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.call-user-func" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">call_user_func</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">call_user_func</span> &mdash; <span class="dc-title">最初の引数で指定したユーザ関数をコールする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.call-user-func-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>call_user_func</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$function</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$parameter</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$...</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   パラメータ <i><tt class="parameter">function</tt></i>で指定した
+   ユーザ定義のコールバック関数をコールします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.call-user-func-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">function</tt></i></span>
+     <dd>
+
+      <p class="para">
+       コールする関数。このパラメータに
+       <i>array($classname, $methodname)</i> を指定することにより、
+       クラスメソッドも静的にコールすることができます。
+       さらに、オブジェクトのインスタンスのクラスメソッドをコールするには、
+       <i>array($objectinstance, $methodname)</i>
+       をこのパラメータに渡します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">parameter</tt></i></span>
+     <dd>
+
+      <p class="para">
+       この関数に渡す、ゼロ個以上のパラメータ。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <span class="function"><b>call_user_func()</b></span> のパラメータは
+        参照渡しではないことに注意しましょう。
+        <div class="example" id="example-4217">
+         <p><b>例1 <span class="function"><b>call_user_func()</b></span> の例と参照</b></p>
+         <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br />function&nbsp;</span><span style="color: #0000BB">increment</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$var</span><span style="color: #007700">++;<br />}<br /><br /></span><span style="color: #0000BB">$a&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(</span><span style="color: #DD0000">'increment'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">call_user_func_array</span><span style="color: #007700">(</span><span style="color: #DD0000">'increment'</span><span style="color: #007700">,&nbsp;array(&amp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3&nbsp;より前のバージョンでは、このようにしてもかまいません<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$a</span><span style="color: #007700">.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+         </div>
+
+         <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+         <div class="example-contents screen">
+<div class="cdata"><pre>
+0
+1
+</pre></div>
+         </div>
+        </div>
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.call-user-func-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   関数の結果、あるいはエラー時に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.call-user-func-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        オブジェクト指向のキーワード、たとえば <i>parent</i> や
+        <i>self</i> などの処理方法が変わりました。
+        これまでは、ダブルコロン構文を使ってこれらをコールすると
+        <b><tt>E_STRICT</tt></b> 警告が発生していました。静的コールと判断されたからです。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.call-user-func-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4218">
+    <p><b>例2 <span class="function"><b>call_user_func()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">barber</span><span style="color: #007700">(</span><span style="color: #0000BB">$type</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$type</span><span style="color: #DD0000">&nbsp;ですね、わかりました。\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(</span><span style="color: #DD0000">'barber'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"マッシュルームカット"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(</span><span style="color: #DD0000">'barber'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"髭剃り"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+マッシュルームカット ですね、わかりました。
+髭剃り ですね、わかりました。
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-4219">
+    <p><b>例3 名前空間を使用した <span class="function"><b>call_user_func()</b></span></b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">namespace&nbsp;</span><span style="color: #0000BB">Foobar</span><span style="color: #007700">;<br /><br />class&nbsp;</span><span style="color: #0000BB">Foo&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">test</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #DD0000">"Hello&nbsp;world!\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(</span><span style="color: #0000BB">__NAMESPACE__&nbsp;</span><span style="color: #007700">.</span><span style="color: #DD0000">'\Foo::test'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降<br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(array(</span><span style="color: #0000BB">__NAMESPACE__&nbsp;</span><span style="color: #007700">.</span><span style="color: #DD0000">'\Foo'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test'</span><span style="color: #007700">));&nbsp;</span><span style="color: #FF8000">//&nbsp;PHP&nbsp;5.3.0&nbsp;以降<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Hello world!
+Hello world!
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-4220">
+    <p><b>例4 <span class="function"><b>call_user_func()</b></span> でのクラスメソッドの使用</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">myclass&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;static&nbsp;function&nbsp;</span><span style="color: #0000BB">say_hello</span><span style="color: #007700">()<br />&nbsp;&nbsp;&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"Hello!\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$classname&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"myclass"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$classname</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'say_hello'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(</span><span style="color: #0000BB">$classname&nbsp;</span><span style="color: #007700">.</span><span style="color: #DD0000">'::say_hello'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;5.2.3&nbsp;以降<br /><br /></span><span style="color: #0000BB">$myobject&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">myclass</span><span style="color: #007700">();<br /><br /></span><span style="color: #0000BB">call_user_func</span><span style="color: #007700">(array(</span><span style="color: #0000BB">$myobject</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'say_hello'</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Hello!
+Hello!
+Hello!
+</pre></div>
+    </div>   
+   </div>
+   <div class="example" id="example-4221">
+    <p><b>例5 <span class="function"><b>call_user_func()</b></span> でのラムダ関数の使用</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />call_user_func</span><span style="color: #007700">(function(</span><span style="color: #0000BB">$arg</span><span style="color: #007700">)&nbsp;{&nbsp;print&nbsp;</span><span style="color: #DD0000">"[</span><span style="color: #0000BB">$arg</span><span style="color: #DD0000">]\n"</span><span style="color: #007700">;&nbsp;},&nbsp;</span><span style="color: #DD0000">'test'</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">/*&nbsp;PHP&nbsp;5.3.0&nbsp;以降&nbsp;*/<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+[test]
+</pre></div>
+    </div>   
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.call-user-func-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">
+<span class="function"><b>call_user_func()</b></span> や <span class="function"><a href="function.call-user-func-array.html" class="function">call_user_func_array()</a></span> で登録されたコールバックは、
+前のコールバックからスローされた例外がキャッチされていない場合はコールされません。</p></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.call-user-func-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.call-user-func-array.html" class="function" rel="rdfs-seeAlso">call_user_func_array()</a> - パラメータの配列を指定してユーザ関数をコールする</span></li>
+    <li class="member"><span class="function"><a href="function.is-callable.html" class="function" rel="rdfs-seeAlso">is_callable()</a> - 引数が、関数としてコール可能な構造であるかどうかを調べる</span></li>
+    <li class="member"><a href="language.pseudo-types.html#language.types.callback" class="link">callback</a> 型に関する情報</li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.call-user-func-array.html">call_user_func_array</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.create-function.html">create_function</a></div>
+ <div class="up"><a href="ref.funchand.html">関数処理 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

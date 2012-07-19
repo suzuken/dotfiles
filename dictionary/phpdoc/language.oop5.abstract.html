@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クラスの抽象化</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.static.html">static キーワード</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.interfaces.html">オブジェクト インターフェイス</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.oop5.abstract" class="sect1">
+ <h2 class="title">クラスの抽象化</h2>
+
+ <p class="para">
+  PHP 5 では、抽象クラスとメソッドが導入されました。
+  abstractとして宣言されたクラスのインスタンスを生成することはできません。
+  １つ以上の抽象メソッドを含む全てのクラスもまた抽象クラスとなります。
+  abstractとして定義されたメソッドは、そのメソッドの外観を宣言するのみで、
+  実装を定義することはできません。
+ </p>
+
+ <p class="para">
+  抽象クラスから継承する際、親クラスの宣言で abstract としてマークされた
+  全てのメソッドは、子クラスで定義されなければなりません。加えて、
+  これらのメソッドは同等 (あるいはより緩い制約) の
+  <a href="language.oop5.visibility.html" class="link">可視性</a>
+  で定義される必要があります。例えば、抽象メソッドが protected
+  として定義された場合、その関数の実装は protected または public
+  のどちらかとして定義する必要があります。private にすることはできません。
+ </p>
+
+ <div class="example" id="example-181">
+  <p><b>例1 抽象クラスの例</b></p>
+  <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">abstract&nbsp;class&nbsp;</span><span style="color: #0000BB">AbstractClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;拡張クラスにこのメソッドの定義を強制する<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">abstract&nbsp;protected&nbsp;function&nbsp;</span><span style="color: #0000BB">getValue</span><span style="color: #007700">();<br />&nbsp;&nbsp;&nbsp;&nbsp;abstract&nbsp;protected&nbsp;function&nbsp;</span><span style="color: #0000BB">prefixValue</span><span style="color: #007700">(</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;Common&nbsp;method<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;function&nbsp;</span><span style="color: #0000BB">printOut</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;</span><span style="color: #0000BB">$this</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getValue</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">ConcreteClass1&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">AbstractClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;function&nbsp;</span><span style="color: #0000BB">getValue</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"ConcreteClass1"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">prefixValue</span><span style="color: #007700">(</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #007700">{</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">}</span><span style="color: #DD0000">ConcreteClass1"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />class&nbsp;</span><span style="color: #0000BB">ConcreteClass2&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">AbstractClass<br /></span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">getValue</span><span style="color: #007700">()&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"ConcreteClass2"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">prefixValue</span><span style="color: #007700">(</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #007700">{</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">}</span><span style="color: #DD0000">ConcreteClass2"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$class1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ConcreteClass1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$class1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printOut</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$class1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prefixValue</span><span style="color: #007700">(</span><span style="color: #DD0000">'FOO_'</span><span style="color: #007700">)&nbsp;.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$class2&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ConcreteClass2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$class2</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">printOut</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #0000BB">$class2</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prefixValue</span><span style="color: #007700">(</span><span style="color: #DD0000">'FOO_'</span><span style="color: #007700">)&nbsp;.</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+ConcreteClass1
+FOO_ConcreteClass1
+ConcreteClass2
+FOO_ConcreteClass2
+</pre></div>
+   </div>
+  </div>
+
+ <p class="para">
+  &#039;abstract&#039;という名前のユーザー定義関数または関数を有さない
+  コードは修正なしに動作します。
+ </p>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.oop5.static.html">static キーワード</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.oop5.interfaces.html">オブジェクト インターフェイス</a></div>
+ <div class="up"><a href="language.oop5.html">クラスとオブジェクト</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

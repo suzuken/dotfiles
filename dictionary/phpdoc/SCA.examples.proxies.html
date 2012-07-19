@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>別のサービスコンポーネントへのプロキシの取得</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.structure.html">サービスコンポーネントの構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.calling.html">別のサービスコンポーネントのコール</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="SCA.examples.proxies" class="section">
+  <h2 class="title">別のサービスコンポーネントへのプロキシの取得</h2>
+  <p class="para">
+   ある SCA コンポーネントが、別の SCA コンポーネントのサービスをコールすることができます。
+   コンポーネントが提供するサービスは、すべて public メソッドでできています。
+   SCA for PHP では現在、あるコンポーネントから他のコンポーネントをコールする方法を
+   二通り提供しています。ローカルに (同一の PHP ランタイム、
+   同一のコールスタック上で) コールする方法と、リモートにコールする方法です。
+   リモートにコールする場合は、コールされるコンポーネントが
+   ウェブサービスを公開していなければなりません。
+  </p>
+  
+  <p class="para">
+   あるコンポーネントが別のコンポーネントをコールするには、
+   呼び出し元のコンポーネント側に呼び出し先コンポーネントへのプロキシが必要です。
+   このプロキシは、通常は呼び出し元コンポーネントのインスタンス変数として用意します。
+   しかし、後でご覧いただくように SCA::getService()
+   でプロキシを取得することも可能です。
+   コンポーネントを作成する際にプロキシを作成し、
+   別のコンポーネントを参照するインスタンス変数にそのプロキシを &quot;注入 (inject)&quot;
+   します。プロキシは、そのコンポーネントがローカルにあるかリモートにあるかにかかわらず
+   常に用いられます。これにより、リモートだろうがローカルだろうが同じ方法でコールできるようになります
+   (たとえば、ローカルへのコールの際もデータは常に値渡しとなります)。
+   プロキシは、そのコンポーネントがある場所と、
+   それをコールする方法を知っています。
+  </p>
+  
+  <p class="para">
+   サービスのプロキシを保持することを意図したインスタンス変数は、
+   PHPDocumentor 形式のふたつのアノテーション
+   @reference および @binding で表します。それぞれのアノテーションは、
+   クラスのインスタンス変数のコメント部で指定します。以下のコードを参照ください。
+  </p>
+  
+  <p class="para">
+   インスタンス変数の前にある @reference アノテーションは、
+   そのインスタンス変数がコンポーネントへのプロキシとして初期化されることを示します。
+  </p>
+  
+  <p class="para"> 
+   @binding アノテーションには二通りの形式 @binding.php および
+   @@binding.soap があり、それぞれそのプロキシが
+   ローカルコンポーネント用なのかウェブサービス用なのかを表します。
+   @binding.php および @binding.soap のいずれの場合も、
+   対象の URI をアノテーションで指定します。
+  </p>
+  
+  <p class="para">
+   現時点では依存性の指定をアノテーションで行っているので、
+   参照先を変更する唯一の方法はコンポーネント内のアノテーションを書き換えることになります。
+  </p>
+  
+  <p class="para">
+   今回の例の ConvertedStockQuote では、インスタンス変数
+   <var class="varname"><var class="varname">$exchange_rate</var></var> をローカルのコンポーネント
+   ExchangeRate へのプロキシとして初期化しています。これは、
+   ConvertedStockQuote のインスタンスが作成されるたびに作成されます。
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-4339">
+    <p><b>例1 ローカルの PHP クラスへのプロキシの取得</b></p>
+    
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php&nbsp;<br />&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;使用する為替レートサービス<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@reference<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@binding.php&nbsp;../ExchangeRate/ExchangeRate.php<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$exchange_rate</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  
+  <p class="para"> 
+   @binding.php の場合の URI は、
+   そのコンポーネントの実装を含むスクリプトの場所を表します。
+   コンポーネントはローカルにコールされます。
+   提供されるサービスは、コンポーネントの public メソッド群となります。
+   URI は、絶対パスあるいは相対パスで表す単純なパス名でなければなりません。
+   コンポーネントの読み込みには、PHP の include ディレクティブを使用します。
+   その際に、既に読み込まれていないかどうかを <span class="function"><a href="function.class-exists.html" class="function">class_exists()</a></span>
+   で調べます。URI が相対パスの場合は、
+   そのアノテーションを含むコンポーネントの場所を基準としてパスを解決します。
+   これは、通常の PHP の振る舞いとは異なることに注意しましょう。
+   通常は、PHP は include_path を基準として解決します。
+   このようにしない理由は、複数コンポーネント間の参照関係を、
+   できるだけ場所の影響を受けないようにするためです。
+  </p>
+  
+  <p class="para"> 
+   この ExchangeRate サービスがリモートにあり、ウェブサービスとしてコールされるものだとすると、
+   変更するところは @binding の行だけです。PHP クラスの場所を指定するかわりに、
+   ウェブサービスについて記述した WSDL ファイルの場所を指定します。
+   今回のサンプルでは、二番目の参照でこの方式を説明しています。
+  </p>
+  
+  <p class="para">
+   <div class="example" id="example-4340">
+    <p><b>例2 ウェブサービスへのプロキシの取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/**<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;使用する株価サービス<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@reference<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@binding.soap&nbsp;../StockQuote/StockQuote.wsdl<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">public&nbsp;</span><span style="color: #0000BB">$stock_quote</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  
+  <p class="para"> 
+   StockQuote コンポーネントはウェブサービスへのリクエストとしてコールされます。
+   今回の場合は WSDL の URI が単純なパス名となっていますが、
+   PHP のラッパーを使用して、たとえば <var class="varname"><var class="varname">file://</var></var>
+   や <var class="varname"><var class="varname">http://</var></var> で始めることもできます。
+   単純にパス指定する場合は絶対パスでも相対パスでもかまいません。
+   相対パスの場合は、そのアノテーションを含むコンポーネントの位置からの相対パスと解釈されます。
+   これは @binding.php の振る舞いと同様で、通常の PHP の挙動とは異なることに注意しましょう。
+   通常は、PHP は現在の作業ディレクトリからの相対パスとして探します。
+   作業ディレクトリは、通常はそのスクリプトがコールされた場所となります。
+   このようにしない理由は、複数コンポーネント間の参照関係を、
+   まずバインド形式の違いに影響を受けないようにすること、
+   そして場所の影響を受けないようにするためです。
+  </p>
+  
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="SCA.examples.structure.html">サービスコンポーネントの構造</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="SCA.examples.calling.html">別のサービスコンポーネントのコール</a></div>
+ <div class="up"><a href="sca.examples.html">例</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

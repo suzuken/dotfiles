@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>外部のパスあるいはファイルを phar アーカイブ内に仮想的にマウントする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.mapphar.html">Phar::mapPhar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.mungserver.html">Phar::mungServer</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="phar.mount" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">Phar::mount</h1>
+  <p class="verinfo">(PHP &gt;= 5.3.0, PECL phar &gt;= 2.0.0)</p><p class="refpurpose"><span class="refname">Phar::mount</span> &mdash; <span class="dc-title">外部のパスあるいはファイルを phar アーカイブ内に仮想的にマウントする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-phar.mount-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>Phar::mount</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pharpath</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$externalpath</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Unix のファイルシステムで外部のデバイスをディレクトリツリー上にマウントできるのと同様に、
+   <span class="function"><b>Phar::mount()</b></span> を使用すると
+   外部のファイルやディレクトリをあたかもアーカイブ内にあるかのように参照することができるようになります。
+   これを使用すると、外部の設定ファイルをアーカイブ内にあるかのように扱うなどの高度な抽象化が可能となります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-phar.mount-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pharpath</tt></i></span>
+     <dd>
+
+      <p class="para">
+       マウントする場所として使用する phar アーカイブ内のパス。
+       phar アーカイブ内で使用した場合は、これは相対パスとなります。
+       それ以外の場合は、完全な <i>phar</i> URL にしなければなりません。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">externalpath</tt></i></span>
+     <dd>
+
+      <p class="para">
+       phar アーカイブ内にマウントしたい外部ファイルあるいはディレクトリのパスあるいは URL。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-phar.mount-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   返り値はありません。失敗した場合は <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 errors" id="refsect1-phar.mount-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   パスのマウント時に問題が発生した場合は
+   <a href="class.PharException.html" class="classname">PharException</a> をスローします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-phar.mount-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-705">
+    <p><b>例1 <span class="function"><b>Phar::mount()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     次の例は、外部の設定ファイルをまるでそれが
+     phar アーカイブ内のパス上にあるかのように扱うものです。
+    </p></div>
+    <div class="example-contents"><p>
+     まず、phar アーカイブ内のコードを示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$configuration&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">simplexml_load_string</span><span style="color: #007700">(</span><span style="color: #0000BB">file_get_contents</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">running</span><span style="color: #007700">(</span><span style="color: #0000BB">false</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">'/config.xml'</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     次は、設定ファイルをマウントする外部コードです。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;まずは、抽象化した&nbsp;config.xml<br />//&nbsp;と実際のディスク上のファイルを関連づけます<br /></span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'phar:///path/to/archive.phar/config.xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;アプリケーションを実行します<br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     もうひとつの方法として、コードを phar アーカイブのスタブ内に置くというものがあります。
+     これは、ユーザが設定ファイルを指定しなかった場合にデフォルトの設定ファイルを使用する例です。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;まずは、抽象化した&nbsp;config.xml<br />//&nbsp;と実際のディスク上のファイルを関連づけます<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">defined</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">EXTERNAL_CONFIG</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">file_exists</span><span style="color: #007700">(</span><span style="color: #0000BB">__DIR__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">__DIR__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/extra_config.xml'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'config.xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'phar://'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">__FILE__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/default_config.xml'</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">Phar</span><span style="color: #007700">::</span><span style="color: #0000BB">mount</span><span style="color: #007700">(</span><span style="color: #DD0000">'extra.xml'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'phar://'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">__FILE__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/default_extra.xml'</span><span style="color: #007700">);<br />}<br /></span><span style="color: #FF8000">//&nbsp;アプリケーションを実行します<br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'phar://'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">__FILE__&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'/index.php'</span><span style="color: #007700">;<br />__HALT_COMPILER();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>
+     ...and the code externally to load this phar archive:
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />define</span><span style="color: #007700">(</span><span style="color: #DD0000">'EXTERNAL_CONFIG'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'/home/example/config.xml'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;アプリケーションを実行します<br /></span><span style="color: #007700">include&nbsp;</span><span style="color: #DD0000">'/path/to/archive.phar'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="phar.mapphar.html">Phar::mapPhar</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="phar.mungserver.html">Phar::mungServer</a></div>
+ <div class="up"><a href="class.Phar.html">Phar</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

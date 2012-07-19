@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>セッションデータを初期化する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-set-save-handler.html">session_set_save_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-unregister.html">session_unregister</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.session-start" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">session_start</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">session_start</span> &mdash; <span class="dc-title">セッションデータを初期化する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.session-start-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>session_start</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>session_start()</b></span> は、セッションを作成します。
+   もしくは、リクエスト上で GET, POST またはクッキーにより渡されたセッション
+   ID に基づき現在のセッションを復帰します。
+  </p>
+  <p class="para">
+   名前付きのセッションを使用したい場合、
+   <span class="function"><b>session_start()</b></span> の前に
+   <span class="function"><a href="function.session-name.html" class="function">session_name()</a></span> をコールする必要があります。
+  </p>
+  <p class="para">
+   <span class="function"><b>session_start()</b></span> は、
+   <a href="session.configuration.html#ini.session.use-trans-sid" class="link">session.use_trans_sid</a> が有効の場合に
+   URL 書換え用の内部出力ハンドラを登録します。
+  </p>
+  <p class="para">
+   ユーザが <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> と共に
+   <i>ob_gzhandler</i> または類似のものを使用している場合、
+   出力ハンドラの順番は正しく出力を行うために重要です。例えば、
+   セッション開始時にユーザは <i>ob_gzhandler</i>
+   を登録する必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.session-start-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   この関数は、セッションが正常に開始した場合に <b><tt>TRUE</tt></b>、それ以外の場合に <b><tt>FALSE</tt></b>
+   を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.session-start-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        何らかの理由でセッションの開始に失敗した場合に <b><tt>FALSE</tt></b> を返すようになりました。
+        これより前のバージョンでは常に <b><tt>TRUE</tt></b> を返していました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.3.3</td>
+       <td align="left">
+        セッションが既に開始されている状態で
+        <span class="function"><b>session_start()</b></span> をコールすると
+        <b><tt>E_NOTICE</tt></b> レベルのエラーを発生させます。
+        またその場合二度目のセッションスタートは単に無視されます。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.session-start-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3906">
+    <p><b>例1 セッションの例 <var class="filename">page1.php</var></b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;page1.php<br /><br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Welcome&nbsp;to&nbsp;page&nbsp;#1'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'favcolor'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #DD0000">'green'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'animal'</span><span style="color: #007700">]&nbsp;&nbsp;&nbsp;=&nbsp;</span><span style="color: #DD0000">'cat'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'time'</span><span style="color: #007700">]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;</span><span style="color: #0000BB">time</span><span style="color: #007700">();<br /><br /></span><span style="color: #FF8000">//&nbsp;セッションクッキーが有効なら動作します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;&lt;a&nbsp;href="page2.php"&gt;page&nbsp;2&lt;/a&gt;'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;あるいは必要に応じてセッション&nbsp;ID&nbsp;を渡します<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;&lt;a&nbsp;href="page2.php?'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">SID&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'"&gt;page&nbsp;2&lt;/a&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <var class="filename">page1.php</var> を表示した後なら、
+   <var class="filename">page2.php</var> はセッション上の情報を含んでいるはずです。
+   <a href="ref.session.html" class="link">セッションについてのリファレンス</a> を読むと、
+   <a href="session.idpassing.html" class="link">セッションIDの伝達</a> に関する情報が得られます。
+   例えば、<b><tt>SID</tt></b> とは何かといったことです。
+  </p>
+  <p class="para">
+   <div class="example" id="example-3907">
+    <p><b>例2 セッションの例: <var class="filename">page2.php</var></b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;page2.php<br /><br /></span><span style="color: #0000BB">session_start</span><span style="color: #007700">();<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Welcome&nbsp;to&nbsp;page&nbsp;#2&lt;br&nbsp;/&gt;'</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'favcolor'</span><span style="color: #007700">];&nbsp;</span><span style="color: #FF8000">//&nbsp;green<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'animal'</span><span style="color: #007700">];&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;cat<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">date</span><span style="color: #007700">(</span><span style="color: #DD0000">'Y&nbsp;m&nbsp;d&nbsp;H:i:s'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$_SESSION</span><span style="color: #007700">[</span><span style="color: #DD0000">'time'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #FF8000">//&nbsp;page1.php&nbsp;と同様に、ここで&nbsp;SID&nbsp;を使うこともできます<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;br&nbsp;/&gt;&lt;a&nbsp;href="page1.php"&gt;page&nbsp;1&lt;/a&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.session-start-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    クッキーに基づくセッションを使用している場合、ブラウザに何か出力を行う前に
+    <span class="function"><b>session_start()</b></span> をコールする必要があります。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    <span class="function"><a href="function.ob-gzhandler.html" class="function">ob_gzhandler()</a></span> よりも
+    <a href="zlib.configuration.html#ini.zlib.output-compression" class="link">zlib.output_compression</a>
+    の使用が推奨されています。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    この関数は、設定によって複数の HTTP ヘッダを送信します。
+    これらのヘッダをカスタマイズするには
+    <span class="function"><a href="function.session-cache-limiter.html" class="function">session_cache_limiter()</a></span> を参照ください。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.session-start-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><var class="varname"><var class="varname"><a href="reserved.variables.session.html" class="classname">$_SESSION</a></var></var></li>
+    <li class="member">
+     設定ディレクティブ <a href="session.configuration.html#ini.session.auto-start" class="link">session.auto_start</a>
+    </li>
+    <li class="member"><span class="function"><a href="function.session-id.html" class="function" rel="rdfs-seeAlso">session_id()</a> - 現在のセッション ID を取得または設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+ 
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-set-save-handler.html">session_set_save_handler</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-unregister.html">session_unregister</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

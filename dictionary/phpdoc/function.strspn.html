@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>指定したマスク内に含まれる文字からなる文字列の最初のセグメントの長さを探す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strrpos.html">strrpos</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strstr.html">strstr</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.strspn" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">strspn</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">strspn</span> &mdash; <span class="dc-title">
+   指定したマスク内に含まれる文字からなる文字列の最初のセグメントの長さを探す
+  </span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.strspn-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>strspn</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$subject</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$mask</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$start</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$length</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">subject</tt></i> の中で、
+   <i><tt class="parameter">mask</tt></i> 内の文字が連続する最初の部分の長さを返します。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">start</tt></i> と <i><tt class="parameter">length</tt></i>
+   を省略した場合は、<i><tt class="parameter">subject</tt></i> 全体を調べます。
+   指定した場合は、<i>strspn(substr($subject, $start, $length),
+   $mask)</i> (詳細は <a href="function.substr.html" class="xref">substr</a>
+   を参照ください) をコールするのと同じ働きをします。
+  </p>
+  <p class="para">
+   たとえば、
+   <div class="informalexample">
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$var&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"42&nbsp;is&nbsp;the&nbsp;answer&nbsp;to&nbsp;the&nbsp;128th&nbsp;question."</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"1234567890"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   このコードは、<var class="varname"><var class="varname">$var</var></var> に <i>2</i> を代入します。これは、
+   <i><tt class="parameter">subject</tt></i> の中で &quot;1234567890&quot; 内の文字だけで構成される
+   最初の部分が &quot;42&quot; であるためです。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.strspn-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">subject</tt></i></span>
+     <dd>
+
+      <p class="para">
+       調べたい文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">mask</tt></i></span>
+     <dd>
+
+      <p class="para">
+       セグメントを数える際に許可する文字の一覧。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">start</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">subject</tt></i> の中で調べ始める位置。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">start</tt></i> に非負の値を指定すると、
+       <span class="function"><b>strspn()</b></span> は
+       <i><tt class="parameter">subject</tt></i> の
+       <i><tt class="parameter">start</tt></i> 番目の位置から調査を始めます。
+       たとえば、文字列 &#039;<i>abcdef</i>&#039; において
+       <i>0</i> 番目の位置にある文字は &#039;<i>a</i>&#039;
+       で <i>2</i> 番目の位置にある文字は
+       &#039;<i>c</i>&#039; のようになります。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">start</tt></i> に負の値を指定すると、
+       <span class="function"><b>strspn()</b></span> は
+       <i><tt class="parameter">subject</tt></i> の最後から
+       <i><tt class="parameter">start</tt></i> 番目の位置から調査を始めます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">length</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">subject</tt></i> 内で調べる部分の長さ。
+      </p>
+      <p class="para">
+       <i><tt class="parameter">length</tt></i> に非負の値を指定すると、
+       <i><tt class="parameter">subject</tt></i> の開始位置から
+       <i><tt class="parameter">length</tt></i> 文字ぶんの範囲を調査します。
+      </p>
+      <p class="para">
+        <i><tt class="parameter">length</tt></i> に負の値を指定すると、
+        <i><tt class="parameter">subject</tt></i> の調査範囲は
+        開始位置から始まって <i><tt class="parameter">subject</tt></i>
+        の最後から <i><tt class="parameter">length</tt></i> だけさかのぼったところまでとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.strspn-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">str1</tt></i> の中で、全て
+   <i><tt class="parameter">str2</tt></i> の中の文字からなる最初のセグメントの長さを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.strspn-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <i><tt class="parameter">start</tt></i> および <i><tt class="parameter">length</tt></i>
+        が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.strspn-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4032">
+    <p><b>例1 <span class="function"><b>strspn()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">strspn</span><span style="color: #007700">(</span><span style="color: #DD0000">"foo"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"o"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;2<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.strspn-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <span class="simpara">この関数はバイナリデータに対応しています。
+</span></p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.strspn-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.strcspn.html" class="function" rel="rdfs-seeAlso">strcspn()</a> - マスクにマッチしない最初のセグメントの長さを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.strrpos.html">strrpos</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.strstr.html">strstr</a></div>
+ <div class="up"><a href="ref.strings.html">String 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

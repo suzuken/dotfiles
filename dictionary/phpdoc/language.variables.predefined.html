@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>定義済みの変数</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.basics.html">基本的な事</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.scope.html">変数のスコープ</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.variables.predefined" class="sect1">
+   <h2 class="title">定義済みの変数</h2>
+   
+   <p class="simpara">
+    PHPは、実行する全てのスクリプトに定義済みの多くの変数を
+    提供します。しかし、これらの変数の多くは、
+    実行するサーバーの種類、サーバーのバージョンおよび設定、
+    その他の要素に依存しており、完全に記述することはできません。
+    これらの変数のいくつかは、PHPを
+    <a href="features.commandline.html" class="link">コマンドライン</a>
+    で実行した場合には利用できません。
+    これらの変数の一覧については、
+    <a href="reserved.variables.html" class="link">予約済みの定義済みの変数</a>
+    のセクションを参照してください。
+   </p>
+
+   <div class="warning"><b class="warning">警告</b>
+    <p class="simpara">
+     PHP 4.2.0以降では、PHPディレクティブ <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>の
+     デフォルト値が<em class="emphasis">off</em>に変更されています。
+     これは、PHPにおける大きな変更です。
+     register_globalsを<em class="emphasis">off</em>にすると、
+     グローバルスコープに定義済みの変数に影響を与えます。
+     例えば、<var class="varname"><var class="varname">DOCUMENT_ROOT</var></var>を取得するには、
+     <var class="varname"><var class="varname">$DOCUMENT_ROOT</var></var>のかわりに
+     <var class="varname"><var class="varname"><a href="reserved.variables.server.html" class="classname">$_SERVER['DOCUMENT_ROOT']</a></var></var>を使用することに
+     なります。また、URL 
+     <i>http://www.example.com/test.php?id=3</i>　から
+     <var class="varname"><var class="varname">$id</var></var>の代わりに<var class="varname"><var class="varname"><a href="reserved.variables.get.html" class="classname">$_GET['id']</a></var></var>、
+     <var class="varname"><var class="varname">$HOME</var></var>のかわりに<var class="varname"><var class="varname"><a href="reserved.variables.environment.html" class="classname">$_ENV['HOME']</a></var></var>を
+     使用します。
+    </p>
+    <p class="simpara">
+     この変更に関する情報については、
+     <a href="ini.core.html#ini.register-globals" class="link">register_globals</a>に関する設定
+     エントリ、セキュリティに関する章の 
+     <a href="security.globals.html" class="link">register_globalsの使用</a>、
+     また、<a href="http://www.php.net/releases/4_1_0.php" class="link external">&raquo; 4.1.0</a>および
+     <a href="http://www.php.net/releases/4_2_0.php" class="link external">&raquo; 4.2.0</a>の
+     Release Announcementsを参照してください。
+    </p>
+    <p class="simpara">
+     <a href="language.variables.superglobals.html" class="link">スーパーグローバル
+      配列</a>のようなPHPの予約済みの定義済み変数を使用することが
+     推奨されます。
+    </p>
+   </div>
+
+   <p class="simpara">
+    バージョン4.1.0以降、PHPに(使用する場合)Webサーバ、環境変数、
+    ユーザ入力からの変数を値とする定義済みの配列が追加されています。
+    これらの新しいは配列は、自動グローバル、すなわち、自動的に全ての
+    スコープで利用可能です。このため、これらは
+    &quot;スーパーグローバル&quot; といわれることもあります。
+    (PHPには、ユーザ定義のスーパーグローバルという機構はありません。)
+    スーパーグローバルのリストを以下に示します。
+    しかし、これらの内容のリストおよび定義済みのPHP変数とそれらの特性に
+    関する更なる議論については、
+    <a href="reserved.variables.html" class="link">定義済みの予約変数</a>の
+    セクションを参照してください。
+    より古い定義済みの変数(<var class="varname"><var class="varname">$HTTP_*_VARS</var></var>)もまだ
+    存在します。
+
+    PHP 5.0.0 以降、PHP の長い
+<a href="language.variables.predefined.html" class="link">定義済みの変数</a>
+配列は <a href="ini.core.html#ini.register-long-arrays" class="link">register_long_arrays</a>
+ディレクティブにより無効にすることができます。
+   </p>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <b>可変変数</b><br />
+    <p class="para">
+     <a href="language.variables.variable.html" class="link">可変変数</a>として
+     スーパーグローバルを使うことはできません。
+    </p>
+   </p></blockquote>
+
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     スーパーグローバルと <i>HTTP_*_VARS</i> は同時に存在させることができますが、
+     お互い同一ではありません。つまり、一方を変更してももう一方はそのままです。
+    </p>
+   </p></blockquote>
+
+   <p class="para">
+    <a href="ini.core.html#ini.variables-order" class="link">variables_order</a>に
+    ある変数が設定されていない場合、これらに対応するPHPの定義済み
+    変数も空のままとなります。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.variables.basics.html">基本的な事</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.variables.scope.html">変数のスコープ</a></div>
+ <div class="up"><a href="language.variables.html">変数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

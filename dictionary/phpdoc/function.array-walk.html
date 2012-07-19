@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>配列の全ての要素にユーザ関数を適用する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-walk-recursive.html">array_walk_recursive</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array.html">array</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.array-walk" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">array_walk</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">array_walk</span> &mdash; <span class="dc-title">配列の全ての要素にユーザ関数を適用する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.array-walk-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>array_walk</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$array</tt></span>
+   , <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span> <tt class="parameter">$funcname</tt></span>
+   [, <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$userdata</tt></span>
+  ] )</div>
+
+  <p class="simpara">
+   <i><tt class="parameter">array</tt></i> 配列の各要素にユーザ定義関数
+   <i><tt class="parameter">funcname</tt></i> を適用します。
+  </p>
+  <p class="para">
+   <span class="function"><b>array_walk()</b></span> は <i><tt class="parameter">array</tt></i>
+   の内部配列ポインタに影響されません。<span class="function"><b>array_walk()</b></span>
+   はポインタの位置に関わらず配列の全てに渡って適用されます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.array-walk-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">array</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力の配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">funcname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       通常、
+       <i><tt class="parameter">funcname</tt></i> は引数を二つとります。
+       <i><tt class="parameter">array</tt></i> パラメータの値が最初の引数、
+       キー/添字は二番目の引数となります。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <i><tt class="parameter">funcname</tt></i> により配列の値そのものを変更する必要がある場合、
+        <i><tt class="parameter">funcname</tt></i> の最初の引数は
+        <a href="language.references.html" class="link">参照</a>
+        として渡す必要があります。この場合、配列の要素に加えた変更は、
+        配列自体に対して行われます。
+       </p>
+      </p></blockquote>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+        <p class="para">
+          内部関数の多く (たとえば <span class="function"><a href="function.strtolower.html" class="function">strtolower()</a></span>) は、
+          期待しているよりも多い引数を受け取ると警告が発生します。
+          そのため、<i><tt class="parameter">funcname</tt></i>
+          に直接指定することはできません。
+        </p>
+      </p></blockquote>
+      <p class="para">
+       変更される可能性があるのは配列の値だけであり、
+       その構造を変更することはできません。つまり、
+       プログラマは要素の追加や削除そして並べ替えなどができないということです。
+       コールバック関数がこの条件を満たさない場合は、
+       この関数の動作は未定義で予期せぬ結果を得ることになります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">userdata</tt></i></span>
+     <dd>
+
+      <p class="para">
+       オプションの <i><tt class="parameter">userdata</tt></i> パラメータが指定された場合、
+       コールバック関数 <i><tt class="parameter">funcname</tt></i>
+       への三番目の引数として渡されます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.array-walk-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 errors" id="refsect1-function.array-walk-errors">
+  <h3 class="title">エラー / 例外</h3>
+  <p class="para">
+   <i><tt class="parameter">funcname</tt></i> 関数が、指定された引数より多いパラメータを必要とする
+   場合、<span class="function"><b>array_walk()</b></span>が<i><tt class="parameter">funcname</tt></i>
+   をコールする度にエラーレベル <a href="errorfunc.constants.html" class="link">E_WARNING</a> が
+   発生します。これらの警告は、<span class="function"><b>array_walk()</b></span> コールの前に
+   PHP エラー演算子 <a href="language.operators.errorcontrol.html" class="link">@</a>
+   を付けるか、<span class="function"><a href="function.error-reporting.html" class="function">error_reporting()</a></span> により抑制することができます。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.array-walk-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-4123">
+    <p><b>例1 <span class="function"><b>array_walk()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$fruits&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"d"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"lemon"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"orange"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"b"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"banana"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"c"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"apple"</span><span style="color: #007700">);<br /><br />function&nbsp;</span><span style="color: #0000BB">test_alter</span><span style="color: #007700">(&amp;</span><span style="color: #0000BB">$item1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$prefix</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$item1&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$prefix</span><span style="color: #DD0000">:&nbsp;</span><span style="color: #0000BB">$item1</span><span style="color: #DD0000">"</span><span style="color: #007700">;<br />}<br /><br />function&nbsp;</span><span style="color: #0000BB">test_print</span><span style="color: #007700">(</span><span style="color: #0000BB">$item2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$key</span><span style="color: #007700">)<br />{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"</span><span style="color: #0000BB">$key</span><span style="color: #DD0000">.&nbsp;</span><span style="color: #0000BB">$item2</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">"Before&nbsp;...:\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">array_walk</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruits</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test_print'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">array_walk</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruits</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test_alter'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'fruit'</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"...&nbsp;and&nbsp;after:\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">array_walk</span><span style="color: #007700">(</span><span style="color: #0000BB">$fruits</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'test_print'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Before ...:
+d. lemon
+a. orange
+b. banana
+c. apple
+... and after:
+d. fruit: lemon
+a. fruit: orange
+b. fruit: banana
+c. fruit: apple
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+ <div class="refsect1 seealso" id="refsect1-function.array-walk-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.array-walk-recursive.html" class="function" rel="rdfs-seeAlso">array_walk_recursive()</a> - 配列の全ての要素に、ユーザー関数を再帰的に適用する</span></li>
+    <li class="member"><span class="function"><a href="function.iterator-apply.html" class="function" rel="rdfs-seeAlso">iterator_apply()</a> - ユーザ関数をイテレータのすべての要素でコールする</span></li>
+    <li class="member"><span class="function"><a href="function.create-function.html" class="function" rel="rdfs-seeAlso">create_function()</a> - 匿名関数 (ラムダ形式) を作成する</span></li>
+    <li class="member"><span class="function"><a href="function.list.html" class="function" rel="rdfs-seeAlso">list()</a> - 配列と同様の形式で、複数の変数への代入を行う</span></li>
+    <li class="member"><span class="function"><a href="function.each.html" class="function" rel="rdfs-seeAlso">each()</a> - 配列から現在のキーと値のペアを返して、カーソルを進める</span></li>
+    <li class="member"><span class="function"><a href="function.call-user-func-array.html" class="function" rel="rdfs-seeAlso">call_user_func_array()</a> - パラメータの配列を指定してユーザ関数をコールする</span></li>
+    <li class="member"><span class="function"><a href="function.array-map.html" class="function" rel="rdfs-seeAlso">array_map()</a> - 指定した配列の要素にコールバック関数を適用する</span></li>
+    <li class="member"><a href="language.pseudo-types.html#language.types.callback" class="link">callback</a> 型に関する情報</li>
+    <li class="member"><a href="control-structures.foreach.html" class="link">foreach</a></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.array-walk-recursive.html">array_walk_recursive</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.array.html">array</a></div>
+ <div class="up"><a href="ref.array.html">配列 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

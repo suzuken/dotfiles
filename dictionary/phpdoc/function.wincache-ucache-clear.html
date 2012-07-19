@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ユーザキャッシュの中身全体を削除する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-ucache-cas.html">wincache_ucache_cas</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-ucache-dec.html">wincache_ucache_dec</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.wincache-ucache-clear" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">wincache_ucache_clear</h1>
+  <p class="verinfo">(PECL wincache &gt;= 1.1.0)</p><p class="refpurpose"><span class="refname">wincache_ucache_clear</span> &mdash; <span class="dc-title">
+   ユーザキャッシュの中身全体を削除する
+  </span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.wincache-ucache-clear-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>wincache_ucache_clear</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ユーザキャッシュに格納されているすべての値を消去/削除します。
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.wincache-ucache-clear-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.wincache-ucache-clear-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-514">
+    <p><b>例1 <span class="function"><b>wincache_ucache_clear()</b></span> の使用法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />wincache_ucache_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'green'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">wincache_ucache_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'red'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">wincache_ucache_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'orange'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">wincache_ucache_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'blue'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">wincache_ucache_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'cyan'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">16</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$array1&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'green'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'red'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'orange'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'blue'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'cyan'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_clear</span><span style="color: #007700">());<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">wincache_ucache_get</span><span style="color: #007700">(</span><span style="color: #0000BB">$array1</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(5) { [&quot;green&quot;]=&gt; int(1) 
+           [&quot;red&quot;]=&gt; int(2) 
+           [&quot;orange&quot;]=&gt; int(4) 
+           [&quot;blue&quot;]=&gt; int(8) 
+           [&quot;cyan&quot;]=&gt; int(16) } 
+bool(true) 
+bool(false) 
+</pre></div>
+    </div>    
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.wincache-ucache-clear-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.wincache-ucache-set.html" class="function" rel="rdfs-seeAlso">wincache_ucache_set()</a> - 変数をユーザキャッシュに追加し、変数が既にキャッシュに存在する場合はそれを上書きする</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-add.html" class="function" rel="rdfs-seeAlso">wincache_ucache_add()</a> - 変数が既にキャッシュに存在しない場合にのみ変数をユーザキャッシュに追加する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-delete.html" class="function" rel="rdfs-seeAlso">wincache_ucache_delete()</a> - 変数をユーザキャッシュから削除する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-get.html" class="function" rel="rdfs-seeAlso">wincache_ucache_get()</a> - ユーザキャッシュに格納された変数を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-exists.html" class="function" rel="rdfs-seeAlso">wincache_ucache_exists()</a> - 変数がユーザキャッシュに存在するかどうかを調べる</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-meminfo.html" class="function" rel="rdfs-seeAlso">wincache_ucache_meminfo()</a> - ユーザキャッシュのメモリ使用状況についての情報を取得する</span></li>
+    <li class="member"><span class="function"><a href="function.wincache-ucache-info.html" class="function" rel="rdfs-seeAlso">wincache_ucache_info()</a> - ユーザキャッシュにキャッシュされたファイルについての情報を取得する</span></li>    
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.wincache-ucache-cas.html">wincache_ucache_cas</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.wincache-ucache-dec.html">wincache_ucache_dec</a></div>
+ <div class="up"><a href="ref.wincache.html">WinCache 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

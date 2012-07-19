@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>繰り返し</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.subpatterns.html">サブパターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.back-references.html">後方参照</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.repetition" class="section">
+     <h2 class="title">繰り返し</h2>
+     <p class="para">
+     繰り返し (repetition) は、量指定子 (quantifier) を使って指定します。
+     量指定子は、以下の要素の後に付けることが出来ます。
+
+      <ul class="itemizedlist">
+       <li class="listitem"><span class="simpara">個々の文字。エスケープされた文字も含む</span></li>
+       <li class="listitem"><span class="simpara">メタ文字 . （ドット） </span></li>
+       <li class="listitem"><span class="simpara">文字クラス </span></li>
+       <li class="listitem"><span class="simpara">後方参照 (次のセクションを参照) </span></li>
+       <li class="listitem"><span class="simpara">カッコで括られたサブパターン（言明は除く - 別記参照）</span></li>
+      </ul>
+    </p>
+    <p class="para">
+     汎用の量指定子 (general repetition quantifier) は、波カッコの中に 
+     2 つの数をカンマで区切って記述したもので、マッチ可能な
+     最小と最大の繰り返し数を指定します。ただし、65536 以上の数は
+     指定できません。さらに、最初の数は 2 番目の数以下である必要があります。
+     例えば、パターン
+
+      <pre class="literallayout">
+      z{2,4}
+      </pre>
+
+    は、&quot;zz&quot;, &quot;zzz&quot;, &quot;zzzz&quot; にマッチします。閉じ波カッコだけでは
+    特別な意味を持ちません。カンマを残したまま 2 番目の数だけを省略すると、
+    繰り返しの上限が設定されません。 2 番目の数字とカンマの両方を省略すると、
+    必要なマッチの数を過不足なく指定できます。つまり、
+
+      <pre class="literallayout">
+      [aeiou]{3,}
+      </pre>
+
+     は、最短で 3 回母音が連続するものにマッチし、
+     もっと多く連続する場合にもマッチします。一方、
+
+      <pre class="literallayout">
+      \d{8}
+      </pre>
+
+     は、ぴったり 8 桁の数字にのみマッチします。開き波カッコは、
+     量指定子を置けない場所、つまり量指定子の構文に適合しない場所に
+     記述された場合、文字リテラルとして解釈されます。例えば、
+     {,6} は量指定子ではなく、4つの文字からなる文字リテラルとなります。
+    </p>
+    <p class="para">
+     {0} という量指定子の指定も可能です。
+     直前の項目および量指定子が存在しないという指定になります。
+    </p>
+    <p class="para">
+     簡単（および歴史的な互換性）のため、よく使われる 3 つの量指定子には、
+     次のような 1 文字の省略型があります。
+
+     <table class="doctable table">
+      <caption><b>単一文字の量指定子</b></caption>
+      
+       <tbody valign="middle" class="tbody">
+        <tr valign="middle">
+         <td align="left"><i>*</i></td>
+         <td align="left"><i>{0,}</i> と同じ </td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>+</i></td>
+         <td align="left"><i>{1,}</i> と同じ </td>
+        </tr>
+
+        <tr valign="middle">
+         <td align="left"><i>?</i></td>
+         <td align="left"><i>{0,1}</i> と同じ </td>
+        </tr>
+
+       </tbody>
+      
+     </table>
+
+    </p>
+    <p class="para">
+     たとえば
+     
+      <pre class="literallayout">
+      (a?)*
+      </pre>
+     
+     の様に、「文字無し」にマッチし得るサブパターンの後ろに
+     上限指定の無い量指定子を記述すると、無限ループができてしまう可能性が
+     あります。
+    </p>
+    <p class="para">
+     以前のバージョンの Perl および PCRE は、このようなパターンに関して
+     コンパイル時にエラーを発生していました。しかし、有用な場合もあるので、
+     現在はこのようなパターンも許可されています。ただし、
+     繰り返しが指定されたサブパターンが文字無しにマッチすると、
+     ループは強制的に中断されます。
+    </p>
+    <p class="para">
+     デフォルトでは、量指定子は「貪欲 (greedy)」です。つまり、
+     残りのパターンが失敗しない限りにおいて、（許可された回数の上限まで）
+     出来るだけ多くマッチします。 この動作が問題を生じる場合もあります。
+     そのよく知られた例としては、 C プログラムのコメントに
+     マッチさせようとする場合が挙げられます。 /* と */ との間が
+     コメントですが、コメント中にも文字 * や / が現れる可能性があります。
+     そこで、C のコメントにマッチさせようとして、パターン
+
+      <pre class="literallayout">
+      /\*.*\*/
+      </pre>
+
+     を使って、文字列
+
+      <pre class="literallayout">
+      /* first comment */  not comment  /* second comment */
+      </pre>
+
+     に対して、マッチングを行うと、文字列全体にマッチしてしまい上手く行きません。
+     .* 要素が貪欲であるためです。
+    </p>
+    <p class="para">
+     しかし、量指定子の後に疑問符を付けると、貪欲さは消え、
+     できるだけ少ない回数だけマッチします。このため、パターン
+
+      <pre class="literallayout">
+      /\*.*?\*/
+      </pre>
+
+    は、C コメントに正しくマッチします。量指定子の他の意味は変化せず、
+    マッチの回数だけが変更されます。疑問符のこの使用法と、
+    量指定子としての使用法とを混同しないようにしてください。
+    このように疑問符には 2 種類の使用法があるため、
+    
+      <pre class="literallayout">
+      \d??\d
+      </pre>
+    
+    のように 2 重に使うこともできます。
+    このパターンは、可能であれば 1 桁の数字にマッチします。
+    パターンの残り部分がそうでないとマッチできない場合に限り、
+    2 桁の数字にもマッチします。
+    </p>
+    <p class="para">
+     <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_UNGREEDY</a> 
+     オプション（Perl ではこのオプションは利用できません）を設定すると、
+     量指定子は、デフォルトで貪欲でなくなり、
+     各量指定子の後ろに疑問符をつけてはじめて貪欲になります。言いかえると、
+     疑問符のデフォルトの動作を逆転します。
+    </p>
+    <p class="para">
+     量指定子の後ろに <i>+</i> を記述すると「独占的 (possessive)」
+     になります。可能なだけ多くの文字を取り込み、パターンの残りの部分のマッチの際に
+     取り込んだ文字を戻すことはしません。したがって、パターン <i>.*abc</i> 
+     は &quot;aabc&quot; にマッチしますが、<i>.*+abc</i> はマッチしません。
+     これは、<i>.*+</i> が対象文字列のすべてを取り込んでしまうためです。
+     独占的量指定子を使って処理速度を向上させることができます。
+    </p>
+    <p class="para">
+     カッコを使ったサブパターンに、最小の繰り返し回数（1 以上）や
+     最大の繰り返し回数を指定した場合、その繰り返し数の大きさに応じて、
+     コンパイル済みのパターンが用いる記憶領域がより多く必要となります。
+    </p>
+    <p class="para">
+     パターンが .* または .{0,} で始まっており、<a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOTALL</a> 
+     オプション（Perl の /s に相当）が設定されている（つまり、
+     . が改行文字にもマッチする）場合、そのパターンは暗黙的に
+     固定パターンになります。.* もしくは .{0,} の後に続くパターンは、
+     対象文字列のすべての位置でマッチングが行われますが、パターン全体としては
+     対象文字列の始端以外でマッチングを再試行しても無駄だからです。PCRE は、
+     このようなパターンについては、その前に \A が記述されているものとして
+     扱います。こうした最適化を利用するために、
+     対象文字列が改行文字を含んでいなことが明らかな場合は、 .* 
+     で始まるパターンに対し <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOTALL</a> を設定するか、
+     ^ を用いて明示的に固定パターンとなるよう指定すると良いでしょう。
+    </p>
+    <p class="para">
+     キャプチャ用サブパターンを繰り返した場合、キャプチャされる値は、
+     繰り返しの最後でマッチした部分文字列です。例えば、
+     
+      <pre class="literallayout">
+      (tweedle[dume]{3}\s*)+
+      </pre>
+
+     を &quot;tweedledum tweedledee&quot; にマッチングさせた場合、キャプチャされる
+     部分文字列は、 &quot;tweedledee&quot; です。しかし、キャプチャ用サブパターンが
+     ネストしている場合、キャプチャされる値は、より前の繰り返しで
+     得られたものとなる可能性があります。例えば
+     
+      <pre class="literallayout">
+      /(a|(b))+/
+      </pre>
+
+     を &quot;aba&quot; にマッチングさせると、キャプチャされた部分文字列の 2 番目のものは、
+     &quot;b&quot; になります。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.subpatterns.html">サブパターン</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.back-references.html">後方参照</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,292 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>正規表現で文字列を分割する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.preg-replace.html">preg_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.regex.html">POSIX Regex</a></div>
+ <div class="up"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.preg-split" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">preg_split</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">preg_split</span> &mdash; <span class="dc-title">正規表現で文字列を分割する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.preg-split-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>preg_split</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$subject</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$limit</tt><span class="initializer"> = -1</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt><span class="initializer"> = 0</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">
+   指定した文字列を、正規表現で分割します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.preg-split-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       検索するパターンを表す文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">subject</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">limit</tt></i></span>
+     <dd>
+
+      <p class="para">
+       これを指定した場合、最大
+       <i><tt class="parameter">limit</tt></i> 個の部分文字列を返します。
+       残りの文字列は、最後の部分文字列に含めて返されます。
+       <i><tt class="parameter">limit</tt></i> が -1、0 あるいは null の場合は「制限が無い」ことを意味します。
+       制限を指定せずに
+       <i><tt class="parameter">flags</tt></i> パラメータを指定したい場合などに null を使用します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">flags</tt></i> は、次のフラグを組み合わせたものとする
+       （ビット和演算子 <i>|</i> で組み合わせる）ことが可能です。
+       <dl>
+
+        <dt>
+
+         <span class="term"><b><tt>PREG_SPLIT_NO_EMPTY</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+          このフラグを設定すると、空文字列でないものだけが
+          <span class="function"><b>preg_split()</b></span> により返されます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>PREG_SPLIT_DELIM_CAPTURE</tt></b></span>
+         <dd>
+
+          <span class="simpara">
+          このフラグを設定すると、文字列分割用のパターン中の
+          カッコによるサブパターンでキャプチャされた値も同時に返されます。
+          </span>
+         </dd>
+
+        </dt>
+
+        <dt>
+
+         <span class="term"><b><tt>PREG_SPLIT_OFFSET_CAPTURE</tt></b></span>
+         <dd>
+
+          <p class="para">
+           このフラグを設定した場合、各マッチに対応する文字列のオフセットも返されます。
+           これにより、返り値は配列となり、配列の要素 <i>0</i>
+           はマッチした文字列、 要素 <i>1</i>
+           は <i><tt class="parameter">subject</tt></i> におけるマッチした文字列のオフセット値となることに
+           注意してください。
+          </p>
+         </dd>
+
+        </dt>
+
+       </dl>
+
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.preg-split-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">pattern</tt></i> にマッチした境界で分割した
+   <i><tt class="parameter">subject</tt></i> の部分文字列の配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.preg-split-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">4.3.0</td>
+       <td align="left">
+        <b><tt>PREG_SPLIT_OFFSET_CAPTURE</tt></b> が追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.5</td>
+       <td align="left">
+        <b><tt>PREG_SPLIT_DELIM_CAPTURE</tt></b> が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.preg-split-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3935">
+    <p><b>例1 <span class="function"><b>preg_split()</b></span> の例 : 検索文字列のある部分を取得</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;カンマまたは&nbsp;"&nbsp;",&nbsp;\r,&nbsp;\t,&nbsp;\n&nbsp;,&nbsp;\f&nbsp;などの空白文字で句を分割する。<br /></span><span style="color: #0000BB">$keywords&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_split</span><span style="color: #007700">(</span><span style="color: #DD0000">"/[\s,]+/"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"hypertext&nbsp;language,&nbsp;programming"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3936">
+    <p><b>例2 文字列を文字要素に分割</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'string'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$chars&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_split</span><span style="color: #007700">(</span><span style="color: #DD0000">'//'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PREG_SPLIT_NO_EMPTY</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$chars</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3937">
+    <p><b>例3 文字列をマッチするものとそのオフセットに分割</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'hypertext&nbsp;language&nbsp;programming'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$chars&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">preg_split</span><span style="color: #007700">(</span><span style="color: #DD0000">'/&nbsp;/'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$str</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PREG_SPLIT_OFFSET_CAPTURE</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$chars</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; Array
+        (
+            [0] =&gt; hypertext
+            [1] =&gt; 0
+        )
+
+    [1] =&gt; Array
+        (
+            [0] =&gt; language
+            [1] =&gt; 10
+        )
+
+    [2] =&gt; Array
+        (
+            [0] =&gt; programming
+            [1] =&gt; 19
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.preg-split-notes">
+  <h3 class="title">注意</h3>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    正規表現の威力を必要としないのなら、より高速な
+    (機能はシンプルですが) 代替関数として
+    <span class="function"><a href="function.explode.html" class="function">explode()</a></span> あるいは <span class="function"><a href="function.str-split.html" class="function">str_split()</a></span>
+    のような選択肢があります。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.preg-split-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="pcre.pattern.html" class="link">PCRE のパターン</a></li>
+    <li class="member"><span class="function"><a href="function.implode.html" class="function" rel="rdfs-seeAlso">implode()</a> - 配列要素を文字列により連結する</span></li>
+    <li class="member"><span class="function"><a href="function.preg-match.html" class="function" rel="rdfs-seeAlso">preg_match()</a> - 正規表現によるマッチングを行う</span></li>
+    <li class="member"><span class="function"><a href="function.preg-match-all.html" class="function" rel="rdfs-seeAlso">preg_match_all()</a> - 繰り返し正規表現検索を行う</span></li>
+    <li class="member"><span class="function"><a href="function.preg-replace.html" class="function" rel="rdfs-seeAlso">preg_replace()</a> - 正規表現検索および置換を行う</span></li>
+    <li class="member"><span class="function"><a href="function.preg-last-error.html" class="function" rel="rdfs-seeAlso">preg_last_error()</a> - 直近の PCRE 正規表現処理のエラーコードを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.preg-replace.html">preg_replace</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.regex.html">POSIX Regex</a></div>
+ <div class="up"><a href="ref.pcre.html">PCRE 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

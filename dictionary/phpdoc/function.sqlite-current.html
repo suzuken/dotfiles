@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>結果セットからカレントのレコードを配列として取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-create-function.html">sqlite_create_function</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-error-string.html">sqlite_error_string</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.sqlite-current" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">sqlite_current</h1>
+  <h1 class="refname">SQLiteResult->current</h1>
+  <h1 class="refname">SQLiteUnbuffered->current</h1>
+  <p class="verinfo">(PHP 5, PECL sqlite &gt;= 1.0.0)</p><p class="refpurpose"><span class="refname">sqlite_current</span> -- <span class="refname">SQLiteResult-&gt;current</span> -- <span class="refname">SQLiteUnbuffered-&gt;current</span> &mdash; <span class="dc-title">結果セットからカレントのレコードを配列として取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.sqlite-current-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>sqlite_current</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$result</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt><span class="initializer"> = SQLITE_BOTH</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt><span class="initializer"> = true</span></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">オブジェクト指向言語型スタイル (メソッド):</p>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">array</span> <span class="methodname"><b>SQLiteResult::current</b></span>
+     ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt><span class="initializer"> = SQLITE_BOTH</span></span>
+    [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt><span class="initializer"> = true</span></span>
+   ]] )</div>
+
+  </div>
+  <div class="classsynopsis">
+   <div class="ooclass"></div>
+   <div class="methodsynopsis dc-description">
+    <span class="type">array</span> <span class="methodname"><b>SQLiteUnbuffered::current</b></span>
+     ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$result_type</tt><span class="initializer"> = SQLITE_BOTH</span></span>
+    [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$decode_binary</tt><span class="initializer"> = true</span></span>
+   ]] )</div>
+
+  </div>
+  <p class="para">
+   <span class="function"><b>sqlite_current()</b></span> は
+   <span class="function"><a href="function.sqlite-fetch-array.html" class="function">sqlite_fetch_array()</a></span> と同じですが、
+   データを返す前に次のレコードに移動せず、カレントの位置からのみデー
+   タを返すという違いがあります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.sqlite-current-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       SQLite 結果リソース。
+       このパラメータは、
+       オブジェクト指向言語型メソッドを使用する場合は不要です。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result_type</tt></i></span>
+     <dd>
+
+      <p class="para">オプションの <i><tt class="parameter">result_type</tt></i>
+パラメータには定数を指定でき、返される配列の添字を定義します。
+<b><tt>SQLITE_ASSOC</tt></b> を用いると、連想配列の添字(名前フィールド)のみが
+返されます。一方、<b><tt>SQLITE_NUM</tt></b> は、
+数値の添字(フィールド番号)のみを返します。<b><tt>SQLITE_BOTH</tt></b> は、
+連想配列の添字と数値の添字の両方を返します。
+<b><tt>SQLITE_BOTH</tt></b> がこの関数のデフォルトです。</p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">decode_binary</tt></i></span>
+     <dd>
+
+      <p class="para">
+<i><tt class="parameter">decode_binary</tt></i> パラメータが <b><tt>TRUE</tt></b> (デフォルト)に
+設定された場合、PHP はバイナリエンコーディングをデコードします。
+これは、<span class="function"><a href="function.sqlite-escape-string.html" class="function">sqlite_escape_string()</a></span> によりエンコードされたデータに
+適用されます。sqlite をサポートする他のアプリケーションにより
+作成されたデータベースを処理する時以外は、この値をデフォルトのままにしておくべきです。</p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.sqlite-current-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果セットからカレントレコードの配列を返します。
+   現在の位置が最終レコード以降の場合、
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+  <p class="para">
+<b><tt>SQLITE_ASSOC</tt></b> および <b><tt>SQLITE_BOTH</tt></b> で
+返されるカラム名は、設定オプション
+<a href="sqlite.configuration.html#ini.sqlite.assoc-case" class="link">sqlite.assoc_case</a> の値に基づき、
+大文字小文字が変換されます。</p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.sqlite-current-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.sqlite-seek.html" class="function" rel="rdfs-seeAlso">sqlite_seek()</a> - 特定のレコード番号へシークする</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-next.html" class="function" rel="rdfs-seeAlso">sqlite_next()</a> - 次のレコード番号へシークする</span></li>
+    <li class="member"><span class="function"><a href="function.sqlite-fetch-array.html" class="function" rel="rdfs-seeAlso">sqlite_fetch_array()</a> - 結果セットから次のレコードを配列として取得する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.sqlite-create-function.html">sqlite_create_function</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.sqlite-error-string.html">sqlite_error_string</a></div>
+ <div class="up"><a href="ref.sqlite.html">SQLite 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>セッションクッキーパラメータを設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-save-path.html">session_save_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-set-save-handler.html">session_set_save_handler</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.session-set-cookie-params" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">session_set_cookie_params</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">session_set_cookie_params</span> &mdash; <span class="dc-title">セッションクッキーパラメータを設定する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.session-set-cookie-params-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>session_set_cookie_params</b></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$lifetime</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$path</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$domain</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$secure</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$httponly</tt><span class="initializer"> = false</span></span>
+  ]]]] )</div>
+
+  <p class="para rdfs-comment">
+   ファイル <var class="filename">php.ini</var> で定義されたクッキーパラメータを設定します。
+   この関数の効果が持続するのは、スクリプトの実行が終了するまでです。
+   したがって、リクエスト毎や <span class="function"><a href="function.session-start.html" class="function">session_start()</a></span>
+   がコールされる前に <span class="function"><b>session_set_cookie_params()</b></span>
+   をコールする必要があります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.session-set-cookie-params-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">lifetime</tt></i></span>
+     <dd>
+
+      <p class="para">
+       セッションクッキーの <a href="session.configuration.html#ini.session.cookie-lifetime" class="link">有効期限</a>。秒数で定義します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">path</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーが動作するドメイン上の
+       <a href="session.configuration.html#ini.session.cookie-path" class="link">パス</a>。単一のスラッシュ (&#039;/&#039;)
+       を指定すると、ドメイン上のすべてのパスで動作します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">domain</tt></i></span>
+     <dd>
+
+      <p class="para">
+       クッキーの <a href="session.configuration.html#ini.session.cookie-domain" class="link">ドメイン</a>。たとえば &#039;www.php.net&#039;。
+       すべてのサブドメインでクッキーを有効にしたい場合は、先頭にドットをつけて
+       &#039;.php.net&#039; のようにします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">secure</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> の場合は、<a href="session.configuration.html#ini.session.cookie-secure" class="link">セキュア</a>
+       な接続の場合にのみクッキーを送信します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">httponly</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> の場合は、PHP でセッションクッキーを設定する際に
+       <a href="session.configuration.html#ini.session.cookie-httponly" class="link">httponly</a> フラグの送信を試みます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.session-set-cookie-params-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.session-set-cookie-params-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left">
+        <i><tt class="parameter">httponly</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">4.0.4</td>
+       <td align="left">
+        <i><tt class="parameter">secure</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.session-set-cookie-params-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member">
+     <a href="session.configuration.html#ini.session.cookie-lifetime" class="link">session.cookie_lifetime</a>
+    </li>
+    <li class="member">
+     <a href="session.configuration.html#ini.session.cookie-domain" class="link">session.cookie_domain</a>
+    </li>
+    <li class="member">
+     <a href="session.configuration.html#ini.session.cookie-secure" class="link">session.cookie_secure</a>
+    </li>
+    <li class="member">
+     <a href="session.configuration.html#ini.session.cookie-httponly" class="link">session.cookie_httponly</a>
+    </li>
+    <li class="member"><span class="function"><a href="function.session-get-cookie-params.html" class="function" rel="rdfs-seeAlso">session_get_cookie_params()</a> - セッションクッキーのパラメータを得る</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.session-save-path.html">session_save_path</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.session-set-save-handler.html">session_set_save_handler</a></div>
+ <div class="up"><a href="ref.session.html">セッション関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

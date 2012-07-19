@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>PUT メソッドのサポート</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="feature-fileupload.multiple.html">複数ファイルのアップロード</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.remote-files.html">リモートファイルの使用</a></div>
+ <div class="up"><a href="features.file-upload.html">ファイルアップロードの処理</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="features.file-upload.put-method" class="sect1">
+   <h2 class="title">PUT メソッドのサポート</h2>
+   <p class="para">
+    PHP は、クライアントがサーバにファイルを保存するための
+    HTTP PUT メソッドのサポートを提供します。
+    PUT リクエストは POST リクエストによるファイルアップロードよりもシンプルであり、
+    次のような形になります。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="HTTPcode"><pre class="HTTPcode">PUT /path/filename.html HTTP/1.1</pre>
+</div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    これは、通常、リモートクライアントが <var class="filename">/path/filename.html</var>
+    が指す内容を Web ツリーに保存したいことを意味します。 Apache または PHP に
+    おいて全ての人が Web ツリー上の任意のファイルを自動的に上書きできる
+    ようにするというのは明らかに良い発想ではありません。よって、このような
+    リクエストを処理する際には、まずそのリクエストを処理する特定の
+    PHP スクリプトが必要なことを web サーバに通知する必要があります。
+    Apache においては、<em class="emphasis">Script</em> ディレクティブにより
+    これを行うことができます。これは、Apache 設定ファイルのほぼ任意の
+    場所に置くことができます。一般的なのは、<i>&lt;Directory&gt;</i>
+    ブロックまたは <i>&lt;VirtualHost&gt;</i> ブロックの中です。次のように指定します。
+    <div class="informalexample">
+     <div class="example-contents">
+<div class="cdata"><pre>
+Script PUT /put.php
+</pre></div>
+    </div>
+
+    </div>
+   </p>
+   <p class="simpara">
+    これにより、この行を指定したコンテキストにマッチする URI を有する
+    すべての PUT リクエストが <var class="filename">put.php</var> スクリプトに送られるよう Apache に
+    指定します。 もちろん、拡張子 <var class="filename">.php</var> により PHP が実行されるよう設定され、
+    PHP がアクティブであることが必要です。
+    このスクリプトに対するすべての PUT リクエストの対象リソースは、
+    スクリプト自身とします。アップロードされるファイルのファイル名ではありません。
+   </p>
+   <p class="simpara">
+    PHP では、put.php の中で以下のようなことを行います。
+    これは、アップロードされたファイルをサーバ上のファイル
+    <var class="filename">myputfile.ext</var> にコピーします。
+    ファイルコピーを行う前には、
+    何らかの確認やユーザ認証を行いたくなるかもしれません。
+   </p>
+   <p class="para">
+    <div class="example" id="example-324">
+     <p><b>例1 HTTP PUT されたファイルの保存</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*&nbsp;PUT&nbsp;されたデータは標準入力からやってきます&nbsp;*/<br /></span><span style="color: #0000BB">$putdata&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"php://input"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"r"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;書き込みモードでファイルをオープンします&nbsp;*/<br /></span><span style="color: #0000BB">$fp&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fopen</span><span style="color: #007700">(</span><span style="color: #DD0000">"myputfile.ext"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"w"</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;データを&nbsp;1&nbsp;KB&nbsp;単位で読み込み、<br />&nbsp;&nbsp;&nbsp;ファイルに書き込みます&nbsp;*/<br /></span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$data&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">fread</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1024</span><span style="color: #007700">))<br />&nbsp;&nbsp;</span><span style="color: #0000BB">fwrite</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$data</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*&nbsp;ストリームを閉じます&nbsp;*/<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$fp</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">fclose</span><span style="color: #007700">(</span><span style="color: #0000BB">$putdata</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="feature-fileupload.multiple.html">複数ファイルのアップロード</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="features.remote-files.html">リモートファイルの使用</a></div>
+ <div class="up"><a href="features.file-upload.html">ファイルアップロードの処理</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

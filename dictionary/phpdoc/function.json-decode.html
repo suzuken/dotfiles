@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>JSON 文字列をデコードする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.json.html">JSON 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.json-encode.html">json_encode</a></div>
+ <div class="up"><a href="ref.json.html">JSON 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.json-decode" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">json_decode</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PECL json &gt;= 1.2.0)</p><p class="refpurpose"><span class="refname">json_decode</span> &mdash; <span class="dc-title">JSON 文字列をデコードする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.json-decode-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>json_decode</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$json</tt></span>
+   [, <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$assoc</tt><span class="initializer"> = false</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$depth</tt><span class="initializer"> = 512</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$options</tt><span class="initializer"> = 0</span></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   JSON エンコードされた文字列を受け取り、それを
+   PHP の変数に変換します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.json-decode-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">json</tt></i></span>
+     <dd>
+
+      <p class="para">
+       デコード対象となる <i><tt class="parameter">json</tt></i> 文字列。
+      </p>
+      <p class="para">
+       この関数は UTF-8 でエンコードされたデータでのみ動作します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">assoc</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b> の場合は、返されるオブジェクトが連想配列形式になります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">depth</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ユーザ指定の再帰の深さ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">options</tt></i></span>
+     <dd>
+
+      <p class="para">
+       JSON デコードオプションのビットマスク。現在サポートしているオプションは
+       <b><tt>JSON_BIGINT_AS_STRING</tt></b> のみです
+       (デフォルトでは、大きな整数値を float に変換します)。
+      </p>
+      <p class="para">
+       <em class="emphasis">この変更は
+<a href="about.phpversions.html" class="link">開発版</a> の PHP に含まれています。
+おそらく 5.3 より先のバージョンになるでしょう。</em>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.json-decode-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">json</tt></i> でエンコードされたデータを、適切な PHP の型として返します。
+   <i>true</i>、<i>false</i> および
+   <i>null</i> (大文字小文字を区別しません) はそれぞれ <b><tt>TRUE</tt></b>、<b><tt>FALSE</tt></b>
+   そして <b><tt>NULL</tt></b> として返されます。
+   <i><tt class="parameter">json</tt></i> のデコードに失敗したり
+   エンコードされたデータが再帰制限を超えていたりした場合は <b><tt>NULL</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.json-decode-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3098">
+    <p><b>例1 <span class="function"><b>json_decode()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'{"a":1,"b":2,"c":3,"d":4,"e":5}'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+object(stdClass)#1 (5) {
+    [&quot;a&quot;] =&gt; int(1)
+    [&quot;b&quot;] =&gt; int(2)
+    [&quot;c&quot;] =&gt; int(3)
+    [&quot;d&quot;] =&gt; int(4)
+    [&quot;e&quot;] =&gt; int(5)
+}
+
+array(5) {
+    [&quot;a&quot;] =&gt; int(1)
+    [&quot;b&quot;] =&gt; int(2)
+    [&quot;c&quot;] =&gt; int(3)
+    [&quot;d&quot;] =&gt; int(4)
+    [&quot;e&quot;] =&gt; int(5)
+}
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-3099">
+    <p><b>例2 もうひとつの例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'{"foo-bar":&nbsp;12345}'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$obj&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">);<br />print&nbsp;</span><span style="color: #0000BB">$obj</span><span style="color: #007700">-&gt;{</span><span style="color: #DD0000">'foo-bar'</span><span style="color: #007700">};&nbsp;</span><span style="color: #FF8000">//&nbsp;12345<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-3100">
+    <p><b>例3 <span class="function"><b>json_decode()</b></span> でのありがちな間違い</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;以下の文字列は&nbsp;JavaScript&nbsp;としては有効ですが&nbsp;JSON&nbsp;としては無効です<br /><br />//&nbsp;名前と値はダブルクォートで囲む必要があります。<br />//&nbsp;シングルクォートは使えません<br /></span><span style="color: #0000BB">$bad_json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"{&nbsp;'bar':&nbsp;'baz'&nbsp;}"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$bad_json</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;null<br /><br />//&nbsp;名前をダブルクォートで囲まなければなりません<br /></span><span style="color: #0000BB">$bad_json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'{&nbsp;bar:&nbsp;"baz"&nbsp;}'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$bad_json</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;null<br /><br />//&nbsp;最後にカンマをつけてはいけません<br /></span><span style="color: #0000BB">$bad_json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'{&nbsp;bar:&nbsp;"baz",&nbsp;}'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$bad_json</span><span style="color: #007700">);&nbsp;</span><span style="color: #FF8000">//&nbsp;null<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+   <div class="example" id="example-3101">
+    <p><b>例4 <i><tt class="parameter">depth</tt></i> エラー</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;データをエンコードします<br /></span><span style="color: #0000BB">$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">(<br />&nbsp;&nbsp;&nbsp;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'English'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'One'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'January'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'French'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Une'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'Janvier'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;)<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;エラーを定義します<br /></span><span style="color: #0000BB">$json_errors&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">JSON_ERROR_NONE&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'No&nbsp;error&nbsp;has&nbsp;occurred'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">JSON_ERROR_DEPTH&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;maximum&nbsp;stack&nbsp;depth&nbsp;has&nbsp;been&nbsp;exceeded'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">JSON_ERROR_CTRL_CHAR&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Control&nbsp;character&nbsp;error,&nbsp;possibly&nbsp;incorrectly&nbsp;encoded'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">JSON_ERROR_SYNTAX&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'Syntax&nbsp;error'</span><span style="color: #007700">,<br />);<br /><br /></span><span style="color: #FF8000">//&nbsp;さまざまな深さのエラーを表示します<br /></span><span style="color: #007700">foreach(</span><span style="color: #0000BB">range</span><span style="color: #007700">(</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;-</span><span style="color: #0000BB">1</span><span style="color: #007700">)&nbsp;as&nbsp;</span><span style="color: #0000BB">$depth</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">True</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$depth</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'Last&nbsp;error&nbsp;:&nbsp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$json_errors</span><span style="color: #007700">[</span><span style="color: #0000BB">json_last_error</span><span style="color: #007700">()],&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">PHP_EOL</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+array(1) {
+  [1]=&gt;
+  array(2) {
+    [&quot;English&quot;]=&gt;
+    array(2) {
+      [0]=&gt;
+      string(3) &quot;One&quot;
+      [1]=&gt;
+      string(7) &quot;January&quot;
+    }
+    [&quot;French&quot;]=&gt;
+    array(2) {
+      [0]=&gt;
+      string(3) &quot;Une&quot;
+      [1]=&gt;
+      string(7) &quot;Janvier&quot;
+    }
+  }
+}
+Last error : No error has occurred
+
+NULL
+Last error : The maximum stack depth has been exceeded
+</pre></div>
+    </div>
+   </div>
+   <div class="example" id="example-3102">
+    <p><b>例5 <span class="function"><b>json_decode()</b></span> で大きな整数値を扱う例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$json&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'12345678901234567890'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">json_decode</span><span style="color: #007700">(</span><span style="color: #0000BB">$json</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">false</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">512</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">JSON_BIGINT_AS_STRING</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+float(1.2345678901235E+19)
+string(20) &quot;12345678901234567890&quot;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.json-decode-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    JSON の仕様は JavaScript そのものではなく、JavaScript のサブセットです。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    デコードに失敗した場合は、<span class="function"><a href="function.json-last-error.html" class="function">json_last_error()</a></span>
+    を使用すればエラーの正確な状態を知ることができます。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.json-decode-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">将来のバージョン</td>
+       <td align="left">
+        <i><tt class="parameter">options</tt></i> パラメータが追加されました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">オプションの <i><tt class="parameter">depth</tt></i> が追加されました。デフォルトの再帰の深さが 128 から 512 に増えました。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.3</td>
+       <td align="left">ネストの制限が 20 から 128 に拡張されました。</td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.json-decode-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.json-encode.html" class="function" rel="rdfs-seeAlso">json_encode()</a> - 値を JSON 形式にして返す</span></li>
+    <li class="member"><span class="function"><a href="function.json-last-error.html" class="function" rel="rdfs-seeAlso">json_last_error()</a> - 直近に発生したエラーを返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="ref.json.html">JSON 関数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.json-encode.html">json_encode</a></div>
+ <div class="up"><a href="ref.json.html">JSON 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

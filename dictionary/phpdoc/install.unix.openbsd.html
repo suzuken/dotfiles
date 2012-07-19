@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>OpenBSD へのインストール</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.unix.hpux.html">HP-UX へのインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.unix.solaris.html">Solaris へのインストール</a></div>
+ <div class="up"><a href="install.unix.html">Unix システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="install.unix.openbsd" class="sect1">
+ <h2 class="title">OpenBSD へのインストール</h2>
+ <p class="para">
+ このセクションでは、PHP を <a href="http://www.openbsd.org/" class="link external">&raquo; OpenBSD 3.6</a> に
+ インストールする場合に固有の注意事項とヒントについて説明します。
+ </p>
+ <div class="sect2" id="install.unix.openbsd.packages">
+  <h3 class="title">バイナリパッケージの使用</h3>
+   <p class="simpara">
+    OpenBSD に PHP をインストールするには、バイナリパッケージを使用することが
+    もっとも簡単で、また推奨される方法です。
+    コアパッケージは他のモジュールと分けられており、別個に
+    インストールしたり、削除したりすることができます。OpenBSD の CD や FTP サイトから
+    必要なファイルを見つけることができます。
+   </p>
+   <p class="simpara">
+    インストールに必要なメインのパッケージは <var class="filename">php4-core-4.3.8.tgz</var>
+    です。これには基本エンジン (と gettext と iconv) が含まれています。次に、
+    <var class="filename">php4-mysql-4.3.8.tgz</var> や
+    <var class="filename">php4-imap-4.3.8.tgz</var> のようなモジュールパッケージを
+    探してください。これらのモジュールを <var class="filename">php.ini</var> 上で有効/無効にするには
+    <strong class="command">phpxs</strong> コマンドを使用する必要があります。
+   </p>
+   <div class="example" id="install.unix.openbsd.ports.example">
+    <p><b>例1 OpenBSD パッケージインストールの例</b></p>
+    <div class="example-contents">
+<div class="shellcode"><pre class="shellcode"># pkg_add php4-core-4.3.8.tgz
+# /usr/local/sbin/phpxs -s
+# cp /usr/local/share/doc/php4/php.ini-recommended /var/www/conf/php.ini
+  (add in mysql)
+# pkg_add php4-mysql-4.3.8.tgz
+# /usr/local/sbin/phpxs -a mysql
+  (add in imap)
+# pkg_add php4-imap-4.3.8.tgz
+# /usr/local/sbin/phpxs -a imap
+  (remove mysql as a test)
+# pkg_delete php4-mysql-4.3.8
+# /usr/local/sbin/phpxs -r mysql
+  (install the PEAR libraries)
+# pkg_add php4-pear-4.3.8.tgz</pre>
+</div>
+    </div>
+
+   </div>
+   <p class="simpara">
+   OpenBSD のバイナリパッケージに関する詳細は、man ページの
+   <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=packages" class="link external">&raquo; packages(7)</a> を
+   参照してください。
+   </p>
+ </div>
+ <div class="sect2" id="install.unix.openbsd.ports">
+  <h3 class="title">Ports の使用</h3>
+  <p class="simpara">
+   <a href="http://www.openbsd.org/ports.html" class="link external">&raquo; ports ツリー</a> を使って PHP のソースを
+   コンパイルすることもできます。ただし、この方法は OpenBSD に詳しいユーザにのみ
+   推奨されます。PHP 4 ポートは core, extensions の 2 つのサブディレクトリに
+   分割されています。extensions ディレクトリはサポートされているすべての PHP
+   モジュールのサブパッケージを生成します。
+   これらのうちのいずれかのモジュールを生成したくない場合には、
+   <strong class="command">no_*</strong> FLAVOR を使用してください。例えば、imap モジュール
+   のビルドをスキップするには FLAVOR を <strong class="command">no_imap</strong> に
+   セットします。
+  </p>
+ </div>
+ <div class="sect2" id="install.unix.openbsd.faq">
+  <h3 class="title">一般的な問題点</h3>
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">
+      Apache は、デフォルトインストールでは、
+      <a href="http://www.openbsd.org/cgi-bin/man.cgi?query=chroot" class="link external">&raquo; chroot(2) jail</a> 内で実行されます。
+      これにより、PHP は、<var class="filename">/var/www</var> 以下のファイルにしか
+      アクセスできないように制限されます。そのため、セッションを使用するには、
+      <var class="filename">/var/www/tmp</var> ディレクトリを作成するか、他のセッションバックエンドを
+      用いる必要があります。また、データベースのソケットは jail 内に置かれるか、
+      <var class="filename">localhost</var> インタフェイスが listen できるようにする必要があります。
+      ネットワーク関数を使用する場合は、<var class="filename">/etc</var> 内のファイル、たとえば
+      <var class="filename">/etc/resolv.conf</var> や <var class="filename">/etc/services</var> を、
+      <var class="filename">/var/www/etc</var> に移動させる必要があります。
+      OpenBSD の PEAR パッケージは、適切な chroot 内のディレクトリに自動的にインストールされますので、
+      特に修正は必要ありません。OpenBSD における Apache についての詳細は
+      <a href="http://www.openbsd.org/faq/faq10.html#httpdchroot" class="link external">&raquo; OpenBSD FAQ</a> を参照してください。
+    </span>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+    OpenBSD 3.6 においては、<a href="http://www.libgd.org/" class="link external">&raquo; gd</a> 拡張モジュールのパッケージは
+    XFree86 のインストールを必要とします。X11 が必要となるいくつかのフォント機能を使わない場合は、
+    代わりに <var class="filename">php4-gd-4.3.8-no_x11.tgz</var> パッケージをインストールしてください。
+    </span>
+   </li>
+  </ul>
+ </div>
+   
+ <div class="sect2" id="install.unix.openbsd.older">
+  <h3 class="title">過去のリリース</h3>
+  <p class="simpara">
+   OpenBSD の過去のリリースは、静的にリンクされた PHP をコンパイルするために
+   FLAVORS システムを使用していました。
+   この方法でバイナリパッケージを作成することは困難なため、
+   この方法は現在は使用されていません。
+   古い安定版の ports ツリーを使用することもできますが、
+   これらは OpenBSD チームによりサポートされていません。
+   これに関するコメントがある場合、port の現在の管理者は
+   Anil Madhavapeddy (avsm at openbsd dot org) です。
+  </p>
+ </div>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="install.unix.hpux.html">HP-UX へのインストール</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="install.unix.solaris.html">Solaris へのインストール</a></div>
+ <div class="up"><a href="install.unix.html">Unix システムへのインストール</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ある拡張機能がロードされているかどうかを調べる</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dl.html">dl</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gc-collect-cycles.html">gc_collect_cycles</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.extension-loaded" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">extension_loaded</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">extension_loaded</span> &mdash; <span class="dc-title">ある拡張機能がロードされているかどうかを調べる</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.extension-loaded-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>extension_loaded</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$name</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   拡張モジュールがロードされているかどうかを調べます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.extension-loaded-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       拡張モジュールの名前。
+      </p>
+      <p class="para">
+       <span class="function"><a href="function.phpinfo.html" class="function">phpinfo()</a></span>を使って種々の拡張モジュールの
+       名前を見ることができます。PHP の
+       <i>CGI</i>または<i>CLI</i>バージョン
+       を使っている場合には <strong class="option unknown">-m</strong>
+ スイッチで、
+       使用できる全ての拡張モジュールのリストを得ることができます:
+       <div class="example-contents screen">
+<div class="cdata"><pre>
+$ php -m
+[PHP Modules]
+xml
+tokenizer
+standard
+sockets
+session
+posix
+pcre
+overload
+mysql
+mbstring
+ctype
+
+[Zend Modules]
+</pre></div>
+       </div>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.extension-loaded-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i><tt class="parameter">name</tt></i> で指定する拡張機能がロードされている場合に
+   <b><tt>TRUE</tt></b> を返します。さもなければ <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.extension-loaded-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-419">
+   <p><b>例1 <span class="function"><b>extension_loaded()</b></span> の例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">extension_loaded</span><span style="color: #007700">(</span><span style="color: #DD0000">'gd'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!</span><span style="color: #0000BB">dl</span><span style="color: #007700">(</span><span style="color: #DD0000">'gd.so'</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.extension-loaded-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left">
+        <span class="function"><b>extension_loaded()</b></span> は、
+        内部的な拡張モジュール名を使ってそのモジュールが使用可能かどうかを判断します。
+        内部的な拡張モジュール名はほとんどの場合は小文字ですが、
+        大文字を使っているものもあるかもしれません。PHP 5 より前のバージョンでは、
+        この関数は大文字小文字を区別して名前を比較していました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.extension-loaded-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.get-loaded-extensions.html" class="function" rel="rdfs-seeAlso">get_loaded_extensions()</a> - コンパイル/ロードされている全てのモジュールの名前を配列として返す</span></li>
+    <li class="member"><span class="function"><a href="function.get-extension-funcs.html" class="function" rel="rdfs-seeAlso">get_extension_funcs()</a> - あるモジュールの関数名を配列として返す</span></li>
+    <li class="member"><span class="function"><a href="function.phpinfo.html" class="function" rel="rdfs-seeAlso">phpinfo()</a> - PHP の設定情報を出力する</span></li>
+    <li class="member"><span class="function"><a href="function.dl.html" class="function" rel="rdfs-seeAlso">dl()</a> - 実行時に PHP 拡張モジュールをロードする</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.dl.html">dl</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.gc-collect-cycles.html">gc_collect_cycles</a></div>
+ <div class="up"><a href="ref.info.html">PHP オプション/情報 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

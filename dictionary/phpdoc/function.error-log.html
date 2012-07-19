@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>エラーメッセージを送信する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.error-get-last.html">error_get_last</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.error-reporting.html">error_reporting</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.error-log" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">error_log</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">error_log</span> &mdash; <span class="dc-title">エラーメッセージを送信する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.error-log-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>error_log</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$message</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$message_type</tt><span class="initializer"> = 0</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$destination</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$extra_headers</tt></span>
+  ]]] )</div>
+
+  <p class="para rdfs-comment">
+   エラーメッセージを Web サーバのエラーログあるいはファイルに送ります。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.error-log-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">message</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ログに記録されるエラーメッセージ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">message_type</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージをどこに送るのかを指定します。以下の中から指定できます。
+      </p>
+      <p class="para">
+       <table class="doctable table">
+        <caption><b><span class="function"><b>error_log()</b></span> ログタイプ</b></caption>
+        
+         <tbody valign="middle" class="tbody">
+          <tr valign="middle">
+           <td align="left">0</td>
+           <td align="left">
+            <i><tt class="parameter">message</tt></i> は、オペレーティング・システム
+            のシステムログのメカニズムまたはファイルのいずれかを使って
+            PHP のシステム・ロガーに送られます。どちらが使われるかは、
+            設定ディレクティブ <a href="errorfunc.configuration.html#ini.error-log" class="link">error_log</a> 
+            の内容により決定されます。これはデフォルトのオプションです。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">1</td>
+           <td align="left">
+            <i><tt class="parameter">message</tt></i> は、<i><tt class="parameter">destination
+            </tt></i> パラメータで指定されたアドレスに、電子メール
+            により送られます。このメッセージタイプの場合にのみ、
+            4 番目のパラメータである <i><tt class="parameter">extra_headers</tt></i>
+            が使われます。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">2</td>
+           <td align="left">
+            このオプションは存在しません。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">3</td>
+           <td align="left">
+            <i><tt class="parameter">message</tt></i> は <i><tt class="parameter">destination
+            </tt></i> で指定されたファイルに追加されます。
+            明示的に指定しない限り、<i><tt class="parameter">message</tt></i> の
+            最後には改行文字は追加されません。
+           </td>
+          </tr>
+
+          <tr valign="middle">
+           <td align="left">4</td>
+           <td align="left">
+           <i><tt class="parameter">message</tt></i> は、直接 SAPI
+           のログ出力ハンドラに送信されます。
+           </td>
+          </tr>
+
+         </tbody>
+        
+       </table>
+
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">destination</tt></i></span>
+     <dd>
+
+      <p class="para">
+       メッセージの送信先。その設定は、上で説明している
+       <i><tt class="parameter">message_type</tt></i> パラメータの値によります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">extra_headers</tt></i></span>
+     <dd>
+
+      <p class="para">
+       追加のヘッダ。<i><tt class="parameter">message_type</tt></i> パラメータが
+       <i>1</i> に設定される場合に利用されます。
+       このメッセージタイプは、<span class="function"><a href="function.mail.html" class="function">mail()</a></span> と同様に
+       内部関数を利用します。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.error-log-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.error-log-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+     <tr valign="middle">
+       <td align="left">5.2.7</td>
+       <td align="left">
+        <i><tt class="parameter">message_type</tt></i> の値として 4 が使用できるようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.error-log-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-405">
+    <p><b>例1 <span class="function"><b>error_log()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;データベースに接続できない場合、<br />//&nbsp;サーバログを通してエラーを通知する。<br /></span><span style="color: #007700">if&nbsp;(!</span><span style="color: #0000BB">Ora_Logon</span><span style="color: #007700">(</span><span style="color: #0000BB">$username</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"オラクルのデータベースが使用できません!"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;FOO&nbsp;に失敗したら、管理者に&nbsp;email&nbsp;で通知する<br /></span><span style="color: #007700">if&nbsp;(!(</span><span style="color: #0000BB">$foo&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">allocate_new_foo</span><span style="color: #007700">()))&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"大変です。FOO&nbsp;に失敗しました!"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">"operator@example.com"</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;これ以外の&nbsp;error_log()&nbsp;のコール方法：<br /></span><span style="color: #0000BB">error_log</span><span style="color: #007700">(</span><span style="color: #DD0000">"大変だ!"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"/var/tmp/my-errors.log"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.error-get-last.html">error_get_last</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.error-reporting.html">error_reporting</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

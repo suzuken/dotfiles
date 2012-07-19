@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>HTTP 入出力</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mbstring.ja-basic.html">日本語のマルチバイト文字に関する基本事項</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mbstring.supported-encodings.html">サポートされる文字エンコーディング</a></div>
+ <div class="up"><a href="book.mbstring.html">マルチバイト文字列</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mbstring.http" class="chapter">
+ <h1>HTTP 入出力</h1>
+
+ <p class="para">
+  HTTP 入出力の文字エンコーディング変換はバイナリデータも変換して
+  しまいます。HTTP 入出力にバイナリデータが使用される場合、ユーザは、
+  文字エンコーディング変換を制御する必要があります。
+ </p>
+ <blockquote class="note"><p><b class="note">注意</b>: 
+  <p class="para">
+   PHP 4.3.2 およびそれ以前のバージョンの場合、
+   HTML フォームの<i>enctype</i> が
+   <i>multipart/form-data</i> に設定された場合、
+   <i>mbstring</i> は、POST データの文字エンコーディングを変換しません。
+   この場合、文字列を内部文字エンコーディングに変換してやる必要があります。
+  </p>
+  <p class="para">
+   PHP 4.3.3 以降、HTML フォームの <i>enctype</i> が
+   <i>multipart/form-data</i> に設定され、かつ、
+   <var class="filename">php.ini</var> において
+   <i>mbstring.encoding_translation</i> に On
+   が指定されている場合、
+   POST データの変数とアップロードされたファイルの名前の文字エンコーディングは、
+   内部文字エンコーディングに変換されます。
+   ただし、クエリキーに関しては、変換されません。
+  </p>
+ </p></blockquote>
+ <p class="para">
+  <ul class="itemizedlist">
+   <li class="listitem">
+    <span class="simpara">
+     HTTP 入力
+    </span>
+    <p class="para"> 
+     PHP スクリプトで HTTP 入力文字変換を制御する手段はありません。
+     HTTP 入力文字変換を無効にするには、<var class="filename">php.ini</var>
+     で行う必要があります。
+     <div class="example" id="example-2179">
+      <p><b>例1 
+       <var class="filename">php.ini</var> で HTTP 入力変換を無効にする
+      </b></p>
+      <div class="example-contents">
+<div class="php.inicode"><pre class="php.inicode">;; HTTP 入力変換を無効にする
+mbstring.http_input = pass
+;; HTTP 入力変換を無効にする (PHP 4.3.0 以降)
+mbstring.encoding_translation = Off</pre>
+</div>
+      </div>
+
+     </div>
+    </p>
+    <p class="para">
+     PHP を Apache モジュールで使用する場合、<var class="filename">php.ini</var> の設定を
+     <var class="filename">httpd.conf</var> により仮想ホスト単位で、または
+     <var class="filename">.htaccess</var> によりディレクトリ単位で上書きすることが可能です。
+     詳細は、<a href="configuration.html" class="link">設定</a>の節および
+     Apache マニュアルを参照ください。
+    </p>
+   </li>
+   <li class="listitem">
+    <span class="simpara">
+     HTTP 出力
+    </span>
+    <p class="para">
+     出力の文字エンコーディング変換を有効にする方法は複数あります。
+     まず <var class="filename">php.ini</var>、もうひとつは
+     <span class="function"><a href="function.ob-start.html" class="function">ob_start()</a></span> で <i>ob_start</i>
+     のコールバック関数として
+     <span class="function"><a href="function.mb-output-handler.html" class="function">mb_output_handler()</a></span> を指定するものです。
+    </p>
+   </li>
+  </ul>
+ </p>
+ <p class="para">
+  <div class="example" id="example-2180">
+   <p><b>例2 <var class="filename">php.ini</var> の設定例</b></p>
+   <div class="example-contents">
+<div class="cdata"><pre>
+;; 全ての PHP ページで出力の文字エンコーディング変換を有効にする
+
+;; 出力バッファリングを有効にする
+output_buffering    = On
+
+;; mb_output_handler による出力変換を有効にする
+output_handler      = mb_output_handler
+</pre></div>
+   </div>
+
+  </div>
+ </p>
+ <p class="para">
+  <div class="example" id="example-2181">
+   <p><b>例3 スクリプトの例</b></p>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;このページでのみ出力の文字エンコーディング変換を有効にする<br /><br />//&nbsp;HTTP&nbsp;出力文字エンコーディングをSJISに設定する<br /></span><span style="color: #0000BB">mb_http_output</span><span style="color: #007700">(</span><span style="color: #DD0000">'SJIS'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;出力のバッファリングを開始し、コールバック関数として"mb_output_handler"<br />//&nbsp;を指定する<br /></span><span style="color: #0000BB">ob_start</span><span style="color: #007700">(</span><span style="color: #DD0000">'mb_output_handler'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+ </p>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mbstring.ja-basic.html">日本語のマルチバイト文字に関する基本事項</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mbstring.supported-encodings.html">サポートされる文字エンコーディング</a></div>
+ <div class="up"><a href="book.mbstring.html">マルチバイト文字列</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

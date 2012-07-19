@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>大文字小文字を区別しない &quot;自然順&quot; アルゴリズムでエントリをソートする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="arrayobject.ksort.html">ArrayObject::ksort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="arrayobject.natsort.html">ArrayObject::natsort</a></div>
+ <div class="up"><a href="class.arrayobject.html">ArrayObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="arrayobject.natcasesort" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ArrayObject::natcasesort</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">ArrayObject::natcasesort</span> &mdash; <span class="dc-title">大文字小文字を区別しない &quot;自然順&quot; アルゴリズムでエントリをソートする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-arrayobject.natcasesort-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><span class="type void">void</span></span> <span class="methodname"><b>ArrayObject::natcasesort</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   このメソッドは、大文字小文字を区別しない
+   <a href="arrayobject.natsort.html" class="link">ArrayObject::natsort</a>
+   です。
+  </p>
+  <p class="para">
+   このメソッドは、英数字からなる文字列を人間が並び替えるのと同じようなアルゴリズムでソートし、
+   キーと値の対応は保持します。このようなソートのことを &quot;自然順&quot; と呼びます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-arrayobject.natcasesort-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-arrayobject.natcasesort-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   値を返しません。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-arrayobject.natcasesort-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3308">
+    <p><b>例1 <span class="function"><b>ArrayObject::natcasesort()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$array&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'IMG0.png'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'img12.png'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'img10.png'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'img2.png'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'img1.png'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'IMG3.png'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$arr1&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ArrayObject</span><span style="color: #007700">(</span><span style="color: #0000BB">$array</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$arr2&nbsp;</span><span style="color: #007700">=&nbsp;clone&nbsp;</span><span style="color: #0000BB">$arr1</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$arr1</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">asort</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #DD0000">"Standard&nbsp;sorting\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr1</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$arr2</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">natcasesort</span><span style="color: #007700">();<br />echo&nbsp;</span><span style="color: #DD0000">"\nNatural&nbsp;order&nbsp;sorting&nbsp;(case-insensitive)\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$arr2</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Standard sorting
+ArrayObject Object
+(
+    [0] =&gt; IMG0.png
+    [5] =&gt; IMG3.png
+    [4] =&gt; img1.png
+    [2] =&gt; img10.png
+    [1] =&gt; img12.png
+    [3] =&gt; img2.png
+)
+
+Natural order sorting (case-insensitive)
+ArrayObject Object
+(
+    [0] =&gt; IMG0.png
+    [4] =&gt; img1.png
+    [3] =&gt; img2.png
+    [5] =&gt; IMG3.png
+    [2] =&gt; img10.png
+    [1] =&gt; img12.png
+)
+</pre></div>
+    </div>
+    <div class="example-contents"><p>
+     より詳細な情報は、Martin Pool の <a href="http://sourcefrog.net/projects/natsort/" class="link external">&raquo; Natural Order String Comparison</a>
+     を参照ください。
+    </p></div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="arrayobject.ksort.html">ArrayObject::ksort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="arrayobject.natsort.html">ArrayObject::natsort</a></div>
+ <div class="up"><a href="class.arrayobject.html">ArrayObject</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

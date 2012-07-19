@@ -1,0 +1,506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ビット演算子</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.assignment.html">代入演算子</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.comparison.html">比較演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="language.operators.bitwise" class="sect1">
+   <h2 class="title">ビット演算子</h2>
+   <p class="simpara">
+    ビット演算子は、整数値の特定のビットの評価や操作を行います。
+   </p>
+   <table class="doctable table">
+    <caption><b>ビット演算子</b></caption>
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>例</th>
+       <th>名前</th>
+       <th>結果</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>$a &amp; $b</code></strong></td>
+       <td align="left">ビット積</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> および <var class="varname"><var class="varname">$b</var></var> の両方にセットされているビットがセットされます</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>$a | $b</code></strong></td>
+       <td align="left">ビット和</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> または <var class="varname"><var class="varname">$b</var></var> のどちらかにセットされているビットがセットされます</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>$a ^ $b</code></strong></td>
+       <td align="left">排他的論理和</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> または <var class="varname"><var class="varname">$b</var></var> のどちらか一方にセットされており、両方にセットされていないビットがセットされます</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>~ $a</code></strong></td>
+       <td align="left">否定</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> にセットされているビットはセットせず、そうでないものは逆にします</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>$a &lt;&lt; $b</code></strong></td>
+       <td align="left">左シフト</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> のビットを左に <var class="varname"><var class="varname">$b</var></var> ビットシフトする (各シフトは &quot;2をかける&quot;
+    ことを意味します)
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left"><strong class="userinput"><code>$a &gt;&gt; $b</code></strong></td>
+       <td align="left">右シフト</td>
+       <td align="left"><var class="varname"><var class="varname">$a</var></var> のビットを右に <var class="varname"><var class="varname">$b</var></var> ビットシフトします (各シフトは &quot;2で割る&quot;
+    ことを意味します)
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+   <p class="para">
+    PHP のシフト処理は算術シフトです。両端からあふれたビットは捨てられます。
+    左シフトをすると右側にはゼロが埋められます。
+    符号ビットは左端からあふれて消えます。
+    つまり、オペランドの符号は維持されないということです。
+    右シフトの際には、符号ビットと同じ内容が左端から埋められます。
+    つまり、この場合はオペランドの符号が維持されます。
+   </p>
+   <p class="para">
+    括弧を使うことで、望みどおりの
+    <a href="language.operators.precedence.html" class="link">優先順位</a>
+    で処理させることができます。たとえば、<i>$a &amp; $b == true</i>
+    はまず等価かどうかを評価してからビット演算を行いますが
+    <i>($a &amp; $b) == true</i>
+    はまずビット演算を行ってから等価かどうかを評価します。
+   </p>
+   <p class="para">
+    データ型の変換に注意しましょう。両辺のパラメータが文字列の場合、
+    ビット演算子は文字の ASCII コードで演算を行います。
+   </p>
+   <p class="para">
+    <div class="informalexample">
+     <p class="para">
+      <pre class="literallayout">
+PHP の ini 設定 error_reporting はビット値を用いています。
+これを用いて、特定のビットを落とす演算の例を見てみましょう。
+notice 以外のすべてのエラーを表示させるには、
+php.ini ファイルで
+<strong class="userinput"><code>E_ALL &amp; ~E_NOTICE</code></strong>
+と指定することになります。
+      </pre>
+     </p>
+     <p class="para">
+      <pre class="literallayout">
+まずは E_ALL。
+<span class="computeroutput">00000000000000000111011111111111</span>
+そして E_NOTICE...。
+<span class="computeroutput">00000000000000000000000000001000</span>
+... これを <i>~</i> で逆転させます。
+<span class="computeroutput">11111111111111111111111111110111</span>
+最後に AND (&amp;) を使い、両方ともビットが立っているところをみつけます。
+<span class="computeroutput">00000000000000000111011111110111</span>
+      </pre>
+     </p>
+     <p class="para">
+      <pre class="literallayout">
+同じ結果を得るもうひとつの方法として、 XOR (<i>^</i>)
+を使ってどちらか一方だけ立っているビットを探すという方法もあります。
+<strong class="userinput"><code>E_ALL ^ E_NOTICE</code></strong>
+      </pre>
+     </p>
+    </div>
+   </p>
+   <p class="para">
+    <div class="informalexample">
+     <p class="para">
+      <pre class="literallayout">
+error_reporting を使って、特定のビットを立てる処理の例を見てみましょう。
+通常のエラーとリカバー可能なエラーだけを表示させるには、次のようにします。
+<strong class="userinput"><code>E_ERROR | E_RECOVERABLE_ERROR</code></strong>
+      </pre>
+     </p>
+     <p class="para">
+      <pre class="literallayout">
+この処理は、 E_ERROR
+<span class="computeroutput">00000000000000000000000000000001</span>
+と
+<span class="computeroutput">00000000000000000001000000000000</span>
+を OR (<i>|</i>) 演算子でつないで、
+少なくともどちらかのビットが立っているところを取得します。
+<span class="computeroutput">00000000000000000001000000000001</span>
+      </pre>
+     </p>
+    </div>
+   </p>
+   <p class="para">
+    <div class="example" id="example-106">
+     <p><b>例1 整数値におけるビット AND、OR および XOR 演算</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;このへんは無視してください。<br />&nbsp;*&nbsp;たんに結果をきれいに表示させるためだけのものです。<br />&nbsp;*/<br /><br /></span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'(%1$2d&nbsp;=&nbsp;%1$04b)&nbsp;=&nbsp;(%2$2d&nbsp;=&nbsp;%2$04b)'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">'&nbsp;%3$s&nbsp;(%4$2d&nbsp;=&nbsp;%4$04b)'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br />echo&nbsp;&lt;&lt;&lt;EOH<br /></span><span style="color: #DD0000">&nbsp;---------&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---------&nbsp;&nbsp;--&nbsp;---------<br />&nbsp;result&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;op&nbsp;test<br />&nbsp;---------&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---------&nbsp;&nbsp;--&nbsp;---------<br /></span><span style="color: #007700">EOH;<br /><br /><br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;ここからが本番<br />&nbsp;*/<br /><br /></span><span style="color: #0000BB">$values&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$test&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1&nbsp;</span><span style="color: #007700">+&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n&nbsp;Bitwise&nbsp;AND&nbsp;\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$values&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">&amp;&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&amp;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">);<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n&nbsp;Bitwise&nbsp;Inclusive&nbsp;OR&nbsp;\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$values&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'|'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">);<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n&nbsp;Bitwise&nbsp;Exclusive&nbsp;OR&nbsp;(XOR)&nbsp;\n"</span><span style="color: #007700">;<br />foreach&nbsp;(</span><span style="color: #0000BB">$values&nbsp;</span><span style="color: #007700">as&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$value&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$value</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'^'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$test</span><span style="color: #007700">);<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+ ---------     ---------  -- ---------
+ result        value      op test
+ ---------     ---------  -- ---------
+ Bitwise AND
+( 0 = 0000) = ( 0 = 0000) &amp; ( 5 = 0101)
+( 1 = 0001) = ( 1 = 0001) &amp; ( 5 = 0101)
+( 0 = 0000) = ( 2 = 0010) &amp; ( 5 = 0101)
+( 4 = 0100) = ( 4 = 0100) &amp; ( 5 = 0101)
+( 0 = 0000) = ( 8 = 1000) &amp; ( 5 = 0101)
+
+ Bitwise Inclusive OR
+( 5 = 0101) = ( 0 = 0000) | ( 5 = 0101)
+( 5 = 0101) = ( 1 = 0001) | ( 5 = 0101)
+( 7 = 0111) = ( 2 = 0010) | ( 5 = 0101)
+( 5 = 0101) = ( 4 = 0100) | ( 5 = 0101)
+(13 = 1101) = ( 8 = 1000) | ( 5 = 0101)
+
+ Bitwise Exclusive OR (XOR)
+( 5 = 0101) = ( 0 = 0000) ^ ( 5 = 0101)
+( 4 = 0100) = ( 1 = 0001) ^ ( 5 = 0101)
+( 7 = 0111) = ( 2 = 0010) ^ ( 5 = 0101)
+( 1 = 0001) = ( 4 = 0100) ^ ( 5 = 0101)
+(13 = 1101) = ( 8 = 1000) ^ ( 5 = 0101)
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <p class="para">
+    <div class="example" id="example-107">
+     <p><b>例2 文字列でのビット XOR 演算</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">12&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #0000BB">9</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;'5'<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"12"&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #DD0000">"9"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;出力はバックスペース文字&nbsp;(ascii&nbsp;8)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;('1'&nbsp;(ascii&nbsp;49))&nbsp;^&nbsp;('9'&nbsp;(ascii&nbsp;57))&nbsp;=&nbsp;#8<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"hallo"&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #DD0000">"hello"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は、ascii&nbsp;コード&nbsp;#0&nbsp;#4&nbsp;#0&nbsp;#0&nbsp;#0<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;'a'&nbsp;^&nbsp;'e'&nbsp;=&nbsp;#4<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #DD0000">"3"</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;2&nbsp;^&nbsp;((int)"3")&nbsp;==&nbsp;1<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"2"&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;&nbsp;</span><span style="color: #FF8000">//&nbsp;出力は&nbsp;1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;((int)"2")&nbsp;^&nbsp;3&nbsp;==&nbsp;1<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+    </div>
+   </p>
+   <p class="para">
+    <div class="example" id="example-108">
+     <p><b>例3 整数値のビットシフト</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;これが例です<br />&nbsp;*/<br /><br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">"\n---&nbsp;BIT&nbsp;SHIFT&nbsp;RIGHT&nbsp;ON&nbsp;POSITIVE&nbsp;INTEGERS&nbsp;---\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'copy&nbsp;of&nbsp;sign&nbsp;bit&nbsp;shifted&nbsp;into&nbsp;left&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bits&nbsp;shift&nbsp;out&nbsp;right&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'same&nbsp;result&nbsp;as&nbsp;above;&nbsp;can&nbsp;not&nbsp;shift&nbsp;beyond&nbsp;0'</span><span style="color: #007700">);<br /><br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n---&nbsp;BIT&nbsp;SHIFT&nbsp;RIGHT&nbsp;ON&nbsp;NEGATIVE&nbsp;INTEGERS&nbsp;---\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'copy&nbsp;of&nbsp;sign&nbsp;bit&nbsp;shifted&nbsp;into&nbsp;left&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bits&nbsp;shift&nbsp;out&nbsp;right&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&gt;&gt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&gt;&gt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'same&nbsp;result&nbsp;as&nbsp;above;&nbsp;can&nbsp;not&nbsp;shift&nbsp;beyond&nbsp;-1'</span><span style="color: #007700">);<br /><br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n---&nbsp;BIT&nbsp;SHIFT&nbsp;LEFT&nbsp;ON&nbsp;POSITIVE&nbsp;INTEGERS&nbsp;---\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'zeros&nbsp;fill&nbsp;in&nbsp;right&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'sign&nbsp;bits&nbsp;get&nbsp;shifted&nbsp;out'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bits&nbsp;shift&nbsp;out&nbsp;left&nbsp;side'</span><span style="color: #007700">);<br /><br /><br />echo&nbsp;</span><span style="color: #DD0000">"\n---&nbsp;BIT&nbsp;SHIFT&nbsp;LEFT&nbsp;ON&nbsp;NEGATIVE&nbsp;INTEGERS&nbsp;---\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'zeros&nbsp;fill&nbsp;in&nbsp;right&nbsp;side'</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">=&nbsp;-</span><span style="color: #0000BB">4</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$places&nbsp;</span><span style="color: #007700">=&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;-&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$val&nbsp;</span><span style="color: #007700">&lt;&lt;&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'&lt;&lt;'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'bits&nbsp;shift&nbsp;out&nbsp;left&nbsp;side,&nbsp;including&nbsp;sign&nbsp;bit'</span><span style="color: #007700">);<br /><br /><br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;このへんは無視してください。<br />&nbsp;*&nbsp;たんに結果をきれいに表示させるためだけのものです。<br />&nbsp;*/<br /><br /></span><span style="color: #007700">function&nbsp;</span><span style="color: #0000BB">p</span><span style="color: #007700">(</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$note&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">''</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$format&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'%0'&nbsp;</span><span style="color: #007700">.&nbsp;(</span><span style="color: #0000BB">PHP_INT_SIZE&nbsp;</span><span style="color: #007700">*&nbsp;</span><span style="color: #0000BB">8</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"b\n"</span><span style="color: #007700">;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"Expression:&nbsp;%d&nbsp;=&nbsp;%d&nbsp;%s&nbsp;%d\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$res</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$op</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$places</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;Decimal:\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;&nbsp;val=%d\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">"&nbsp;&nbsp;res=%d\n"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;Binary:\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;&nbsp;val='&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$val</span><span style="color: #007700">);<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">printf</span><span style="color: #007700">(</span><span style="color: #DD0000">'&nbsp;&nbsp;res='&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$format</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$res</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">$note</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"&nbsp;NOTE:&nbsp;</span><span style="color: #0000BB">$note</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+     <div class="example-contents"><p>上の例の 32 ビットマシンでの出力は、このようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+
+--- BIT SHIFT RIGHT ON POSITIVE INTEGERS ---
+Expression: 2 = 4 &gt;&gt; 1
+ Decimal:
+  val=4
+  res=2
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000010
+ NOTE: copy of sign bit shifted into left side
+
+Expression: 1 = 4 &gt;&gt; 2
+ Decimal:
+  val=4
+  res=1
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000001
+
+Expression: 0 = 4 &gt;&gt; 3
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out right side
+
+Expression: 0 = 4 &gt;&gt; 4
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: same result as above; can not shift beyond 0
+
+
+--- BIT SHIFT RIGHT ON NEGATIVE INTEGERS ---
+Expression: -2 = -4 &gt;&gt; 1
+ Decimal:
+  val=-4
+  res=-2
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111110
+ NOTE: copy of sign bit shifted into left side
+
+Expression: -1 = -4 &gt;&gt; 2
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111111
+ NOTE: bits shift out right side
+
+Expression: -1 = -4 &gt;&gt; 3
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111111
+ NOTE: same result as above; can not shift beyond -1
+
+
+--- BIT SHIFT LEFT ON POSITIVE INTEGERS ---
+Expression: 8 = 4 &lt;&lt; 1
+ Decimal:
+  val=4
+  res=8
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000001000
+ NOTE: zeros fill in right side
+
+Expression: 1073741824 = 4 &lt;&lt; 28
+ Decimal:
+  val=4
+  res=1073741824
+ Binary:
+  val=00000000000000000000000000000100
+  res=01000000000000000000000000000000
+
+Expression: -2147483648 = 4 &lt;&lt; 29
+ Decimal:
+  val=4
+  res=-2147483648
+ Binary:
+  val=00000000000000000000000000000100
+  res=10000000000000000000000000000000
+ NOTE: sign bits get shifted out
+
+Expression: 0 = 4 &lt;&lt; 30
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=00000000000000000000000000000100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out left side
+
+
+--- BIT SHIFT LEFT ON NEGATIVE INTEGERS ---
+Expression: -8 = -4 &lt;&lt; 1
+ Decimal:
+  val=-4
+  res=-8
+ Binary:
+  val=11111111111111111111111111111100
+  res=11111111111111111111111111111000
+ NOTE: zeros fill in right side
+
+Expression: -2147483648 = -4 &lt;&lt; 29
+ Decimal:
+  val=-4
+  res=-2147483648
+ Binary:
+  val=11111111111111111111111111111100
+  res=10000000000000000000000000000000
+
+Expression: 0 = -4 &lt;&lt; 30
+ Decimal:
+  val=-4
+  res=0
+ Binary:
+  val=11111111111111111111111111111100
+  res=00000000000000000000000000000000
+ NOTE: bits shift out left side, including sign bit
+</pre></div>
+     </div>
+     <div class="example-contents"><p>上の例の 64 ビットマシンでの出力は、このようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+
+--- BIT SHIFT RIGHT ON POSITIVE INTEGERS ---
+Expression: 2 = 4 &gt;&gt; 1
+ Decimal:
+  val=4
+  res=2
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000010
+ NOTE: copy of sign bit shifted into left side
+
+Expression: 1 = 4 &gt;&gt; 2
+ Decimal:
+  val=4
+  res=1
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000001
+
+Expression: 0 = 4 &gt;&gt; 3
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out right side
+
+Expression: 0 = 4 &gt;&gt; 4
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: same result as above; can not shift beyond 0
+
+
+--- BIT SHIFT RIGHT ON NEGATIVE INTEGERS ---
+Expression: -2 = -4 &gt;&gt; 1
+ Decimal:
+  val=-4
+  res=-2
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111110
+ NOTE: copy of sign bit shifted into left side
+
+Expression: -1 = -4 &gt;&gt; 2
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111111
+ NOTE: bits shift out right side
+
+Expression: -1 = -4 &gt;&gt; 3
+ Decimal:
+  val=-4
+  res=-1
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111111
+ NOTE: same result as above; can not shift beyond -1
+
+
+--- BIT SHIFT LEFT ON POSITIVE INTEGERS ---
+Expression: 8 = 4 &lt;&lt; 1
+ Decimal:
+  val=4
+  res=8
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000001000
+ NOTE: zeros fill in right side
+
+Expression: 4611686018427387904 = 4 &lt;&lt; 60
+ Decimal:
+  val=4
+  res=4611686018427387904
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0100000000000000000000000000000000000000000000000000000000000000
+
+Expression: -9223372036854775808 = 4 &lt;&lt; 61
+ Decimal:
+  val=4
+  res=-9223372036854775808
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=1000000000000000000000000000000000000000000000000000000000000000
+ NOTE: sign bits get shifted out
+
+Expression: 0 = 4 &lt;&lt; 62
+ Decimal:
+  val=4
+  res=0
+ Binary:
+  val=0000000000000000000000000000000000000000000000000000000000000100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out left side
+
+
+--- BIT SHIFT LEFT ON NEGATIVE INTEGERS ---
+Expression: -8 = -4 &lt;&lt; 1
+ Decimal:
+  val=-4
+  res=-8
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1111111111111111111111111111111111111111111111111111111111111000
+ NOTE: zeros fill in right side
+
+Expression: -9223372036854775808 = -4 &lt;&lt; 61
+ Decimal:
+  val=-4
+  res=-9223372036854775808
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=1000000000000000000000000000000000000000000000000000000000000000
+
+Expression: 0 = -4 &lt;&lt; 62
+ Decimal:
+  val=-4
+  res=0
+ Binary:
+  val=1111111111111111111111111111111111111111111111111111111111111100
+  res=0000000000000000000000000000000000000000000000000000000000000000
+ NOTE: bits shift out left side, including sign bit
+</pre></div>
+     </div>
+    </div>
+   </p>
+   <div class="warning"><b class="warning">警告</b>
+    <p class="para">
+     32 ビットシステムでは 32 ビット以上の右シフトは行わないでください。
+     また、結果が 32 ビットを超えてしまうような左シフトも行わないでください。
+     PHP_INT_MAX を超える数のビット演算には、gmp 拡張モジュールの関数を使用します。
+    </p>
+   </div>
+   <p class="para">
+    <span class="function"><a href="function.pack.html" class="function">pack()</a></span>,
+    <span class="function"><a href="function.unpack.html" class="function">unpack()</a></span>,
+    <span class="function"><a href="function.gmp-and.html" class="function">gmp_and()</a></span>,
+    <span class="function"><a href="function.gmp-or.html" class="function">gmp_or()</a></span>,
+    <span class="function"><a href="function.gmp-xor.html" class="function">gmp_xor()</a></span>,
+    <span class="function"><a href="function.gmp-testbit.html" class="function">gmp_testbit()</a></span>,
+    <span class="function"><a href="function.gmp-clrbit.html" class="function">gmp_clrbit()</a></span>
+    も参照ください。
+   </p>
+  </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="language.operators.assignment.html">代入演算子</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="language.operators.comparison.html">比較演算子</a></div>
+ <div class="up"><a href="language.operators.html">演算子</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

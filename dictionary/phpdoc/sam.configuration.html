@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>実行時設定</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.resources.html">リソース型</a></div>
+ <div class="up"><a href="sam.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="sam.configuration" class="section">
+  <h2 class="title">実行時設定</h2>
+  <div class="section" id="sam.configuration.mapping">
+   <h2 class="title">プロトコルサポートおよびマッピング</h2>
+   <p class="para">
+    SAM フレームワークを拡張して、他のメッセージングプロトコルや通信機構をサポートさせることができます。
+    新しいプロトコルや接続ライブラリのサポートを追加するには、
+    それをサポートするクラスを定義する必要があります。これは C 拡張モジュールあるいは
+    PHP スクリプトとして作成します。また、&quot;ファクトリ&quot; スクリプトも作成しなければなりません。
+    サポートクラスは、SAMConnection クラスの全メソッドを実装する必要があります。
+    SAMConnection を継承してはいけません。ファクトリスクリプトはフレームワークからコールされ、
+    実装クラスのインスタンスを作成します。SAM がどのファクトリをコールするのかは、
+    &quot;connect&quot; の最初のパラメータで指定したプロトコルによって決まります。
+   </p>
+   <p class="para">
+    デフォルトでは、connect でプロトコルに SAM_MQTT (&quot;mqtt&quot;) を指定した場合に
+    組み込みの MQTT サポートを使用します。その他のプロトコルを指定した場合は
+    XMS 拡張モジュールを使用します。
+    新たなプロトコルのサポートを追加したりデフォルトの挙動を変更したりするには、
+    <var class="filename">php.ini</var> の [sam] セクションにエントリを追加します。
+    デフォルトのマッピングは、以下のエントリと同等です。
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+[sam]
+sam.factory.mqtt=mqtt
+sam.factory.wmq=xms
+sam.factory.wmq:client=xms
+sam.factory.wmq:bindings=xms
+sam.factory.wpm=xms
+sam.factory.rtt=xms
+</pre></div>
+    </div>
+    これらの例でわかるように、エントリは &quot;sam.factory.pppp=xxx&quot;
+    という形式になります。pppp の部分が connect コール時に指定するプロトコル文字列で、
+    xxx はファクトリ名のサフィックスです。
+    注意: SAM では、これらのプロトコルに対応する定数を定義しています。たとえば
+    <i>SAM_WMQ=wmq</i>、<i>SAM_WPM=wpm</i>、
+    <i>SAM_RTT=rtt</i>、<i>SAM_MQTT=mqtt</i> などとなります。
+   </p>
+   <p class="para">
+    connect コールの際にこれを指定すると、
+    SAM はそのプロトコル名を <var class="filename">php.ini</var> のエントリから探し、対応するファクトリスクリプト
+    <var class="filename">sam_factory_xxx.php</var> をコールします。
+    エントリが見つからなかった場合は、デフォルトは XMS となります。
+   </p>
+  </div>
+ </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="sam.installation.html">インストール手順</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="sam.resources.html">リソース型</a></div>
+ <div class="up"><a href="sam.setup.html">インストール/設定</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

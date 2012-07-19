@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>パッシブモードをオンまたはオフにする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-nlist.html">ftp_nlist</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-put.html">ftp_put</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ftp-pasv" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ftp_pasv</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">ftp_pasv</span> &mdash; <span class="dc-title">パッシブモードをオンまたはオフにする</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ftp-pasv-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>ftp_pasv</b></span>
+    ( <span class="methodparam"><span class="type">resource</span> <tt class="parameter">$ftp_stream</tt></span>
+   , <span class="methodparam"><span class="type">bool</span> <tt class="parameter">$pasv</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>ftp_pasv()</b></span> はパッシブモードをオンまたはオフにします。
+   パッシブモードでは、データ接続はサーバではなくクライアントにより
+   初期化されます。クライアントがファイアウォールの向こうにある場合に
+   必要となるでしょう。
+  </p>
+  <p class="para">
+   <span class="function"><b>ftp_pasv()</b></span> をコールできるのは、
+   ログインに成功した後だけであることに注意しましょう。
+   それ以外の場合は、この関数のコールは失敗します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ftp-pasv-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">ftp_stream</tt></i></span>
+     <dd>
+
+      <p class="para">
+       FTP 接続のリンク ID 。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pasv</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <b><tt>TRUE</tt></b>, の場合はパッシブモードをオンに、そうでない場合はオフにします。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ftp-pasv-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ftp-pasv-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3479">
+    <p><b>例1 <span class="function"><b>ftp_pasv()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'somefile.txt'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$remote_file&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'readme.txt'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;接続を確立する<br /></span><span style="color: #0000BB">$conn_id&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_connect</span><span style="color: #007700">(</span><span style="color: #0000BB">$ftp_server</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ユーザ名とパスワードでログインする<br /></span><span style="color: #0000BB">$login_result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">ftp_login</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_name</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$ftp_user_pass</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;パッシブモードをオンにする<br /></span><span style="color: #0000BB">ftp_pasv</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;ファイルをアップロードする<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">ftp_put</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$remote_file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">FTP_ASCII</span><span style="color: #007700">))&nbsp;{<br />&nbsp;echo&nbsp;</span><span style="color: #DD0000">"successfully&nbsp;uploaded&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;echo&nbsp;</span><span style="color: #DD0000">"There&nbsp;was&nbsp;a&nbsp;problem&nbsp;while&nbsp;uploading&nbsp;</span><span style="color: #0000BB">$file</span><span style="color: #DD0000">\n"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #FF8000">//&nbsp;接続を閉じる<br /></span><span style="color: #0000BB">ftp_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$conn_id</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ftp-nlist.html">ftp_nlist</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ftp-put.html">ftp_put</a></div>
+ <div class="up"><a href="ref.ftp.html">FTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

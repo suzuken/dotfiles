@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>クライアントが希望している言語を選択する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.http-negotiate-content-type.html">http_negotiate_content_type</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-deflatehandler.html">ob_deflatehandler</a></div>
+ <div class="up"><a href="ref.http.html">HTTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.http-negotiate-language" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">http_negotiate_language</h1>
+  <p class="verinfo">(PECL pecl_http &gt;= 0.1.0)</p><p class="refpurpose"><span class="refname">http_negotiate_language</span> &mdash; <span class="dc-title">クライアントが希望している言語を選択する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.http-negotiate-language-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>http_negotiate_language</b></span>
+    ( <span class="methodparam"><span class="type">array</span> <tt class="parameter">$supported</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter reference">&$result</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   この関数は、クライアントが希望している言語を
+   <i>Accept-Language</i> HTTP ヘッダに基づいて選択します。
+   qualifier も理解し、qualifier の指定されていない言語が最優先されます。
+   部分的に一致した (つまりプライマリ言語についてのみ一致した)
+   言語については、qualifier が 10% 割り引かれます。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.http-negotiate-language-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">supported</tt></i></span>
+     <dd>
+
+      <p class="para">
+       サポートされる言語を値にもつ配列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">result</tt></i></span>
+     <dd>
+
+      <p class="para">
+       選択した結果がこの配列に含まれます。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.http-negotiate-language-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   選択された言語、あるいは一致するものがなかった場合はデフォルトの言語
+   (配列の最初のエントリ) を返します。
+  </p>
+ </div>
+
+
+ 
+
+
+ 
+
+
+ <div class="refsect1 examples" id="refsect1-function.http-negotiate-language-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3524">
+    <p><b>例1 <span class="function"><b>http_negotiate_language()</b></span> の使用法</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$langs&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'en-US'</span><span style="color: #007700">,</span><span style="color: #FF8000">//&nbsp;デフォルト<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'fr'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'fr-FR'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'de'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'de-DE'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'de-AT'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'de-CH'</span><span style="color: #007700">,<br />);<br /><br />include&nbsp;</span><span style="color: #DD0000">'./langs/'</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">http_negotiate_language</span><span style="color: #007700">(</span><span style="color: #0000BB">$langs</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$result</span><span style="color: #007700">)&nbsp;.</span><span style="color: #DD0000">'.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$result</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+
+ 
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.http-negotiate-content-type.html">http_negotiate_content_type</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ob-deflatehandler.html">ob_deflatehandler</a></div>
+ <div class="up"><a href="ref.http.html">HTTP 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

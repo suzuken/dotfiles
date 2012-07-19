@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルにバイナリ diff 形式のパッチを適用する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xdiff-file-bdiff.html">xdiff_file_bdiff</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xdiff-file-diff-binary.html">xdiff_file_diff_binary</a></div>
+ <div class="up"><a href="ref.xdiff.html">xdiff 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.xdiff-file-bpatch" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">xdiff_file_bpatch</h1>
+  <p class="verinfo">(PECL xdiff &gt;= 0.2.0)</p><p class="refpurpose"><span class="refname">xdiff_file_bpatch</span> &mdash; <span class="dc-title">ファイルにバイナリ diff 形式のパッチを適用する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.xdiff-file-bpatch-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">bool</span> <span class="methodname"><b>xdiff_file_bpatch</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$file</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$patch</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dest</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   ファイル <i><tt class="parameter">file</tt></i> にバイナリ形式のパッチファイル
+   <i><tt class="parameter">patch</tt></i> を適用し、結果をファイル
+   <i><tt class="parameter">dest</tt></i> に保存します。
+   この関数は、<span class="function"><a href="function.xdiff-file-bdiff.html" class="function">xdiff_file_bdiff()</a></span> 関数あるいは
+   <span class="function"><a href="function.xdiff-file-rabdiff.html" class="function">xdiff_file_rabdiff()</a></span>、
+   そしてそれぞれの文字列版が作成したパッチを受け取ることができます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.xdiff-file-bpatch-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">file</tt></i></span>
+     <dd>
+
+      <p class="para">
+       元のファイル。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">patch</tt></i></span>
+     <dd>
+
+      <p class="para">
+       バイナリのパッチファイル。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dest</tt></i></span>
+     <dd>
+
+      <p class="para">
+       結果のファイルへのパス。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.xdiff-file-bpatch-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.xdiff-file-bpatch-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-1977">
+    <p><b>例1 <span class="function"><b>xdiff_file_bpatch()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     以下のコードはバイナリ diff 形式のパッチをファイルに適用します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$old_version&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'archive-1.0.tgz'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$patch&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'archive.bpatch'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$result&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">xdiff_file_bpatch</span><span style="color: #007700">(</span><span style="color: #0000BB">$old_version</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$patch</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'archive-1.1.tgz'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$result</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"パッチが適用されました"</span><span style="color: #007700">;<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">"パッチが適用できませんでした"</span><span style="color: #007700">;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.xdiff-file-bpatch-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    両方のファイル (<i><tt class="parameter">file</tt></i> および <i><tt class="parameter">patch</tt></i>)
+    がメモリに読み込まれるので、
+    memory_limit が十分大きな値に設定されていることを確認しましょう。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.xdiff-file-bpatch-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.xdiff-file-bdiff.html" class="function" rel="rdfs-seeAlso">xdiff_file_bdiff()</a> - 2 つのファイルのバイナリ diff を作成する</span></li>
+    <li class="member"><span class="function"><a href="function.xdiff-file-rabdiff.html" class="function" rel="rdfs-seeAlso">xdiff_file_rabdiff()</a> - 2 つのファイルのバイナリ diff を、Rabin の polynomial fingerprinting アルゴリズムで作成する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.xdiff-file-bdiff.html">xdiff_file_bdiff</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.xdiff-file-diff-binary.html">xdiff_file_diff_binary</a></div>
+ <div class="up"><a href="ref.xdiff.html">xdiff 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

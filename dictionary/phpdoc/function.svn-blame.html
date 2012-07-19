@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>ファイルの SVN blame を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-auth-set-parameter.html">svn_auth_set_parameter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-cat.html">svn_cat</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.svn-blame" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">svn_blame</h1>
+  <p class="verinfo">(PECL svn &gt;= 0.3.0)</p><p class="refpurpose"><span class="refname">svn_blame</span> &mdash; <span class="dc-title">ファイルの SVN blame を取得する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.svn-blame-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>svn_blame</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$repository_url</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$revision_no</tt><span class="initializer"> = SVN_REVISION_HEAD</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   リポジトリの URL を指定して、ファイルの SVN blame を取得します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.svn-blame-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">repository_url</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リポジトリの URL。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">revision_no</tt></i></span>
+     <dd>
+
+      <p class="para">
+       リビジョン番号。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.svn-blame-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   SVN blame 情報を配列で返します。行ごとに区切られ、
+   リビジョン番号と行番号、コードの行、作者、日付が含まれます。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.svn-blame-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3807">
+    <p><b>例1 <span class="function"><b>svn_blame()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$svnurl&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'http://svn.example.org/svnroot/foo/trunk/index.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(&nbsp;</span><span style="color: #0000BB">svn_blame</span><span style="color: #007700">(</span><span style="color: #0000BB">$svnurl</span><span style="color: #007700">)&nbsp;);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] = Array
+          (
+           [rev] = 1
+           [line_no] = 1
+           [line] = Hello World
+           [author] = joesmith
+           [date] = 2007-07-02T05:51:26.628396Z
+          )
+    [1] = Array
+          ...
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.svn-blame-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.svn-diff.html" class="function" rel="rdfs-seeAlso">svn_diff()</a> - ふたつのパスの差分を再帰的に取得する</span></li>
+    <li class="member"><span class="function"><b>svn_logs()</b></span></li>
+    <li class="member"><span class="function"><a href="function.svn-status.html" class="function" rel="rdfs-seeAlso">svn_status()</a> - 作業コピー内のファイルやディレクトリの状態を返す</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.svn-auth-set-parameter.html">svn_auth_set_parameter</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.svn-cat.html">svn_cat</a></div>
+ <div class="up"><a href="ref.svn.html">SVN 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

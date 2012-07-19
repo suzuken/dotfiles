@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>pdo_stmt_t の定義</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.pdo.pdo-dbh-t.html">pdo_dbh_t の定義</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.pdo.constants.html">定数</a></div>
+ <div class="up"><a href="internals2.pdo.html">PDO ドライバ How-To</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="internals2.pdo.pdo-stmt-t" class="sect1">
+ <h2 class="title">pdo_stmt_t の定義</h2>
+ <p class="para">
+  明示的に述べられている場合を除き、ドライバからはすべてのフィールドが
+  読み込み専用となります。
+ </p>
+ <div class="figure">
+  <h1 class="title">pdo_stmt_t</h1>
+  <div class="example-contents"><div class="ccode"><pre class="ccode">/* プリペアドステートメントを表す */
+struct _pdo_stmt_t {
+    /* ドライバ固有 */
+    struct pdo_stmt_methods *methods;</pre>
+</div><a name="internals2.pdo.stmt.co.methods" id="internals2.pdo.stmt.co.methods">*</a><div class="ccode"><pre class="ccode">void *driver_data;</pre>
+</div><a name="internals2.pdo.stmt.co.driver-data" id="internals2.pdo.stmt.co.driver-data">**</a><div class="ccode"><pre class="ccode">/* true の場合は、すくなくとも 1 回はこのステートメントの実行に
+     * 成功していることを表す */
+    unsigned executed:1;</pre>
+</div><a name="internals2.pdo.stmt.co.executed" id="internals2.pdo.stmt.co.executed">***</a><div class="ccode"><pre class="ccode">/* true の場合は、ステートメントがプレースホルダをサポートしており
+     * プリペアドステートメント用に bindParam() を実装できることを表す
+     * false の場合は、プリペアおよびバインドを PDO がエミュレートする
+     * 必要があることを表す */
+    unsigned supports_placeholders:2;</pre>
+</div><a name="internals2.pdo.stmt.co.holder" id="internals2.pdo.stmt.co.holder">****</a><div class="ccode"><pre class="ccode">/* 結果セットのカラム数。ステートメントがすくなくとも 1 度実行される
+     * までは有効な値は設定されない。時には、(ドライバレベルでの)
+     * フェッチがコールされるまでは有効にならないこともある。
+     * */
+    int column_count;</pre>
+</div><a name="internals2.pdo.stmt.co.colcount" id="internals2.pdo.stmt.co.colcount">*****</a><div class="ccode"><pre class="ccode">struct pdo_column_data *columns;</pre>
+</div><a name="internals2.pdo.stmt.co.cols" id="internals2.pdo.stmt.co.cols">******</a><div class="ccode"><pre class="ccode">/* このステートメントが準備された dbh を指す */
+    pdo_dbh_t *dbh;
+
+    /* 入力バインドパラメータを指す。ドライバの中には入出力パラメータを
+     * サポートしているものもあるが、その動作に依存することはできない */
+    HashTable *bound_params;
+    /* 名前から位置への置き換えを行う際に、このマップを使用する */
+    HashTable *bound_param_map; 
+    /* 結果セット内で名前で指定した (あるいは位置で指定した) カラムに
+     * 関連付けた PHP 変数を指す */
+    HashTable *bound_columns;
+
+    /* 意味のある値が設定されていない場合もある */
+    long row_count;
+
+    /* ステートメントの現在のクエリを保持する */
+    char *query_string;
+    int query_stringlen;
+
+    /* バインド変数を展開した後のクエリのコピーで、
+     * ドライバがプリペアドステートメントをエミュレートしている
+     * 場合にのみ使用する */
+    char *active_query_string;
+    int active_query_stringlen;
+
+    /* カーソル固有のエラーコード */
+    pdo_error_type error_code;
+
+    /* ドライバ固有のパラメータ命名規則 (例: pgsql ドライバ)
+     * のためにクエリパーサが使用する */
+    const char *named_rewrite_template;
+};</pre>
+</div></div>
+
+ </div>
+ <table>
+  <tr><td><a href="#internals2.pdo.stmt.co.methods">*</a></td><td>
+   <p class="para">
+    ドライバは、<span class="function"><b>SKEL_handle_preparer()</b></span> の中で
+    これを設定<em class="emphasis">しなければなりません</em>。
+   </p>
+  </td></tr>
+
+  <tr><td><a href="#internals2.pdo.stmt.co.driver-data">**</a></td><td>
+   <p class="para">
+    この項目はドライバが使用します。想定される使用法は、データベースとの
+    接続を保つために必要なインスタンスデータへのポインタを
+    (<span class="function"><b>SKEL_handle_factory()</b></span> 内で)
+    格納することです。
+   </p>
+  </td></tr>
+
+  <tr><td><a href="#internals2.pdo.stmt.co.executed">***</a></td><td>
+   <p class="para">
+    ステートメントが最初に実行された後に、PDO がこれを設定します。
+    ドライバは、この値を調べることで初回にのみ必要な処理を飛ばす
+    最適化を行います。
+   </p>
+  </td></tr>
+
+  <tr><td><a href="#internals2.pdo.stmt.co.holder">****</a></td><td>
+   <p class="para">
+    詳細は <a href="internals2.pdo.implementing.html#internals2.pdo.preparer" class="xref">SKEL_handle_preparer</a> で説明します。
+   </p>
+  </td></tr>
+
+  <tr><td><a href="#internals2.pdo.stmt.co.colcount">*****</a></td><td>
+   <p class="para">
+    結果セット内のカラム数を、ドライバがこのフィールドに設定します。
+    通常これは <span class="function"><b>SKEL_stmt_execute()</b></span> で設定しますが、
+    データベースの実装によっては <span class="function"><b>SKEL_stmt_fetch()</b></span>
+    を最低 1 回コールするまではカラム数がわからないことがあります。
+    <span class="function"><b>SKEL_stmt_next_rowset()</b></span> を実装するドライバで
+    新しい行セットが使用可能になった場合、ドライバはカラム数を更新する必要があります。
+   </p>
+  </td></tr>
+
+  <tr><td><a href="#internals2.pdo.stmt.co.cols">******</a></td><td>
+   <p class="para">
+    カラム数に設定した値に応じて、PDO がこのフィールドを確保します。
+    <span class="function"><b>SKEL_stmt_describe()</b></span> の中で、各カラムの内容を
+    設定する必要があります。各カラムについて設定する必要があるのは、
+    <i><tt class="parameter">precision</tt></i>、<i><tt class="parameter">maxlen</tt></i>、
+    <i><tt class="parameter">name</tt></i>、<i><tt class="parameter">namelen</tt></i> および
+    <i><tt class="parameter">param_type</tt></i> です。
+    <i><tt class="parameter">name</tt></i> は、<span class="function"><b>emalloc()</b></span>
+    を使用して確保することが期待されています。PDO は、しかるべき時に
+    <span class="function"><b>efree()</b></span> を実行します。
+   </p>
+  </td></tr>
+
+ </table>
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="internals2.pdo.pdo-dbh-t.html">pdo_dbh_t の定義</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="internals2.pdo.constants.html">定数</a></div>
+ <div class="up"><a href="internals2.pdo.html">PDO ドライバ How-To</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

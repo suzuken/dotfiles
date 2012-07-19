@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>SQL の GROUP BY コマンドと似た処理を行う</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocollection.getslaveokay.html">MongoCollection::getSlaveOkay</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocollection.insert.html">MongoCollection::insert</a></div>
+ <div class="up"><a href="class.mongocollection.html">MongoCollection</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mongocollection.group" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">MongoCollection::group</h1>
+  <p class="verinfo">(PECL mongo &gt;=0.9.2)</p><p class="refpurpose"><span class="refname">MongoCollection::group</span> &mdash; <span class="dc-title">SQL の GROUP BY コマンドと似た処理を行う</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mongocollection.group-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>MongoCollection::group</b></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <tt class="parameter">$keys</tt></span>
+   , <span class="methodparam"><span class="type">array</span> <tt class="parameter">$initial</tt></span>
+   , <span class="methodparam"><span class="type"><a href="class.mongocode.html" class="type MongoCode">MongoCode</a></span> <tt class="parameter">$reduce</tt></span>
+   [, <span class="methodparam"><span class="type">array</span> <tt class="parameter">$options</tt><span class="initializer"> = array()</span></span>
+  ] )</div>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mongocollection.group-parameters">
+  <h3 class="title">パラメータ</h3>  
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">keys</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       group by したいフィールド。
+       配列あるいは非コードオブジェクトが渡された場合は、
+       結果をグループ化するキーとして扱います。
+      </p>
+      <p class="para">1.0.4+: <i><tt class="parameter">keys</tt></i> が
+       <a href="class.mongocode.html" class="classname">MongoCode</a> のインスタンスである場合は、
+       <i><tt class="parameter">keys</tt></i> はグループ化のキーを返す関数であると見なします
+       (下の例 &quot;<i><tt class="parameter">keys</tt></i> へ関数を渡す&quot; を参照ください)。
+      </p>
+     </dd>
+
+    </dt>
+   
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">initial</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       集約カウンタオブジェクトの初期値。
+      </p>
+     </dd>
+
+    </dt>
+   
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">reduce</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       ふたつの引数 (現在のドキュメント、
+       そして集約する点) を受け取って集約をする関数。
+      </p>
+     </dd>
+
+    </dt>
+   
+    <dt>
+
+     <span class="term">
+      <i><tt class="parameter">options</tt></i>
+     </span>
+     <dd>
+
+      <p class="para">
+       group コマンドへのオプションのパラメータ。次のオプションが使えます。
+      </p>
+      <ul class="itemizedlist">
+       <li class="listitem">
+        <p class="para">
+         <i>&quot;condition&quot;</i>
+        </p>
+        <p class="para">
+         集約処理に含めるドキュメントの条件。
+        </p>
+       </li>
+       <li class="listitem">
+        <p class="para">
+         <i>&quot;finalize&quot;</i>
+        </p>
+        <p class="para">
+         一意なキーごとに一度だけコールされる関数。
+         reduce 関数の最後の出力を受け取ります。
+        </p>
+       </li>
+      </ul>
+     </dd>
+
+    </dt>
+   
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mongocollection.group-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   結果を含む配列を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mongocollection.group-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1373">
+   <p><b>例1 <span class="function"><b>MongoCollection::group()</b></span> の例</b></p>
+   <div class="example-contents"><p>
+    これは、ドキュメントをカテゴリー別にまとめて
+    カテゴリーごとの名前の一覧を作ります。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"fruit"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"apple"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"fruit"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"peach"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"fruit"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"banana"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"veggie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"corn"</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">insert</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"veggie"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"name"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">"broccoli"</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$keys&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"category"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$initial&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"items"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array());<br /><br /></span><span style="color: #0000BB">$reduce&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"function&nbsp;(obj,&nbsp;prev)&nbsp;{&nbsp;prev.items.push(obj.name);&nbsp;}"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$g&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">group</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$initial</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$reduce</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #0000BB">json_encode</span><span style="color: #007700">(</span><span style="color: #0000BB">$g</span><span style="color: #007700">[</span><span style="color: #DD0000">'retval'</span><span style="color: #007700">]);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+[{&quot;category&quot;:&quot;fruit&quot;,&quot;items&quot;:[&quot;apple&quot;,&quot;peach&quot;,&quot;banana&quot;]},{&quot;category&quot;:&quot;veggie&quot;,&quot;items&quot;:[&quot;corn&quot;,&quot;broccoli&quot;]}]
+</pre></div>
+   </div>
+  </div>
+
+  <div class="example" id="example-1374">
+   <p><b>例2 <span class="function"><b>MongoCollection::group()</b></span> の例</b></p>
+   <div class="example-contents"><p>
+    この例ではキーを使わないので、すべてのドキュメントがそれ自身のグループに属します。
+    また、この例では条件を使います。
+    この条件にマッチするドキュメントのみがグループ関数による処理の対象となります。
+   </p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">save</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">2</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">save</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"b"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">save</span><span style="color: #007700">(array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #FF8000">//&nbsp;すべてのフィールドを使用します<br /></span><span style="color: #0000BB">$keys&nbsp;</span><span style="color: #007700">=&nbsp;array();<br /><br /></span><span style="color: #FF8000">//&nbsp;初期値を設定します<br /></span><span style="color: #0000BB">$initial&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"count"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;実行する&nbsp;JavaScript&nbsp;関数<br /></span><span style="color: #0000BB">$reduce&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"function&nbsp;(obj,&nbsp;prev)&nbsp;{&nbsp;prev.count++;&nbsp;}"</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;"a"&nbsp;フィールドが&nbsp;1&nbsp;より大きいドキュメントのみを使用します<br /></span><span style="color: #0000BB">$condition&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">"a"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(&nbsp;</span><span style="color: #DD0000">'$gt'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">1</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">$g&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$collection</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">group</span><span style="color: #007700">(</span><span style="color: #0000BB">$keys</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$initial</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$reduce</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$condition</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">var_dump</span><span style="color: #007700">(</span><span style="color: #0000BB">$g</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+array(4) {
+  [&quot;retval&quot;]=&gt;
+  array(1) {
+    [0]=&gt;
+    array(1) {
+      [&quot;count&quot;]=&gt;
+      float(1)
+    }
+  }
+  [&quot;count&quot;]=&gt;
+  float(1)
+  [&quot;keys&quot;]=&gt;
+  int(1)
+  [&quot;ok&quot;]=&gt;
+  float(1)
+}
+</pre></div>
+   </div>
+  </div>
+
+  <div class="example" id="example-1375">
+   <p><b>例3 <i><tt class="parameter">keys</tt></i> へ関数を渡す</b></p>
+   <div class="example-contents"><p>
+    フィールド名以外の何かでグループ化したい場合は、
+    <span class="function"><b>MongoCollection::group()</b></span> の最初のパラメータに関数を渡すと
+    各ドキュメントに対してそれを実行します。
+    関数の返り値を使ってグループ化することができます。
+   </p></div>
+   <div class="example-contents"><p>
+    この例は、num フィールドを 4 で割ったあまりでグループ化する方法を示すものです。
+   </p></div>
+
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br />$c</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">group</span><span style="color: #007700">(new&nbsp;</span><span style="color: #0000BB">MongoCode</span><span style="color: #007700">(</span><span style="color: #DD0000">'function(doc)&nbsp;{&nbsp;return&nbsp;{mod&nbsp;:&nbsp;doc.num&nbsp;%&nbsp;4};&nbsp;}'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">"count"&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new&nbsp;</span><span style="color: #0000BB">MongoCode</span><span style="color: #007700">(</span><span style="color: #DD0000">'function(current,&nbsp;total)&nbsp;{&nbsp;total.count++;&nbsp;}'</span><span style="color: #007700">));<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+  </div>
+
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mongocollection.getslaveokay.html">MongoCollection::getSlaveOkay</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mongocollection.insert.html">MongoCollection::insert</a></div>
+ <div class="up"><a href="class.mongocollection.html">MongoCollection</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

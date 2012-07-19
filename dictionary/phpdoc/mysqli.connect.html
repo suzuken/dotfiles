@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>新規に MySQL サーバへの接続をオープンする</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli.connect-error.html">mysqli-&gt;connect_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli.debug.html">mysqli::debug</a></div>
+ <div class="up"><a href="class.mysqli.html">MySQLi</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="mysqli.connect" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">mysqli::__construct</h1>
+  <h1 class="refname">mysqli_connect</h1>
+  <p class="verinfo">(PHP 5)</p><p class="refpurpose"><span class="refname">mysqli::__construct</span> -- <span class="refname">mysqli_connect</span> &mdash; <span class="dc-title">新規に MySQL サーバへの接続をオープンする</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-mysqli.connect-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="constructorsynopsis dc-description">
+    <span class="methodname"><b>mysqli::__construct()</b></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt><span class="initializer"> = ini_get(&quot;mysqli.default_host&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$username</tt><span class="initializer"> = ini_get(&quot;mysqli.default_user&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$passwd</tt><span class="initializer"> = ini_get(&quot;mysqli.default_pw&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbname</tt><span class="initializer"> = &quot;&quot;</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = ini_get(&quot;mysqli.default_port&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$socket</tt><span class="initializer"> = ini_get(&quot;mysqli.default_socket&quot;)</span></span>
+  ]]]]]] )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="class.mysqli.html" class="type mysqli">mysqli</a></span> <span class="methodname"><a href="function.mysqli-connect.html" class="methodname">mysqli_connect</a></span>
+    ([ <span class="methodparam"><span class="type">string</span> <tt class="parameter">$host</tt><span class="initializer"> = ini_get(&quot;mysqli.default_host&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$username</tt><span class="initializer"> = ini_get(&quot;mysqli.default_user&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$passwd</tt><span class="initializer"> = ini_get(&quot;mysqli.default_pw&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$dbname</tt><span class="initializer"> = &quot;&quot;</span></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$port</tt><span class="initializer"> = ini_get(&quot;mysqli.default_port&quot;)</span></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$socket</tt><span class="initializer"> = ini_get(&quot;mysqli.default_socket&quot;)</span></span>
+  ]]]]]] )</div>
+
+  <p class="para rdfs-comment">
+   実行中の MySQL サーバへの接続をオープンします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-mysqli.connect-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">host</tt></i></span>
+     <dd>
+
+      <p class="para">
+       ホスト名または IP アドレスです。この引数に <b><tt>NULL</tt></b> または &quot;localhost&quot; を渡すと
+       ローカルホストとみなされます。もし可能な場合、TCP/IP プロトコルの代わりに
+       パイプが使用されます。
+      </p>
+      <p class="para">
+       ホストの前に <i>p:</i> をつけると、持続的な接続を開きます。
+       接続プールから開いた接続上で
+       <span class="function"><a href="mysqli.change-user.html" class="function">mysqli_change_user()</a></span> が自動的にコールされます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">username</tt></i></span>
+     <dd>
+
+      <p class="para">
+       MySQL のユーザ名。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">passwd</tt></i></span>
+     <dd>
+
+      <p class="para">
+       省略したり <b><tt>NULL</tt></b> を渡したりした場合、MySQL サーバは
+       パスワードを持たないユーザレコードについてのみ認証を試みます。
+       これによってひとつのユーザ名において(パスワードが指定されたか
+       否かによって)違うパーミッションを与えることができます。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">dbname</tt></i></span>
+     <dd>
+
+      <p class="para">
+       指定した場合は、
+       クエリが行われるデフォルトのデータベースとなります。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">port</tt></i></span>
+     <dd>
+
+      <p class="para">
+       MySQL サーバに接続する際のポート番号を指定します。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">socket</tt></i></span>
+     <dd>
+
+      <p class="para">
+       使用するソケットあるいは名前つきパイプを指定します。
+      </p>
+      <blockquote class="note"><p><b class="note">注意</b>: 
+       <p class="para">
+        <i><tt class="parameter">socket</tt></i> 引数を指定しても、MySQL サーバへの
+        接続時の型を明示的に定義することにはなりません。MySQL サーバへの
+        接続方法については <i><tt class="parameter">host</tt></i> 引数で定義されます。
+       </p>
+      </p></blockquote>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-mysqli.connect-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   MySQL サーバへの接続を表すオブジェクトを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-mysqli.connect-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        持続的な接続機能が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-mysqli.connect-examples">
+  <h3 class="title">例</h3>
+  <div class="example" id="example-1507">
+   <p><b>例1  <span class="methodname"><b>mysqli::__construct()</b></span> の例</b></p>
+   <div class="example-contents"><p>オブジェクト指向型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$mysqli&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;これは&nbsp;"公式な"&nbsp;オブジェクト指向のやりかたですが、<br />&nbsp;*&nbsp;PHP&nbsp;5.2.9&nbsp;および&nbsp;5.3.0&nbsp;より前のバージョンでは&nbsp;$connect_error&nbsp;は動作していませんでした<br />&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_error</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connect&nbsp;Error&nbsp;('&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_errno&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">')&nbsp;'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">connect_error</span><span style="color: #007700">);<br />}<br /><br /></span><span style="color: #FF8000">/*<br />&nbsp;*&nbsp;PHP&nbsp;5.2.9&nbsp;および&nbsp;5.3.0&nbsp;より前のバージョンとの互換性を保ちたい場合は<br />&nbsp;*&nbsp;$connect_error&nbsp;のかわりにこのようにします<br />&nbsp;*/<br /></span><span style="color: #007700">if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connect&nbsp;Error&nbsp;('&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">')&nbsp;'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Success...&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host_info&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>オブジェクト指向型で mysqli クラスを継承する例</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #007700">class&nbsp;</span><span style="color: #0000BB">foo_mysqli&nbsp;</span><span style="color: #007700">extends&nbsp;</span><span style="color: #0000BB">mysqli&nbsp;</span><span style="color: #007700">{<br />&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;function&nbsp;</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pass</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">parent</span><span style="color: #007700">::</span><span style="color: #0000BB">__construct</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pass</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connect&nbsp;Error&nbsp;('&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">')&nbsp;'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br /></span><span style="color: #0000BB">$db&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">foo_mysqli</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">);<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Success...&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">host_info&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">$db</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>手続き型</p></div>
+   <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$link&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">mysqli_connect</span><span style="color: #007700">(</span><span style="color: #DD0000">'localhost'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_user'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_password'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'my_db'</span><span style="color: #007700">);<br /><br />if&nbsp;(!</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;die(</span><span style="color: #DD0000">'Connect&nbsp;Error&nbsp;('&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_errno</span><span style="color: #007700">()&nbsp;.&nbsp;</span><span style="color: #DD0000">')&nbsp;'<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_connect_error</span><span style="color: #007700">());<br />}<br /><br />echo&nbsp;</span><span style="color: #DD0000">'Success...&nbsp;'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">mysqli_get_host_info</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">)&nbsp;.&nbsp;</span><span style="color: #DD0000">"\n"</span><span style="color: #007700">;<br /><br /></span><span style="color: #0000BB">mysqli_close</span><span style="color: #007700">(</span><span style="color: #0000BB">$link</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+   </div>
+
+   <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+   <div class="example-contents screen">
+<div class="cdata"><pre>
+Success... MySQL host info: localhost via TCP/IP
+</pre></div>
+   </div>
+  </div>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-mysqli.connect-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+<p class="para">MySQLnd は常に、サーバのデフォルト文字セットを想定しています。この文字セットは接続時の
+ハンドシェイク/認証 のときに送信され、これを mysqlnd が使います。</p>
+<p class="para">Libmysql が使うデフォルトの文字セットは <var class="filename">my.cnf</var>
+で設定したものです。あるいは明示的に <span class="function"><a href="mysqli.options.html" class="function">mysqli_options()</a></span> をコールして設定することもできます。
+これは、<span class="function"><a href="mysqli.init.html" class="function">mysqli_init()</a></span> のあとで <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span>
+を実行する前にコールします。</p></p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    オブジェクト指向の構文に関する注意:
+    接続に失敗した場合にもオブジェクトが返されます。
+    接続が失敗したかどうかを確かめるには、先ほどの例のように
+    <span class="function"><a href="mysqli.connect-error.html" class="function">mysqli_connect_error()</a></span> 関数あるいは <a href="mysqli.connect-error.html" class="link">mysqli-&gt;connect_error</a>
+    プロパティを使用しましょう。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    接続タイムアウトなどのオプションを設定する必要がある場合は、かわりに
+    <span class="function"><a href="mysqli.real-connect.html" class="function">mysqli_real_connect()</a></span> を使わなければなりません。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    コンストラクタをパラメータなしでコールするのは、
+    <span class="function"><a href="mysqli.init.html" class="function">mysqli_init()</a></span> をコールするのと同じ意味になります。
+   </p>
+  </p></blockquote>
+  <blockquote class="note"><p><b class="note">注意</b>: 
+   <p class="para">
+    エラー &quot;Can&#039;t create TCP/IP socket (10106)&quot; が発生するのは、たいていは <a href="ini.core.html#ini.variables-order" class="link">variables_order</a> 設定ディレクティブに
+    <i>E</i> が含まれていない場合です。
+    Windows では、これが含まれていなければ <i>SYSTEMROOT</i>
+    環境変数が使用できず、PHP が Winsock の読み込みに失敗します。
+   </p>
+  </p></blockquote>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-mysqli.connect-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="mysqli.real-connect.html" class="function" rel="rdfs-seeAlso">mysqli_real_connect()</a> - mysql サーバとの接続をオープンする</span></li>
+    <li class="member"><span class="function"><a href="mysqli.options.html" class="function" rel="rdfs-seeAlso">mysqli_options()</a> - オプションを設定する</span></li>
+    <li class="member"><span class="function"><a href="mysqli.connect-errno.html" class="function" rel="rdfs-seeAlso">mysqli_connect_errno()</a> - 直近の接続コールに関するエラーコードを返す</span></li>
+    <li class="member"><span class="function"><a href="mysqli.connect-error.html" class="function" rel="rdfs-seeAlso">mysqli_connect_error()</a> - 直近の接続エラーの内容を文字列で返す</span></li>
+    <li class="member"><span class="function"><a href="mysqli.close.html" class="function" rel="rdfs-seeAlso">mysqli_close()</a> - 事前にオープンしているデータベース接続を閉じる</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="mysqli.connect-error.html">mysqli-&gt;connect_error</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="mysqli.debug.html">mysqli::debug</a></div>
+ <div class="up"><a href="class.mysqli.html">MySQLi</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

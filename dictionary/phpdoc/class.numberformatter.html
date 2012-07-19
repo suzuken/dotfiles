@@ -1,0 +1,1477 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>NumberFormatter クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="collator.sort.html">Collator::sort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="numberformatter.create.html">NumberFormatter::create</a></div>
+ <div class="up"><a href="book.intl.html">intl</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.numberformatter" class="reference">
+ <h1 class="title">NumberFormatter クラス</h1>
+ 
+
+ <div class="partintro">
+
+  
+  <div class="section" id="numberformatter.intro">
+   <h2 class="title">導入</h2>
+   <p class="simpara">
+    プログラムで数値を保存したり操作したりする際には、
+    ロケールに依存しないバイナリ表現を使用します。
+    数値を表示するときに、ロケールにあわせた文字列形式に変換します。
+    たとえば 12345.67 という数値の表記はアメリカでは &quot;12,345.67&quot;、
+    フランスでは &quot;12 345,67&quot;、そしてドイツでは &quot;12.345,67&quot; となります。
+   </p>
+   <p class="simpara">
+    NumberFormatter クラスのメソッドを実行すると、
+    数値や通貨、パーセンテージなどの値をロケールに応じた形式にフォーマットすることができます。
+    NumberFormatter はロケールを考慮した処理を行うので、
+    ロケールごとに別の NumberFormatter を用意する必要があります。
+    NumberFormatter のメソッドは、浮動小数点数値のような数値を
+    ロケールにあわせた文字列に変換します。
+   </p>
+   <p class="para">
+    通貨の場合は、通貨用の書式を使用してフォーマッタを作成します。
+    これは、ロケールにあわせて数値を適切な書式にして通貨記号をつけた文字列を返します。
+    もちろん、NumberFormatter クラスは為替レートの変換などは考慮しません。
+    指定した通貨にかかわらず、出力される数値は同じものとなります。
+    つまり、ロケールによって同じ数値が違う額を表すことになるということです。
+    9988776.65 という数値を指定したときの結果は次のようになります。
+    <ul class="simplelist">
+     <li class="member">9 988 776,65 € (フランス)</li>
+     <li class="member">9.988.776,65 € (ドイツ)</li>
+     <li class="member">$9,988,776.65 in (アメリカ)</li>
+    </ul>
+   </p>
+   <p class="simpara">
+    パーセンテージをフォーマットするには、
+    パーセンテージ用の書式を指定したフォーマッタを作成します。
+    これを使用すると、たとえば 0.75 のような小数が
+    75% と表示されるようになります。
+   </p>
+   <p class="simpara">
+    spelled-out numbers のような複雑な書式を設定する場合は、
+    ルールベースの数値フォーマッタを使用します。
+   </p>
+  </div>
+  
+
+  <div class="section" id="NumberFormatter.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+   
+   <div class="classsynopsis">
+    <div class="ooclass">
+     
+    </div>
+
+    
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <b class="classname">NumberFormatter</b>
+     </span>
+     {</div>
+    
+
+    
+
+    <div class="classsynopsisinfo classsynopsisinfo_comment">/* メソッド */</div>
+    <div class="constructorsynopsis dc-description">
+     <span class="methodname"><a href="numberformatter.create.html" class="methodname">__construct</a></span>
+     ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$locale</tt></span>
+    , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$style</tt></span>
+    [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   ] )</div>
+
+    <div class="methodsynopsis dc-description">
+   <span class="modifier">static</span>
+   <span class="type">NumberFormatter</span>
+    <span class="methodname"><a href="numberformatter.create.html" class="methodname">create</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$locale</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$style</tt></span>
+   [, <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.formatcurrency.html" class="methodname">formatCurrency</a></span>
+    ( <span class="methodparam"><span class="type">float</span> <tt class="parameter">$value</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$currency</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.format.html" class="methodname">format</a></span>
+    ( <span class="methodparam"><span class="type"><a href="language.pseudo-types.html#language.types.number" class="type number">number</a></span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">int</span>
+    <span class="methodname"><a href="numberformatter.getattribute.html" class="methodname">getAttribute</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">int</span>
+    <span class="methodname"><a href="numberformatter.geterrorcode.html" class="methodname">getErrorCode</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.geterrormessage.html" class="methodname">getErrorMessage</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.getlocale.html" class="methodname">getLocale</a></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.getpattern.html" class="methodname">getPattern</a></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.getsymbol.html" class="methodname">getSymbol</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">string</span>
+    <span class="methodname"><a href="numberformatter.gettextattribute.html" class="methodname">getTextAttribute</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">float</span>
+    <span class="methodname"><a href="numberformatter.parsecurrency.html" class="methodname">parseCurrency</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter reference">&$currency</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+  ] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">mixed</span>
+    <span class="methodname"><a href="numberformatter.parse.html" class="methodname">parse</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$type</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter reference">&$position</tt></span>
+  ]] )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="numberformatter.setattribute.html" class="methodname">setAttribute</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   , <span class="methodparam"><span class="type">int</span> <tt class="parameter">$value</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="numberformatter.setpattern.html" class="methodname">setPattern</a></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="numberformatter.setsymbol.html" class="methodname">setSymbol</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   )</div>
+<div class="methodsynopsis dc-description">
+   <span class="type">bool</span>
+    <span class="methodname"><a href="numberformatter.settextattribute.html" class="methodname">setTextAttribute</a></span>
+    ( <span class="methodparam"><span class="type">int</span> <tt class="parameter">$attr</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$value</tt></span>
+   )</div>
+
+
+   }</div>
+   
+
+  </div>
+
+  
+
+  
+
+
+<div class="section" id="intl.numberformatter-constants">
+ <h2 class="title">定義済み定数</h2>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatStyle">
+  <p class="para">
+   これらのスタイルは <span class="function"><a href="numberformatter.create.html" class="function">numfmt_create()</a></span>
+   で使用するもので、フォーマッタの形式を定義します。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PATTERN_DECIMAL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パターンで定義する十進形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DECIMAL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">十進形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::CURRENCY</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">通貨形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PERCENT</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パーセント形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::SCIENTIFIC</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">科学形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::SPELLOUT</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ルールベースの省略しない形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ORDINAL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ルールベースの序数形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DURATION</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ルールベースの連続形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PATTERN_RULEBASED</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パターンで定義するルールベースの形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DEFAULT_STYLE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">そのロケールのデフォルトの形式</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::IGNORE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">PATTERN_DECIMAL のエイリアス</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+
+
+
+
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.types">
+  <p class="para">
+   これらの定数は、数値のパースやフォーマットの方法を定義します。
+   <span class="function"><a href="numberformatter.format.html" class="function">numfmt_format()</a></span> や
+   <span class="function"><a href="numberformatter.parse.html" class="function">numfmt_parse()</a></span> の引数として使用します。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::TYPE_DEFAULT</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">変数の型に由来する型</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::TYPE_INT32</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">32 ビット整数値としてフォーマット/パースする</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::TYPE_INT64</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">64 ビット整数値としてフォーマット/パースする</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::TYPE_DOUBLE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">浮動小数点数値としてフォーマット/パースする</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::TYPE_CURRENCY</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">通貨値としてフォーマット/パースする</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatAttribute">
+  <p class="para">
+   <span class="function"><a href="numberformatter.getattribute.html" class="function">numfmt_get_attribute()</a></span>
+   および
+   <span class="function"><a href="numberformatter.setattribute.html" class="function">numfmt_set_attribute()</a></span>
+   で使用する数値フォーマット属性です。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PARSE_INT_ONLY</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">整数値のみをパースする</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::GROUPING_USED</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">グループ区切り文字を使用する</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DECIMAL_ALWAYS_SHOWN</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">常に小数点を表示する</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MAX_INTEGER_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">整数部の最大桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MIN_INTEGER_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">整数部の最小桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::INTEGER_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">整数部の桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MAX_FRACTION_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">小数部の最大桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MIN_FRACTION_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">小数部の最小桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::FRACTION_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">小数部の桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MULTIPLIER</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">乗数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::GROUPING_SIZE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">グループ化のサイズ</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUNDING_MODE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">丸めモード</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUNDING_INCREMENT</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">切り上げ</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::FORMAT_WIDTH</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">format() の出力のパディング幅</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PADDING_POSITION</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       パディングを行う位置。
+       使用できる引数の値についてはパディング位置に関する定数を参照ください。
+      </span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::SECONDARY_GROUPING_SIZE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">第二段階のグループ化のサイズ</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::SIGNIFICANT_DIGITS_USED</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">有効数字を使用する</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MIN_SIGNIFICANT_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">有効数字の最小桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MAX_SIGNIFICANT_DIGITS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">有効数字の最大桁数</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::LENIENT_PARSE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ルールベースのフォーマットで使用する Lenient パースモード</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatTextAttribute">
+  <p class="para">
+   <span class="function"><a href="numberformatter.gettextattribute.html" class="function">numfmt_get_text_attribute()</a></span> および
+   <span class="function"><a href="numberformatter.settextattribute.html" class="function">numfmt_set_text_attribute()</a></span>
+   で使用する数値フォーマットテキスト属性です。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::POSITIVE_PREFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">正の数のプレフィックス</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::POSITIVE_SUFFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">正の数のサフィックス</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::NEGATIVE_PREFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">負の数のプレフィックス</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::NEGATIVE_SUFFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">負の数のサフィックス</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PADDING_CHARACTER</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">余白を埋める際に使用する文字</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::CURRENCY_CODE</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ISO 通貨コード</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DEFAULT_RULESET</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       デフォルトのルールセット。
+       ルールベースのフォーマッタでのみ有効です。
+      </span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PUBLIC_RULESETS</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       パブリックルールセット。
+       これは、ルールベースのフォーマッタでのみ有効です。
+       これは読み込み専用の属性です。
+       パブリックルールセットは文字列として返され、
+       個々のルールセットは &#039;;&#039; (セミコロン)
+       で区切られています。
+      </span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatSymbol">
+  <p class="para">
+   <span class="function"><a href="numberformatter.getsymbol.html" class="function">numfmt_get_symbol()</a></span> および
+   <span class="function"><a href="numberformatter.setsymbol.html" class="function">numfmt_set_symbol()</a></span>
+   で使用する数値フォーマット記号です。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DECIMAL_SEPARATOR_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">小数点</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::GROUPING_SEPARATOR_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">グループ区切り文字</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PATTERN_SEPARATOR_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パターン区切り文字</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PERCENT_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パーセント記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ZERO_DIGIT_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ゼロ</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::DIGIT_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パターン内で数字を表す文字</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MINUS_SIGN_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">マイナス記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PLUS_SIGN_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">プラス記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::CURRENCY_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">通貨記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::INTL_CURRENCY_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">国際通貨記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MONETARY_SEPARATOR_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">金額の区切り文字</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::EXPONENTIAL_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">指数記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PERMILL_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パーミル記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PAD_ESCAPE_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">パディング文字のエスケープ記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::INFINITY_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">無限大記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::NAN_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">非数値記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::SIGNIFICANT_DIGIT_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">有効数字記号</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::MONETARY_GROUPING_SEPARATOR_SYMBOL</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">金額のグループ区切り文字</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatRoundingMode">
+  <p class="para">
+   <span class="function"><a href="numberformatter.getattribute.html" class="function">numfmt_get_attribute()</a></span> および
+   <span class="function"><a href="numberformatter.setattribute.html" class="function">numfmt_set_attribute()</a></span> で、
+   <b><tt>NumberFormatter::ROUNDING_MODE</tt></b>
+   属性に使用する丸めモードの値です。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_CEILING</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">正の無限大に向けて丸めるモード</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_DOWN</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ゼロに向けて丸めるモード</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_FLOOR</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">負の無限大に向けて丸めるモード</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_HALFDOWN</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       &quot;一番近いところ&quot; に向けて丸めるモード。
+       両方から等距離にある場合はゼロに向けて丸めます。
+      </span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_HALFEVEN</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       &quot;一番近いところ&quot; に向けて丸めるモード。
+       両方から等距離にある場合は偶数になるように丸めます。
+      </span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_HALFUP</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">
+       &quot;一番近いところ&quot; に向けて丸めるモード。
+       両方から等距離にある場合はゼロから離れる方向に丸めます。
+      </span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::ROUND_UP</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">ゼロから離れる方向に丸めるモード</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="section" id="intl.numberformatter-constants.UNumberFormatPadPosition">
+  <p class="para">
+   <span class="function"><a href="numberformatter.getattribute.html" class="function">numfmt_get_attribute()</a></span> および
+   <span class="function"><a href="numberformatter.setattribute.html" class="function">numfmt_set_attribute()</a></span> で、
+   <b><tt>NumberFormatter::PADDING_POSITION</tt></b>
+   属性に使用するパディング位置の値です。
+   <dl>
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PAD_AFTER_PREFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">プレフィックスの後にパディング文字を入れる</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PAD_AFTER_SUFFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">サフィックスの後にパディング文字を入れる</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PAD_BEFORE_PREFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">プレフィックスの前にパディング文字を入れる</span>
+     </dd>
+
+    </dt>
+
+
+    <dt>
+
+     <span class="term">
+      <b><tt>NumberFormatter::PAD_BEFORE_SUFFIX</tt></b>
+      (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+     </span>
+     <dd>
+
+      <span class="simpara">サフィックスの前にパディング文字を入れる</span>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+</div>
+
+
+
+
+
+  <div class="section" id="numberformatter.seealso">
+   <h2 class="title">参考</h2>
+   <p class="para">
+    <ul class="simplelist">
+     <li class="member">
+      <a href="http://icu-project.org/userguide/formatParse.html" class="link external">&raquo; 
+       ICU formatting documentation
+      </a>
+     </li>
+     <li class="member">
+      <a href="http://icu-project.org/userguide/formatNumbers.html" class="link external">&raquo; ICU number formatters</a>
+     </li>
+     <li class="member">
+      <a href="http://www.icu-project.org/apiref/icu4c/classDecimalFormat.html#_details" class="link external">&raquo; ICU decimal formatters</a>
+     </li>
+     <li class="member">
+      <a href="http://www.icu-project.org/apiref/icu4c/classRuleBasedNumberFormat.html#_details" class="link external">&raquo; 
+       ICU rule-based number formatters
+      </a>
+     </li>
+    </ul>
+   </p>
+  </div>
+ </div>
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>目次</h2><ul class="chunklist chunklist_reference"><li><a href="numberformatter.create.html">NumberFormatter::create</a> — 数値フォーマッタを作成する</li><li><a href="numberformatter.formatcurrency.html">NumberFormatter::formatCurrency</a> — 通貨の値をフォーマットする</li><li><a href="numberformatter.format.html">NumberFormatter::format</a> — 数値をフォーマットする</li><li><a href="numberformatter.getattribute.html">NumberFormatter::getAttribute</a> — 属性を取得する</li><li><a href="numberformatter.geterrorcode.html">NumberFormatter::getErrorCode</a> — フォーマッタの直近のエラーコードを取得する</li><li><a href="numberformatter.geterrormessage.html">NumberFormatter::getErrorMessage</a> — フォーマッタの直近のエラーメッセージを取得する</li><li><a href="numberformatter.getlocale.html">NumberFormatter::getLocale</a> — フォーマッタのロケールを取得する</li><li><a href="numberformatter.getpattern.html">NumberFormatter::getPattern</a> — フォーマッタのパターンを取得する</li><li><a href="numberformatter.getsymbol.html">NumberFormatter::getSymbol</a> — 記号を取得する</li><li><a href="numberformatter.gettextattribute.html">NumberFormatter::getTextAttribute</a> — テキストの属性を取得する</li><li><a href="numberformatter.parsecurrency.html">NumberFormatter::parseCurrency</a> — 通貨をパースする</li><li><a href="numberformatter.parse.html">NumberFormatter::parse</a> — 数値をパースする</li><li><a href="numberformatter.setattribute.html">NumberFormatter::setAttribute</a> — 属性を設定する</li><li><a href="numberformatter.setpattern.html">NumberFormatter::setPattern</a> — フォーマッタのパターンを設定する</li><li><a href="numberformatter.setsymbol.html">NumberFormatter::setSymbol</a> — 記号の値を設定する</li><li><a href="numberformatter.settextattribute.html">NumberFormatter::setTextAttribute</a> — テキスト属性を設定する</li></ul>
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="collator.sort.html">Collator::sort</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="numberformatter.create.html">NumberFormatter::create</a></div>
+ <div class="up"><a href="book.intl.html">intl</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

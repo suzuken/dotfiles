@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>出力する PHP エラーの種類を設定する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.error-log.html">error_log</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.restore-error-handler.html">restore_error_handler</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.error-reporting" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">error_reporting</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">error_reporting</span> &mdash; <span class="dc-title">出力する PHP エラーの種類を設定する</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.error-reporting-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">int</span> <span class="methodname"><b>error_reporting</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$level</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <span class="function"><b>error_reporting()</b></span> 関数は、
+   <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> ディレクティブを
+   実行時に設定します。PHP には多くのエラーレベルがあり、
+   この関数によりスクリプトの持続時間(実行時間)のレベルが設定されます。
+   オプションの <i><tt class="parameter">level</tt></i> を指定しなかった場合は、
+   <span class="function"><b>error_reporting()</b></span> は単に現在のエラーレベルを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.error-reporting-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">level</tt></i></span>
+     <dd>
+
+      <p class="para">
+       新しい <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a>
+       レベル。ビットマスクまたは名前つき定数のどちらかです。将来の
+       バージョンとの互換性を保証するために、名前つき定数の使用が
+       強く推奨されています。エラーレベルが追加されると、整数の幅は増加します。
+       そのため、以前の整数を使用するエラーレベルは常に期待通りに動作するとは
+       限りません。
+      </p>
+      <p class="para">
+       利用可能なエラーレベル定数とその実際の意味は、
+       <a href="errorfunc.constants.html" class="link">定義済みの定数</a>に
+       記述されています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.error-reporting-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   変更前の <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a>
+   レベルを返します。<i><tt class="parameter">level</tt></i>
+   パラメータを指定しなかった場合は、現在のレベルを返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-function.error-reporting-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.0.0</td>
+       <td align="left"><b><tt>E_STRICT</tt></b> が追加されました (これは <b><tt>E_ALL</tt></b> には含まれません)。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.2.0</td>
+       <td align="left"><b><tt>E_RECOVERABLE_ERROR</tt></b> が追加されました。</td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left"><b><tt>E_DEPRECATED</tt></b> と <b><tt>E_USER_DEPRECATED</tt></b> が追加されました。</td>
+      </tr>
+
+      
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.error-reporting-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-406">
+    <p><b>例1 <span class="function"><b>error_reporting()</b></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">//&nbsp;全てのエラー出力をオフにする<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">0</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;単純な実行時エラーを表示する<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">E_WARNING&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">E_PARSE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;E_NOTICE&nbsp;を表示させるのもおすすめ（初期化されていない<br />//&nbsp;変数、変数名のスペルミスなど…）<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ERROR&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">E_WARNING&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">E_PARSE&nbsp;</span><span style="color: #007700">|&nbsp;</span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;E_NOTICE&nbsp;以外の全てのエラーを表示する<br />//&nbsp;これは&nbsp;php.ini&nbsp;で設定されているデフォルト値<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL&nbsp;</span><span style="color: #007700">^&nbsp;</span><span style="color: #0000BB">E_NOTICE</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;全ての&nbsp;PHP&nbsp;エラーを表示する&nbsp;(Changelog&nbsp;を参照ください)<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;全ての&nbsp;PHP&nbsp;エラーを表示する<br /></span><span style="color: #0000BB">error_reporting</span><span style="color: #007700">(-</span><span style="color: #0000BB">1</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;error_reporting(E_ALL);&nbsp;と同じ<br /></span><span style="color: #0000BB">ini_set</span><span style="color: #007700">(</span><span style="color: #DD0000">'error_reporting'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">E_ALL</span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.error-reporting-notes">
+  <h3 class="title">注意</h3>
+  <div class="warning"><b class="warning">警告</b>
+   <p class="simpara">
+    ほとんどの <b><tt>E_STRICT</tt></b> レベルのエラーは
+    スクリプトのコンパイル時に発生します。そのため、
+    <a href="errorfunc.configuration.html#ini.error-reporting" class="link">error_reporting</a> で
+    <b><tt>E_STRICT</tt></b> を含むように設定されている環境では
+    これらのエラーを検出できません (逆も同様です)。
+   </p>
+  </div>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="simpara">
+    値に <i>-1</i> を指定すると、仮に将来のバージョンの PHP
+    で新しいレベルと定数が追加されたとしてもすべてのエラーを表示するようになります。
+    
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.error-reporting-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><a href="errorfunc.configuration.html#ini.display-errors" class="link">display_errors</a> ディレクティブ</li>
+    <li class="member"><a href="errorfunc.configuration.html#ini.html-errors" class="link">html_errors</a> ディレクティブ</li>
+    <li class="member"><a href="errorfunc.configuration.html#ini.xmlrpc-errors" class="link">xmlrpc_errors</a> ディレクティブ</li>
+    <li class="member"><span class="function"><a href="function.ini-set.html" class="function" rel="rdfs-seeAlso">ini_set()</a> - 設定オプションの値を設定する</span></li>
+   </ul>
+  </p>
+ </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.error-log.html">error_log</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.restore-error-handler.html">restore_error_handler</a></div>
+ <div class="up"><a href="ref.errorfunc.html">エラー処理関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

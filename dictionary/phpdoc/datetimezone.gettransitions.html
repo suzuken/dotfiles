@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>タイムゾーンの変遷を返す</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetimezone.getoffset.html">DateTimeZone::getOffset</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetimezone.listabbreviations.html">DateTimeZone::listAbbreviations</a></div>
+ <div class="up"><a href="class.datetimezone.html">DateTimeZone</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="datetimezone.gettransitions" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">DateTimeZone::getTransitions</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0)</p><p class="refpurpose"><span class="refname">DateTimeZone::getTransitions</span> &mdash; <span class="dc-title">タイムゾーンの変遷を返す</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-datetimezone.gettransitions-description">
+  <h3 class="title">説明</h3>
+  <p class="para">オブジェクト指向型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">array</span> <span class="methodname"><b>DateTimeZone::getTransitions</b></span>
+    ([ <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp_begin</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp_end</tt></span>
+  ]] )</div>
+
+  <p class="para rdfs-comment">手続き型</p>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><a href="function.timezone-transitions-get.html" class="methodname">timezone_transitions_get</a></span>
+    ( <span class="methodparam"><span class="type"><a href="class.datetimezone.html" class="type DateTimeZone">DateTimeZone</a></span> <tt class="parameter">$object</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp_begin</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$timestamp_end</tt></span>
+  ]] )</div>
+
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-datetimezone.gettransitions-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+<span class="term"><i><tt class="parameter">
+object</tt></i></span><dd>
+<p class="para">手続き型のみ: <span class="function"><a href="function.timezone-open.html" class="function">timezone_open()</a></span>
+が返す <a href="class.datetimezone.html" class="classname">DateTimeZone</a> オブジェクト</p></dd>
+</dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timestamp_begin</tt></i></span>
+     <dd>
+
+      <p class="para">
+       開始時のタイムスタンプ。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">timestamp_end</tt></i></span>
+     <dd>
+
+      <p class="para">
+       終了時のタイムスタンプ。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-datetimezone.gettransitions-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合にタイムゾーンの遷移を表す連想配列の配列、
+   失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 changelog" id="refsect1-datetimezone.gettransitions-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        オプションの <i><tt class="parameter">timestamp_begin</tt></i> および <i><tt class="parameter">timestamp_end</tt></i>
+        が追加されました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-datetimezone.gettransitions-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-602">
+    <p><b>例1 <span class="function"><a href="function.timezone-transitions-get.html" class="function">timezone_transitions_get()</a></span> の例</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$timezone&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">DateTimeZone</span><span style="color: #007700">(</span><span style="color: #DD0000">"Europe/London"</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$transitions&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$timezone</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getTransitions</span><span style="color: #007700">();<br /></span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">array_slice</span><span style="color: #007700">(</span><span style="color: #0000BB">$transitions</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">));<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [0] =&gt; Array
+        (
+            [ts] =&gt; -9223372036854775808
+            [time] =&gt; -292277022657-01-27T08:29:52+0000
+            [offset] =&gt; 3600
+            [isdst] =&gt; 1
+            [abbr] =&gt; BST
+        )
+
+    [1] =&gt; Array
+        (
+            [ts] =&gt; -1691964000
+            [time] =&gt; 1916-05-21T02:00:00+0000
+            [offset] =&gt; 3600
+            [isdst] =&gt; 1
+            [abbr] =&gt; BST
+        )
+
+    [2] =&gt; Array
+        (
+            [ts] =&gt; -1680472800
+            [time] =&gt; 1916-10-01T02:00:00+0000
+            [offset] =&gt; 0
+            [isdst] =&gt; 
+            [abbr] =&gt; GMT
+        )
+
+)
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="datetimezone.getoffset.html">DateTimeZone::getOffset</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="datetimezone.listabbreviations.html">DateTimeZone::listAbbreviations</a></div>
+ <div class="up"><a href="class.datetimezone.html">DateTimeZone</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

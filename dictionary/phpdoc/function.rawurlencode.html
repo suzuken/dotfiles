@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>RFC 3986 に基づき URL エンコードを行う</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.rawurldecode.html">rawurldecode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.urldecode.html">urldecode</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.rawurlencode" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">rawurlencode</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">rawurlencode</span> &mdash; <span class="dc-title">RFC 3986 に基づき URL エンコードを行う</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-function.rawurlencode-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">string</span> <span class="methodname"><b>rawurlencode</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$str</tt></span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   指定した文字列を <a href="http://www.faqs.org/rfcs/rfc3986" class="link external">&raquo; RFC 3986</a>
+   にもとづいてエンコードします。
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.rawurlencode-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">str</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エンコードする URL。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.rawurlencode-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   <i>-_.~</i> を除くすべての非アルファベット文字をパーセント
+   記号 (<i>%</i>)に続いて 2 つの 16 進数がある表現形式に
+   置き換えた文字列を返します。これは、文字定数が特殊な URL デリミタと
+   して解釈されたり、URL デリミタが(いくつかの電子メールシステムのような)
+   転送メディアにより文字変換されて失われてしまったりすることが
+   ないように、<a href="http://www.faqs.org/rfcs/rfc3986" class="link external">&raquo; RFC 3986</a>
+   で定められたエンコーディング方法です。
+   <blockquote class="note"><p><b class="note">注意</b>: 
+    <p class="para">
+     PHP 5.3.0 より前のバージョンでは、rawurlencode はチルダ (<i>~</i>)
+     もエンコードしていました。これは
+     <a href="http://www.faqs.org/rfcs/rfc1738" class="link external">&raquo; RFC 1738</a> で定められた方法です。
+    </p>
+   </p></blockquote>
+  </p>
+ </div>
+
+ 
+ <div class="refsect1 changelog" id="refsect1-function.rawurlencode-changelog">
+  <h3 class="title">変更履歴</h3>
+  <p class="para">
+   <table class="doctable informaltable">
+    
+     <thead valign="middle">
+      <tr valign="middle">
+       <th>バージョン</th>
+       <th>説明</th>
+      </tr>
+
+     </thead>
+
+     <tbody valign="middle" class="tbody">
+      <tr valign="middle">
+       <td align="left">5.3.4</td>
+       <td align="left">
+        <span class="function"><b>rawurlencode()</b></span> を EBCDIC 文字列で使った場合に、
+        チルダ文字をエンコードしなくなりました。
+       </td>
+      </tr>
+
+      <tr valign="middle">
+       <td align="left">5.3.0</td>
+       <td align="left">
+        <a href="http://www.faqs.org/rfcs/rfc3986" class="link external">&raquo; RFC 3986</a> を満たすようになりました。
+       </td>
+      </tr>
+
+     </tbody>
+    
+   </table>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.rawurlencode-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3409">
+    <p><b>例1 FTP URL へのパスワードの埋め込み</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;a&nbsp;href="ftp://user:'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">rawurlencode</span><span style="color: #007700">(</span><span style="color: #DD0000">'foo&nbsp;@+%/'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'@ftp.example.com/x.txt"&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;a href=&quot;ftp://user:foo%20%40%2B%25%2F@ftp.example.com/x.txt&quot;&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+  <p class="para">
+   あるいは、URL の PATH_INFO 中の情報を渡した場合は、
+  </p>
+  <p class="para">
+   <div class="example" id="example-3410">
+    <p><b>例2 <span class="function"><b>rawurlencode()</b></span> の例 2</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">echo&nbsp;</span><span style="color: #DD0000">'&lt;a&nbsp;href="http://example.com/department_list_script/'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">rawurlencode</span><span style="color: #007700">(</span><span style="color: #DD0000">'sales&nbsp;and&nbsp;marketing/Miami'</span><span style="color: #007700">),&nbsp;</span><span style="color: #DD0000">'"&gt;'</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+    <div class="example-contents"><p>上の例の出力は以下となります。</p></div>
+    <div class="example-contents screen">
+<div class="cdata"><pre>
+&lt;a href=&quot;http://example.com/department_list_script/sales%20and%20marketing%2FMiami&quot;&gt;
+</pre></div>
+    </div>
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.rawurlencode-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.rawurldecode.html" class="function" rel="rdfs-seeAlso">rawurldecode()</a> - URL エンコードされた文字列をデコードする</span></li>
+    <li class="member"><span class="function"><a href="function.urldecode.html" class="function" rel="rdfs-seeAlso">urldecode()</a> - URL エンコードされた文字列をデコードする</span></li>
+    <li class="member"><span class="function"><a href="function.urlencode.html" class="function" rel="rdfs-seeAlso">urlencode()</a> - 文字列を URL エンコードする</span></li>
+    <li class="member"><a href="http://www.faqs.org/rfcs/rfc3986" class="link external">&raquo; RFC 3986</a></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.rawurldecode.html">rawurldecode</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.urldecode.html">urldecode</a></div>
+ <div class="up"><a href="ref.url.html">URL 関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

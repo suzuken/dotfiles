@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>名前を使用してエントリの詳細を取得する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-statindex.html">ZipArchive::statIndex</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-unchangeall.html">ZipArchive::unchangeAll</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.ziparchive-statname" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">ZipArchive::statName</h1>
+  <p class="verinfo">(PHP 5 &gt;= 5.2.0, PECL zip &gt;= 1.5.0)</p><p class="refpurpose"><span class="refname">ZipArchive::statName</span> &mdash; <span class="dc-title">名前を使用してエントリの詳細を取得する</span></p>
+
+ </div>
+ <div class="refsect1 description" id="refsect1-function.ziparchive-statname-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type"><a href="language.pseudo-types.html#language.types.mixed" class="type mixed">mixed</a></span> <span class="methodname"><b>ZipArchive::statName</b></span>
+    ( <span class="methodparam"><span class="type"><span class="type name">name</span></span> <tt class="parameter">$name</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$flags</tt></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+    この関数は、名前を使用してエントリの詳細情報を取得します。
+  </p>
+ </div>
+
+ <div class="refsect1 parameters" id="refsect1-function.ziparchive-statname-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">name</tt></i></span>
+     <dd>
+
+      <p class="para">
+       エントリの名前。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">flags</tt></i></span>
+     <dd>
+
+      <p class="para">
+       名前をどのように探すのかを設定します。
+       また <b><tt>ZIPARCHIVE::FL_UNCHANGED</tt></b> を OR で連結すると、
+       アーカイブ内に最初に記録された際の情報を取得します。
+       変更内容は無視されます。
+       <ul class="itemizedlist">
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::FL_NOCASE</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::FL_NODIR</tt></b>
+         </p>
+        </li>
+        <li class="listitem">
+         <p class="para">
+          <b><tt>ZIPARCHIVE::FL_UNCHANGED</tt></b>
+         </p>
+        </li>
+       </ul>
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+ <div class="refsect1 returnvalues" id="refsect1-function.ziparchive-statname-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   エントリの詳細を含む配列を返します。失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+ <div class="refsect1 examples" id="refsect1-function.ziparchive-statname-examples">
+  <h3 class="title">例</h3>
+    <div class="example" id="example-822">
+     <p><b>例1 エントリの情報の出力</b></p>
+     <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br />$zip&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ZipArchive</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">open</span><span style="color: #007700">(</span><span style="color: #DD0000">'test.zip'</span><span style="color: #007700">);<br />if&nbsp;(</span><span style="color: #0000BB">$res&nbsp;</span><span style="color: #007700">===&nbsp;</span><span style="color: #0000BB">TRUE</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">print_r</span><span style="color: #007700">(</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">statName</span><span style="color: #007700">(</span><span style="color: #DD0000">'foobar/baz'</span><span style="color: #007700">));<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$zip</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">close</span><span style="color: #007700">();<br />}&nbsp;else&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;echo&nbsp;</span><span style="color: #DD0000">'失敗、コード:'&nbsp;</span><span style="color: #007700">.&nbsp;</span><span style="color: #0000BB">$res</span><span style="color: #007700">;<br />}<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+     </div>
+
+      <div class="example-contents"><p>上の例の出力は、
+たとえば以下のようになります。</p></div>
+     <div class="example-contents screen">
+<div class="cdata"><pre>
+Array
+(
+    [name] =&gt; foobar/baz
+    [index] =&gt; 3
+    [crc] =&gt; 499465816
+    [size] =&gt; 27
+    [mtime] =&gt; 1123164748
+    [comp_size] =&gt; 24
+    [comp_method] =&gt; 8
+)
+</pre></div>
+     </div>
+
+    </div>
+
+   </div>
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.ziparchive-statindex.html">ZipArchive::statIndex</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.ziparchive-unchangeall.html">ZipArchive::unchangeAll</a></div>
+ <div class="up"><a href="class.ziparchive.html">ZipArchive</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

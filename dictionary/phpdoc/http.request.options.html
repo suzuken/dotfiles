@@ -1,0 +1,695 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>HttpRequest クラスおよびリクエスト関数で使用するオプション</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="http.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.httpdeflatestream.html">HttpDeflateStream クラス</a></div>
+ <div class="up"><a href="book.http.html">HTTP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="http.request.options" class="appendix">
+ <h1>HttpRequest クラスおよびリクエスト関数で使用するオプション</h1>
+
+ 
+  <dl>
+
+   <strong class="title">タイムアウトに関連するオプション</strong>
+   <dt id="http.request.option.timeout">
+    <span class="term">
+     timeout (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リクエスト全体が完了するまでの秒数。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt id="http.request.option.connecttimeout">
+    <span class="term">
+     connecttimeout (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      名前解決を含む接続にかける秒数。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt id="http.request.option.dns-cache-timeout">
+    <span class="term">
+     dns_cache_timeout (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      dns キャッシュエントリのタイムアウト秒数。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">url に関連するオプション</strong>
+   <dt id="http.request.option.url">
+    <span class="term">
+     url (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リクエスト url。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt id="http.request.option.port">
+    <span class="term">
+     port (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      url で指定したものとは別のポートを使用する場合のポート。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt id="http.request.option.redirect">
+    <span class="term">
+     redirect (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リダイレクトをどれだけ追いかけるか。デフォルトは 0。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt id="http.request.option.unrestrictedauth">
+    <span class="term">
+     unrestrictedauth (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      別のホストにリダイレクトする際に認証情報を引き継ぐかどうか。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     referer (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リファラとして送信する url。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">クッキーに関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     encodecookies (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      独自のクッキーを送信する前に <span class="function"><a href="function.urlencode.html" class="function">urlencode()</a></span>
+      するかどうか。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     cookies (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      クッキーの内容を表す <i>array(&quot;cookie&quot; =&gt; &quot;value&quot;)</i>
+      形式の連想配列。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     cookiestore (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      クッキーを保存するファイルへのパス。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     cookiesession (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      <b><tt>TRUE</tt></b> の場合は、cookiestore からセッションクッキーを読み込まない。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">ヘッダに関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     useragent (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      ユーザエージェントとして送信する内容。デフォルトは
+      <i>PECL::HTTP/x.y.z (PHP/x.y.z)</i>。
+      送信したくない場合は、明示的に空文字列を設定します。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     lastmodified (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      If-(Un)Modified-Since ヘッダ用のタイムスタンプ。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     etag (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      If-(None-)Match ヘッダ用のクォートした etag。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     headers (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      独自のヘッダを指定する、
+      <i>array(&quot;header&quot; =&gt; &quot;value&quot;)</i>
+      形式の連想配列。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">認証に関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     httpauth (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      &quot;user:pass&quot; 形式の http 認証情報。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     httpauthtype (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      <a href="http.constants.html#http.constants.request.httpauth" class="link">HTTP 認証方式の定数</a>。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">プロキシに関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     proxyhost (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      &quot;host[:port]&quot; 形式のプロキシホスト。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     proxyport (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      proxyhost で指定したものとは別のポートを使用する場合のプロキシポート。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     proxytype (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      <a href="http.constants.html#http.constants.request.proxy" class="link">HTTP プロキシ形式の定数</a>。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     proxyauth (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      &quot;user:pass&quot; 形式のプロキシ認証情報。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     proxyauthtype (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      <a href="http.constants.html#http.constants.request.httpauth" class="link">HTTP 認証形式の定数</a>。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">転送に関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     compress (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      gzip/deflate エンコードされたレスポンスを受け入れるかどうか。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     resume (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      サーバがサポートしている場合 (レスポンスコード 206)
+      に、指定したバイトオフセットからダウンロードを開始する。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     range (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      配列の配列で、それぞれ二つの <span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span> を含み。
+      ダウンロードする範囲を指定する。
+      サーバがサポートしており (レスポンスコード 206)、
+      resume オプションが空の場合にのみ有効。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">制限に関連するオプション</strong>
+   <dt>
+
+    <span class="term">
+     maxfilesize (<span class="type"><a href="language.types.integer.html" class="type integer">integer</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      ダウンロードできるファイルサイズの最大値。
+      リクエストされたエンティティのサイズが取得できない場合
+      (動的なページで分割して転送している場合など)
+      には無意味。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     low_speed_limit (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リクエストが成功するために必要な最低限の転送速度。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     low_speed_time (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      リクエストが成功するために、
+      <i>low_speed_limit</i>
+      以上で転送しなければならない時間。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     max_send_speed (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      最大の送信速度。バイト毎秒。
+     </span>
+    </dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">
+     max_recv_speed (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)
+    </span>
+    <dd>
+
+     <span class="simpara">
+      最大の受信速度。バイト毎秒。
+     </span>
+    </dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">コールバックオプション</strong>
+   <dt>
+
+    <span class="term">onprogress (<span class="type"><a href="language.pseudo-types.html#language.types.callback" class="type callback">callback</a></span>)</span>
+    <dd>
+<span class="simpara">進捗状況のコールバック。</span></dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">ネットワークオプション</strong>
+   <dt>
+
+    <span class="term">interface (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+    <dd>
+<span class="simpara">送信用のネットワークインターフェイス (ifname、ip あるいは hostname)。</span></dd>
+
+   </dt>
+
+   <dt>
+
+    <span class="term">portrange (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)</span>
+    <dd>
+<span class="simpara">二つの整数で指定する、送信用のポートの範囲。</span></dd>
+
+   </dt>
+
+  </dl>
+
+  <dl>
+
+   <strong class="title">SSL オプション</strong>
+   <dt>
+
+    <span class="term">
+     ssl (<span class="type"><a href="language.types.array.html" class="type array">array</a></span>)
+    </span>
+    <dd>
+
+     <blockquote class="note"><p><b class="note">注意</b>: 
+      <span class="simpara">SSL のオプションは、オプション名 &quot;ssl&quot; の配列として指定します。</span>
+     </p></blockquote>
+     <dl>
+
+      <dt>
+
+       <span class="term">cert (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">証明書へのパス。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">certtype (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">証明書の形式。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">certpasswd (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">証明書のパスワード。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">key (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">鍵へのパス。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">keytype (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">鍵の形式。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">keypasswd (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">鍵のパスワード。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">engine (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">使用する ssl エンジン。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">version (<span class="type"><a href="language.types.integer.html" class="type int">int</a></span>)</span>
+       <dd>
+<span class="simpara">使用する ssl バージョン。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">verifypeer (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)</span>
+       <dd>
+<span class="simpara">相手側を検証するかどうか。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">verifyhost (<span class="type"><a href="language.types.boolean.html" class="type bool">bool</a></span>)</span>
+       <dd>
+<span class="simpara">ホストを検証するかどうか。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">cipher_list (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara">利用できる暗号形式の一覧。</span></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">cainfo (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara"/></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">capath (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara"/></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">random_file (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara"/></dd>
+
+      </dt>
+
+      <dt>
+
+       <span class="term">egdsocket (<span class="type"><a href="language.types.string.html" class="type string">string</a></span>)</span>
+       <dd>
+<span class="simpara"/></dd>
+
+      </dt>
+
+     </dl>
+
+    </dd>
+
+   </dt>
+
+  </dl>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="http.constants.html">定義済み定数</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.httpdeflatestream.html">HttpDeflateStream クラス</a></div>
+ <div class="up"><a href="book.http.html">HTTP</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>アンカー</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.unicode.html">Unicode 文字プロパティ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.dot.html">ドット</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="regexp.reference.anchors" class="section">
+  <h2 class="title">アンカー</h2>
+     <p class="para">
+      ハット記号 (<i>^</i>) は、文字クラス外でマッチモード (matching mode) がデフォルトの場合、
+      カレントのマッチング位置が対象文字列の始端である場合に真だ
+      という言明です。文字クラス内では、ハット記号 (<i>^</i>) はまったく別の意味と
+      なります（別記参照）。
+     </p>
+     <p class="para">
+      パターン中で選択肢を用いる場合は、ハット記号 (<i>^</i>) は、それが必要な選択肢の
+      先頭に記述すればよく、パターン全体の先頭にしか記述できない訳では
+      ありません。すべての選択肢がハット記号 (<i>^</i>) で始まる場合、つまり
+      パターンが対象文字列の始端でのみマッチするように制限されている
+      パターンは、固定 (anchored) パターンと呼ばれます（もちろん、
+      他にもパターンを固定にする方法はあります）。
+     </p>
+     <p class="para">
+      ドル記号 (<i>$</i>) は、（デフォルトでは）カレントのマッチング位置が
+      対象文字列の終端にあるか、文字列の終わりの改行文字の直前にある場合に
+      真だという言明です。パターン中で選択肢を用いる場合は、ドル記号 (<i>$</i>) は、
+      必要な選択肢の最後に記述すればよく、パターン全体の最後にしか
+      記述できない訳ではありません。
+      ドル記号は、文字クラス内では特別な意味を持ちません。
+     </p>
+     <p class="para">
+      コンパイル時またはマッチング時に <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOLLAR_ENDONLY</a> 
+      オプションを設定すると、ドル記号の動作を文字列の終端でのみ
+      マッチするように変更することができます
+      このオプションは \Z 言明には影響しません。
+     </p>
+     <p class="para">
+      ハット記号とドル記号の動作は、<a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_MULTILINE</a> 
+      オプションを設定すると変化します。この場合、対象文字列の始端および
+      終端にマッチするのに加えて、対象文字列の &quot;\n&quot; 文字の直前および直後に
+      それぞれマッチします。例えば、パターン /^abc$/ は、複数行モードに
+      おいては、対象文字列 &quot;def\nabc&quot; にマッチしますが、
+      複数行モードでない場合はマッチしません。すなわち、すべての選択肢が
+       &quot;^&quot; で始まっており単一行モードでは固定のパターンも、複数行モードでは
+       固定パターンでなくなります。<a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_DOLLAR_ENDONLY</a>
+       オプションは、 <a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_MULTILINE</a> 
+       オプションが設定されている場合は無視されます。
+     </p>
+     <p class="para">
+      どちらのモードでも、エスケープシーケンス \A, \Z, \z は、
+      対象文字列の始端および終端にマッチすることに注意してください。ですので、
+      パターン中の選択肢がすべて \A で始まる場合、<a href="reference.pcre.pattern.modifiers.html" class="link">PCRE_MULTILINE</a> 
+      オプションの設定によらず、そのパターンは固定となります。
+     </p>
+    </div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="regexp.reference.unicode.html">Unicode 文字プロパティ</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="regexp.reference.dot.html">ドット</a></div>
+ <div class="up"><a href="reference.pcre.pattern.syntax.html">PCRE 正規表現構文</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

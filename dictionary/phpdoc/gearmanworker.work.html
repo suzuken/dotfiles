@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Wait for and perform jobs</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="gearmanworker.wait.html">GearmanWorker::wait</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.mqseries.html">mqseries</a></div>
+ <div class="up"><a href="class.gearmanworker.html">GearmanWorker</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="gearmanworker.work" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">GearmanWorker::work</h1>
+  <p class="verinfo">(PECL gearman &gt;= 0.5.0)</p><p class="refpurpose"><span class="refname">GearmanWorker::work</span> &mdash; <span class="dc-title">Wait for and perform jobs</span></p>
+
+ </div>
+
+ <div class="refsect1 description" id="refsect1-gearmanworker.work-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="modifier">public</span> <span class="type">bool</span> <span class="methodname"><b>GearmanWorker::work</b></span>
+    ( <span class="methodparam">void</span>
+   )</div>
+
+  <p class="para rdfs-comment">
+   Waits for a job to be assigned and then calls the appropriate callback function.
+   Issues an <b><tt>E_WARNING</tt></b> with the last Gearman error if the return
+   code is not one of <b><tt>GEARMAN_SUCCESS</tt></b>, <b><tt>GEARMAN_IO_WAIT</tt></b>,
+   or <b><tt>GEARMAN_WORK_FAIL</tt></b>.
+  </p>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-gearmanworker.work-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">この関数にはパラメータはありません。</p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-gearmanworker.work-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   成功した場合に <b><tt>TRUE</tt></b> を、失敗した場合に <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-gearmanworker.work-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3627">
+    <p><b>例1  <span class="methodname"><b>GearmanWorker::work()</b></span> example</b></p>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /><br /></span><span style="color: #FF8000">#&nbsp;create&nbsp;the&nbsp;worker<br /></span><span style="color: #0000BB">$worker&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">GearmanWorker</span><span style="color: #007700">();&nbsp;<br /><br /></span><span style="color: #FF8000">#&nbsp;add&nbsp;the&nbsp;default&nbsp;job&nbsp;server&nbsp;(localhost)<br /></span><span style="color: #0000BB">$worker</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addServer</span><span style="color: #007700">();&nbsp;<br /><br /></span><span style="color: #FF8000">#&nbsp;add&nbsp;the&nbsp;reverse&nbsp;function<br /></span><span style="color: #0000BB">$worker</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addFunction</span><span style="color: #007700">(</span><span style="color: #DD0000">"reverse"</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">"my_reverse_function"</span><span style="color: #007700">);&nbsp;<br /><br /></span><span style="color: #FF8000">#&nbsp;start&nbsp;te&nbsp;worker&nbsp;listening&nbsp;for&nbsp;job&nbsp;submissions<br /></span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$worker</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">work</span><span style="color: #007700">());&nbsp;<br />&nbsp;<br />function&nbsp;</span><span style="color: #0000BB">my_reverse_function</span><span style="color: #007700">(</span><span style="color: #0000BB">$job</span><span style="color: #007700">)&nbsp;<br />{&nbsp;<br />&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">strrev</span><span style="color: #007700">(</span><span style="color: #0000BB">$job</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">workload</span><span style="color: #007700">());&nbsp;<br />}<br /><br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-gearmanworker.work-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"> <span class="methodname"><a href="gearmanworker.addfunction.html" class="methodname" rel="rdfs-seeAlso">GearmanWorker::addFunction()</a> - Register and add callback function</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="gearmanworker.wait.html">GearmanWorker::wait</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="book.mqseries.html">mqseries</a></div>
+ <div class="up"><a href="class.gearmanworker.html">GearmanWorker</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

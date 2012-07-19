@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>MongoCursorException クラス</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongoexception.html">MongoException</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongocursortimeoutexception.html">MongoCursorTimeoutException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="class.mongocursorexception" class="reference">
+
+ <h1 class="title">MongoCursorException クラス</h1>
+ 
+
+ <div class="partintro">
+
+  
+  <div class="section" id="mongocursorexception.intro">
+   <h2 class="title">導入</h2>
+   <p class="para">
+    カーソルへの不正なアクセスや応答を受け取る際のエラーが原因です。
+   </p>
+
+   <p class="para">
+    応答を受け取る際にエラーがあった場合は、より詳細なエラーメッセージが得られます。
+    問題の原因を調べるために役立つでしょう。
+    エラーメッセージをプログラム上で読み取るのは少し面倒なので、
+    例外の個々の要因に対してエラーコードも割り当てられています。
+   </p>
+
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      <i>cannot modify cursor after beginning iteration</i>
+     </p>
+     <p class="para">
+      コード: 0
+     </p>
+     <p class="para">
+      クエリを実行した後で、クエリの設定を変えるメソッドをコールしました。
+      いったんカーソルをリセットしてからやりなおしてください。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      Get next batch send errors
+     </p>
+     <p class="para">
+      コード: 1
+     </p>
+     <p class="para">
+      クエリをデータベースに送信できませんでした。
+      データベースが立ち上がっていることとネットワークが正常であることを確認してください。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>cursor not found</i>
+     </p>
+     <p class="para">
+      コード: 2
+     </p>
+     <p class="para">
+      ドライバがデータベースから結果を取得しようとしましたが、
+      データベース側にクエリが残っていませんでした。
+      たいていは、カーソルがサーバ側でタイムアウトしたことを意味します。
+      やりとりがない状況が数秒続くと、データベースはカーソルを消します
+      (これを防ぐための方法は <span class="function"><a href="mongocursor.immortal.html" class="function">MongoCursor::immortal()</a></span>
+      を参照ください)。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      Couldn&#039;t get response header.
+     </p>
+     <p class="para">
+      コード: 4
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>cursor-&gt;buf.pos is null</i>
+     </p>
+     <p class="para">
+      コード: 3
+     </p>
+     <p class="para">
+      これは、ドライバの空間から外れてしまったか、
+      その他の異常な状況になったことを意味します。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t get response header</i>
+     </p>
+     <p class="para">
+      コード: 4
+     </p>
+     <p class="para">
+      ドライバがデータベースからのリプライヘッダを取得できず、取得をあきらめました。
+      データベースが立ち上がっていることとネットワークがつながっていることを確認し、
+      もう一度クエリを実行してみましょう。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>no db response</i>
+     </p>
+     <p class="para">
+      コード: 5
+     </p>
+     <p class="para">
+      これはエラーではないかもしれません。たとえば、データベースの
+      &quot;shutdown&quot; コマンドは何も応答を返しません。
+      しかし、もし何らかの応答を得ることを期待していたのにこのエラーになったのなら、
+      データベースがその応答を返さなかったことを意味します。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>bad response length: %d, max: %d, did the db assert?</i>
+     </p>
+     <p class="para">
+      コード: 6
+     </p>
+     <p class="para">
+      これは、データベースの応答が 4MB を超えるかあるいは 0 未満であることを意味します。
+      5MB を超えるような値が返ってくるようなら、データベースのバグである可能性があります
+      (応答の最大長は 4MB です)。開発者に報告しましょう。
+      0 未満の応答は、たいていデータベースのアサーションが発生したことを意味します。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>incomplete header</i>
+     </p>
+     <p class="para">
+      コード: 7
+     </p>
+     <p class="para">
+      めったにありませんが、
+      データベースの応答が正常にはじまったけれど途中で終わってしまった場合に発生します。
+      おそらくネットワークの問題でしょう。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>incomplete response</i>
+     </p>
+     <p class="para">
+      コード: 8
+     </p>
+     <p class="para">
+      めったにありませんが、
+      データベースの応答が正常にはじまったけれど途中で終わってしまった場合に発生します。
+      おそらくネットワークの問題でしょう。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t find a response</i>
+     </p>
+     <p class="para">
+      コード: 9
+     </p>
+     <p class="para">
+      キャッシュされていたレスポンスが見つけられませんでした。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>error getting socket</i>
+     </p>
+     <p class="para">
+      コード: 10
+     </p>
+     <p class="para">
+      ソケットが閉じられたか、エラーが発生しました。
+      ドライバは、(もし可能なら) 次の操作時に自動的に再接続しなければなりません。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t find reply, please try again</i>
+     </p>
+     <p class="para">
+      コード: 11
+     </p>
+     <p class="para">
+      ドライバは、リクエストに直接はマッチしないデータベースからの応答を保存します。
+      この例外が発生するのは、ドライバがすでにリクエストに対する応答を返した後で、
+      キャッシュ内に応答を見つけられなかったときです。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>error getting database response: errstr</i>
+     </p>
+     <p class="para">
+      <i>WSA error getting database response: errstr</i>
+     </p>
+     <p class="para">
+      &quot;errstr&quot; は、C のソケットから直接返ってきた入出力エラーです。
+      Windows では、エラーメッセージの先頭に &quot;WSA&quot; がつきます。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>Timeout error</i>
+     </p>
+     <p class="para">
+      コード: 13
+     </p>
+     <p class="para">
+      クエリが完了するのを待つ間に何かエラーが発生しました。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>couldn&#039;t send query: &lt;various&gt;</i>
+     </p>
+     <p class="para">
+      コード: 14
+     </p>
+     <p class="para">
+      送信時に C のソケットエラーが発生しました。
+     </p>
+    </li>
+   </ul>
+  </div>
+
+
+  <div class="section">
+   <h2 class="title">データベースから渡されたエラー</h2>
+   <p class="para">
+    クエリの実行時に発生したデータベースのエラーは、常に MongoCursorExceptions を発生させなければなりません。
+    エラーメッセージとエラーコードはデータベースから直接送られるので、
+    対応するエラーをデータベースのログから見つけることができます。
+   </p>
+
+   <p class="para">
+    一般的なデータベースエラーをいくつかまとめました。
+   </p>
+
+   <ul class="itemizedlist">
+    <li class="listitem">
+     <p class="para">
+      <i>E11000 duplicate key error index: foo.bar.$X  dup key: { /* ... */ }</i>
+     </p>
+     <p class="para">
+      コード: 11000
+     </p>
+     <p class="para">
+      キーが重複しているときのデータベースエラーです。
+     </p>
+    </li>
+
+    <li class="listitem">
+     <p class="para">
+      <i>not master</i>
+     </p>
+     <p class="para">
+      コード: 10107, 13435 および 10058
+     </p>
+     <p class="para">
+      マスタではないというエラーで、データベースから送られてきます。
+      これらのエラーが発生するとドライバは接続を切断し、
+      新しいマスタを探します。フェイルオーバーの際に実際に取得するエラーは
+      &quot;not master&quot; ではないかもしれません。
+      これは、マスタの変更がいつ発生したのかに依存します。
+     </p>
+    </li>
+   </ul>
+
+  </div>
+  
+
+  <div class="section" id="mongocursorexception.synopsis">
+   <h2 class="title">クラス概要</h2>
+
+   
+   <div class="classsynopsis">
+    <div class="ooclass"></div>
+
+    
+    <div class="classsynopsisinfo">
+     <span class="ooclass">
+      <span class="modifier">extends</span>
+      <a href="class.mongoexception.html" class="classname">MongoException</a>
+     </span>
+     {</div>
+    
+    
+   }</div>
+   
+
+  </div>
+
+ </div>
+
+</div>
+<hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="class.mongoexception.html">MongoException</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="class.mongocursortimeoutexception.html">MongoCursorTimeoutException</a></div>
+ <div class="up"><a href="mongo.exceptions.html">例外</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>

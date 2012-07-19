@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>正規表現により文字列を分割し、配列に格納する</title>
+
+ </head>
+ <body><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.eregi.html">eregi</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.spliti.html">spliti</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div><hr /><div id="function.split" class="refentry">
+ <div class="refnamediv">
+  <h1 class="refname">split</h1>
+  <p class="verinfo">(PHP 4, PHP 5)</p><p class="refpurpose"><span class="refname">split</span> &mdash; <span class="dc-title">正規表現により文字列を分割し、配列に格納する</span></p>
+
+ </div>
+ 
+ <div class="refsect1 description" id="refsect1-function.split-description">
+  <h3 class="title">説明</h3>
+  <div class="methodsynopsis dc-description">
+   <span class="type">array</span> <span class="methodname"><b>split</b></span>
+    ( <span class="methodparam"><span class="type">string</span> <tt class="parameter">$pattern</tt></span>
+   , <span class="methodparam"><span class="type">string</span> <tt class="parameter">$string</tt></span>
+   [, <span class="methodparam"><span class="type">int</span> <tt class="parameter">$limit</tt><span class="initializer"> = -1</span></span>
+  ] )</div>
+
+  <p class="para rdfs-comment">
+   <i><tt class="parameter">string</tt></i> を、正規表現によって配列に分割します。
+  </p>
+  <div class="warning"><b class="warning">警告</b><p class="simpara">この関数は PHP 5.3.0 で
+<em class="emphasis">非推奨</em>となりました。
+この機能を使用しないことを強く推奨します。</p></div>
+ </div>
+
+
+ <div class="refsect1 parameters" id="refsect1-function.split-parameters">
+  <h3 class="title">パラメータ</h3>
+  <p class="para">
+   <dl>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">pattern</tt></i></span>
+     <dd>
+
+      <p class="para">
+       大文字小文字を区別する正規表現。
+      </p>
+      <p class="para">
+       正規表現で特殊文字とみなされる文字を分割したい場合、それらを
+       まずエスケープする必要があります。<span class="function"><b>split()</b></span>
+       (または他の正規表現関数に関して)の動作が何か変であると感じたならば、
+       PHP 配布ファイルの	 
+       <var class="filename">regex/</var> サブディレクトリにあるファイル
+       <var class="filename">regex.7</var> を読んでください。このファイルは
+       man ページ形式となっており、読むには
+       <strong class="command">man /usr/local/src/regex/regex.7</strong> のようにします。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">string</tt></i></span>
+     <dd>
+
+      <p class="para">
+       入力文字列。
+      </p>
+     </dd>
+
+    </dt>
+
+    <dt>
+
+     <span class="term"><i><tt class="parameter">limit</tt></i></span>
+     <dd>
+
+      <p class="para">
+       <i><tt class="parameter">limit</tt></i> が指定された場合、返される配列には
+       最大 <i><tt class="parameter">limit</tt></i> の要素が含まれます。この場合、
+       最後の要素には <i><tt class="parameter">string</tt></i> の残りの部分が全て
+       入っています。
+      </p>
+     </dd>
+
+    </dt>
+
+   </dl>
+
+  </p>
+ </div>
+
+
+ <div class="refsect1 returnvalues" id="refsect1-function.split-returnvalues">
+  <h3 class="title">返り値</h3>
+  <p class="para">
+   文字列の配列を返します。配列の各要素は、大文字小文字を区別する正規表現
+   <i><tt class="parameter">pattern</tt></i> により区切られた
+   <i><tt class="parameter">string</tt></i> 中の部分文字列です。
+  </p>
+  <p class="para">
+   <i><tt class="parameter">pattern</tt></i> が <span class="replaceable">n</span> 回
+   現れる場合、返される配列には、
+   <i><span class="replaceable">n</span>+1</i> 個のアイテムが
+   含まれます。例えば、<i><tt class="parameter">pattern</tt></i> が現れない場合、
+   1 個の要素のみを有する配列が返されます。もちろん、これは
+   エラーを生じた場合、<span class="function"><b>split()</b></span> は
+   <b><tt>FALSE</tt></b> を返します。
+  </p>
+ </div>
+
+
+ <div class="refsect1 examples" id="refsect1-function.split-examples">
+  <h3 class="title">例</h3>
+  <p class="para">
+   <div class="example" id="example-3945">
+    <p><b>例1 <span class="function"><b>split()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     <var class="filename">/etc/passwd</var> の行から最初の 4 つのフィールドを
+     取り出すには、以下のようにします。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #007700">list(</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$pass</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$uid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$gid</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$extra</span><span style="color: #007700">)&nbsp;=<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">split</span><span style="color: #007700">(</span><span style="color: #DD0000">":"</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$passwd_line</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">5</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+  <p class="para">
+   <div class="example" id="example-3946">
+    <p><b>例2 <span class="function"><b>split()</b></span> の例</b></p>
+    <div class="example-contents"><p>
+     スラッシュ、ドット、ハイフンをデリミタとすると日付を処理する例を
+     以下に示します。
+    </p></div>
+    <div class="example-contents">
+<div class="phpcode"><code><span style="color: #000000">
+<span style="color: #0000BB">&lt;?php<br /></span><span style="color: #FF8000">//&nbsp;デリミタはスラッシュ、ドット、ハイフンのどれかです。<br /></span><span style="color: #0000BB">$date&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">"04/30/1973"</span><span style="color: #007700">;<br />list(</span><span style="color: #0000BB">$month</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$day</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$year</span><span style="color: #007700">)&nbsp;=&nbsp;</span><span style="color: #0000BB">split</span><span style="color: #007700">(</span><span style="color: #DD0000">'[/.-]'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$date</span><span style="color: #007700">);<br />echo&nbsp;</span><span style="color: #DD0000">"Month:&nbsp;</span><span style="color: #0000BB">$month</span><span style="color: #DD0000">;&nbsp;Day:&nbsp;</span><span style="color: #0000BB">$day</span><span style="color: #DD0000">;&nbsp;Year:&nbsp;</span><span style="color: #0000BB">$year</span><span style="color: #DD0000">&lt;br&nbsp;/&gt;\n"</span><span style="color: #007700">;<br /></span><span style="color: #0000BB">?&gt;</span>
+</span>
+</code></div>
+    </div>
+
+   </div>
+  </p>
+ </div>
+
+
+ <div class="refsect1 notes" id="refsect1-function.split-notes">
+  <h3 class="title">注意</h3>
+  <blockquote class="note"><p><b class="note">注意</b>: <p class="para">PHP 5.3.0 以降、
+regex 拡張モジュールは非推奨となりました。かわりに
+<a href="book.pcre.html" class="link">PCRE 拡張モジュール</a> を使うことが推奨されています。
+この関数をコールすると <b><tt>E_DEPRECATED</tt></b> が発生します。
+PCRE への変換についてのヘルプは <a href="reference.pcre.pattern.posix.html" class="link">
+相違点の一覧</a> を参照ください。</p></p></blockquote>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    Perl 互換の正規表現構文を使用する <span class="function"><a href="function.preg-split.html" class="function">preg_split()</a></span>
+    は、往々にして <span class="function"><b>split()</b></span> よりも速い代替案となります。
+    正規表現の威力が必要ないのであれば、<span class="function"><a href="function.explode.html" class="function">explode()</a></span>
+    を使用するほうがより高速です。これは正規表現エンジンの
+    オーバーヘッドを受けません。
+   </p>
+  </div>
+  <div class="tip"><b class="tip">ヒント</b>
+   <p class="para">
+    Perl の <strong class="command">@chars = split(&#039;&#039;, $str)</strong>
+    と同等の処理をする方法を知りたい場合は、
+    <span class="function"><a href="function.preg-split.html" class="function">preg_split()</a></span> あるいは
+    <span class="function"><a href="function.str-split.html" class="function">str_split()</a></span> の例を参照ください。
+   </p>
+  </div>
+ </div>
+
+
+ <div class="refsect1 seealso" id="refsect1-function.split-seealso">
+  <h3 class="title">参考</h3>
+  <p class="para">
+   <ul class="simplelist">
+    <li class="member"><span class="function"><a href="function.preg-split.html" class="function" rel="rdfs-seeAlso">preg_split()</a> - 正規表現で文字列を分割する</span></li>
+    <li class="member"><span class="function"><a href="function.spliti.html" class="function" rel="rdfs-seeAlso">spliti()</a> - 大文字小文字を区別しない正規表現により文字列を分割し、配列に格納する</span></li>
+    <li class="member"><span class="function"><a href="function.str-split.html" class="function" rel="rdfs-seeAlso">str_split()</a> - 文字列を配列に変換する</span></li>
+    <li class="member"><span class="function"><a href="function.explode.html" class="function" rel="rdfs-seeAlso">explode()</a> - 文字列を文字列により分割する</span></li>
+    <li class="member"><span class="function"><a href="function.implode.html" class="function" rel="rdfs-seeAlso">implode()</a> - 配列要素を文字列により連結する</span></li>
+    <li class="member"><span class="function"><a href="function.chunk-split.html" class="function" rel="rdfs-seeAlso">chunk_split()</a> - 文字列をより小さな部分に分割する</span></li>
+    <li class="member"><span class="function"><a href="function.wordwrap.html" class="function" rel="rdfs-seeAlso">wordwrap()</a> - 文字列分割文字を使用して、指定した文字数に文字列を分割する</span></li>
+   </ul>
+  </p>
+ </div>
+
+
+</div><hr /><div class="manualnavbar" style="text-align: center;">
+ <div class="prev" style="text-align: left; float: left;"><a href="function.eregi.html">eregi</a></div>
+ <div class="next" style="text-align: right; float: right;"><a href="function.spliti.html">spliti</a></div>
+ <div class="up"><a href="ref.regex.html">POSIX 正規表現関数</a></div>
+ <div class="home"><a href="index.html">PHP Manual</a></div>
+</div></body></html>
