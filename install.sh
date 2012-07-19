@@ -18,7 +18,7 @@ fi
 # create symbolic link
 for dotfile in .?*
 do
-    if [ $dotfile != '..' ] && [ $dotfile != '.git' ] && [ $dotfile != '.gitignore' ] && [ $dotfile != '.gitmodules' ]; then
+    if [ $dotfile != '..' ] && [ $dotfile != 'Rakefile' ] && [ $dotfile != 'README.md' ] && [ $dotfile != '.*.sample' ] && [ $dotfile != 'install.*' ]; then
         ln -Fis "$PWD/$dotfile" $HOME
     fi
 done
