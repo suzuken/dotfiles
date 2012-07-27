@@ -1,18 +1,20 @@
 " settings for python
 set encoding=utf8
-set paste
 set expandtab
+
+" PEP 8 Indent rule
 set textwidth=0
-set tabstop=4
+set tabstop=8
 set softtabstop=4
 set shiftwidth=4
+set smarttab
+set nosmartindent
 set autoindent
-set backspace=indent,eol,start
-set incsearch
-set ignorecase
+setl cindent
+setl textwidth=80
+setl colorcolumn=80
+
 set ruler
-set wildmenu
 set commentstring=\ #\ %s
 set foldlevel=0
-set clipboard+=unnamed
 syntax on
