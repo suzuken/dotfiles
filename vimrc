@@ -51,7 +51,7 @@ Bundle 'tsaleh/vim-align'
 Bundle 'SQLUtilities'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'thinca/vim-guicolorscheme'
-Bundle 'plasticboy/vim-markdown'
+Bundle 'hallison/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ack.vim'
@@ -481,13 +481,6 @@ endif
 "==========================
 set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 
-" open help page to vertical window
-nnoremap :h :vert h<space>
-nnoremap ;h :vert h<space>
-nnoremap :help :vert help<space>
-nnoremap ;help :vert help<space>
-
-
 "**************************
 "plugin
 "**************************
@@ -528,7 +521,7 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " スニペットファイルの配置場所
-let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
+" let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
 
 " ==============
 " neocomplcache
@@ -660,3 +653,16 @@ autocmd BufWritePre * :%s/\s\+$//ge
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
+
+
+function! HandleURI()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+  echo s:uri
+  if s:uri != ""
+    exec "!open \"" . s:uri . "\""
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+
+map <Leader>w :call HandleURI()<CR>
