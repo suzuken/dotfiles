@@ -29,8 +29,6 @@ Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'Rainbow-Parenthesis'
 Bundle 'Shougo/unite.vim'
 Bundle 'surround.vim'
@@ -498,69 +496,6 @@ let g:ref_alc_cmd="w3c -dump %s"
 "Ref alcへのmap
 nnoremap <space>ra :<C-u>Ref alc<Space>
 nnoremap <space>rp :<C-u>Ref phpmanual<Space>
-
-
-"==========================
-"neocomplecache
-"==========================
-
-let g:acp_enableAtStartup = 0 "AutoComplPopを無効化
-let g:neocomplcache_enable_at_startup = 0 "neocomplcacheを起動時に有効化
-" let g:neocomplcache_enable_smart_case = 1 "大文字小文字を区別しない
-"let g:neocomplcache_enable_camel_case_completion= 1 "camel caseを有効化。大文字を区切りとしたワイルドカードみたいなもの
-let g:neocomplcache_enable_underbar_completion= 1 " _の補完を有効にする
-let g:neocomplcache_min_syntax_length = 3 " シンタックスをキャッシュするときの最小文字長
-let g:neocomplcache_lock_buffer_name_pattern= '\*ku\*' "neocomplcacheを自動的にロックするバッファ名のパターン
-let g:neocomplcache_temporary_dir='/tmp/.neocon'
-let g:neocomplcache_max_list=20
-
-"Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" スニペットファイルの配置場所
-" let g:NeoComplCache_SnippetsDir = '~/.vim/snippets'
-
-" ==============
-" neocomplcache
-" Plugin key-mappings
-" ==============
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" <CR>: popupを削除
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-
-" <TAB>: completion.
-" If the popup  is already shown, move cursor to next target.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" filename completion
-" inoremap <expr><C-x><C-f> neocomplcache#manual_filename_complete()
-
-"オムニ補完
-" inoremap <expr><C-x><C-o> &filetype == 'vim' ? "\<C-x><C-v><C-p>" : neocomplcache#manual_filename_complete()
-
-" =============
-" neocomplcache
-" command
-" =============
-"Nesでスニペットを編集
-command! -nargs=* Nes NeoComplCacheEditSnippets
-
 
 " ========
 " Quickrun
