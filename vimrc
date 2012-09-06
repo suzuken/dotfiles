@@ -30,23 +30,17 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
 Bundle 'Rainbow-Parenthesis'
-Bundle 'Shougo/unite.vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'thinca/vim-quickrun'
 Bundle 'Shougo/vimproc'
 Bundle 'mattn/zencoding-vim'
-Bundle 'ujihisa/unite-colorscheme'
-Bundle 'h1mesuke/unite-outline'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
-Bundle 'tsukkee/unite-tag'
 Bundle 'tpope/vim-fugitive'
 Bundle 'sudo.vim'
-Bundle 'smartchr'
 Bundle 'tsaleh/vim-align'
-Bundle 'SQLUtilities'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'thinca/vim-guicolorscheme'
 Bundle 'hallison/vim-markdown'
@@ -55,11 +49,11 @@ Bundle 'TwitVim'
 Bundle 'ack.vim'
 Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
-Bundle 'Lokaltog/vim-easymotion'
 Bundle 'mattn/benchvimrc-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'majutsushi/tagbar'
+Bundle 'msanders/snipmate.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -84,7 +78,6 @@ let g:Powerline_symbols = 'fancy'
 autocmd!
 set modelines=5
 
-"leaderを,に変更
 " leader is ,
 let mapleader = ","
 
@@ -107,15 +100,6 @@ nnoremap <C-t>c  :<C-u>tabclose<CR>
 nnoremap <C-t>o  :<C-u>tabonly<CR>
 nnoremap <C-t>j  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
 nnoremap <C-t>k  gT
-
-"==========================
-"tags-and-searches
-"==========================
-" nnoremap t  <Nop>
-" nnoremap tt  <C-]>
-" nnoremap tj  :<C-u>tag<CR>
-" nnoremap tk  :<C-u>pop<CR>
-" nnoremap tl  :<C-u>tags<CR>
 
 "==========================
 "view
@@ -171,18 +155,13 @@ set wrapscan
 "
 nnoremap <Esc><Esc> :nohlsearch<CR>
 
-"%の移動をtabでも可能に。
-" tab means %
+" <tab> means %
 nnoremap <tab> %
 
-"Visual ModeでのTab/shift+Tab indent/unindentをハイライトされたブロックに対し
-"て行う。
 " In visual mode, tab means insert <tab> into highlighted block.
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-"検索パターン入力中は/および?をエスケープ
-"そのまま入力するには<C-v>{/?}で
 " always escape / and ? in search character.
 cnoremap <expr> /
             \ getcmdtype() == '/' ? '\/' : '/'
@@ -202,13 +181,11 @@ endif
 "==========================
 "Key Bind
 "==========================
-"vimrcをリローダブルにする
 " reload vimrc
 noremap <C-c><C-c> <C-c>
 noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
 noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
 
-" 検索箇所を真ん中に
 " when move to search results, move to center.
 noremap n nzz
 noremap N Nzz
@@ -217,8 +194,6 @@ noremap # #zz
 noremap g* g*zz
 noremap g# g#zz
 
-
-"F1もESCにする
 " F1 means ESC, too.
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -227,19 +202,12 @@ inoremap <C-j> <ESC>
 nnoremap <C-j> <ESC>
 vnoremap <C-j> <ESC>
 
-"ノーマルモードではセミコロンをコロンに。
 nnoremap ; :
 
-"フォーカスを失ったら自動的に上書き。
 au FocusLost * :wa
 
-"insertモードでjj押せばノーマルモードに。
 " in insert mode, jj means <ESC>.
 inoremap jj <ESC>
-
-",wで水平分割→アクティブに
-" <leader>w means split and activate.
-nnoremap <leader>w <C-w>v<C-w>l
 
 "F2でpasteモードに。pasteするときにインデントを無効化。
 " <F2> to paste mode.
@@ -477,7 +445,7 @@ endif
 "==========================
 "help
 "==========================
-set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
+set helplang=en
 
 "**************************
 "plugin
@@ -487,13 +455,12 @@ set helplang=ja,en "日本語のヘルプｰ>英語のヘルプの順に検索
 "ref.vim
 "==========================
 let g:ref_phpmanual_path=$HOME . '/.dictionary/phpdoc/'
-"let g:ref_jquery_path=$HOME/dictionary/jquery
 let g:ref_phpmanual_cmd="w3c -dump %s"
 let g:ref_use_vimproc=0
 let g:ref_jquery_cmd="w3c -dump %s"
 let g:ref_alc_cmd="w3c -dump %s"
 
-"Ref alcへのmap
+"Ref alc
 nnoremap <space>ra :<C-u>Ref alc<Space>
 nnoremap <space>rp :<C-u>Ref phpmanual<Space>
 
@@ -509,78 +476,15 @@ let g:quickrun_config = {}
 let NERDSpaceDelims = 1
 let NERDShutUp = 1
 
-
-"==========================
-"unite.vim
-"==========================
-"Key Map
-"
-"fc: list around about current dir
-"fb: list around buffer dir
-"fr: list register
-"fo: list outline
-"ff: list unite source
-"fl: list colorscheme and selection
-
-" The prefix key.
-nnoremap    [unite]   <Nop>
-nmap    f [unite]
-
-nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite -buffer-name=register register<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
-" @see https://github.com/h1mesuke/unite-outline
-nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-" @see https://github.com/ujihisa/unite-colorscheme
-nnoremap [unite]l :<C-u>Unite -auto-preview colorscheme<CR>
-" @see https://github.com/tsukkee/unite-tag
-" searching tag by words on cursor.
-nnoremap <silent> [unite]u  :<C-u>Unite -immediately -no-start-insert tag:<C-r>=expand('<cword>')<CR><CR>
-" show tags
-nnoremap <silent> [unite]t  :<C-u>Unite tag<CR>
-
-
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  " Overwrite settings.
-
-  nmap <buffer> <ESC>      <Plug>(unite_exit)
-  imap <buffer> jj      <Plug>(unite_insert_leave)
-  "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
-  " Start insert.
-  " let g:unite_enable_start_insert = 0
-endfunction
-
-let g:unite_source_file_mru_limit = 200
-let g:unite_enable_split_vertically = 0 "vertical split
-
 " =====================================================
-"" (ctags)
+"" ctags
 " =====================================================
 set tags=tags
-" let g:tlist_javascript_settings='javascript;f:function;c:class;m:method'
-
-"----------------------------------------------------
-"" SQL Utilities
-"----------------------------------------------------
-let g:sqlutil_load_default_maps = 0
-
-vmap <leader>sf        <Plug>SQLUFormatter<CR>
-" nmap <leader>scl       <Plug>SQLU_CreateColumnList<CR>
-" nmap <leader>scd       <Plug>SQLU_GetColumnDef<CR>
-" nmap <leader>scdt      <Plug>SQLU_GetColumnDataType<CR>
-" nmap <leader>scp       <Plug>SQLU_CreateProcedure<CR>
-
-"Set comma align
-let g:sqlutil_align_comma = 1
-
 
 " =====
 " after
 " =====
-" 保存時に行末の空白を除去する
+" when saving, erase spaces at end of lines.
 autocmd BufWritePre * :%s/\s\+$//ge
 "----------------------------------------------------
 "" host specific
