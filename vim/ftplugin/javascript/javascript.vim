@@ -19,4 +19,4 @@ let b:undo_ftplugin .= '
 " ================================
 " smartchr settings for JavaScript
 " ================================
-inoremap <buffer> <expr> \ smartchr#one_of('function(', '\')
+" inoremap <buffer> <expr> \ smartchr#one_of('function(', '\')
