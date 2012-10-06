@@ -56,6 +56,7 @@ Bundle 'mattn/benchvimrc-vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'majutsushi/tagbar'
+Bundle 'kien/ctrlp.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
