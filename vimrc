@@ -29,6 +29,7 @@ Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
+Bundle 'Rainbow-Parenthesis'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
@@ -475,6 +476,7 @@ let g:quickrun_config = {}
 "==========================
 let NERDSpaceDelims = 1
 let NERDShutUp = 1
+
 
 " =====================================================
 "" ctags
