@@ -29,7 +29,6 @@ Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
-Bundle 'Rainbow-Parenthesis'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
@@ -54,6 +53,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'majutsushi/tagbar'
 Bundle 'msanders/snipmate.vim'
+Bundle 'kien/ctrlp.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
