@@ -29,7 +29,6 @@ Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'Gist.vim'
-Bundle 'Rainbow-Parenthesis'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
@@ -55,6 +54,10 @@ Bundle 'derekwyatt/vim-scala'
 Bundle 'majutsushi/tagbar'
 Bundle 'msanders/snipmate.vim'
 Bundle 'kien/ctrlp.vim'
+Bundle 'reinh/vim-makegreen'
+Bundle 'lambdalisue/nose.vim'
+Bundle 'jmcantrell/vim-virtualenv'
+Bundle 'lepture/vim-jinja'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -247,6 +250,9 @@ nnoremap <Space>s :BundleSearch<Space>
 " representing Tagbar.
 nnoremap <leader>t :TagbarToggle<CR>
 
+" running Test by MakeGreen
+nnoremap <Leader>m <Plug>MakeGreen " for default, <leader>t
+
 " NERDTreeを表示
 " representing NERDTree
 nnoremap <leader>n :NERDTree<CR>
@@ -375,6 +381,7 @@ let g:svbfre = '.\+'
 set showcmd "ステータスラインにコマンドを表示
 set laststatus=2 "ステータスラインを常に表示
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
+" set statusline=[%L]\ %t\ %{fugitive#statusline()}\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
 
 
 "==========================
@@ -414,11 +421,11 @@ if has('autocmd')
 endif
 
 " Execute python script C-P
-function! s:ExecPy()
-    exe "!" . &ft . " %"
-:endfunction
-command! Exec call <SID>ExecPy()
-autocmd FileType python map <silent> <C-P> :call <SID>ExecPy()<CR>
+" function! s:ExecPy()
+    " exe "!" . &ft . " %"
+" :endfunction
+" command! Exec call <SID>ExecPy()
+" autocmd FileType python map <silent> <C-P> :call <SID>ExecPy()<CR>
 
 " ----
 " html
@@ -442,6 +449,23 @@ endif
 if has('autocmd')
     autocmd BufNewFile,BufRead *.scala set filetype=scala
 endif
+
+" ---
+" sql
+" ---
+if has('autocmd')
+    autocmd BufNewFile,BufRead *.q set filetype=sql
+endif
+
+" ---
+" twig as jinja
+" @see: https://github.com/lepture/vim-jinja
+" ---
+if has('autocmd')
+    autocmd BufNewFile,BufRead *.twig set filetype=jinja
+endif
+
+
 
 "==========================
 "help
@@ -488,6 +512,11 @@ set tags=tags
 " =====================================================
 let g:snips_author = 'Kenta Suzuki'
 
+" =====================================================
+"" ctrlp.vim
+" =====================================================
+let g:ctrlp_regexp = 1
+
 " =====
 " after
 " =====
@@ -502,7 +531,8 @@ endif
 
 
 function! HandleURI()
-  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^>,;:]*')
+  " let s:uri = matchstr(getline("."), '/https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/')
   echo s:uri
   if s:uri != ""
     exec "!open \"" . s:uri . "\""

@@ -18,3 +18,7 @@ set ruler
 set commentstring=\ #\ %s
 set foldlevel=0
 syntax on
+
+autocmd BufNewFile,BufRead *_test.py compiler nose
+
+let g:quickrun_config['*'] = {'runner': 'vimproc'}
