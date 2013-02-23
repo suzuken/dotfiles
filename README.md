@@ -1,13 +1,9 @@
 Installation
 ============
 
-    rake install
-
-or,
-
-    $ chmod +x install.sh
-    $ ./install.sh
-
+```
+$ make install
+```
 
 How to use
 ==========
