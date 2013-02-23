@@ -1,7 +1,12 @@
 " vim:set ft=vim :
 "======================================================================
+
+" plugin_loader
+let g:plugin_loader_roots = "~/.vimperator/vimperator-plugins/ ~/.vimperator/load/"
+let g:plugin_loader_plugins = "_libly,copy,feedSomeKeys_3,caret_hint"
+
 "keymaps
-========
+"========
 " extend move height for j, k
 nnoremap j <C-d>
 nnoremap k <C-u>
@@ -105,21 +110,6 @@ js<<EOM
     }
 EOM
 
-
-"======================================================================
-""コマンド
-"サイト内検索 (:ss)
-"参考: http://vimperator.g.hatena.ne.jp/snaka72/20090102/1230901273
-javascript <<EOM
-commands.addUserCommand(
-        ['sitesearch','ss'],'Search in this site',
-        function(word) {
-        liberator.open("http://www.google.co.jp/search?hl=ja&q="+encodeURIComponent(word)+"+site%3A"+window.content.location.hostname);
-        }
-        );
-EOM
-
-
 "======================================================================
 ""qmarks
 " mail
@@ -127,102 +117,26 @@ qmark m https://mail.google.com/
 " reader/rss
 qmark r http://www.google.com/reader/view/
 
-
-"======================================================================
-""pluginsの設定
-
-
-"======================================================================
-"LDRize_cooperator.js
-let g:ldrc_captureMappings = "['j','k','p','o','?']"
-"http://unsigned.g.hatena.ne.jp/Trapezoid/20080530/1212074680
-"いろいろ試したがどうもうまく機能しない..
-"let g:ldrc_intelligence_bind = "true"
-"let g:ldrc_skip = "0.25"
-
-
-"======================================================================
-"migrate_statusbar.js
-"上からブックマーク星ボタン、フィードボタン、ファビコンをステータスラインに移動
-javascript <<EOM
-liberator.globalVariables.migrate_elements = [
-{
-    // star button of awesome bar
-id:    'star-button',
-       dest:  'security-button',
-       after: true,
-},
-{
-    // icon that show the existence of RSS and Atom on current page
-id:    'feed-button',
-       dest:  'security-button',
-       after: true,
-},
-{
-    // favicon of awesome bar
-id:    'page-proxy-stack',
-       dest:  'liberator-statusline',
-       after: false,
-},
-    ];
-EOM
-
-
-"======================================================================
-"ime_controller.js
-"let g:ex_ime_mode = "inactive"
-"let g:textarea_ime_mode = "inactive"
-"このプラグインを使わなくても以下で代替できるそうだ http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
+"http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
 
-
+set hintchars=jklasdfuiopqwerghtnmcv
 "======================================================================
-"clock.js
-"maine_coon.jsと同居できないもよう。残念
-"let clock_format='[%t %d]'
-
-
+""pluginsの設定
 "======================================================================
-"char-hint-mod2.js
-"小文字で開くように
-let g:hintsio="io"
-"押しやすいボタンから並べてみた
-let g:hintchars="JKLASDFUIOPQWERGHTNMCV"
-
-
-"======================================================================
-"migemo_hint.js
-"char-hint-mod2を小文字で使うようにしたため、外した
-"set hintmatching=custom
-
 
 "======================================================================
 "feedSomeKeys_2.js
-autocmd LocationChange .* :fmapc
+" autocmd LocationChange .* :fmapc
 
 " Gmail設定
-autocmd LocationChange mail\.google\.com/mail :fmap! -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+" autocmd LocationChange mail\.google\.com/mail :fmap! -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
 
 " Google Reader設定
 "参考:http://fifnel.com/2009/10/06/2947/
 ""autocmd LocationChange www\.google\.co\.jp/reader :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu u / ?
-autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey m A v r X O gh ga gs gt gu / ? <C-j>,<Pagedown> <C-k>,<Pageup>
-autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey c,1 C,2 j,n k,p n,j p,l s,NO S,s a,PO o,O J,N K,P q,t w,t p,s b u
-
-"======================================================================
-"appendAnchor.js
-"let g:auto_append_anchor = "true"
-
-
-"======================================================================
-"viewSBMComments.js
-""let g:def_sbm_format = "id,tagsAndComment,timestamp"
-let g:def_sbm_format = "id,timestamp,comment"
-let g:def_sbms = 'h'
-"コメントがあるものだけ表示する
-let g:sbm_comments_viewer_filter_nocomments="true"
-nnoremap ,c :viewSBMComments<CR>
-
+" autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey m A v r X O gh ga gs gt gu / ? <C-j>,<Pagedown> <C-k>,<Pageup>
+" autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey c,1 C,2 j,n k,p n,j p,l s,NO S,s a,PO o,O J,N K,P q,t w,t p,s b u
 
 "======================================================================
 " caret_hint.js
@@ -246,57 +160,32 @@ let g:caret_hint_swap_key = 'c'
 "マッピングはInsertモードのiにひっかけて<C-i>に設定。ただしInsertモード中の<C-i>はエディタ起動であることに注意。
 nnoremap <C-i> ;c
 
-
-"======================================================================
-"direct_bookmark.js
-"Google Bookmarkを使っているため、無念だが当面はタグが補完できるGmarksを使うことに
-let g:direct_sbm_use_services_by_post='d'
-let g:direct_sbm_use_services_by_tag = "hdl"
-
-"======================================================================
-" lookupDictionary.js
-"なぜかうまくサジェストされない...
-"let g:lookupDictionary_beginningWith='1'
-
-"======================================================================
-"auto_word_select_mode.js
-"INSERTモード中にI(<S-i>)を押して使うと吉。マップは以下で変更化
-"let g:auto_word_select_key='I'
-
-"======================================================================
-" sbmincsearch.js
-" delicious, hatebu, livedoorclip, googlebookmarksのどれか
-let sbmincsearch_service_name = "hatebu"
-" あんまり大きくすると遅くなるかも...しれないらしいです
-let sbmincsearch_max = 20
-autocmd VimperatorEnter .* :set complete=Ish
-"Gmarksで <HOME><HOME>を押してもインクリメンタルサーチはできるけど...
-
-
 "======================================================================
 "copy.js
 "copy関係はyを割り当て。
 javascript <<EOM
-liberator.globalVariables.copy_templates = [
-{ label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
-{ label: 'title',          value: '%TITLE%', map: ',y' },
-{ label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
-{ label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
-{ label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
-{ label: 'hiki',    value: 'copy for hiki',
-custom: function(){
-var title=content.document.title;
-var url = content.document.location.href;
-return "* " + title + "\n** " + url;
-}},
-{ label: 'markdown',    value: 'copy for markdown',
-custom: function(){
-var title = content.document.title;
-var url = content.document.location.href;
-return "* " + title + "\n\t** " + url;
-}},
-{ label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
+(function(){
+    liberator.globalVariables.copy_templates = [
+        { label: 'titleAndURL',    value: '%TITLE%\n%URL%' },
+        { label: 'title',          value: '%TITLE%', map: ',y' },
+        { label: 'anchor',         value: '<a href="%URL%">%TITLE%</a>' },
+        { label: 'selanchor',      value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+        { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+        { label: 'hiki',    value: 'copy for hiki',
+            custom: function(){
+                var title=content.document.title;
+                var url = content.document.location.href;
+                return "* " + title + "\n** " + url;
+        }},
+        { label: 'markdown',    value: 'copy for markdown',
+            custom: function(){
+                var title = content.document.title;
+                var url = content.document.location.href;
+                return "* " + title + "\n\t** " + url;
+        }},
+        { label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
     ];
+})();
 EOM
 "a:anchor p:plaintext t:title s:select q:blockquote
 "何も設定しなければyyでurlが取得できた
@@ -308,100 +197,6 @@ nnoremap ys :copy selanchor<CR>
 nnoremap yq :copy htmlblockquote<CR>
 nnoremap yh :copy hiki<CR>
 nnoremap ym :copy markdown<CR>
-
-"======================================================================
-" footerバー関連
-" Hatena Bookmarklet Button
-:javascript << EOF
-(function(){
-    const icon = "data:image/png;base64,"
-    +"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA"
-    +"hklEQVQ4EWNgoBAwgvS3Lv31n1Rzzl55y7CuXZKRBaYRJEAKuPHsEVg5EymasKmFuwBZcm2bBDIX"
-    +"zA6ueoEhBhLA6wKQJphGbIYSNACrlWiCWL0AU4PLVpg8iCbKC/i8gdcAZJtwsSk2gKQwgHkF2TVY"
-    +"DcCmEFkTMps6XgDlA1jaRjadLmwAUo0lo6WCVh0AAAAASUVORK5CYII="
-
-    var bookmarklet = "javascript:(function(){var d=(new Date);var s=document.createElement('script');"s.charset='UTF-8';s.src='http://b.hatena.ne.jp/js/Hatena/Bookmark/let.js?'+d.getFullYear()+d.getMonth()+d.getDate();(document.getElementsByTagName('head')[0]||document.body).appendChild(s);})();";
-
-    var listener = function(){
-        liberator.open(bookmarklet);
-    }
-    var StatusBarPanel = document.createElement('statusbarpanel');
-    StatusBarPanel.setAttribute('id','hatena-button-clone');
-    StatusBarPanel.setAttribute('class','statusbarpanel-iconic');
-    StatusBarPanel.setAttribute('src',icon);
-    StatusBarPanel.addEventListener('click',listener,true);
-    document.getElementById('status-bar').insertBefore(StatusBarPanel,
-        document.getElementById('security-button'));
-})();
-EOF
-
-" Amazon Bookmarklet Button
-:javascript << EOF
-(function(){
-    const icon = "data:image/png;base64,"
-+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAC7mlDQ1BJQ0MgUHJvZmlsZQAAeAGF"
-+"VM9rE0EU/jZuqdAiCFprDrJ4kCJJWatoRdQ2/RFiawzbH7ZFkGQzSdZuNuvuJrWliOTi0SreRe2h"
-+"B/+AHnrwZC9KhVpFKN6rKGKhFy3xzW5MtqXqwM5+8943731vdt8ADXLSNPWABOQNx1KiEWlsfEJq"
-+"/IgAjqIJQTQlVdvsTiQGQYNz+Xvn2HoPgVtWw3v7d7J3rZrStpoHhP1A4Eea2Sqw7xdxClkSAog8"
-+"36Epx3QI3+PY8uyPOU55eMG1Dys9xFkifEA1Lc5/TbhTzSXTQINIOJT1cVI+nNeLlNcdB2luZsbI"
-+"EL1PkKa7zO6rYqGcTvYOkL2d9H5Os94+wiHCCxmtP0a4jZ71jNU/4mHhpObEhj0cGDX0+GAVtxqp"
-+"+DXCFF8QTSeiVHHZLg3xmK79VvJKgnCQOMpkYYBzWkhP10xu+LqHBX0m1xOv4ndWUeF5jxNn3tTd"
-+"70XaAq8wDh0MGgyaDUhQEEUEYZiwUECGPBoxNLJyPyOrBhuTezJ1JGq7dGJEsUF7Ntw9t1Gk3Tz+"
-+"KCJxlEO1CJL8Qf4qr8lP5Xn5y1yw2Fb3lK2bmrry4DvF5Zm5Gh7X08jjc01efJXUdpNXR5aseXq8"
-+"muwaP+xXlzHmgjWPxHOw+/EtX5XMlymMFMXjVfPqS4R1WjE3359sfzs94i7PLrXWc62JizdWm5dn"
-+"/WpI++6qvJPmVflPXvXx/GfNxGPiKTEmdornIYmXxS7xkthLqwviYG3HCJ2VhinSbZH6JNVgYJq8"
-+"9S9dP1t4vUZ/DPVRlBnM0lSJ93/CKmQ0nbkOb/qP28f8F+T3iuefKAIvbODImbptU3HvEKFlpW5z"
-+"rgIXv9F98LZua6N+OPwEWDyrFq1SNZ8gvAEcdod6HugpmNOWls05Uocsn5O66cpiUsxQ20NSUtcl"
-+"12VLFrOZVWLpdtiZ0x1uHKE5QvfEp0plk/qv8RGw/bBS+fmsUtl+ThrWgZf6b8C8/UXAeIuJAAAA"
-+"CXBIWXMAAAsTAAALEwEAmpwYAAACDElEQVQoFV1Rz4sSURx/b2ZWW1HWgtkcs1p2DxEsCoZ4KJNk"
-+"K3AOee3o37CBR/0DvMgevHkS2ZDNQOqaeTJYooNESDpYglkkzW5as715r+/zmcz2Dm8+3+/7fObz"
-+"/YEZY+j8sW3bsizIeTye8y88UpwpQkij0Wg2mx/7/QtudzgczmazkUgEfooxXjIhWJ1SqeTUC2wY"
-+"BhAopYKG4AM1wN3r9QSjWCyenJ7W63UR1mo1p4CXJOxUVW2329PpNJVK+bzeaDQaCoVGo5FpmkIp"
-+"bkkIwNHv9ycSCU3TyuVyOp1OJpOKwn8H/v8LwFGSJOi4UCjE4/FcLhcIBKBdWZad1CVe9dBqtUSq"
-+"UqlAcjwegxtkwJBzKO8TzrIkeOh2u0IQi8UAwAxAA0DsBCPHWG1CQFqtVoUgn893Oh1oHUItGNzc"
-+"VI1BHwiCthgrt2KfPw13draFBu69vfv7+08AZDKZyfcfQFgsgmIGxc2+Ie9lsBwOhy9fNOezWUAL"
-+"6roOyz46epbW9YvuX5Zx7Lp6C2+EMEjJ4BX9+kG++UjeCK4cHMA+e3fIJm/lrYfKjQdcAG/24PXZ"
-+"8QFbvyJfvydf2kIuF4K0NSeT93TUWrt2F/tURYsin7YUgIbNp3+6z0nvKfv5BiGTT0UJS+rttd3H"
-+"yvYdhChCfC3/BNRG0mJNjNCTL+y3iSUFQ2PrfkdtHP4FLeYvvy6EmmoAAAAASUVORK5CYII="
-
-    var bookmarklet = "javascript:(function(){var w=window,l=w.location,d=w.document,s=d.createElement('script'),e=encodeURIComponent,o='object',n='AUWLBookjaJP',u='http://www.amazon.co.jp/wishlist/add',r='readyState',T=setTimeout,a='setAttribute',g=function(){d[r]&&d[r]!='complete'?T(g,200):!w[n]?(s[a]('charset','UTF-8'),s[a]('src',u+'.js?loc='+e(l)+'&b='+n),d.body.appendChild(s),f()):f()},f=function(){!w[n]?T(f,200):w[n].showPopover()};typeof s!=o?l.href=u+'?u='+e(l)+'&t='+e(d.title):g()}())";
-
-    var listener = function(){
-        liberator.open(bookmarklet);
-    }
-    var StatusBarPanel = document.createElement('statusbarpanel');
-    StatusBarPanel.setAttribute('id','amazon-button-clone');
-    StatusBarPanel.setAttribute('class','statusbarpanel-iconic');
-    StatusBarPanel.setAttribute('src',icon);
-    StatusBarPanel.addEventListener('click',listener,true);
-    document.getElementById('status-bar').insertBefore(StatusBarPanel,
-        document.getElementById('security-button'));
-})();
-EOF
-
-" Booklog Bookmarklet Button
-:javascript << EOF
-(function(){
-    const icon = "data:image/png;base64,"
-+"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAAsTAAALEwEAmpwYAAAA"
-+"bklEQVQoFWM0NDRkIAWw8PPzk6KegQmo2sshFYiAjPxdTkAEZGi6FAERkJGQ6gBEQEaRpj8QARkg"
-+"DSSBQaiBkS7BmmErAETAsNrlFAdEQIZFlDkQARmaiUVABGSsXqQLREDGIAwlkp1EcrCSbAMAxHAX"
-+"IR1v1PsAAAAASUVORK5CYII="
-
-    var bookmarklet = "javascript:var d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f='http://booklog.jp/blet',l=d.location,g=d.getElementById('ASIN'),a=(g?g.value:''),e=encodeURIComponent,p='?v=2&u='+e(l.href)+'&s='+e(s)+'&a='+e(a),u=f+p,a=function(){w.open(u,'_blank')};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0); else a(); void(0);";
-
-    var listener = function(){
-        liberator.open(bookmarklet);
-    }
-    var StatusBarPanel = document.createElement('statusbarpanel');
-    StatusBarPanel.setAttribute('id','booklog-button-clone');
-    StatusBarPanel.setAttribute('class','statusbarpanel-iconic');
-    StatusBarPanel.setAttribute('src',icon);
-    StatusBarPanel.addEventListener('click',listener,true);
-    document.getElementById('status-bar').insertBefore(StatusBarPanel,
-        document.getElementById('security-button'));
-})();
-EOF
 
 "======================================================================
 " 読み込みおわったらメッセージ

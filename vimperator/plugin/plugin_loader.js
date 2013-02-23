@@ -1,0 +1,1 @@
+../vimperator-plugins/plugin_loader.js
