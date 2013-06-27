@@ -50,6 +50,23 @@ SAVEHIST=50000
 setopt hist_ignore_dups     # ignore duplication command history list
 setopt share_history        # share command history data
 
+# zshで特定のコマンドをヒストリに追加しない条件を柔軟に設定する - mollifier delta blog
+# http://mollifier.hatenablog.com/entry/20090728/p1
+zshaddhistory() {
+    local line=${1%%$'\n'}
+    local cmd=${line%% *}
+
+    # 以下の条件をすべて満たすものだけをヒストリに追加する
+    [[ ${#line} -ge 4
+        && ${cmd} != (m|man)
+    ]]
+}
+
+function chpwd() { ls }
+
+alias j="autojump"
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
 # Customize to your needs...
 #
 #

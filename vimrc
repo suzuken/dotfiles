@@ -44,7 +44,6 @@ Bundle 'thinca/vim-guicolorscheme'
 Bundle 'hallison/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
-Bundle 'ack.vim'
 Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
 Bundle 'mattn/benchvimrc-vim'
@@ -57,6 +56,8 @@ Bundle 'reinh/vim-makegreen'
 Bundle 'lambdalisue/nose.vim'
 Bundle 'jmcantrell/vim-virtualenv'
 Bundle 'lepture/vim-jinja'
+Bundle 'rodjek/vim-puppet'
+Bundle 'markcornick/vim-vagrant'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -224,8 +225,8 @@ nnoremap <C-l> <C-w>l
 
 "Enterでいつでも一行挿入
 " <Enter> always means inserting line.
-map <S-Enter> O<ESC>
-map <Enter> o<ESC>
+nnoremap <S-Enter> O<ESC>
+nnoremap <Enter> o<ESC>
 
 " Creating underline/overline headings for markup languages
 " Inspired by http://sphinx.pocoo.org/rest.html#sections
@@ -283,28 +284,28 @@ endif
 "Folding
 "==========================
 " Folding rules {{{
-set foldenable                  " enable folding
-set foldcolumn=2                " add a fold column
-set foldmethod=marker           " detect triple-{ style fold markers
-set foldlevelstart=0            " start out with everything folded
-set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-                                " which commands trigger auto-unfold
-function! MyFoldText()
-    let line = getline(v:foldstart)
+" set foldenable                  " enable folding
+" set foldcolumn=2                " add a fold column
+" set foldmethod=marker           " detect triple-{ style fold markers
+" set foldlevelstart=0            " start out with everything folded
+" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+                                " " which commands trigger auto-unfold
+" function! MyFoldText()
+    " let line = getline(v:foldstart)
 
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
+    " let nucolwidth = &fdc + &number * &numberwidth
+    " let windowwidth = winwidth(0) - nucolwidth - 3
+    " let foldedlinecount = v:foldend - v:foldstart
 
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
+    " " expand tabs into spaces
+    " let onetab = strpart('          ', 0, &tabstop)
+    " let line = substitute(line, '\t', onetab, 'g')
 
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
-    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
-endfunction
-set foldtext=MyFoldText()
+    " let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    " return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
+" endfunction
+" set foldtext=MyFoldText()
 " }}}
 
 " ******************************
@@ -312,8 +313,6 @@ set foldtext=MyFoldText()
 " ******************************
 " white spaceをtrailする
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" Ackへのショートカット
-nnoremap <leader>a :Ack
 " htmlで良く使う。タグに囲まれたものを一気に選択。
 nnoremap <leader>ft Vatzf
 " CSSプロパティを並べ替え
@@ -514,13 +513,13 @@ let g:snips_author = 'Kenta Suzuki'
 " =====================================================
 "" ctrlp.vim
 " =====================================================
-let g:ctrlp_regexp = 1
+" let g:ctrlp_regexp = 0
 
 " =====
 " after
 " =====
 " when saving, erase spaces at end of lines.
-autocmd BufWritePre * :%s/\s\+$//ge
+" autocmd BufWritePre * :%s/\s\+$//ge
 "----------------------------------------------------
 "" host specific
 "----------------------------------------------------

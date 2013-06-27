@@ -67,9 +67,9 @@ nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
 colorscheme solarized
 
 "メニューバー等は消し、スクロールバーのみ表示(r=right,b=bottom)
-set guioptions=rb
+" set guioptions=rb
 "補完設定
-set wildoptions=auto
+" set wildoptions=auto
 set complete=sh
 "検索エンジン設定
 "set defsearch=g
@@ -87,7 +87,7 @@ set focuscontent
 "ポップアップの設定 参考：http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
 "Google Readerで問題発生するので設定が必要
 set! dom.popup_maximum=1000
-set popups=2
+" set popups=2
 "キャレットブラウズモードでキャレットの位置を見失わないように太めにする http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
 set! ui.caretWidth=8
 
@@ -126,17 +126,24 @@ set hintchars=jklasdfuiopqwerghtnmcv
 "======================================================================
 
 "======================================================================
-"feedSomeKeys_2.js
-" autocmd LocationChange .* :fmapc
-
-" Gmail設定
-" autocmd LocationChange mail\.google\.com/mail :fmap! -depth 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
-
-" Google Reader設定
-"参考:http://fifnel.com/2009/10/06/2947/
-""autocmd LocationChange www\.google\.co\.jp/reader :fmap! -vkey j k n p m s t v A r S N P X O gh ga gs gt gu u / ?
-" autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey m A v r X O gh ga gs gt gu / ? <C-j>,<Pagedown> <C-k>,<Pageup>
-" autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey c,1 C,2 j,n k,p n,j p,l s,NO S,s a,PO o,O J,N K,P q,t w,t p,s b u
+" feedSomeKeys_3.js
+" GoogleReader を快適に使うための feedSomeKeys_3.js の設定 - mashiro.vimperatorrc - vimperatorグループ
+" http://vimperator.g.hatena.ne.jp/y_mashiro/20100812/1281608147
+command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+command! -nargs=+ lazyfmapgooglereader  lazy fmap  -urls='http://www\.google\.co\.jp/reader/view' <args>
+command! -nargs=+ lazyfmapsgooglereader lazy fmaps -urls='http://www\.google\.co\.jp/reader/view' <args>
+lazyfmapsgooglereader -events=vkeypress <Space> <S-Space> N P X O
+lazyfmapsgooglereader -events=vkeypress v m A
+lazyfmapsgooglereader -events=vkeypress gh ga gs gS gu gt gT gd gf gF gc ge gp
+lazyfmapsgooglereader -events=vkeypress r u / a
+lazyfmapsgooglereader -events=vkeypress j,n k,p J,N K,P n,N p,P o,vn w,NO
+lazyfmapgooglereader  -events=keypress  ; <CR>
+lazyfmapgooglereader  -events=vkeypress , X
+lazyfmapgooglereader  -events=vkeypress . O
+lazyfmapsgooglereader -events=vkeypress <C-1>,1 <C-2>,2
+" GoogleReader + Tombloo
+lazyfmapgooglereader -events=vkeyup <C-t> T
+map -urls='http://www\.google\.co\.jp/reader/view' i <C-t>j
 
 "======================================================================
 " caret_hint.js
