@@ -16,7 +16,7 @@ filetype off                   " required!
 
 if !isdirectory(expand("~/.vim/bundle/vundle"))
     !mkdir -p ~/.vim/bundle
-    !git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    !git clone git clone https://github.com/Shougo/neobundle.vim.git
     let s:bootstrap=1
 endif
 
@@ -37,9 +37,7 @@ Bundle 'mattn/zencoding-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
-Bundle 'sudo.vim'
 Bundle 'tsaleh/vim-align'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'thinca/vim-guicolorscheme'
 Bundle 'hallison/vim-markdown'
 Bundle 'thinca/vim-quickrun'
@@ -47,17 +45,13 @@ Bundle 'TwitVim'
 Bundle 'ShowMarks'
 Bundle 'YankRing.vim'
 Bundle 'mattn/benchvimrc-vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'majutsushi/tagbar'
 Bundle 'msanders/snipmate.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'reinh/vim-makegreen'
-Bundle 'lambdalisue/nose.vim'
-Bundle 'jmcantrell/vim-virtualenv'
-Bundle 'lepture/vim-jinja'
 Bundle 'rodjek/vim-puppet'
 Bundle 'markcornick/vim-vagrant'
+Bundle 'rking/ag.vim'
+Bundle 'bling/vim-airline'
+Bundle 'derekwyatt/vim-scala'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -70,11 +64,6 @@ filetype plugin indent on     " required!
 " showmarks_include
 " =================
 let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-" ===========
-" " powerline
-" ===========
-let g:Powerline_symbols = 'fancy'
 
 "==========================
 "init
