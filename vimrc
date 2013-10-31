@@ -445,11 +445,10 @@ if has('autocmd')
 endif
 
 " ---
-" twig as jinja
-" @see: https://github.com/lepture/vim-jinja
+" twig as html
 " ---
 if has('autocmd')
-    autocmd BufNewFile,BufRead *.twig set filetype=jinja
+    autocmd BufNewFile,BufRead *.twig set filetype=html
 endif
 
 
