@@ -52,6 +52,7 @@ Bundle 'markcornick/vim-vagrant'
 Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
 Bundle 'derekwyatt/vim-scala'
+Bundle 'vim-ruby/vim-ruby'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
