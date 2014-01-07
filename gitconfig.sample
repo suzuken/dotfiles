@@ -9,3 +9,58 @@
     branch = auto
     interactive = auto
     ui = auto
+[core]
+    excludesfile = ~/.gitignore
+    pager = less -r
+    editor = vim
+[include]
+    path = .gitconfig.local
+[push]
+    # push only the current branch
+    default = tracking
+[branch]
+    autosetuprebase = always
+[merge]
+    # from 1.7.6
+    ff = false
+[pull]
+    # from 1.7.9
+    rebase = true
+[alias]
+    # http://oli.jp/2012/git-powerup/
+    # http://blog.blindgaenger.net/advanced_git_aliases.html
+    alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+    b = branch -a
+    br = browse-remote
+    ci = commit
+    co = checkout
+    current-branch = rev-parse --abbrev-ref HEAD
+    d = diff
+    dc = diff --cached
+    di = diff
+    dic = diff --cached
+    f = fetch --prune
+    fs = !git f && git su
+    ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >> .gitignore
+    info = remote show origin
+    l = log --graph -n 20 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset'
+    ll = log --stat --abbrev-commit
+    ln = log --graph -n 20 --pretty=format:'%C(yellow)%h%C(cyan)%d%Creset %s %C(green)- %an, %cr%Creset' --name-status
+    lp = log --oneline -n 20 -p
+    ls = log --stat --abbrev-commit -n 1 # display previous log
+    s = status --short --branch
+    st = status
+    su = submodule update
+    delete-merged-branches = !git branch --merged | grep -v \\* | xargs -I % git branch -d %
+    fetch-pulls = fetch origin +refs/pull/*:refs/remotes/pull/*
+
+# git-browse-remote
+# http://subtech.g.hatena.ne.jp/motemen/20120917/1347889804
+[web]
+    browser = google-chrome
+[browse-remote "github.com"]
+    top = https://{host}/{path}
+    ref = https://{host}/{path}/tree/{short_ref}
+    rev = https://{host}/{path}/commit/{commit}
+[issue]
+    type = github
