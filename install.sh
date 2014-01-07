@@ -15,6 +15,12 @@ if [ -f "$PWD/oh-my-zsh" ]; then
     cd ..
 fi
 
+# load vimperator plugins
+if [[ ! -f "$PWD/vimperator/vimperator-plugins" ]]; then
+    git clone https://github.com/vimpr/vimperator-plugins.git vimperator/vimperator-plugins
+    ln -s $PWD/vimperator/vimperator-plugins/plugin_loader.js $PWD/vimperator/plugin/
+fi
+
 # create symbolic link
 for dotfile in .?*
 do
