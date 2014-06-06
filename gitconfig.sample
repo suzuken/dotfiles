@@ -1,8 +1,8 @@
 [github]
     user = Kenta Suzuki
 [user]
-    name = Kenta Suzuki
-    email = suzuken326@gmail.com
+	name = Kenta Suzuki
+	email = ke-suzuki@voyagegroup.com
 [color]
     diff = auto
     status = auto
@@ -19,13 +19,14 @@
     # push only the current branch
     default = tracking
 [branch]
-    autosetuprebase = always
+    # autosetuprebase = always
 [merge]
     # from 1.7.6
     ff = false
+	tool = vimdiff3
 [pull]
     # from 1.7.9
-    rebase = true
+    # rebase = true
 [alias]
     # http://oli.jp/2012/git-powerup/
     # http://blog.blindgaenger.net/advanced_git_aliases.html
@@ -64,3 +65,10 @@
     rev = https://{host}/{path}/commit/{commit}
 [issue]
     type = github
+[mergetool "vimdiff3"]
+	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[hub]
+	protocol = git
