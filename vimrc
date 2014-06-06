@@ -10,7 +10,6 @@
 " Sorry for writing some comments in Japanese, and I'll translate to English
 " later.
 " ======================
-
 set nocompatible               " be iMproved
 filetype off                   " required!
 
@@ -23,6 +22,8 @@ endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+set shell=bash\ -i
+
 "Plugin Installing
 Bundle 'gmarik/vundle'
 Bundle 'mattn/webapi-vim'
@@ -33,7 +34,7 @@ Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
 Bundle 'Shougo/vimproc'
-Bundle 'mattn/zencoding-vim'
+Bundle 'mattn/emmet-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
@@ -53,6 +54,9 @@ Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'Blackrush/vim-gocode'
+Bundle 'timcharper/textile.vim'
+Bundle 'hynek/vim-python-pep8-indent'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -371,7 +375,6 @@ set laststatus=2 "ステータスラインを常に表示
 set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
 " set statusline=[%L]\ %t\ %{fugitive#statusline()}\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
 
-
 "==========================
 "Window
 "==========================
@@ -502,7 +505,31 @@ let g:snips_author = 'Kenta Suzuki'
 " =====================================================
 "" ctrlp.vim
 " =====================================================
-" let g:ctrlp_regexp = 0
+let g:ctrlp_regexp = 0
+
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
+
+" golang
+if $GOROOT != ''
+  set rtp+=$GOROOT/misc/vim
+  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
+  autocmd FileType go :set completeopt=menu,preview
+endif
+
+" jad
+" installation required http://varaneckas.com/jad/
+augr class
+    au!
+    au bufreadpost,filereadpost *.class %!jad -noctor -ff -i -p %
+    au bufreadpost,filereadpost *.class set readonly
+    au bufreadpost,filereadpost *.class set ft=java
+    au bufreadpost,filereadpost *.class normal gg=G
+    au bufreadpost,filereadpost *.class set nomodified
+augr END
 
 " =====
 " after
