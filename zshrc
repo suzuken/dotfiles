@@ -25,7 +25,7 @@ DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git svn mvn)
+plugins=(git svn mvn golang)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -67,6 +67,12 @@ function chpwd() { ls }
 
 alias j="autojump"
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+if [ -x "`which go`" ]; then
+    export GOROOT=`go env GOROOT`
+    export GOPATH=$HOME/go
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
 
 # Customize to your needs...
 #
