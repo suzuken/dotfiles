@@ -57,6 +57,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'Blackrush/vim-gocode'
 Bundle 'timcharper/textile.vim'
 Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'kchmck/vim-coffee-script'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
