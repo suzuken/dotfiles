@@ -70,7 +70,9 @@ alias j="autojump"
 
 if [ -x "`which go`" ]; then
     export GOROOT=`go env GOROOT`
-    export GOPATH=$HOME/go
+
+    # http://blog.kentarok.org/entry/2014/06/03/135300
+    export GOPATH=$HOME
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
