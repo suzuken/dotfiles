@@ -15,6 +15,13 @@ if [ -f "$PWD/oh-my-zsh" ]; then
     cd ..
 fi
 
+# install percol
+echo "installing percol."
+pip install percol
+
+# install ghq
+go get https://github.com/metemen/ghq
+
 # load vimperator plugins
 if [[ ! -f "$PWD/vimperator/vimperator-plugins" ]]; then
     git clone https://github.com/vimpr/vimperator-plugins.git vimperator/vimperator-plugins

@@ -76,6 +76,42 @@ if [ -x "`which go`" ]; then
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
+# http://d.hatena.ne.jp/kbkbkbkb1/20120429/1335835500
+function percol_select_history() {
+  local tac_cmd
+  which gtac &> /dev/null && tac_cmd=gtac || tac_cmd=tac
+  BUFFER=$($tac_cmd ~/.zsh_history | sed 's/^: [0-9]*:[0-9]*;//' \
+    | percol --match-method regex --query "$LBUFFER")
+  CURSOR=$#BUFFER         # move cursor
+  zle -R -c               # refresh
+}
+zle -N percol_select_history
+bindkey '^R' percol_select_history
+
+function search-document-by-percol(){
+  DOCUMENT_DIR="\
+$HOME/Documents
+$HOME/Dropbox"
+  SELECTED_FILE=$(echo $DOCUMENT_DIR | xargs find | \
+    grep -E "\.(pdf|txt|odp|odt|ods)$" | percol --match-method regex)
+  if [ $? -eq 0 ]; then
+    open $SELECTED_FILE
+  fi
+}
+alias sd='search-document-by-percol'
+
+function percol_src() {
+  local src_dir=$(ghq list --full-path | percol --query "$LBUFFER")
+  if [ -n "$src_dir" ]; then
+      BUFFER="cd $src_dir"
+      zle accept-line
+  fi
+  # zle clean-screen
+  zle -R -c               # refresh
+}
+zle -N percol_src
+bindkey '^S' percol_src
+
 # Customize to your needs...
 #
 #

@@ -5,6 +5,13 @@ Installation
 $ make install
 ```
 
+Prerequisite
+============
+
+* Golang 1.x
+* Python 2.x (using pyenv is recommended.)
+* Ruby 2.x (using rbenv is recommended.)
+
 How to use
 ==========
 
@@ -12,6 +19,25 @@ zsh
 ---
 
 I'm usually using oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh), so if you don't know about that, please check that manual. In this configuration, you can use zshrc.mine for each environment.
+
+And we using [percol](https://github.com/mooz/percol) and [ghq](https://github.com/motemen/ghq) for managing `src`. It's treat all project depends on golang's source management style.
+
+### Tips
+
+On zsh,
+
+* `^S`: open any `src` directory by percol. It enables incremental search for projects you fetched.
+* `sd`: search and open your documents (txt, pdf etc.) in `~/Documents` and `~/Dropbox` by percol.
+* `^R`: search .zsh_history in percol
+
+gem
+---
+
+Everything in $GOPATH/src style.
+
+```
+$ gem install gem-src
+```
 
 vim
 ---
