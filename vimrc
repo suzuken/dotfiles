@@ -58,6 +58,7 @@ Bundle 'Blackrush/vim-gocode'
 Bundle 'timcharper/textile.vim'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'sprsquish/thrift.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -440,6 +441,7 @@ endif
 " ---
 if has('autocmd')
     autocmd BufNewFile,BufRead *.scala set filetype=scala
+    autocmd FileType scala setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 endif
 
 " ---
@@ -510,7 +512,7 @@ let g:ctrlp_regexp = 0
 
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'file': '\v\.(exe|so|dll|class)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
 
