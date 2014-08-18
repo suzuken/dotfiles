@@ -23,6 +23,8 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 set shell=bash\ -i
+set noerrorbells
+set vb t_vb=
 
 "Plugin Installing
 Bundle 'gmarik/vundle'
@@ -44,7 +46,6 @@ Bundle 'hallison/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ShowMarks'
-Bundle 'YankRing.vim'
 Bundle 'mattn/benchvimrc-vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'kien/ctrlp.vim'
@@ -59,6 +60,11 @@ Bundle 'timcharper/textile.vim'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'sprsquish/thrift.vim'
+Bundle 'wting/rust.vim'
+Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'Shougo/vimshell.vim'
+Bundle 'Shougo/vimproc.vim'
+Bundle 'LeafCage/yankround.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -428,13 +434,6 @@ if has('autocmd')
     autocmd FileType html :setlocal makeprg=tidy\ -raw\ -quiet\ -errors\ --gnu-emacs\ yes\ \"%\"
 endif
 
-" ---
-" css
-" ---
-if has('autocmd')
-    autocmd FileType css :compiler css
-endif
-
 
 " ---
 " scala
@@ -533,6 +532,19 @@ augr class
     au bufreadpost,filereadpost *.class normal gg=G
     au bufreadpost,filereadpost *.class set nomodified
 augr END
+
+" =====================================================
+" yankround.vim
+" https://github.com/LeafCage/yankround.vim
+" =====================================================
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
 
 " =====
 " after
