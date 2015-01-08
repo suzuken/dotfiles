@@ -29,9 +29,9 @@ set vb t_vb=
 "Plugin Installing
 Bundle 'gmarik/vundle'
 Bundle 'mattn/webapi-vim'
-Bundle 'The-NERD-tree'
+Bundle 'scrooloose/nerdtree'
 Bundle 'The-NERD-Commenter'
-Bundle 'Gist.vim'
+Bundle 'mattn/gist-vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
 Bundle 'PDV--phpDocumentor-for-Vim'
@@ -42,7 +42,7 @@ Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tsaleh/vim-align'
 Bundle 'thinca/vim-guicolorscheme'
-Bundle 'hallison/vim-markdown'
+Bundle 'plasticboy/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ShowMarks'
@@ -55,7 +55,6 @@ Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'Blackrush/vim-gocode'
 Bundle 'timcharper/textile.vim'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'kchmck/vim-coffee-script'
@@ -65,6 +64,8 @@ Bundle '2072/PHP-Indenting-for-VIm'
 Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
 Bundle 'LeafCage/yankround.vim'
+Bundle 'vim-jp/vim-go-extra'
+Bundle 'mattn/ctrlp-ghq'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -277,10 +278,11 @@ source $HOME/.vim/encode.vim
 
 set fileformats=unix,dos,mac
 
+set ambiwidth=double
 "ambiwidthがある場合、doubleに設定
-if exists('&ambiwidth')
-    set ambiwidth=double
-endif
+" if exists('&ambiwidth')
+    " set ambiwidth=double
+" endif
 
 "==========================
 "Folding
@@ -432,6 +434,7 @@ endif
 if has('autocmd')
     autocmd FileType html :compiler tidy
     autocmd FileType html :setlocal makeprg=tidy\ -raw\ -quiet\ -errors\ --gnu-emacs\ yes\ \"%\"
+    autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 endif
 
 
@@ -492,6 +495,7 @@ let g:quickrun_config = {}
 "==========================
 let NERDSpaceDelims = 1
 let NERDShutUp = 1
+let NERDTreeShowHidden=1
 
 
 " =====================================================
@@ -515,9 +519,12 @@ let g:ctrlp_custom_ignore = {
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
 
+" ctrlp-ghq
+" https://github.com/mattn/ctrlp-ghq
+noremap <leader>g :<c-u>CtrlPGhq<cr>
+
 " golang
 if $GOROOT != ''
-  set rtp+=$GOROOT/misc/vim
   exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
   autocmd FileType go :set completeopt=menu,preview
 endif
@@ -569,5 +576,16 @@ function! HandleURI()
     echo "No URI found in line."
   endif
 endfunction
+
+" automatically create directory
+augroup vimrc-auto-mkdir  " {{{
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'))
+  function! s:auto_mkdir(dir)  " {{{
+    if !isdirectory(a:dir)
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction  " }}}
+augroup END  " }}}
 
 map <Leader>w :call HandleURI()<CR>
