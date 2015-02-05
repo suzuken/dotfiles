@@ -31,3 +31,6 @@ if $GOROOT != ''
   exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
   autocmd FileType go :set completeopt=menu,preview
 endif
+
+" indent
+au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
