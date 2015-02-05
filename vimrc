@@ -61,6 +61,8 @@ Bundle 'LeafCage/yankround.vim'
 Bundle 'vim-jp/vim-go-extra'
 Bundle 'mattn/ctrlp-ghq'
 Bundle 'majutsushi/tagbar'
+Bundle 'mattn/sonictemplate-vim'
+Bundle 'dgryski/vim-godef'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
