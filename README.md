@@ -20,7 +20,7 @@ zsh
 
 I'm usually using oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh), so if you don't know about that, please check that manual. In this configuration, you can use zshrc.mine for each environment.
 
-And we using [percol](https://github.com/mooz/percol) and [ghq](https://github.com/motemen/ghq) for managing `src`. It's treat all project depends on golang's source management style.
+[Percol](https://github.com/mooz/percol) and [ghq](https://github.com/motemen/ghq) are used for managing `src`. It's treat all project depends on golang's source management style.
 
 ### Tips
 
@@ -135,6 +135,12 @@ Some small utilities is provided.
 * `<leader>n` to open NEWDTree.
 
         nnoremap <leader>n :NERDTree<CR>
+
+### golang
+
+For development in golang, [Gotags](https://github.com/jimweirich/gotags) is used for generating ctags compatible tags because golang is not currently supported by exubelant ctags. Opening `.go` files, `gotags` is used for generating ctags. To use `gotags`, you simply do that:
+
+    go get github.com/jstemmer/gotags
 
 vimperator
 ----------

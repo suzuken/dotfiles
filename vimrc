@@ -13,12 +13,6 @@
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-if !isdirectory(expand("~/.vim/bundle/vundle"))
-    !mkdir -p ~/.vim/bundle
-    !git clone git clone https://github.com/Shougo/neobundle.vim.git
-    let s:bootstrap=1
-endif
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -66,6 +60,7 @@ Bundle 'Shougo/vimproc.vim'
 Bundle 'LeafCage/yankround.vim'
 Bundle 'vim-jp/vim-go-extra'
 Bundle 'mattn/ctrlp-ghq'
+Bundle 'majutsushi/tagbar'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -250,9 +245,6 @@ nnoremap <Space>r :<C-u>registers
 " Shortcuts for BundleSearch
 nnoremap <Space>s :BundleSearch<Space>
 
-" representing Tagbar.
-nnoremap <leader>t :TagbarToggle<CR>
-
 " running Test by MakeGreen
 nnoremap <Leader>m <Plug>MakeGreen " for default, <leader>t
 
@@ -401,7 +393,7 @@ autocmd FileType php :set dictionary=~/.dictionary/phpdoc
 "File Type
 "==========================
 syntax on "シンタックスハイライト
-au FileType perl call PerlType()
+" au FileType perl call PerlType()
 "" ファイルタイプに応じてテンプレートを自動読み込み
 autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.tpl
 " バッファを開いた時に、カレントディレクトリを自動で移動
@@ -509,9 +501,16 @@ set tags=tags
 let g:snips_author = 'Kenta Suzuki'
 
 " =====================================================
+"" tagbar
+" =====================================================
+noremap <leader>t :<c-u>TagbarToggle<cr>
+
+" =====================================================
 "" ctrlp.vim
 " =====================================================
 let g:ctrlp_regexp = 0
+
+let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'mixed', 'bookmarkdir']
 
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -522,12 +521,6 @@ let g:ctrlp_custom_ignore = {
 " ctrlp-ghq
 " https://github.com/mattn/ctrlp-ghq
 noremap <leader>g :<c-u>CtrlPGhq<cr>
-
-" golang
-if $GOROOT != ''
-  exe "set rtp+=".globpath($GOPATH, "src/github.com/nsf/gocode/vim")
-  autocmd FileType go :set completeopt=menu,preview
-endif
 
 " jad
 " installation required http://varaneckas.com/jad/
