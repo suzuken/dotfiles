@@ -34,3 +34,9 @@ endif
 
 " indent
 au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
+
+augroup QuickRunGoTest
+  autocmd!
+  autocmd BufWinEnter,BufNewFile *test.go set filetype=go.test
+augroup END
+let g:quickrun_config['go.test'] = {'command': 'go', 'cmdopt': 'test -v'}
