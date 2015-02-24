@@ -37,24 +37,6 @@ cnoremap <C-k> <S-TAB>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 
-" searching s
-" google
-nnoremap s :tabopen<Space>google<Space>
-" in visual mode, enable to searching with selected phase.
-vmap s y<Esc><Esc>:tabopen<Space>google<Space><C-p><CR>
-
-"タブの複製
-"<C-t>が「新しいタブ」なのにあわせて
-"ツリー型タブを使っているので兄弟ツリーとして開くようにしたい(いつか)
-nnoremap <C-S-t> :tabduplicate<CR>
-
-"Bookmarkはbを使う
-"Google bookmarkを使っているため、Gmarksがまだ便利(タグ補完が出来る)。仕方なしに使う
-"Gmarksを呼び出す
-nnoremap <C-b> <C-v><C-d>
-"Tombloo
-"nnoremap <C-b> <C-v><C-b>
-
 ".vimperatorrcを再読み込み(Windowsなので.vimperatorrcではなく_vimperatorrc)
 " nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/_vimperatorrc<CR>
 nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
@@ -62,18 +44,12 @@ nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
 "======================================================================
 ""設定
 "色設定
-"snakaさんの改造版sweets. とても見やすい！ http://coderepos.org/share/browser/lang/javascript/vimperator-plugins/trunk/colors/sweets_snaka.vimp
-" colorscheme sweets_snaka
 colorscheme solarized
 
-"メニューバー等は消し、スクロールバーのみ表示(r=right,b=bottom)
-" set guioptions=rb
 "補完設定
-" set wildoptions=auto
 set complete=sh
 "検索エンジン設定
 set defsearch=google
-"set suggestengines=g
 "音を鳴らさない
 set visualbell
 highlight Bell display:none
@@ -90,30 +66,6 @@ set! dom.popup_maximum=1000
 " set popups=2
 "キャレットブラウズモードでキャレットの位置を見失わないように太めにする http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
 set! ui.caretWidth=8
-
-"noinsertmode設定でtextarea内もvi風に操作できる(textareaモード)。hjklで移動とか。
-"inputには適用されないという中途半端仕様なので外した、必要なときは<C-t>でtextareaモードに入れる
-"set noinsertmode
-
-"外部エディタの設定(<C-i>で使えるIts all text相当機能,inputやtextareaを外部エディタで編集)
-"※Windows ではパスを\ではなく/で指定しないとクラッシュすることに注意  http://vimperator.g.hatena.ne.jp/nokturnalmortum/20090305/1236244161
-"エディタにはVimを指定。タブで開きたい...
-"set editor="C:/path/to/vim/gvim.exe -f --remote-tab-silent"
-"...ところだが、タブで開くと他のファイルも全て終了するまで変更を反映できないので、タブで開かない
-" set editor="D:/path/to/vim/gvim.exe -f"
-" for mac
-set editor='/usr/bin/gvim -f'
-
-js<<EOM
-    if (liberator.has("MacUnix")) {
-        liberator.execute("set editor=/Applications/MacVim.app/Contents/MacOS/MacVim");
-    }
-EOM
-
-"======================================================================
-""qmarks
-" mail
-qmark m https://mail.google.com/
 
 "http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
