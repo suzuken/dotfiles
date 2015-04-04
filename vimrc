@@ -23,7 +23,6 @@ set vb t_vb=
 "Plugin Installing
 Bundle 'gmarik/vundle'
 Bundle 'mattn/webapi-vim'
-Bundle 'scrooloose/nerdtree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mattn/gist-vim'
 Bundle 'surround.vim'
@@ -63,6 +62,7 @@ Bundle 'mattn/ctrlp-ghq'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/sonictemplate-vim'
 Bundle 'dgryski/vim-godef'
+Bundle 'justinmk/vim-dirvish'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -249,10 +249,6 @@ nnoremap <Space>s :BundleSearch<Space>
 
 " running Test by MakeGreen
 nnoremap <Leader>m <Plug>MakeGreen " for default, <leader>t
-
-" NERDTreeを表示
-" representing NERDTree
-nnoremap <leader>n :NERDTree<CR>
 
 " default key-bind of opening comamnd-line window makes typo frequently.
 " So, using qqq prefix for those.
@@ -484,13 +480,18 @@ nnoremap <space>rp :<C-u>Ref phpmanual<Space>
 " Initialization
 let g:quickrun_config = {}
 
+" Dirvish
+augroup my_dirvish_events
+    au!
+    " always show hidden files
+    au User DirvishEnter let b:dirvish.showhidden = 1
+augroup END
+
 "==========================
 "NERDcommenter.vim
 "==========================
 let NERDSpaceDelims = 1
 let NERDShutUp = 1
-let NERDTreeShowHidden=1
-
 
 " =====================================================
 "" ctags
@@ -584,3 +585,7 @@ augroup vimrc-auto-mkdir  " {{{
 augroup END  " }}}
 
 map <Leader>w :call HandleURI()<CR>
+
+" http://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
+" set full path of current buffer to unamed register
+nmap cp :let @" = expand("%")
