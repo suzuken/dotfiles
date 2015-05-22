@@ -19,6 +19,8 @@ call vundle#rc()
 set shell=bash\ -i
 set noerrorbells
 set vb t_vb=
+" using git instead of https style
+let g:vundle_default_git_proto = 'git'
 
 "Plugin Installing
 Bundle 'gmarik/vundle'
@@ -63,6 +65,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'mattn/sonictemplate-vim'
 Bundle 'dgryski/vim-godef'
 Bundle 'justinmk/vim-dirvish'
+" https://github.com/josharian/impl is required
+Bundle 'rhysd/vim-go-impl'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -486,6 +490,7 @@ augroup my_dirvish_events
     " always show hidden files
     au User DirvishEnter let b:dirvish.showhidden = 1
 augroup END
+let g:dirvish_relative_paths=1
 
 "==========================
 "NERDcommenter.vim
