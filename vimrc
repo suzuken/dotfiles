@@ -37,7 +37,6 @@ Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tsaleh/vim-align'
 Bundle 'thinca/vim-guicolorscheme'
-Bundle 'plasticboy/vim-markdown'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ShowMarks'
@@ -139,6 +138,20 @@ if v:version >= 730
 endif
 set cmdheight=2
 
+" highlight each language in markdown
+" http://mattn.kaoriya.net/software/vim/20140523124903.htm
+let g:markdown_fenced_languages = [
+\  'coffee',
+\  'css',
+\  'javascript',
+\  'js=javascript',
+\  'json=javascript',
+\  'ruby',
+\  'sass',
+\  'xml',
+\  'erlang',
+\]
+
 " ======
 "  font
 " ======
@@ -213,9 +226,6 @@ vnoremap <C-j> <ESC>
 nnoremap ; :
 
 au FocusLost * :wa
-
-" in insert mode, jj means <ESC>.
-inoremap jj <ESC>
 
 "F2でpasteモードに。pasteするときにインデントを無効化。
 " <F2> to paste mode.
