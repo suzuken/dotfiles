@@ -29,7 +29,7 @@ Bundle 'The-NERD-Commenter'
 Bundle 'mattn/gist-vim'
 Bundle 'surround.vim'
 Bundle 'ref.vim'
-Bundle 'PDV--phpDocumentor-for-Vim'
+Bundle 'sumpygump/php-documentor-vim'
 Bundle 'Shougo/vimproc'
 Bundle 'mattn/emmet-vim'
 Bundle 'altercation/vim-colors-solarized'
@@ -42,8 +42,8 @@ Bundle 'TwitVim'
 Bundle 'ShowMarks'
 Bundle 'mattn/benchvimrc-vim'
 Bundle 'msanders/snipmate.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'rodjek/vim-puppet'
+Bundle 'ctrlpvim/ctrlp.vim'
+Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'markcornick/vim-vagrant'
 Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
@@ -66,6 +66,9 @@ Bundle 'dgryski/vim-godef'
 Bundle 'justinmk/vim-dirvish'
 " https://github.com/josharian/impl is required
 Bundle 'rhysd/vim-go-impl'
+Bundle 'editorconfig/editorconfig-vim'
+Bundle 'vim-php/tagbar-phpctags.vim'
+Bundle 'shawncplus/phpcomplete.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -500,7 +503,7 @@ augroup my_dirvish_events
     " always show hidden files
     au User DirvishEnter let b:dirvish.showhidden = 1
 augroup END
-let g:dirvish_relative_paths=1
+" let g:dirvish_relative_paths=1
 
 "==========================
 "NERDcommenter.vim
