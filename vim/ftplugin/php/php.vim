@@ -2,14 +2,14 @@
 " php
 " ---------------------------
 let g:pdv_cfg_Type = "string"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = "$id$"
-let g:pdv_cfg_Author = "Kenta Suzuki <Ke-Suzuki@voyagegroup.com>"
-let g:pdv_cfg_Copyright = "Copyright (C) 2013 Adingo, Inc. All Rights Reserved."
-let g:pdv_cfg_License = "PHP Version 5.3 {@link http://www.php.net/license/5_3.txt}"
-" inoremap <C-P><C-P> <ESC>:call PhpDocSingle()<CR>i
-" nnoremap <C-P><C-P> :call PhpDocSingle()<CR>
-" vnoremap <C-P><C-P> :call PhpDocRange()<CR>
+" let g:pdv_cfg_Package = ""
+" let g:pdv_cfg_Version = "$id$"
+" let g:pdv_cfg_Author = "Kenta Suzuki <Ke-Suzuki@voyagegroup.com>"
+" let g:pdv_cfg_Copyright = "Copyright (C) 2013 Adingo, Inc. All Rights Reserved."
+" let g:pdv_cfg_License = "PHP Version 5.3 {@link http://www.php.net/license/5_3.txt}"
+" inoremap <C-P><C-D> <ESC>:call PhpDoc()<CR>i
+nnoremap <C-P><C-D> :call PhpDoc()<CR>
+" vnoremap <C-P><C-D> :call PhpDocRange()<CR>
 
 " setting for PHPUnit
 " http://www.phpunit.de/manual/current/en/
