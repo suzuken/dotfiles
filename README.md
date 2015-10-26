@@ -142,9 +142,9 @@ For development in golang, [Gotags](https://github.com/jimweirich/gotags) is use
 
     go get github.com/jstemmer/gotags
 
-And `godef` is used for jumping to code definition.
+And [rogpeppe/godef](https://github.com/rogpeppe/godef) is used for jumping to code definition.
 
-    go get code.google.com/p/rog-go/exp/cmd/godef
+    go get github.com/rogpeppe/godef
 
 Actually, you can `make install` for this workaround.
 
