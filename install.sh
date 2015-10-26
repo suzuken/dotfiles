@@ -15,12 +15,11 @@ if [ -f "$PWD/oh-my-zsh" ]; then
     cd ..
 fi
 
-echo "installing percol."
-pip install percol
+go get github.com/peco/peco/cmd/peco
 
-go get github.com/metemen/ghq
+go get github.com/motemen/ghq
 go get github.com/jstemmer/gotags
-go get code.google.com/p/rog-go/exp/cmd/godef
+go get github.com/rogpeppe/godef
 
 # load vimperator plugins
 if [[ ! -f "$PWD/vimperator/vimperator-plugins" ]]; then

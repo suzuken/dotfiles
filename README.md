@@ -18,17 +18,17 @@ How to use
 zsh
 ---
 
-I'm usually using oh-my-zsh (https://github.com/robbyrussell/oh-my-zsh), so if you don't know about that, please check that manual. In this configuration, you can use zshrc.mine for each environment.
+I'm usually using [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh), so if you don't know about that, please check that manual. In this configuration, you can use zshrc.mine for each environment.
 
-[Percol](https://github.com/mooz/percol) and [ghq](https://github.com/motemen/ghq) are used for managing `src`. It's treat all project depends on golang's source management style.
+[peco](https://github.com/peco/peco) and [ghq](https://github.com/motemen/ghq) are used for managing `src`. It's treat all project depends on golang's source management style.
 
 ### Tips
 
 On zsh,
 
-* `^S`: open any `src` directory by percol. It enables incremental search for projects you fetched.
-* `sd`: search and open your documents (txt, pdf etc.) in `~/Documents` and `~/Dropbox` by percol.
-* `^R`: search .zsh_history in percol
+* `^S`: open any `src` directory by peco. It enables incremental search for projects you fetched.
+* `sd`: search and open your documents (txt, pdf etc.) in `~/Documents` and `~/Dropbox` by peco.
+* `^R`: search .zsh_history in peco.
 
 gem
 ---
