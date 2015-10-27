@@ -58,15 +58,6 @@ For managing plugins for vim, [Vundle][] is used here.
 
 Vundle is very good choice for managing your plugins -- it's easy to install, search, clean up, and update for vim plugins.
 
-### Browsing files
-
-@see [unite.vim][] page on GitHub.
-
-[unite.vim]:  https://github.com/Shougo/unite.vim "Shougo/unite.vim - GitHub"
-
-And, "f" key is mapped to start using Unite for useful.
-
-
 ### encoding
 
 Encoding is very serious problem for vim users. If you have iconv, your vim will work well.
