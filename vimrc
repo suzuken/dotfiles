@@ -35,8 +35,6 @@ Bundle 'mattn/emmet-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
-Bundle 'tsaleh/vim-align'
-Bundle 'thinca/vim-guicolorscheme'
 Bundle 'thinca/vim-quickrun'
 Bundle 'TwitVim'
 Bundle 'ShowMarks'
@@ -44,14 +42,12 @@ Bundle 'mattn/benchvimrc-vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'markcornick/vim-vagrant'
 Bundle 'rking/ag.vim'
 Bundle 'bling/vim-airline'
 Bundle 'derekwyatt/vim-scala'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'timcharper/textile.vim'
 Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'sprsquish/thrift.vim'
 Bundle 'wting/rust.vim'
 Bundle '2072/PHP-Indenting-for-VIm'
@@ -141,8 +137,8 @@ set cmdheight=2
 " highlight each language in markdown
 " http://mattn.kaoriya.net/software/vim/20140523124903.htm
 let g:markdown_fenced_languages = [
-\  'coffee',
 \  'css',
+\  'go',
 \  'javascript',
 \  'js=javascript',
 \  'json=javascript',
