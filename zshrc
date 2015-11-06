@@ -67,41 +67,28 @@ function chpwd() { ls }
 
 alias j="autojump"
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+alias p="popd"
 
 if [ -x "`which go`" ]; then
-    export GOROOT=`go env GOROOT`
-
     # http://blog.kentarok.org/entry/2014/06/03/135300
     export GOPATH=$HOME
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    export PATH=$PATH::$GOPATH/bin
 fi
 
 # http://d.hatena.ne.jp/kbkbkbkb1/20120429/1335835500
-function percol_select_history() {
+function peco_select_history() {
   local tac_cmd
   which gtac &> /dev/null && tac_cmd=gtac || tac_cmd=tac
   BUFFER=$($tac_cmd ~/.zsh_history | sed 's/^: [0-9]*:[0-9]*;//' \
-    | percol --match-method regex --query "$LBUFFER")
+    | peco --match-method regex --query "$LBUFFER")
   CURSOR=$#BUFFER         # move cursor
   zle -R -c               # refresh
 }
-zle -N percol_select_history
-bindkey '^R' percol_select_history
+zle -N peco_select_history
+bindkey '^R' peco_select_history
 
-function search-document-by-percol(){
-  DOCUMENT_DIR="\
-$HOME/Documents
-$HOME/Dropbox"
-  SELECTED_FILE=$(echo $DOCUMENT_DIR | xargs find | \
-    grep -E "\.(pdf|txt|odp|odt|ods)$" | percol --match-method regex)
-  if [ $? -eq 0 ]; then
-    open $SELECTED_FILE
-  fi
-}
-alias sd='search-document-by-percol'
-
-function percol_src() {
-  local src_dir=$(ghq list --full-path | percol --query "$LBUFFER")
+function peco_src() {
+  local src_dir=$(ghq list --full-path | peco --query "$LBUFFER")
   if [ -n "$src_dir" ]; then
       BUFFER="cd $src_dir"
       zle accept-line
@@ -109,8 +96,8 @@ function percol_src() {
   # zle clean-screen
   zle -R -c               # refresh
 }
-zle -N percol_src
-bindkey '^S' percol_src
+zle -N peco_src
+bindkey '^S' peco_src
 
 # Customize to your needs...
 #
