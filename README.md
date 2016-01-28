@@ -78,19 +78,9 @@ Some small utilities is provided.
         noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
         noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
 
-* `<F1>` to `<ESC>`, because I usually mistake it.
-
-        inoremap <F1> <ESC>
-        nnoremap <F1> <ESC>
-        vnoremap <F1> <ESC>
-
 * `;` to `:` in normal mode.
 
         nnoremap ; :
-
-* `jj` to switch normal mode in insert mode.
-
-        inoremap jj <ESC>
 
 * `<F2>` to paste mode.
 
@@ -107,7 +97,6 @@ Some small utilities is provided.
 
         map <S-Enter> O<ESC>
         map <Enter> o<ESC>
-
 
 * Creating underline/overline headings for markup languages. Inspired by http://sphinx.pocoo.org/rest.html#sections .
 

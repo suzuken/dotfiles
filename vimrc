@@ -27,41 +27,36 @@ Bundle 'gmarik/vundle'
 Bundle 'mattn/webapi-vim'
 Bundle 'The-NERD-Commenter'
 Bundle 'mattn/gist-vim'
-Bundle 'surround.vim'
-Bundle 'ref.vim'
-Bundle 'sumpygump/php-documentor-vim'
-Bundle 'Shougo/vimproc'
 Bundle 'mattn/emmet-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'Modeliner'
 Bundle 'tpope/vim-fugitive'
 Bundle 'thinca/vim-quickrun'
-Bundle 'TwitVim'
 Bundle 'ShowMarks'
 Bundle 'mattn/benchvimrc-vim'
 Bundle 'msanders/snipmate.vim'
 Bundle 'ctrlpvim/ctrlp.vim'
 Bundle 'puppetlabs/puppet-syntax-vim'
 Bundle 'rking/ag.vim'
-Bundle 'bling/vim-airline'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'vim-ruby/vim-ruby'
 Bundle 'timcharper/textile.vim'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'sprsquish/thrift.vim'
-Bundle 'wting/rust.vim'
-Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'Shougo/vimshell.vim'
 Bundle 'Shougo/vimproc.vim'
-Bundle 'LeafCage/yankround.vim'
-Bundle 'fatih/vim-go'
 Bundle 'mattn/ctrlp-ghq'
 Bundle 'majutsushi/tagbar'
 Bundle 'mattn/sonictemplate-vim'
-Bundle 'justinmk/vim-dirvish'
 Bundle 'editorconfig/editorconfig-vim'
+Bundle 'justinmk/vim-dirvish'
+
+" Plugins for each languages
+Bundle 'wting/rust.vim'
+Bundle 'derekwyatt/vim-scala'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'fatih/vim-go'
 Bundle 'vim-php/tagbar-phpctags.vim'
 Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'sumpygump/php-documentor-vim'
+Bundle '2072/PHP-Indenting-for-VIm'
+Bundle 'hynek/vim-python-pep8-indent'
+Bundle 'sprsquish/thrift.vim'
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
@@ -84,50 +79,25 @@ set modelines=5
 " leader is ,
 let mapleader = ","
 
-"==========================
-"Tab Char
-"==========================
 set tabstop=4
 set expandtab
 set softtabstop=0
 set shiftwidth=4
 set smarttab
+set number
+set title
+set scrolloff=5
 
-
-"==========================
-"Tab Pages
-"==========================
-nnoremap <C-t>  <Nop>
-nnoremap <C-t>n  :<C-u>tabnew<CR>
-nnoremap <C-t>c  :<C-u>tabclose<CR>
-nnoremap <C-t>o  :<C-u>tabonly<CR>
-nnoremap <C-t>j  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
-nnoremap <C-t>k  gT
-
-"==========================
-"view
-"==========================
 if has('gui_running')
     set t_Co=16
     let g:solarized_termcolors=16
     colorscheme solarized
-    " call togglebg#map('<F5>')
 endif
-
-" when running on terminal, modify colorscheme
-colorscheme slate
-
-set number
-set title
-"set visualbell
-set scrolloff=5
 
 if v:version >= 700
     set cursorline
-    " highlight CursorLine guibg=lightblue ctermbg=lightgray
 endif
 
-"vim 7.3~
 if v:version >= 730
     set relativenumber  "showing relative column number
     set undofile    "creating <FILENAME>.un~
@@ -148,9 +118,6 @@ let g:markdown_fenced_languages = [
 \  'erlang',
 \]
 
-" ======
-"  font
-" ======
 if has("gui_gnome")
     set guifont=Ricty\ 12
 end
@@ -167,13 +134,6 @@ set incsearch
 set showmatch
 set hlsearch
 set wrapscan
-
-" get back from search mode
-"
-nnoremap <Esc><Esc> :nohlsearch<CR>
-
-" <tab> means %
-nnoremap <tab> %
 
 " In visual mode, tab means insert <tab> into highlighted block.
 vnoremap <Tab> >gv
@@ -211,14 +171,6 @@ noremap # #zz
 noremap g* g*zz
 noremap g# g#zz
 
-" F1 means ESC, too.
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-inoremap <C-j> <ESC>
-nnoremap <C-j> <ESC>
-vnoremap <C-j> <ESC>
-
 nnoremap ; :
 
 au FocusLost * :wa
@@ -233,7 +185,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-"Enterでいつでも一行挿入
 " <Enter> always means inserting line.
 nnoremap <S-Enter> O<ESC>
 nnoremap <Enter> o<ESC>
@@ -248,90 +199,20 @@ nnoremap <leader>5 yypVr-
 nnoremap <leader>6 yypVr^
 nnoremap <leader>7 yypVr"
 
-"registerとmarkの確認を楽にする
-"http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
-nnoremap <Space>m :<C-u>marks
-nnoremap <Space>r :<C-u>registers
-
-"BundleSearchへのショートカット
-" Shortcuts for BundleSearch
-nnoremap <Space>s :BundleSearch<Space>
-
-" running Test by MakeGreen
-nnoremap <Leader>m <Plug>MakeGreen " for default, <leader>t
-
-" default key-bind of opening comamnd-line window makes typo frequently.
-" So, using qqq prefix for those.
-nnoremap qqq: <Esc>q:
-nnoremap qqq/ <Esc>q/
-nnoremap qqq? <Esc>q?
-nnoremap q: <Nop>
-nnoremap q/ <Nop>
-nnoremap q? <Nop>
-
 "==========================
 "language
 "==========================
-
 set encoding=utf-8
 source $HOME/.vim/encode.vim
 
 set fileformats=unix,dos,mac
 
 set ambiwidth=double
-"ambiwidthがある場合、doubleに設定
-" if exists('&ambiwidth')
-    " set ambiwidth=double
-" endif
-
-"==========================
-"Folding
-"==========================
-" Folding rules {{{
-" set foldenable                  " enable folding
-" set foldcolumn=2                " add a fold column
-" set foldmethod=marker           " detect triple-{ style fold markers
-" set foldlevelstart=0            " start out with everything folded
-" set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
-                                " " which commands trigger auto-unfold
-" function! MyFoldText()
-    " let line = getline(v:foldstart)
-
-    " let nucolwidth = &fdc + &number * &numberwidth
-    " let windowwidth = winwidth(0) - nucolwidth - 3
-    " let foldedlinecount = v:foldend - v:foldstart
-
-    " " expand tabs into spaces
-    " let onetab = strpart('          ', 0, &tabstop)
-    " let line = substitute(line, '\t', onetab, 'g')
-
-    " let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    " let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
-    " return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
-" endfunction
-" set foldtext=MyFoldText()
-" }}}
-
-" ******************************
-"            Leader
-" ******************************
-" white spaceをtrailする
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
-" htmlで良く使う。タグに囲まれたものを一気に選択。
-nnoremap <leader>ft Vatzf
-" CSSプロパティを並べ替え
-nnoremap <leader>S ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
-" TextMateの<Ctrl-Q>。ワンライナーに書き換え。
-nnoremap <leader>q gqip
-" 直前に貼り付けたコードを再選択。インデントとか入れるときに便利。
-nnoremap <leader>v V`]
-
 
 "==========================
 "clipboard
 "==========================
 set clipboard+=autoselect
-
 
 "==========================
 "special Key
@@ -339,7 +220,6 @@ set clipboard+=autoselect
 set list
 set listchars=tab:>-,trail:-,extends:<,precedes:<
 highlight specialKey ctermfg=darkgray
-
 
 "==========================
 "Input
@@ -354,13 +234,11 @@ set smartindent
 "==========================
 set wildmenu
 set wildmode=full:list
-"set completeopt=menu,preview,menuone
 
 "==========================
 "Programming
 "==========================
 set showmatch "対応する括弧を表示
-"set cindent "Cのインデント
 set foldmethod=syntax
 set grepprg=internal "内蔵grep
 
@@ -382,8 +260,6 @@ let g:svbfre = '.\+'
 "==========================
 set showcmd "ステータスラインにコマンドを表示
 set laststatus=2 "ステータスラインを常に表示
-set statusline=[%L]\ %t\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
-" set statusline=[%L]\ %t\ %{fugitive#statusline()}\ %y%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}%r%m%=%c:%l/%L "ステータスラインの表示内容
 
 "==========================
 "Window
@@ -392,111 +268,40 @@ set splitright "Window Split時に新Windowを右に表示
 set splitbelow "Window Split時に新windowを下に表示
 
 "==========================
-"Dictionary
-"==========================
-set dictionary=/usr/share/dict/words
-autocmd FileType php :set dictionary=~/.dictionary/phpdoc
-
-"==========================
 "File Type
 "==========================
 syntax on "シンタックスハイライト
-" au FileType perl call PerlType()
-"" ファイルタイプに応じてテンプレートを自動読み込み
-autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.tpl
-" バッファを開いた時に、カレントディレクトリを自動で移動
-" autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 
-
-
-"visualeditの設定
-"set virtualedit+=block
-
-" ---------------------------
-"python
-" ---------------------------
 if has('autocmd')
+    autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.tpl
+
     autocmd FileType python setl autoindent
     autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType python setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
-endif
 
-" Execute python script C-P
-" function! s:ExecPy()
-    " exe "!" . &ft . " %"
-" :endfunction
-" command! Exec call <SID>ExecPy()
-" autocmd FileType python map <silent> <C-P> :call <SID>ExecPy()<CR>
-
-" ----
-" html
-" ----
-if has('autocmd')
     autocmd FileType html :compiler tidy
     autocmd FileType html :setlocal makeprg=tidy\ -raw\ -quiet\ -errors\ --gnu-emacs\ yes\ \"%\"
     autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
-endif
 
-
-" ---
-" scala
-" ---
-if has('autocmd')
     autocmd BufNewFile,BufRead *.scala set filetype=scala
     autocmd FileType scala setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
-endif
 
-" ---
-" sql
-" ---
-if has('autocmd')
     autocmd BufNewFile,BufRead *.q set filetype=sql
-endif
 
-" ---
-" twig as html
-" ---
-if has('autocmd')
     autocmd BufNewFile,BufRead *.twig set filetype=html
 endif
-
-
 
 "==========================
 "help
 "==========================
 set helplang=en
 
-"**************************
-"plugin
-"**************************
-
-"==========================
-"ref.vim
-"==========================
-let g:ref_phpmanual_path=$HOME . '/.dictionary/phpdoc/'
-let g:ref_phpmanual_cmd="w3c -dump %s"
-let g:ref_use_vimproc=0
-let g:ref_jquery_cmd="w3c -dump %s"
-let g:ref_alc_cmd="w3c -dump %s"
-
-"Ref alc
-nnoremap <space>ra :<C-u>Ref alc<Space>
-nnoremap <space>rp :<C-u>Ref phpmanual<Space>
-
-" ========
-" Quickrun
-" ========
-" Initialization
 let g:quickrun_config = {}
 
-" Dirvish
 augroup my_dirvish_events
     au!
-    " always show hidden files
     au User DirvishEnter let b:dirvish.showhidden = 1
 augroup END
-" let g:dirvish_relative_paths=1
 
 "==========================
 "NERDcommenter.vim
@@ -523,9 +328,7 @@ noremap <leader>t :<c-u>TagbarToggle<cr>
 "" ctrlp.vim
 " =====================================================
 let g:ctrlp_regexp = 0
-
 let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'mixed', 'bookmarkdir']
-
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/]\.(git|hg|svn)$',
     \ 'file': '\v\.(exe|so|dll|class)$',
@@ -547,31 +350,12 @@ augr class
     au bufreadpost,filereadpost *.class set nomodified
 augr END
 
-" =====================================================
-" yankround.vim
-" https://github.com/LeafCage/yankround.vim
-" =====================================================
-nmap p <Plug>(yankround-p)
-xmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-xmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-
-" =====
-" after
-" =====
-" when saving, erase spaces at end of lines.
-" autocmd BufWritePre * :%s/\s\+$//ge
 "----------------------------------------------------
 "" host specific
 "----------------------------------------------------
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
-
 
 function! HandleURI()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^>,;:]*')
