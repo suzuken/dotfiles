@@ -1,20 +1,15 @@
 all: install
 
-install: vim/bundle/bundle prepare tools vimperator/vimperator-plugins link
+install: deps tools vimperator/vimperator-plugins link
 
 vim/bundle/vundle:
 	git clone http://github.com/gmarik/vundle.git $@
 
-prepare:
-	git submodule init
-	git submodule update
+deps: vim/bundle/vundle
 
 tools:
 	go get -u github.com/peco/peco/cmd/peco
 	go get -u github.com/motemen/ghq
-	go get -u github.com/jstemmer/gotags
-	go get -u github.com/rogpeppe/godef
-	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/nsf/gocode
 
 vimperator/vimperator-plugins:
@@ -28,6 +23,3 @@ link:
 
 update-vimperator-plugins:
 	cd ./vimperator/vimperator-plugins && git pull origin master
-
-update-oh-my-zsh:
-	cd oh-my-zsh && git fetch fork_master && git merge remotes/fork_master/master
