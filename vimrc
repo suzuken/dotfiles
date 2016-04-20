@@ -87,12 +87,17 @@ set smarttab
 set number
 set title
 set scrolloff=5
+set ambiwidth=double
 
 if has('gui_running')
     set t_Co=16
     let g:solarized_termcolors=16
-    colorscheme solarized
+else
+    " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
+    let g:solarized_termtrans = 1
 endif
+set background=dark
+colorscheme solarized
 
 if v:version >= 700
     set cursorline
