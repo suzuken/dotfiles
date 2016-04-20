@@ -40,8 +40,6 @@ zshaddhistory() {
     ]]
 }
 
-alias j="autojump"
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
 alias p="popd"
 
 if [ -x "`which go`" ]; then
