@@ -3,7 +3,7 @@ all: install
 install: deps tools vimperator/vimperator-plugins link
 
 vim/bundle/vundle:
-	git clone http://github.com/gmarik/vundle.git $@
+	git clone git@github.com:VundleVim/Vundle.vim.git $@
 
 deps: vim/bundle/vundle
 
