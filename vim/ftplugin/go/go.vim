@@ -37,6 +37,7 @@ au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
 
 " override default gd option of vim-go, use split
 nmap gs <Plug>(go-def-split)
+let g:go_def_reuse_buffer=1
 
 augroup QuickRunGoTest
   autocmd!
