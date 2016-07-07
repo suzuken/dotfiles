@@ -44,3 +44,8 @@ Vimperator
 If you are vim user, [Vimperator][] makes your web browsing faster and easier. Vimperator is one kind of add-ons for firefox.
 
 [Vimperator]: https://addons.mozilla.org/ja/firefox/addon/vimperator/   "Vimperator :: Add-ons for Firefox"
+
+LICENSE
+=======
+
+Public Domain
