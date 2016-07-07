@@ -26,7 +26,6 @@ Using [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
 On zsh,
 
 * `^S`: open any `src` directory by peco. It enables incremental search for projects you fetched.
-* `sd`: search and open your documents (txt, pdf etc.) in `~/Documents` and `~/Dropbox` by peco.
 * `^R`: search .zsh_history in peco.
 
 vim
