@@ -11,52 +11,44 @@
 " later.
 " ======================
 set nocompatible               " be iMproved
-filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-set shell=bash\ -i
-set noerrorbells
-set vb t_vb=
-" using git instead of https style
-let g:vundle_default_git_proto = 'git'
+call plug#begin()
 
 "Plugin Installing
-Bundle 'gmarik/vundle'
-Bundle 'mattn/webapi-vim'
-Bundle 'The-NERD-Commenter'
-Bundle 'mattn/gist-vim'
-Bundle 'mattn/emmet-vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'Modeliner'
-Bundle 'tpope/vim-fugitive'
-Bundle 'thinca/vim-quickrun'
-Bundle 'ShowMarks'
-Bundle 'mattn/benchvimrc-vim'
-Bundle 'msanders/snipmate.vim'
-Bundle 'ctrlpvim/ctrlp.vim'
-Bundle 'puppetlabs/puppet-syntax-vim'
-Bundle 'rking/ag.vim'
-Bundle 'timcharper/textile.vim'
-Bundle 'Shougo/vimproc.vim'
-Bundle 'mattn/ctrlp-ghq'
-Bundle 'majutsushi/tagbar'
-Bundle 'mattn/sonictemplate-vim'
-Bundle 'editorconfig/editorconfig-vim'
-Bundle 'justinmk/vim-dirvish'
+Plug 'mattn/webapi-vim'
+Plug 'The-NERD-Commenter'
+Plug 'mattn/gist-vim'
+Plug 'mattn/emmet-vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'Modeliner'
+Plug 'tpope/vim-fugitive'
+Plug 'thinca/vim-quickrun'
+Plug 'ShowMarks'
+Plug 'mattn/benchvimrc-vim'
+Plug 'msanders/snipmate.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'rking/ag.vim'
+Plug 'timcharper/textile.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'mattn/ctrlp-ghq'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/sonictemplate-vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'justinmk/vim-dirvish'
 
 " Plugins for each languages
-Bundle 'wting/rust.vim'
-Bundle 'derekwyatt/vim-scala'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'fatih/vim-go'
-Bundle 'vim-php/tagbar-phpctags.vim'
-Bundle 'shawncplus/phpcomplete.vim'
-Bundle 'sumpygump/php-documentor-vim'
-Bundle '2072/PHP-Indenting-for-VIm'
-Bundle 'hynek/vim-python-pep8-indent'
-Bundle 'sprsquish/thrift.vim'
+Plug 'wting/rust.vim'
+Plug 'derekwyatt/vim-scala'
+Plug 'vim-ruby/vim-ruby'
+Plug 'fatih/vim-go'
+Plug 'vim-php/tagbar-phpctags.vim'
+Plug 'shawncplus/phpcomplete.vim'
+Plug 'sumpygump/php-documentor-vim'
+Plug '2072/PHP-Indenting-for-VIm'
+Plug 'hynek/vim-python-pep8-indent'
+
+call plug#end()
 
 if exists("s:bootstrap") && s:bootstrap
     unlet s:bootstrap
