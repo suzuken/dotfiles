@@ -32,11 +32,7 @@ On zsh,
 vim
 ---
 
-For using vim, you need to install vundle.vim.
-
-    git clone git://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-Launch vim, and `:PluginInstall`.
+For install plugins, run `:PlugInstall`.
 
 ### Golang
 
