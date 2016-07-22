@@ -1,10 +1,6 @@
 " ==========
 " javascript
 " ==========
-inoremap <C-P><C-P> :<ESC>call WriteJSDocComment()<CR>i
-nnoremap <C-P><C-P> :call WriteJSDocComment()<CR>
-vnoremap <C-P><C-P> :call WriteJSDocComment()<CR>
-
 compiler javascriptlint
 
 if !exists('b:undo_ftplugin')
@@ -16,7 +12,5 @@ let b:undo_ftplugin .= '
 \ | setlocal errorformat<
 \'
 
-" ================================
-" smartchr settings for JavaScript
-" ================================
-" inoremap <buffer> <expr> \ smartchr#one_of('function(', '\')
+" enable jsx syntax in .js file.
+" let g:jsx_ext_required = 0

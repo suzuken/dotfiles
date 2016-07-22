@@ -27,7 +27,6 @@ Plug 'ShowMarks'
 Plug 'mattn/benchvimrc-vim'
 Plug 'msanders/snipmate.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'rking/ag.vim'
 Plug 'timcharper/textile.vim'
 Plug 'Shougo/vimproc.vim'
@@ -38,15 +37,20 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
 
 " Plugins for each languages
-Plug 'wting/rust.vim'
-Plug 'derekwyatt/vim-scala'
-Plug 'vim-ruby/vim-ruby'
-Plug 'fatih/vim-go'
-Plug 'vim-php/tagbar-phpctags.vim'
-Plug 'shawncplus/phpcomplete.vim'
-Plug 'sumpygump/php-documentor-vim'
-Plug '2072/PHP-Indenting-for-VIm'
-Plug 'hynek/vim-python-pep8-indent'
+Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'wting/rust.vim', {'autoload':{'filetypes':['rust']}}
+Plug 'derekwyatt/vim-scala', {'autoload':{'filetypes':['scala']}}
+Plug 'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
+Plug 'fatih/vim-go', {'autoload':{'filetypes':['go']}}
+Plug 'vim-php/tagbar-phpctags.vim', {'autoload':{'filetypes':['php']}}
+Plug 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
+Plug 'sumpygump/php-documentor-vim', {'autoload':{'filetypes':['php']}}
+Plug '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
+Plug 'hynek/vim-python-pep8-indent', {'autoload':{'filetypes':['python']}}
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'marijnh/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
+Plug 'othree/yajs.vim', {'autoload':{'filetypes':['javascript']}}
+Plug 'othree/javascript-libraries-syntax.vim'
 
 call plug#end()
 
@@ -364,17 +368,6 @@ function! HandleURI()
     echo "No URI found in line."
   endif
 endfunction
-
-" automatically create directory
-augroup vimrc-auto-mkdir  " {{{
-  autocmd!
-  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'))
-  function! s:auto_mkdir(dir)  " {{{
-    if !isdirectory(a:dir)
-      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-    endif
-  endfunction  " }}}
-augroup END  " }}}
 
 map <Leader>w :call HandleURI()<CR>
 
