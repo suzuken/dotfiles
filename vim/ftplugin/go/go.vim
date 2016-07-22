@@ -33,7 +33,7 @@ if $GOROOT != ''
 endif
 
 " indent
-au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
+au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " override default gd option of vim-go, use split
 nmap gs <Plug>(go-def-split)
