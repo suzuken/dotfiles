@@ -10,8 +10,8 @@
 " Sorry for writing some comments in Japanese, and I'll translate to English
 " later.
 " ======================
-set nocompatible               " be iMproved
 
+" use https://github.com/junegunn/vim-plug
 call plug#begin()
 
 "Plugin Installing
@@ -48,9 +48,10 @@ Plug 'sumpygump/php-documentor-vim', {'autoload':{'filetypes':['php']}}
 Plug '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
 Plug 'hynek/vim-python-pep8-indent', {'autoload':{'filetypes':['python']}}
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'marijnh/tern_for_vim', {'do': 'npm install', 'for': 'javascript'}
 Plug 'othree/yajs.vim', {'autoload':{'filetypes':['javascript']}}
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'keith/swift.vim', {'autoload':{'filetypes':['swift']}}
+Plug 'posva/vim-vue', {'autoload':{'filetypes':['vue']}}
 
 call plug#end()
 
@@ -319,6 +320,13 @@ set tags=tags
 "" snipMate.vim
 " =====================================================
 let g:snips_author = 'Kenta Suzuki'
+
+" =====================================================
+"" sonictemplate
+" =====================================================
+let g:sonictemplate_vim_template_dir = [
+\ '$HOME/.vim/templates',
+\]
 
 " =====================================================
 "" tagbar
