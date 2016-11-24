@@ -7,57 +7,28 @@ let g:plugin_loader_plugins = "_libly,copy"
 
 "keymaps
 "========
-" extend move height for j, k
 nnoremap j <C-d>
 nnoremap k <C-u>
-" simply moving next and back tab
 nnoremap h <C-p>
 nnoremap l <C-n>
-" <C-j> and <C-k> sometimes used on other web application.
-" So, map them for moving.
-noremap <C-j> <C-d>
-noremap <C-k> <C-u>
 
 " Click links. Opening new pages is always in the new tab.
 nnoremap f F
 nnoremap F f
-" <C-f> is also opening multiple tabs
-nnoremap <C-f> ;F
 
-"<C-p> is always for pasting.
-inoremap <C-p> <S-Insert>
-cnoremap <C-p> <S-Insert>
-" disable <C-n>
-inoremap <C-n> <Nop>
-cnoremap <C-n> <Nop>
-"Instead of <C-n><C-p>, <C-j><C-k> is used.
-"(! for normal mode, they perform as pagedown/pageup)
-cnoremap <C-j> <TAB>
-cnoremap <C-k> <S-TAB>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-
-".vimperatorrcを再読み込み(Windowsなので.vimperatorrcではなく_vimperatorrc)
-" nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/_vimperatorrc<CR>
+" reload vimperatorrc
 nnoremap <silent> ,r :mapc<CR>:cmapc<CR>:imapc<CR>:so ~/.vimperatorrc<CR>
 
 "======================================================================
-""設定
-"色設定
 colorscheme solarized
-
-"補完設定
-set complete=sh
-"検索エンジン設定
+set complete=l
 set defsearch=google
 set history=50000
 
-" sで検索へのショートカット
 nnoremap s :tabopen<Space>google<Space>
 " visual modeだと選択しているテキストをyankして検索できる
 vmap s y<Esc><Esc>:tabopen<Space>google<Space><C-p><CR>
 
-"音を鳴らさない
 set visualbell
 highlight Bell display:none
 "リンクのURIをステータスラインに表示
@@ -66,9 +37,6 @@ set showstatuslinks=1
 set! ui.key.generalAccessKey=0
 "検索欄などにフォーカスするのを防ぐ
 set focuscontent
-
-"キャレットブラウズモードでキャレットの位置を見失わないように太めにする http://coderepos.org/share/browser/dotfiles/vimperator/snaka-vimperatorrc
-set! ui.caretWidth=8
 
 "http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
@@ -105,9 +73,7 @@ javascript <<EOM
     ];
 })();
 EOM
-"a:anchor p:plaintext t:title s:select q:blockquote
-"何も設定しなければyyでurlが取得できた
-"nnremap yy y
+
 nnoremap ya :copy anchor<CR>
 nnoremap yp :copy titleAndURL<CR>
 nnoremap yt :copy title<CR>
@@ -124,6 +90,9 @@ ignorekeys add trello\\.com
 ignorekeys add facebook\\.com
 ignorekeys add mail\\.google\\.com
 ignorekeys add inbox\\.google\\.com
+
+" For Firefox 49 https://github.com/vimperator/vimperator-labs/issues/590#issuecomment-248833125
+js services.services.autoCompleteSearch.class_="@mozilla.org/autocomplete/search;1?name=unifiedcomplete"
 
 "======================================================================
 " 読み込みおわったらメッセージ
