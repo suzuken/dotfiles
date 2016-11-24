@@ -100,10 +100,6 @@ if v:version >= 700
     set cursorline
 endif
 
-if v:version >= 730
-    set relativenumber  "showing relative column number
-    set undofile    "creating <FILENAME>.un~
-endif
 set cmdheight=2
 
 " highlight each language in markdown
