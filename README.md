@@ -10,7 +10,7 @@ Prerequisite
 
 * Your cool PC
 * Latest Golang
-* vim 7.3+ and buildin python support (for using tern\_for\_vim)
+* vim 7.4+
 
 How to use
 ==========
