@@ -27,8 +27,7 @@ Plug 'ShowMarks'
 Plug 'mattn/benchvimrc-vim'
 Plug 'msanders/snipmate.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'rking/ag.vim'
-Plug 'timcharper/textile.vim'
+Plug 'mileszs/ack.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'mattn/ctrlp-ghq'
 Plug 'majutsushi/tagbar'
@@ -52,15 +51,11 @@ Plug 'othree/yajs.vim', {'autoload':{'filetypes':['javascript']}}
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'keith/swift.vim', {'autoload':{'filetypes':['swift']}}
 Plug 'posva/vim-vue', {'autoload':{'filetypes':['vue']}}
+Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
 
-if exists("s:bootstrap") && s:bootstrap
-    unlet s:bootstrap
-    BundleInstall
-endif
-
-filetype plugin indent on     " required!
+filetype plugin indent on
 
 " =================
 " showmarks_include
@@ -73,7 +68,6 @@ let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 autocmd!
 set modelines=5
 
-" leader is ,
 let mapleader = ","
 
 set tabstop=4
@@ -115,10 +109,6 @@ let g:markdown_fenced_languages = [
 \  'xml',
 \  'erlang',
 \]
-
-if has("gui_gnome")
-    set guifont=Ricty\ 12
-end
 
 "==========================
 "Searching and Moving
@@ -328,6 +318,13 @@ let g:sonictemplate_vim_template_dir = [
 "" tagbar
 " =====================================================
 noremap <leader>t :<c-u>TagbarToggle<cr>
+
+" =====================================================
+"" ack.vim
+" =====================================================
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 
 " =====================================================
 "" ctrlp.vim
