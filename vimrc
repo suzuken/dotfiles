@@ -25,7 +25,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'thinca/vim-quickrun'
 Plug 'ShowMarks'
 Plug 'mattn/benchvimrc-vim'
-Plug 'msanders/snipmate.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'Shougo/vimproc.vim'
@@ -34,6 +33,10 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/sonictemplate-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
+
+Plug 'tomtom/tlib_vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'garbas/vim-snipmate'
 
 " Plugins for each languages
 Plug 'puppetlabs/puppet-syntax-vim'
