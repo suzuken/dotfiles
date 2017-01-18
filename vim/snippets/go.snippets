@@ -1,35 +1,306 @@
-snippet ife
+# import snippets from vim-go https://github.com/fatih/vim-go
+#
+# shorthand variable declaration
+snippet :
+	${1} := ${0}
+# anonymous function
+snippet anon
+	${1:fn} := func() {
+		${0}
+	}
+# append
+snippet ap
+	append(${1:slice}, ${0:value})
+# append assign
+snippet ap=
+  ${1:slice} = append($1, ${0:value})
+# break
+snippet br
+	break
+# channel
+snippet ch
+	chan ${0:int}
+# case
+snippet case
+	case ${1:value}:
+		${0}
+# constant
+snippet con
+	const ${1:NAME} ${2:Type} = ${0:0}
+# constants
+snippet cons
+	const (
+		${1:NAME} ${2:Type} = ${3:value}
+		${0}
+	)
+# constants with iota
+snippet iota
+	const (
+		${1:NAME} ${2:Type} = iota
+		${0}
+	)
+# continue
+snippet cn
+	continue
+# default case
+snippet default
+	default:
+		${0}
+
+# defer
+snippet df
+	defer ${1:func}(${2})
+	${0}
+snippet def
+	defer func() {
+		${0}
+	}()
+# defer recover
+snippet defr
+	defer func() {
+		if err := recover(); err != nil {
+			${0}
+		}
+	}()
+# gpl
+snippet gpl
+	/*
+	 * This program is free software; you can redistribute it and/or modify
+	 * it under the terms of the GNU General Public License as published by
+	 * the Free Software Foundation; either version 2 of the License, or
+	 * (at your option) any later version.
+	 *
+	 * This program is distributed in the hope that it will be useful,
+	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 * GNU General Public License for more details.
+	 *
+	 * You should have received a copy of the GNU General Public License
+	 * along with this program; if not, see <http://www.gnu.org/licenses/>.
+	 *
+	 * Copyright (C) ${1:Author}, `strftime("%Y")`
+	 */
+
+	${0}
+# import
+snippet import
+	import (
+		"${1:package}"
+	)
+# full interface snippet
+snippet interface
+	type ${1:Interface} interface {
+		${2:/* TODO: add methods */}
+	}
+# if condition
+snippet if
+	if ${1:condition} {
+		${0}
+	}
+# else snippet
+snippet else
+	else {
+		${0}
+	}
+# error snippet
+snippet errn
 	if err != nil {
 		return err
 	}
-
-snippet if
-	if ${1} {
-		${2}
+	${0}
+# error snippet in TestFunc
+snippet errt
+	if err != nil {
+		t.Fatal(err)
 	}
 
-snippet fp
-	fmt.Println(${1})
+# error snippet with two return values
+snippet errn,
+	if err != nil {
+		return ${1:nil}, err
+	}
+	${0}
 
-snippet fpf
-	fmt.Printf("${1}", ${2})
+# error snippet handle and return
+snippet errh
+	if err != nil {
+		${1}
+		return
+	}
+	${0}
 
-snippet be
-	func Benchmark${1}(b *testing.B) {
-		${2}
+# error snippet with panic
+snippet errp
+	if err != nil {
+		panic(${1})
+	}
+	${0}
+
+# json snippet
+snippet json
+	\`json:"${1:keyName}"\`
+
+# yaml snippet
+snippet yaml
+	\`yaml:"${1:keyName}"\`
+
+# fallthrough
+snippet ft
+	fallthrough
+# for loop
+snippet for
+	for ${1} {
+		${0}
+	}
+# for integer loop
+snippet fori
+	for ${1:i} := 0; $1 < ${2:N}; $1++ {
+		${0}
+	}
+# for range loop
+snippet forr
+	for ${2:k}, ${3:v} := range ${1} {
+		${0}
+	}
+# function
+snippet func
+	func ${1:function}(${2}) ${3:error }{
+		${0}
+	}
+# Fmt Printf debug
+snippet ff
+	fmt.Printf("${1} = %+v\n", $1)
+	${0}
+# Fmt Println debug
+snippet fn
+	fmt.Println("${1}")
+# log printf
+snippet lf
+	log.Printf("${1} = %+v\n", $1)
+# log println
+snippet ln
+	log.Println("${1}")
+# make
+snippet make
+	make(${1:[]string}, ${2:0})${0}
+# map
+snippet map
+	map[${1:string}]${0:int}
+# main()
+snippet main
+	func main() {
+		${0}
+	}
+# method
+snippet meth
+	func (${1:self} ${2:Type}) ${3:Do}(${4}) ${5:error }{
+		${0}
+	}
+# ok
+snippet ok
+	if !ok {
+		${0}
+	}
+# package
+snippet package
+	// Package $1 provides ${2:...}
+	package ${1:main}
+	${0}
+# panic
+snippet panic
+alias pn
+	panic("${0}")
+# return
+snippet return
+alias rt
+	return ${0}
+# select
+snippet select
+	select {
+	case ${1:v1} := <-${2:chan1}
+		${0}
+	}
+# struct
+snippet st
+	type ${1:Type} struct {
+		${0}
+	}
+# switch
+snippet switch
+	switch ${1:var} {
+	case ${2:value1}:
+		${0}
+	}
+# sprintf
+snippet sp
+	fmt.Sprintf("%${1:s}", ${2:var})
+# goroutine named function
+snippet go
+	go ${1:funcName}(${0})
+# goroutine anonymous function
+snippet gof
+	go func(${1}) {
+		${3:/* TODO */}
+	}(${2})
+# test function
+snippet test
+	func Test${1:Function}(t *testing.T) {
+		${0}
+	}
+# test server
+snippet tsrv
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, ${1:`response`})
+	}))
+	defer ts.Close()
+	
+	//Use testing server url (type string) somewhere
+	${0:someUrl} = ts.URL
+# test error
+snippet ter
+	if err != nil {
+		t.Errorf("${1}")
+	}
+# test fatal error
+snippet terf
+	if err != nil {
+		t.Fatalf("${1}")
+	}
+# test example
+snippet example
+	func Example${1:Method}() {
+		${0}
+		// Output:
+	}
+# test benchmark
+snippet benchmark
+	func Benchmark${1:Method}(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			${0}
+		}
+	}
+# variable declaration
+snippet var
+	var ${1:x} ${2:Type}${3: = ${0:value\}}
+# variables declaration
+snippet vars
+	var (
+		${1:x} ${2:Type}${3: = ${0:value\}}
+	)
+# equals fails the test if exp is not equal to act.
+snippet eq
+	if !reflect.DeepEqual(${1:expected}, ${2:actual}) {
+		_, file, line, _ := runtime.Caller(0)
+		fmt.Printf("%s:%d:\n\n\texp: %#v\n\n\tgot: %#v\n\n", filepath.Base(file), line, $1, $2)
+		t.FailNow()
 	}
 
-snippet te
-	func Test${1}(t *testing.T) {
-		${2}
+snippet hf
+	func ${1:handler}(w http.ResponseWriter, r *http.Request) {
+		${0:fmt.Fprintf(w, "hello world")}
 	}
 
-snippet fo
-	for ${2:i} := 0; $2 < ${1:count}; $2++ {
-		${3}
-	}
-
-snippet fora
-	for ${1:i}, ${2} := range ${3} {
-		${4}
-	}
+snippet hhf
+	${1:http}.HandleFunc("${2:/}", func(w http.ResponseWriter, r *http.Request) {
+		${0:fmt.Fprintf(w, "hello world")}
+	})
