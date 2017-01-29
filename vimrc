@@ -40,20 +40,20 @@ Plug 'garbas/vim-snipmate'
 
 " Plugins for each languages
 Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'wting/rust.vim', {'autoload':{'filetypes':['rust']}}
-Plug 'derekwyatt/vim-scala', {'autoload':{'filetypes':['scala']}}
-Plug 'vim-ruby/vim-ruby', {'autoload':{'filetypes':['ruby']}}
-Plug 'fatih/vim-go', {'autoload':{'filetypes':['go']}}
-Plug 'vim-php/tagbar-phpctags.vim', {'autoload':{'filetypes':['php']}}
-Plug 'shawncplus/phpcomplete.vim', {'autoload':{'filetypes':['php']}}
-Plug 'sumpygump/php-documentor-vim', {'autoload':{'filetypes':['php']}}
-Plug '2072/PHP-Indenting-for-VIm', {'autoload':{'filetypes':['php']}}
-Plug 'hynek/vim-python-pep8-indent', {'autoload':{'filetypes':['python']}}
+Plug 'wting/rust.vim', {'for': 'rust'}
+Plug 'derekwyatt/vim-scala', {'for': 'scala'}
+Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
+Plug 'fatih/vim-go',  {'for': 'go'}
+Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
+Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
+Plug 'sumpygump/php-documentor-vim', {'for': 'php'}
+Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
+Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'othree/yajs.vim', {'autoload':{'filetypes':['javascript']}}
+Plug 'othree/yajs.vim', {'for': 'javascript'}
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'keith/swift.vim', {'autoload':{'filetypes':['swift']}}
-Plug 'posva/vim-vue', {'autoload':{'filetypes':['vue']}}
+Plug 'keith/swift.vim',  {'for': 'swift'}
+Plug 'posva/vim-vue',  {'for': 'vue'}
 Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
@@ -68,7 +68,6 @@ let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "==========================
 "init
 "==========================
-autocmd!
 set modelines=5
 
 let mapleader = ","
@@ -88,7 +87,7 @@ if has('gui_running')
     let g:solarized_termcolors=16
 else
     " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
-    let g:solarized_termtrans = 1
+    let g:solarized_termtrans=1
 endif
 set background=dark
 colorscheme solarized
@@ -120,7 +119,6 @@ nnoremap / /\v
 vnoremap / /\v
 set ignorecase
 set smartcase
-set gdefault    " always %s/hoge/foo/ means %s/hoge/foo/g
 set incsearch
 set showmatch
 set hlsearch
@@ -141,7 +139,6 @@ cnoremap <expr> ?
 "==========================
 set wrap
 
-set formatoptions=qrn1
 if v:version >= 730
     set colorcolumn=85 "色づけ
 endif
@@ -150,9 +147,10 @@ endif
 "Key Bind
 "==========================
 " reload vimrc
+" http://learnvimscriptthehardway.stevelosh.com/chapters/07.html
 noremap <C-c><C-c> <C-c>
-noremap <C-c><C-e>e :edit $HOME/.vimrc<CR>
-noremap <C-c><C-e>s :source $HOME/.vimrc<CR>
+noremap <C-c><C-e>e :edit $MYVIMRC<CR>
+noremap <C-c><C-e>s :source $MYVIMRC<CR>
 
 " when move to search results, move to center.
 noremap n nzz
@@ -163,8 +161,6 @@ noremap g* g*zz
 noremap g# g#zz
 
 nnoremap ; :
-
-au FocusLost * :wa
 
 "F2でpasteモードに。pasteするときにインデントを無効化。
 " <F2> to paste mode.
@@ -198,8 +194,6 @@ source $HOME/.vim/encode.vim
 
 set fileformats=unix,dos,mac
 
-set ambiwidth=double
-
 "==========================
 "clipboard
 "==========================
@@ -229,7 +223,6 @@ set wildmode=full:list
 "==========================
 "Programming
 "==========================
-set showmatch "対応する括弧を表示
 set foldmethod=syntax
 set grepprg=internal "内蔵grep
 
@@ -243,8 +236,6 @@ set backupdir=$HOME/.vimback
 set directory=$HOME/.vimtmp
 set history=10000
 set updatetime=500
-"set viminfo=""
-let g:svbfre = '.\+'
 
 "==========================
 "Status Line
@@ -287,8 +278,6 @@ endif
 "==========================
 set helplang=en
 
-let g:quickrun_config = {}
-
 augroup my_dirvish_events
     au!
     au User DirvishEnter let b:dirvish.showhidden = 1
@@ -297,8 +286,8 @@ augroup END
 "==========================
 "NERDcommenter.vim
 "==========================
-let NERDSpaceDelims = 1
-let NERDShutUp = 1
+let g:NERDSpaceDelims = 1
+let g:NERDShutUp = 1
 
 " =====================================================
 "" ctags
