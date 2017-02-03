@@ -44,3 +44,6 @@ augroup QuickRunGoTest
   autocmd BufWinEnter,BufNewFile *test.go set filetype=go.test
 augroup END
 let g:quickrun_config['go.test'] = {'command': 'go', 'cmdopt': 'test -v'}
+
+let g:go_auto_type_info=1
+let g:go_auto_sameids=1
