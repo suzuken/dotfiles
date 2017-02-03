@@ -333,6 +333,9 @@ let g:ctrlp_custom_ignore = {
 " https://github.com/mattn/ctrlp-ghq
 noremap <leader>g :<c-u>CtrlPGhq<cr>
 
+" quickrun
+let g:quickrun_config = {}
+
 " jad
 " installation required http://varaneckas.com/jad/
 augr class
