@@ -1,6 +1,6 @@
 all: install
 
-install: deps tools vimperator/vimperator-plugins link
+install: deps brew tools vimperator/vimperator-plugins link
 
 vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs \
@@ -9,7 +9,7 @@ vim/autoload/plug.vim:
 deps: vim/autoload/plug.vim
 	mkdir -p $(HOME)/.vimtmp
 	mkdir -p $(HOME)/.vimback
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ${HOME}/src/github.com/zsh-users/antigen:
 	git clone git@github.com:zsh-users/antigen.git $@
@@ -22,6 +22,9 @@ brew:
 	brew install zsh
 	brew install tig
 	brew install tree
+	brew install the_silver_searcher
+	brew install tmux
+	brew install reattach-to-user-namespace
 	brew cleanup
 
 tools:
@@ -35,7 +38,7 @@ vimperator/vimperator-plugins:
 
 PWD:=$(shell pwd)
 srcs:=vimrc vim vimperator vimperatorrc gitconfig vi zshrc tmux.conf
-link: zshrc.mine
+link: zshrc.mine ${HOME}/src/github.com/zsh-users/antigen
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/.$(src);)
 
 $HOME/.zshrc.mine:
