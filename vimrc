@@ -33,6 +33,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/sonictemplate-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
+Plug 'glidenote/memolist.vim'
 
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -346,6 +347,14 @@ augr class
     au bufreadpost,filereadpost *.class normal gg=G
     au bufreadpost,filereadpost *.class set nomodified
 augr END
+
+let g:memolist_memo_suffix = "md"
+let g:memolist_filename_prefix_none = 1
+nnoremap <leader>mf :exe "CtrlP" g:memolist_path<CR><f5>
+nnoremap <leader>mc :MemoNew<CR>
+nnoremap <leader>mg :MemoGrep<CR>
+nnoremap <leader>ml :MemoList<CR>
+
 
 "----------------------------------------------------
 "" host specific
