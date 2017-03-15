@@ -111,6 +111,7 @@ let g:markdown_fenced_languages = [
 \  'sass',
 \  'xml',
 \  'erlang',
+\  'sql',
 \]
 
 "==========================
