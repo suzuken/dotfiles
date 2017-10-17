@@ -16,14 +16,14 @@ call plug#begin()
 
 "Plugin Installing
 Plug 'mattn/webapi-vim'
-Plug 'The-NERD-Commenter'
+Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'mattn/gist-vim'
 Plug 'mattn/emmet-vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'Modeliner'
+Plug 'vim-scripts/Modeliner'
 Plug 'tpope/vim-fugitive'
 Plug 'thinca/vim-quickrun'
-Plug 'ShowMarks'
+Plug 'vim-scripts/ShowMarks'
 Plug 'mattn/benchvimrc-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
@@ -34,6 +34,7 @@ Plug 'mattn/sonictemplate-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'glidenote/memolist.vim'
+Plug 'plasticboy/vim-markdown'
 
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -56,6 +57,7 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'keith/swift.vim',  {'for': 'swift'}
 Plug 'posva/vim-vue',  {'for': 'vue'}
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'rhysd/vim-crystal', {'for': 'crystal'}
 
 call plug#end()
 
@@ -112,6 +114,7 @@ let g:markdown_fenced_languages = [
 \  'xml',
 \  'erlang',
 \  'sql',
+\  'perl',
 \]
 
 "==========================
@@ -355,7 +358,6 @@ nnoremap <leader>mf :exe "CtrlP" g:memolist_path<CR><f5>
 nnoremap <leader>mc :MemoNew<CR>
 nnoremap <leader>mg :MemoGrep<CR>
 nnoremap <leader>ml :MemoList<CR>
-
 
 "----------------------------------------------------
 "" host specific
