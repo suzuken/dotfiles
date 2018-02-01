@@ -54,6 +54,7 @@ Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'othree/yajs.vim', {'for': 'javascript'}
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/es.next.syntax.vim'
 Plug 'keith/swift.vim',  {'for': 'swift'}
 Plug 'posva/vim-vue',  {'for': 'vue'}
 Plug 'ekalinin/Dockerfile.vim'
@@ -115,6 +116,7 @@ let g:markdown_fenced_languages = [
 \  'erlang',
 \  'sql',
 \  'perl',
+\  'php',
 \]
 
 "==========================
