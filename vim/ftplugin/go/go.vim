@@ -35,6 +35,8 @@ endif
 " indent
 au BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+nnoremap <leader>is :GoImports<CR>
+
 " override default gd option of vim-go, use split
 nmap gs <Plug>(go-def-split)
 let g:go_def_reuse_buffer=1
