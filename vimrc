@@ -35,6 +35,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'glidenote/memolist.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'uarun/vim-protobuf'
 
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -278,6 +279,7 @@ if has('autocmd')
     autocmd BufNewFile,BufRead *.q set filetype=sql
 
     autocmd BufNewFile,BufRead *.twig set filetype=html
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 endif
 
 "==========================
