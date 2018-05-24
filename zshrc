@@ -10,6 +10,9 @@ antigen theme candy
 
 antigen apply
 
+# for homebrew
+export PATH=$PATH:/usr/local/bin
+
 # historical backward/forward search with linehead string binded to ^P/^N
 #
 autoload history-search-end

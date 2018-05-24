@@ -15,12 +15,15 @@ ${HOME}/src/github.com/zsh-users/antigen:
 	git clone git@github.com:zsh-users/antigen.git $@
 
 brew:
-	brew install wget lv hub go zsh tig tree the_silver_searcher tmux reattach-to-user-namespace coreutils
+	brew install wget lv hub go zsh tig tree the_silver_searcher tmux reattach-to-user-namespace coreutils ghq peco
 	brew cleanup
 
+cask:
+	brew cask install chrome
+	which docker || brew install docker
+	which code || brew cask install visual-studio-code
+
 tools:
-	go get -u github.com/peco/peco/cmd/peco
-	go get -u github.com/motemen/ghq
 	go get -u github.com/nsf/gocode
 
 PWD:=$(shell pwd)
