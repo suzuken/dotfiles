@@ -15,7 +15,7 @@ ${HOME}/src/github.com/zsh-users/antigen:
 	git clone git@github.com:zsh-users/antigen.git $@
 
 brew:
-	brew install wget lv hub go zsh tig tree the_silver_searcher tmux reattach-to-user-namespace coreutils ghq peco
+	brew install wget lv hub go zsh tig tree the_silver_searcher tmux reattach-to-user-namespace coreutils ghq peco node
 	brew cleanup
 
 cask:
