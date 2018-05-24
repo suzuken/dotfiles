@@ -24,9 +24,11 @@ tools:
 	go get -u github.com/nsf/gocode
 
 PWD:=$(shell pwd)
-srcs:=vimrc vim gitconfig zshrc tmux.conf
+srcs:=vimrc vim gitconfig zshrc tmux.conf ideavimrc ctags
 link: ${HOME}/src/github.com/zsh-users/antigen
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/.$(src);)
 
 $HOME/.zshrc.mine:
 	touch $(HOME)/.zshrc.mine
+
+.PHONY: install deps brew tools link
