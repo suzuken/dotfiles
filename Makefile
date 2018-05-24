@@ -1,6 +1,6 @@
 all: install
 
-install: deps brew tools vimperator/vimperator-plugins link
+install: deps brew tools link
 
 vim/autoload/plug.vim:
 	curl -fLo $@ --create-dirs \
@@ -9,22 +9,13 @@ vim/autoload/plug.vim:
 deps: vim/autoload/plug.vim
 	mkdir -p $(HOME)/.vimtmp
 	mkdir -p $(HOME)/.vimback
-	/usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	which brew || /usr/bin/ruby -e "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ${HOME}/src/github.com/zsh-users/antigen:
 	git clone git@github.com:zsh-users/antigen.git $@
 
 brew:
-	brew install wget
-	brew install lv
-	brew install hub
-	brew install go
-	brew install zsh
-	brew install tig
-	brew install tree
-	brew install the_silver_searcher
-	brew install tmux
-	brew install reattach-to-user-namespace
+	brew install wget lv hub go zsh tig tree the_silver_searcher tmux reattach-to-user-namespace coreutils
 	brew cleanup
 
 tools:
@@ -32,17 +23,10 @@ tools:
 	go get -u github.com/motemen/ghq
 	go get -u github.com/nsf/gocode
 
-vimperator/vimperator-plugins:
-	git clone https://github.com/vimpr/vimperator-plugins.git $@
-	ln -s $@/plugin_loader.js vimperator/plugin/
-
 PWD:=$(shell pwd)
-srcs:=vimrc vim vimperator vimperatorrc gitconfig vi zshrc tmux.conf
-link: zshrc.mine ${HOME}/src/github.com/zsh-users/antigen
+srcs:=vimrc vim gitconfig zshrc tmux.conf
+link: ${HOME}/src/github.com/zsh-users/antigen
 	$(foreach src,$(srcs),ln -Fs $(PWD)/$(src) $(HOME)/.$(src);)
 
 $HOME/.zshrc.mine:
 	touch $(HOME)/.zshrc.mine
-
-update-vimperator-plugins:
-	cd ./vimperator/vimperator-plugins && git pull origin master
