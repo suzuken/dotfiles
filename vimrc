@@ -33,7 +33,6 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/sonictemplate-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'glidenote/memolist.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'uarun/vim-protobuf'
 
@@ -44,20 +43,9 @@ Plug 'garbas/vim-snipmate'
 " Plugins for each languages
 Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'wting/rust.vim', {'for': 'rust'}
-Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'fatih/vim-go',  {'for': 'go'}
-Plug 'vim-php/tagbar-phpctags.vim', {'for': 'php'}
-Plug 'shawncplus/phpcomplete.vim', {'for': 'php'}
-Plug 'sumpygump/php-documentor-vim', {'for': 'php'}
-Plug '2072/PHP-Indenting-for-VIm', {'for': 'php'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'othree/yajs.vim', {'for': 'javascript'}
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/es.next.syntax.vim'
-Plug 'keith/swift.vim',  {'for': 'swift'}
-Plug 'posva/vim-vue',  {'for': 'vue'}
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'rhysd/vim-crystal', {'for': 'crystal'}
 
@@ -273,9 +261,6 @@ if has('autocmd')
     autocmd FileType html :setlocal makeprg=tidy\ -raw\ -quiet\ -errors\ --gnu-emacs\ yes\ \"%\"
     autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
-    autocmd BufNewFile,BufRead *.scala set filetype=scala
-    autocmd FileType scala setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
-
     autocmd BufNewFile,BufRead *.q set filetype=sql
 
     autocmd BufNewFile,BufRead *.twig set filetype=html
@@ -356,13 +341,6 @@ augr class
     au bufreadpost,filereadpost *.class set nomodified
 augr END
 
-let g:memolist_memo_suffix = "md"
-let g:memolist_filename_prefix_none = 1
-nnoremap <leader>mf :exe "CtrlP" g:memolist_path<CR><f5>
-nnoremap <leader>mc :MemoNew<CR>
-nnoremap <leader>mg :MemoGrep<CR>
-nnoremap <leader>ml :MemoList<CR>
-
 "----------------------------------------------------
 "" host specific
 "----------------------------------------------------
@@ -372,7 +350,6 @@ endif
 
 function! HandleURI()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^>,;:]*')
-  " let s:uri = matchstr(getline("."), '/https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/')
   echo s:uri
   if s:uri != ""
     exec "!open \"" . s:uri . "\""
