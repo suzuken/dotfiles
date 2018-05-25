@@ -22,6 +22,7 @@ cask:
 	brew cask install chrome
 	which docker || brew install docker
 	which code || brew cask install visual-studio-code
+	brew cask install dropbox
 
 tools:
 	go get -u github.com/nsf/gocode
