@@ -277,6 +277,8 @@ augroup my_dirvish_events
     au User DirvishEnter let b:dirvish.showhidden = 1
 augroup END
 
+let g:dirvish_relative_paths = 1
+
 "==========================
 "NERDcommenter.vim
 "==========================
