@@ -75,6 +75,12 @@ function peco_src() {
 zle -N peco_src
 bindkey '^S' peco_src
 
+# Prompt setting
+# PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} %D %T % %{$reset_color%}'
+PROMPT='%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%r]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info)
+%{$fg[blue]%}$%{$reset_color%} '
+
+
 # Customize to your needs...
 #
 #
