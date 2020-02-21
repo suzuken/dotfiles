@@ -80,7 +80,6 @@ bindkey '^S' peco_src
 PROMPT='%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%r]} %{$reset_color%}%{$fg[white]%}[%~]%{$reset_color%} $(git_prompt_info)
 %{$fg[blue]%}$%{$reset_color%} '
 
-=======
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
