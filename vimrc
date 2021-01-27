@@ -74,6 +74,7 @@ set number
 set title
 set scrolloff=5
 set ambiwidth=double
+set visualbell
 
 if has('gui_running')
     set t_Co=16
