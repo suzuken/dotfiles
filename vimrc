@@ -19,7 +19,6 @@ Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'mattn/gist-vim'
 Plug 'mattn/emmet-vim'
-Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/Modeliner'
 Plug 'tpope/vim-fugitive'
 Plug 'thinca/vim-quickrun'
@@ -39,6 +38,8 @@ Plug 'uarun/vim-protobuf'
 Plug 'tomtom/tlib_vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'garbas/vim-snipmate'
+
+let g:snipMate = { 'snippet_version' : 0 }
 
 " Plugins for each languages
 Plug 'puppetlabs/puppet-syntax-vim'
@@ -75,20 +76,6 @@ set title
 set scrolloff=5
 set ambiwidth=double
 set visualbell
-
-if has('gui_running')
-    set t_Co=16
-    let g:solarized_termcolors=16
-else
-    " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized
-    let g:solarized_termtrans=1
-endif
-set background=dark
-colorscheme solarized
-
-if v:version >= 700
-    set cursorline
-endif
 
 set cmdheight=2
 
@@ -135,10 +122,6 @@ cnoremap <expr> ?
 "Handling long lines
 "==========================
 set wrap
-
-if v:version >= 730
-    set colorcolumn=85 "色づけ
-endif
 
 "==========================
 "Key Bind
