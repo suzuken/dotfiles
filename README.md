@@ -33,7 +33,7 @@ vim
 
 To install plugins, run `:PlugInstall`.
 
-### Golang
+### Go
 
 Just use [fatih/vim-go: Go development plugin for Vim](https://github.com/fatih/vim-go).
 
