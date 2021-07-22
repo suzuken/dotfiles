@@ -2,13 +2,8 @@
 " vim configuration file
 " @author suzuken (https://github.com/suzuken)
 "
-" README file is here:
-"
 " suzuken/dotfiles - GitHub
 " https://github.com/suzuken/dotfiles
-"
-" Sorry for writing some comments in Japanese, and I'll translate to English
-" later.
 " ======================
 
 " use https://github.com/junegunn/vim-plug
@@ -48,7 +43,6 @@ Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'fatih/vim-go',  {'for': 'go'}
 Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'rhysd/vim-crystal', {'for': 'crystal'}
 
 call plug#end()
 
@@ -273,11 +267,6 @@ let g:NERDShutUp = 1
 "" ctags
 " =====================================================
 set tags=tags
-
-" =====================================================
-"" snipMate.vim
-" =====================================================
-let g:snips_author = 'Kenta Suzuki'
 
 " =====================================================
 "" sonictemplate
