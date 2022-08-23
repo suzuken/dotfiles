@@ -12,6 +12,7 @@ exmap reload obcommand app:reload
 exmap b obcommand app:go-back
 exmap f obcommand app:go-forward
 
+" https://github.com/phibr0/cycle-through-panes required
 exmap tabnext obcommand cycle-through-panes:cycle-through-panes
 nmap gt :tabnext
 exmap tabprev obcommand cycle-through-panes:cycle-through-panes-reverse
