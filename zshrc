@@ -1,17 +1,10 @@
-# Path to your oh-my-zsh configuration.
-source $HOME/src/github.com/zsh-users/antigen/antigen.zsh
-
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle mvn
-antigen bundle golang
-antigen theme candy
-
-antigen apply
-
 # for homebrew
 export PATH=$PATH:/usr/local/bin
+
+plugins=(
+  git
+  macos
+)
 
 # historical backward/forward search with linehead string binded to ^P/^N
 #
