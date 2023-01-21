@@ -1,3 +1,4 @@
+export ZSH="$HOME/.oh-my-zsh"
 # for homebrew
 export PATH=$PATH:/usr/local/bin
 
@@ -5,6 +6,12 @@ plugins=(
   git
   macos
 )
+
+ZSH_THEME="candy"
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
 
 # historical backward/forward search with linehead string binded to ^P/^N
 #
