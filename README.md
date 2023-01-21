@@ -8,8 +8,7 @@ $ make install
 Prerequisite
 ============
 
-* Latest Golang
-* vim 8.0+
+* vim 9.0+
 
 How to use
 ==========
@@ -17,7 +16,7 @@ How to use
 zsh
 ---
 
-Using [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) with antigen.
+Using [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
 
 [peco](https://github.com/peco/peco) and [ghq](https://github.com/motemen/ghq) are used for exploring `src` directory with `GOPATH` style.
 
@@ -32,10 +31,6 @@ vim
 ---
 
 To install plugins, run `:PlugInstall`.
-
-### Go
-
-Just use [fatih/vim-go: Go development plugin for Vim](https://github.com/fatih/vim-go).
 
 LICENSE
 =======
