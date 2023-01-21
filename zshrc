@@ -80,6 +80,5 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 #
 #
 source $HOME/.zshrc.mine
-export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
