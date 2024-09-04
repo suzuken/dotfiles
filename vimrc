@@ -304,6 +304,7 @@ noremap <leader>g :<c-u>CtrlPGhq<cr>
 
 " quickrun
 let g:quickrun_config = {}
+nnoremap <Leader>r :QuickRun<CR>
 
 " jad
 " installation required http://varaneckas.com/jad/
