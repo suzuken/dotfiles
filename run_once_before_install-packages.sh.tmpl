@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Stale symlinks from the legacy Makefile-based install would block chezmoi
+# from materializing real files. Remove them before apply.
+for link in "$HOME/.vim" "$HOME/.vimrc" "$HOME/.zshrc" "$HOME/.tmux.conf" \
+            "$HOME/.gitconfig" "$HOME/.gitignore" "$HOME/.ideavimrc" \
+            "$HOME/.ctags" "$HOME/.screenrc" "$HOME/.obsidian.vimrc"; do
+    if [ -L "$link" ]; then
+        rm -f "$link"
+    fi
+done
+
+mkdir -p "$HOME/.vimtmp" "$HOME/.vimback"
+
+{{ if eq .chezmoi.os "darwin" -}}
+if ! command -v brew >/dev/null 2>&1; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew install wget lv hub go zsh tig tree the_silver_searcher tmux coreutils ghq peco node
+brew cleanup
+{{- end }}
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+fi
+
+[ -f "$HOME/.zshrc.mine" ] || touch "$HOME/.zshrc.mine"

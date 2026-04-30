@@ -1,14 +1,32 @@
 Installation
 ============
 
+[chezmoi](https://www.chezmoi.io/) で管理しています。
+
 ```
 $ make install
+```
+
+これは内部で以下を実行します:
+
+```
+$ chezmoi init --apply --source <this repo>
+```
+
+初回実行時は `name` と `email` の入力を求められ、`~/.gitconfig` の `[user]` セクションに反映されます。
+`run_once_before_install-packages.sh` が Homebrew / oh-my-zsh / vim-plug の導入も行います。
+
+別マシンへ展開する場合:
+
+```
+$ chezmoi init --apply git@github.com:suzuken/dotfiles.git
 ```
 
 Prerequisite
 ============
 
 * vim 9.0+
+* chezmoi (`brew install chezmoi`)
 
 How to use
 ==========
