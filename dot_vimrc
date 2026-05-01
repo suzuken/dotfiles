@@ -10,48 +10,21 @@
 call plug#begin()
 
 "Plugin Installing
-Plug 'mattn/webapi-vim'
 Plug 'vim-scripts/The-NERD-Commenter'
-Plug 'mattn/gist-vim'
-Plug 'mattn/emmet-vim'
-Plug 'vim-scripts/Modeliner'
 Plug 'tpope/vim-fugitive'
 Plug 'thinca/vim-quickrun'
-Plug 'vim-scripts/ShowMarks'
-Plug 'mattn/benchvimrc-vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mileszs/ack.vim'
-Plug 'Shougo/vimproc.vim'
-Plug 'mattn/ctrlp-ghq'
-Plug 'majutsushi/tagbar'
-Plug 'mattn/sonictemplate-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
-Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'uarun/vim-protobuf'
 
-Plug 'tomtom/tlib_vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'garbas/vim-snipmate'
-
-let g:snipMate = { 'snippet_version' : 0 }
-
 " Plugins for each languages
-Plug 'puppetlabs/puppet-syntax-vim'
-Plug 'wting/rust.vim', {'for': 'rust'}
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'fatih/vim-go',  {'for': 'go'}
-Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
 
 filetype plugin indent on
-
-" =================
-" showmarks_include
-" =================
-let g:showmarks_include="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 "==========================
 "init
@@ -171,7 +144,7 @@ set fileformats=unix,dos,mac
 "==========================
 "clipboard
 "==========================
-set clipboard+=autoselect
+set clipboard=unnamed
 
 "==========================
 "special Key
@@ -197,7 +170,7 @@ set wildmode=full:list
 "==========================
 "Programming
 "==========================
-set foldmethod=syntax
+set foldmethod=manual
 set grepprg=internal "内蔵grep
 
 "==========================
@@ -235,8 +208,6 @@ if has('autocmd')
     autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
     autocmd FileType python setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 
-    autocmd FileType html :compiler tidy
-    autocmd FileType html :setlocal makeprg=tidy\ -raw\ -quiet\ -errors\ --gnu-emacs\ yes\ \"%\"
     autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
     autocmd BufNewFile,BufRead *.q set filetype=sql
@@ -267,40 +238,6 @@ let g:NERDShutUp = 1
 "" ctags
 " =====================================================
 set tags=tags
-
-" =====================================================
-"" sonictemplate
-" =====================================================
-let g:sonictemplate_vim_template_dir = [
-\ '$HOME/.vim/templates',
-\]
-
-" =====================================================
-"" tagbar
-" =====================================================
-noremap <leader>t :<c-u>TagbarToggle<cr>
-
-" =====================================================
-"" ack.vim
-" =====================================================
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-endif
-
-" =====================================================
-"" ctrlp.vim
-" =====================================================
-let g:ctrlp_regexp = 0
-let g:ctrlp_extensions = ['tag', 'buffertag', 'dir', 'mixed', 'bookmarkdir']
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-    \ 'file': '\v\.(exe|so|dll|class)$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
-
-" ctrlp-ghq
-" https://github.com/mattn/ctrlp-ghq
-noremap <leader>g :<c-u>CtrlPGhq<cr>
 
 " quickrun
 let g:quickrun_config = {}
