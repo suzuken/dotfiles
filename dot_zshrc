@@ -83,6 +83,15 @@ PROMPT='%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%r]} %{$reset_color%}%{$fg[whi
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+# Clearance: native macOS markdown viewer
+function md() {
+  if [[ $# -eq 0 ]]; then
+    echo "usage: md <file.md> [...]" >&2
+    return 1
+  fi
+  open -a Clearance "$@"
+}
+
 # difit + cmux: open a side pane with GitHub-style diff view
 function difit-side() {
   local target="${1:-HEAD}"
