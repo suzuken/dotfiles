@@ -83,6 +83,52 @@ PROMPT='%{$fg_bold[green]%}%n@%m %{$fg[blue]%}%D{[%r]} %{$reset_color%}%{$fg[whi
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+# difit + cmux: open a side pane with GitHub-style diff view
+function difit-side() {
+  local target="${1:-HEAD}"
+  local runner
+  if command -v difit >/dev/null 2>&1; then
+    runner=(difit)
+  elif command -v npx >/dev/null 2>&1; then
+    runner=(npx -y difit)
+  else
+    echo "difit-side: need difit or npx in PATH" >&2
+    return 1
+  fi
+
+  local logfile=$(mktemp -t difit-side.XXXXXX)
+  "${runner[@]}" "$target" --no-open >"$logfile" 2>&1 &
+  local pid=$!
+
+  local url=""
+  local i
+  for i in {1..100}; do
+    url=$(grep -oE 'http://localhost:[0-9]+' "$logfile" | head -1)
+    [[ -n "$url" ]] && break
+    sleep 0.1
+  done
+
+  if [[ -z "$url" ]]; then
+    echo "difit-side: failed to detect URL" >&2
+    cat "$logfile" >&2
+    kill "$pid" 2>/dev/null
+    return 1
+  fi
+
+  if command -v cmux >/dev/null 2>&1; then
+    cmux new-pane --direction right --type browser --url "$url"
+  else
+    echo "difit-side: cmux CLI not found, URL = $url"
+  fi
+}
+
+function _difit_side_widget() {
+  BUFFER="difit-side"
+  zle accept-line
+}
+zle -N _difit_side_widget
+bindkey '^X^G' _difit_side_widget
+
 # Customize to your needs...
 #
 #
