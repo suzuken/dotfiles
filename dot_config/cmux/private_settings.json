@@ -19,11 +19,24 @@
 
   "browser": {
     "defaultSearchEngine": "google",
-    "openTerminalLinksInCmuxBrowser": false,
-    "interceptTerminalOpenCommandInCmuxBrowser": false,
-    "urlsToAlwaysOpenExternally": ["*"],
+    "openTerminalLinksInCmuxBrowser": true,
+    "interceptTerminalOpenCommandInCmuxBrowser": true,
+    // Allowlist of hosts that stay in the embedded cmux browser. Everything
+    // else opens in the system browser. NOTE: an empty allowlist routes ALL
+    // URLs into cmux. urlsToAlwaysOpenExternally is a literal-substring/`re:`
+    // matcher, NOT a glob — "*" matched nothing, so it can't be used here.
+    "hostsToOpenInEmbeddedBrowser": [
+      "localhost",
+      "*.localhost",
+      "127.0.0.1",
+      "::1",
+      "0.0.0.0",
+      "*.localtest.me"
+    ],
+    "urlsToAlwaysOpenExternally": [],
     "insecureHttpHostsAllowedInEmbeddedBrowser": [
       "localhost",
+      "*.localhost",
       "127.0.0.1",
       "::1",
       "0.0.0.0",
