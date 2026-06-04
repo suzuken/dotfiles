@@ -86,6 +86,14 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 # brain-data: personal knowledge base
 export BRAIN_DIR="$HOME/src/github.com/suzuken/brain-data"
 
+# pick a markdown file and open it in cmux markdown preview
+function mdp() {
+  local file
+  file=$(find "${1:-.}" -name '*.md' \
+    -not -path '*/node_modules/*' -not -path '*/.git/*' | peco)
+  [[ -n "$file" ]] && cmux open "$file"
+}
+
 # Clearance: native macOS markdown viewer
 function md() {
   if [[ $# -eq 0 ]]; then
