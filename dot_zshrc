@@ -86,6 +86,16 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 # brain-data: personal knowledge base
 export BRAIN_DIR="$HOME/src/github.com/suzuken/brain-data"
 
+# secrets via macOS Keychain
+# usage: secret-set ANTHROPIC_API_KEY  (prompts for value; not saved in history)
+#        export ANTHROPIC_API_KEY="$(secret ANTHROPIC_API_KEY)"
+function secret() {
+  security find-generic-password -s "$1" -w 2>/dev/null
+}
+function secret-set() {
+  security add-generic-password -U -s "$1" -a "$USER" -w
+}
+
 # pick a markdown file and open it in cmux markdown preview
 function mdp() {
   local file
