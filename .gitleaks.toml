@@ -1,0 +1,50 @@
+title = "suzuken/dotfiles — pre-public-push checks"
+
+# Keep all of gitleaks' built-in secret rules (API keys, tokens, private keys, ...)
+# and layer repo-specific confidential rules on top.
+[extend]
+useDefault = true
+
+# --- repo-specific confidential rules ---------------------------------------
+# This is a PUBLIC dotfiles repo. The risk beyond raw secrets is pasted
+# internal/company content. These rules fire on markers that should never
+# legitimately appear in dotfiles.
+
+[[rules]]
+id = "carta-employee-email"
+description = "CARTA employee email address (internal contact leaked)"
+regex = '''[A-Za-z0-9._%+-]+@cartahd\.com'''
+tags = ["confidential", "carta"]
+
+[[rules]]
+id = "carta-company-name"
+description = "CARTA HOLDINGS legal/group name (possible pasted internal content)"
+regex = '''(?i)carta\s+holdings|cartaholdings'''
+tags = ["confidential", "carta"]
+
+[[rules]]
+id = "voyage-group-name"
+description = "VOYAGE GROUP legal name (possible pasted internal content)"
+regex = '''(?i)voyage\s+group'''
+tags = ["confidential", "carta"]
+
+[[rules]]
+id = "jp-confidentiality-marker"
+description = "Japanese confidentiality marker on a document"
+regex = '''社外秘|部外秘|取扱注意|社内限り|マル秘|㊙'''
+tags = ["confidential"]
+
+# --- allowlist --------------------------------------------------------------
+[allowlist]
+description = "false positives intrinsic to this repo"
+# The meta files necessarily contain the trigger terms themselves.
+paths = [
+  '''\.gitleaks\.toml$''',
+  '''hooks/pre-push$''',
+  '''justfile$''',
+  '''README\.md$''',
+]
+regexes = [
+  # Keychain helper references: a NAME, never a value. See dot_zshrc.
+  '''\$\(secret [A-Z_]+\)''',
+]
