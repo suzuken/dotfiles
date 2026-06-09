@@ -22,6 +22,29 @@ $ chezmoi init --apply --source <this repo>
 $ chezmoi init --apply git@github.com:suzuken/dotfiles.git
 ```
 
+Secrets / encryption
+====================
+
+機密を含むファイル（会社固有の gitleaks ルール等）は chezmoi の
+[age 暗号化](https://www.chezmoi.io/user-guide/encryption/age/) で管理しています。
+方針は「エンジン（仕組み）は公開、データ（固有名）は手元」。暗号化ファイルは source 内に
+`encrypted_*.age` として置かれ、apply 時に復号されます。
+
+* **秘密鍵**: `~/.config/chezmoi/key.txt`。**リポジトリには絶対に入れない**。
+  失うと暗号化ファイルを復号できなくなるので、別途バックアップしておく。
+* **新マシン**: `age` を入れ（`brew install age`）、鍵を手元にコピーしてから
+  `chezmoi init --apply` する。鍵が無いと暗号化ファイルの展開だけが失敗する。
+* **公開鍵 (recipient)** は `.chezmoi.toml.tmpl` に記載。これは公開して問題ない。
+
+pre-push hook
+=============
+
+公開リポジトリへの secret / 機密情報の混入を [gitleaks](https://github.com/gitleaks/gitleaks)
+で防ぎます。`just install-hooks` で `core.hooksPath=hooks` を設定すると、push 前に
+スキャンが走ります。会社固有ルールはローカルの復号済み overlay
+（`~/.config/gitleaks/company.toml`）を優先し、無ければ repo 同梱の汎用
+`.gitleaks.toml` にフォールバックします。bypass は `git push --no-verify`。
+
 Prerequisite
 ============
 

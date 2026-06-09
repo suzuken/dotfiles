@@ -1,0 +1,42 @@
+title = "leak-scan — generic pre-public-push checks (public fallback)"
+
+# Generic gitleaks config bundled with the leak-scan skill. Public-safe: holds
+# only built-in secret rules + generic personal rules. Used as the FALLBACK
+# when the local company overlay is absent.
+#
+# Company-confidential rules (employer domains / legal names) are NOT here —
+# they live in the age-encrypted overlay that decrypts to
+# ~/.config/gitleaks/company.toml. The leak-scan skill prefers that overlay
+# when present, and falls back to this file otherwise. See SKILL.md.
+#
+# "engine public, data local": the scanning mechanism is public, the employer's
+# identifiers stay off github.com.
+
+[extend]
+useDefault = true
+
+# --- generic personal rules -------------------------------------------------
+
+[[rules]]
+id = "absolute-home-path"
+description = "Absolute /Users/<username> path — leaks OS username / employee ID"
+regex = '''/Users/[^/\s"']{3,}/'''
+tags = ["personal"]
+
+[[rules]]
+id = "jp-confidentiality-marker"
+description = "Japanese confidentiality marker on a document"
+regex = '''社外秘|部外秘|取扱注意|社内限り|マル秘|㊙'''
+tags = ["confidential"]
+
+# --- allowlist --------------------------------------------------------------
+[allowlist]
+description = "generic false positives"
+paths = [
+  # Any gitleaks config necessarily contains the trigger regexes it detects.
+  '''(^|/)\.?gitleaks\.toml$''',
+]
+regexes = [
+  # Keychain helper references: a NAME, never a value.
+  '''\$\(secret [A-Z_]+\)''',
+]

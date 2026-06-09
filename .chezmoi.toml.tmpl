@@ -1,6 +1,20 @@
 {{- $name := promptStringOnce . "name" "Git user name" -}}
 {{- $email := promptStringOnce . "email" "Git user email" -}}
 
+# Source lives in the ghq-managed clone, not the chezmoi default
+# (~/.local/share/chezmoi). Uses homeDir so no username is hardcoded.
+sourceDir = "{{ .chezmoi.homeDir }}/src/github.com/suzuken/dotfiles"
+
+# age encryption for secret-bearing files (e.g. company-confidential gitleaks
+# rules). The private key lives at ~/.config/chezmoi/key.txt and is NEVER
+# committed — copy it to each machine out of band. The recipient below is the
+# age PUBLIC key, safe to keep in this public repo.
+encryption = "age"
+
+[age]
+    identity = "{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+    recipient = "age1lqf8595gmdg3flvsutzfn8t7fmdem0padm0pvugehguq75rw0ejqh8hxd4"
+
 [data]
     name = {{ $name | quote }}
     email = {{ $email | quote }}

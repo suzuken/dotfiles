@@ -1,32 +1,18 @@
-title = "suzuken/dotfiles — pre-public-push checks"
+title = "suzuken/dotfiles — pre-public-push checks (generic, CI-portable)"
 
 # Keep all of gitleaks' built-in secret rules (API keys, tokens, private keys, ...)
-# and layer repo-specific confidential rules on top.
+# and layer GENERIC personal rules on top. This config is committed to a PUBLIC
+# repo and runs in CI, so it must not contain employer-specific identifiers.
+#
+# Company-confidential rules (employer domains / legal names) live in the
+# age-encrypted overlay that decrypts to ~/.config/gitleaks/company.toml
+# ("engine public, data local"). The pre-push hook prefers that overlay when
+# present; CI falls back to this generic config. See hooks/pre-push and the
+# leak-scan skill.
 [extend]
 useDefault = true
 
-# --- repo-specific confidential rules ---------------------------------------
-# This is a PUBLIC dotfiles repo. The risk beyond raw secrets is pasted
-# internal/company content. These rules fire on markers that should never
-# legitimately appear in dotfiles.
-
-[[rules]]
-id = "carta-employee-email"
-description = "CARTA employee email address (internal contact leaked)"
-regex = '''[A-Za-z0-9._%+-]+@cartahd\.com'''
-tags = ["confidential", "carta"]
-
-[[rules]]
-id = "carta-company-name"
-description = "CARTA HOLDINGS legal/group name (possible pasted internal content)"
-regex = '''(?i)carta\s+holdings|cartaholdings'''
-tags = ["confidential", "carta"]
-
-[[rules]]
-id = "voyage-group-name"
-description = "VOYAGE GROUP legal name (possible pasted internal content)"
-regex = '''(?i)voyage\s+group'''
-tags = ["confidential", "carta"]
+# --- generic personal rules -------------------------------------------------
 
 [[rules]]
 id = "absolute-home-path"
@@ -43,12 +29,11 @@ tags = ["confidential"]
 # --- allowlist --------------------------------------------------------------
 [allowlist]
 description = "false positives intrinsic to this repo"
-# The meta files necessarily contain the trigger terms themselves.
 paths = [
-  '''\.gitleaks\.toml$''',
-  '''hooks/pre-push$''',
-  '''justfile$''',
-  '''README\.md$''',
+  # Any gitleaks config necessarily contains the trigger regexes it detects,
+  # so the config files match their own rules. Covers .gitleaks.toml and the
+  # leak-scan skill's bundled gitleaks.toml.
+  '''(^|/)\.?gitleaks\.toml$''',
 ]
 regexes = [
   # Keychain helper references: a NAME, never a value. See dot_zshrc.

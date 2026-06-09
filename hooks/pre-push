@@ -1,14 +1,20 @@
 #!/usr/bin/env bash
 # Pre-push guard for this PUBLIC dotfiles repo.
 # Scans commits being pushed for secrets and pasted company-confidential
-# content using gitleaks (+ repo rules in .gitleaks.toml).
+# content using gitleaks.
+#
+# Config ("engine public, data local"): prefer the age-decrypted local overlay
+# at ~/.config/gitleaks/company.toml (built-in + generic + employer-specific
+# rules) when present; otherwise fall back to the repo's generic .gitleaks.toml
+# (CI path, no employer identifiers). Both allowlist gitleaks config files.
 #
 # Install once:  just install-hooks   (sets core.hooksPath=hooks)
 # Bypass once:   git push --no-verify
 set -euo pipefail
 
 repo_root="$(git rev-parse --show-toplevel)"
-config="$repo_root/.gitleaks.toml"
+config="${HOME}/.config/gitleaks/company.toml"
+[ -f "$config" ] || config="$repo_root/.gitleaks.toml"
 
 if ! command -v gitleaks >/dev/null 2>&1; then
   echo "pre-push: gitleaks not found — install it (brew install gitleaks) or bypass with 'git push --no-verify'." >&2
