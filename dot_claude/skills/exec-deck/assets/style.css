@@ -1,0 +1,295 @@
+/* exec-deck 中立トークン (汎用スターター)。
+   色・フォントは :root に集約してあるので、ブランドを乗せるときは下層のブランド skill が
+   この :root と @media(dark) ブロックだけを差し替える。コンポーネント定義はそのまま使える。
+   原則: 純黒/純白の単独使用を避け中間トーン / アクセントは点で (≤5%) / dark 両対応 */
+:root {
+  --bg: #f5f5f5;          /* off-white section bg */
+  --surface: #ffffff;
+  --ink: #2b2b2b;         /* 見出し (純黒回避) */
+  --ink-soft: #434343;    /* 本文 */
+  --ink-mute: #6d6d6d;    /* muted / caption */
+  --line: #d9d9d9;
+  --line-soft: #ececec;
+  --accent: #3d6b99;      /* 中立アクセント — ブランド skill が差し替える */
+  --accent-soft: #e6eef6;
+  --hi: #fff1b8;          /* 検索ハイライト */
+  --ok: #367b21;
+  --warn: #aa3831;
+  --code-bg: #f0f0f0;
+  --inverse-bg: #141414;  /* 反転 (黒地) セクション */
+  --max: 1240px;
+  --font-ja: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", system-ui, sans-serif;
+  --font-display: "Zen Kaku Gothic New", "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-latin: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1f1f1f;
+    --surface: #2b2b2b;
+    --ink: #f5f5f5;
+    --ink-soft: #d9d9d9;
+    --ink-mute: #9a9a9a;
+    --line: #434343;
+    --line-soft: #333333;
+    --accent: #6ea3d6;
+    --accent-soft: #1d2b38;
+    --hi: #5a4d1c;
+    --ok: #59c98d;
+    --warn: #e0685f;
+    --code-bg: #282828;
+    --inverse-bg: #000000;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--font-ja);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "palt";
+}
+.container { max-width: var(--max); margin: 0 auto; padding: 32px 40px 80px; }
+
+/* Cover (反転ヒーロー: 全幅反転地 + 大きな見出し + アクセント一語) */
+.cover {
+  background: var(--inverse-bg);
+  color: #fff;
+  padding: 72px 40px 60px;
+  margin: 0 -40px 56px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+.cover > div:first-child { padding-left: 8px; }
+.cover .eyebrow { font-family: var(--font-latin); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 18px; }
+.cover h1 { font-family: var(--font-display); font-weight: 700; font-size: 60px; line-height: 1.12; margin: 0 0 22px; letter-spacing: .01em; color: #fff; }
+.cover .sub { font-size: 18px; color: rgba(255,255,255,.82); margin-bottom: 28px; line-height: 1.65; }
+.cover .meta { font-size: 12px; color: rgba(255,255,255,.55); display: flex; gap: 24px; flex-wrap: wrap; }
+.cover .meta b { color: rgba(255,255,255,.88); font-weight: 600; }
+.cover .diagram { color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.2); padding: 24px; }
+.cover .diagram figcaption { color: rgba(255,255,255,.6); }
+.cover .hero { color: var(--accent); }
+
+/* 反転 (黒地) セクション: 内部は CSS 変数の再定義で追従させる。
+   全幅反転地にして「章が変わった」区切りを作る。子要素は var(--*) 経由なので崩れない。 */
+section.dark {
+  --bg: #000;
+  --surface: #161616;
+  --ink: #ffffff;
+  --ink-soft: rgba(255,255,255,.84);
+  --ink-mute: rgba(255,255,255,.55);
+  --line: rgba(255,255,255,.2);
+  --line-soft: rgba(255,255,255,.1);
+  --accent-soft: rgba(110,163,214,.2);
+  --code-bg: #1c1c1c;
+  --ok: #6fcf8e;
+  --warn: #ff8a7d;
+  background: #000;
+  color: #fff;
+  margin: 64px -40px 0;
+  padding: 4px 40px 56px;
+}
+section.dark h2 { border-top-color: rgba(255,255,255,.85); }
+
+/* Typography */
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  margin: 64px 0 8px;
+  padding-top: 24px;
+  border-top: 2px solid var(--ink);
+  letter-spacing: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+h2 .num { font-family: var(--font-latin); font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: .08em; }
+h2 + .lede { font-size: 15px; color: var(--ink-soft); margin: 0 0 24px; max-width: 720px; }
+h3 { font-family: var(--font-display); font-weight: 600; font-size: 17px; margin: 30px 0 8px; letter-spacing: 0; }
+h4 { font-size: 13px; margin: 16px 0 6px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-mute); }
+p { margin: 0 0 12px; }
+
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+strong { color: var(--ink); }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 12px; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+
+/* Layout */
+.grid { display: grid; gap: 24px; }
+.grid-2 { grid-template-columns: 1fr 1fr; }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.row { display: grid; grid-template-columns: 240px 1fr; gap: 32px; margin: 24px 0; }
+.row .label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-mute); padding-top: 4px; }
+.callout {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  padding: 16px 20px;
+  background: var(--surface);
+  margin: 20px 0;
+  font-size: 14px;
+}
+.callout b { color: var(--accent); }
+.callout.ok { border-left-color: var(--ok); }
+.callout.warn { border-left-color: var(--warn); }
+.callout--profile { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; }
+@media (max-width: 760px) { .callout--profile { grid-template-columns: 1fr; } }
+
+/* Cards */
+.card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.card .tag { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.card h4 { margin: 0; text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--ink); }
+.card p { font-size: 13px; color: var(--ink-soft); margin: 0; }
+.card ul { margin: 0; padding-left: 18px; font-size: 13px; color: var(--ink-soft); }
+
+/* Tables — 情報密度の主役 */
+table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 16px; }
+thead th { text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-mute); border-bottom: 1.5px solid var(--ink); padding: 8px 10px; }
+tbody td { padding: 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+tbody tr:hover { background: var(--line-soft); }
+table.compact td, table.compact th { padding: 6px 8px; font-size: 12px; }
+td.num, th.num { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+td .pill { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+td .pill.ok { background: rgba(31, 122, 77, 0.12); color: var(--ok); }
+td .pill.warn { background: rgba(192, 135, 18, 0.14); color: var(--warn); }
+
+/* Lists */
+ul.tight, ol.tight { margin: 4px 0 12px; padding-left: 20px; }
+ul.tight li, ol.tight li { margin: 2px 0; }
+ul.check { list-style: none; padding: 0; }
+ul.check li { position: relative; padding-left: 22px; margin: 6px 0; }
+ul.check li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 600; }
+
+/* TOC */
+.toc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0 48px; }
+.toc a {
+  border: 1px solid var(--line); padding: 14px 16px; background: var(--surface);
+  text-decoration: none; color: var(--ink); display: block; transition: background .12s;
+}
+.toc a:hover { background: var(--accent-soft); }
+.toc a .n { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--accent); letter-spacing: .08em; }
+.toc a .t { font-size: 14px; font-weight: 600; margin-top: 4px; display: block; }
+.toc a .d { font-size: 12px; color: var(--ink-mute); margin-top: 4px; display: block; }
+
+/* SVG */
+.diagram { color: var(--ink); background: var(--surface); border: 1px solid var(--line); padding: 20px; margin: 20px 0; }
+.diagram svg { display: block; max-width: 100%; height: auto; }
+.diagram figcaption { font-size: 11px; color: var(--ink-mute); margin-top: 10px; text-align: center; letter-spacing: .04em; }
+figure { margin: 0; }
+
+/* Big numbers — 数字は本文に埋もれさせず抜き出す */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 16px 0 24px; }
+.stat { border-top: 2px solid var(--ink); padding-top: 10px; }
+.stat .v { font-size: 28px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.stat .v small { font-size: 14px; color: var(--ink-mute); margin-left: 4px; }
+.stat .k { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-mute); margin-top: 2px; }
+
+/* Kicker — 太字で強調する一文 */
+.kicker {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  border-left: 4px solid var(--accent);
+  padding: 8px 0 8px 18px;
+  margin: 20px 0;
+  color: var(--ink);
+  letter-spacing: -.005em;
+}
+
+/* セクション冒頭の「この節が答える問い」 */
+.answers {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  border-left: 3px solid var(--accent);
+  padding: 3px 0 3px 10px;
+  margin: 6px 0 16px;
+  letter-spacing: -.005em;
+}
+
+/* セクション内の大区切り (情報共有 / 意思決定 / アクション を分ける) */
+.part-divider { margin: 60px 0 16px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+.part-divider .pd-label { font-family: var(--font-latin); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+.part-divider .pd-title { font-family: var(--font-display); font-weight: 700; font-size: 22px; margin: 4px 0 0; color: var(--ink); }
+.part-divider .pd-note { font-size: 12.5px; color: var(--ink-mute); margin-top: 4px; }
+.part-divider + h3 { margin-top: 18px; }
+
+/* Discussion box — 経営に決めてほしい論点を集める */
+.discussion {
+  border: 1.5px dashed var(--accent);
+  padding: 16px 20px;
+  margin: 24px 0;
+  background: var(--accent-soft);
+}
+.discussion h4 { margin-top: 0; color: var(--accent); }
+
+/* Footer */
+footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-mute); display: flex; justify-content: space-between; }
+
+/* Print */
+@media print {
+  body { font-size: 11px; background: white; color: black; }
+  .container { max-width: none; padding: 16mm; }
+  h2 { page-break-before: always; }
+  .cover { page-break-after: always; }
+  .toc, footer { display: none; }
+  .diagram, .card, .callout, table { page-break-inside: avoid; }
+  a { color: inherit; border: none; }
+}
+
+/* Responsive — インラインで grid-template-columns を書くと折りたためないので必ずクラスで */
+@media (max-width: 900px) {
+  .cover, .grid-2, .grid-3, .grid-4, .toc, .stats, .row { grid-template-columns: 1fr; }
+  .container { padding: 20px; }
+  /* cover / 反転セクションは container padding を打ち消して全幅にするのでモバイル padding に合わせる */
+  .cover { margin: 0 -20px 40px; padding: 48px 20px 40px; }
+  .cover h1 { font-size: 40px; }
+  section.dark { margin: 40px -20px 0; padding: 4px 20px 40px; }
+  /* 情報密度の高いテーブルはモバイルで列幅固定 + セル折り返しにして溢れを防ぐ */
+  table { table-layout: fixed; }
+  table td, table th { white-space: normal; overflow-wrap: anywhere; word-break: break-word; }
+}
+
+/* 簡易検索 */
+.search-bar { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 10px 0; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.search-bar input { width: 100%; max-width: 460px; padding: 8px 12px; font-size: 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font-family: inherit; }
+.search-bar input:focus { outline: none; border-color: var(--accent); }
+.search-results { position: absolute; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; width: min(560px, 90vw); max-height: 62vh; overflow-y: auto; box-shadow: 0 8px 28px rgba(0,0,0,.18); margin-top: 4px; z-index: 60; }
+.search-results .sr-empty { padding: 10px 12px; font-size: 12px; color: var(--ink-mute); }
+.search-results a { display: block; padding: 8px 12px; border-bottom: 1px solid var(--line-soft); color: var(--ink); text-decoration: none; }
+.search-results a:last-child { border-bottom: none; }
+.search-results a:hover, .search-results a.active { background: var(--accent-soft); }
+.search-results .sr-head { font-size: 13px; font-weight: 600; }
+.search-results .sr-num { color: var(--accent); font-family: ui-monospace, Menlo, monospace; font-size: 11px; margin-right: 6px; }
+.search-results .sr-snip { font-size: 11px; color: var(--ink-mute); margin-top: 2px; line-height: 1.4; }
+.search-results mark { background: var(--hi); color: #1a1a1a; padding: 0 1px; border-radius: 2px; }
+.search-hit { animation: searchflash 1.8s ease; }
+@keyframes searchflash { 0%, 25% { background: var(--accent-soft); } 100% { background: transparent; } }
+@media print { .search-bar { display: none; } }
+
+/* 複数ページ版 (dist/pages/) のナビ */
+.pagenav { position: sticky; top: 52px; z-index: 40; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 0 10px; margin-bottom: 16px; }
+.pagenav-row { display: flex; gap: 16px; align-items: center; font-size: 13px; }
+.pagenav-row a { color: var(--accent); border: none; }
+.pagenav-home { margin: 0 auto; }
+.pagenav .navoff { color: var(--ink-mute); }
+.pagenav-title { font-size: 13px; color: var(--ink-mute); margin-top: 4px; }
+.pagenav-title .num { font-family: ui-monospace, Menlo, monospace; color: var(--accent); font-weight: 600; margin-right: 6px; }
+@media print { .pagenav { display: none; } }
+
+/* TOC 分類バッジ (toc.html 雛形が参照)。core=中心論点 / prep=予習・背景 / appendix=補足 */
+.toc-legend { font-size: 11px; color: var(--ink-mute); margin: 0 0 12px; line-height: 1.9; }
+.tb { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 8px; font-weight: 600; letter-spacing: .02em; }
+.toc a .tb { margin-top: 6px; align-self: flex-start; }
+.tb-core { background: var(--accent-soft); color: var(--accent); }
+.tb-prep { background: rgba(127,127,127,.14); color: var(--ink-soft); }
+.tb-appendix { background: var(--line-soft); color: var(--ink-mute); }

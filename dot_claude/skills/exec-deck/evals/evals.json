@@ -1,0 +1,42 @@
+{
+  "skill_name": "exec-deck",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "来週の役員会で使う資料を作りたい。テーマは「主力3事業の現状」「来期のAI投資方針」「全社の生産性目標」の3本。会議で投影して話すし、終わったらPDFで配りたい。情報量は多めでいい。内容はダミーで構わないので、構成と作りをちゃんとして。",
+      "expected_output": "parts分割 + build script のパイプラインで、単一HTML(投影/配布/PDF兼用)と個別ページの2出力を生成。情報密度の高いレイアウト(stats/table/card/discussion)を使う。単一巨大HTML直書きでない。",
+      "files": [],
+      "assertions": [
+        "parts に分割されている (html/parts/ に2つ以上の .html 断片)",
+        "build script が存在する (scripts/build-dist.js)",
+        "単一配布ファイル dist/index.html が生成され、CSS がインライン化されている (<style> を含み style.css への <link> が残っていない)",
+        "個別ページ dist/pages/ が生成されている",
+        "情報密度要素を使用している (.stats / table / .card のいずれか)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "四半期の事業レビュー資料をHTMLで作って。売上・売総・営利・人員など数字がたくさんあって、それを役員に分かりやすく見せたい。数字はダミーでいい。",
+      "expected_output": "数字を .stats big-number / table(tabular-nums)で抜き出す。parts分割 + build で単一ファイル配布。数字を本文に埋もれさせない。",
+      "files": [],
+      "assertions": [
+        "parts 分割 + build script のパイプラインで作られている",
+        "単一配布ファイル dist/index.html が生成され CSS がインライン化されている",
+        "数字を big-number (.stats) で抜き出している",
+        "数値を table で tabular-nums 等で整列表示している"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "経営合宿で半日かけて議論する資料を作りたい。論点ごとに経営陣に決めてほしいことがあって、背景情報も多い。投影と、参加者の予習配布の両方で使う。中身はダミーでいいから、ちゃんと使える構成にして。",
+      "expected_output": "parts分割 + build(単一 + 個別ページ)。.discussion で決定論点を提示。構造(ORDER)を先に決めてから内容を流す作り。予習用の個別ページも出力。",
+      "files": [],
+      "assertions": [
+        "parts 分割 + build script のパイプラインで作られている",
+        "単一配布ファイル dist/index.html と個別ページ dist/pages/ の両方が生成されている",
+        "経営の決定論点が .discussion ブロックで提示されている",
+        "情報密度要素を複数使用している (.stats / table / .card / .kicker など)"
+      ]
+    }
+  ]
+}

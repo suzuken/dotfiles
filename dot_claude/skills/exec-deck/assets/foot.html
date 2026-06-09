@@ -1,0 +1,119 @@
+<footer>
+  <span>__DECK_TITLE__</span>
+  <span>Source: <code>__SOURCE_REPO__</code></span>
+</footer>
+
+</div>
+<script>
+/* 簡易検索: 見出し(h2/h3/h4) + 本文を走査し、incremental に絞り込んでジャンプ + ハイライト。
+   ビルド不要・依存なしの素の JS。単一ファイル配布でもそのまま動く。 */
+(function(){
+  const input = document.getElementById('docSearch');
+  const box = document.getElementById('searchResults');
+  const container = document.querySelector('.container');
+  if (!input || !box || !container) return;
+
+  // インデックス構築: h2/h3/h4 を結果単位、配下の本文テキストを各見出しに集約
+  const els = [...container.querySelectorAll('h2, h3, h4, p, li, td, th, figcaption')];
+  const items = [];
+  let cur = null, curNum = '';
+  for (const el of els) {
+    if (el.closest('.search-bar')) continue;
+    const tag = el.tagName;
+    if (tag === 'H2') {
+      const numEl = el.querySelector('.num');
+      curNum = numEl ? numEl.textContent.trim() : '';
+      const heading = (numEl ? el.textContent.replace(numEl.textContent, '') : el.textContent).trim();
+      cur = { num: curNum, heading, level: 2, el, text: heading };
+      items.push(cur);
+    } else if (tag === 'H3' || tag === 'H4') {
+      cur = { num: curNum, heading: el.textContent.trim(), level: tag === 'H3' ? 3 : 4, el, text: el.textContent.trim() };
+      items.push(cur);
+    } else if (cur) {
+      cur.text += ' ' + el.textContent.trim();
+    }
+  }
+  items.forEach(it => it.low = it.text.toLowerCase());
+
+  function snippet(text, q) {
+    const low = text.toLowerCase(), i = low.indexOf(q);
+    if (i < 0) return text.slice(0, 90);
+    const s = Math.max(0, i - 30), e = Math.min(text.length, i + q.length + 55);
+    return (s > 0 ? '…' : '') + text.slice(s, e) + (e < text.length ? '…' : '');
+  }
+  function appendHL(parent, text, q) {
+    const low = text.toLowerCase(), i = low.indexOf(q);
+    if (i < 0 || !q) { parent.appendChild(document.createTextNode(text)); return; }
+    parent.appendChild(document.createTextNode(text.slice(0, i)));
+    const m = document.createElement('mark');
+    m.textContent = text.slice(i, i + q.length);
+    parent.appendChild(m);
+    parent.appendChild(document.createTextNode(text.slice(i + q.length)));
+  }
+
+  let active = -1, shown = [];
+  function render() {
+    const q = input.value.trim().toLowerCase();
+    box.textContent = '';
+    active = -1;
+    if (!q) { box.hidden = true; return; }
+    shown = items.filter(it => it.low.includes(q)).slice(0, 25);
+    if (!shown.length) {
+      const d = document.createElement('div');
+      d.className = 'sr-empty';
+      d.textContent = '該当なし';
+      box.appendChild(d);
+      box.hidden = false;
+      return;
+    }
+    shown.forEach((it, idx) => {
+      const a = document.createElement('a');
+      a.href = '#'; a.dataset.i = idx;
+      const head = document.createElement('div');
+      head.className = 'sr-head';
+      const num = document.createElement('span');
+      num.className = 'sr-num';
+      num.textContent = it.num;
+      head.appendChild(num);
+      if (it.level > 2) head.appendChild(document.createTextNode(it.level === 3 ? '› ' : '» '));
+      appendHL(head, it.heading, q);
+      const snip = document.createElement('div');
+      snip.className = 'sr-snip';
+      appendHL(snip, snippet(it.text, q), q);
+      a.appendChild(head); a.appendChild(snip);
+      box.appendChild(a);
+    });
+    box.hidden = false;
+  }
+  function go(idx) {
+    const it = shown[idx];
+    if (!it) return;
+    box.hidden = true; input.blur();
+    it.el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    it.el.classList.remove('search-hit'); void it.el.offsetWidth; it.el.classList.add('search-hit');
+    setTimeout(() => it.el.classList.remove('search-hit'), 1900);
+  }
+  function updActive() {
+    [...box.querySelectorAll('a')].forEach((a, i) => a.classList.toggle('active', i === active));
+    const a = box.querySelector('a.active');
+    if (a) a.scrollIntoView({ block: 'nearest' });
+  }
+  input.addEventListener('input', render);
+  input.addEventListener('keydown', (e) => {
+    if (box.hidden) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, shown.length - 1); updActive(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); updActive(); }
+    else if (e.key === 'Enter') { e.preventDefault(); go(active < 0 ? 0 : active); }
+    else if (e.key === 'Escape') { box.hidden = true; }
+  });
+  box.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (!a) return;
+    e.preventDefault();
+    go(+a.dataset.i);
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('.search-bar')) box.hidden = true; });
+})();
+</script>
+</body>
+</html>
