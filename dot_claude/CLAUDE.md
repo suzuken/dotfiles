@@ -56,7 +56,7 @@ KPI やカバレッジ目標が与えられたら、達成するまで試行す�
 新規 skill を作るとき、配置先を次の指針で決める:
 
 - **project 固有** (`<repo>/.claude/skills/` に置く / 該当 repo の `apm.yml` で配布): 特定 repo のドメイン知識・規約・ファイルレイアウトに依存し、他 repo で使う見込みがない
-- **グローバル** (`~/.claude/skills/` 直置き or APM global): 言語・ツール横断、複数 repo で再利用可能、運用ノウハウ
+- **グローバル** (`~/.claude/skills/` 直置き or APM global): 言語・ツール横断、複数 repo で再利用可能、運用ノウハウ。`~/.claude/skills/` は chezmoi 管理（suzuken/dotfiles、**public repo**）なので、作成・更新したら `chezmoi add` で取り込み、社内固有名は書かない（leak-scan を通す）
 - **判断不能なとき**: ユーザーに「project 固有かグローバルか」を質問してから作成（理由: 後から移動するとパス参照や apm.yml 設定が壊れやすい）
 
 外部公開・他者の repo からも参照される可能性があれば upstream repo に置いて APM 登録、自分環境専用なら chezmoi 管理 → 詳細は `chezmoi-management` skill「APM vs chezmoi の境界」節を参照
