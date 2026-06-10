@@ -71,7 +71,7 @@ build 後、配布前に必ず確認する (手順は `references/verification.m
 
 ## 配信
 
-`dist/` をそのまま静的配信するか、社内限定なら GAS Web Apps 等でホストする (配信の型は環境依存なので別途)。配布のたびに build → 検証 → 配信。`dist/` は生成物なので gitignore。
+`dist/` をそのまま静的配信する (Pages / Vercel 等) か、**社内・特定メンバー限定で配るなら `gas-restricted-share` skill** (GAS Web Apps で組織ドメイン + allowlist 制御、サーバ不要・通知なし・固定 URL)。配布のたびに build → 検証 → 配信。`dist/` は生成物なので gitignore。
 
 ## アンチパターン
 - 単一巨大 HTML に全部書く (分割を後回しにして終盤に大手術)
