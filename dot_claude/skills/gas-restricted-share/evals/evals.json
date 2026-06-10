@@ -1,0 +1,35 @@
+{
+  "skill_name": "gas-restricted-share",
+  "note": "GAS デプロイは OAuth/clasp 認証が要り subagent で完結しないため、定量 eval でなく triggering 検証 + テンプレ目視で評価する。",
+  "triggering": {
+    "should_trigger": [
+      "この資料を社内の特定の人だけに Web で見せたい。サーバは立てたくないし、Drive 共有の通知も飛ばしたくない。",
+      "作ったダッシュボード(静的HTML)を、役員と事務局だけがアクセスできる URL で配りたい。",
+      "経営合宿の資料を自社ドメイン内限定で配信したい。GAS で。",
+      "GAS の Web アプリで、特定の Google グループのメンバーだけに見せる方法は?",
+      "この HTML を URL を変えずに更新できる形で、チーム限定で共有したい。"
+    ],
+    "should_not_trigger": [
+      "このランディングページを一般公開したい。誰でも見られていい。",
+      "Vercel にデプロイして。",
+      "この React アプリにログイン機能とDBを付けたい。",
+      "Google スライドを作って共有して。",
+      "このバグを直して。"
+    ]
+  },
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "作った単一HTMLの資料を、社内(自社ドメイン)の中でも経営チームの Google グループと数名の個人だけに、Web URL で見せたい。サーバは立てず、共有通知メールは飛ばしたくない。URL は後で中身を更新しても変わらないようにしたい。どう実現する?",
+      "expected_output": "GAS Web Apps で、appsscript.json の access:DOMAIN + doGet 内 allowlist(個人メール + Google グループ)の二段構え。Drive 明示共有を使わないので通知が飛ばない。clasp で push、固定 deploymentId を redeploy して URL 不変で更新。テンプレ(Code.gs/appsscript.json/deploy.just)とセットアップ手順を提示。",
+      "files": [],
+      "assertions": [
+        "GAS Web Apps の access:DOMAIN + doGet allowlist の二段構えアクセス制御を説明している",
+        "Drive 明示共有を使わないので共有通知が飛ばない、と説明している",
+        "clasp redeploy <deploymentId> で URL 不変のまま更新する方法に言及している",
+        "Code.gs / appsscript.json / deploy のテンプレートとセットアップ手順を提示している",
+        "scriptId/allowlist の gitignore・公開リポジトリ非掲載などセキュリティ衛生に触れている"
+      ]
+    }
+  ]
+}

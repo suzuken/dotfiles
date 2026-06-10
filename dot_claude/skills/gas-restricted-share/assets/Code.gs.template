@@ -1,0 +1,92 @@
+/**
+ * 範囲限定 Web アプリ (GAS Web Apps) テンプレート
+ *
+ * 静的 HTML を「組織ドメイン内 + allowlist のメンバー」だけに配信する。
+ * アクセス制御は二段構え:
+ *   1) appsscript.json の webapp.access → GAS レベルで遮断
+ *        - テスト中: "MYSELF" (= デプロイ者本人だけ)
+ *        - 本番: "DOMAIN" (= 組織ドメイン内) + 下記 allowlist で更に絞る
+ *   2) doGet 内の allowlist → 特定の個人 / Google グループだけ通す
+ *
+ * 共有通知メールは飛ばない: Drive の明示共有 (addEditor 等) を使わず access 制御だけで限定するため。
+ *
+ * 注意:
+ *   - GAS の access は DOMAIN/ANYONE/MYSELF しか選べず「特定の人だけ」はマニフェストで指定できない →
+ *     allowlist 判定をアプリ側 (doGet) で行う。
+ *   - Session.getActiveUser() はアクセス者本人を返す (なりすませない)。
+ *   - GroupsApp.hasUser は実行者がそのグループを参照できる必要がある。参照不可の場合に備え
+ *     try/catch でフォールバックし、ALLOWED_USERS (個人メール) を併用する。
+ *   - 内部アンカー (#section 等) を使うなら <base target="_top"> は入れない (同一ページジャンプが壊れる)。
+ */
+
+// ★ 個別に許可するユーザー (組織固有情報。公開 repo に置くなら分離を検討)
+var ALLOWED_USERS = [
+  'alice@__YOUR_DOMAIN__',
+  'bob@__YOUR_DOMAIN__'
+];
+
+// ★ 許可する Google グループ (いずれかに属していれば可)。不要なら ENABLE_GROUP=false
+var ENABLE_GROUP = true;
+var ALLOWED_GROUPS = [
+  'your-team@__YOUR_DOMAIN__'
+];
+
+// ★ マルチページのルート定義: ?p=<key> → <file>.html。単一ページなら ROUTES = {} のままでよい。
+var ROUTES = {
+  // 'reportA': 'reportA',   // ?p=reportA → reportA.html
+  // 'reportB': 'reportB'
+};
+var DEFAULT_FILE = 'index';   // ?p 指定なし or 未知のときに返すファイル
+
+// ★ 表示タイトル / 拒否時メッセージ
+var APP_TITLE = '__APP_TITLE__';
+var DENY_MESSAGE = 'この資料は限定公開されています。アクセス権限がありません。';
+
+function doGet(e) {
+  var email = Session.getActiveUser().getEmail();
+  if (!isAllowed_(email)) {
+    return HtmlService.createHtmlOutput(
+      '<div style="font-family:-apple-system,sans-serif;max-width:560px;margin:80px auto;padding:0 24px;line-height:1.7">' +
+      '<h2 style="margin:0 0 12px">アクセス権限がありません</h2>' +
+      '<p>' + DENY_MESSAGE + '</p>' +
+      (email ? '<p style="color:#888;font-size:13px">ログイン中: ' + email + '</p>' : '') +
+      '</div>'
+    ).setTitle(APP_TITLE);
+  }
+
+  // ルーター: ?p=<key> → ROUTES[key].html、なければ DEFAULT_FILE
+  var p = (e && e.parameter && e.parameter.p) || '';
+  var file = ROUTES.hasOwnProperty(p) ? ROUTES[p] : DEFAULT_FILE;
+
+  // iframe サンドボックス対策: ページ間リンクは実行時の絶対 URL + target="_top" でないと届かない。
+  // HTML 側の __P_HOME__ / __P_<KEY>__ プレースホルダを getUrl() ベースの絶対 URL に置換する。
+  var base = ScriptApp.getService().getUrl();
+  var html = HtmlService.createHtmlOutputFromFile(file).getContent()
+    .replace(/__P_HOME__/g, base);
+  Object.keys(ROUTES).forEach(function (key) {
+    var re = new RegExp('__P_' + key.toUpperCase() + '__', 'g');
+    html = html.replace(re, base + '?p=' + key);
+  });
+
+  return HtmlService.createHtmlOutput(html)
+    .setTitle(APP_TITLE)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+function isAllowed_(email) {
+  if (!email) return false;
+  email = email.toLowerCase();
+  for (var i = 0; i < ALLOWED_USERS.length; i++) {
+    if (ALLOWED_USERS[i].toLowerCase() === email) return true;
+  }
+  if (ENABLE_GROUP) {
+    for (var g = 0; g < ALLOWED_GROUPS.length; g++) {
+      try {
+        if (GroupsApp.getGroupByEmail(ALLOWED_GROUPS[g]).hasUser(email)) return true;
+      } catch (err) {
+        // このグループを参照できない (実行者が未所属など) 場合は次へフォールバック
+      }
+    }
+  }
+  return false;
+}
