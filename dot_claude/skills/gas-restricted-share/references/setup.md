@@ -45,7 +45,7 @@ URL は `https://script.google.com/a/macros/<domain>/s/<id>/exec` の形。こ�
 ## 5. テスト → 本番の切り替え
 - **テスト中**: `appsscript.json` の `access` を `"MYSELF"` にしておくとデプロイ者だけがアクセスでき、表示確認が安全。
 - **本番**: `access` を `"DOMAIN"` に戻し、`Code.gs` の allowlist で更に絞る。push → redeploy。
-- 社外秘なら `"ANYONE"` には**しない**。
+- 機密情報なら `"ANYONE"` には**しない**。
 
 ## 毎回の配信
 ```bash

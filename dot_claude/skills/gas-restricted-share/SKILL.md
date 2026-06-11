@@ -50,7 +50,7 @@ GAS Web アプリは **iframe サンドボックス内**で配信される。こ
 - 生成された `scripts/gas/*.html` (dist のコピー) は生成物なので gitignore する。
 
 ## アンチパターン
-- `access: "ANYONE"` で社外秘を出す (DOMAIN + allowlist にする)
+- `access: "ANYONE"` で機密情報を出す (DOMAIN + allowlist にする)
 - Drive 明示共有を併用して意図せず招待通知を飛ばす (access 制御だけで足りる)
 - 毎回 `clasp deploy` で URL が変わる (`redeploy <id>` で固定; 詳細は troubleshooting.md)
 - iframe 内でページ間リンクを相対パスのまま置く (getUrl 絶対 URL + target=_top に置換)
