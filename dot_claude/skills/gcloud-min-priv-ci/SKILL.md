@@ -18,8 +18,7 @@ gcloud の権限エラー 4 連発（実地で全部踏んだ）の対処。
 
 ## 大原則: エラーメッセージ駆動で権限を足さない
 
-gcloud の permission エラーは**真因と別の権限を提案してくる**。2 回推測が外れたら、
-ローカルにインストール済みの gcloud SDK ソースを読んで確定させるのが最短:
+2 回推測が外れたら、ローカルにインストール済みの gcloud SDK ソースを読んで確定させるのが最短:
 
 ```sh
 GCLOUD_ROOT=$(gcloud info --format="value(installation.sdk_root)")
@@ -76,7 +75,7 @@ gcloud logging read 'protoPayload.serviceName="iamcredentials.googleapis.com"' \
    投入側 SA に対象リポジトリスコープの `roles/artifactregistry.reader` が必要
    （イメージを pull する Cloud Run service agent とは別）。
 
-5. （おまけ）GitHub Actions の runner に `gcloud beta` は入っていない。
+5. GitHub Actions の runner に `gcloud beta` は入っていない。
    `setup-gcloud` に `install_components: beta` を指定しないと対話プロンプトで死ぬ。
 
 ## 権限セット（設計段階でこれを列挙してから plan する）
@@ -105,4 +104,4 @@ gcloud logging read 'protoPayload.serviceName="iamcredentials.googleapis.com"' \
   provider のフルパス（`projects/{number}/locations/global/workloadIdentityPools/...`）と SA email
 
 実装例: 各プロジェクトの Terraform（WIF pool/provider + SA + IAM binding）、
-`cloudbuild.yaml`、`.github/workflows/` を参照（この skill を適用した repo に一式がある）。
+`cloudbuild.yaml`、`.github/workflows/` を参照。

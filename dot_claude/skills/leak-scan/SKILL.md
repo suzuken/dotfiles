@@ -50,8 +50,7 @@ gitleaks detect --config "$CFG" --log-opts="origin/main..HEAD" --redact --no-ban
 
 検出ゼロなら「機械チェック clean」と報告。検出ありなら、redact 済みの所見を提示し、
 誤検知なら対象 repo 自身の `.gitleaks.toml` allowlist で対処、意図的なら `--no-verify`
-で bypass できる旨を添える（このバンドル config はグローバルなので、repo 固有の allowlist
-はそこに書かない）。
+で bypass できる旨を添える。
 
 ### install-hook — その repo に pre-push ガードを仕込む
 
@@ -66,7 +65,4 @@ suzuken/dotfiles には既にこのガードが入っている（`hooks/pre-push
 
 ## 住み分け
 
-- **この skill (leak-scan)** = 機械的・確定的。secret 文字列・既知パターンを regex で止める。
-- **safe-to-publish** = 意味的・文脈的。regex では拾えない内部の文脈・固有名・個人情報を読む。
-
-公開前チェックは通常「leak-scan で機械チェック → safe-to-publish で意味チェック」の順で重ねる。
+公開前チェックは「leak-scan（機械層）→ safe-to-publish（意味層）」の順で重ねる。

@@ -21,7 +21,7 @@ GAS Web Apps の `access` は **`DOMAIN` / `ANYONE` / `MYSELF` の 3 択しか�
 
 `Session.getActiveUser()` は**アクセスした本人**を返す (なりすませない — Google ログイン必須)。だから allowlist はクライアント改ざん不可で信頼できる。
 
-> テスト中は `access: "MYSELF"` (デプロイ者だけ) で動作確認し、本番で `"DOMAIN"` + allowlist に広げると安全。社外秘なら `"ANYONE"` には絶対しない。
+テスト→本番切り替えの手順は `references/setup.md` 参照。
 
 ## 通知なし共有 — なぜ招待が飛ばないか
 
@@ -52,7 +52,7 @@ GAS Web アプリは **iframe サンドボックス内**で配信される。こ
 ## アンチパターン
 - `access: "ANYONE"` で社外秘を出す (DOMAIN + allowlist にする)
 - Drive 明示共有を併用して意図せず招待通知を飛ばす (access 制御だけで足りる)
-- 毎回 `clasp deploy` で新規 deployment を作り URL が変わる (`redeploy <id>` で固定)
+- 毎回 `clasp deploy` で URL が変わる (`redeploy <id>` で固定; 詳細は troubleshooting.md)
 - iframe 内でページ間リンクを相対パスのまま置く (getUrl 絶対 URL + target=_top に置換)
 - 内部アンカーまで `target="_top"` にして同一ページジャンプを壊す
 - scriptId / allowlist を公開リポジトリにベタ書き
