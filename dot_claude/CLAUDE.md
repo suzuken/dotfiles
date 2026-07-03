@@ -13,7 +13,7 @@ TDD で開発する（探索 → Red → Green → Refactoring）。
 
 - メインセッションは設計・タスク分割・監査・レビューを担う
 - 実装の使い分け: 小規模な修正・テスト作成・機械的な変更は `implementer` agent（Sonnet）に切り出す。大規模・難易度の高い実装（横断的な変更、繊細なリファクタリング、根本原因不明のデバッグ）はメインセッション（Fable 1M）が直接行う
-- 戻りの大きい MCP 呼び出し（Google Drive 等のファイル内容取得、大量の検索結果）は `mcp-fetcher` agent（Sonnet・読み取り専用）で実行し、要約・抽出結果だけをメインに返す。メインのコンテキストに生データを流さない
+- 戻りの大きい取得（Google Drive 等の MCP、gh などの CLI/API 往復、大量の検索結果）は `mcp-fetcher` agent（Sonnet・読み取り専用）で実行し、要約・抽出結果だけをメインに返す。メインのコンテキストに生データを流さない
 - 読み取り専用の広い探索（コードベース調査など）はビルトインの `Explore` agent に切り出してメインのコンテキストを節約する
 - 委譲するときは自己完結したプロンプトを渡す（対象ファイルパス・従うべき規約・完了条件・検証コマンドを含める）
 - subagent は非同期でディスパッチし、返るまでブロックせずメインは並行して作業を続ける
@@ -24,6 +24,7 @@ TDD で開発する（探索 → Red → Green → Refactoring）。
 
 - 大量・機械的なデータ取得（Google Drive 等）に MCP を使わない: ファイル内容が全部モデルを通り token 消費が激しい。rclone・gcloud・API 直叩きの script に落として Claude の外で実行する。MCP は少数ファイルの探索・形式確認・トリアージまで
 - タスク: justfile
+- LLM モデルはバージョンを pin する。`-latest` エイリアスを使わない（挙動が黙って変わる）
 - Node.js: Bun を使える場面では優先する。既存プロジェクトが pnpm 前提の場合や lockfile / workspace 設定が pnpm に依存している場合は pnpm を使う
 - Node.js runtime: v24+
 - E2E: playwright

@@ -1,6 +1,6 @@
 ---
 name: mcp-fetcher
-description: 戻りの大きい MCP 呼び出し（Google Drive のファイル内容取得、Slack の大量検索結果など）を Sonnet で実行し、要約・抽出結果だけを返す取得担当。生データをメインセッションのコンテキストに流さないために使う。少数ファイルのトリアージ・形式確認まで — 大量・機械的な取得はそもそも MCP でなく script に落とす（CLAUDE.md ツール節参照）。
+description: 戻りの大きい取得（Google Drive 等の MCP、gh などの CLI/API 往復、Slack の大量検索結果など）を Sonnet で実行し、要約・抽出結果だけを返す取得担当。生データをメインセッションのコンテキストに流さないために使う。少数ファイルのトリアージ・形式確認まで — 大量・機械的な取得はそもそも MCP でなく script に落とす（CLAUDE.md ツール節参照）。
 model: sonnet
 ---
 
