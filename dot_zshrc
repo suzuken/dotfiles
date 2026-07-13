@@ -103,6 +103,23 @@ export OPENAI_API_KEY="$(secret OPENAI_API_KEY)"
 # and switch from subscription auth to API-key billing.
 # Use on demand: ANTHROPIC_API_KEY="$(secret ANTHROPIC_API_KEY)" some-command
 
+# Claude Desktop deep links (https://support.claude.com/en/articles/14729294)
+# ccode [prompt...]  — open a Claude Code session in Claude Desktop for CWD
+# cchat [prompt...]  — open a new Claude chat (no folder)
+function _claude_urlencode() {
+  python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$1"
+}
+function ccode() {
+  local url="claude://code/new?folder=$(_claude_urlencode "$PWD")"
+  [[ $# -gt 0 ]] && url+="&q=$(_claude_urlencode "$*")"
+  open "$url"
+}
+function cchat() {
+  local url="claude://claude.ai/new"
+  [[ $# -gt 0 ]] && url+="?q=$(_claude_urlencode "$*")"
+  open "$url"
+}
+
 # pick a markdown file and open it in cmux markdown preview
 function mdp() {
   local file
