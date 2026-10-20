@@ -9,96 +9,86 @@
 " use https://github.com/junegunn/vim-plug
 call plug#begin()
 
-"Plugin Installing
 Plug 'vim-scripts/The-NERD-Commenter'
 Plug 'tpope/vim-fugitive'
 Plug 'thinca/vim-quickrun'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'preservim/vim-markdown'
-Plug 'uarun/vim-protobuf'
-
-" Plugins for each languages
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'ekalinin/Dockerfile.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'fatih/vim-go', {'for': 'go'}
 
 call plug#end()
 
-filetype plugin indent on
+" bundled with Vim 9.0.1799+
+packadd! editorconfig
 
-"==========================
-"init
-"==========================
-set modelines=5
+filetype plugin indent on
+syntax on
 
 let mapleader = ","
+
+"==========================
+"Basic
+"==========================
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,latin1
+set fileformats=unix,dos,mac
 
 set tabstop=4
 set expandtab
 set softtabstop=0
 set shiftwidth=4
 set smarttab
+set autoindent
+set smartindent
+set backspace=indent,eol,start
+set formatoptions+=mM
+
 set number
 set title
 set scrolloff=5
 set ambiwidth=double
 set visualbell
-
 set cmdheight=2
+set showcmd
+set laststatus=2
+set splitright
+set splitbelow
+set helplang=en
 
-" highlight each language in markdown
-" http://mattn.kaoriya.net/software/vim/20140523124903.htm
-let g:markdown_fenced_languages = [
-\  'css',
-\  'go',
-\  'javascript',
-\  'js=javascript',
-\  'json=javascript',
-\  'ruby',
-\  'sass',
-\  'xml',
-\  'erlang',
-\  'sql',
-\  'perl',
-\  'php',
-\]
+set list
+set listchars=tab:>-,trail:-,extends:<,precedes:<
+highlight SpecialKey ctermfg=darkgray
+
+set wildmenu
+set wildmode=full:list
+
+set clipboard=unnamed
+set grepprg=internal
+
+set autowrite
+set hidden
+set backup
+set backupdir=$HOME/.vimback
+set directory=$HOME/.vimtmp
+set history=10000
+set updatetime=500
 
 "==========================
 "Searching and Moving
 "==========================
-nnoremap / /\v
-vnoremap / /\v
 set ignorecase
 set smartcase
 set incsearch
 set showmatch
 set hlsearch
-set wrapscan
 
-" In visual mode, tab means insert <tab> into highlighted block.
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+nnoremap / /\v
+vnoremap / /\v
 
 " always escape / and ? in search character.
-cnoremap <expr> /
-            \ getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?
-            \ getcmdtype() == '?' ? '\?' : '?'
-
-"==========================
-"Handling long lines
-"==========================
-set wrap
-
-"==========================
-"Key Bind
-"==========================
-" reload vimrc
-" http://learnvimscriptthehardway.stevelosh.com/chapters/07.html
-noremap <C-c><C-c> <C-c>
-noremap <C-c><C-e>e :edit $MYVIMRC<CR>
-noremap <C-c><C-e>s :source $MYVIMRC<CR>
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
 
 " when move to search results, move to center.
 noremap n nzz
@@ -108,13 +98,21 @@ noremap # #zz
 noremap g* g*zz
 noremap g# g#zz
 
+"==========================
+"Key Bind
+"==========================
 nnoremap ; :
 
-"F2でpasteモードに。pasteするときにインデントを無効化。
-" <F2> to paste mode.
-set pastetoggle=<F2>
+" edit / reload vimrc
+noremap <C-c><C-c> <C-c>
+noremap <C-c><C-e>e :edit $MYVIMRC<CR>
+noremap <C-c><C-e>s :source $MYVIMRC<CR>
 
-"splitの移動を簡単に。ctrl押しながらhjkl
+" In visual mode, tab means indent highlighted block.
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" move between splits with ctrl + hjkl
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -134,142 +132,7 @@ nnoremap <leader>5 yypVr-
 nnoremap <leader>6 yypVr^
 nnoremap <leader>7 yypVr"
 
-"==========================
-"language
-"==========================
-set encoding=utf-8
-source $HOME/.vim/encode.vim
-
-set fileformats=unix,dos,mac
-
-"==========================
-"clipboard
-"==========================
-set clipboard=unnamed
-
-"==========================
-"special Key
-"==========================
-set list
-set listchars=tab:>-,trail:-,extends:<,precedes:<
-highlight specialKey ctermfg=darkgray
-
-"==========================
-"Input
-"==========================
-set backspace=indent,eol,start
-set formatoptions+=mM
-set autoindent
-set smartindent
-
-"==========================
-"Command
-"==========================
-set wildmenu
-set wildmode=full:list
-
-"==========================
-"Programming
-"==========================
-set foldmethod=manual
-set grepprg=internal "内蔵grep
-
-"==========================
-"Backup
-"==========================
-set autowrite
-set hidden
-set backup
-set backupdir=$HOME/.vimback
-set directory=$HOME/.vimtmp
-set history=10000
-set updatetime=500
-
-"==========================
-"Status Line
-"==========================
-set showcmd "ステータスラインにコマンドを表示
-set laststatus=2 "ステータスラインを常に表示
-
-"==========================
-"Window
-"==========================
-set splitright "Window Split時に新Windowを右に表示
-set splitbelow "Window Split時に新windowを下に表示
-
-"==========================
-"File Type
-"==========================
-syntax on "シンタックスハイライト
-
-if has('autocmd')
-    autocmd BufNewFile * silent! 0r $HOME/.vim/templates/%:e.tpl
-
-    autocmd FileType python setl autoindent
-    autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-    autocmd FileType python setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
-
-    autocmd FileType html setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
-
-    autocmd BufNewFile,BufRead *.q set filetype=sql
-
-    autocmd BufNewFile,BufRead *.twig set filetype=html
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-endif
-
-"==========================
-"help
-"==========================
-set helplang=en
-
-augroup my_dirvish_events
-    au!
-    au User DirvishEnter let b:dirvish.showhidden = 1
-augroup END
-
-let g:dirvish_relative_paths = 1
-
-"==========================
-"ctrlp.vim
-"==========================
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-"==========================
-"NERDcommenter.vim
-"==========================
-let g:NERDSpaceDelims = 1
-let g:NERDShutUp = 1
-
-" =====================================================
-"" ctags
-" =====================================================
-set tags=tags
-
-" quickrun
-let g:quickrun_config = {}
-nnoremap <Leader>r :QuickRun<CR>
-
-" jad
-" installation required http://varaneckas.com/jad/
-augr class
-    au!
-    au bufreadpost,filereadpost *.class %!jad -noctor -ff -i -p %
-    au bufreadpost,filereadpost *.class set readonly
-    au bufreadpost,filereadpost *.class set ft=java
-    au bufreadpost,filereadpost *.class normal gg=G
-    au bufreadpost,filereadpost *.class set nomodified
-augr END
-
-"----------------------------------------------------
-"" host specific
-"----------------------------------------------------
-if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
-
+" open URI under the current line
 function! HandleURI()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^>,;:]*')
   echo s:uri
@@ -279,9 +142,61 @@ function! HandleURI()
     echo "No URI found in line."
   endif
 endfunction
+nnoremap <Leader>w :call HandleURI()<CR>
 
-map <Leader>w :call HandleURI()<CR>
-
+" set full path of current buffer to unnamed register
 " http://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
-" set full path of current buffer to unamed register
-nmap cp :let @" = expand("%")
+nnoremap cp :let @" = expand("%")
+
+"==========================
+"File Type
+"==========================
+" python / ruby / yaml indent comes from Vim's bundled ftplugins.
+augroup my_filetypes
+  autocmd!
+  autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd BufWinEnter,BufNewFile *_test.go set filetype=go.test
+augroup END
+
+"==========================
+"Plugins
+"==========================
+" vim-go
+let g:go_def_reuse_buffer = 1
+augroup my_vim_go
+  autocmd!
+  autocmd FileType go nnoremap <buffer> <leader>is :GoImports<CR>
+  autocmd FileType go nmap <buffer> <leader>b <Plug>(go-build)
+  " override default gd option of vim-go, use split
+  autocmd FileType go nmap <buffer> gs <Plug>(go-def-split)
+augroup END
+
+" vim-quickrun
+let g:quickrun_config = {}
+let g:quickrun_config['go.test'] = {'command': 'go', 'cmdopt': 'test -v'}
+nnoremap <Leader>r :QuickRun<CR>
+
+" vim-markdown
+let g:vim_markdown_fenced_languages = ['js=javascript', 'json=javascript']
+
+" vim-dirvish
+let g:dirvish_relative_paths = 1
+augroup my_dirvish_events
+  autocmd!
+  autocmd User DirvishEnter let b:dirvish.showhidden = 1
+augroup END
+
+" ctrlp.vim
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" NERD Commenter
+let g:NERDSpaceDelims = 1
+
+"----------------------------------------------------
+"" host specific
+"----------------------------------------------------
+if filereadable(expand("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
