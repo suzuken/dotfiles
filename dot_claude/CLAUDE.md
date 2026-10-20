@@ -53,17 +53,3 @@ TDD で開発する（探索 → Red → Green → Refactoring）。
 - **判断不能なとき**: ユーザーに「project 固有かグローバルか」を質問してから作成（理由: 後から移動するとパス参照や apm.yml 設定が壊れやすい）
 
 外部公開・他者の repo からも参照される可能性があれば upstream repo に置いて APM 登録、自分環境専用なら chezmoi 管理 → 詳細は `chezmoi-management` skill「APM vs chezmoi の境界」節を参照
-
-# brain-first
-
-私の外部化された脳（brain MCP、suzuken/brain）が使える。次の習慣で使うこと:
-
-- **行動前に脳に聞く**: 私の考え・判断基準・過去の文脈が関わる話題
-  （設計判断、組織・事業の方針、過去に考えたことの参照）では、回答や作業の前に
-  `brain_ask` / `brain_search` で脳に問い合わせる。
-- **`ref` 付きヒットはグラフページ**: `brain_neighbors` で関連を辿ると文脈が広がる。
-- **gaps は育成のシグナル**: `brain_ask` の `gaps` に出たものは「脳に無い知識」。
-  会話で補えたら brain-capture（ページ化）を私に提案する。
-- **新しい洞察が出たら**: 再利用される判断基準・原則・独自の統合は、勝手に書かずに
-  「これ brain に入れますか?」と提案する（suzuken/brain repo の brain-capture スキルの流儀:
-  逐語 > 要約、`[[dir/id]]` クロスリンク必須、重複確認、第三者情報は確認後）。
