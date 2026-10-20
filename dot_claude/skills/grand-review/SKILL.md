@@ -1,10 +1,9 @@
 ---
 name: grand-review
 description: >-
-  初めて向き合うコードベース（または久しぶりに戻る repo）の全体検査。repo-scout /
-  code-archaeologist / risk-surveyor の 3 subagent を並列で偵察に出し、メインは
-  5 つのレンズ（前提を疑う / ゼロベース設計 / 設計の考古学 / Think Big / 計算されたリスク)
-  で判断と Top Findings の選定に専念する。「grand review」「コードベースを検査して」
+  初めて向き合うコードベース（または久しぶりに戻る repo）の全体検査。3 つの偵察
+  subagent を並列で出し、メインは 5 つのレンズで判断と Top Findings の選定に専念する。
+  「grand review」「コードベースを検査して」
   「この repo の全体像とリスクを見て」「初回レビュー」で起動。個別 PR のレビュー
   （/review 系）や単発のバグ調査には使わない。
 ---
@@ -14,18 +13,18 @@ description: >-
 
 ## 役割分担の原則（厳守）
 
-- **事実収集は subagent に委譲せよ**: `repo-scout` / `code-archaeologist` / `risk-surveyor` を**並列で**起動し、Phase 0 の偵察を任せる。自分で `cat` や `grep` を延々と回してメインコンテキストを浪費してはならない
+- **事実収集は subagent に委譲せよ**: Phase 0 の 3 偵察（repo-scout / code-archaeologist / risk-surveyor）を**並列で**起動し、偵察を任せる。自分で `cat` や `grep` を延々と回してメインコンテキストを浪費してはならない
 - **判断は委譲するな**: レンズの適用、意見の形成、確信度の付与、Top Findings の選定はすべて自分で行う。subagent の報告を鵜呑みにせず、重要な主張は対象ファイルを自分で開いて裏取りせよ
 - レンズ処理中に追加の事実確認が必要になったら、その都度小さな調査タスクとして subagent（または組み込みの Explore）に投げよ。「◯◯を調べて `path:line` 付きで報告せよ」という形式で、質問は具体的に
 - subagent への指示には必ず出力フォーマットを指定せよ（後述の報告フォーマット参照）
 
 ## Phase 0: 偵察（並列ファンアウト）
 
-以下の3つを**同時に**起動する:
+以下の3つを**同時に** Agent ツールで起動する（`subagent_type: general-purpose`, `model: sonnet`）。各 prompt には対応する references ファイルの全文を入れ、対象 repo のパスを添える。偵察は読み取り専用で、ファイルを変更させない:
 
-1. `repo-scout` — 構造・依存・ビルド・テスト・ドキュメントの棚卸し
-2. `code-archaeologist` — git 履歴の考古学（転換点、churn、bus factor、設計判断の痕跡）
-3. `risk-surveyor` — リスク素材の収集(未テストの中核、単一障害点、ハードコードされた前提、スケール限界の兆候、過剰な抽象)
+1. repo-scout（[references/repo-scout.md](references/repo-scout.md)）— 構造・依存・ビルド・テスト・ドキュメントの棚卸し
+2. code-archaeologist（[references/code-archaeologist.md](references/code-archaeologist.md)）— git 履歴の考古学（転換点、churn、bus factor、設計判断の痕跡）
+3. risk-surveyor（[references/risk-surveyor.md](references/risk-surveyor.md)）— リスク素材の収集(未テストの中核、単一障害点、ハードコードされた前提、スケール限界の兆候、過剰な抽象)
 
 3つの報告が揃ったら、統合して「このプロダクトが誰の・何の問題を・どう解いているか」を1段落で言語化する。報告間の矛盾や空白は追加調査タスクで潰す。理解が浅いまま Phase 1 に進んではならない。
 
@@ -42,7 +41,7 @@ subagent の報告を素材として、以下を自分の頭で考える。す�
 - 移行コストを考慮してもなお埋める価値のあるギャップはどれか
 
 ### Lens 3 — 設計の考古学 × 将来からの逆算
-- 主要な設計判断の当時の合理性を復元する（Chesterton's Fence: 撤去する前に、なぜ柵があるかを説明せよ）。`code-archaeologist` の履歴報告を活用する
+- 主要な設計判断の当時の合理性を復元する（Chesterton's Fence: 撤去する前に、なぜ柵があるかを説明せよ）。code-archaeologist の履歴報告を活用する
 - 3年後のあるべき姿から逆算し、**今の設計のどこが将来の足かせになるか**を特定する
 
 ### Lens 4 — Think Big
@@ -50,7 +49,7 @@ subagent の報告を素材として、以下を自分の頭で考える。す�
 - 過剰な汎用化と過小な野心の両方を探せ。10倍を狙うなら今仕込むべき布石は何か
 
 ### Lens 5 — 計算されたリスク
-- 慎重すぎる箇所と無謀な箇所を `risk-surveyor` の素材から特定する
+- 慎重すぎる箇所と無謀な箇所を risk-surveyor の素材から特定する
 - リスクのポートフォリオとして、取るべき場所と守るべき場所が逆転していないか。再配分案を示せ
 
 ## Phase 2: 判決

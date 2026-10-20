@@ -1,9 +1,10 @@
 ---
 name: gas-restricted-share
 description: >-
-  静的 HTML / 単一ファイルのサイトを、Google アカウント認証で範囲限定 (組織ドメイン + 個人メール/Google グループの allowlist) して Google Apps Script (GAS) Web Apps で共有する。サーバ不要・無料・共有通知メールが飛ばない・URL を変えずに中身を更新できる。
-  社内・チーム限定で資料/ダッシュボード/レポート/ツールを Web で配りたい、特定の人だけに見せたい、でも Drive 共有の招待通知は飛ばしたくない、ホスティングは立てたくない、というときは必ずこの skill を使う。exec-deck の配信層にも使う。
-  使わない場面: 一般公開 (ANYONE) してよい静的サイト (Pages/Vercel 等の方が速い)、Google Workspace 組織がない場合、動的な永続データストアが要るアプリ。
+  静的 HTML を Google Apps Script Web Apps で、Google 認証の範囲限定（組織ドメイン + 個人・
+  グループの allowlist）で共有する。サーバ不要・招待通知なし・URL 固定で更新できる。社内・特定の人
+  だけに資料やダッシュボードを Web で配りたいときに使い、exec-deck の配信層にもなる。一般公開して
+  よいサイト、Workspace 組織がない場合、永続データストアが要るアプリには使わない。
 ---
 
 # gas-restricted-share — GAS Web Apps で範囲限定共有
