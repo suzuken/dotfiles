@@ -21,7 +21,9 @@ if ! command -v gitleaks >/dev/null 2>&1; then
   exit 1
 fi
 
+# args: <remote name> <remote url>
 # stdin: <local ref> <local sha> <remote ref> <remote sha>  (per line)
+remote="${1:-origin}"
 zero="0000000000000000000000000000000000000000"
 fail=0
 
@@ -37,7 +39,7 @@ scan_range() {
 while read -r _local_ref local_sha _remote_ref remote_sha; do
   [ "$local_sha" = "$zero" ] && continue           # branch deletion
   if [ "$remote_sha" = "$zero" ]; then
-    range="$local_sha"                              # new branch: scan all reachable
+    range="$local_sha --not --remotes=$remote"      # new branch: only commits not yet on the remote
   else
     range="$remote_sha..$local_sha"                 # only the new commits
   fi
