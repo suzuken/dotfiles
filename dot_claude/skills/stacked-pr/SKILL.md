@@ -27,7 +27,7 @@ description: >-
 | 上に次のブランチを積む（最上段で実行） | `gh stack add [-A] -m "<msg>" <branch>` |
 | push + PR 作成 + GitHub 上の stack 作成 | `gh stack submit --auto` |
 | 下の修正を上へ伝播（cascading rebase + push） | `gh stack sync` / `gh stack rebase --upstack` |
-| 構成確認 | `gh stack view --short` |
+| 構成確認 | `gh stack view --short`（ローカルで追跡している stack だけ。`link` でつないだ stack は出力の「stack #N」で確かめる） |
 | 既存 PR 群を後から stack にまとめる | `gh stack link <PR...>`（下→上の順） |
 | マージ（指定 PR までを一括、all-or-nothing） | `gh stack merge <PR> --merge -y` |
 
